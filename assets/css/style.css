@@ -937,6 +937,7 @@ html {
   background: url(../img/bg-dark.png);
   height: 100%;
   left: 300px;
+  min-width: 500px;
   position: absolute;
   z-index: 1;
   width: -webkit-calc(100% - 300px);
@@ -1749,17 +1750,11 @@ html {
   border-top: 1px solid red;
 }
 .ZEEGA-sequences {
+  display: none;
   font-size: 13px;
-  position: absolute;
+  position: relative;
   width: 100%;
   *zoom: 1;
-}
-.ZEEGA-sequences a:link,
-.ZEEGA-sequences a:visited,
-.ZEEGA-sequences a:hover,
-.ZEEGA-sequences a:active {
-  text-decoration: none;
-  color: white;
 }
 .ZEEGA-sequences:before,
 .ZEEGA-sequences:after {
@@ -1769,6 +1764,13 @@ html {
 }
 .ZEEGA-sequences:after {
   clear: both;
+}
+.ZEEGA-sequences a:link,
+.ZEEGA-sequences a:visited,
+.ZEEGA-sequences a:hover,
+.ZEEGA-sequences a:active {
+  text-decoration: none;
+  color: white;
 }
 .ZEEGA-sequences .sequence-list {
   margin: 0;
@@ -1836,4 +1838,98 @@ html {
 .ZEEGA-sequences .add-sequence a {
   padding: 5px;
   float: left;
+}
+.frames {
+  display: none;
+  font-size: 13px;
+  position: relative;
+}
+.frames a:link,
+.frames a:visited,
+.frames a:hover,
+.frames a:active {
+  text-decoration: none;
+  color: white;
+}
+.frames .frame-list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  white-space: nowrap;
+  overflow: auto;
+  *zoom: 1;
+}
+.frames .frame-list:before,
+.frames .frame-list:after {
+  display: table;
+  content: "";
+  line-height: 0;
+}
+.frames .frame-list:after {
+  clear: both;
+}
+.frames .ZEEGA-frame {
+  display: inline-block;
+  position: relative;
+  padding: 5px;
+}
+.frames .ZEEGA-frame:last-child {
+  margin-right: 111px;
+}
+.frames .ZEEGA-frame .frame-thumb {
+  background: black;
+  height: 60px;
+  width: 80px;
+  display: inline-block;
+}
+.frames .ZEEGA-frame .options {
+  position: absolute;
+  right: 5px;
+}
+.frames .add-frame {
+  right: 0;
+  top: ;
+  position: absolute;
+  background: rgba(0, 0, 0, 0.75);
+  top: 20px;
+  *zoom: 1;
+}
+.frames .add-frame:before,
+.frames .add-frame:after {
+  display: table;
+  content: "";
+  line-height: 0;
+}
+.frames .add-frame:after {
+  clear: both;
+}
+.frames .add-frame a {
+  padding: 5px 29px 5px 5px;
+  float: left;
+}
+.frame-properties {
+  height: 20px;
+  background: rgba(255, 255, 255, 0.1);
+}
+.workspace {
+  position: absolute;
+  min-height: 320px;
+}
+.workspace .ZEEGA-workspace {
+  position: absolute;
+  height: 100%;
+  background: black;
+  width: 500px;
+  height: 300px;
+  margin: auto;
+  left: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
+}
+.layers {
+  position: absolute;
+  right: 0;
+  width: 75px;
+  background: rgba(255, 255, 255, 0.25);
 }

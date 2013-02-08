@@ -8,8 +8,8 @@ function( app, Backbone ) {
     return Backbone.View.extend({
 
         tagName: "li",
-        template: "sequence",
-        className: "ZEEGA-sequence",
+        template: "frame",
+        className: "ZEEGA-frame",
 
         serialize: function() {
             return this.model.toJSON();

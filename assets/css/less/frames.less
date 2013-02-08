@@ -1,10 +1,8 @@
-.ZEEGA-sequences {
-
+.frames {
+    
     display: none;
     font-size: 13px;
     position: relative;
-    width: 100%;
-    .clearfix;
 
     a:link,
     a:visited,
@@ -14,47 +12,47 @@
         color: white;
     }
 
-    .sequence-list {
+    .frame-list {
         margin: 0;
-        padding: 0px;
+        padding: 0;
         list-style: none;
-        overflow: auto;
         white-space: nowrap;
+        overflow: auto;
         .clearfix;
     }
 
-    .ZEEGA-sequence {
-        background: rgba(255,255,255,0.5);
+    .ZEEGA-frame {
         display: inline-block;
-        margin-right: 2px;
-        .clearfix;
+        position: relative;
+        padding: 5px;
 
         &:last-child {
             margin-right: 111px;
         }
 
-        &>a {
+        .frame-thumb {
+            background: black;
+            height: 60px;
+            width: 80px;
             display: inline-block;
-            .transition( background, 1s );
-            padding: 5px;
-            float: left;
+        }
 
-            &:hover {
-                background: rgba(0,0,0,0.1);
-                .transition( background, 0.5s );
-            }
+        .options {
+            position: absolute;
+            right: 5px;
         }
     }
 
-    .add-sequence {
+    .add-frame {
         right: 0;
+        top:;
         position: absolute;
         background: rgba(0,0,0,0.75);
-        top: 0;
+        top: 20px;
         .clearfix;
 
         a {
-            padding: 5px;
+            padding: 5px 29px 5px 5px;
             float:left;
         }
     }

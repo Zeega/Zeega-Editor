@@ -12,7 +12,6 @@ function( app, Backbone ) {
         className: "ZEEGA-project-meta",
 
         serialize: function() {
-            console.log('meta')
             return this.model.project.toJSON();
         }
     });

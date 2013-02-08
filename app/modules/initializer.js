@@ -2,21 +2,17 @@ define([
     "app",
     "backbone",
     // Modules
+    "modules/status",
     "modules/layout-main",
     // Plugins
     "zeega-parser/parser"
 ],
 
-function( app, Backbone, Layout, ZeegaParser ) {
+function( app, Backbone, Status, Layout, ZeegaParser ) {
 
-    // Create a new module
-    var Initializer = app.module();
-
-    // This will fetch the tutorial template and render it.
-    Initializer.Model = Backbone.Model.extend({
+    return Backbone.Model.extend({
         
         initialize: function() {
-            console.log('inittttter')
             this.loadProject();
         },
 
@@ -47,18 +43,19 @@ function( app, Backbone, Layout, ZeegaParser ) {
             //             }
             //         })
             //     );
+            app.status = new Status({
+                currentSequence: app.project.sequences.at( 0 ),
+                currentFrame: app.project.sequences.at( 0 ).frames.at( 0 )
+            });
             console.log( app.project );
             this.insertLayout();
         },
 
         insertLayout: function() {
-            console.log("insert layout");
             app.layout = new Layout();
             app.layout.render();
         }
 
     });
-
-    return Initializer;
 
 });

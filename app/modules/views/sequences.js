@@ -7,14 +7,19 @@ define([
 function( app, Backbone, SequenceView ) {
 
 
-    var Sequences = Backbone.View.extend({
+    return Backbone.View.extend({
 
         template: "sequences",
         className: "ZEEGA-sequences",
 
         initialize: function() {
             this.model.project.sequences.each(function( sequence ) {
-                this.insertView(".sequence-list", new SequenceView({ model: sequence }) );
+                this.insertView(".sequence-list", new SequenceView({
+                    model: sequence,
+                    attributes: {
+                        "data-id": sequence.id
+                    }
+                }) );
             }.bind( this ));
         },
 
@@ -27,7 +32,5 @@ function( app, Backbone, SequenceView ) {
         }
         
     });
-
-    return Sequences;
 
 });

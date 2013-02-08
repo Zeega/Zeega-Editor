@@ -22,7 +22,7 @@ function(app, Initializer) {
 
     /* create init fxn that can only run once per load */
     var init = function() {
-        new Initializer.Model();
+        new Initializer();
     };
     var initialize = _.once( init );
 
