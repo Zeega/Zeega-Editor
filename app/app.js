@@ -7,7 +7,8 @@ define([
     var app = {
         // The root path to run the application.
         root: "/",
-        parserPath: "app/zeega-parser/"
+        parserPath: "app/zeega-parser/",
+        api: "http://dev.zeega.org/joseph/web/api/"
     };
 
     // Localize or create a new JavaScript Template object.
