@@ -10,8 +10,14 @@ function( app, Backbone ) {
         defaults: {
             currentSequence: null,
             currentFrame: null
-        }
+        },
 
+        /*
+            emit the state change to the external api
+        */
+        emit: function( e, info ) {
+            app.trigger( e, info );
+        }
 
     });
 

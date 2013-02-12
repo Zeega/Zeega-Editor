@@ -3,7 +3,7 @@ define([
     "backbone"
 ],
 
-function( app, Backbone ) {
+function( app, Backbone, WorkspaceMedia ) {
 
 
     return Backbone.View.extend({
@@ -19,6 +19,7 @@ function( app, Backbone ) {
 
         afterRender: function() {
             this.onResize();
+            this.renderFrame( this.model.status.get("currentFrame") );
         },
 
         onResize: function() {
@@ -58,6 +59,18 @@ function( app, Backbone ) {
                 height: height,
                 width: width
             });
+        },
+
+        clearWorkspace: function() {
+            this.$el.empty();
+        },
+
+        renderFrame: function( frame ) {
+            frame.layers.each(function( layer ) {
+                layer.enterEditorMode();
+                this.$el.append( layer.visual.el );
+            }, this );
+
         }
         
     });

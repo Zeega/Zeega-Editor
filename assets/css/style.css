@@ -1642,6 +1642,11 @@ html {
   display: table;
   clear: both;
 }
+ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
 ::-webkit-scrollbar {
   width: 5px;
   height: 5px;
@@ -1686,68 +1691,6 @@ html {
   background: rgba(255, 0, 0, 0.1);
   transition: background 0.25s;
   -webkit-transition: background 0.25s;
-}
-.ZEEGA-layer-list > ul {
-  margin: 0;
-  padding: 0;
-}
-.ZEEGA-layer-list > ul > li {
-  list-style: none;
-}
-.ZEEGA-layer-list .layer-bar {
-  background: rgba(255, 255, 255, 0.1);
-  color: white;
-  cursor: move;
-  font-size: 12px;
-  margin-top: 2px;
-  *zoom: 1;
-}
-.ZEEGA-layer-list .layer-bar:before,
-.ZEEGA-layer-list .layer-bar:after {
-  display: table;
-  content: "";
-  line-height: 0;
-}
-.ZEEGA-layer-list .layer-bar:after {
-  clear: both;
-}
-.ZEEGA-layer-list .layer-bar a {
-  color: #ddd;
-  text-decoration: none;
-}
-.ZEEGA-layer-list .layer-bar .layer-title {
-  cursor: move;
-  display: inline-block;
-  width: 300px;
-  padding: 7px;
-}
-.ZEEGA-layer-list .layer-bar .layer-bar-controls {
-  padding: 0;
-  margin: 0;
-  *zoom: 1;
-}
-.ZEEGA-layer-list .layer-bar .layer-bar-controls:before,
-.ZEEGA-layer-list .layer-bar .layer-bar-controls:after {
-  display: table;
-  content: "";
-  line-height: 0;
-}
-.ZEEGA-layer-list .layer-bar .layer-bar-controls:after {
-  clear: both;
-}
-.ZEEGA-layer-list .layer-bar .layer-bar-controls li {
-  list-style: none;
-  float: left;
-}
-.ZEEGA-layer-list .layer-bar .layer-bar-controls li a {
-  display: inline-block;
-  padding: 4px;
-  height: 20px;
-}
-.ZEEGA-layer-list .layer-controls.open {
-  background: rgba(255, 255, 255, 0.1);
-  height: 100px;
-  border-top: 1px solid red;
 }
 .ZEEGA-sequences {
   display: none;
@@ -1916,6 +1859,7 @@ html {
   min-height: 320px;
 }
 .workspace .ZEEGA-workspace {
+  overflow: hidden;
   position: absolute;
   height: 100%;
   background: black;
@@ -1931,5 +1875,7 @@ html {
   position: absolute;
   right: 0;
   width: 75px;
-  background: rgba(255, 255, 255, 0.25);
+}
+.visual-element {
+  position: absolute;
 }

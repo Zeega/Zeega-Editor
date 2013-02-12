@@ -32,7 +32,13 @@ function( app, Backbone, Status, Layout, ZeegaParser ) {
         },
 
         _parseData: function( response ) {
-            app.project = new ZeegaParser.parse( response, {});
+            app.status = new Status();
+            app.project = new ZeegaParser.parse( response, {
+                pluginsPath: "app/zeega-parser/plugins/",
+                attach: {
+                    status: app.status
+                }
+            });
             // app.project = new ZeegaParser.parse( response,
             //     _.extend({},
             //         this.toJSON(),
@@ -43,7 +49,7 @@ function( app, Backbone, Status, Layout, ZeegaParser ) {
             //             }
             //         })
             //     );
-            app.status = new Status({
+            app.status.set({
                 currentSequence: app.project.sequences.at( 0 ),
                 currentFrame: app.project.sequences.at( 0 ).frames.at( 0 )
             });

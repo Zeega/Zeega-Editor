@@ -6,7 +6,8 @@ define([
     // creation.
     var app = {
         // The root path to run the application.
-        root: "/"
+        root: "/",
+        parserPath: "app/zeega-parser/"
     };
 
     // Localize or create a new JavaScript Template object.
@@ -54,6 +55,8 @@ define([
         module: function(additionalProps) {
             return _.extend({ Views: {} }, additionalProps);
         },
+
+        $: jQuery,
 
         // Helper for using layouts.
         useLayout: function(options) {
