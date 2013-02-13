@@ -7,7 +7,7 @@ require.config({
 
   paths: {
 
-    jqueryUI: "../assets/js/plugins/jquery-ui.min",
+    jqueryUI: "../assets/js/plugins/jquery-ui/js/jquery-ui-1.10.0.custom",
 
     zeega_parser: "zeega-parser",
     libs: "../assets/js/libs",

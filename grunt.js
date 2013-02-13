@@ -133,12 +133,32 @@ module.exports = function(grunt) {
         },
 
         less: {
+
+            controls: {
+                files: {
+                    "assets/css/controls.less": [
+                        "app/zeega-parser/plugins/controls/**/*.less"
+                    ]
+                }
+            },
+
+            layers: {
+                files: {
+                    "assets/css/layers.less": [
+                        "app/zeega-parser/plugins/layers/**/*.less"
+                    ]
+                }
+            },
+
             main: {
                 files: {
-                    'assets/css/style.css' : [
-                        'assets/css/less/_all.less',
-                        "vendor/h5bp/normalize.css"
-                        ]
+                    "assets/css/style.css": [
+                        "vendor/h5bp/normalize.css",
+                        "assets/js/plugins/jquery-ui/css/smoothness/jquery-ui-1.10.0.custom.css",
+                        "assets/css/layers.less",
+                        "assets/css/controls.less",
+                        "assets/css/less/_all.less"
+                    ]
                 }
             }
         }
