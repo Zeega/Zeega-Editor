@@ -14,15 +14,20 @@ function( app, Backbone, LayerList ) {
 
         template: "layers",
         className: "ZEEGA-layers",
+        layerViews: [],
         
         initialize: function() {
             app.on("window-resize", this.onResize, this );
+            app.status.on("change:currentFrame", this.onChangeFrame, this );
+        },
+
+        onChangeFrame: function( status, frameModel ) {
+            this.unrenderLayers();
+            this.renderFrameLayers( frameModel );
         },
 
         afterRender: function() {
-            var firstFrame = this.model.project.sequences.at(0).frames.at(0);
-
-            this.renderFrameLayers( firstFrame );
+            this.renderFrameLayers( this.model.status.get("currentFrame") );
             this.onResize();
         },
 
@@ -35,12 +40,34 @@ function( app, Backbone, LayerList ) {
         },
 
         unrenderLayers: function() {
-            this.getViews(".ZEEGA-layer-list ul").each(function( view ) {
-                view.remove();
-            }, this );
+            _.each( this.layerViews, function( layerView ) {
+                // more should be done here probably
+                layerView.remove();
+            });
+        },
+
+        updateListeners: function() {
+            if ( app.status.get("previousFrame") ) {
+                app.status.get("previousFrame").layers.off("add", this.onLayerAdd, this );
+            }
+            app.status.get("currentFrame").layers.on("add", this.onLayerAdd, this );
+        },
+
+        onLayerAdd: function( layerModel, collection ) {
+            var layerView = new LayerList({
+                    model: layerModel,
+                    attributes: {
+                        "data-id": layerModel.id || 0
+                    }
+                });
+
+            this.layerViews.push( layerView );
+            this.$("ul.layer-list").prepend( layerView.el );
+            layerView.render();
         },
 
         renderFrameLayers: function( frameModel ) {
+            this.updateListeners();
             frameModel.layers.each(function( layer ) {
                 var layerView = new LayerList({
                     model: layer,
@@ -48,6 +75,8 @@ function( app, Backbone, LayerList ) {
                         "data-id": layer.id
                     }
                 });
+
+                this.layerViews.push( layerView );
 
                 // prepend because layers come in z-index order
                 this.$("ul.layer-list").prepend( layerView.el );
@@ -58,18 +87,22 @@ function( app, Backbone, LayerList ) {
                 containment: "parent",
                 tolerance: "pointer",
                 update: function( e, ui ) {
-                    this.updateLayerOrder();
+                    this.updateLayerOrder( frameModel );
                 }.bind(this)
             });
         },
 
-        updateLayerOrder: function() {
-            var layerOrder = _.map( this.$("ul.layer-list"), function( layer ) {
+        updateLayerOrder: function( frameModel ) {
+            var layerOrder = _.map( this.$("ul.layer-list li"), function( layer ) {
                 return parseInt( $( layer ).data("id"), 10 );
             });
 
-            // trigger a frame set and save
-            console.log( layerOrder );
+            layerOrder.reverse();
+
+            _.each( layerOrder, function( layerID, i ) {
+                frameModel.layers.get( layerID ).order[ frameModel.id ] = i;
+            });
+            frameModel.layers.sort();
         }
         
     });

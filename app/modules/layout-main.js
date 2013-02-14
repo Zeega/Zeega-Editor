@@ -7,10 +7,11 @@ define([
     "modules/views/sequences",
     "modules/views/frames",
     "modules/views/workspace",
-    "modules/views/layers"
+    "modules/views/layers",
+    "modules/views/frame-properties"
 ],
 
-function( app, Backbone, Navbar, ProjectMeta, Sequences, Frames, Workspace, Layers ) {
+function( app, Backbone, Navbar, ProjectMeta, Sequences, Frames, Workspace, Layers, FrameProperties ) {
 
     return Backbone.Layout.extend({
 
@@ -32,6 +33,16 @@ function( app, Backbone, Navbar, ProjectMeta, Sequences, Frames, Workspace, Laye
             this.insertView( ".frames", new Frames({ model: app }) );
             this.insertView( ".workspace", new Workspace({ model: app }) );
             this.insertView( ".layers", new Layers({ model: app }) );
+        },
+
+        afterRender: function() {
+            // I like this better. eliminates wasted elements
+            new FrameProperties({
+                model: app,
+                el: this.$(".frame-properties")
+            }).render();
+
+            app.trigger("rendered");
         },
 
         lazyResize: function() {

@@ -4,16 +4,18 @@ define([
     // Modules
     "modules/status",
     "modules/layout-main",
+    "modules/search.model",
     // Plugins
     "zeega-parser/parser"
 ],
 
-function( app, Backbone, Status, Layout, ZeegaParser ) {
+function( app, Backbone, Status, Layout, SearchModel, ZeegaParser ) {
 
     return Backbone.Model.extend({
         
         initialize: function() {
             this.loadProject();
+            this.loadDatabase();
         },
 
         loadProject: function( attributes ) {
@@ -39,22 +41,17 @@ function( app, Backbone, Status, Layout, ZeegaParser ) {
                     status: app.status
                 }
             });
-            // app.project = new ZeegaParser.parse( response,
-            //     _.extend({},
-            //         this.toJSON(),
-            //         {
-            //             attach: {
-            //                 status: this.status,
-            //                 relay: this.relay
-            //             }
-            //         })
-            //     );
+            
             app.status.set({
                 currentSequence: app.project.sequences.at( 0 ),
                 currentFrame: app.project.sequences.at( 0 ).frames.at( 0 )
             });
             console.log( app.project );
             this.insertLayout();
+        },
+
+        loadDatabase: function() {
+            app.search = new SearchModel();
         },
 
         insertLayout: function() {

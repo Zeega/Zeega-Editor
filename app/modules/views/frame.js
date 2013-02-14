@@ -16,7 +16,11 @@ function( app, Backbone ) {
         },
 
         events: {
-            //"click .controls-toggle": "toggleControls"
+            "click .frame-thumb": "viewFrame"
+        },
+
+        viewFrame: function() {
+            this.model.status.setCurrentFrame( this.model );
         }
         
     });

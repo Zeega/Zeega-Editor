@@ -15,6 +15,7 @@ function( app, Backbone, WorkspaceMedia ) {
 
         initialize: function() {
             app.on("window-resize", this.onResize, this );
+            app.status.on("change:currentFrame", this.onChangeFrame, this );
         },
 
         afterRender: function() {
@@ -61,16 +62,33 @@ function( app, Backbone, WorkspaceMedia ) {
             });
         },
 
-        clearWorkspace: function() {
-            this.$el.empty();
+        onChangeFrame: function( status, frameModel ) {
+            this.clearWorkspace();
+            this.renderFrame( frameModel );
         },
 
-        renderFrame: function( frame ) {
-            frame.layers.each(function( layer ) {
-                layer.enterEditorMode();
-                this.$el.append( layer.visual.el );
-            }, this );
+        updateListeners: function() {
+            if ( app.status.get("previousFrame") ) {
+                app.status.get("previousFrame").layers.off("add", this.onLayerAdd, this );
+            }
+            app.status.get("currentFrame").layers.on("add", this.onLayerAdd, this );
+        },
 
+        clearWorkspace: function() {
+            this.model.status.get("previousFrame").layers.editorCleanup();
+        },
+
+        renderFrame: function( frameModel ) {
+            this.updateListeners();
+            frameModel.layers.each(function( layer ) {
+                this.onLayerAdd( layer );
+            }, this );
+        },
+
+        onLayerAdd: function( layerModel ) {
+            this.$el.append( layerModel.visual.el );
+            layerModel.enterEditorMode();
+            layerModel.visual.render();
         }
         
     });

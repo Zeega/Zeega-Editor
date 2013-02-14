@@ -41,7 +41,7 @@ function( app, Backbone, LayerList ) {
                 layerView.render();
             }, this );
 
-            this.$(".ZEEGA-layer-list>ul").sortable({
+            this.$(".ZEEGA-layers .layer-list").sortable({
                 containment: "parent",
                 tolerance: "pointer",
                 update: function( e, ui ) {
@@ -51,6 +51,8 @@ function( app, Backbone, LayerList ) {
         },
 
         updateLayerOrder: function() {
+
+            console.log('update layer', this )
             var layerOrder = _.map( this.$(".ZEEGA-layer-list>ul>li"), function( layer ) {
                 return parseInt( $( layer ).data("id"), 10 );
             });

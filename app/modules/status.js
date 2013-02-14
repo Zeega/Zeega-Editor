@@ -9,7 +9,18 @@ function( app, Backbone ) {
         
         defaults: {
             currentSequence: null,
-            currentFrame: null
+            previousSequence: null,
+            currentFrame: null,
+            previousFrame: null
+        },
+
+        setCurrentFrame: function( frameModel ) {
+            if ( frameModel != this.get("currentFrame") ) {
+                this.set({
+                    previousFrame: this.get("currentFrame"),
+                    currentFrame: frameModel
+                });
+            }
         },
 
         /*

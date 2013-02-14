@@ -3671,7 +3671,6 @@ ul {
   float: left;
 }
 .frames {
-  display: none;
   font-size: 13px;
   position: relative;
 }
@@ -3738,10 +3737,6 @@ ul {
   padding: 5px 29px 5px 5px;
   float: left;
 }
-.frame-properties {
-  height: 20px;
-  background: rgba(255, 255, 255, 0.1);
-}
 .workspace {
   position: absolute;
   min-height: 320px;
@@ -3798,4 +3793,9 @@ ul {
   height: 3px;
   left: -5px;
   margin: 0px;
+}
+.item {
+  float: left;
+  height: 50px;
+  width: 50px;
 }
