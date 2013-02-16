@@ -17,7 +17,7 @@ function( app, Backbone, LayerList ) {
         layerViews: [],
         
         initialize: function() {
-            app.on("window-resize", this.onResize, this );
+            app.on("window-resize rendered", this.onResize, this );
             app.status.on("change:currentFrame", this.onChangeFrame, this );
         },
 
@@ -28,7 +28,6 @@ function( app, Backbone, LayerList ) {
 
         afterRender: function() {
             this.renderFrameLayers( this.model.status.get("currentFrame") );
-            this.onResize();
         },
 
         onResize: function() {
@@ -98,8 +97,9 @@ function( app, Backbone, LayerList ) {
             });
 
             layerOrder.reverse();
-
+//console.log('layer order', layerOrder)
             _.each( layerOrder, function( layerID, i ) {
+//                console.log(frameModel.layers, layerID,frameModel.layers.get( layerID ) )
                 frameModel.layers.get( layerID ).order[ frameModel.id ] = i;
             });
             frameModel.layers.sort();

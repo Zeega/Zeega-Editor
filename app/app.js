@@ -8,7 +8,8 @@ define([
         // The root path to run the application.
         root: "/",
         parserPath: "app/zeega-parser/",
-        api: "http://dev.zeega.org/joseph/web/api/"
+        api: "http://dev.zeega.org/joseph/web/api/",
+        dragging: null
     };
 
     // Localize or create a new JavaScript Template object.

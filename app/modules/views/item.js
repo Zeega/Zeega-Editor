@@ -13,16 +13,29 @@ function( app, Backbone, ItemView ) {
         tagName: "li",
         template: "item",
 
-        initialize: function() {
-            
-        },
+        
 
         serialize: function() {
             return this.model.toJSON();
         },
 
         afterRender: function() {
-            console.log('item after render', this );
+            this.$el.draggable({
+                revert: "invalid",
+                cursorAt: {
+                    left: 0,
+                    top: 0
+                },
+                helper: function( e ) {
+                    return $(this).find(".item-thumb").clone().addClass("item-dragging");
+                },
+                start: function() {
+                    app.dragging = this.model;
+                }.bind( this ),
+                stop: function() {
+                    app.dragging = null;
+                }
+            });
         }
 
     });

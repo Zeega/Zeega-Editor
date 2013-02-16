@@ -15,9 +15,9 @@ function( app, Backbone, SearchCollection, ItemsView ) {
 
         defaults: {
             collection: "",
-            content: "-Project",
+            type: "-project AND -collection",
             page: 1,
-            query: "",
+            q: "",
             sort: "date-desc"
         },
 
@@ -27,6 +27,11 @@ function( app, Backbone, SearchCollection, ItemsView ) {
             // create collection. bootstraps itself
             this.collection = new SearchCollection([], { search: this });
             this.collection.on("reset", this.onCollectionReset, this );
+            this.on("change:q", this.updateItems, this );
+        },
+
+        updateItems: function() {
+            this.collection.fetch();
         },
 
         onLayoutRendered: function() {
@@ -41,7 +46,6 @@ function( app, Backbone, SearchCollection, ItemsView ) {
 
         onCollectionReset: function( collection ) {
             app.layout.itemsView.collection = collection;
-            console.log(app.layout.itemsView)
             app.layout.itemsView.renderItems();
         }
 

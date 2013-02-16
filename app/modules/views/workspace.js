@@ -15,12 +15,25 @@ function( app, Backbone, WorkspaceMedia ) {
 
         initialize: function() {
             app.on("window-resize", this.onResize, this );
+            app.once("rendered", this.onResize, this );
             app.status.on("change:currentFrame", this.onChangeFrame, this );
         },
 
         afterRender: function() {
-            this.onResize();
             this.renderFrame( this.model.status.get("currentFrame") );
+            this.makeDroppable();
+        },
+
+        makeDroppable: function() {
+            this.$el.droppable({
+                accept: ".item",
+                tolerance: "pointer",
+                drop: function( e, ui ) {
+                    if ( _.contains( ["Image"], app.dragging.get("layer_type") )) {
+                        this.model.status.get('currentFrame').addLayerByItem( app.dragging );
+                    }
+                }.bind( this )
+            });
         },
 
         onResize: function() {
@@ -37,7 +50,7 @@ function( app, Backbone, WorkspaceMedia ) {
 
             height = h - $(".project-navs").height();
             width = $(".right-column").width() - $(".layers").width();
-
+console.log("on rs",$(".project-navs").height())
             this.$el.parent().css({
                 height: height,
                 width: width
@@ -89,6 +102,7 @@ function( app, Backbone, WorkspaceMedia ) {
             this.$el.append( layerModel.visual.el );
             layerModel.enterEditorMode();
             layerModel.visual.render();
+            layerModel.visual.updateZIndex( app.status.get("currentFrame").layers.length );
         }
         
     });

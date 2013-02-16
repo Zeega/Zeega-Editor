@@ -37,12 +37,20 @@ function( app, Backbone, Navbar, ProjectMeta, Sequences, Frames, Workspace, Laye
 
         afterRender: function() {
             // I like this better. eliminates wasted elements
+/*
+            new Workspace({
+                model: app,
+                el: this.$(".workspace")
+            }).render();
+*/
             new FrameProperties({
                 model: app,
-                el: this.$(".frame-properties")
+                el: this.$(".frame-properties"),
+                afterRender: function() {
+                    app.trigger("rendered");
+                }
             }).render();
 
-            app.trigger("rendered");
         },
 
         lazyResize: function() {
