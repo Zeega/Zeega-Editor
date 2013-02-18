@@ -1,10 +1,11 @@
 define([
     "app",
-    "backbone",
-    "modules/views/frame"
+    "modules/views/frame",
+
+    "backbone"
 ],
 
-function( app, Backbone, FrameView ) {
+function( app, FrameView ) {
 
 
     return Backbone.View.extend({

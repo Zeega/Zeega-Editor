@@ -3,7 +3,7 @@ define([
     "backbone"
 ],
 
-function( app, Backbone, WorkspaceMedia ) {
+function( app ) {
 
 
     return Backbone.View.extend({
@@ -50,7 +50,7 @@ function( app, Backbone, WorkspaceMedia ) {
 
             height = h - $(".project-navs").height();
             width = $(".right-column").width() - $(".layers").width();
-console.log("on rs",$(".project-navs").height())
+
             this.$el.parent().css({
                 height: height,
                 width: width

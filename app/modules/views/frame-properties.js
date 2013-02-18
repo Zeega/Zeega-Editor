@@ -3,7 +3,7 @@ define([
     "backbone"
 ],
 
-function( ) {
+function() {
 
     return Backbone.View.extend({
 

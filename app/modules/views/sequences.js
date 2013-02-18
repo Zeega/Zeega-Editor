@@ -1,10 +1,10 @@
 define([
     "app",
-    "backbone",
-    "modules/views/sequence"
+    "modules/views/sequence",
+    "backbone"
 ],
 
-function( app, Backbone, SequenceView ) {
+function( app, SequenceView ) {
 
 
     return Backbone.View.extend({

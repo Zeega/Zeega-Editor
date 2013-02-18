@@ -1,13 +1,13 @@
 define([
     "app",
-    "backbone",
 
     "modules/views/layer-list",
 
-    "jqueryUI"
+    "jqueryUI",
+    "backbone"
 ],
 
-function( app, Backbone, LayerList ) {
+function( app, LayerList ) {
 
 
     return Backbone.View.extend({

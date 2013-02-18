@@ -16,7 +16,11 @@ module.exports = function(grunt) {
         // https://github.com/cowboy/grunt/blob/master/docs/task_lint.md
         lint: {
             files: [
-                "build/config.js", "app/**/*.js"
+                "build/config.js", [
+                    "app/modules/**/*.js",
+                    "app/zeega-parser/modules/**/*.js",
+                    "app/zeega-parser/plugins/**/*.js"
+                ]
             ]
         },
 
@@ -38,7 +42,8 @@ module.exports = function(grunt) {
         // remove this, ensure concat is updated accordingly.
         jst: {
             "dist/debug/templates.js": [
-                "app/templates/**/*.html"
+                "app/templates/**/*.html",
+                "app/zeega-parser/plugins/**/*.html"
             ]
         },
 
@@ -48,7 +53,7 @@ module.exports = function(grunt) {
         // index.html.
         concat: {
             "dist/debug/require.js": [
-                "assets/js/libs/almond.js",
+                "vendor/js/libs/almond.js",
                 "dist/debug/templates.js",
                 "dist/debug/require.js"
             ]
@@ -92,7 +97,10 @@ module.exports = function(grunt) {
             },
 
             debug: {
-                files: { "favicon.ico": "favicon.ico" },
+                files: {
+                    "favicon.ico": "favicon.ico",
+                    "test.json": "testdata/4928.json"
+                },
 
                 folders: {
                     "app": "dist/debug",

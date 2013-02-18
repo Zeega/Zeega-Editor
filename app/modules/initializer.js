@@ -1,15 +1,15 @@
 define([
     "app",
-    "backbone",
     // Modules
     "modules/status",
     "modules/layout-main",
     "modules/search.model",
     // Plugins
-    "zeega-parser/parser"
+    "zeega-parser/parser",
+    "backbone"
 ],
 
-function( app, Backbone, Status, Layout, SearchModel, ZeegaParser ) {
+function( app, Status, Layout, SearchModel, ZeegaParser ) {
 
     return Backbone.Model.extend({
         

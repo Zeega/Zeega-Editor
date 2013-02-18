@@ -1,6 +1,5 @@
 define([
     "app",
-    "backbone",
 
     "modules/views/navbar",
     "modules/views/project-meta",
@@ -8,10 +7,12 @@ define([
     "modules/views/frames",
     "modules/views/workspace",
     "modules/views/layers",
-    "modules/views/frame-properties"
+    "modules/views/frame-properties",
+
+    "backbone"
 ],
 
-function( app, Backbone, Navbar, ProjectMeta, Sequences, Frames, Workspace, Layers, FrameProperties ) {
+function( app, Navbar, ProjectMeta, Sequences, Frames, Workspace, Layers, FrameProperties ) {
 
     return Backbone.Layout.extend({
 

@@ -3,7 +3,7 @@ define([
     "backbone"
 ],
 
-function( app, Backbone ) {
+function( app ) {
 
     // This will fetch the tutorial template and render it.
     return Backbone.View.extend({

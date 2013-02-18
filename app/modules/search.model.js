@@ -1,12 +1,12 @@
 define([
     "app",
-    "backbone",
 
     "modules/search.collection",
-    "modules/views/items"
+    "modules/views/items",
+    "backbone"
 ],
 
-function( app, Backbone, SearchCollection, ItemsView ) {
+function( app, SearchCollection, ItemsView ) {
 
     return Backbone.Model.extend({
         

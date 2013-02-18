@@ -1,10 +1,10 @@
 define([
     "app",
-    "backbone",
-    "modules/item.model"
+    "modules/item.model",
+    "backbone"
 ],
 
-function( app, Backbone, ItemModel ) {
+function( app, ItemModel ) {
 
     return Backbone.Collection.extend({
         
