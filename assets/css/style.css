@@ -3497,17 +3497,20 @@ html {
 }
 .ZEEGA-hmenu > ul > li {
   float: left;
+  border-left: 1px solid rgba(255, 255, 255, 0.25);
 }
 .ZEEGA-hmenu > ul > li > a {
   padding: 10px;
   display: block;
-  border-left: 1px solid rgba(255, 255, 255, 0.25);
   text-align: center;
   font-size: 11px;
   color: #ddd;
   text-decoration: none;
   transition: all 1s;
   -webkit-transition: all 1s;
+}
+.ZEEGA-hmenu > ul > li > a.disabled {
+  opacity: 0.25;
 }
 .ZEEGA-hmenu > ul > li > a:hover {
   transition: all 0.25s;
@@ -3546,27 +3549,27 @@ ul {
   -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.5);
   background: orangered;
 }
-.ZEEGA-project-meta .project-top {
+.project-meta .project-top {
   position: relative;
   *zoom: 1;
 }
-.ZEEGA-project-meta .project-top:before,
-.ZEEGA-project-meta .project-top:after {
+.project-meta .project-top:before,
+.project-meta .project-top:after {
   display: table;
   content: "";
   line-height: 0;
 }
-.ZEEGA-project-meta .project-top:after {
+.project-meta .project-top:after {
   clear: both;
 }
-.ZEEGA-project-meta .project-top .ZEEGA-project-cover {
+.project-meta .project-top .ZEEGA-project-cover {
   background: white;
   height: 100%;
   position: absolute;
   width: 97px;
   float: left;
 }
-.ZEEGA-project-meta .project-top .ZEEGA-project-title {
+.project-meta .project-top .ZEEGA-project-title {
   float: right;
   color: #DDD;
   padding: 10px;
@@ -3575,7 +3578,7 @@ ul {
   transition: background 1s;
   -webkit-transition: background 1s;
 }
-.ZEEGA-project-meta .project-top .ZEEGA-project-title:hover {
+.project-meta .project-top .ZEEGA-project-title:hover {
   background: rgba(255, 0, 0, 0.1);
   transition: background 0.25s;
   -webkit-transition: background 0.25s;
@@ -3698,20 +3701,30 @@ ul {
 .frames .frame-list:after {
   clear: both;
 }
+.frames .frame-placeholder {
+  width: 50px;
+  height: 50px;
+  background: rgba(255, 255, 255, 0.1);
+  box-shadow: inset 0 0 10px black;
+}
+.frames .frame-placeholder,
 .frames .ZEEGA-frame {
   display: inline-block;
   position: relative;
   padding: 5px;
 }
+.frames .frame-placeholder:last-child,
 .frames .ZEEGA-frame:last-child {
   margin-right: 111px;
 }
+.frames .frame-placeholder .frame-thumb,
 .frames .ZEEGA-frame .frame-thumb {
   background: black;
   height: 60px;
   width: 80px;
   display: inline-block;
 }
+.frames .frame-placeholder .options,
 .frames .ZEEGA-frame .options {
   position: absolute;
   right: 5px;

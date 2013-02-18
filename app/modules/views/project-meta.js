@@ -9,10 +9,27 @@ function( app, Backbone ) {
     ProjectMeta = Backbone.View.extend({
 
         template: "project-meta",
-        className: "ZEEGA-project-meta",
-
+        
         serialize: function() {
             return this.model.project.toJSON();
+        },
+
+        events: {
+            "keypress .ZEEGA-project-title": "onTitleKeyup",
+            "blur .ZEEGA-project-title" : "onBlur"
+        },
+
+        onTitleKeyup: function( e ) {
+            if ( e.which == 13 ) {
+                this.$(".ZEEGA-project-title").blur();
+                return false;
+            }
+        },
+
+        onBlur: function() {
+            if ( this.model.project.get("title") != this.$(".ZEEGA-project-title").text() ) {
+                this.model.project.save("title", this.$(".ZEEGA-project-title").text() );
+            }
         }
     });
 

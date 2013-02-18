@@ -28,21 +28,26 @@ function( app, Backbone, Navbar, ProjectMeta, Sequences, Frames, Workspace, Laye
 
         beforeRender: function() {
             this.insertView( ".nav", new Navbar({ model: app }) );
-            this.insertView( ".project-meta", new ProjectMeta({ model: app }) );
+            //this.insertView( ".project-meta", new ProjectMeta({ model: app }) );
             this.insertView( ".sequences", new Sequences({ model: app }) );
-            this.insertView( ".frames", new Frames({ model: app }) );
+            //this.insertView( ".frames", new Frames({ model: app }) );
             this.insertView( ".workspace", new Workspace({ model: app }) );
             this.insertView( ".layers", new Layers({ model: app }) );
         },
 
         afterRender: function() {
             // I like this better. eliminates wasted elements
-/*
-            new Workspace({
+
+            new ProjectMeta({
                 model: app,
-                el: this.$(".workspace")
+                el: this.$(".project-meta")
             }).render();
-*/
+
+            new Frames({
+                model: app,
+                el: this.$(".frames")
+            }).render();
+
             new FrameProperties({
                 model: app,
                 el: this.$(".frame-properties"),

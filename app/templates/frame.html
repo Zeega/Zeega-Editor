@@ -2,9 +2,11 @@
 <a href="#" class="frame-thumb"
     data-id="<%= id %>"
     style="
-        background: url(<%= thumbnail_url %>) no-repeat center center; 
-        -webkit-background-size: cover;
-        -moz-background-size: cover;
-        -o-background-size: cover;
-        background-size: cover;
+        <% if( thumbnail_url !== "" ) { %>
+            background: url(<%= thumbnail_url %>) no-repeat center center; 
+            -webkit-background-size: cover;
+            -moz-background-size: cover;
+            -o-background-size: cover;
+            background-size: cover;
+        <% } %>
 "></a>
