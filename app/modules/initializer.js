@@ -3,24 +3,22 @@ define([
     // Modules
     "modules/status",
     "modules/layout-main",
-    "modules/search.model",
     // Plugins
     "zeega-parser/parser",
     "backbone"
 ],
 
-function( app, Status, Layout, SearchModel, ZeegaParser ) {
+function( app, Status, Layout, ZeegaParser ) {
 
     return Backbone.Model.extend({
         
         initialize: function() {
             this.loadProject();
-            this.loadDatabase();
         },
 
         loadProject: function( attributes ) {
             if ( window.projectJSON ) {
-                this._parseData( window.projectJSON );
+                this._parseData( jQuery.parseJSON( window.projectJSON ) );
             } else {
                 var rawDataModel = new Backbone.Model();
 
@@ -48,10 +46,6 @@ function( app, Status, Layout, SearchModel, ZeegaParser ) {
             });
             console.log( app.project );
             this.insertLayout();
-        },
-
-        loadDatabase: function() {
-            app.search = new SearchModel();
         },
 
         insertLayout: function() {

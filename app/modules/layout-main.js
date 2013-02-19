@@ -8,11 +8,12 @@ define([
     "modules/views/workspace",
     "modules/views/layers",
     "modules/views/frame-properties",
+    "modules/search.model",
 
     "backbone"
 ],
 
-function( app, Navbar, ProjectMeta, Sequences, Frames, Workspace, Layers, FrameProperties ) {
+function( app, Navbar, ProjectMeta, Sequences, Frames, Workspace, Layers, FrameProperties, SearchModel ) {
 
     return Backbone.Layout.extend({
 
@@ -38,6 +39,7 @@ function( app, Navbar, ProjectMeta, Sequences, Frames, Workspace, Layers, FrameP
 
         afterRender: function() {
             // I like this better. eliminates wasted elements
+            app.search = new SearchModel();
 
             new ProjectMeta({
                 model: app,

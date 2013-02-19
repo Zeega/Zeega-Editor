@@ -14,7 +14,7 @@ require.config({
     plugins: "../assets/js/plugins",
     vendor: "../vendor",
 
-    zeegaplayer: "/vendor/zeegaplayer/dist/debug/zeega"
+    zeegaplayer: "../vendor/zeegaplayer/dist/debug/zeega"
 
   },
 
