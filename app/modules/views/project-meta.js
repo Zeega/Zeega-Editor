@@ -71,7 +71,11 @@ function( app ) {
 
             console.log( projectData );
             app.zeegaplayer = new Zeega.player({
-                data: projectData
+                data: projectData,
+                controls: {
+                    arrows: true,
+                    close: true
+                }
             });
         },
 
