@@ -3720,12 +3720,21 @@ ul {
 .frames .ZEEGA-frame:last-child {
   margin-right: 111px;
 }
+.frames .frame-placeholder.active .frame-thumb,
+.frames .ZEEGA-frame.active .frame-thumb {
+  outline: 4px solid orangered;
+  transition: all 0.5s;
+  -webkit-transition: all 0.5s;
+}
 .frames .frame-placeholder .frame-thumb,
 .frames .ZEEGA-frame .frame-thumb {
   background: black;
   height: 60px;
   width: 80px;
   display: inline-block;
+  outline: 4px solid transparent;
+  transition: all 0.5s;
+  -webkit-transition: all 0.5s;
 }
 .frames .frame-placeholder .options,
 .frames .ZEEGA-frame .options {

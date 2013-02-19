@@ -60,6 +60,11 @@ function( app, FrameView ) {
                 });
 
                 this.$(".frame-list").append( newFrameView.el );
+
+                if ( app.status.get("currentFrame").id == frame.id ) {
+                    newFrameView.$el.addClass("active");
+                }
+                
                 newFrameView.render();
             }.bind( this ));
         },

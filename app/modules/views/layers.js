@@ -103,7 +103,6 @@ function( app, LayerList ) {
             layerOrder.reverse();
             _.each( layerOrder, function( layerID, i ) {
                 frameModel.layers.get( layerID ).order[ frameModel.id ] = i;
-                console.log( frameModel.layers.get( layerID ), layerID, i )
             });
             frameModel.layers.sort();
         }

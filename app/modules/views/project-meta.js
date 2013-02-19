@@ -14,6 +14,37 @@ function( app ) {
             return this.model.project.toJSON();
         },
 
+        afterRender: function() {
+            this.makeCoverDroppable();
+        },
+
+        makeCoverDroppable: function() {
+            this.$el.droppable({
+                accept: ".item",
+                tolerance: "pointer",
+                drop: function( e, ui ) {
+                    if ( _.contains( ["Image"], app.dragging.get("layer_type") )) {
+                        var cover = app.dragging.get("uri");
+
+                        this.updateCoverImage( cover );
+                    }
+                }.bind( this )
+            });
+        },
+
+        updateCoverImage: function( url ) {
+            this.model.project.save("thumbnail_url", url );
+            $(".ZEEGA-project-cover").fadeOut("fast", function() {
+                $(".ZEEGA-project-cover")
+                    .attr("style", "")
+                    .css({
+                        background: "url(" + url + ")",
+                        "-webkit-background-size": "cover"
+                    })
+                    .fadeIn("fast");
+            });
+        },
+
         events: {
             "keypress .ZEEGA-project-title": "onTitleKeyup",
             "blur .ZEEGA-project-title": "onBlur",

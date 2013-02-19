@@ -20,6 +20,9 @@ function( app ) {
                     previousFrame: this.get("currentFrame"),
                     currentFrame: frameModel
                 });
+
+                this.get("previousFrame").trigger("blur");
+                frameModel.trigger("focus");
             }
         },
 
