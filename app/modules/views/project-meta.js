@@ -16,7 +16,8 @@ function( app ) {
 
         events: {
             "keypress .ZEEGA-project-title": "onTitleKeyup",
-            "blur .ZEEGA-project-title" : "onBlur"
+            "blur .ZEEGA-project-title": "onBlur",
+            "click .meta-menu a": "onMenuClick"
         },
 
         onTitleKeyup: function( e ) {
@@ -24,6 +25,23 @@ function( app ) {
                 this.$(".ZEEGA-project-title").blur();
                 return false;
             }
+        },
+
+        onMenuClick: function( e ) {
+            var $target = $(e.target).closest("a");
+
+            if ( !$target.hasClass("disabled") ) {
+                this[ $target.data("action") ]();
+            }
+        },
+
+        projectPreview: function() {
+            var projectData = app.project.getProjectJSON();
+
+            console.log( projectData );
+            app.zeegaplayer = new Zeega.player({
+                data: projectData
+            });
         },
 
         onBlur: function() {
