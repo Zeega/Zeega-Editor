@@ -82,6 +82,10 @@ function( app, LayerList ) {
                 layerView.render();
             }, this );
 
+            this.makeSortable( frameModel );
+        },
+
+        makeSortable: function( frameModel ) {
             this.$("ul.layer-list").sortable({
                 containment: "parent",
                 tolerance: "pointer",
@@ -97,10 +101,9 @@ function( app, LayerList ) {
             });
 
             layerOrder.reverse();
-//console.log('layer order', layerOrder)
             _.each( layerOrder, function( layerID, i ) {
-//                console.log(frameModel.layers, layerID,frameModel.layers.get( layerID ) )
                 frameModel.layers.get( layerID ).order[ frameModel.id ] = i;
+                console.log( frameModel.layers.get( layerID ), layerID, i )
             });
             frameModel.layers.sort();
         }

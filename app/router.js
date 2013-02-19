@@ -16,6 +16,7 @@ function(app, Initializer) {
         },
 
         index: function() {
+            console.log("Route: index")
             initialize();
         }
 
