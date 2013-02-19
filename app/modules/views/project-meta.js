@@ -69,9 +69,9 @@ function( app ) {
         projectPreview: function() {
             var projectData = app.project.getProjectJSON();
 
-            console.log( projectData );
             app.zeegaplayer = new Zeega.player({
                 data: projectData,
+                startFrame: app.status.get("currentFrame").id,
                 controls: {
                     arrows: true,
                     close: true
