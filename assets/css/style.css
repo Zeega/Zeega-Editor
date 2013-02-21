@@ -3823,7 +3823,21 @@ ul {
 .layers {
   position: absolute;
   right: 0;
-  width: 75px;
+}
+.layers .ZEEGA-layer-list {
+  color: white;
+  font-size: 12px;
+  width: 150px;
+  background: rgba(0, 0, 0, 0.25);
+  padding: 10px;
+  margin-bottom: 2px;
+  cursor: move;
+}
+.layers .layer-title {
+  width: 93px;
+  white-space: nowrap;
+  overflow: hidden;
+  display: inline-block;
 }
 .visual-element {
   position: absolute;
