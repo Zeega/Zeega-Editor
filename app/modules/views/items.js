@@ -24,17 +24,16 @@ function( app ) {
         },
 
         events: {
-            "click .grid": "goGrid",
-            "click .list": "goList",
+            "click .gridToggle": "gridToggle",
             "keyup .search-box": "onSearchKepress"
         },
 
-        goGrid: function() {
-            this.$el.removeClass("list");
-        },
+        gridToggle: function() {
+            this.$el.toggleClass("list")
+                .toggleClass("grid");
 
-        goList: function() {
-            this.$el.addClass("list");
+            this.$(".gridToggle i").toggleClass("icon-th")
+                .toggleClass("icon-th-list");
         },
 
         onSearchKepress: function( e ) {
