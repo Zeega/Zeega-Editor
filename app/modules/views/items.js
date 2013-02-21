@@ -26,7 +26,14 @@ function( app ) {
         events: {
             "click .grid": "goGrid",
             "click .list": "goList",
-            "keyup .search-box": "onSearchKepress"
+            "keyup .search-box": "onSearchKepress",
+            "click .layer-menu a": "createFrame"
+        },
+
+        createFrame: function( e ) {
+            var type = $(e.target).closest("a").data("layerType");
+
+            this.model.status.get('currentFrame').addLayerType( type );
         },
 
         goGrid: function() {
