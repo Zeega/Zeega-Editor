@@ -3731,6 +3731,7 @@ ul {
 }
 .frames .frame-list {
   margin: 0;
+  margin-left: 10px;
   padding: 0;
   list-style: none;
   white-space: nowrap;
