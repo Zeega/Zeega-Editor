@@ -47,7 +47,6 @@
             .frame-thumb {
                 outline: 4px solid orangered;
                 .transition( all, 0.5s );
-
             }
         }
 
@@ -60,9 +59,25 @@
             .transition( all, 0.5s );
         }
 
-        .options {
+        // .options {
+        //     position: absolute;
+        //     right: 5px;
+        // }
+
+        .frame-menu {
             position: absolute;
-            right: 5px;
+            right: 10px;
+
+            .icon-edit {
+                opacity: 0.5;
+            }
+            &:hover .icon-edit {
+                opacity: 1;
+            }
+
+            .submenu {
+                display: none;
+            }
         }
     }
 

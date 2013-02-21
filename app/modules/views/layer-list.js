@@ -39,7 +39,6 @@ function( app ) {
         },
 
         selectLayer: function() {
-            console.log('select layer!', this.model );
             app.trigger("layersBlur");
             this.model.trigger("focus");
         },
