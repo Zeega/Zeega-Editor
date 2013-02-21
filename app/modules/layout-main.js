@@ -8,12 +8,14 @@ define([
     "modules/views/workspace",
     "modules/views/layers",
     "modules/views/frame-properties",
+    "modules/views/layer-drawer",
+
     "modules/search.model",
 
     "backbone"
 ],
 
-function( app, Navbar, ProjectMeta, Sequences, Frames, Workspace, Layers, FrameProperties, SearchModel ) {
+function( app, Navbar, ProjectMeta, Sequences, Frames, Workspace, Layers, FrameProperties, LayerDrawer, SearchModel ) {
 
     return Backbone.Layout.extend({
 
@@ -44,6 +46,11 @@ function( app, Navbar, ProjectMeta, Sequences, Frames, Workspace, Layers, FrameP
             new ProjectMeta({
                 model: app,
                 el: this.$(".project-meta")
+            }).render();
+
+            new LayerDrawer({
+                model: app,
+                el: this.$(".layer-drawer")
             }).render();
 
             new Frames({

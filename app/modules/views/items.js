@@ -26,14 +26,7 @@ function( app ) {
         events: {
             "click .grid": "goGrid",
             "click .list": "goList",
-            "keyup .search-box": "onSearchKepress",
-            "click .layer-menu a": "createFrame"
-        },
-
-        createFrame: function( e ) {
-            var type = $(e.target).closest("a").data("layerType");
-
-            this.model.status.get('currentFrame').addLayerType( type );
+            "keyup .search-box": "onSearchKepress"
         },
 
         goGrid: function() {
@@ -52,11 +45,8 @@ function( app ) {
         },
 
         onResize: function() {
-            var leftCol = 0;
-
-            leftCol += $(".left-column .nav").height();
-            leftCol += $(".left-column .project-meta").height();
-            leftCol += $(".left-column .media-drawer-controls").height();
+            var leftCol = $(".left-column .static-upper").height()
+                + $(".left-column .media-drawer-controls").height();
 
             this.$(".ZEEGA-items").css("height", window.innerHeight - leftCol );
         }
