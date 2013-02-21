@@ -7,9 +7,16 @@
         font-size: 12px;
         width: 150px;
         background: rgba(0,0,0,0.25);
+        .transition( background, .5s);
         padding: 10px;
         margin-bottom: 2px;
         cursor: move;
+
+        &.active {
+            background: orangered;
+            // background: rgba(255,69,0,0.75);
+            .transition( background, .5s);
+        }
     }
 
     .layer-title {
@@ -19,11 +26,17 @@
         display: inline-block;
     }
 
-
 }
 
 .visual-element {
     position: absolute;
+    outline: 2px solid transparent;
+    .transition( outline, 0.5s );
+
+    &.active {
+        outline: 2px solid orangered;
+        .transition( outline, 0.5s );
+    }
 }
 
 .visual-target {

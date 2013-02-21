@@ -3830,9 +3830,16 @@ ul {
   font-size: 12px;
   width: 150px;
   background: rgba(0, 0, 0, 0.25);
+  transition: background 0.5s;
+  -webkit-transition: background 0.5s;
   padding: 10px;
   margin-bottom: 2px;
   cursor: move;
+}
+.layers .ZEEGA-layer-list.active {
+  background: orangered;
+  transition: background 0.5s;
+  -webkit-transition: background 0.5s;
 }
 .layers .layer-title {
   width: 93px;
@@ -3842,6 +3849,14 @@ ul {
 }
 .visual-element {
   position: absolute;
+  outline: 2px solid transparent;
+  transition: outline 0.5s;
+  -webkit-transition: outline 0.5s;
+}
+.visual-element.active {
+  outline: 2px solid orangered;
+  transition: outline 0.5s;
+  -webkit-transition: outline 0.5s;
 }
 .visual-target {
   position: absolute;

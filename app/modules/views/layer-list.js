@@ -16,16 +16,40 @@ function( app ) {
             return this.model.toJSON();
         },
 
-        events: {
-            "click .controls-toggle": "toggleControls"
-        },
-
-        toggleControls: function() {
-            this.$(".layer-controls").toggleClass("open");
-        },
-
         initialize: function() {
+            this.model.on("focus", this.onFocus, this );
+            app.on("layersBlur", this.onBlur, this );
+        },
 
+        events: {
+            "click .action": "doAction",
+            "click": "selectLayer"
+        },
+
+        doAction: function( e ) {
+            this[ $(e.target).data("action") ]();
+        },
+
+        continueToNextFrame: function() {
+            console.log('continue to next frame')
+        },
+
+        continueToChapter: function() {
+            console.log('continue to chapter')
+        },
+
+        selectLayer: function() {
+            console.log('select layer!', this.model );
+            app.trigger("layersBlur");
+            this.model.trigger("focus");
+        },
+
+        onFocus: function() {
+            this.$el.addClass("active");
+        },
+
+        onBlur: function() {
+            this.$el.removeClass("active");
         }
         
     });
