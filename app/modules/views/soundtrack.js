@@ -87,11 +87,12 @@ function( app ) {
         },
 
         removeSoundtrack: function() {
-            this.stopListening( this.model );
-            app.status.get('currentSequence').removeSoundtrack( this.model );
-            this.model = null;
-            this.render();
-            console.log('remove', this)
+            if ( confirm("Remove soundtrack from project?") ) {
+                this.stopListening( this.model );
+                app.status.get('currentSequence').removeSoundtrack( this.model );
+                this.model = null;
+                this.render();
+            }
         }
         
     });
