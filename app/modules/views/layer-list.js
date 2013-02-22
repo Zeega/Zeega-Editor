@@ -19,6 +19,7 @@ function( app ) {
         initialize: function() {
             this.model.on("focus", this.onFocus, this );
             app.on("layersBlur", this.onBlur, this );
+            this.model.on("remove", this.onRemove, this );
         },
 
         events: {
@@ -49,6 +50,11 @@ function( app ) {
 
         onBlur: function() {
             this.$el.removeClass("active");
+        },
+
+        onRemove: function() {
+            // this.model.onRemoveFrom Edito()>>???
+            this.remove();
         }
         
     });

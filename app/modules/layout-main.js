@@ -9,13 +9,14 @@ define([
     "modules/views/layers",
     "modules/views/frame-properties",
     "modules/views/layer-drawer",
+    "modules/views/soundtrack",
 
     "modules/search.model",
 
     "backbone"
 ],
 
-function( app, Navbar, ProjectMeta, Sequences, Frames, Workspace, Layers, FrameProperties, LayerDrawer, SearchModel ) {
+function( app, Navbar, ProjectMeta, Sequences, Frames, Workspace, Layers, FrameProperties, LayerDrawer, Soundtrack, SearchModel ) {
 
     return Backbone.Layout.extend({
 
@@ -42,6 +43,11 @@ function( app, Navbar, ProjectMeta, Sequences, Frames, Workspace, Layers, FrameP
         afterRender: function() {
             // I like this better. eliminates wasted elements
             app.search = new SearchModel();
+
+            new Soundtrack({
+                model: app.project,
+                el: this.$(".soundtrack")
+            }).render();
 
             new ProjectMeta({
                 model: app,

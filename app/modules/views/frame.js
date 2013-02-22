@@ -21,7 +21,19 @@ function( app ) {
         },
 
         events: {
-            "click .frame-thumb": "viewFrame"
+            "click .frame-thumb": "viewFrame",
+            "click .action": "doAction"
+        },
+
+        doAction: function( e ) {
+            this[ $(e.target).closest("a").data("action") ]();
+        },
+
+        deleteFrame: function() {
+            if ( confirm("Delete Frame? This cannot be undone!") ) { 
+                console.log('delete frame', this.model );
+                this.model.collection.remove( this.model );
+            }
         },
 
         viewFrame: function() {

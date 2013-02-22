@@ -20,7 +20,7 @@ function( app, FrameView ) {
         afterRender: function() {
             this.renderSequenceFrames( this.model.status.get("currentSequence") );
             this.makeSortable();
-            this.model.status.get("currentSequence").frames.on("add", this.onAddFrame, this );
+            this.model.status.get("currentSequence").frames.on("add remove", this.onFrameCollectionUpdate, this );
         },
 
         makeSortable: function() {
@@ -44,7 +44,7 @@ function( app, FrameView ) {
             this.model.status.get("currentSequence").save("frames", frameOrder );
         },
 
-        onAddFrame: function( frameModel, collection ) {
+        onFrameCollectionUpdate: function( frameModel, collection ) {
             this.renderSequenceFrames( this.model.status.get("currentSequence") );
         },
 

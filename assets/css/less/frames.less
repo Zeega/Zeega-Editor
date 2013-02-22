@@ -4,14 +4,6 @@
     font-size: 13px;
     position: relative;
 
-    a:link,
-    a:visited,
-    a:hover,
-    a:active {
-        text-decoration: none;
-        color: white;
-    }
-
     .frame-list {
         margin: 0;
         margin-left: 10px;
@@ -66,18 +58,31 @@
 
         .frame-menu {
             position: absolute;
-            right: 10px;
+            right: 5px;
 
             .icon-edit {
                 opacity: 0.5;
             }
-            &:hover .icon-edit {
-                opacity: 1;
-            }
 
             .submenu {
                 display: none;
+                position: fixed;
+                background: white;
+                z-index: 100;
+                border-radius: 0 5px 0 5px;
             }
+
+            &:hover {
+
+                .icon-edit {
+                    opacity: 1;
+                }
+
+                .submenu {
+                    display: block;
+                }
+            }
+
         }
     }
 
