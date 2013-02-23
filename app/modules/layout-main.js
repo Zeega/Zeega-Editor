@@ -33,9 +33,7 @@ function( app, Navbar, ProjectMeta, Sequences, Frames, Workspace, Layers, FrameP
 
         beforeRender: function() {
             this.insertView( ".nav", new Navbar({ model: app }) );
-            //this.insertView( ".project-meta", new ProjectMeta({ model: app }) );
             this.insertView( ".sequences", new Sequences({ model: app }) );
-            //this.insertView( ".frames", new Frames({ model: app }) );
             this.insertView( ".workspace", new Workspace({ model: app }) );
             this.insertView( ".layers", new Layers({ model: app }) );
         },

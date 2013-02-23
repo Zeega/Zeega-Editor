@@ -3599,39 +3599,36 @@ ul {
   -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.5);
   background: orangered;
 }
-.project-meta .project-top {
+.project-meta {
   position: relative;
-  *zoom: 1;
+  height: 125px;
+  color: white;
 }
-.project-meta .project-top:before,
-.project-meta .project-top:after {
-  display: table;
-  content: "";
-  line-height: 0;
-}
-.project-meta .project-top:after {
-  clear: both;
-}
-.project-meta .project-top .ZEEGA-project-cover {
+.project-meta .ZEEGA-project-cover {
   background: white;
   height: 100%;
   position: absolute;
-  width: 97px;
-  float: left;
+  width: 100%;
+  top: 0;
+  left: 0;
 }
-.project-meta .project-top .ZEEGA-project-title {
-  float: right;
-  color: #DDD;
+.project-meta .project-meta-upper {
+  position: absolute;
+  background: rgba(0, 0, 0, 0.5);
+  width: 100%;
+}
+.project-meta .project-meta-upper .ZEEGA-project-title {
   padding: 10px;
-  font-size: 24px;
-  width: 180px;
-  transition: background 1s;
-  -webkit-transition: background 1s;
+  width: 200px;
 }
-.project-meta .project-top .ZEEGA-project-title:hover {
-  background: rgba(255, 0, 0, 0.1);
-  transition: background 0.25s;
-  -webkit-transition: background 0.25s;
+.project-meta .project-meta-lower {
+  position: absolute;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  width: 100%;
+}
+.project-meta .project-meta-lower .ZEEGA-project-share {
+  padding: 10px;
 }
 .ZEEGA-sequences {
   display: none;
