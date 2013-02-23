@@ -57,6 +57,20 @@
         }
     }
 
+    .soundtrack-controls,
+    .soundtrack-info {
+        opacity: 0.5;
+        .transition( opacity, 2s );
+        -webkit-transition-delay: 2s;
+    }
+    &:hover {
+        .soundtrack-controls,
+        .soundtrack-info {
+            opacity: 1;
+            .transition( opacity, 0.5s );
+        }
+    }
+
     .instructions-1 {
         display: block;
     }

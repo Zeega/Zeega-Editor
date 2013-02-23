@@ -4032,6 +4032,19 @@ ul {
 .soundtrack .soundtrack-controls i {
   vertical-align: middle;
 }
+.soundtrack .soundtrack-controls,
+.soundtrack .soundtrack-info {
+  opacity: 0.5;
+  transition: opacity 2s;
+  -webkit-transition: opacity 2s;
+  -webkit-transition-delay: 2s;
+}
+.soundtrack:hover .soundtrack-controls,
+.soundtrack:hover .soundtrack-info {
+  opacity: 1;
+  transition: opacity 0.5s;
+  -webkit-transition: opacity 0.5s;
+}
 .soundtrack .instructions-1 {
   display: block;
 }
