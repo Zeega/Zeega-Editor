@@ -17,6 +17,7 @@
         width: 0;
         top: 0;
         left: 0;
+        opacity: 0.75;
     }
     .soundtrack-waveform {
         background: transparent;
@@ -25,6 +26,14 @@
         width: 100%;
         top: 0;
         left: 0;
+        pointer-events: none;
+    }
+
+    .soundtrack-info {
+        font-size: 14px;
+        position: absolute;
+        left: 5px;
+        bottom: 5px;
         pointer-events: none;
     }
 
@@ -40,6 +49,7 @@
             position: relative;
             display: inline-block;
             height: 100%;
+            padding: 0 5px;
         }
 
         i {

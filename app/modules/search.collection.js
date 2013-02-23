@@ -17,7 +17,8 @@ function( app, ItemModel ) {
         },
 
         url: function() {
-            var url = app.api + "items/search?";
+            var url = "http://www.zeega.com/api/items/search?";
+//            var url = app.api + "items/search?";
 
             _.each( this.search.toJSON(), function( value, key ) {
                 if ( value !== "" && value !== null ) {

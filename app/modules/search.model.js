@@ -18,6 +18,7 @@ function( app, SearchCollection, ItemsView ) {
             type: "-project AND -collection",
             page: 1,
             q: "",
+            user: 36,
             sort: "date-desc"
         },
 

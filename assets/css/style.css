@@ -3997,6 +3997,7 @@ ul {
   width: 0;
   top: 0;
   left: 0;
+  opacity: 0.75;
 }
 .soundtrack .soundtrack-waveform {
   background: transparent;
@@ -4005,6 +4006,13 @@ ul {
   width: 100%;
   top: 0;
   left: 0;
+  pointer-events: none;
+}
+.soundtrack .soundtrack-info {
+  font-size: 14px;
+  position: absolute;
+  left: 5px;
+  bottom: 5px;
   pointer-events: none;
 }
 .soundtrack .soundtrack-controls {
@@ -4019,6 +4027,7 @@ ul {
   position: relative;
   display: inline-block;
   height: 100%;
+  padding: 0 5px;
 }
 .soundtrack .soundtrack-controls i {
   vertical-align: middle;

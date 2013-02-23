@@ -74,7 +74,8 @@ function( app ) {
         },
 
         onTimeupdate: function( obj ) {
-            this.$('.elapsed').css("width", ( obj.currentTime / obj.duration ) + "%" )
+            this.$(".elapsed").css("width", ( obj.currentTime / obj.duration ) * 100 + "%" )
+            this.$(".time-display").text( this.toMinSec( obj.currentTime ) + " / " + this.toMinSec( obj.duration ) );
         },
 
         events: {
@@ -93,6 +94,18 @@ function( app ) {
                 this.model = null;
                 this.render();
             }
+        },
+
+        toMinSec: function( s ) {
+            var min, sec;
+
+            min = Math.floor( s / 60 );
+            min = min < 10 ? "0" + min : min;
+            sec = Math.round( s % 60 );
+            sec = sec < 10 ? "0" + sec : sec;
+
+            return min + ":" + sec;
+
         }
         
     });
