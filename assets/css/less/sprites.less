@@ -147,3 +147,37 @@
 .zitem-documentcloud        { .zitem-mixin(21) }
 .zitem-testamonial          { .zitem-mixin(22) }
 .zitem-instagram            { .zitem-mixin(23) }
+
+
+.play-zcon,
+.pause-zcon {
+  background-image: url('@{image-folder}/playpause.png');
+  background-position: 0px 0px;
+  background-repeat: no-repeat;
+  display: inline-block;
+  height: 25px;
+  width: 25px; 
+}
+.pause-zcon {
+  background-position: -25px 0px;
+}
+
+
+[class^="zsocial-"] {
+  
+  background-image: url('@{image-folder}/social-sprites-20px.png');
+  background-position: 0px 0px;
+  background-repeat: no-repeat;
+  display: inline-block;
+  height: 17px;
+  vertical-align: text-top;
+  width: 17px;  
+}
+
+.zsocial-mixin(@position) {
+  background-position: (0px)  (@position*-17px);
+}
+.zsocial-twitter        { .zsocial-mixin(0) }
+.zsocial-facebook       { .zsocial-mixin(1) }
+.zsocial-tumblr         { .zsocial-mixin(2) }
+.zsocial-email          { .zsocial-mixin(3) }

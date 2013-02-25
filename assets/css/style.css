@@ -3469,6 +3469,39 @@ html {
 .zitem-instagram.zitem-30.error {
   background-position: -60px -690px;
 }
+.play-zcon,
+.pause-zcon {
+  background-image: url('../img/playpause.png');
+  background-position: 0px 0px;
+  background-repeat: no-repeat;
+  display: inline-block;
+  height: 25px;
+  width: 25px;
+}
+.pause-zcon {
+  background-position: -25px 0px;
+}
+[class^="zsocial-"] {
+  background-image: url('../img/social-sprites-20px.png');
+  background-position: 0px 0px;
+  background-repeat: no-repeat;
+  display: inline-block;
+  height: 17px;
+  vertical-align: text-top;
+  width: 17px;
+}
+.zsocial-twitter {
+  background-position: 0px 0px;
+}
+.zsocial-facebook {
+  background-position: 0px -17px;
+}
+.zsocial-tumblr {
+  background-position: 0px -34px;
+}
+.zsocial-email {
+  background-position: 0px -51px;
+}
 .ZEEGA-hmenu {
   *zoom: 1;
 }
@@ -3600,6 +3633,7 @@ ul {
   background: orangered;
 }
 .project-meta {
+  background: url(../img/tiny-stripes.png);
   position: relative;
   height: 125px;
   color: white;
@@ -3618,7 +3652,7 @@ ul {
   width: 100%;
 }
 .project-meta .project-meta-upper .ZEEGA-project-title {
-  padding: 10px;
+  padding: 5px 10px;
   width: 200px;
 }
 .project-meta .project-meta-lower {
@@ -3628,7 +3662,7 @@ ul {
   width: 100%;
 }
 .project-meta .project-meta-lower .ZEEGA-project-share {
-  padding: 10px;
+  padding: 5px 10px;
 }
 .ZEEGA-sequences {
   display: none;

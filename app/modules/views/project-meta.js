@@ -16,6 +16,7 @@ function( app ) {
 
         afterRender: function() {
             this.makeCoverDroppable();
+            this.model.on("layer_added", this.onLayerAdded, this );
         },
 
         makeCoverDroppable: function() {
@@ -32,8 +33,20 @@ function( app ) {
             });
         },
 
+        onLayerAdded: function( layer ) {
+            if ( this.model.project.get("cover_image") === "" ) {
+                console.log("layer ud", layer);
+                if ( layer.get("type") == "Image" ) {
+                    this.updateCoverImage( layer.getAttr("uri") );
+                }
+            } else {
+                this.model.off("layer_added");
+            }
+        },
+
         updateCoverImage: function( url ) {
-            this.model.project.save("thumbnail_url", url );
+            app.project.save("cover_image", url );
+
             $(".ZEEGA-project-cover").fadeOut("fast", function() {
                 $(".ZEEGA-project-cover")
                     .attr("style", "")
