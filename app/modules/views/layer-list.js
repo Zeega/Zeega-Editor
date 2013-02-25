@@ -33,10 +33,10 @@ function( app ) {
 
         continueToNextFrame: function() {
             console.log('continue to next frame')
+            app.status.get("currentSequence").continueLayerToNextFrame( this.model );
         },
 
         continueToChapter: function() {
-            console.log('continue to chapter')
             app.status.get("currentSequence").togglePersistance( this.model );
         },
 

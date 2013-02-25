@@ -13,10 +13,6 @@ function( app, FrameView ) {
         template: "frames",
         className: "ZEEGA-frames",
 
-        initialize: function() {
-            
-        },
-
         afterRender: function() {
             this.renderSequenceFrames( this.model.status.get("currentSequence") );
             this.makeSortable();
@@ -32,7 +28,6 @@ function( app, FrameView ) {
                 update: function( e, ui ) {
                     this.updateFrameOrder();
                 }.bind(this)
-
             });
         },
 
