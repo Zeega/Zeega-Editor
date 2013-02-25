@@ -3648,7 +3648,7 @@ ul {
 }
 .project-meta .project-meta-upper {
   position: absolute;
-  background: rgba(0, 0, 0, 0.5);
+  background: rgba(0, 0, 0, 0.75);
   width: 100%;
 }
 .project-meta .project-meta-upper .ZEEGA-project-title {
@@ -3658,7 +3658,7 @@ ul {
 .project-meta .project-meta-lower {
   position: absolute;
   bottom: 0;
-  background: rgba(0, 0, 0, 0.5);
+  background: rgba(0, 0, 0, 0.75);
   width: 100%;
 }
 .project-meta .project-meta-lower .ZEEGA-project-share {
@@ -3871,6 +3871,7 @@ ul {
   bottom: 0;
 }
 .layers {
+  min-width: 170px;
   position: absolute;
   right: 0;
 }

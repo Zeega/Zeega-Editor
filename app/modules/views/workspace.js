@@ -76,6 +76,7 @@ function( app ) {
         },
 
         onChangeFrame: function( status, frameModel ) {
+            console.log('change frame', status, frameModel );
             this.clearWorkspace();
             this.renderFrame( frameModel );
         },
@@ -89,6 +90,7 @@ function( app ) {
 
         clearWorkspace: function() {
             this.model.status.get("previousFrame").layers.editorCleanup();
+            this.$el.empty();
         },
 
         renderFrame: function( frameModel ) {

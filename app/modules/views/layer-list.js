@@ -37,6 +37,12 @@ function( app ) {
 
         continueToChapter: function() {
             console.log('continue to chapter')
+            app.status.get("currentSequence").togglePersistance( this.model );
+        },
+
+        deleteLayer: function() {
+            console.log("delete layer", this);
+            this.model.collection.remove( this.model );
         },
 
         selectLayer: function() {

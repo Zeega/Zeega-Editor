@@ -10,10 +10,6 @@ function( app ) {
         template: "soundtrack",
         className: "ZEEGA-soundtrack",
 
-        initialize: function() {
-
-        },
-
         serialize: function() {
             if ( this.model === null || this.model.get("type") != "Audio" ) {
                 return { model: false }

@@ -16,7 +16,10 @@ function( app ) {
 
         afterRender: function() {
             this.makeCoverDroppable();
-            this.model.on("layer_added", this.onLayerAdded, this );
+
+            if ( app.project.get("cover_image") === "" ) {
+                this.model.on("layer_added", this.onLayerAdded, this );
+            }
         },
 
         makeCoverDroppable: function() {
