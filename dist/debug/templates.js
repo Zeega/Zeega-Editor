@@ -11,7 +11,7 @@ return __p;
 this["JST"]["app/templates/frame.html"] = function(obj){
 var __p='';var print=function(){__p+=Array.prototype.join.call(arguments, '')};
 with(obj||{}){
-__p+='<a href="#" class="options"><i class="icon-edit icon-white"></i></a>\n<a href="#" class="frame-thumb"\n    data-id="'+
+__p+='<div class="frame-menu">\n    <a href="#"><i class="icon-edit icon-white"></i></a>\n    <ul class="submenu">\n        <li class="menu-head">\n            Frame Options\n        </li>\n        <li class="divider"></li>\n        <li>\n            <a href="#" class="action" data-action="deleteFrame"><i class="icon-remove"></i> delete</a>\n        </li>\n    </ul>\n</div>\n\n<a href="#" class="frame-thumb"\n    data-id="'+
 ( id )+
 '"\n    style="\n        ';
  if( thumbnail_url !== "" ) { 
@@ -53,7 +53,15 @@ return __p;
 this["JST"]["app/templates/items.html"] = function(obj){
 var __p='';var print=function(){__p+=Array.prototype.join.call(arguments, '')};
 with(obj||{}){
-__p+='<div class="media-drawer-controls ZEEGA-hmenu dark">\n    <ul class=\'pull-left\'>\n        <li>\n            <a href="#" class="grid"><i class="icon-th icon-white"></i></a>\n        </li>\n        <li>\n            <a href="#" class="list"><i class="icon-th-list icon-white"></i></a>\n        </li>\n    </ul>\n    <ul class=\'pull-right\'>\n        <li>\n            <input class="search-box" type="text" placeholder="search media"/>\n        </li>\n    </ul>\n</div>\n<ul class="ZEEGA-items"></ul>';
+__p+='<div class="media-drawer-controls ZEEGA-hmenu dark">\n    <ul class=\'pull-left\'>\n        <li>\n            <a href="#" class="gridToggle"><i class="icon-th-list icon-white"></i></a>\n        </li>\n    </ul>\n    <ul class=\'pull-right\'>\n        <li>\n            <input class="search-box" type="text" placeholder="search media"/>\n        </li>\n    </ul>\n</div>\n<ul class="ZEEGA-items"></ul>';
+}
+return __p;
+};
+
+this["JST"]["app/templates/layer-drawer.html"] = function(obj){
+var __p='';var print=function(){__p+=Array.prototype.join.call(arguments, '')};
+with(obj||{}){
+__p+='<div class="ZEEGA-hmenu dark">\n    <ul class="layer-menu pull-right">\n        <li>\n            <a href="#" data-layer-type="Text">\n                <div class="hmenu-label">text</div>\n                <i class="icon-font icon-white"></i>\n            </a>\n        </li>\n        <li>\n            <a href="#" data-layer-type="Rectangle">\n                <div class="hmenu-label">color</div>\n                <i class="icon-th-large icon-white"></i>\n            </a>\n        </li>\n    </ul>\n</div>';
 }
 return __p;
 };
@@ -61,9 +69,11 @@ return __p;
 this["JST"]["app/templates/layer-list.html"] = function(obj){
 var __p='';var print=function(){__p+=Array.prototype.join.call(arguments, '')};
 with(obj||{}){
-__p+='<div class="layer-marker">\n    <a href="#"><i class="icon-chevron-left icon-white"></i></a>\n    <a href="#"><i class="zicon-'+
+__p+='<div class="layer-marker">\n    <i class="zicon-'+
 ( type.toLowerCase() )+
-' zicon-white"></i></a>\n    <a href="#"><i class="icon-chevron-right icon-white"></i></a>\n    <a href="#"><i class="icon-forward icon-white"></i></a>\n</div>';
+' zicon-white"></i> <span class="layer-title">'+
+( attr.title )+
+'</span>\n    <a href="#"><i data-action="continueToNextFrame" class="action icon-chevron-right icon-white"></i></a>\n    <a href="#"><i data-action="continueToChapter" class="action icon-forward icon-white"></i></a>\n</div>';
 }
 return __p;
 };
@@ -87,7 +97,7 @@ return __p;
 this["JST"]["app/templates/layout-main.html"] = function(obj){
 var __p='';var print=function(){__p+=Array.prototype.join.call(arguments, '')};
 with(obj||{}){
-__p+='<div class=\'left-column\'>\n    <div class="nav"></div>\n    <div class="project-meta"></div>\n    <div class="media-drawer"></div>\n</div>\n<div class=\'right-column\'>\n    <div class="project-navs">\n        <div class="sequences"></div>\n        <div class="frames"></div>\n        <div class="frame-properties"></div>\n    </div>\n    <div class="workspace"></div>\n    <div class="layers"></div>\n</div>';
+__p+='<div class=\'left-column\'>\n    <div class="static-upper">\n        <div class="nav"></div>\n        <div class="project-meta"></div>\n        <div class="layer-drawer"></div>\n    </div>\n    <div class="media-drawer"></div>\n</div>\n<div class=\'right-column\'>\n    <div class="project-navs">\n        <div class="sequences"></div>\n        <div class="frames"></div>\n        <div class="soundtrack"></div>\n        <div class="frame-properties"></div>\n    </div>\n    <div class="workspace"></div>\n    <div class="layers"></div>\n</div>';
 }
 return __p;
 };
@@ -95,7 +105,7 @@ return __p;
 this["JST"]["app/templates/navbar.html"] = function(obj){
 var __p='';var print=function(){__p+=Array.prototype.join.call(arguments, '')};
 with(obj||{}){
-__p+='<ul class=\'pull-left\'>\n    <li class=\'logo\'>\n        <a href="#"><img src="assets/img/zeega-logo-header.png"/></a>\n    </li>\n</ul>\n<ul class=\'pull-right\'>\n    <li>\n        <a href="#"><i class="icon-user icon-white"></i></a>\n    </li>\n    <li>\n        <a href="#"><i class="icon-folder-open icon-white"></i></a>\n    </li>\n    <li>\n        <a href="#"><i class="icon-question-sign icon-white"></i></a>\n    </li>\n</ul>';
+__p+='<ul class=\'pull-left\'>\n    <li class=\'logo\'>\n        <a href="#"><img src="assets/img/zeega-logo-header.png"/></a>\n    </li>\n</ul>\n<ul class=\'pull-right\'>\n    <li>\n        <a href="http://www.zeega.org/user/" target="blank"><i class="icon-user icon-white"></i></a>\n    </li>\n    <li>\n        <a href="#"><i class="icon-folder-open icon-white"></i></a>\n        <ul class="submenu">\n            <li>\n                <a href="#"><i class="icon-file"></i> New Zeega</a>\n            </li>\n            <li class="divider"></li>\n\n            <li>\n                <a href="#">project 1</a>\n            </li>\n            <li>\n                <a href="#">project 2</a>\n            </li>\n            <li>\n                <a href="#">project 3</a>\n            </li>\n            <li>\n                <a href="#">project 4</a>\n            </li>\n\n        </ul>\n    </li>\n    <li>\n        <a href="http://www.zeega.org/faq/" target="blank"><i class="icon-question-sign icon-white"></i></a>\n    </li>\n</ul>';
 }
 return __p;
 };
@@ -103,11 +113,11 @@ return __p;
 this["JST"]["app/templates/project-meta.html"] = function(obj){
 var __p='';var print=function(){__p+=Array.prototype.join.call(arguments, '')};
 with(obj||{}){
-__p+='<div class="project-top">\n    <div class="ZEEGA-project-cover" style="\n        background: url('+
+__p+='<div class="ZEEGA-project-cover" style="\n    background: url('+
 ( cover_image )+
-') no-repeat center center;\n        -webkit-background-size: cover;\n        background-size: cover;\n    "></div>\n    <div class="ZEEGA-project-title" contenteditable="true">'+
+') no-repeat center center;\n    -webkit-background-size: cover;\n    background-size: cover;\n">\n    <div class="project-meta-upper">\n        <div class="ZEEGA-project-title" contenteditable="true">'+
 ( title )+
-'</div>\n</div>\n<div class="ZEEGA-hmenu light">\n    <ul class=\'meta-menu pull-right\'>\n        <li>\n            <a href="#" class="options disabled" data-action="projectOptions">\n                <div class="hmenu-label">options</div>\n                <i class="icon-list-alt icon-white"></i>\n            </a>\n        </li>\n        <li>\n            <a href="#" class="publish disabled" data-action="projectPublish">\n                <div class="hmenu-label">publish</div>\n                <i class="icon-share icon-white"></i>\n            </a>\n        </li>\n        <li>\n            <a href="#" class="share disabled" data-action="projectShare">\n                <div class="hmenu-label">share</div>\n                <i class="icon-envelope icon-white"></i>\n            </a>\n        </li>\n        <li>\n            <a href="#" class="preview" data-action="projectPreview">\n                <div class="hmenu-label">preview</div>\n                <i class="icon-play icon-white"></i>\n            </a>\n        </li>\n    </ul>\n</div>';
+'</div>\n    </div>\n    <div class="project-meta-lower">\n        <div class="ZEEGA-project-share">\n            SHARE <a href="#">tw</a> <a href="#">fb</a> <a href="#">tb</a> <a href="#">em</a>\n        </div>\n    </div>\n\n</div>\n\n<!--\n<div class="ZEEGA-hmenu light">\n    <ul class=\'meta-menu pull-right\'>\n        <li>\n            <a href="#" class="options disabled" data-action="projectOptions">\n                <div class="hmenu-label">options</div>\n                <i class="icon-list-alt icon-white"></i>\n            </a>\n        </li>\n        <li>\n            <a href="#" class="publish disabled" data-action="projectPublish">\n                <div class="hmenu-label">publish</div>\n                <i class="icon-share icon-white"></i>\n            </a>\n        </li>\n        <li>\n            <a href="#" class="share disabled" data-action="projectShare">\n                <div class="hmenu-label">share</div>\n                <i class="icon-envelope icon-white"></i>\n            </a>\n        </li>\n        <li>\n            <a href="#" class="preview" data-action="projectPreview">\n                <div class="hmenu-label">preview</div>\n                <i class="icon-play icon-white"></i>\n            </a>\n        </li>\n    </ul>\n</div>\n-->';
 }
 return __p;
 };
@@ -126,6 +136,28 @@ this["JST"]["app/templates/sequences.html"] = function(obj){
 var __p='';var print=function(){__p+=Array.prototype.join.call(arguments, '')};
 with(obj||{}){
 __p+='<ul class="sequence-list"></ul>\n<div class="add-sequence"><a href="#"><i class="icon-plus icon-white"></i> add sequence</a></div>';
+}
+return __p;
+};
+
+this["JST"]["app/templates/soundtrack.html"] = function(obj){
+var __p='';var print=function(){__p+=Array.prototype.join.call(arguments, '')};
+with(obj||{}){
+__p+='<div class="elapsed"></div>\n<div class="soundtrack-waveform"\n';
+ if ( model ) { 
+;__p+='\n    style=" background: url('+
+( attr.thumbnail_url )+
+');\n    background-size: 100% 100%"\n';
+ } 
+;__p+='\n></div>\n\n';
+ if ( model === false ) { 
+;__p+='\n    <span class="instructions-1">Drag audio here to add soundtrack</span>\n    <span class="instructions-2">Drop to add soundtrack</span>\n';
+ } else { 
+;__p+='\n    <div class="soundtrack-info">\n        <span class="title">'+
+( attr.title )+
+'</span>\n        <span class="time-display"></span>\n    </div>\n    <div class="soundtrack-controls">\n        <a href="#" class="playpause"><i class="icon-play icon-white"></i></a>\n        <a href="#" class="remove"><i class="icon-remove icon-white"></i></a>\n    </div>\n';
+ } 
+;__p+='';
 }
 return __p;
 };
@@ -151,7 +183,15 @@ return __p;
 this["JST"]["app/zeega-parser/plugins/layers/audio/audio.html"] = function(obj){
 var __p='';var print=function(){__p+=Array.prototype.join.call(arguments, '')};
 with(obj||{}){
-__p+='';
+__p+='<audio id="audio-el-'+
+( id )+
+'" src="'+
+( attr.uri )+
+'"\n    ';
+ if ( attr.loop ) { 
+;__p+='\n        loop\n    ';
+ } 
+;__p+='\n    preload\n></audio>';
 }
 return __p;
 };

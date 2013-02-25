@@ -397,7 +397,7 @@ return __p;
 this["JST"]["app/templates/frame.html"] = function(obj){
 var __p='';var print=function(){__p+=Array.prototype.join.call(arguments, '')};
 with(obj||{}){
-__p+='<a href="#" class="options"><i class="icon-edit icon-white"></i></a>\n<a href="#" class="frame-thumb"\n    data-id="'+
+__p+='<div class="frame-menu">\n    <a href="#"><i class="icon-edit icon-white"></i></a>\n    <ul class="submenu">\n        <li class="menu-head">\n            Frame Options\n        </li>\n        <li class="divider"></li>\n        <li>\n            <a href="#" class="action" data-action="deleteFrame"><i class="icon-remove"></i> delete</a>\n        </li>\n    </ul>\n</div>\n\n<a href="#" class="frame-thumb"\n    data-id="'+
 ( id )+
 '"\n    style="\n        ';
  if( thumbnail_url !== "" ) { 
@@ -439,7 +439,15 @@ return __p;
 this["JST"]["app/templates/items.html"] = function(obj){
 var __p='';var print=function(){__p+=Array.prototype.join.call(arguments, '')};
 with(obj||{}){
-__p+='<div class="media-drawer-controls ZEEGA-hmenu dark">\n    <ul class=\'pull-left\'>\n        <li>\n            <a href="#" class="grid"><i class="icon-th icon-white"></i></a>\n        </li>\n        <li>\n            <a href="#" class="list"><i class="icon-th-list icon-white"></i></a>\n        </li>\n    </ul>\n    <ul class=\'pull-right\'>\n        <li>\n            <input class="search-box" type="text" placeholder="search media"/>\n        </li>\n    </ul>\n</div>\n<ul class="ZEEGA-items"></ul>';
+__p+='<div class="media-drawer-controls ZEEGA-hmenu dark">\n    <ul class=\'pull-left\'>\n        <li>\n            <a href="#" class="gridToggle"><i class="icon-th-list icon-white"></i></a>\n        </li>\n    </ul>\n    <ul class=\'pull-right\'>\n        <li>\n            <input class="search-box" type="text" placeholder="search media"/>\n        </li>\n    </ul>\n</div>\n<ul class="ZEEGA-items"></ul>';
+}
+return __p;
+};
+
+this["JST"]["app/templates/layer-drawer.html"] = function(obj){
+var __p='';var print=function(){__p+=Array.prototype.join.call(arguments, '')};
+with(obj||{}){
+__p+='<div class="ZEEGA-hmenu dark">\n    <ul class="layer-menu pull-right">\n        <li>\n            <a href="#" data-layer-type="Text">\n                <div class="hmenu-label">text</div>\n                <i class="icon-font icon-white"></i>\n            </a>\n        </li>\n        <li>\n            <a href="#" data-layer-type="Rectangle">\n                <div class="hmenu-label">color</div>\n                <i class="icon-th-large icon-white"></i>\n            </a>\n        </li>\n    </ul>\n</div>';
 }
 return __p;
 };
@@ -447,9 +455,11 @@ return __p;
 this["JST"]["app/templates/layer-list.html"] = function(obj){
 var __p='';var print=function(){__p+=Array.prototype.join.call(arguments, '')};
 with(obj||{}){
-__p+='<div class="layer-marker">\n    <a href="#"><i class="icon-chevron-left icon-white"></i></a>\n    <a href="#"><i class="zicon-'+
+__p+='<div class="layer-marker">\n    <i class="zicon-'+
 ( type.toLowerCase() )+
-' zicon-white"></i></a>\n    <a href="#"><i class="icon-chevron-right icon-white"></i></a>\n    <a href="#"><i class="icon-forward icon-white"></i></a>\n</div>';
+' zicon-white"></i> <span class="layer-title">'+
+( attr.title )+
+'</span>\n    <a href="#"><i data-action="continueToNextFrame" class="action icon-chevron-right icon-white"></i></a>\n    <a href="#"><i data-action="continueToChapter" class="action icon-forward icon-white"></i></a>\n</div>';
 }
 return __p;
 };
@@ -473,7 +483,7 @@ return __p;
 this["JST"]["app/templates/layout-main.html"] = function(obj){
 var __p='';var print=function(){__p+=Array.prototype.join.call(arguments, '')};
 with(obj||{}){
-__p+='<div class=\'left-column\'>\n    <div class="nav"></div>\n    <div class="project-meta"></div>\n    <div class="media-drawer"></div>\n</div>\n<div class=\'right-column\'>\n    <div class="project-navs">\n        <div class="sequences"></div>\n        <div class="frames"></div>\n        <div class="frame-properties"></div>\n    </div>\n    <div class="workspace"></div>\n    <div class="layers"></div>\n</div>';
+__p+='<div class=\'left-column\'>\n    <div class="static-upper">\n        <div class="nav"></div>\n        <div class="project-meta"></div>\n        <div class="layer-drawer"></div>\n    </div>\n    <div class="media-drawer"></div>\n</div>\n<div class=\'right-column\'>\n    <div class="project-navs">\n        <div class="sequences"></div>\n        <div class="frames"></div>\n        <div class="soundtrack"></div>\n        <div class="frame-properties"></div>\n    </div>\n    <div class="workspace"></div>\n    <div class="layers"></div>\n</div>';
 }
 return __p;
 };
@@ -481,7 +491,7 @@ return __p;
 this["JST"]["app/templates/navbar.html"] = function(obj){
 var __p='';var print=function(){__p+=Array.prototype.join.call(arguments, '')};
 with(obj||{}){
-__p+='<ul class=\'pull-left\'>\n    <li class=\'logo\'>\n        <a href="#"><img src="assets/img/zeega-logo-header.png"/></a>\n    </li>\n</ul>\n<ul class=\'pull-right\'>\n    <li>\n        <a href="#"><i class="icon-user icon-white"></i></a>\n    </li>\n    <li>\n        <a href="#"><i class="icon-folder-open icon-white"></i></a>\n    </li>\n    <li>\n        <a href="#"><i class="icon-question-sign icon-white"></i></a>\n    </li>\n</ul>';
+__p+='<ul class=\'pull-left\'>\n    <li class=\'logo\'>\n        <a href="#"><img src="assets/img/zeega-logo-header.png"/></a>\n    </li>\n</ul>\n<ul class=\'pull-right\'>\n    <li>\n        <a href="http://www.zeega.org/user/" target="blank"><i class="icon-user icon-white"></i></a>\n    </li>\n    <li>\n        <a href="#"><i class="icon-folder-open icon-white"></i></a>\n        <ul class="submenu">\n            <li>\n                <a href="#"><i class="icon-file"></i> New Zeega</a>\n            </li>\n            <li class="divider"></li>\n\n            <li>\n                <a href="#">project 1</a>\n            </li>\n            <li>\n                <a href="#">project 2</a>\n            </li>\n            <li>\n                <a href="#">project 3</a>\n            </li>\n            <li>\n                <a href="#">project 4</a>\n            </li>\n\n        </ul>\n    </li>\n    <li>\n        <a href="http://www.zeega.org/faq/" target="blank"><i class="icon-question-sign icon-white"></i></a>\n    </li>\n</ul>';
 }
 return __p;
 };
@@ -489,11 +499,11 @@ return __p;
 this["JST"]["app/templates/project-meta.html"] = function(obj){
 var __p='';var print=function(){__p+=Array.prototype.join.call(arguments, '')};
 with(obj||{}){
-__p+='<div class="project-top">\n    <div class="ZEEGA-project-cover" style="\n        background: url('+
+__p+='<div class="ZEEGA-project-cover" style="\n    background: url('+
 ( cover_image )+
-') no-repeat center center;\n        -webkit-background-size: cover;\n        background-size: cover;\n    "></div>\n    <div class="ZEEGA-project-title" contenteditable="true">'+
+') no-repeat center center;\n    -webkit-background-size: cover;\n    background-size: cover;\n">\n    <div class="project-meta-upper">\n        <div class="ZEEGA-project-title" contenteditable="true">'+
 ( title )+
-'</div>\n</div>\n<div class="ZEEGA-hmenu light">\n    <ul class=\'meta-menu pull-right\'>\n        <li>\n            <a href="#" class="options disabled" data-action="projectOptions">\n                <div class="hmenu-label">options</div>\n                <i class="icon-list-alt icon-white"></i>\n            </a>\n        </li>\n        <li>\n            <a href="#" class="publish disabled" data-action="projectPublish">\n                <div class="hmenu-label">publish</div>\n                <i class="icon-share icon-white"></i>\n            </a>\n        </li>\n        <li>\n            <a href="#" class="share disabled" data-action="projectShare">\n                <div class="hmenu-label">share</div>\n                <i class="icon-envelope icon-white"></i>\n            </a>\n        </li>\n        <li>\n            <a href="#" class="preview" data-action="projectPreview">\n                <div class="hmenu-label">preview</div>\n                <i class="icon-play icon-white"></i>\n            </a>\n        </li>\n    </ul>\n</div>';
+'</div>\n    </div>\n    <div class="project-meta-lower">\n        <div class="ZEEGA-project-share">\n            SHARE <a href="#">tw</a> <a href="#">fb</a> <a href="#">tb</a> <a href="#">em</a>\n        </div>\n    </div>\n\n</div>\n\n<!--\n<div class="ZEEGA-hmenu light">\n    <ul class=\'meta-menu pull-right\'>\n        <li>\n            <a href="#" class="options disabled" data-action="projectOptions">\n                <div class="hmenu-label">options</div>\n                <i class="icon-list-alt icon-white"></i>\n            </a>\n        </li>\n        <li>\n            <a href="#" class="publish disabled" data-action="projectPublish">\n                <div class="hmenu-label">publish</div>\n                <i class="icon-share icon-white"></i>\n            </a>\n        </li>\n        <li>\n            <a href="#" class="share disabled" data-action="projectShare">\n                <div class="hmenu-label">share</div>\n                <i class="icon-envelope icon-white"></i>\n            </a>\n        </li>\n        <li>\n            <a href="#" class="preview" data-action="projectPreview">\n                <div class="hmenu-label">preview</div>\n                <i class="icon-play icon-white"></i>\n            </a>\n        </li>\n    </ul>\n</div>\n-->';
 }
 return __p;
 };
@@ -512,6 +522,28 @@ this["JST"]["app/templates/sequences.html"] = function(obj){
 var __p='';var print=function(){__p+=Array.prototype.join.call(arguments, '')};
 with(obj||{}){
 __p+='<ul class="sequence-list"></ul>\n<div class="add-sequence"><a href="#"><i class="icon-plus icon-white"></i> add sequence</a></div>';
+}
+return __p;
+};
+
+this["JST"]["app/templates/soundtrack.html"] = function(obj){
+var __p='';var print=function(){__p+=Array.prototype.join.call(arguments, '')};
+with(obj||{}){
+__p+='<div class="elapsed"></div>\n<div class="soundtrack-waveform"\n';
+ if ( model ) { 
+;__p+='\n    style=" background: url('+
+( attr.thumbnail_url )+
+');\n    background-size: 100% 100%"\n';
+ } 
+;__p+='\n></div>\n\n';
+ if ( model === false ) { 
+;__p+='\n    <span class="instructions-1">Drag audio here to add soundtrack</span>\n    <span class="instructions-2">Drop to add soundtrack</span>\n';
+ } else { 
+;__p+='\n    <div class="soundtrack-info">\n        <span class="title">'+
+( attr.title )+
+'</span>\n        <span class="time-display"></span>\n    </div>\n    <div class="soundtrack-controls">\n        <a href="#" class="playpause"><i class="icon-play icon-white"></i></a>\n        <a href="#" class="remove"><i class="icon-remove icon-white"></i></a>\n    </div>\n';
+ } 
+;__p+='';
 }
 return __p;
 };
@@ -537,7 +569,15 @@ return __p;
 this["JST"]["app/zeega-parser/plugins/layers/audio/audio.html"] = function(obj){
 var __p='';var print=function(){__p+=Array.prototype.join.call(arguments, '')};
 with(obj||{}){
-__p+='';
+__p+='<audio id="audio-el-'+
+( id )+
+'" src="'+
+( attr.uri )+
+'"\n    ';
+ if ( attr.loop ) { 
+;__p+='\n        loop\n    ';
+ } 
+;__p+='\n    preload\n></audio>';
 }
 return __p;
 };
@@ -720,6 +760,23 @@ ZEEGA LICENSE INFO HERE
 
 */
 this["JST"] = this["JST"] || {};
+
+this["JST"]["app/templates/controls.html"] = function(obj){
+var __p='';var print=function(){__p+=Array.prototype.join.call(arguments, '')};
+with(obj||{}){
+__p+='';
+ if ( close && close === true  ) { 
+;__p+='\n    <a href="#" class="close">&times;</a>\n';
+ } 
+;__p+='\n';
+ if ( arrows && arrows === true
+ ) { 
+;__p+='\n    <a href="#" class="prev controls-arrow arrow-left disabled"></a>\n    <a href="#" class="next controls-arrow arrow-right disabled"></a>\n';
+ } 
+;__p+='';
+}
+return __p;
+};
 
 this["JST"]["app/templates/layouts/player-layout.html"] = function(obj){
 var __p='';var print=function(){__p+=Array.prototype.join.call(arguments, '')};
@@ -40276,7 +40333,7 @@ function( Zeega, _Layer, MediaPlayer ) {
                 this.popup.render();
                 this.model.on("popup_remove", this.popupClosed, this );
                 // pause the player
-                this.model.status.get("project").suspend();
+                this.model.status.get("project").pause();
             }
         },
 
@@ -41674,10 +41731,99 @@ function( Zeega ) {
     return Status;
 });
 
-zeega.define('modules/player-layout',[
+zeega.define('modules/controls-view',[
     "zeega"
 ],
 function( Zeega ) {
+
+    return Zeega.Backbone.LayoutView.extend({
+
+        template: "controls",
+        className: "ZEEGA-basic-controls",
+
+        initialize: function( args, options ) {
+            this.model.on("frame_play", this.onFramePlay, this );
+        },
+
+        serialize: function() {
+            return this.options.settings;
+        },
+
+        events: {
+            "click .close": "close",
+            "click .prev": "prev",
+            "click .next": "next"
+        },
+
+        close: function() {
+            this.model.destroy();
+        },
+
+        prev: function() {
+            this.model.cuePrev();
+        },
+
+        next: function() {
+            this.model.cueNext();
+        },
+
+        onFramePlay: function( info ) {
+            switch(info._connections) {
+                case "l":
+                    this.activateArrow("prev");
+                    this.disableArrow("next");
+                    break;
+                case "r":
+                    this.disableArrow("prev");
+                    this.activateArrow("next");
+                    break;
+                case "lr":
+                    this.activateArrow("prev");
+                    this.activateArrow("next");
+                    break;
+                default:
+                    this.disableArrow("prev");
+                    this.disableArrow("next");
+            }
+        },
+
+        activateArrow: function(className) {
+            this.$("."+ className +".disabled").removeClass("disabled");
+        },
+
+        disableArrow: function(className) {
+            this.$("."+ className).addClass("disabled");
+        },
+
+        fetch: function( path ) {
+            // Initialize done for use in async-mode
+            var done;
+
+            // Concatenate the file extension.
+            path = "app/templates/"+ path + ".html";
+
+            // If cached, use the compiled template.
+            if ( JST[ path ] ) {
+                return JST[ path ];
+            } else {
+                // Put fetch into `async-mode`.
+                done = this.async();
+
+                // Seek out the template asynchronously.
+                return Zeega.$.ajax({ url: Zeega.root + path }).then(function(contents) {
+                    done( JST[path] = _.template(contents) );
+                });
+            }
+        }
+    });
+
+});
+
+zeega.define('modules/player-layout',[
+    "zeega",
+    "modules/controls-view"
+],
+function( Zeega, ControlsView ) {
     /*
         the player layout
 
@@ -41731,10 +41877,12 @@ function( Zeega ) {
         afterRender: function() {
             // correctly size the player window
             this.$(".ZEEGA-player-window").css( this.getWindowSize() );
-            this.setControls();
+            this.setPrevNext();
+
+            this.renderControls();
         },
 
-        setControls: function() {
+        setPrevNext: function() {
             // TODO: Investigate whether or not this-alias can be safely
             // replaced by bind(this)
             var next = this.model.get("next"),
@@ -41752,6 +41900,17 @@ function( Zeega ) {
                     _this.model.cuePrev();
                     return false;
                 });
+            }
+        },
+
+        renderControls: function() {
+            var controlSettings = this.model.get("controls");
+
+            if ( _.isObject( controlSettings ) ) {
+                this.controls = new ControlsView({ model: this.model, settings: controlSettings });
+
+                this.$el.prepend( this.controls.el );
+                this.controls.render();
             }
         },
 
@@ -41872,19 +42031,25 @@ function( Zeega, ZeegaParser, Relay, Status, PlayerLayout ) {
         relay: null,
         status: null,
         gmapAPI: "waiting",
-
         Layout: null,
 
         // default settings -  can be overridden by project data
         defaults: {
-            
+
+             /**
+            sets the default visual controls. "none" or object with desired controls { arrows: true, close: false }
+            @property controls
+            @type Mixed
+            @default "none"
+            **/
+            controls: "none",
+
             /**
             Tells the player how to handle extra space around the player. Can be true, false, "horizontal", or "vertical"
             @property cover
             @type mixed
             @default false
             **/
-
             cover: false,
 
             /**
@@ -42335,7 +42500,6 @@ function( Zeega, ZeegaParser, Relay, Status, PlayerLayout ) {
             // render current frame // should trigger a frame rendered event when successful
             this.status.get("current_frame_model").render( oldID );
 
-            console.log("       render frame", this.status.get("current_frame_model") );
             if ( this.state !== "playing" ) {
                 this.state = "playing";
                 this.status.emit( "play", this );
@@ -42414,15 +42578,20 @@ function( Zeega, ZeegaParser, Relay, Status, PlayerLayout ) {
 
         // completely obliterate the player. triggers event
         destroy: function() {
-            // TODO: Investigate whether or not this-alias can be safely
-            // replaced by bind(this)
-            var _this = this;
 
             this.Layout.$el.fadeOut( this.get("fadeOut"), function() {
                 // destroy all layers before calling player_destroyed
-                _this.get("frames").each(function(frame) { frame.destroy(); });
-                _this.status.emit("player_destroyed");
-            });
+                this.project.sequences.each(function( sequence ) {
+                    sequence.frames.each(function( frame ) {
+                        frame.destroy();
+                        frame.layers.each(function( layer ) {
+                            layer.destroy();
+                        });
+                    });
+                });
+                this.Layout.remove();
+                this.status.emit("player_destroyed");
+            }.bind( this ));
         },
 
         /**
@@ -59371,11 +59540,30 @@ function( app ) {
 
         setCurrentFrame: function( frameModel ) {
             if ( frameModel != this.get("currentFrame") ) {
+
+                if ( this.get("currentFrame") ) {
+                    this.get("currentFrame").off("remove");
+                }
+
                 this.set({
                     previousFrame: this.get("currentFrame"),
                     currentFrame: frameModel
                 });
+
+                frameModel.on("remove", this.onCurrentRemove, this );
+
+                this.get("previousFrame").trigger("blur");
+                frameModel.trigger("focus");
             }
+        },
+
+        onCurrentRemove: function( model, collection, options ) {
+            var nextFrame, index;
+
+            index = this.get("currentSequence").frames.length <= options.index ? this.get("currentSequence").frames.length - 1 : options.index;
+            nextFrame = this.get("currentSequence").frames.at( index );
+console.log(this.get("currentSequence").frames.length, index, nextFrame)
+            this.setCurrentFrame( nextFrame );
         },
 
         /*
@@ -59428,6 +59616,37 @@ function( app ) {
             return this.model.project.toJSON();
         },
 
+        afterRender: function() {
+            this.makeCoverDroppable();
+        },
+
+        makeCoverDroppable: function() {
+            this.$el.droppable({
+                accept: ".item",
+                tolerance: "pointer",
+                drop: function( e, ui ) {
+                    if ( _.contains( ["Image"], app.dragging.get("layer_type") )) {
+                        var cover = app.dragging.get("uri");
+
+                        this.updateCoverImage( cover );
+                    }
+                }.bind( this )
+            });
+        },
+
+        updateCoverImage: function( url ) {
+            this.model.project.save("thumbnail_url", url );
+            $(".ZEEGA-project-cover").fadeOut("fast", function() {
+                $(".ZEEGA-project-cover")
+                    .attr("style", "")
+                    .css({
+                        background: "url(" + url + ")",
+                        "-webkit-background-size": "cover"
+                    })
+                    .fadeIn("fast");
+            });
+        },
+
         events: {
             "keypress .ZEEGA-project-title": "onTitleKeyup",
             "blur .ZEEGA-project-title": "onBlur",
@@ -59452,9 +59671,13 @@ function( app ) {
         projectPreview: function() {
             var projectData = app.project.getProjectJSON();
 
-            console.log( projectData );
             app.zeegaplayer = new Zeega.player({
-                data: projectData
+                data: projectData,
+                startFrame: app.status.get("currentFrame").id,
+                controls: {
+                    arrows: true,
+                    close: true
+                }
             });
         },
 
@@ -59549,12 +59772,36 @@ function( app ) {
             return this.model.toJSON();
         },
 
+        initialize: function() {
+            this.model.on("focus", this.onFocus, this );
+            this.model.on("blur", this.onBlur, this );
+        },
+
         events: {
-            "click .frame-thumb": "viewFrame"
+            "click .frame-thumb": "viewFrame",
+            "click .action": "doAction"
+        },
+
+        doAction: function( e ) {
+            this[ $(e.target).closest("a").data("action") ]();
+        },
+
+        deleteFrame: function() {
+            if ( confirm("Delete Frame? This cannot be undone!") ) { 
+                console.log('delete frame', this.model );
+                this.model.collection.remove( this.model );
+            }
         },
 
         viewFrame: function() {
             this.model.status.setCurrentFrame( this.model );
+        },
+
+        onFocus: function() {
+            this.$el.addClass("active");
+        },
+        onBlur: function() {
+            this.$el.removeClass("active");
         }
         
     });
@@ -59583,7 +59830,7 @@ function( app, FrameView ) {
         afterRender: function() {
             this.renderSequenceFrames( this.model.status.get("currentSequence") );
             this.makeSortable();
-            this.model.status.get("currentSequence").frames.on("add", this.onAddFrame, this );
+            this.model.status.get("currentSequence").frames.on("add remove", this.onFrameCollectionUpdate, this );
         },
 
         makeSortable: function() {
@@ -59607,7 +59854,7 @@ function( app, FrameView ) {
             this.model.status.get("currentSequence").save("frames", frameOrder );
         },
 
-        onAddFrame: function( frameModel, collection ) {
+        onFrameCollectionUpdate: function( frameModel, collection ) {
             this.renderSequenceFrames( this.model.status.get("currentSequence") );
         },
 
@@ -59623,6 +59870,11 @@ function( app, FrameView ) {
                 });
 
                 this.$(".frame-list").append( newFrameView.el );
+
+                if ( app.status.get("currentFrame").id == frame.id ) {
+                    newFrameView.$el.addClass("active");
+                }
+                
                 newFrameView.render();
             }.bind( this ));
         },
@@ -59768,16 +60020,45 @@ function( app ) {
             return this.model.toJSON();
         },
 
-        events: {
-            "click .controls-toggle": "toggleControls"
-        },
-
-        toggleControls: function() {
-            this.$(".layer-controls").toggleClass("open");
-        },
-
         initialize: function() {
+            this.model.on("focus", this.onFocus, this );
+            app.on("layersBlur", this.onBlur, this );
+            this.model.on("remove", this.onRemove, this );
+        },
 
+        events: {
+            "click .action": "doAction",
+            "click": "selectLayer"
+        },
+
+        doAction: function( e ) {
+            this[ $(e.target).data("action") ]();
+        },
+
+        continueToNextFrame: function() {
+            console.log('continue to next frame')
+        },
+
+        continueToChapter: function() {
+            console.log('continue to chapter')
+        },
+
+        selectLayer: function() {
+            app.trigger("layersBlur");
+            this.model.trigger("focus");
+        },
+
+        onFocus: function() {
+            this.$el.addClass("active");
+        },
+
+        onBlur: function() {
+            this.$el.removeClass("active");
+        },
+
+        onRemove: function() {
+            // this.model.onRemoveFrom Edito()>>???
+            this.remove();
         }
         
     });
@@ -74721,6 +75002,10 @@ function( app, LayerList ) {
                 layerView.render();
             }, this );
 
+            this.makeSortable( frameModel );
+        },
+
+        makeSortable: function( frameModel ) {
             this.$("ul.layer-list").sortable({
                 containment: "parent",
                 tolerance: "pointer",
@@ -74736,9 +75021,7 @@ function( app, LayerList ) {
             });
 
             layerOrder.reverse();
-//console.log('layer order', layerOrder)
             _.each( layerOrder, function( layerID, i ) {
-//                console.log(frameModel.layers, layerID,frameModel.layers.get( layerID ) )
                 frameModel.layers.get( layerID ).order[ frameModel.id ] = i;
             });
             frameModel.layers.sort();
@@ -74759,8 +75042,27 @@ function() {
 
         tagName: "li",
         template: "frame-properties",
-        className: "ZEEGA-frame-properties",
+        className: "ZEEGA-frame-properties"
 
+    });
+
+});
+
+define('modules/views/layer-drawer',[
+    "app",
+    "backbone"
+],
+
+function( app ) {
+
+    return Backbone.View.extend({
+
+        el: null,
+        template: "layer-drawer",
+
+        initialize: function() {
+
+        },
 
         events: {
             "click .layer-menu a": "createFrame"
@@ -74769,12 +75071,124 @@ function() {
         createFrame: function( e ) {
             var type = $(e.target).closest("a").data("layerType");
 
-            this.model.status.get('currentFrame').addLayerType( type );
+            app.status.get('currentFrame').addLayerType( type );
+        },
+
+
+    });
+
+});
+
+define('modules/views/soundtrack',[
+    "app",
+    "backbone"
+],
+
+function( app ) {
+
+    return Backbone.View.extend({
+
+        template: "soundtrack",
+        className: "ZEEGA-soundtrack",
+
+        initialize: function() {
+
         },
 
         serialize: function() {
-            // return this.model.toJSON();
+            if ( this.model === null || this.model.get("type") != "Audio" ) {
+                return { model: false }
+            } else if ( this.model.get("type") == "Audio" ) {
+                return _.extend({ model: true }, this.model.toJSON() );
+            }
+        },
+
+        afterRender: function() {
+            this.makeDroppable();
+        },
+
+        makeDroppable: function() {
+            this.$el.droppable({
+                accept: ".item",
+                tolerance: "pointer",
+                hoverClass: "can-drop",
+                drop: function( e, ui ) {
+                    if ( _.contains( ["Audio"], app.dragging.get("layer_type") )) {
+                        console.log('make soundtrack', app.dragging );
+                        this.updateBackground( app.dragging.get("thumbnail_url") );
+                        this.persistToProject( app.dragging );
+                    }
+                }.bind( this )
+            });
+        },
+
+        updateBackground: function( url ) {
+            this.$(".soundtrack-waveform").css({
+                background: "url(" + url + ")",
+                backgroundSize: "100% 100%"
+            });
+        },
+
+        persistToProject: function( item ) {
+            app.status.get('currentSequence').setSoundtrack( item, this );
+        },
+
+        setSoundtrackLayer: function( layer ) {
+            this.stopListening( this.model );
+            this.model = layer;
+            this.model.on("play", this.onPlay, this );
+            this.model.on("pause", this.onPause, this );
+            this.model.on("timeupdate", this.onTimeupdate, this );
+            this.render();
+        },
+
+        onPlay: function( obj ) {
+            this.$(".playpause i")
+                .removeClass("icon-play")
+                .addClass("icon-pause");
+        },
+
+        onPause: function( obj ) {
+            this.$(".playpause i")
+                .addClass("icon-play")
+                .removeClass("icon-pause");
+        },
+
+        onTimeupdate: function( obj ) {
+            this.$(".elapsed").css("width", ( obj.currentTime / obj.duration ) * 100 + "%" )
+            this.$(".time-display").text( this.toMinSec( obj.currentTime ) + " / " + this.toMinSec( obj.duration ) );
+        },
+
+        events: {
+            "click .playpause": "playpause",
+            "click .remove": "removeSoundtrack"
+        },
+
+        playpause: function() {
+            this.model.visual.playPause();
+        },
+
+        removeSoundtrack: function() {
+            if ( confirm("Remove soundtrack from project?") ) {
+                this.stopListening( this.model );
+                app.status.get('currentSequence').removeSoundtrack( this.model );
+                this.model = null;
+                this.render();
+            }
+        },
+
+        toMinSec: function( s ) {
+            var min, sec;
+
+            min = Math.floor( s / 60 );
+            min = min < 10 ? "0" + min : min;
+            sec = Math.round( s % 60 );
+            sec = sec < 10 ? "0" + sec : sec;
+
+            return min + ":" + sec;
+
         }
+        
     });
 
 });
@@ -74862,7 +75276,8 @@ function( app, ItemModel ) {
         },
 
         url: function() {
-            var url = app.api + "items/search?";
+            var url = "http://www.zeega.com/api/items/search?";
+//            var url = app.api + "items/search?";
 
             _.each( this.search.toJSON(), function( value, key ) {
                 if ( value !== "" && value !== null ) {
@@ -74906,17 +75321,16 @@ function( app ) {
         },
 
         events: {
-            "click .grid": "goGrid",
-            "click .list": "goList",
+            "click .gridToggle": "gridToggle",
             "keyup .search-box": "onSearchKepress"
         },
 
-        goGrid: function() {
-            this.$el.removeClass("list");
-        },
+        gridToggle: function() {
+            this.$el.toggleClass("list")
+                .toggleClass("grid");
 
-        goList: function() {
-            this.$el.addClass("list");
+            this.$(".gridToggle i").toggleClass("icon-th")
+                .toggleClass("icon-th-list");
         },
 
         onSearchKepress: function( e ) {
@@ -74927,11 +75341,8 @@ function( app ) {
         },
 
         onResize: function() {
-            var leftCol = 0;
-
-            leftCol += $(".left-column .nav").height();
-            leftCol += $(".left-column .project-meta").height();
-            leftCol += $(".left-column .media-drawer-controls").height();
+            var leftCol = $(".left-column .static-upper").height()
+                + $(".left-column .media-drawer-controls").height();
 
             this.$(".ZEEGA-items").css("height", window.innerHeight - leftCol );
         }
@@ -74961,6 +75372,7 @@ function( app, SearchCollection, ItemsView ) {
             type: "-project AND -collection",
             page: 1,
             q: "",
+            user: 36,
             sort: "date-desc"
         },
 
@@ -75006,12 +75418,15 @@ define('modules/layout-main',[
     "modules/views/workspace",
     "modules/views/layers",
     "modules/views/frame-properties",
+    "modules/views/layer-drawer",
+    "modules/views/soundtrack",
+
     "modules/search.model",
 
     "backbone"
 ],
 
-function( app, Navbar, ProjectMeta, Sequences, Frames, Workspace, Layers, FrameProperties, SearchModel ) {
+function( app, Navbar, ProjectMeta, Sequences, Frames, Workspace, Layers, FrameProperties, LayerDrawer, Soundtrack, SearchModel ) {
 
     return Backbone.Layout.extend({
 
@@ -75028,9 +75443,7 @@ function( app, Navbar, ProjectMeta, Sequences, Frames, Workspace, Layers, FrameP
 
         beforeRender: function() {
             this.insertView( ".nav", new Navbar({ model: app }) );
-            //this.insertView( ".project-meta", new ProjectMeta({ model: app }) );
             this.insertView( ".sequences", new Sequences({ model: app }) );
-            //this.insertView( ".frames", new Frames({ model: app }) );
             this.insertView( ".workspace", new Workspace({ model: app }) );
             this.insertView( ".layers", new Layers({ model: app }) );
         },
@@ -75039,9 +75452,19 @@ function( app, Navbar, ProjectMeta, Sequences, Frames, Workspace, Layers, FrameP
             // I like this better. eliminates wasted elements
             app.search = new SearchModel();
 
+            new Soundtrack({
+                model: app.project,
+                el: this.$(".soundtrack")
+            }).render();
+
             new ProjectMeta({
                 model: app,
                 el: this.$(".project-meta")
+            }).render();
+
+            new LayerDrawer({
+                model: app,
+                el: this.$(".layer-drawer")
             }).render();
 
             new Frames({
@@ -75071,35 +75494,6 @@ function( app, Navbar, ProjectMeta, Sequences, Frames, Workspace, Layers, FrameP
 
 });
 
-define('zeega_parser/modules/sequence.model',[
-    "app"
-],
-
-function( Zeega ) {
-
-    return Zeega.Backbone.Model.extend({
-
-        defaults: {
-            advance_to: null,
-            attr: {},
-            description: null,
-            frames: [],
-            id: null,
-            persistent_layers: [],
-            title: ""
-        },
-
-        url : function() {
-            if ( this.isNew() ) {
-                return Zeega.api + 'projects/'+ Zeega.project.id +'/sequences';
-            } else {
-                return Zeega.api +'sequences/' + this.id;
-            }
-        }
-
-    });
-
-});
 // layer.js
 define('zeega_parser/modules/layer.model',[
     "app"
@@ -75158,6 +75552,7 @@ function( Zeega ) {
 
         // when the parent collection is resorted as in a layer shuffle
         onSort: function( collection ) {
+
             var zIndex = this.order[ collection.frame.id ];
             this.updateZIndex( zIndex );
         },
@@ -75533,12 +75928,34 @@ function( Zeega, Controls ) {
 
         initialize: function() {
             this.init();
+
+            this.model.off("blur focus");
+            this.model.on("focus", this.onFocus, this );
+            Zeega.on("layersBlur", this.onBlur, this );
+        },
+
+        events: {},
+        editorEvents: {
+            "click": "onClick"
+        },
+
+        onClick: function() {
+            Zeega.trigger("layersBlur");
+            this.model.trigger("focus");
         },
 
         /* editor fxns */
-
         enterEditorMode: function() {
             this.loadControls();
+            this.delegateEvents( _.extend( this.events, this.editorEvents ));
+        },
+
+        onFocus: function() {
+            this.$el.addClass('active');
+        },
+
+        onBlur: function() {
+            this.$el.removeClass('active');
         },
 
         loadControls: function() {
@@ -91220,11 +91637,11 @@ function( Zeega, LayerModel, Visual, MediaPlayer ) {
 
 define('zeega_parser/plugins/layers/audio/audio',[
     "app",
-    "zeega_parser/plugins/layers/_layer/_layer",
-    "zeega_parser/plugins/layers/video/video"
+    "zeega_parser/modules/layer.model",
+    "zeega_parser/modules/layer.visual.view"
 ],
 
-function( Zeega, _Layer, VideoLayer ){
+function( Zeega, _Layer, Visual ){
 
     var Layer = Zeega.module();
 
@@ -91244,13 +91661,84 @@ function( Zeega, _Layer, VideoLayer ){
             cue_out: null,
             fade_in: 0,
             fade_out: 0,
+            loop: false,
             opacity: 0,
-            citation: true
+            citation: true,
+            soundtrack: false
         }
     });
 
-    Layer.Audio.Visual = VideoLayer.Video.Visual.extend({
-        template: "plugins/audio"
+    Layer.Audio.Visual = Visual.extend({
+
+        audio: null,
+        ended: false,
+        playbackCount: 0,
+
+        template: "audio/audio",
+
+        serialize: function() {
+            return this.model.toJSON();
+        },
+
+        onPlay: function() {
+            this.setAudio();
+            this.ended = false;
+            this.audio.play();
+        },
+
+        onPause: function() {
+            this.setAudio();
+            this.audio.pause();
+        },
+
+        onExit: function() {
+            this.setAudio();
+            this.audio.pause();
+        },
+
+        playPause: function() {
+            this.setAudio();
+
+            if ( this.audio.paused ) {
+                this.audio.play();
+            } else {
+                this.audio.pause();
+            }
+        },
+
+        setAudio: function() {
+            if ( this.audio === null ) {
+                this.audio = document.getElementById("audio-el-" + this.model.id );
+                this.listen();
+
+                this.audio.load();
+            }
+        },
+
+        listen: function() {
+            $(this.audio).on("canplay", function() {
+                this.model.trigger( "visual_ready", this.model.id );
+                this.model.trigger( "canplay", this.model );
+            }.bind( this ));
+
+            _.each( ["play", "pause", "timeupdate"], function( e ) {
+                $(this.audio).on( e, function() {
+                    this.model.trigger( e, {
+                        layer: this.model,
+                        currentTime: this.audio.currentTime,
+                        duration: this.audio.duration
+                    });
+                }.bind( this ));
+            }, this );
+        },
+
+        verifyReady: function() {
+            this.setAudio();
+            this.$('audio').on("canplay", function() {
+                this.audio.pause();
+                this.model.trigger( "visual_ready", this.model.id );
+            }.bind( this ));
+        }
     });
 
     return Layer;
@@ -91647,12 +92135,117 @@ function(
     );
 });
 
+define('zeega_parser/modules/sequence.model',[
+    "app",
+    "zeega_parser/plugins/layers/_all"
+],
+
+function( Zeega, Layers ) {
+
+    return Zeega.Backbone.Model.extend({
+
+        defaults: {
+            advance_to: null,
+            attr: {
+                soundtrack: false
+            },
+            description: null,
+            frames: [],
+            id: null,
+            persistent_layers: [],
+            title: ""
+        },
+
+        url : function() {
+            if ( this.isNew() ) {
+                return Zeega.api + 'projects/'+ Zeega.project.id +'/sequences';
+            } else {
+                return Zeega.api +'sequences/' + this.id;
+            }
+        },
+
+        initialize: function() {
+            // this.on("change:frames", this.onFrameSort, this );
+        },
+
+        onFrameSort: function() {
+            _.each( this.get("frames"), function( frameID, i ) {
+                this.frames.get( frameID ).set("_order", i );
+            }, this );
+            this.frames.sort();
+        },
+
+        setSoundtrack: function( item, view ) {
+            var newLayer;
+
+            if ( this.get("attr").soundtrack ) {
+                this.removeSoundtrack(); // does not work
+            }
+
+            newLayer = new Layers[ item.get("layer_type") ]({
+                type: item.get("layer_type")
+            });
+
+            newLayer.set( "attr", _.extend({},
+                newLayer.get("attr"),
+                {
+                    loop: true,
+                    soundtrack: true
+                },
+                item.toJSON())
+            );
+
+
+            newLayer.save().success(function( response ) {
+                var attr = this.get("attr");
+
+                attr.soundtrack = newLayer.id
+                this.set("attr", attr ); //save
+                this.persistLayer( newLayer );
+                view.setSoundtrackLayer( newLayer );
+            }.bind( this ));
+        },
+
+        removeSoundtrack: function( layer ) {
+            var attr = this.get("attr");
+
+            attr.soundtrack = false;
+            this.set("attr", attr ); //save
+            this.unpersistLayer( layer );
+        },
+
+        persistLayer: function( layer ) {
+            if ( !_.contains( layer.id, this.get("persistent_layers") ) ) {
+                var pLayers = this.get("persistent_layers");
+
+                pLayers.push( layer.id );
+                this.set("persistent_layers", pLayers ); //save
+                this.frames.each(function( frame ) {
+                    layer.order[ frame.id ] = frame.layers.length;
+                    frame.layers.add( layer );
+                });
+            }
+        },
+
+        unpersistLayer: function( layer ) {
+            if ( _.contains( this.get("persistent_layers"), layer.id ) ) {
+                var pLayers = _.without( this.get("persistent_layers"), layer.id );
+
+                this.save("persistent_layers", pLayers ); //save
+                this.frames.each(function( frame ) {
+                    frame.layers.remove( layer );
+                });
+            }
+        }
+
+    });
+
+});
 // frame.js
 define('zeega_parser/modules/frame.model',[
     "app",
     "backbone",
     "zeega_parser/plugins/layers/_all"
-
 ],
 
 function( Zeega, Backbone, Layers ) {
@@ -91931,11 +92524,16 @@ function( Zeega, Layers ) {
                 this.onAdd( layer );
             }, this );
             this.on("add", this.onAdd, this );
+            this.on("remove", this.onAdd, this );
         },
 
         onAdd: function( layer ) {
             layer.addCollection( this );
             layer.initVisual( Layers[ layer.get("type") ]);
+        },
+
+        onRemove: function( layer ) {
+            console.log('layer removed', layer, this)
         },
 
         editorCleanup: function() {
@@ -91964,6 +92562,10 @@ function( Zeega, FrameModel, LayerCollection ) {
 
     return Zeega.Backbone.Collection.extend({
         model: FrameModel,
+
+        initialize: function() {
+            this.on("remove", this.onFrameRemove, this );
+        },
 
         initLayers: function( layerCollection, options ) {
 
@@ -92004,16 +92606,26 @@ function( Zeega, FrameModel, LayerCollection ) {
         addFrame: function( index ) {
             var newFrame = new FrameModel();
 
+            newFrame.status = Zeega.status;
+            newFrame.layers = new LayerCollection();
+            newFrame.layers.frame = newFrame;
+
             newFrame.save().success(function() {
                 if ( _.isUndefined( index ) ) {
                     this.push( newFrame );
                 } else {
                     this.add( newFrame, { at: index });
                 }
-                console.log('add frame to sequence', this, newFrame );
             }.bind( this ));
 
+        },
 
+        onFrameRemove: function( frameModel ) {
+            // console.log('on frame Remove', frameModel )
+            this.sort();
+            if ( this.length == 0 ) {
+                this.addFrame();
+            }
         },
 
         comparator: function( frame ) {
@@ -92933,7 +93545,6 @@ function(app, Initializer) {
         },
 
         index: function() {
-            console.log("Route: index")
             initialize();
         }
 
