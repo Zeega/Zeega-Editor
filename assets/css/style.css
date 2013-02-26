@@ -3759,6 +3759,29 @@ a:active {
 .project-meta .project-meta-lower .ZEEGA-project-share {
   padding: 5px 10px;
 }
+.project-meta .preview {
+  display: block;
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  margin: auto;
+  height: 25px;
+  width: 25px;
+}
+.play-zcon,
+.pause-zcon {
+  background-image: url('../img/playpause.png');
+  background-position: 0px 0px;
+  background-repeat: no-repeat;
+  display: inline-block;
+  height: 25px;
+  width: 25px;
+}
+.pause-zcon {
+  background-position: -25px 0px;
+}
 .ZEEGA-sequences {
   display: none;
   font-size: 13px;

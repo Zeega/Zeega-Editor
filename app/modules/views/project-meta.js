@@ -64,7 +64,8 @@ function( app ) {
         events: {
             "keypress .ZEEGA-project-title": "onTitleKeyup",
             "blur .ZEEGA-project-title": "onBlur",
-            "click .meta-menu a": "onMenuClick"
+            "click .meta-menu a": "onMenuClick",
+            "click .preview": "projectPreview"
         },
 
         onTitleKeyup: function( e ) {
