@@ -44,8 +44,8 @@ function( app ) {
         },
 
         onResize: function() {
-            var leftCol = $(".left-column .static-upper").height()
-                + $(".left-column .media-drawer-controls").height();
+            var leftCol = $(".left-column .static-upper").height() +
+                $(".left-column .media-drawer-controls").height();
 
             this.$(".ZEEGA-items").css("height", window.innerHeight - leftCol );
         }

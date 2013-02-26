@@ -459,7 +459,7 @@ __p+='<div class="layer-marker">\n    <i class="zicon-'+
 ( type.toLowerCase() )+
 ' zicon-white"></i> <span class="layer-title">'+
 ( attr.title )+
-'</span>\n    <a href="#"><i data-action="continueToNextFrame" class="action icon-chevron-right icon-white"></i></a>\n    <a href="#"><i data-action="continueToChapter" class="action icon-forward icon-white"></i></a>\n</div>';
+'</span>\n    <a href="#"><i data-action="continueToNextFrame" class="action icon-chevron-right icon-white"></i></a>\n    <a href="#"><i data-action="continueToChapter" class="action icon-forward icon-white"></i></a>\n    <a href="#"><i data-action="deleteLayer" class="action icon-trash icon-white"></i></a>\n</div>';
 }
 return __p;
 };
@@ -503,7 +503,7 @@ __p+='<div class="ZEEGA-project-cover" style="\n    background: url('+
 ( cover_image )+
 ') no-repeat center center;\n    -webkit-background-size: cover;\n    background-size: cover;\n">\n    <div class="project-meta-upper">\n        <div class="ZEEGA-project-title" contenteditable="true">'+
 ( title )+
-'</div>\n    </div>\n    <div class="project-meta-lower">\n        <div class="ZEEGA-project-share">\n            SHARE <a href="#">tw</a> <a href="#">fb</a> <a href="#">tb</a> <a href="#">em</a>\n        </div>\n    </div>\n\n</div>\n\n<!--\n<div class="ZEEGA-hmenu light">\n    <ul class=\'meta-menu pull-right\'>\n        <li>\n            <a href="#" class="options disabled" data-action="projectOptions">\n                <div class="hmenu-label">options</div>\n                <i class="icon-list-alt icon-white"></i>\n            </a>\n        </li>\n        <li>\n            <a href="#" class="publish disabled" data-action="projectPublish">\n                <div class="hmenu-label">publish</div>\n                <i class="icon-share icon-white"></i>\n            </a>\n        </li>\n        <li>\n            <a href="#" class="share disabled" data-action="projectShare">\n                <div class="hmenu-label">share</div>\n                <i class="icon-envelope icon-white"></i>\n            </a>\n        </li>\n        <li>\n            <a href="#" class="preview" data-action="projectPreview">\n                <div class="hmenu-label">preview</div>\n                <i class="icon-play icon-white"></i>\n            </a>\n        </li>\n    </ul>\n</div>\n-->';
+'</div>\n    </div>\n    <div class="project-meta-lower">\n        <div class="ZEEGA-project-share">\n            share: \n            <a href="#"><i class="zsocial-twitter"></i></a>\n            <a href="#"><i class="zsocial-facebook"></i></a>\n            <a href="#"><i class="zsocial-tumblr"></i></a>\n            <a href="#"><i class="zsocial-email"></i></a>\n        </div>\n    </div>\n\n</div>';
 }
 return __p;
 };
@@ -59562,7 +59562,6 @@ function( app ) {
 
             index = this.get("currentSequence").frames.length <= options.index ? this.get("currentSequence").frames.length - 1 : options.index;
             nextFrame = this.get("currentSequence").frames.at( index );
-console.log(this.get("currentSequence").frames.length, index, nextFrame)
             this.setCurrentFrame( nextFrame );
         },
 
@@ -59618,6 +59617,10 @@ function( app ) {
 
         afterRender: function() {
             this.makeCoverDroppable();
+
+            if ( app.project.get("cover_image") === "" ) {
+                this.model.on("layer_added", this.onLayerAdded, this );
+            }
         },
 
         makeCoverDroppable: function() {
@@ -59634,8 +59637,20 @@ function( app ) {
             });
         },
 
+        onLayerAdded: function( layer ) {
+            if ( this.model.project.get("cover_image") === "" ) {
+                console.log("layer ud", layer);
+                if ( layer.get("type") == "Image" ) {
+                    this.updateCoverImage( layer.getAttr("uri") );
+                }
+            } else {
+                this.model.off("layer_added");
+            }
+        },
+
         updateCoverImage: function( url ) {
-            this.model.project.save("thumbnail_url", url );
+            app.project.save("cover_image", url );
+
             $(".ZEEGA-project-cover").fadeOut("fast", function() {
                 $(".ZEEGA-project-cover")
                     .attr("style", "")
@@ -59823,10 +59838,6 @@ function( app, FrameView ) {
         template: "frames",
         className: "ZEEGA-frames",
 
-        initialize: function() {
-            
-        },
-
         afterRender: function() {
             this.renderSequenceFrames( this.model.status.get("currentSequence") );
             this.makeSortable();
@@ -59842,7 +59853,6 @@ function( app, FrameView ) {
                 update: function( e, ui ) {
                     this.updateFrameOrder();
                 }.bind(this)
-
             });
         },
 
@@ -59969,6 +59979,7 @@ function( app ) {
         },
 
         onChangeFrame: function( status, frameModel ) {
+            console.log('change frame', status, frameModel );
             this.clearWorkspace();
             this.renderFrame( frameModel );
         },
@@ -59982,6 +59993,7 @@ function( app ) {
 
         clearWorkspace: function() {
             this.model.status.get("previousFrame").layers.editorCleanup();
+            this.$el.empty();
         },
 
         renderFrame: function( frameModel ) {
@@ -60036,11 +60048,18 @@ function( app ) {
         },
 
         continueToNextFrame: function() {
-            console.log('continue to next frame')
+            this.$el.attr("data-continue", "true");
+            app.status.get("currentSequence").continueLayerToNextFrame( this.model );
         },
 
         continueToChapter: function() {
-            console.log('continue to chapter')
+            this.$el.attr("data-persist", "true"); // this will toggle!!
+            app.status.get("currentSequence").togglePersistance( this.model );
+        },
+
+        deleteLayer: function() {
+            console.log("delete layer", this);
+            this.model.collection.remove( this.model );
         },
 
         selectLayer: function() {
@@ -74987,11 +75006,26 @@ function( app, LayerList ) {
 
         renderFrameLayers: function( frameModel ) {
             this.updateListeners();
-            frameModel.layers.each(function( layer ) {
-                var layerView = new LayerList({
+            frameModel.layers.each(function( layer, i ) {
+                var layerView, isPersistent, nextFrameIndex, isContinued = false;
+
+                // check to see if persistent
+                isPersistent = _.contains( frameModel.collection.sequence.get("persistent_layers"), layer.id );
+                // check to see if continued to next frame
+                nextFrameIndex = _.indexOf( _.toArray( frameModel.collection ), frameModel );
+
+                if ( nextFrameIndex > -1 && frameModel.collection.length > nextFrameIndex + 1 ) {
+                    var nextFrame = frameModel.collection.at( nextFrameIndex + 1 );
+
+                    isContinued = !_.isUndefined( nextFrame.layers.get( layer.id ) );
+                }
+
+                layerView = new LayerList({
                     model: layer,
                     attributes: {
-                        "data-id": layer.id
+                        "data-id": layer.id,
+                        "data-persists": isPersistent,
+                        "data-continued": isContinued
                     }
                 });
 
@@ -75060,10 +75094,6 @@ function( app ) {
         el: null,
         template: "layer-drawer",
 
-        initialize: function() {
-
-        },
-
         events: {
             "click .layer-menu a": "createFrame"
         },
@@ -75072,8 +75102,7 @@ function( app ) {
             var type = $(e.target).closest("a").data("layerType");
 
             app.status.get('currentFrame').addLayerType( type );
-        },
-
+        }
 
     });
 
@@ -75091,13 +75120,9 @@ function( app ) {
         template: "soundtrack",
         className: "ZEEGA-soundtrack",
 
-        initialize: function() {
-
-        },
-
         serialize: function() {
             if ( this.model === null || this.model.get("type") != "Audio" ) {
-                return { model: false }
+                return { model: false };
             } else if ( this.model.get("type") == "Audio" ) {
                 return _.extend({ model: true }, this.model.toJSON() );
             }
@@ -75155,7 +75180,7 @@ function( app ) {
         },
 
         onTimeupdate: function( obj ) {
-            this.$(".elapsed").css("width", ( obj.currentTime / obj.duration ) * 100 + "%" )
+            this.$(".elapsed").css("width", ( obj.currentTime / obj.duration ) * 100 + "%" );
             this.$(".time-display").text( this.toMinSec( obj.currentTime ) + " / " + this.toMinSec( obj.duration ) );
         },
 
@@ -75341,8 +75366,8 @@ function( app ) {
         },
 
         onResize: function() {
-            var leftCol = $(".left-column .static-upper").height()
-                + $(".left-column .media-drawer-controls").height();
+            var leftCol = $(".left-column .static-upper").height() +
+                $(".left-column .media-drawer-controls").height();
 
             this.$(".ZEEGA-items").css("height", window.innerHeight - leftCol );
         }
@@ -75499,9 +75524,9 @@ define('zeega_parser/modules/layer.model',[
     "app"
 ],
 
-function( Zeega ) {
+function( app ) {
 
-    return Zeega.Backbone.Model.extend({
+    return app.Backbone.Model.extend({
         ready: false,
         state: "waiting", // waiting, loading, ready, destroyed, error
 
@@ -75523,9 +75548,9 @@ function( Zeega ) {
 
         url: function() {
             if ( this.isNew() ) {
-                return Zeega.api + "projects/" + Zeega.project.id + "/layers";
+                return app.api + "projects/" + app.project.id + "/layers";
             } else {
-                return Zeega.api + "layers/" + this.id;
+                return app.api + "layers/" + this.id;
             }
         },
 
@@ -75534,6 +75559,22 @@ function( Zeega ) {
 
             this.set("attr", augmentAttr );
             this.order = {};
+        },
+
+        getAttr: function( attrName ) {
+            return this.get("attr")[ attrName ];
+        },
+
+        setAttr: function( attrObj ) {
+            var attr = this.get("attr");
+
+            this.set("attr", _.extend( attr, attrObj ) );
+        },
+
+        saveAttr: function( attrObj ) {
+            var attr = this.get("attr");
+
+            this.save("attr", _.extend( attr, attrObj ) );
         },
 
         initVisual: function( layerClass ) {
@@ -75641,9 +75682,9 @@ define('zeega_parser/modules/control.view',[
     "jqueryUI"
 ],
 
-function( Zeega ) {
+function( app ) {
 
-    return Zeega.Backbone.View.extend({
+    return app.Backbone.View.extend({
 
         propertyName: "",
         $visual: null,
@@ -75690,7 +75731,7 @@ function( Zeega ) {
             // Initialize done for use in async-mode
             var done;
             // Concatenate the file extension.
-            path = Zeega.parserPath + "plugins/controls/" + path + ".html";
+            path = app.parserPath + "plugins/controls/" + path + ".html";
             // remove app/templates/ via regexp // hacky? yes. probably.
             path = path.replace("app/templates/","");
 
@@ -75701,7 +75742,7 @@ function( Zeega ) {
                 // Put fetch into `async-mode`.
                 done = this.async();
                 // Seek out the template asynchronously.
-                return Zeega.$.ajax({ url: Zeega.root + path }).then(function( contents ) {
+                return app.$.ajax({ url: app.root + path }).then(function( contents ) {
                     done(
                       JST[ path ] = _.template( contents )
                     );
@@ -75913,9 +75954,9 @@ define('zeega_parser/modules/layer.visual.view',[
     "zeega_parser/plugins/controls/_all-controls"
 ],
 
-function( Zeega, Controls ) {
+function( app, Controls ) {
 
-    return Zeega.Backbone.View.extend({
+    return app.Backbone.View.extend({
 
         className: function() {
             return "visual-element visual-" + this.model.get("type").toLowerCase();
@@ -75931,7 +75972,7 @@ function( Zeega, Controls ) {
 
             this.model.off("blur focus");
             this.model.on("focus", this.onFocus, this );
-            Zeega.on("layersBlur", this.onBlur, this );
+            app.on("layersBlur", this.onBlur, this );
         },
 
         events: {},
@@ -75940,7 +75981,7 @@ function( Zeega, Controls ) {
         },
 
         onClick: function() {
-            Zeega.trigger("layersBlur");
+            app.trigger("layersBlur");
             this.model.trigger("focus");
         },
 
@@ -76133,7 +76174,7 @@ function( Zeega, Controls ) {
             // Initialize done for use in async-mode
             var done;
             // Concatenate the file extension.
-            path = Zeega.parserPath + "plugins/layers/" + path + ".html";
+            path = app.parserPath + "plugins/layers/" + path + ".html";
             // remove app/templates/ via regexp // hacky? yes. probably.
             path = path.replace("app/templates/","");
 
@@ -76144,7 +76185,7 @@ function( Zeega, Controls ) {
                 // Put fetch into `async-mode`.
                 done = this.async();
                 // Seek out the template asynchronously.
-                return Zeega.$.ajax({ url: Zeega.root + path }).then(function( contents ) {
+                return app.$.ajax({ url: app.root + path }).then(function( contents ) {
                     done(
                       JST[ path ] = _.template( contents )
                     );
@@ -92140,9 +92181,9 @@ define('zeega_parser/modules/sequence.model',[
     "zeega_parser/plugins/layers/_all"
 ],
 
-function( Zeega, Layers ) {
+function( app, Layers ) {
 
-    return Zeega.Backbone.Model.extend({
+    return app.Backbone.Model.extend({
 
         defaults: {
             advance_to: null,
@@ -92158,9 +92199,9 @@ function( Zeega, Layers ) {
 
         url : function() {
             if ( this.isNew() ) {
-                return Zeega.api + 'projects/'+ Zeega.project.id +'/sequences';
+                return app.api + 'projects/'+ app.project.id +'/sequences';
             } else {
-                return Zeega.api +'sequences/' + this.id;
+                return app.api +'sequences/' + this.id;
             }
         },
 
@@ -92199,7 +92240,7 @@ function( Zeega, Layers ) {
             newLayer.save().success(function( response ) {
                 var attr = this.get("attr");
 
-                attr.soundtrack = newLayer.id
+                attr.soundtrack = newLayer.id;
                 this.set("attr", attr ); //save
                 this.persistLayer( newLayer );
                 view.setSoundtrackLayer( newLayer );
@@ -92231,10 +92272,28 @@ function( Zeega, Layers ) {
             if ( _.contains( this.get("persistent_layers"), layer.id ) ) {
                 var pLayers = _.without( this.get("persistent_layers"), layer.id );
 
-                this.save("persistent_layers", pLayers ); //save
+                this.set("persistent_layers", pLayers ); //save
                 this.frames.each(function( frame ) {
                     frame.layers.remove( layer );
                 });
+            }
+        },
+
+        togglePersistance: function( layer ) {
+            var isPersistant = _.contains( this.get("persistent_layers"), layer.id );
+
+            if( isPersistant ) {
+                this.unpersistLayer( layer );
+            } else {
+                this.persistLayer( layer );
+            }
+        },
+
+        continueLayerToNextFrame: function( layer ) {
+            var currentIndex = _.indexOf( _.toArray( this.frames ), this.status.get("currentFrame") );
+
+            if ( currentIndex != -1 && this.frames.length > currentIndex + 1 ) {
+                this.frames.at( currentIndex + 1 ).layers.push( layer );
             }
         }
 
@@ -92248,9 +92307,9 @@ define('zeega_parser/modules/frame.model',[
     "zeega_parser/plugins/layers/_all"
 ],
 
-function( Zeega, Backbone, Layers ) {
+function( app, Backbone, Layers ) {
 
-    return Zeega.Backbone.Model.extend({
+    return app.Backbone.Model.extend({
 
         ready: false,
         // waiting, loading, ready, destroyed
@@ -92289,9 +92348,9 @@ function( Zeega, Backbone, Layers ) {
 
         url: function() {
             if( this.isNew() ) {
-                return Zeega.api + 'projects/'+ Zeega.project.id +'/sequences/'+ Zeega.status.get("currentSequence").id +'/frames';
+                return app.api + 'projects/'+ app.project.id +'/sequences/'+ app.status.get("currentSequence").id +'/frames';
             } else {
-                return Zeega.api + 'frames/'+ this.id;
+                return app.api + 'frames/'+ this.id;
             }
         },
 
@@ -92513,9 +92572,9 @@ define('zeega_parser/modules/layer.collection',[
     "zeega_parser/plugins/layers/_all"
 ],
 
-function( Zeega, Layers ) {
+function( app, Layers ) {
 
-    return Zeega.Backbone.Collection.extend({
+    return app.Backbone.Collection.extend({
 
         frame: null,
 
@@ -92524,16 +92583,25 @@ function( Zeega, Layers ) {
                 this.onAdd( layer );
             }, this );
             this.on("add", this.onAdd, this );
-            this.on("remove", this.onAdd, this );
+            this.on("remove", this.onRemove, this );
         },
 
         onAdd: function( layer ) {
-            layer.addCollection( this );
-            layer.initVisual( Layers[ layer.get("type") ]);
+            if ( layer ) {
+                layer.addCollection( this );
+                layer.initVisual( Layers[ layer.get("type") ]);
+                app.trigger("layer_added", layer );
+            } else {
+                this.each(function( layer ){
+                    layer.addCollection( this );
+                    layer.initVisual( Layers[ layer.get("type") ]);
+                });
+            }
         },
 
         onRemove: function( layer ) {
-            console.log('layer removed', layer, this)
+            layer.editorCleanup();
+            app.trigger("layer_remove", layer );
         },
 
         editorCleanup: function() {
@@ -92558,9 +92626,9 @@ define('zeega_parser/modules/frame.collection',[
     "zeega_parser/modules/layer.collection"
 ],
 
-function( Zeega, FrameModel, LayerCollection ) {
+function( app, FrameModel, LayerCollection ) {
 
-    return Zeega.Backbone.Collection.extend({
+    return app.Backbone.Collection.extend({
         model: FrameModel,
 
         initialize: function() {
@@ -92604,10 +92672,19 @@ function( Zeega, FrameModel, LayerCollection ) {
         // add frame at a specified index.
         // omit index to append frame
         addFrame: function( index ) {
-            var newFrame = new FrameModel();
+            var newFrame, continuingLayers = [];
+            // if the sequence has persistent layers then add them to new frames!
+            if ( this.sequence.get("persistent_layers").length ) {
+                _.each( this.sequence.get("persistent_layers"), function( layerID ) {
+                    console.log( app.project.getLayer( layerID ) );
+                    continuingLayers.push( app.project.getLayer( layerID ) );
+                });
+            }
 
-            newFrame.status = Zeega.status;
-            newFrame.layers = new LayerCollection();
+            newFrame = new FrameModel({ layers: this.sequence.get("persistent_layers").reverse() });
+
+            newFrame.status = app.status;
+            newFrame.layers = new LayerCollection( _.compact( continuingLayers ) );
             newFrame.layers.frame = newFrame;
 
             newFrame.save().success(function() {
@@ -92616,14 +92693,17 @@ function( Zeega, FrameModel, LayerCollection ) {
                 } else {
                     this.add( newFrame, { at: index });
                 }
-            }.bind( this ));
+//                 console.log("new frame save", newFrame, this );
 
+                app.trigger("frame_add", newFrame );
+            }.bind( this ));
         },
 
         onFrameRemove: function( frameModel ) {
+            app.trigger("frame_remove", frameModel );
             // console.log('on frame Remove', frameModel )
             this.sort();
-            if ( this.length == 0 ) {
+            if ( this.length === 0 ) {
                 this.addFrame();
             }
         },
@@ -92643,9 +92723,9 @@ define('zeega_parser/modules/sequence.collection',[
     "zeega_parser/plugins/layers/_all"
 ],
 
-function( Zeega, SequenceModel, FrameCollection, LayerCollection, LayerModels ) {
+function( app, SequenceModel, FrameCollection, LayerCollection, LayerModels ) {
 
-    return Zeega.Backbone.Collection.extend({
+    return app.Backbone.Collection.extend({
         model: SequenceModel,
 
         initFrames: function( frames, layers, options ) {
@@ -92687,9 +92767,9 @@ define('zeega_parser/modules/project.model',[
     "zeega_parser/modules/sequence.collection"
 ],
 
-function( Zeega, SequenceCollection ) {
+function( app, SequenceCollection ) {
 
-    return Zeega.Backbone.Model.extend({
+    return app.Backbone.Model.extend({
 
         defaults: {
             authors: null,
@@ -92718,7 +92798,7 @@ function( Zeega, SequenceCollection ) {
         },
 
         url : function() {
-            return Zeega.api +'projects/' + this.id;
+            return app.api +'projects/' + this.id;
         },
 
         initialize: function( data, options ) {
@@ -92925,6 +93005,24 @@ function( Zeega, SequenceCollection ) {
 
         getFrame: function( frameID ) {
             return this.sequences.get( this.frameKey[ frameID ] ).frames.get( frameID );
+        },
+
+        // this is not the best. cache these somewhere in a big collection?
+        getLayer: function( layerID ) {
+            var layerModel;
+
+            this.sequences.each(function( sequence ) {
+                sequence.frames.each(function( frame ) {
+                    var layer = frame.layers.get( layerID );
+
+                    if ( layer ) {
+                        layerModel = layer;
+                        return false;
+                    }
+                });
+            });
+
+            return layerModel;
         }
 
     });
@@ -93509,7 +93607,7 @@ function( app, Status, Layout, ZeegaParser ) {
                     status: app.status
                 }
             });
-            
+
             app.status.set({
                 currentSequence: app.project.sequences.at( 0 ),
                 currentFrame: app.project.sequences.at( 0 ).frames.at( 0 )

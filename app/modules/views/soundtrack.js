@@ -12,7 +12,7 @@ function( app ) {
 
         serialize: function() {
             if ( this.model === null || this.model.get("type") != "Audio" ) {
-                return { model: false }
+                return { model: false };
             } else if ( this.model.get("type") == "Audio" ) {
                 return _.extend({ model: true }, this.model.toJSON() );
             }
@@ -70,7 +70,7 @@ function( app ) {
         },
 
         onTimeupdate: function( obj ) {
-            this.$(".elapsed").css("width", ( obj.currentTime / obj.duration ) * 100 + "%" )
+            this.$(".elapsed").css("width", ( obj.currentTime / obj.duration ) * 100 + "%" );
             this.$(".time-display").text( this.toMinSec( obj.currentTime ) + " / " + this.toMinSec( obj.duration ) );
         },
 

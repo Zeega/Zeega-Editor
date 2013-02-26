@@ -38,7 +38,6 @@ function( app ) {
 
             index = this.get("currentSequence").frames.length <= options.index ? this.get("currentSequence").frames.length - 1 : options.index;
             nextFrame = this.get("currentSequence").frames.at( index );
-console.log(this.get("currentSequence").frames.length, index, nextFrame)
             this.setCurrentFrame( nextFrame );
         },
 

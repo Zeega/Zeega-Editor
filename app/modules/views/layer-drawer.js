@@ -10,10 +10,6 @@ function( app ) {
         el: null,
         template: "layer-drawer",
 
-        initialize: function() {
-
-        },
-
         events: {
             "click .layer-menu a": "createFrame"
         },
@@ -22,8 +18,7 @@ function( app ) {
             var type = $(e.target).closest("a").data("layerType");
 
             app.status.get('currentFrame').addLayerType( type );
-        },
-
+        }
 
     });
 

@@ -19,12 +19,9 @@ function( app, LayerList ) {
         initialize: function() {
             app.on("window-resize rendered", this.onResize, this );
             app.status.on("change:currentFrame", this.onChangeFrame, this );
-
-            console.log("layers init", this)
         },
 
         onChangeFrame: function( status, frameModel ) {
-            console.log('layer list on change frame')
             this.unrenderLayers();
             this.renderFrameLayers( frameModel );
         },
@@ -70,7 +67,6 @@ function( app, LayerList ) {
 
         renderFrameLayers: function( frameModel ) {
             this.updateListeners();
-            console.log('frame model', frameModel)
             frameModel.layers.each(function( layer, i ) {
                 var layerView, isPersistent, nextFrameIndex, isContinued = false;
 
