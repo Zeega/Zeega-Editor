@@ -18,15 +18,33 @@
             // background: rgba(255,69,0,0.75);
             .transition( background, .5s);
         }
+
+        &[data-continued="true"] .continued,
+        &[data-persists="true"] .persists {
+            background: orangered;
+        }
+
     }
 
     .layer-title {
-        width: 93px;
+        width: 100%;
         white-space: nowrap;
         overflow: hidden;
         display: inline-block;
     }
 
+    .action-bg {
+        margin: 1px;
+        border-radius: 2px;
+        padding: 0px 2px 2px 0;
+        &:hover {
+            background: rgba(0,0,0,0.1);
+        }
+    }
+
+    .layer-list-bottom {
+        margin-top: 5px;
+    }
 }
 
 .visual-element {

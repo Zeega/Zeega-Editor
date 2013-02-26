@@ -4015,11 +4015,26 @@ a:active {
   transition: background 0.5s;
   -webkit-transition: background 0.5s;
 }
+.layers .ZEEGA-layer-list[data-continued="true"] .continued,
+.layers .ZEEGA-layer-list[data-persists="true"] .persists {
+  background: orangered;
+}
 .layers .layer-title {
-  width: 93px;
+  width: 100%;
   white-space: nowrap;
   overflow: hidden;
   display: inline-block;
+}
+.layers .action-bg {
+  margin: 1px;
+  border-radius: 2px;
+  padding: 0px 2px 2px 0;
+}
+.layers .action-bg:hover {
+  background: rgba(0, 0, 0, 0.1);
+}
+.layers .layer-list-bottom {
+  margin-top: 5px;
 }
 .visual-element {
   position: absolute;

@@ -124,6 +124,19 @@ module.exports = function(grunt) {
             }
         },
 
+        copy: {
+
+            layersImages: {
+                options: {
+                    flatten: true
+                },
+                files: {
+                    "assets/img/layers/" : "app/zeega-parser/plugins/layers/**/img/*"
+                }
+            }
+            
+        },
+
         // This task uses James Burke's excellent r.js AMD build tool.  In the
         // future other builders may be contributed as drop-in alternatives.
         requirejs: {

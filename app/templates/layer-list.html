@@ -1,6 +1,11 @@
 <div class="layer-marker">
-    <i class="zicon-<%= type.toLowerCase() %> zicon-white"></i> <span class="layer-title"><%= attr.title %></span>
-    <a href="#"><i data-action="continueToNextFrame" class="action icon-chevron-right icon-white"></i></a>
-    <a href="#"><i data-action="continueToChapter" class="action icon-forward icon-white"></i></a>
-    <a href="#"><i data-action="deleteLayer" class="action icon-trash icon-white"></i></a>
+    <div class="layer-list-top">
+        <span class="layer-title"><%= attr.title %></span>
+    </div>
+    <div class="layer-list-bottom clearfix">
+        <a href="#" class="action-bg pull-left"><i class="zicon-<%= type.toLowerCase() %> zicon-white"></i></a>
+        <a href="#" class="action-bg pull-left continued"><i data-action="continueToNextFrame" class="action icon-chevron-right icon-white"></i></a>
+        <a href="#" class="action-bg pull-left persists"><i data-action="continueToChapter" class="action icon-forward icon-white"></i></a>
+        <a href="#" class="action-bg pull-right"><i data-action="deleteLayer" class="action icon-trash icon-white"></i></a>
+    </div>
 </div>
