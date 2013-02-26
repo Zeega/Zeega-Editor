@@ -59549,11 +59549,11 @@ define('app',[
         // Allow LayoutManager to augment Backbone.View.prototype.
         manage: true,
 
-        prefix: "app/templates/",
+        // prefix: "app/templates/",
 
         fetch: function(path) {
             // Concatenate the file extension.
-            path = path + ".html";
+            path = "app/templates/" + path + ".html";
 
             // If cached, use the compiled template.
             if (JST[path]) {
