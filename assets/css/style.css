@@ -4217,3 +4217,41 @@ a:active {
 .soundtrack.can-drop .instructions-2 {
   display: block;
 }
+.ZEEGA-layer-drawer {
+  *zoom: 1;
+}
+.ZEEGA-layer-drawer:before,
+.ZEEGA-layer-drawer:after {
+  display: table;
+  content: "";
+  line-height: 0;
+}
+.ZEEGA-layer-drawer:after {
+  clear: both;
+}
+.ZEEGA-layer-drawer li {
+  float: right;
+  height: 50px;
+  width: 50px;
+  margin-left: 1px;
+}
+.ZEEGA-layer-drawer li a {
+  height: 100%;
+  width: 100%;
+  background: rgba(0, 0, 0, 0.25);
+  display: inline-block;
+  font-size: 13px;
+  cursor: move;
+}
+.ZEEGA-layer-drawer li a:hover {
+  background: rgba(0, 0, 0, 0.5);
+}
+.ZEEGA-layer-drawer li .item-label {
+  text-align: center;
+  margin-top: 8px;
+}
+.ZEEGA-layer-drawer li i {
+  text-align: center;
+  margin: 0 auto;
+  display: block;
+}
