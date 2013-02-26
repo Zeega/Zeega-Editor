@@ -11,7 +11,8 @@ function( app ) {
             currentSequence: null,
             previousSequence: null,
             currentFrame: null,
-            previousFrame: null
+            previousFrame: null,
+            currentLayer: null
         },
 
         setCurrentFrame: function( frameModel ) {

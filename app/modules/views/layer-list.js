@@ -49,6 +49,7 @@ function( app ) {
         selectLayer: function() {
             app.trigger("layersBlur");
             this.model.trigger("focus");
+            app.status.set("currentLayer", this.model );
         },
 
         onFocus: function() {

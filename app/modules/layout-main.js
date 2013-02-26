@@ -7,7 +7,7 @@ define([
     "modules/views/frames",
     "modules/views/workspace",
     "modules/views/layers",
-    "modules/views/frame-properties",
+    "modules/views/layer-controls",
     "modules/views/layer-drawer",
     "modules/views/soundtrack",
 
@@ -16,7 +16,7 @@ define([
     "backbone"
 ],
 
-function( app, Navbar, ProjectMeta, Sequences, Frames, Workspace, Layers, FrameProperties, LayerDrawer, Soundtrack, SearchModel ) {
+function( app, Navbar, ProjectMeta, Sequences, Frames, Workspace, Layers, LayerControls, LayerDrawer, Soundtrack, SearchModel ) {
 
     return Backbone.Layout.extend({
 
@@ -62,9 +62,9 @@ function( app, Navbar, ProjectMeta, Sequences, Frames, Workspace, Layers, FrameP
                 el: this.$(".frames")
             }).render();
 
-            new FrameProperties({
+            new LayerControls({
                 model: app,
-                el: this.$(".frame-properties"),
+                el: this.$(".layer-controls"),
                 afterRender: function() {
                     app.trigger("rendered");
                 }
