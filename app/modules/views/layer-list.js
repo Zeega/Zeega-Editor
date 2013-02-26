@@ -32,11 +32,12 @@ function( app ) {
         },
 
         continueToNextFrame: function() {
-            console.log('continue to next frame')
+            this.$el.attr("data-continue", "true");
             app.status.get("currentSequence").continueLayerToNextFrame( this.model );
         },
 
         continueToChapter: function() {
+            this.$el.attr("data-persist", "true"); // this will toggle!!
             app.status.get("currentSequence").togglePersistance( this.model );
         },
 

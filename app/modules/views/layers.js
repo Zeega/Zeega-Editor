@@ -19,9 +19,12 @@ function( app, LayerList ) {
         initialize: function() {
             app.on("window-resize rendered", this.onResize, this );
             app.status.on("change:currentFrame", this.onChangeFrame, this );
+
+            console.log("layers init", this)
         },
 
         onChangeFrame: function( status, frameModel ) {
+            console.log('layer list on change frame')
             this.unrenderLayers();
             this.renderFrameLayers( frameModel );
         },
@@ -67,11 +70,27 @@ function( app, LayerList ) {
 
         renderFrameLayers: function( frameModel ) {
             this.updateListeners();
-            frameModel.layers.each(function( layer ) {
-                var layerView = new LayerList({
+            console.log('frame model', frameModel)
+            frameModel.layers.each(function( layer, i ) {
+                var layerView, isPersistent, nextFrameIndex, isContinued = false;
+
+                // check to see if persistent
+                isPersistent = _.contains( frameModel.collection.sequence.get("persistent_layers"), layer.id );
+                // check to see if continued to next frame
+                nextFrameIndex = _.indexOf( _.toArray( frameModel.collection ), frameModel );
+
+                if ( nextFrameIndex > -1 && frameModel.collection.length > nextFrameIndex + 1 ) {
+                    var nextFrame = frameModel.collection.at( nextFrameIndex + 1 );
+
+                    isContinued = !_.isUndefined( nextFrame.layers.get( layer.id ) );
+                }
+
+                layerView = new LayerList({
                     model: layer,
                     attributes: {
-                        "data-id": layer.id
+                        "data-id": layer.id,
+                        "data-persists": isPersistent,
+                        "data-continued": isContinued
                     }
                 });
 
