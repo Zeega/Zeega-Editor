@@ -1614,6 +1614,9 @@ body .ui-tooltip {
   font-family: futura;
   text-transform: uppercase;
   margin-bottom: 20px;
+  background: rgba(0, 0, 0, 0.6);
+  padding: 10px;
+  border-radius: 5px;
 }
 .ZEEGA-popup-click-target {
   display: block;
@@ -3769,6 +3772,9 @@ a:active {
   margin: auto;
   height: 25px;
   width: 25px;
+  background: rgba(0, 0, 0, 0.5);
+  border-radius: 5px;
+  padding: 5px 20px;
 }
 .play-zcon,
 .pause-zcon {
