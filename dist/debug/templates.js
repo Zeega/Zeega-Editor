@@ -61,7 +61,7 @@ return __p;
 this["JST"]["app/templates/layer-drawer.html"] = function(obj){
 var __p='';var print=function(){__p+=Array.prototype.join.call(arguments, '')};
 with(obj||{}){
-__p+='<div class="ZEEGA-hmenu dark">\n    <ul class="layer-menu pull-right">\n        <li>\n            <a href="#" data-layer-type="Text">\n                <div class="hmenu-label">text</div>\n                <i class="icon-font icon-white"></i>\n            </a>\n        </li>\n        <li>\n            <a href="#" data-layer-type="Rectangle">\n                <div class="hmenu-label">color</div>\n                <i class="icon-th-large icon-white"></i>\n            </a>\n        </li>\n    </ul>\n</div>';
+__p+='<div class="ZEEGA-layer-drawer">\n    <ul>\n        <li class="draggable-layer-type">\n            <a href="#" data-layer-type="Link">\n                <div class="item-label">link</div>\n                <i class="icon-arrow-up icon-white"></i>\n            </a>\n        </li>\n        <li class="draggable-layer-type">\n            <a href="#" data-layer-type="Text">\n                <div class="item-label">text</div>\n                <i class="icon-font icon-white"></i>\n            </a>\n        </li>\n        <li class="draggable-layer-type">\n            <a href="#" data-layer-type="Rectangle">\n                <div class="item-label">color</div>\n                <i class="icon-th-large icon-white"></i>\n            </a>\n        </li>\n    </ul>\n</div>';
 }
 return __p;
 };
@@ -69,11 +69,11 @@ return __p;
 this["JST"]["app/templates/layer-list.html"] = function(obj){
 var __p='';var print=function(){__p+=Array.prototype.join.call(arguments, '')};
 with(obj||{}){
-__p+='<div class="layer-marker">\n    <i class="zicon-'+
-( type.toLowerCase() )+
-' zicon-white"></i> <span class="layer-title">'+
+__p+='<div class="layer-marker">\n    <div class="layer-list-top">\n        <span class="layer-title">'+
 ( attr.title )+
-'</span>\n    <a href="#"><i data-action="continueToNextFrame" class="action icon-chevron-right icon-white"></i></a>\n    <a href="#"><i data-action="continueToChapter" class="action icon-forward icon-white"></i></a>\n    <a href="#"><i data-action="deleteLayer" class="action icon-trash icon-white"></i></a>\n</div>';
+'</span>\n    </div>\n    <div class="layer-list-bottom clearfix">\n        <a href="#" class="action-bg pull-left"><i class="zicon-'+
+( type.toLowerCase() )+
+' zicon-white"></i></a>\n        <a href="#" class="action-bg pull-left continued"><i data-action="continueToNextFrame" class="action icon-chevron-right icon-white"></i></a>\n        <a href="#" class="action-bg pull-left persists"><i data-action="continueToChapter" class="action icon-forward icon-white"></i></a>\n        <a href="#" class="action-bg pull-right"><i data-action="deleteLayer" class="action icon-trash icon-white"></i></a>\n    </div>\n</div>';
 }
 return __p;
 };
@@ -117,7 +117,7 @@ __p+='<div class="ZEEGA-project-cover" style="\n    background: url('+
 ( cover_image )+
 ') no-repeat center center;\n    -webkit-background-size: cover;\n    background-size: cover;\n">\n    <div class="project-meta-upper">\n        <div class="ZEEGA-project-title" contenteditable="true">'+
 ( title )+
-'</div>\n    </div>\n    <div class="project-meta-lower">\n        <div class="ZEEGA-project-share">\n            share: \n            <a href="#"><i class="zsocial-twitter"></i></a>\n            <a href="#"><i class="zsocial-facebook"></i></a>\n            <a href="#"><i class="zsocial-tumblr"></i></a>\n            <a href="#"><i class="zsocial-email"></i></a>\n        </div>\n    </div>\n\n</div>';
+'</div>\n    </div>\n    <a href="#" class="preview"><i class="play-zcon"></i></a>\n    <div class="project-meta-lower">\n        <div class="ZEEGA-project-share">\n            share: \n            <a href="#"><i class="zsocial-twitter"></i></a>\n            <a href="#"><i class="zsocial-facebook"></i></a>\n            <a href="#"><i class="zsocial-tumblr"></i></a>\n            <a href="#"><i class="zsocial-email"></i></a>\n        </div>\n    </div>\n\n</div>';
 }
 return __p;
 };
@@ -210,6 +210,14 @@ with(obj||{}){
 __p+='<div class="visual-target">\n    <img src="'+
 ( attr.uri )+
 '" width=\'100%\' />\n</div>\n<div class="controls-inline"></div>';
+}
+return __p;
+};
+
+this["JST"]["app/zeega-parser/plugins/layers/link/frame-chooser.html"] = function(obj){
+var __p='';var print=function(){__p+=Array.prototype.join.call(arguments, '')};
+with(obj||{}){
+__p+='<a href="#" class="close">&times;</a>\n<div class="modal-content">\n    <div class="modal-title">Which frame will this frame lead to?</div>\n    <div class="modal-body">\n        <ul class="frame-chooser-list clearfix">\n        </ul>\n        <div class="bottom-chooser">\n            <div class="new-frame">\n                <a href="#" class="link-new-frame"><i class="icon-plus icon-white"></i> New Frame</a>\n            </div>\n            <a href="#" class="submit">OK</a>\n        </div>\n    </div>\n</div>\n';
 }
 return __p;
 };
