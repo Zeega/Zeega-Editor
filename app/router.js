@@ -10,22 +10,21 @@ function(app, Initializer) {
 
     // Defining the application router, you can attach sub routers here.
     var Router = Backbone.Router.extend({
+
         routes: {
             "": "index",
             ":projectID": "index"
         },
 
         index: function() {
-            initialize();
-        }
+            this.initialize();
+        },
+
+        initialize: _.once(function() {
+            new Initializer();
+        })
 
     });
-
-    /* create init fxn that can only run once per load */
-    var init = function() {
-        new Initializer();
-    };
-    var initialize = _.once( init );
 
     return Router;
 

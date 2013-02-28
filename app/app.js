@@ -6,9 +6,11 @@ define([
     // creation.
     var app = {
         // The root path to run the application.
+        // root: "/" + window.sessionStorage.getItem("projectID"),
         root: "/",
         parserPath: "app/zeega-parser/",
         api: "http://dev.zeega.org/joseph/web/api/",
+        thumbServer: "http://dev.zeega.org/static/scripts/frame.php?id=",
         dragging: null
     };
 
