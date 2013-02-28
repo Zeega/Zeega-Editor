@@ -93,7 +93,7 @@ module.exports = function(grunt) {
         server: {
             files: {
                 "favicon.ico": "favicon.ico",
-                "test.json": "testdata/4995.json"
+                "test.json": "testdata/linktest.json"
             },
 
             debug: {
@@ -131,7 +131,16 @@ module.exports = function(grunt) {
                     flatten: true
                 },
                 files: {
-                    "assets/img/layers/" : "app/zeega-parser/plugins/layers/**/img/*"
+                    "assets/img/layers/": "app/zeega-parser/plugins/layers/**/img/*"
+                }
+            },
+
+            plugins: {
+                options: {
+                    flatten: true
+                },
+                files: {
+                    "assets/img/": "vendor/colorpicker/images/*"
                 }
             }
             
@@ -175,7 +184,8 @@ module.exports = function(grunt) {
                 files: {
                     "assets/css/style.css": [
                         "vendor/h5bp/normalize.css",
-                        "assets/js/plugins/jquery-ui/css/smoothness/jquery-ui-1.10.0.custom.css",
+                        "assets/js/plugins/jquery-ui/css/ui-lightness/jquery-ui-1.10.1.custom.css",
+                        "vendor/colorpicker/css/colorpicker.css",
                         "assets/css/layers.less",
                         "assets/css/controls.less",
                         "assets/css/less/_all.less"

@@ -14,12 +14,15 @@ require.config({
     plugins: "../assets/js/plugins",
     vendor: "../vendor",
 
-    zeegaplayer: "../vendor/zeegaplayer/dist/debug/zeega"
+    zeegaplayer: "../vendor/zeegaplayer/dist/debug/zeega",
+
+    colorpicker: "../vendor/colorpicker/js/colorpicker"
 
   },
 
   shim: {
-    jqueryUI: ["jquery"]
+    jqueryUI: ["jquery"],
+    colorpicker: ["jquery"]
   }
 
 });
