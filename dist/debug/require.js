@@ -67568,9 +67568,11 @@ define('app',[
     // creation.
     var app = {
         // The root path to run the application.
+        // root: "/" + window.sessionStorage.getItem("projectID"),
         root: "/",
         parserPath: "app/zeega-parser/",
         api: "http://dev.zeega.org/joseph/web/api/",
+        thumbServer: "http://dev.zeega.org/static/scripts/frame.php?id=",
         dragging: null
     };
 
@@ -67910,6 +67912,27 @@ function( app ) {
         initialize: function() {
             this.model.on("focus", this.onFocus, this );
             this.model.on("blur", this.onBlur, this );
+            this.model.on("thumbUpdateStart", this.onThumbUpdateStart, this );
+            this.model.on("change:thumbnail_url", this.onThumbUpdateComplete, this );
+        },
+
+        onThumbUpdateStart: function() {
+            this.$el.css({
+                background: "url(assets/img/tiny-stripes.png)"
+            });
+            this.$(".frame-thumb").css({
+                opacity: 0.5
+            });
+        },
+
+        onThumbUpdateComplete: function() {
+            this.$el.css({
+                background: "transparent"
+            });
+            this.$(".frame-thumb").css({
+                background: "url(" + this.model.get("thumbnail_url") + ") no-repeat center center",
+                opacity: 1
+            });
         },
 
         events: {
@@ -84664,7 +84687,8 @@ function( app ) {
 
         afterRender: function() {
             this.$("li").draggable({
-                revert: true,
+                revert: "invalid",
+                helper: "clone",
                 cursorAt: {
                     left: 0,
                     top: 0
@@ -101777,7 +101801,7 @@ define('zeega_parser/modules/frame.model',[
     "zeega_parser/plugins/layers/_all"
 ],
 
-function( app, Backbone, Layers ) {
+function( app, Backbone, Layers, ThumbWorker ) {
 
     return app.Backbone.Model.extend({
 
@@ -101827,10 +101851,12 @@ function( app, Backbone, Layers ) {
 // editor
         listenToLayers: function() {
             this.layers.on("sort", this.onLayerSort, this );
+            this.layers.on("add remove", this.updateThumb, this );
         },
 
         onLayerSort: function() {
             this.save("layers", this.layers.pluck("id") );
+            this.updateThumb();
         },
 
         addLayerType: function( type ) {
@@ -101854,6 +101880,36 @@ function( app, Backbone, Layers ) {
                 this.layers.add( newLayer );
             }.bind( this ));
         },
+
+        //update the frame thumbnail
+        updateThumb: function() {
+            this.trigger("thumbUpdateStart");
+            this.startThumbWorker();
+        },
+
+        // debounce the thumbworker so it's not killing the thumb server!
+
+        startThumbWorker: _.debounce(function() {
+            var worker = new Worker( app.root + "app/modules/thumb-worker.js" );
+            
+            worker.addEventListener("message", function(e) {
+
+                if( e.data ) {
+                    this.save("thumbnail_url", e.data );
+                } else {
+                    this.trigger('thumbUpdateFail');
+                }
+                worker.terminate();
+            }.bind( this ), false);
+
+            worker.postMessage({
+                cmd: 'capture',
+                msg: app.api + "frames/" + this.id + "/thumbnail"
+            });
+
+        }, 1000),
+
+
 // end editor
 
         // for convenience
@@ -103113,22 +103169,21 @@ function(app, Initializer) {
 
     // Defining the application router, you can attach sub routers here.
     var Router = Backbone.Router.extend({
+
         routes: {
             "": "index",
             ":projectID": "index"
         },
 
         index: function() {
-            initialize();
-        }
+            this.initialize();
+        },
+
+        initialize: _.once(function() {
+            new Initializer();
+        })
 
     });
-
-    /* create init fxn that can only run once per load */
-    var init = function() {
-        new Initializer();
-    };
-    var initialize = _.once( init );
 
     return Router;
 
@@ -103150,7 +103205,7 @@ function(app, Router) {
 
   // Trigger the initial route and enable HTML5 History API support, set the
   // root folder to '/' by default.  Change in app.js.
-  Backbone.history.start({ pushState: true, root: app.root });
+  Backbone.history.start({ pushState: false, root: app.root });
 
   // All navigation that is relative should be passed through the navigate
   // method, to be processed by the router. If the link has a `data-bypass`
