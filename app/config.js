@@ -16,13 +16,15 @@ require.config({
 
     zeegaplayer: "../vendor/zeegaplayer/dist/debug/zeega",
 
-    colorpicker: "../vendor/colorpicker/js/colorpicker"
+    colorpicker: "../vendor/colorpicker/js/colorpicker",
+    ddslick: "../assets/js/plugins/jquery.ddslick"
 
   },
 
   shim: {
     jqueryUI: ["jquery"],
-    colorpicker: ["jquery"]
+    colorpicker: ["jquery"],
+    ddslick: ["jquery"]
   }
 
 });

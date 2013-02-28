@@ -31,6 +31,8 @@ function( app ) {
 
                 this.get("previousFrame").trigger("blur");
                 frameModel.trigger("focus");
+
+                this.set("currentLayer", null );
             }
         },
 

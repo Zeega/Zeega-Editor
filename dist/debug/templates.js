@@ -170,12 +170,50 @@ __p+='<div class="frame-workspace"></div>';
 return __p;
 };
 
+this["JST"]["app/zeega-parser/plugins/controls/color/color.html"] = function(obj){
+var __p='';var print=function(){__p+=Array.prototype.join.call(arguments, '')};
+with(obj||{}){
+__p+='<div class="control-name">'+
+( _propertyName )+
+'</div>\n<div class="color-selector">\n    <div class="color-preview" style="background-color: '+
+( attr.backgroundColor )+
+'"></div>\n</div>';
+}
+return __p;
+};
+
+this["JST"]["app/zeega-parser/plugins/controls/dissolve/dissolve.html"] = function(obj){
+var __p='';var print=function(){__p+=Array.prototype.join.call(arguments, '')};
+with(obj||{}){
+__p+='<div class="control-name">fade in</div>\n<div class="roundedOne">\n    <input type="checkbox" value="None" id="roundedOne" name="check" />\n    <label for="roundedOne"></label>\n</div>';
+}
+return __p;
+};
+
+this["JST"]["app/zeega-parser/plugins/controls/linkimage/linkimage.html"] = function(obj){
+var __p='';var print=function(){__p+=Array.prototype.join.call(arguments, '')};
+with(obj||{}){
+__p+='<div class="control-name">image</div>\n<select class="link-image-select">\n    <option value="arrow_up">Up Arrow</option>\n    <option value="arrow_down">Down Arrow</option>\n    <option value="arrow_left">Left Arrow</option>\n    <option value="arrow_right">Right Arrow</option>\n    <option value="default">none</option>\n</select>';
+}
+return __p;
+};
+
+this["JST"]["app/zeega-parser/plugins/controls/linkto/linkto.html"] = function(obj){
+var __p='';var print=function(){__p+=Array.prototype.join.call(arguments, '')};
+with(obj||{}){
+__p+='<div class="control-name">link to</div>\n<div class="control-frame-thumb" style="\n    background: url('+
+( thumbnail_url )+
+') no-repeat center center; \n    -webkit-background-size: cover;\n    background-size: cover;\n">\n    <a href="#"></a>\n</div>';
+}
+return __p;
+};
+
 this["JST"]["app/zeega-parser/plugins/controls/opacity/opacity.html"] = function(obj){
 var __p='';var print=function(){__p+=Array.prototype.join.call(arguments, '')};
 with(obj||{}){
-__p+='<div class="hover-icon">\n    <div class="hidden-controls">\n        <div class="opacity-slider"></div>\n        <input type="text" class="text-input" value="'+
+__p+='<div class="hover-icon">\n    <i class="icon-eye-open id-icon icon-white"></i>\n    <input type="text" class="text-input" value="'+
 ( Math.floor( attr.opacity * 100 ) )+
-'">\n    </div>\n    <i class="icon-eye-open id-icon"></i>\n</div>';
+'">\n    <div class="hidden-controls">\n        <div class="opacity-slider"></div>\n    </div>\n</div>';
 }
 return __p;
 };

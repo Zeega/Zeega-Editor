@@ -22,6 +22,19 @@ function( app ) {
         afterRender: function() {
             this.renderFrame( this.model.status.get("currentFrame") );
             this.makeDroppable();
+
+            this.instructions();
+        },
+
+        instructions: function() {
+            var isEmpty =  app.project.sequences.length == 1 &&
+                app.project.sequences.at( 0 ).frames.length == 1 &&
+                app.project.sequences.at( 0 ).frames.at( 0 ).layers.length === 0;
+
+            if ( isEmpty ) {
+                this.$el.append("<img class='intro' src='assets/img/workspace-instructions.png' width='100%' />");
+            }
+
         },
 
         makeDroppable: function() {
@@ -29,6 +42,7 @@ function( app ) {
                 accept: ".item, .draggable-layer-type",
                 tolerance: "pointer",
                 drop: function( e, ui ) {
+                    this.$(".intro").remove();
                     if ( _.isString( app.dragging ) ) {
                         app.status.get('currentFrame').addLayerType( app.dragging );
                     } else if ( _.contains( ["Image"], app.dragging.get("layer_type") )) {

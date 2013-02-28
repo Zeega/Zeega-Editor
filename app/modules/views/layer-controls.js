@@ -19,8 +19,13 @@ function( app, Controls ) {
         },
 
         onLayerFocus: function( status, layerModel ) {
-            this.$(".layer-bar-title").text( layerModel.getAttr("title") );
-            this.loadControls( layerModel );
+            if ( layerModel !== null ) {
+                this.$(".layer-bar-title").text( layerModel.getAttr("title") );
+                this.loadControls( layerModel );
+            } else if ( layerModel === null ) {
+                this.$(".layer-bar-title").empty();
+                this.clearControls();
+            }
         },
 
         loadControls: function( layerModel ) {

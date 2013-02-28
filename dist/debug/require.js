@@ -556,12 +556,50 @@ __p+='<div class="frame-workspace"></div>';
 return __p;
 };
 
+this["JST"]["app/zeega-parser/plugins/controls/color/color.html"] = function(obj){
+var __p='';var print=function(){__p+=Array.prototype.join.call(arguments, '')};
+with(obj||{}){
+__p+='<div class="control-name">'+
+( _propertyName )+
+'</div>\n<div class="color-selector">\n    <div class="color-preview" style="background-color: '+
+( attr.backgroundColor )+
+'"></div>\n</div>';
+}
+return __p;
+};
+
+this["JST"]["app/zeega-parser/plugins/controls/dissolve/dissolve.html"] = function(obj){
+var __p='';var print=function(){__p+=Array.prototype.join.call(arguments, '')};
+with(obj||{}){
+__p+='<div class="control-name">fade in</div>\n<div class="roundedOne">\n    <input type="checkbox" value="None" id="roundedOne" name="check" />\n    <label for="roundedOne"></label>\n</div>';
+}
+return __p;
+};
+
+this["JST"]["app/zeega-parser/plugins/controls/linkimage/linkimage.html"] = function(obj){
+var __p='';var print=function(){__p+=Array.prototype.join.call(arguments, '')};
+with(obj||{}){
+__p+='<div class="control-name">image</div>\n<select class="link-image-select">\n    <option value="arrow_up">Up Arrow</option>\n    <option value="arrow_down">Down Arrow</option>\n    <option value="arrow_left">Left Arrow</option>\n    <option value="arrow_right">Right Arrow</option>\n    <option value="default">none</option>\n</select>';
+}
+return __p;
+};
+
+this["JST"]["app/zeega-parser/plugins/controls/linkto/linkto.html"] = function(obj){
+var __p='';var print=function(){__p+=Array.prototype.join.call(arguments, '')};
+with(obj||{}){
+__p+='<div class="control-name">link to</div>\n<div class="control-frame-thumb" style="\n    background: url('+
+( thumbnail_url )+
+') no-repeat center center; \n    -webkit-background-size: cover;\n    background-size: cover;\n">\n    <a href="#"></a>\n</div>';
+}
+return __p;
+};
+
 this["JST"]["app/zeega-parser/plugins/controls/opacity/opacity.html"] = function(obj){
 var __p='';var print=function(){__p+=Array.prototype.join.call(arguments, '')};
 with(obj||{}){
-__p+='<div class="hover-icon">\n    <div class="hidden-controls">\n        <div class="opacity-slider"></div>\n        <input type="text" class="text-input" value="'+
+__p+='<div class="hover-icon">\n    <i class="icon-eye-open id-icon icon-white"></i>\n    <input type="text" class="text-input" value="'+
 ( Math.floor( attr.opacity * 100 ) )+
-'">\n    </div>\n    <i class="icon-eye-open id-icon"></i>\n</div>';
+'">\n    <div class="hidden-controls">\n        <div class="opacity-slider"></div>\n    </div>\n</div>';
 }
 return __p;
 };
@@ -67631,6 +67669,8 @@ function( app ) {
 
                 this.get("previousFrame").trigger("blur");
                 frameModel.trigger("focus");
+
+                this.set("currentLayer", null );
             }
         },
 
@@ -68005,6 +68045,19 @@ function( app ) {
         afterRender: function() {
             this.renderFrame( this.model.status.get("currentFrame") );
             this.makeDroppable();
+
+            this.instructions();
+        },
+
+        instructions: function() {
+            var isEmpty =  app.project.sequences.length == 1 &&
+                app.project.sequences.at( 0 ).frames.length == 1 &&
+                app.project.sequences.at( 0 ).frames.at( 0 ).layers.length === 0;
+
+            if ( isEmpty ) {
+                this.$el.append("<img class='intro' src='assets/img/workspace-instructions.png' width='100%' />");
+            }
+
         },
 
         makeDroppable: function() {
@@ -68012,6 +68065,7 @@ function( app ) {
                 accept: ".item, .draggable-layer-type",
                 tolerance: "pointer",
                 drop: function( e, ui ) {
+                    this.$(".intro").remove();
                     if ( _.isString( app.dragging ) ) {
                         app.status.get('currentFrame').addLayerType( app.dragging );
                     } else if ( _.contains( ["Image"], app.dragging.get("layer_type") )) {
@@ -83201,14 +83255,1352 @@ function( app, LayerList ) {
 
 });
 
-define('modules/views/layer-controls',[
+// layer.js
+define('zeega_parser/modules/control.view',[
     "app",
-    "backbone"
+    "jqueryUI"
 ],
 
 function( app ) {
 
+    return app.Backbone.View.extend({
+
+        parentName: "",
+        propertyName: "",
+        $visual: null,
+        $visualContainer: null,
+        $workspace: null,
+
+        className: function() {
+            var className = "control control-" + this.propertyName;
+            
+            if ( this.parentName !== "" ) {
+                className = className + " control-" + this.parentName;
+            }
+
+            return className;
+        },
+
+        initialize: function() {
+            this.off( "change:" + this.propertyName );
+            this.model.on("change:" + this.propertyName , this.onPropertyUpdate, this );
+            this.init();
+        },
+
+        afterRender: function() {
+            this.$visual = this.model.visual.$el.find(".visual-target");
+            this.$visualContainer = this.model.visual.$el;
+            this.$workspace = this.model.visual.$el.closest(".ZEEGA-workspace");
+
+            this.create();
+        },
+
+        init: function() {},
+        create: function() {},
+        destroy: function() {},
+
+        update: function( attributes ) {
+            var attr = _.extend({}, this.model.get("attr"), attributes );
+
+            this.model.trigger("change:" + this.propertyName, this.model, attributes[ this.propertyName ] );
+            this.model.save("attr", attr );
+        },
+
+        lazyUpdate: _.debounce(function( value ) {
+            var attr = {};
+            
+            attr[ this.propertyName ] = value;
+            this.update( attr );
+        }, 500 ),
+
+        updateVisual: function( value ) {
+            this.$visual.css( this.propertyName, value );
+        },
+
+        onPropertyUpdate: function() {},
+
+        // convenience fxn
+        getAttr: function( key ) {
+            return this.model.get("attr")[key];
+        },
+
+        serialize: function() {
+            return _.extend({}, this.model.toJSON(), { _propertyName: !_.isUndefined( this.options.options ) ? this.options.options.title : this.propertyName });
+        },
+
+        fetch: function( path ) {
+            // Initialize done for use in async-mode
+            var done;
+            // Concatenate the file extension.
+            path = app.parserPath + "plugins/controls/" + path + ".html";
+            // remove app/templates/ via regexp // hacky? yes. probably.
+            path = path.replace("app/templates/","");
+
+            // If cached, use the compiled template.
+            if ( JST[ path ] ) {
+                return JST[ path ];
+            } else {
+                // Put fetch into `async-mode`.
+                done = this.async();
+                // Seek out the template asynchronously.
+                return app.$.ajax({ url: app.root + path }).then(function( contents ) {
+                    done(
+                      JST[ path ] = _.template( contents )
+                    );
+                });
+            }
+        }
+
+    });
+
+});
+
+define('zeega_parser/plugins/controls/position/position',[
+    "app",
+    "zeega_parser/modules/control.view"
+],
+
+function( Zeega, ControlView ) {
+
+    return {
+
+        position: ControlView.extend({
+
+            propertyName: "position",
+
+            create: function() {
+                this.makeDraggable();
+                this.$visual.css("cursor", "move");
+            },
+
+            makeDraggable: function() {
+                if ( this.model.editorProperties.draggable ) {
+                    this.$visualContainer.draggable({
+                        stop: function( e, ui ) {
+                            var top, left, workspace;
+
+                            workspace = this.$visualContainer.closest(".ZEEGA-workspace");
+                            top = ui.position.top / workspace.height() * 100;
+                            left = ui.position.left / workspace.width() * 100;
+                            this.update({
+                                top: top,
+                                left: left
+                            });
+
+                            this.convertToPercents( top, left );
+                        }.bind( this )
+                    });
+                }
+            },
+
+            destroy: function() {
+                this.$visualContainer.draggable( "destroy" );
+            },
+
+            convertToPercents: function( top, left ) {
+                this.$visualContainer.css({
+                    top: top + "%",
+                    left: left + "%"
+                });
+            }
+
+        }) // end control
+    
+    }; // end return
+
+});
+
+define('zeega_parser/plugins/controls/opacity/opacity',[
+    "app",
+    "zeega_parser/modules/control.view",
+    "jqueryUI"
+],
+
+function( Zeega, ControlView ) {
+
+    return {
+        opacity: ControlView.extend({
+
+            propertyName: "opacity",
+            template: "opacity/opacity",
+
+            options: {
+                min: 0,
+                max: 1,
+                step: 0.001
+            },
+
+            create: function() {
+                var $input = this.$(".text-input");
+
+                this.$(".opacity-slider").slider({
+                    orientation: "vertical",
+                    range: "min",
+                    step: this.options.step,
+                    min: this.options.min,
+                    max: this.options.max,
+                    value: this.getAttr("opacity"),
+
+                    slide: function( e, ui ) {
+                        this.$visual.css({ opacity: ui.value });
+                        this.$(".text-input").val( Math.floor( ui.value * 100 ) );
+                    }.bind( this ),
+                    
+                    stop: function( e, ui) {
+                        this.update({ opacity: ui.value });
+                    }.bind( this )
+                });
+
+                $input.on("keyup", function( e ) {
+                    var val;
+
+                    if ( e.which == 13 ) { // enter
+                        $input.blur();
+                    } else if ( e.which == 27 ) { // esc
+                        $input.val( Math.floor( this.getAttr("opacity") * 100 ) );
+                        $input.blur();
+                    } else if ( e.which == 38 ) { // arrow up
+                        val = (parseInt( $input.val(), 10 ) + 1) / 100;
+
+                        if ( val <= this.options.max ) {
+                            this.updateVisual( val );
+                            this.updateSlider( val );
+                            this.lazyUpdate( val );
+                            $input.val( val * 100 );
+                        }
+                    } else if ( e.which == 40 ) { // arrow up
+                        val = ( parseInt( $input.val(), 10 ) - 1 )/ 100;
+
+                        if ( val >= this.options.min ) {
+                            this.updateVisual( val );
+                            this.updateSlider( val );
+                            this.lazyUpdate( val );
+                            $input.val( val * 100 );
+                        }
+                    }
+                }.bind( this ));
+
+                $input.blur(function() {
+                    this.update({ opacity: $input.val() / 100 });
+                }.bind( this ));
+
+            },
+
+            updateSlider: function( value ) {
+                this.$(".opacity-slider").slider("value", value );
+            },
+
+            onPropertyUpdate: function( model, value ) {
+                this.updateVisual( value );
+                this.updateSlider( value );
+            }
+
+        })
+    };
+
+
+});
+
+define('zeega_parser/plugins/controls/resize/resize',[
+    "app",
+    "zeega_parser/modules/control.view"
+],
+
+function( Zeega, ControlView ) {
+
+    return {
+
+        resize: ControlView.extend({
+
+            propertyName: "resize",
+
+            create: function() {
+                this.makeResizable();
+            },
+
+            makeResizable: function() {
+                var args = {
+                    stop: function( e, ui ) {
+                        var width, height;
+
+                        height = this.$visualContainer.height() / this.$workspace.height() * 100;
+                        width = this.$visualContainer.width() / this.$workspace.width() * 100;
+
+                        this.update({
+                            height: height,
+                            width: width
+                        });
+                        this.convertToPercents( width, height );
+                    }.bind( this )
+                };
+
+                this.$visualContainer.resizable( _.extend({}, args, this.options.options ) );
+            },
+
+            destroy: function() {
+                this.$visualContainer.resizable( "destroy" );
+            },
+
+            convertToPercents: function( width, height ) {
+                this.$visualContainer.css({
+                    width: width + "%",
+                    height: height + "%"
+                });
+            }
+
+        }) // end control
+    
+    }; // end return
+
+});
+
+define('zeega_parser/plugins/controls/dissolve/dissolve',[
+    "app",
+    "zeega_parser/modules/control.view",
+    "jqueryUI"
+],
+
+function( Zeega, ControlView ) {
+
+    return {
+        dissolve: ControlView.extend({
+
+            propertyName: "dissolve",
+            template: "dissolve/dissolve",
+
+            create: function() {
+                this.$("input").attr("checked", this.model.getAttr("dissolve") );
+            },
+
+            events: {
+                "change input": "onChange"
+            },
+
+            onChange: function() {
+                this.update({ dissolve: this.$("input").is(":checked") });
+            }
+
+        })
+    };
+
+
+});
+
+/**
+ *
+ * Color picker
+ * Author: Stefan Petre www.eyecon.ro
+ * 
+ * Dual licensed under the MIT and GPL licenses
+ * 
+ */
+(function ($) {
+	var ColorPicker = function () {
+		var
+			ids = {},
+			inAction,
+			charMin = 65,
+			visible,
+			tpl = '<div class="colorpicker"><div class="colorpicker_color"><div><div></div></div></div><div class="colorpicker_hue"><div></div></div><div class="colorpicker_new_color"></div><div class="colorpicker_current_color"></div><div class="colorpicker_hex"><input type="text" maxlength="6" size="6" /></div><div class="colorpicker_rgb_r colorpicker_field"><input type="text" maxlength="3" size="3" /><span></span></div><div class="colorpicker_rgb_g colorpicker_field"><input type="text" maxlength="3" size="3" /><span></span></div><div class="colorpicker_rgb_b colorpicker_field"><input type="text" maxlength="3" size="3" /><span></span></div><div class="colorpicker_hsb_h colorpicker_field"><input type="text" maxlength="3" size="3" /><span></span></div><div class="colorpicker_hsb_s colorpicker_field"><input type="text" maxlength="3" size="3" /><span></span></div><div class="colorpicker_hsb_b colorpicker_field"><input type="text" maxlength="3" size="3" /><span></span></div><div class="colorpicker_submit"></div></div>',
+			defaults = {
+				eventName: 'click',
+				onShow: function () {},
+				onBeforeShow: function(){},
+				onHide: function () {},
+				onChange: function () {},
+				onSubmit: function () {},
+				color: 'ff0000',
+				livePreview: true,
+				flat: false
+			},
+			fillRGBFields = function  (hsb, cal) {
+				var rgb = HSBToRGB(hsb);
+				$(cal).data('colorpicker').fields
+					.eq(1).val(rgb.r).end()
+					.eq(2).val(rgb.g).end()
+					.eq(3).val(rgb.b).end();
+			},
+			fillHSBFields = function  (hsb, cal) {
+				$(cal).data('colorpicker').fields
+					.eq(4).val(hsb.h).end()
+					.eq(5).val(hsb.s).end()
+					.eq(6).val(hsb.b).end();
+			},
+			fillHexFields = function (hsb, cal) {
+				$(cal).data('colorpicker').fields
+					.eq(0).val(HSBToHex(hsb)).end();
+			},
+			setSelector = function (hsb, cal) {
+				$(cal).data('colorpicker').selector.css('backgroundColor', '#' + HSBToHex({h: hsb.h, s: 100, b: 100}));
+				$(cal).data('colorpicker').selectorIndic.css({
+					left: parseInt(150 * hsb.s/100, 10),
+					top: parseInt(150 * (100-hsb.b)/100, 10)
+				});
+			},
+			setHue = function (hsb, cal) {
+				$(cal).data('colorpicker').hue.css('top', parseInt(150 - 150 * hsb.h/360, 10));
+			},
+			setCurrentColor = function (hsb, cal) {
+				$(cal).data('colorpicker').currentColor.css('backgroundColor', '#' + HSBToHex(hsb));
+			},
+			setNewColor = function (hsb, cal) {
+				$(cal).data('colorpicker').newColor.css('backgroundColor', '#' + HSBToHex(hsb));
+			},
+			keyDown = function (ev) {
+				var pressedKey = ev.charCode || ev.keyCode || -1;
+				if ((pressedKey > charMin && pressedKey <= 90) || pressedKey == 32) {
+					return false;
+				}
+				var cal = $(this).parent().parent();
+				if (cal.data('colorpicker').livePreview === true) {
+					change.apply(this);
+				}
+			},
+			change = function (ev) {
+				var cal = $(this).parent().parent(), col;
+				if (this.parentNode.className.indexOf('_hex') > 0) {
+					cal.data('colorpicker').color = col = HexToHSB(fixHex(this.value));
+				} else if (this.parentNode.className.indexOf('_hsb') > 0) {
+					cal.data('colorpicker').color = col = fixHSB({
+						h: parseInt(cal.data('colorpicker').fields.eq(4).val(), 10),
+						s: parseInt(cal.data('colorpicker').fields.eq(5).val(), 10),
+						b: parseInt(cal.data('colorpicker').fields.eq(6).val(), 10)
+					});
+				} else {
+					cal.data('colorpicker').color = col = RGBToHSB(fixRGB({
+						r: parseInt(cal.data('colorpicker').fields.eq(1).val(), 10),
+						g: parseInt(cal.data('colorpicker').fields.eq(2).val(), 10),
+						b: parseInt(cal.data('colorpicker').fields.eq(3).val(), 10)
+					}));
+				}
+				if (ev) {
+					fillRGBFields(col, cal.get(0));
+					fillHexFields(col, cal.get(0));
+					fillHSBFields(col, cal.get(0));
+				}
+				setSelector(col, cal.get(0));
+				setHue(col, cal.get(0));
+				setNewColor(col, cal.get(0));
+				cal.data('colorpicker').onChange.apply(cal, [col, HSBToHex(col), HSBToRGB(col)]);
+			},
+			blur = function (ev) {
+				var cal = $(this).parent().parent();
+				cal.data('colorpicker').fields.parent().removeClass('colorpicker_focus');
+			},
+			focus = function () {
+				charMin = this.parentNode.className.indexOf('_hex') > 0 ? 70 : 65;
+				$(this).parent().parent().data('colorpicker').fields.parent().removeClass('colorpicker_focus');
+				$(this).parent().addClass('colorpicker_focus');
+			},
+			downIncrement = function (ev) {
+				var field = $(this).parent().find('input').focus();
+				var current = {
+					el: $(this).parent().addClass('colorpicker_slider'),
+					max: this.parentNode.className.indexOf('_hsb_h') > 0 ? 360 : (this.parentNode.className.indexOf('_hsb') > 0 ? 100 : 255),
+					y: ev.pageY,
+					field: field,
+					val: parseInt(field.val(), 10),
+					preview: $(this).parent().parent().data('colorpicker').livePreview					
+				};
+				$(document).bind('mouseup', current, upIncrement);
+				$(document).bind('mousemove', current, moveIncrement);
+			},
+			moveIncrement = function (ev) {
+				ev.data.field.val(Math.max(0, Math.min(ev.data.max, parseInt(ev.data.val + ev.pageY - ev.data.y, 10))));
+				if (ev.data.preview) {
+					change.apply(ev.data.field.get(0), [true]);
+				}
+				return false;
+			},
+			upIncrement = function (ev) {
+				change.apply(ev.data.field.get(0), [true]);
+				ev.data.el.removeClass('colorpicker_slider').find('input').focus();
+				$(document).unbind('mouseup', upIncrement);
+				$(document).unbind('mousemove', moveIncrement);
+				return false;
+			},
+			downHue = function (ev) {
+				var current = {
+					cal: $(this).parent(),
+					y: $(this).offset().top
+				};
+				current.preview = current.cal.data('colorpicker').livePreview;
+				$(document).bind('mouseup', current, upHue);
+				$(document).bind('mousemove', current, moveHue);
+			},
+			moveHue = function (ev) {
+				change.apply(
+					ev.data.cal.data('colorpicker')
+						.fields
+						.eq(4)
+						.val(parseInt(360*(150 - Math.max(0,Math.min(150,(ev.pageY - ev.data.y))))/150, 10))
+						.get(0),
+					[ev.data.preview]
+				);
+				return false;
+			},
+			upHue = function (ev) {
+				fillRGBFields(ev.data.cal.data('colorpicker').color, ev.data.cal.get(0));
+				fillHexFields(ev.data.cal.data('colorpicker').color, ev.data.cal.get(0));
+				$(document).unbind('mouseup', upHue);
+				$(document).unbind('mousemove', moveHue);
+				return false;
+			},
+			downSelector = function (ev) {
+				var current = {
+					cal: $(this).parent(),
+					pos: $(this).offset()
+				};
+				current.preview = current.cal.data('colorpicker').livePreview;
+				$(document).bind('mouseup', current, upSelector);
+				$(document).bind('mousemove', current, moveSelector);
+			},
+			moveSelector = function (ev) {
+				change.apply(
+					ev.data.cal.data('colorpicker')
+						.fields
+						.eq(6)
+						.val(parseInt(100*(150 - Math.max(0,Math.min(150,(ev.pageY - ev.data.pos.top))))/150, 10))
+						.end()
+						.eq(5)
+						.val(parseInt(100*(Math.max(0,Math.min(150,(ev.pageX - ev.data.pos.left))))/150, 10))
+						.get(0),
+					[ev.data.preview]
+				);
+				return false;
+			},
+			upSelector = function (ev) {
+				fillRGBFields(ev.data.cal.data('colorpicker').color, ev.data.cal.get(0));
+				fillHexFields(ev.data.cal.data('colorpicker').color, ev.data.cal.get(0));
+				$(document).unbind('mouseup', upSelector);
+				$(document).unbind('mousemove', moveSelector);
+				return false;
+			},
+			enterSubmit = function (ev) {
+				$(this).addClass('colorpicker_focus');
+			},
+			leaveSubmit = function (ev) {
+				$(this).removeClass('colorpicker_focus');
+			},
+			clickSubmit = function (ev) {
+				var cal = $(this).parent();
+				var col = cal.data('colorpicker').color;
+				cal.data('colorpicker').origColor = col;
+				setCurrentColor(col, cal.get(0));
+				cal.data('colorpicker').onSubmit(col, HSBToHex(col), HSBToRGB(col), cal.data('colorpicker').el);
+			},
+			show = function (ev) {
+				var cal = $('#' + $(this).data('colorpickerId'));
+				cal.data('colorpicker').onBeforeShow.apply(this, [cal.get(0)]);
+				var pos = $(this).offset();
+				var viewPort = getViewport();
+				var top = pos.top + this.offsetHeight;
+				var left = pos.left;
+				if (top + 176 > viewPort.t + viewPort.h) {
+					top -= this.offsetHeight + 176;
+				}
+				if (left + 356 > viewPort.l + viewPort.w) {
+					left -= 356;
+				}
+				cal.css({left: left + 'px', top: top + 'px'});
+				if (cal.data('colorpicker').onShow.apply(this, [cal.get(0)]) != false) {
+					cal.show();
+				}
+				$(document).bind('mousedown', {cal: cal}, hide);
+				return false;
+			},
+			hide = function (ev) {
+				if (!isChildOf(ev.data.cal.get(0), ev.target, ev.data.cal.get(0))) {
+					if (ev.data.cal.data('colorpicker').onHide.apply(this, [ev.data.cal.get(0)]) != false) {
+						ev.data.cal.hide();
+					}
+					$(document).unbind('mousedown', hide);
+				}
+			},
+			isChildOf = function(parentEl, el, container) {
+				if (parentEl == el) {
+					return true;
+				}
+				if (parentEl.contains) {
+					return parentEl.contains(el);
+				}
+				if ( parentEl.compareDocumentPosition ) {
+					return !!(parentEl.compareDocumentPosition(el) & 16);
+				}
+				var prEl = el.parentNode;
+				while(prEl && prEl != container) {
+					if (prEl == parentEl)
+						return true;
+					prEl = prEl.parentNode;
+				}
+				return false;
+			},
+			getViewport = function () {
+				var m = document.compatMode == 'CSS1Compat';
+				return {
+					l : window.pageXOffset || (m ? document.documentElement.scrollLeft : document.body.scrollLeft),
+					t : window.pageYOffset || (m ? document.documentElement.scrollTop : document.body.scrollTop),
+					w : window.innerWidth || (m ? document.documentElement.clientWidth : document.body.clientWidth),
+					h : window.innerHeight || (m ? document.documentElement.clientHeight : document.body.clientHeight)
+				};
+			},
+			fixHSB = function (hsb) {
+				return {
+					h: Math.min(360, Math.max(0, hsb.h)),
+					s: Math.min(100, Math.max(0, hsb.s)),
+					b: Math.min(100, Math.max(0, hsb.b))
+				};
+			}, 
+			fixRGB = function (rgb) {
+				return {
+					r: Math.min(255, Math.max(0, rgb.r)),
+					g: Math.min(255, Math.max(0, rgb.g)),
+					b: Math.min(255, Math.max(0, rgb.b))
+				};
+			},
+			fixHex = function (hex) {
+				var len = 6 - hex.length;
+				if (len > 0) {
+					var o = [];
+					for (var i=0; i<len; i++) {
+						o.push('0');
+					}
+					o.push(hex);
+					hex = o.join('');
+				}
+				return hex;
+			}, 
+			HexToRGB = function (hex) {
+				var hex = parseInt(((hex.indexOf('#') > -1) ? hex.substring(1) : hex), 16);
+				return {r: hex >> 16, g: (hex & 0x00FF00) >> 8, b: (hex & 0x0000FF)};
+			},
+			HexToHSB = function (hex) {
+				return RGBToHSB(HexToRGB(hex));
+			},
+			RGBToHSB = function (rgb) {
+				var hsb = {
+					h: 0,
+					s: 0,
+					b: 0
+				};
+				var min = Math.min(rgb.r, rgb.g, rgb.b);
+				var max = Math.max(rgb.r, rgb.g, rgb.b);
+				var delta = max - min;
+				hsb.b = max;
+				if (max != 0) {
+					
+				}
+				hsb.s = max != 0 ? 255 * delta / max : 0;
+				if (hsb.s != 0) {
+					if (rgb.r == max) {
+						hsb.h = (rgb.g - rgb.b) / delta;
+					} else if (rgb.g == max) {
+						hsb.h = 2 + (rgb.b - rgb.r) / delta;
+					} else {
+						hsb.h = 4 + (rgb.r - rgb.g) / delta;
+					}
+				} else {
+					hsb.h = -1;
+				}
+				hsb.h *= 60;
+				if (hsb.h < 0) {
+					hsb.h += 360;
+				}
+				hsb.s *= 100/255;
+				hsb.b *= 100/255;
+				return hsb;
+			},
+			HSBToRGB = function (hsb) {
+				var rgb = {};
+				var h = Math.round(hsb.h);
+				var s = Math.round(hsb.s*255/100);
+				var v = Math.round(hsb.b*255/100);
+				if(s == 0) {
+					rgb.r = rgb.g = rgb.b = v;
+				} else {
+					var t1 = v;
+					var t2 = (255-s)*v/255;
+					var t3 = (t1-t2)*(h%60)/60;
+					if(h==360) h = 0;
+					if(h<60) {rgb.r=t1;	rgb.b=t2; rgb.g=t2+t3}
+					else if(h<120) {rgb.g=t1; rgb.b=t2;	rgb.r=t1-t3}
+					else if(h<180) {rgb.g=t1; rgb.r=t2;	rgb.b=t2+t3}
+					else if(h<240) {rgb.b=t1; rgb.r=t2;	rgb.g=t1-t3}
+					else if(h<300) {rgb.b=t1; rgb.g=t2;	rgb.r=t2+t3}
+					else if(h<360) {rgb.r=t1; rgb.g=t2;	rgb.b=t1-t3}
+					else {rgb.r=0; rgb.g=0;	rgb.b=0}
+				}
+				return {r:Math.round(rgb.r), g:Math.round(rgb.g), b:Math.round(rgb.b)};
+			},
+			RGBToHex = function (rgb) {
+				var hex = [
+					rgb.r.toString(16),
+					rgb.g.toString(16),
+					rgb.b.toString(16)
+				];
+				$.each(hex, function (nr, val) {
+					if (val.length == 1) {
+						hex[nr] = '0' + val;
+					}
+				});
+				return hex.join('');
+			},
+			HSBToHex = function (hsb) {
+				return RGBToHex(HSBToRGB(hsb));
+			},
+			restoreOriginal = function () {
+				var cal = $(this).parent();
+				var col = cal.data('colorpicker').origColor;
+				cal.data('colorpicker').color = col;
+				fillRGBFields(col, cal.get(0));
+				fillHexFields(col, cal.get(0));
+				fillHSBFields(col, cal.get(0));
+				setSelector(col, cal.get(0));
+				setHue(col, cal.get(0));
+				setNewColor(col, cal.get(0));
+			};
+		return {
+			init: function (opt) {
+				opt = $.extend({}, defaults, opt||{});
+				if (typeof opt.color == 'string') {
+					opt.color = HexToHSB(opt.color);
+				} else if (opt.color.r != undefined && opt.color.g != undefined && opt.color.b != undefined) {
+					opt.color = RGBToHSB(opt.color);
+				} else if (opt.color.h != undefined && opt.color.s != undefined && opt.color.b != undefined) {
+					opt.color = fixHSB(opt.color);
+				} else {
+					return this;
+				}
+				return this.each(function () {
+					if (!$(this).data('colorpickerId')) {
+						var options = $.extend({}, opt);
+						options.origColor = opt.color;
+						var id = 'collorpicker_' + parseInt(Math.random() * 1000);
+						$(this).data('colorpickerId', id);
+						var cal = $(tpl).attr('id', id);
+						if (options.flat) {
+							cal.appendTo(this).show();
+						} else {
+							cal.appendTo(document.body);
+						}
+						options.fields = cal
+											.find('input')
+												.bind('keyup', keyDown)
+												.bind('change', change)
+												.bind('blur', blur)
+												.bind('focus', focus);
+						cal
+							.find('span').bind('mousedown', downIncrement).end()
+							.find('>div.colorpicker_current_color').bind('click', restoreOriginal);
+						options.selector = cal.find('div.colorpicker_color').bind('mousedown', downSelector);
+						options.selectorIndic = options.selector.find('div div');
+						options.el = this;
+						options.hue = cal.find('div.colorpicker_hue div');
+						cal.find('div.colorpicker_hue').bind('mousedown', downHue);
+						options.newColor = cal.find('div.colorpicker_new_color');
+						options.currentColor = cal.find('div.colorpicker_current_color');
+						cal.data('colorpicker', options);
+						cal.find('div.colorpicker_submit')
+							.bind('mouseenter', enterSubmit)
+							.bind('mouseleave', leaveSubmit)
+							.bind('click', clickSubmit);
+						fillRGBFields(options.color, cal.get(0));
+						fillHSBFields(options.color, cal.get(0));
+						fillHexFields(options.color, cal.get(0));
+						setHue(options.color, cal.get(0));
+						setSelector(options.color, cal.get(0));
+						setCurrentColor(options.color, cal.get(0));
+						setNewColor(options.color, cal.get(0));
+						if (options.flat) {
+							cal.css({
+								position: 'relative',
+								display: 'block'
+							});
+						} else {
+							$(this).bind(options.eventName, show);
+						}
+					}
+				});
+			},
+			showPicker: function() {
+				return this.each( function () {
+					if ($(this).data('colorpickerId')) {
+						show.apply(this);
+					}
+				});
+			},
+			hidePicker: function() {
+				return this.each( function () {
+					if ($(this).data('colorpickerId')) {
+						$('#' + $(this).data('colorpickerId')).hide();
+					}
+				});
+			},
+			setColor: function(col) {
+				if (typeof col == 'string') {
+					col = HexToHSB(col);
+				} else if (col.r != undefined && col.g != undefined && col.b != undefined) {
+					col = RGBToHSB(col);
+				} else if (col.h != undefined && col.s != undefined && col.b != undefined) {
+					col = fixHSB(col);
+				} else {
+					return this;
+				}
+				return this.each(function(){
+					if ($(this).data('colorpickerId')) {
+						var cal = $('#' + $(this).data('colorpickerId'));
+						cal.data('colorpicker').color = col;
+						cal.data('colorpicker').origColor = col;
+						fillRGBFields(col, cal.get(0));
+						fillHSBFields(col, cal.get(0));
+						fillHexFields(col, cal.get(0));
+						setHue(col, cal.get(0));
+						setSelector(col, cal.get(0));
+						setCurrentColor(col, cal.get(0));
+						setNewColor(col, cal.get(0));
+					}
+				});
+			}
+		};
+	}();
+	$.fn.extend({
+		ColorPicker: ColorPicker.init,
+		ColorPickerHide: ColorPicker.hidePicker,
+		ColorPickerShow: ColorPicker.showPicker,
+		ColorPickerSetColor: ColorPicker.setColor
+	});
+})(jQuery);
+define("colorpicker", function(){});
+
+define('zeega_parser/plugins/controls/color/color',[
+    "app",
+    "zeega_parser/modules/control.view",
+    "colorpicker"
+],
+
+function( app, ControlView ) {
+
+    return {
+        color: ControlView.extend({
+
+            parentName: "color",
+            template: "color/color",
+
+            init: function() {
+                this.propertyName = this.options.options.property;
+            },
+
+            create: function() {
+                /* plugin: http://www.eyecon.ro/colorpicker/#about */
+
+                this.$('.color-selector').ColorPicker({
+                    
+                    color: this.model.getAttr("backgroundColor"),
+                    
+                    onShow: function (colpkr) {
+                        $( colpkr ).fadeIn(500);
+                        
+                        return false;
+                    },
+                    onHide: function (colpkr) {
+                        $( colpkr ).fadeOut(500);
+
+                        return false;
+                    },
+                    onChange: function (hsb, hex, rgb) {
+                        var hexValue = "#" + hex;
+
+                        this.$('.color-preview').css('backgroundColor', hexValue );
+                        this.updateVisual( hexValue );
+                        this.lazyUpdate( hexValue );
+                    }.bind( this )
+                });
+            }
+
+        })
+    };
+
+
+});
+
+define('zeega_parser/plugins/controls/linkto/linkto',[
+    "app",
+    "zeega_parser/modules/control.view"
+],
+
+function( app, ControlView ) {
+
+    return {
+        linkto: ControlView.extend({
+
+            propertyName: "to_frame",
+            template: "linkto/linkto",
+
+            serialize: function() {
+                return app.project.getFrame( this.getAttr("to_frame") ).toJSON();
+            },
+
+            onPropertyUpdate: function( value ) {
+                this.render();
+            },
+
+            events: {
+                "click .control-frame-thumb a": "openModal"
+            },
+
+            openModal: function() {
+                this.model.visual.startFrameChooser();
+            }
+
+        })
+    };
+
+
+});
+
+//Title: Custom DropDown plugin by PC
+//Documentation: http://designwithpc.com/Plugins/ddslick
+//Author: PC 
+//Website: http://designwithpc.com
+//Twitter: http://twitter.com/chaudharyp
+
+(function ($) {
+
+    $.fn.ddslick = function (method) {
+        if (methods[method]) {
+            return methods[method].apply(this, Array.prototype.slice.call(arguments, 1));
+        } else if (typeof method === 'object' || !method) {
+            return methods.init.apply(this, arguments);
+        } else {
+            $.error('Method ' + method + ' does not exists.');
+        }
+    };
+
+    var methods = {},
+
+    //Set defauls for the control
+    defaults = {
+        data: [],
+        keepJSONItemsOnTop: false,
+        width: 260,
+        height: null,
+        background: "#eee",
+        selectText: "",
+        defaultSelectedIndex: null,
+        truncateDescription: true,
+        imagePosition: "left",
+        showSelectedHTML: true,
+        clickOffToClose: true,
+        embedCSS: true,
+        onSelected: function () { }
+    },
+
+    ddSelectHtml = '<div class="dd-select"><input class="dd-selected-value" type="hidden" /><a class="dd-selected"></a><span class="dd-pointer dd-pointer-down"></span></div>',
+    ddOptionsHtml = '<ul class="dd-options"></ul>',
+
+    //CSS for ddSlick
+    ddslickCSS = '<style id="css-ddslick" type="text/css">' +
+                '.dd-select{ border-radius:2px; border:solid 1px #ccc; position:relative; cursor:pointer;}' +
+                '.dd-desc { color:#aaa; display:block; overflow: hidden; font-weight:normal; line-height: 1.4em; }' +
+                '.dd-selected{ overflow:hidden; display:block; padding:10px; font-weight:bold;}' +
+                '.dd-pointer{ width:0; height:0; position:absolute; right:10px; top:50%; margin-top:-3px;}' +
+                '.dd-pointer-down{ border:solid 5px transparent; border-top:solid 5px #000; }' +
+                '.dd-pointer-up{border:solid 5px transparent !important; border-bottom:solid 5px #000 !important; margin-top:-8px;}' +
+                '.dd-options{ border:solid 1px #ccc; border-top:none; list-style:none; box-shadow:0px 1px 5px #ddd; display:none; position:absolute; z-index:2000; margin:0; padding:0;background:#fff; overflow:auto;}' +
+                '.dd-option{ padding:10px; display:block; border-bottom:solid 1px #ddd; overflow:hidden; text-decoration:none; color:#333; cursor:pointer;-webkit-transition: all 0.25s ease-in-out; -moz-transition: all 0.25s ease-in-out;-o-transition: all 0.25s ease-in-out;-ms-transition: all 0.25s ease-in-out; }' +
+                '.dd-options > li:last-child > .dd-option{ border-bottom:none;}' +
+                '.dd-option:hover{ background:#f3f3f3; color:#000;}' +
+                '.dd-selected-description-truncated { text-overflow: ellipsis; white-space:nowrap; }' +
+                '.dd-option-selected { background:#f6f6f6; }' +
+                '.dd-option-image, .dd-selected-image { vertical-align:middle; float:left; margin-right:5px; max-width:64px;}' +
+                '.dd-image-right { float:right; margin-right:15px; margin-left:5px;}' +
+                '.dd-container{ position:relative;}​ .dd-selected-text { font-weight:bold}​</style>';
+
+    //Public methods 
+    methods.init = function (options) {
+        //Preserve the original defaults by passing an empty object as the target
+        //The object is used to get global flags like embedCSS.
+        var options = $.extend({}, defaults, options);
+        
+        //CSS styles are only added once.
+        if ($('#css-ddslick').length <= 0 && options.embedCSS) {
+            $(ddslickCSS).appendTo('head');
+        }
+
+        //Apply on all selected elements
+        return this.each(function () {
+            //Preserve the original defaults by passing an empty object as the target 
+            //The object is used to save drop-down's corresponding settings and data.
+            var options = $.extend({}, defaults, options);
+            
+            var obj = $(this),
+                data = obj.data('ddslick');
+            //If the plugin has not been initialized yet
+            if (!data) {
+
+                var ddSelect = [], ddJson = options.data;
+
+                //Get data from HTML select options
+                obj.find('option').each(function () {
+                    var $this = $(this), thisData = $this.data();
+                    ddSelect.push({
+                        text: $.trim($this.text()),
+                        value: $this.val(),
+                        selected: $this.is(':selected'),
+                        description: thisData.description,
+                        imageSrc: thisData.imagesrc //keep it lowercase for HTML5 data-attributes
+                    });
+                });
+
+                //Update Plugin data merging both HTML select data and JSON data for the dropdown
+                if (options.keepJSONItemsOnTop)
+                    $.merge(options.data, ddSelect);
+                else options.data = $.merge(ddSelect, options.data);
+
+                //Replace HTML select with empty placeholder, keep the original
+                var original = obj, placeholder = $('<div id="' + obj.attr('id') + '"></div>');
+                obj.replaceWith(placeholder);
+                obj = placeholder;
+
+                //Add classes and append ddSelectHtml & ddOptionsHtml to the container
+                obj.addClass('dd-container').append(ddSelectHtml).append(ddOptionsHtml);
+
+                // Inherit name attribute from original element
+                obj.find("input.dd-selected-value").attr("name", $(original).attr("name"))
+
+                //Get newly created ddOptions and ddSelect to manipulate
+                var ddSelect = obj.find('.dd-select'),
+                    ddOptions = obj.find('.dd-options');
+
+                //Set widths
+                ddOptions.css({ width: options.width });
+                ddSelect.css({ width: options.width, background: options.background });
+                obj.css({ width: options.width });
+
+                //Set height
+                if (options.height != null)
+                    ddOptions.css({ height: options.height, overflow: 'auto' });
+
+                //Add ddOptions to the container. Replace with template engine later.
+                $.each(options.data, function (index, item) {
+                    if (item.selected) options.defaultSelectedIndex = index;
+                    ddOptions.append('<li>' +
+                        '<a class="dd-option">' +
+                            (item.value ? ' <input class="dd-option-value" type="hidden" value="' + item.value + '" />' : '') +
+                            (item.imageSrc ? ' <img class="dd-option-image' + (options.imagePosition == "right" ? ' dd-image-right' : '') + '" src="' + item.imageSrc + '" />' : '') +
+                            (item.text ? ' <label class="dd-option-text">' + item.text + '</label>' : '') +
+                            (item.description ? ' <small class="dd-option-description dd-desc">' + item.description + '</small>' : '') +
+                        '</a>' +
+                    '</li>');
+                });
+
+                //Save plugin data.
+                var pluginData = {
+                    settings: options,
+                    original: original,
+                    selectedIndex: -1,
+                    selectedItem: null,
+                    selectedData: null
+                }
+                obj.data('ddslick', pluginData);
+
+                //Check if needs to show the select text, otherwise show selected or default selection
+                if (options.selectText.length > 0 && options.defaultSelectedIndex == null) {
+                    obj.find('.dd-selected').html(options.selectText);
+                }
+                else {
+                    var index = (options.defaultSelectedIndex != null && options.defaultSelectedIndex >= 0 && options.defaultSelectedIndex < options.data.length)
+                                ? options.defaultSelectedIndex
+                                : 0;
+                    selectIndex(obj, index);
+                }
+
+                //EVENTS
+                //Displaying options
+                obj.find('.dd-select').on('click.ddslick', function () {
+                    open(obj);
+                });
+
+                //Selecting an option
+                obj.find('.dd-option').on('click.ddslick', function () {
+                    selectIndex(obj, $(this).closest('li').index());
+                });
+
+                //Click anywhere to close
+                if (options.clickOffToClose) {
+                    ddOptions.addClass('dd-click-off-close');
+                    obj.on('click.ddslick', function (e) { e.stopPropagation(); });
+                    $('body').on('click', function () {
+                        $('.dd-click-off-close').slideUp(50).siblings('.dd-select').find('.dd-pointer').removeClass('dd-pointer-up');
+                    });
+                }
+            }
+        });
+    };
+
+    //Public method to select an option by its index
+    methods.select = function (options) {
+        return this.each(function () {
+            if (options.index!==undefined)
+                selectIndex($(this), options.index);
+            if (options.id)
+                selectId($(this), options.id);
+        });
+    }
+
+    //Public method to open drop down
+    methods.open = function () {
+        return this.each(function () {
+            var $this = $(this),
+                pluginData = $this.data('ddslick');
+
+            //Check if plugin is initialized
+            if (pluginData)
+                open($this);
+        });
+    };
+
+    //Public method to close drop down
+    methods.close = function () {
+        return this.each(function () {
+            var $this = $(this),
+                pluginData = $this.data('ddslick');
+
+            //Check if plugin is initialized
+            if (pluginData)
+                close($this);
+        });
+    };
+
+    //Public method to destroy. Unbind all events and restore the original Html select/options
+    methods.destroy = function () {
+        return this.each(function () {
+            var $this = $(this),
+                pluginData = $this.data('ddslick');
+
+            //Check if already destroyed
+            if (pluginData) {
+                var originalElement = pluginData.original;
+                $this.removeData('ddslick').unbind('.ddslick').replaceWith(originalElement);
+            }
+        });
+    }
+    
+     //Private: Select id
+    function selectId(obj, id) {
+    
+       var index = obj.find(".dd-option-value[value= '" + id + "']").parents("li").prevAll().length;
+       selectIndex(obj, index);
+       
+    }
+
+    //Private: Select index
+    function selectIndex(obj, index) {
+
+        //Get plugin data
+        var pluginData = obj.data('ddslick');
+
+        //Get required elements
+        var ddSelected = obj.find('.dd-selected'),
+            ddSelectedValue = ddSelected.siblings('.dd-selected-value'),
+            ddOptions = obj.find('.dd-options'),
+            ddPointer = ddSelected.siblings('.dd-pointer'),
+            selectedOption = obj.find('.dd-option').eq(index),
+            selectedLiItem = selectedOption.closest('li'),
+            settings = pluginData.settings,
+            selectedData = pluginData.settings.data[index];
+
+        //Highlight selected option
+        obj.find('.dd-option').removeClass('dd-option-selected');
+        selectedOption.addClass('dd-option-selected');
+
+        //Update or Set plugin data with new selection
+        pluginData.selectedIndex = index;
+        pluginData.selectedItem = selectedLiItem;
+        pluginData.selectedData = selectedData;
+
+        //If set to display to full html, add html
+        if (settings.showSelectedHTML) {
+            ddSelected.html(
+                    (selectedData.imageSrc ? '<img class="dd-selected-image' + (settings.imagePosition == "right" ? ' dd-image-right' : '') + '" src="' + selectedData.imageSrc + '" />' : '') +
+                    (selectedData.text ? '<label class="dd-selected-text">' + selectedData.text + '</label>' : '') +
+                    (selectedData.description ? '<small class="dd-selected-description dd-desc' + (settings.truncateDescription ? ' dd-selected-description-truncated' : '') + '" >' + selectedData.description + '</small>' : '')
+                );
+
+        }
+            //Else only display text as selection
+        else ddSelected.html(selectedData.text);
+
+        //Updating selected option value
+        ddSelectedValue.val(selectedData.value);
+
+        //BONUS! Update the original element attribute with the new selection
+        pluginData.original.val(selectedData.value);
+        obj.data('ddslick', pluginData);
+
+        //Close options on selection
+        close(obj);
+
+        //Adjust appearence for selected option
+        adjustSelectedHeight(obj);
+
+        //Callback function on selection
+        if (typeof settings.onSelected == 'function') {
+            settings.onSelected.call(this, pluginData);
+        }
+    }
+
+    //Private: Close the drop down options
+    function open(obj) {
+
+        var $this = obj.find('.dd-select'),
+            ddOptions = $this.siblings('.dd-options'),
+            ddPointer = $this.find('.dd-pointer'),
+            wasOpen = ddOptions.is(':visible');
+
+        //Close all open options (multiple plugins) on the page
+        $('.dd-click-off-close').not(ddOptions).slideUp(50);
+        $('.dd-pointer').removeClass('dd-pointer-up');
+
+        if (wasOpen) {
+            ddOptions.slideUp('fast');
+            ddPointer.removeClass('dd-pointer-up');
+        }
+        else {
+            ddOptions.slideDown('fast');
+            ddPointer.addClass('dd-pointer-up');
+        }
+
+        //Fix text height (i.e. display title in center), if there is no description
+        adjustOptionsHeight(obj);
+    }
+
+    //Private: Close the drop down options
+    function close(obj) {
+        //Close drop down and adjust pointer direction
+        obj.find('.dd-options').slideUp(50);
+        obj.find('.dd-pointer').removeClass('dd-pointer-up').removeClass('dd-pointer-up');
+    }
+
+    //Private: Adjust appearence for selected option (move title to middle), when no desripction
+    function adjustSelectedHeight(obj) {
+
+        //Get height of dd-selected
+        var lSHeight = obj.find('.dd-select').css('height');
+
+        //Check if there is selected description
+        var descriptionSelected = obj.find('.dd-selected-description');
+        var imgSelected = obj.find('.dd-selected-image');
+        if (descriptionSelected.length <= 0 && imgSelected.length > 0) {
+            obj.find('.dd-selected-text').css('lineHeight', lSHeight);
+        }
+    }
+
+    //Private: Adjust appearence for drop down options (move title to middle), when no desripction
+    function adjustOptionsHeight(obj) {
+        obj.find('.dd-option').each(function () {
+            var $this = $(this);
+            var lOHeight = $this.css('height');
+            var descriptionOption = $this.find('.dd-option-description');
+            var imgOption = obj.find('.dd-option-image');
+            if (descriptionOption.length <= 0 && imgOption.length > 0) {
+                $this.find('.dd-option-text').css('lineHeight', lOHeight);
+            }
+        });
+    }
+
+})(jQuery);
+define("ddslick", function(){});
+
+define('zeega_parser/plugins/controls/linkimage/linkimage',[
+    "app",
+    "zeega_parser/modules/control.view",
+
+    "ddslick"  //  http://designwithpc.com/Plugins/ddSlick
+],
+
+function( app, ControlView ) {
+
+    return {
+        linkimage: ControlView.extend({
+
+            propertyName: "link_type",
+            template: "linkimage/linkimage",
+
+            create: function() {
+                this.$(".link-image-select").val( this.getAttr("link_type") );
+            },
+
+            events: {
+                "change .link-image-select": "changeSelect"
+            },
+
+            changeSelect: function() {
+                var classes = this.$visualContainer.attr("class");
+
+                classes = classes.replace(/link-type-([a-zA-Z0-9_.])*\S/, "");
+                this.$visualContainer.attr("class", classes );
+                this.$visualContainer.addClass( "link-type-" + this.$(".link-image-select").val() );
+                this.update({ link_type: this.$(".link-image-select").val() });
+            }
+
+
+        })
+    };
+
+
+});
+
+/*
+
+plugin/layer manifest file
+
+this should be auto generated probably!!
+
+*/
+
+define('zeega_parser/plugins/controls/_all-controls',[
+    "zeega_parser/plugins/controls/position/position",
+    "zeega_parser/plugins/controls/opacity/opacity",
+    "zeega_parser/plugins/controls/resize/resize",
+    "zeega_parser/plugins/controls/dissolve/dissolve",
+    "zeega_parser/plugins/controls/color/color",
+    "zeega_parser/plugins/controls/linkto/linkto",
+    "zeega_parser/plugins/controls/linkimage/linkimage"
+],
+function(
+    Position,
+    Opacity,
+    Resize,
+    Dissolve,
+    Color,
+    LinkTo,
+    LinkImage
+) {
+
+    return _.extend(
+        Position,
+        Opacity,
+        Resize,
+        Dissolve,
+        Color,
+        LinkTo,
+        LinkImage
+    );
+});
+
+define('modules/views/layer-controls',[
+    "app",
+    "zeega_parser/plugins/controls/_all-controls",
+
+    "backbone"
+],
+
+function( app, Controls ) {
+
     return Backbone.View.extend({
+
+        controls: [],
 
         template: "layer-control-bar",
         className: "ZEEGA-layer-control-bar",
@@ -83218,7 +84610,40 @@ function( app ) {
         },
 
         onLayerFocus: function( status, layerModel ) {
-            this.$(".layer-bar-title").text( layerModel.getAttr("title") );
+            if ( layerModel !== null ) {
+                this.$(".layer-bar-title").text( layerModel.getAttr("title") );
+                this.loadControls( layerModel );
+            } else if ( layerModel === null ) {
+                this.$(".layer-bar-title").empty();
+                this.clearControls();
+            }
+        },
+
+        loadControls: function( layerModel ) {
+            this.clearControls();
+
+            this.controls = _.map( layerModel.controls, function( controlType ) {
+                var control;
+
+                if ( _.isObject( controlType ) && Controls[ controlType.type ] ) {
+                    control = new Controls[ controlType.type ]({ model: layerModel, options: controlType.options });
+                    this.$(".layer-controls-inner").append( control.el );
+                    control.render();
+                } else if ( Controls[ controlType ] ) {
+                    control = new Controls[ controlType ]({ model: layerModel });
+                    this.$(".layer-controls-inner").append( control.el );
+                    control.render();
+
+                    return control;
+                }
+
+                return false;
+            }, this );
+            this.controls = _.compact( this.controls );
+        },
+
+        clearControls: function() {
+            this.$(".layer-controls-inner").empty();
         }
 
     });
@@ -83717,7 +85142,7 @@ function( app ) {
         },
 
         initialize: function() {
-            var augmentAttr = _.defaults( this.attr, this.toJSON().attr );
+            var augmentAttr = _.extend({}, this.attr, this.toJSON().attr );
 
             this.set("attr", augmentAttr );
             this.order = {};
@@ -83839,278 +85264,6 @@ function( app ) {
 });
 
 // layer.js
-define('zeega_parser/modules/control.view',[
-    "app",
-    "jqueryUI"
-],
-
-function( app ) {
-
-    return app.Backbone.View.extend({
-
-        propertyName: "",
-        $visual: null,
-        $visualContainer: null,
-        $workspace: null,
-
-        className: function() {
-            return "control control-" + this.propertyName;
-        },
-
-        initialize: function() {
-            this.model.on("change:" + this.propertyName , this.onPropertyUpdate, this );
-            this.init();
-        },
-
-        afterRender: function() {
-            this.$visual = this.model.visual.$el.find(".visual-target");
-            this.$visualContainer = this.model.visual.$el;
-            this.$workspace = this.model.visual.$el.closest(".ZEEGA-workspace");
-
-            this.create();
-        },
-
-        init: function() {},
-        create: function() {},
-        destroy: function() {},
-
-        update: function( attributes ) {
-            var attr = _.extend({}, this.model.get("attr"), attributes );
-
-            this.model.save("attr", attr );
-        },
-
-        // convenience fxn
-        getAttr: function( key ) {
-            return this.model.get("attr")[key];
-        },
-
-        serialize: function() {
-            return this.model.toJSON();
-        },
-
-        fetch: function( path ) {
-            // Initialize done for use in async-mode
-            var done;
-            // Concatenate the file extension.
-            path = app.parserPath + "plugins/controls/" + path + ".html";
-            // remove app/templates/ via regexp // hacky? yes. probably.
-            path = path.replace("app/templates/","");
-
-            // If cached, use the compiled template.
-            if ( JST[ path ] ) {
-                return JST[ path ];
-            } else {
-                // Put fetch into `async-mode`.
-                done = this.async();
-                // Seek out the template asynchronously.
-                return app.$.ajax({ url: app.root + path }).then(function( contents ) {
-                    done(
-                      JST[ path ] = _.template( contents )
-                    );
-                });
-            }
-        }
-
-    });
-
-});
-
-define('zeega_parser/plugins/controls/position/position',[
-    "app",
-    "zeega_parser/modules/control.view"
-],
-
-function( Zeega, ControlView ) {
-
-    return {
-
-        position: ControlView.extend({
-
-            propertyName: "position",
-
-            create: function() {
-                this.makeDraggable();
-                this.$visual.css("cursor", "move");
-            },
-
-            makeDraggable: function() {
-                if ( this.model.editorProperties.draggable ) {
-                    this.$visualContainer.draggable({
-                        stop: function( e, ui ) {
-                            var top, left, workspace;
-
-                            workspace = this.$visualContainer.closest(".ZEEGA-workspace");
-                            top = ui.position.top / workspace.height() * 100;
-                            left = ui.position.left / workspace.width() * 100;
-                            this.update({
-                                top: top,
-                                left: left
-                            });
-
-                            this.convertToPercents( top, left );
-                        }.bind( this )
-                    });
-                }
-            },
-
-            destroy: function() {
-                this.$visualContainer.draggable( "destroy" );
-            },
-
-            convertToPercents: function( top, left ) {
-                this.$visualContainer.css({
-                    top: top + "%",
-                    left: left + "%"
-                });
-            }
-
-        }) // end control
-    
-    }; // end return
-
-});
-
-define('zeega_parser/plugins/controls/opacity/opacity',[
-    "app",
-    "zeega_parser/modules/control.view",
-    "jqueryUI"
-],
-
-function( Zeega, ControlView ) {
-
-    return {
-        opacity: ControlView.extend({
-
-            propertyName: "opacity",
-            template: "opacity/opacity",
-
-            create: function() {
-                var $input = this.$(".text-input");
-
-                this.$(".opacity-slider").slider({
-                    orientation: "vertical",
-                    range: "min",
-                    step: 0.001,
-                    min: 0,
-                    max: 1,
-                    value: this.getAttr("opacity"),
-
-                    slide: function( e, ui ) {
-                        this.$visual.css({ opacity: ui.value });
-                        this.$(".text-input").val( Math.floor( ui.value * 100 ) );
-                    }.bind( this ),
-                    
-                    stop: function( e, ui) {
-                        this.update({ opacity: ui.value });
-                    }.bind( this )
-                });
-
-                $input.on("keyup", function( e ) {
-                    if ( e.which == 13 ) { // enter
-                        $input.blur();
-                    } else if ( e.which == 27 ) { // esc
-                        $input.val( Math.floor( this.getAttr("opacity") * 100 ) );
-                        $input.blur();
-                    }
-                }.bind( this ));
-
-                $input.blur(function() {
-                    this.update({ opacity: $input.val() / 100 });
-                }.bind( this ));
-            },
-
-            onPropertyUpdate: function( model, value ) {
-                this.$visual.css({ opacity: value });
-                this.$(".opacity-slider").slider("value", value );
-            }
-
-        })
-    };
-
-
-});
-
-define('zeega_parser/plugins/controls/resize/resize',[
-    "app",
-    "zeega_parser/modules/control.view"
-],
-
-function( Zeega, ControlView ) {
-
-    return {
-
-        resize: ControlView.extend({
-
-            propertyName: "resize",
-
-            create: function() {
-                this.makeResizable();
-            },
-
-            makeResizable: function() {
-                var args = {
-                    stop: function( e, ui ) {
-                        var width, height;
-
-                        height = this.$visualContainer.height() / this.$workspace.height() * 100;
-                        width = this.$visualContainer.width() / this.$workspace.width() * 100;
-
-                        this.update({
-                            height: height,
-                            width: width
-                        });
-                        this.convertToPercents( width, height );
-                    }.bind( this )
-                };
-
-                this.$visualContainer.resizable( _.extend({}, args, this.options.options ) );
-            },
-
-            destroy: function() {
-                this.$visualContainer.resizable( "destroy" );
-            },
-
-            convertToPercents: function( width, height ) {
-                this.$visualContainer.css({
-                    width: width + "%",
-                    height: height + "%"
-                });
-            }
-
-        }) // end control
-    
-    }; // end return
-
-});
-
-/*
-
-plugin/layer manifest file
-
-this should be auto generated probably!!
-
-*/
-
-define('zeega_parser/plugins/controls/_all-controls',[
-    "zeega_parser/plugins/controls/position/position",
-    "zeega_parser/plugins/controls/opacity/opacity",
-    "zeega_parser/plugins/controls/resize/resize"
-],
-function(
-    Position,
-    Opacity,
-    Resize
-) {
-
-    return _.extend(
-        Position,
-        Opacity,
-        Resize
-    );
-});
-
-// layer.js
 define('zeega_parser/modules/layer.visual.view',[
     "app",
     "zeega_parser/plugins/controls/_all-controls"
@@ -84126,6 +85279,7 @@ function( app, Controls ) {
 
         template: "",
         controls: [],
+        _allowedControls: [ "resize", "position" ],
         $visual: null,
         $workspace: null,
 
@@ -84145,6 +85299,7 @@ function( app, Controls ) {
         onClick: function() {
             app.trigger("layersBlur");
             this.model.trigger("focus");
+            app.status.set("currentLayer", this.model );
         },
 
         /* editor fxns */
@@ -84163,16 +85318,19 @@ function( app, Controls ) {
 
         loadControls: function() {
             this.controls = _.map( this.model.controls, function( controlType ) {
-                var control;
 
-                if ( _.isObject( controlType ) && Controls[ controlType.type ] ) {
-                    control = new Controls[ controlType.type ]({ model: this.model, options: controlType.options });
-                    this.insertView( ".controls-inline", control );
-                } else if ( Controls[ controlType ] ) {
-                    control = new Controls[ controlType ]({ model: this.model });
-                    this.insertView( ".controls-inline", control );
+                if ( _.contains( this._allowedControls, controlType ) || _.contains( this._allowedControls, controlType.type ) ) {
+                    var control;
 
-                    return control;
+                    if ( _.isObject( controlType ) && Controls[ controlType.type ] ) {
+                        control = new Controls[ controlType.type ]({ model: this.model, options: controlType.options });
+                        this.insertView( ".controls-inline", control );
+                    } else if ( Controls[ controlType ] ) {
+                        control = new Controls[ controlType ]({ model: this.model });
+                        this.insertView( ".controls-inline", control );
+
+                        return control;
+                    }
                 }
                 return false;
             }, this );
@@ -84401,6 +85559,7 @@ function( Zeega, _Layer, Visual ){
                 options: { aspectRatio: true }
             },
             "rotate",
+            "dissolve",
             "opacity"
         ]
 
@@ -84491,13 +85650,15 @@ function( app ) {
 
         closeThis: function() {
             this.$el.fadeOut(function() {
+                this.$el.attr("style", "");
                 this.remove();
             }.bind( this ));
         },
 
         submit: function() {
             if ( this.selectedFrame !== null ) {
-                this.model.saveAttr({ link_to: this.selectedFrame });
+                this.model.saveAttr({ to_frame: this.selectedFrame });
+                this.model.trigger("change:to_frame", this.model, this.selectedFrame );
             }
             this.closeThis();
         },
@@ -84520,7 +85681,8 @@ function( app ) {
         },
 
         onNewFrameSave: function( newFrame ) {
-            this.model.saveAttr({ link_to: newFrame.id });
+            this.model.saveAttr({ to_frame: newFrame.id });
+            this.model.trigger("change:to_frame", this.model, newFrame.id );
         },
 
         afterRender: function() {
@@ -84531,14 +85693,15 @@ function( app ) {
                 fv.addClass("frame")
                     .data("id", frame.id )
                     .css({
-                        background: frame.get("thumbnail_url")
+                        background: "url(" + frame.get("thumbnail_url") +") no-repeat center center",
+                        "-webkit-background-size": "cover"
                     });
 
                 if ( app.status.get("currentFrame").id == frame.id ) {
                     fv.addClass("inactive");
                 }
 
-                if ( this.model.getAttr("link_to") ) {
+                if ( this.model.getAttr("to_frame") == frame.id ) {
                     fv.addClass("active");
                 }
 
@@ -84605,7 +85768,9 @@ function( Zeega, _Layer, Visual, FrameChooser ) {
 
         controls: [
             "position",
-            "resize"
+            "resize",
+            "linkto",
+            "linkimage"
         ]
     });
 
@@ -100111,8 +101276,16 @@ function( Zeega, LayerModel, Visual ) {
         controls: [
             "position",
             "resize",
+            "dissolve",
             "rotate",
-            "opacity"
+            "opacity",
+            {
+                type: "color",
+                options: {
+                    title: "color",
+                    property: "backgroundColor"
+                }
+            }
         ]
 
     });
@@ -102021,12 +103194,17 @@ require.config({
     plugins: "../assets/js/plugins",
     vendor: "../vendor",
 
-    zeegaplayer: "../vendor/zeegaplayer/dist/debug/zeega"
+    zeegaplayer: "../vendor/zeegaplayer/dist/debug/zeega",
+
+    colorpicker: "../vendor/colorpicker/js/colorpicker",
+    ddslick: "../assets/js/plugins/jquery.ddslick"
 
   },
 
   shim: {
-    jqueryUI: ["jquery"]
+    jqueryUI: ["jquery"],
+    colorpicker: ["jquery"],
+    ddslick: ["jquery"]
   }
 
 });
