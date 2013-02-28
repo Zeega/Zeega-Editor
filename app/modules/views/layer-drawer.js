@@ -12,7 +12,8 @@ function( app ) {
 
         afterRender: function() {
             this.$("li").draggable({
-                revert: true,
+                revert: "invalid",
+                helper: "clone",
                 cursorAt: {
                     left: 0,
                     top: 0
