@@ -18,7 +18,7 @@ function( app ) {
 
         initialize: function() {
             this.model.on("focus", this.onFocus, this );
-            app.on("layersBlur", this.onBlur, this );
+            this.model.on("blur", this.onBlur, this );
             this.model.on("remove", this.onRemove, this );
         },
 
@@ -47,9 +47,7 @@ function( app ) {
         },
 
         selectLayer: function() {
-            app.trigger("layersBlur");
-            this.model.trigger("focus");
-            app.status.set("currentLayer", this.model );
+            app.status.setCurrentLayer( this.model );
         },
 
         onFocus: function() {

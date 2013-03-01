@@ -36,6 +36,16 @@ function( app ) {
             }
         },
 
+        setCurrentLayer: function( layerModel ) {
+            var previousLayer = this.get("currentLayer");
+
+            if ( previousLayer ) {
+                previousLayer.trigger("blur");
+            }
+            this.set("currentLayer", layerModel );
+            layerModel.trigger("focus");
+        },
+
         onCurrentRemove: function( model, collection, options ) {
             var nextFrame, index;
 
