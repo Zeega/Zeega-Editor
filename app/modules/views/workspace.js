@@ -45,7 +45,7 @@ function( app ) {
                     this.$(".intro").remove();
                     if ( _.isString( app.dragging ) ) {
                         app.status.get('currentFrame').addLayerType( app.dragging );
-                    } else if ( _.contains( ["Image"], app.dragging.get("layer_type") )) {
+                    } else if ( app.dragging.get("layer_type") ) {
                         this.model.status.get('currentFrame').addLayerByItem( app.dragging );
                     }
                 }.bind( this )

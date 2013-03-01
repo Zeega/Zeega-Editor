@@ -42,7 +42,6 @@ function( app ) {
 
         onLayerAdded: function( layer ) {
             if ( this.model.project.get("cover_image") === "" ) {
-                console.log("layer ud", layer);
                 if ( layer.get("type") == "Image" ) {
                     this.updateCoverImage( layer.getAttr("uri") );
                 }

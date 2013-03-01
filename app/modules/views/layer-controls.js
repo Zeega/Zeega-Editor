@@ -1,11 +1,10 @@
 define([
     "app",
-    "zeega_parser/plugins/controls/_all-controls",
 
     "backbone"
 ],
 
-function( app, Controls ) {
+function( app ) {
 
     return Backbone.View.extend({
 
@@ -31,24 +30,11 @@ function( app, Controls ) {
         loadControls: function( layerModel ) {
             this.clearControls();
 
-            this.controls = _.map( layerModel.controls, function( controlType ) {
-                var control;
-
-                if ( _.isObject( controlType ) && Controls[ controlType.type ] ) {
-                    control = new Controls[ controlType.type ]({ model: layerModel, options: controlType.options });
+            _.each( layerModel._controls, function( control ) {
                     this.$(".layer-controls-inner").append( control.el );
                     control.render();
-                } else if ( Controls[ controlType ] ) {
-                    control = new Controls[ controlType ]({ model: layerModel });
-                    this.$(".layer-controls-inner").append( control.el );
-                    control.render();
+            });
 
-                    return control;
-                }
-
-                return false;
-            }, this );
-            this.controls = _.compact( this.controls );
         },
 
         clearControls: function() {
