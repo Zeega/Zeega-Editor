@@ -9,12 +9,33 @@
     <a href="#" class="preview"><i class="play-zcon"></i></a>
     <div class="project-meta-lower">
         <div class="ZEEGA-project-share">
-            share: 
-            <a href="#"><i class="zsocial-twitter"></i></a>
-            <a href="#"><i class="zsocial-facebook"></i></a>
-            <a href="#"><i class="zsocial-tumblr"></i></a>
-            <a href="#"><i class="zsocial-email"></i></a>
+            <a href="#" class="project-share-toggle">share</a>:
+            <div class="hidden-drawer <%= drawerClass %>">
+                <a href="https://twitter.com/intent/tweet?original_referer=http://www.zeega.com/<%= item_id %>&text=Zeega%20Project%3A%20<%= title %> &url=http://www.zeega.com/<%= item_id %>"
+                    class="social-share"
+                    data-itemid="<%= item_id %>"
+                    target="blank">
+                    <i class="zsocial-twitter">
+                    </i>
+                </a>
+                <a href="http://www.facebook.com/sharer.php?u=http://www.zeega.com/<%= item_id %>"
+                    class="social-share"
+                    data-itemid="<%= item_id %>"
+                    target="blank">
+                    <i class="zsocial-facebook"></i>
+                </a>
+                <a href="http://www.tumblr.com/share"
+                    class="social-share"
+                    data-itemid="<%= item_id %>"
+                    target="blank">
+                    <i class="zsocial-tumblr"></i>
+                </a>
+                <a href="mailto:friend@example.com?subject=Check out this Zeega!&body=http://www.zeega.com/<%= item_id %>"
+                    class="social-share"
+                    data-itemid="<%= item_id %>">
+                    <i class="zsocial-email"></i>
+                </a>
+            </div>
         </div>
     </div>
-
 </div>

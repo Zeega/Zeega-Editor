@@ -33,6 +33,22 @@
         .ZEEGA-project-share {
             padding: 5px 10px;
         }
+
+        .social-share {
+            opacity: 1;
+
+            &[data-itemid=null] {
+                opacity: 0.2;
+            }
+        }
+
+        .hidden-drawer {
+            display: none;
+            &.open {
+                display: inline-block;
+            }
+        }
+
     }
 
     .preview {

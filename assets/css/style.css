@@ -4134,6 +4134,18 @@ a:active {
 .project-meta .project-meta-lower .ZEEGA-project-share {
   padding: 5px 10px;
 }
+.project-meta .project-meta-lower .social-share {
+  opacity: 1;
+}
+.project-meta .project-meta-lower .social-share[data-itemid=null] {
+  opacity: 0.2;
+}
+.project-meta .project-meta-lower .hidden-drawer {
+  display: none;
+}
+.project-meta .project-meta-lower .hidden-drawer.open {
+  display: inline-block;
+}
 .project-meta .preview {
   display: block;
   position: absolute;

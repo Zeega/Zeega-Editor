@@ -8,10 +8,12 @@ function( app ) {
     // This will fetch the tutorial template and render it.
     ProjectMeta = Backbone.View.extend({
 
+        drawerClass: "",
+
         template: "project-meta",
         
         serialize: function() {
-            return this.model.project.toJSON();
+            return _.extend({ drawerClass: this.drawerClass }, this.model.project.toJSON() );
         },
 
         afterRender: function() {
@@ -20,6 +22,8 @@ function( app ) {
             if ( app.project.get("cover_image") === "" ) {
                 this.model.on("layer_added", this.onLayerAdded, this );
             }
+
+            this.model.project.on("sync", this.render, this );
         },
 
         makeCoverDroppable: function() {
@@ -65,7 +69,9 @@ function( app ) {
             "keypress .ZEEGA-project-title": "onTitleKeyup",
             "blur .ZEEGA-project-title": "onBlur",
             "click .meta-menu a": "onMenuClick",
-            "click .preview": "projectPreview"
+            "click .preview": "projectPreview",
+            "click .project-share-toggle": "toggleShare",
+            "click .social-share": "socialShare"
         },
 
         onTitleKeyup: function( e ) {
@@ -86,8 +92,6 @@ function( app ) {
         projectPreview: function() {
             var projectData = app.project.getProjectJSON();
 
-console.log("project data",projectData);
-
             app.zeegaplayer = new Zeega.player({
                 data: projectData,
                 startFrame: app.status.get("currentFrame").id,
@@ -96,6 +100,26 @@ console.log("project data",projectData);
                     close: true
                 }
             });
+        },
+
+        toggleShare: function() {
+
+            if ( this.drawerClass == "open" ) {
+                this.drawerClass = "";
+                this.$(".hidden-drawer").removeClass("open");
+            } else {
+                this.drawerClass = "open";
+                this.$(".hidden-drawer").addClass("open");
+                this.model.project.publishProject();
+            }
+        },
+
+        socialShare: function( e ) {
+            // prevent unpublished links from being shared
+            if ( $( e.target ).closest(".social-share").data("itemid") === null ) {
+                e.preventDefault();
+                return false;
+            }
         },
 
         onBlur: function() {
