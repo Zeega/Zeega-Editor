@@ -503,7 +503,27 @@ __p+='<div class="ZEEGA-project-cover" style="\n    background: url('+
 ( cover_image )+
 ') no-repeat center center;\n    -webkit-background-size: cover;\n    background-size: cover;\n">\n    <div class="project-meta-upper">\n        <div class="ZEEGA-project-title" contenteditable="true">'+
 ( title )+
-'</div>\n    </div>\n    <a href="#" class="preview"><i class="play-zcon"></i></a>\n    <div class="project-meta-lower">\n        <div class="ZEEGA-project-share">\n            share: \n            <a href="#"><i class="zsocial-twitter"></i></a>\n            <a href="#"><i class="zsocial-facebook"></i></a>\n            <a href="#"><i class="zsocial-tumblr"></i></a>\n            <a href="#"><i class="zsocial-email"></i></a>\n        </div>\n    </div>\n\n</div>';
+'</div>\n    </div>\n    <a href="#" class="preview"><i class="play-zcon"></i></a>\n    <div class="project-meta-lower">\n        <div class="ZEEGA-project-share">\n            <a href="#" class="project-share-toggle">share</a>:\n            <div class="hidden-drawer '+
+( drawerClass )+
+'">\n                <a href="https://twitter.com/intent/tweet?original_referer=http://www.zeega.com/'+
+( item_id )+
+'&text=Zeega%20Project%3A%20'+
+( title )+
+' &url=http://www.zeega.com/'+
+( item_id )+
+'"\n                    class="social-share"\n                    data-itemid="'+
+( item_id )+
+'"\n                    target="blank">\n                    <i class="zsocial-twitter">\n                    </i>\n                </a>\n                <a href="http://www.facebook.com/sharer.php?u=http://www.zeega.com/'+
+( item_id )+
+'"\n                    class="social-share"\n                    data-itemid="'+
+( item_id )+
+'"\n                    target="blank">\n                    <i class="zsocial-facebook"></i>\n                </a>\n                <a href="http://www.tumblr.com/share"\n                    class="social-share"\n                    data-itemid="'+
+( item_id )+
+'"\n                    target="blank">\n                    <i class="zsocial-tumblr"></i>\n                </a>\n                <a href="mailto:friend@example.com?subject=Check out this Zeega!&body=http://www.zeega.com/'+
+( item_id )+
+'"\n                    class="social-share"\n                    data-itemid="'+
+( item_id )+
+'">\n                    <i class="zsocial-email"></i>\n                </a>\n            </div>\n        </div>\n    </div>\n</div>';
 }
 return __p;
 };
@@ -552,6 +572,14 @@ this["JST"]["app/templates/workspace.html"] = function(obj){
 var __p='';var print=function(){__p+=Array.prototype.join.call(arguments, '')};
 with(obj||{}){
 __p+='<div class="frame-workspace"></div>';
+}
+return __p;
+};
+
+this["JST"]["app/zeega-parser/plugins/controls/av/av.html"] = function(obj){
+var __p='';var print=function(){__p+=Array.prototype.join.call(arguments, '')};
+with(obj||{}){
+__p+='<div class="control-name">media controls</div>\n<a href="#" class="playpause"><i class="icon-play icon-white"></i></a>\n<div class="av-slider"></div>\n';
 }
 return __p;
 };
@@ -67569,7 +67597,7 @@ define('app',[
     var app = {
         // The root path to run the application.
         // root: "/" + window.sessionStorage.getItem("projectID"),
-        root: "/",
+        root: "/joseph/web/neweditor/",
         parserPath: "app/zeega-parser/",
         api: "http://dev.zeega.org/joseph/web/api/",
         thumbServer: "http://dev.zeega.org/static/scripts/frame.php?id=",
@@ -67676,6 +67704,16 @@ function( app ) {
             }
         },
 
+        setCurrentLayer: function( layerModel ) {
+            var previousLayer = this.get("currentLayer");
+
+            if ( previousLayer ) {
+                previousLayer.trigger("blur");
+            }
+            this.set("currentLayer", layerModel );
+            layerModel.trigger("focus");
+        },
+
         onCurrentRemove: function( model, collection, options ) {
             var nextFrame, index;
 
@@ -67728,10 +67766,12 @@ function( app ) {
     // This will fetch the tutorial template and render it.
     ProjectMeta = Backbone.View.extend({
 
+        drawerClass: "",
+
         template: "project-meta",
         
         serialize: function() {
-            return this.model.project.toJSON();
+            return _.extend({ drawerClass: this.drawerClass }, this.model.project.toJSON() );
         },
 
         afterRender: function() {
@@ -67740,6 +67780,8 @@ function( app ) {
             if ( app.project.get("cover_image") === "" ) {
                 this.model.on("layer_added", this.onLayerAdded, this );
             }
+
+            this.model.project.on("sync", this.render, this );
         },
 
         makeCoverDroppable: function() {
@@ -67785,7 +67827,9 @@ function( app ) {
             "keypress .ZEEGA-project-title": "onTitleKeyup",
             "blur .ZEEGA-project-title": "onBlur",
             "click .meta-menu a": "onMenuClick",
-            "click .preview": "projectPreview"
+            "click .preview": "projectPreview",
+            "click .project-share-toggle": "toggleShare",
+            "click .social-share": "socialShare"
         },
 
         onTitleKeyup: function( e ) {
@@ -67806,8 +67850,6 @@ function( app ) {
         projectPreview: function() {
             var projectData = app.project.getProjectJSON();
 
-console.log("project data",projectData);
-
             app.zeegaplayer = new Zeega.player({
                 data: projectData,
                 startFrame: app.status.get("currentFrame").id,
@@ -67816,6 +67858,26 @@ console.log("project data",projectData);
                     close: true
                 }
             });
+        },
+
+        toggleShare: function() {
+
+            if ( this.drawerClass == "open" ) {
+                this.drawerClass = "";
+                this.$(".hidden-drawer").removeClass("open");
+            } else {
+                this.drawerClass = "open";
+                this.$(".hidden-drawer").addClass("open");
+                this.model.project.publishProject();
+            }
+        },
+
+        socialShare: function( e ) {
+            // prevent unpublished links from being shared
+            if ( $( e.target ).closest(".social-share").data("itemid") === null ) {
+                e.preventDefault();
+                return false;
+            }
         },
 
         onBlur: function() {
@@ -68193,7 +68255,7 @@ function( app ) {
 
         initialize: function() {
             this.model.on("focus", this.onFocus, this );
-            app.on("layersBlur", this.onBlur, this );
+            this.model.on("blur", this.onBlur, this );
             this.model.on("remove", this.onRemove, this );
         },
 
@@ -68222,9 +68284,7 @@ function( app ) {
         },
 
         selectLayer: function() {
-            app.trigger("layersBlur");
-            this.model.trigger("focus");
-            app.status.set("currentLayer", this.model );
+            app.status.setCurrentLayer( this.model );
         },
 
         onFocus: function() {
@@ -83306,7 +83366,11 @@ function( app ) {
 
         initialize: function() {
             this.off( "change:" + this.propertyName );
+
+            this.stopListening( this.model );
             this.model.on("change:" + this.propertyName , this.onPropertyUpdate, this );
+            this.model.on("focus", this.onFocus, this );
+            this.model.on("blur", this.onBlur, this );
             this.init();
         },
 
@@ -83318,15 +83382,20 @@ function( app ) {
             this.create();
         },
 
+        onFocus: function() {},
+        onBlur: function() {},
+
         init: function() {},
         create: function() {},
         destroy: function() {},
 
         update: function( attributes ) {
-            var attr = _.extend({}, this.model.get("attr"), attributes );
+            if ( !_.isEmpty( attributes ) ) {
+                var attr = _.extend({}, this.model.get("attr"), attributes );
 
-            this.model.trigger("change:" + this.propertyName, this.model, attributes[ this.propertyName ] );
-            this.model.save("attr", attr );
+                this.model.trigger("change:" + this.propertyName, this.model, attributes[ this.propertyName ] );
+                this.model.save("attr", attr );
+            }
         },
 
         lazyUpdate: _.debounce(function( value ) {
@@ -84574,6 +84643,184 @@ function( app, ControlView ) {
 
 });
 
+define('zeega_parser/plugins/controls/av/av',[
+    "app",
+    "zeega_parser/modules/control.view",
+    "jqueryUI"
+],
+
+function( app, ControlView ) {
+
+    return {
+        av: ControlView.extend({
+
+            audio: null,
+            $avSlider: null,
+            playing: false,
+            dragging: false,
+
+            propertyName: "av",
+            template: "av/av",
+
+            options: {
+                step: 0.04
+            },
+
+            create: function() {
+                var cueIn, cueOut, max, $avSlider;
+
+                cueIn = this.getAttr("cue_in") || 0;
+                cueOut = this.getAttr("cue_out") !== null ? this.getAttr("cue_out") :
+                    this.getAttr("duration") !== null ? this.getAttr("duration") : 60;
+                max = this.getAttr("duration") || 60;
+
+                if ( this.getAttr("cue_out") === null ) {
+                    this.update({ cue_out: cueOut });
+                }
+
+                this.$avSlider = this.$(".av-slider");
+
+                this.$avSlider.slider({
+
+                    range: "min",
+                    step: 0.1,
+                    min: 0,
+                    max: max,
+                    values: [ cueIn, 0 , cueOut ],
+
+                    slide: function( e, ui ) {
+                        this.verifyValues( ui );
+
+                    }.bind( this ),
+                    
+                    start: function( e, ui ) {
+                        this.dragging = true;
+                    }.bind( this ),
+
+                    stop: function( e, ui ) {
+                        this.verifyValues( ui );
+                        this.updateElapsed();
+                        this.cueAudio( ui.values[1] );
+                        this.dragging = false;
+
+                    }.bind( this ),
+
+                    change: function( e, ui ) {
+                        this.updateElapsed();
+                    }.bind( this )
+                });
+
+                var handles = this.$(".av-slider a");
+
+                $( handles[0] ).addClass("handle-cueIn");
+                $( handles[1] ).addClass("handle-playhead");
+                $( handles[2] ).addClass("handle-cueOut");
+
+                this.updateElapsed();
+                this.listen();
+            },
+
+            verifyValues: _.debounce(function( ui ) {
+                var values = ui.values;
+
+                if ( values[0] >= values[2] ) {
+                    this.$avSlider.slider("values", 2, values[0] + 2 );
+                }
+                if ( values[1] < values[0] ) {
+                    this.$avSlider.slider("values", 1, values[0] + 0.1 );
+                } else if ( values[1] >= values[2] ) {
+                    this.$avSlider.slider("values", 1, values[2] - 0.1 );
+                }
+
+                this.updateCues( values );
+            }, 250 ),
+
+            updateCues: function( values ) {
+                var cueIn, cueOut, cues = {};
+
+                cueIn = this.getAttr("cue_in");
+                cueOut = this.getAttr("cue_out");
+                
+                if ( cueIn != values[0] ) {
+                    cues.cue_in = values[0];
+                }
+                if ( cueOut != values[2] ) {
+                    cues.cue_out = values[2];
+                }
+
+                this.update( cues );
+            },
+
+            updateElapsed: _.debounce(function() {
+                var cue, elap, width;
+
+                cue = parseInt( this.$(".handle-cueIn").css("left"), 10 );
+                elap = parseInt( this.$(".handle-playhead").css("left"), 10 );
+                width = this.$(".av-slider").width();
+
+                this.$(".ui-slider-range").css({
+                    left: ( cue / width * 100 ) + "%",
+                    width: ( (elap - cue) / width * 100 ) + "%"
+                });
+
+            }, 200),
+
+            cueAudio: function( sec ) {
+                this.audio.currentTime = sec;
+            },
+
+            listen: function() {
+                this.audio = this.model.visual.getAudio();
+                this.model.on("play", this.onPlay, this );
+                this.model.on("pause", this.onPause, this );
+                this.model.on("timeupdate", this.onTimeupdate, this );
+            },
+            
+            onBlur: function() {
+                this.$avSlider.slider("destroy");
+            },
+
+            onFocus: function() {
+                this.create();
+            },
+            
+            onPlay: function( obj ) {
+                this.$(".playpause i")
+                    .addClass("icon-pause")
+                    .removeClass("icon-play");
+            },
+
+            onPause: function( obj ) {
+                this.$(".playpause i")
+                    .removeClass("icon-pause")
+                    .addClass("icon-play");
+            },
+
+            onTimeupdate: function( obj ) {
+                if ( !this.dragging ) {
+                    if ( obj.currentTime >= this.getAttr("cue_out") ) {
+                        this.audio.pause();
+                        this.audio.currentTime = this.getAttr("cue_in");
+                    }
+                    this.$avSlider.slider("values", 1, obj.currentTime );
+                }
+            },
+
+            events: {
+                "click .playpause": "playpause"
+            },
+
+            playpause: function() {
+                this.model.visual.playPause();
+            }
+
+        })
+
+    };
+
+
+});
+
 /*
 
 plugin/layer manifest file
@@ -84589,7 +84836,8 @@ define('zeega_parser/plugins/controls/_all-controls',[
     "zeega_parser/plugins/controls/dissolve/dissolve",
     "zeega_parser/plugins/controls/color/color",
     "zeega_parser/plugins/controls/linkto/linkto",
-    "zeega_parser/plugins/controls/linkimage/linkimage"
+    "zeega_parser/plugins/controls/linkimage/linkimage",
+    "zeega_parser/plugins/controls/av/av"
 ],
 function(
     Position,
@@ -84598,7 +84846,8 @@ function(
     Dissolve,
     Color,
     LinkTo,
-    LinkImage
+    LinkImage,
+    AV
 ) {
 
     return _.extend(
@@ -84608,7 +84857,8 @@ function(
         Dissolve,
         Color,
         LinkTo,
-        LinkImage
+        LinkImage,
+        AV
     );
 });
 
@@ -85312,7 +85562,7 @@ function( app, Controls ) {
 
             this.model.off("blur focus");
             this.model.on("focus", this.onFocus, this );
-            app.on("layersBlur", this.onBlur, this );
+            this.model.on("blur", this.onBlur, this );
         },
 
         events: {},
@@ -85321,9 +85571,7 @@ function( app, Controls ) {
         },
 
         onClick: function() {
-            app.trigger("layersBlur");
-            this.model.trigger("focus");
-            app.status.set("currentLayer", this.model );
+            app.status.setCurrentLayer( this.model );
         },
 
         /* editor fxns */
@@ -101168,9 +101416,9 @@ define('zeega_parser/plugins/layers/audio/audio',[
     "zeega_parser/modules/layer.visual.view"
 ],
 
-function( Zeega, _Layer, Visual ){
+function( app, _Layer, Visual ){
 
-    var Layer = Zeega.module();
+    var Layer = app.module();
 
     Layer.Audio = _Layer.extend({
 
@@ -101192,7 +101440,11 @@ function( Zeega, _Layer, Visual ){
             opacity: 0,
             citation: true,
             soundtrack: false
-        }
+        },
+
+        controls: [
+            "av"
+        ]
     });
 
     Layer.Audio.Visual = Visual.extend({
@@ -101240,6 +101492,11 @@ function( Zeega, _Layer, Visual ){
 
                 this.audio.load();
             }
+        },
+
+        getAudio: function() {
+            this.setAudio();
+            return this.audio;
         },
 
         listen: function() {
@@ -102303,6 +102560,8 @@ function( app, SequenceCollection ) {
 
     return app.Backbone.Model.extend({
 
+        updated: false,
+
         defaults: {
             authors: null,
             cover_image: null,
@@ -102555,6 +102814,75 @@ function( app, SequenceCollection ) {
             });
 
             return layerModel;
+        },
+
+        /* editor */
+
+        publishProject: function() {
+
+            if ( this.get("date_updated") != this.get("date_published") || this.updated ) {
+                var mobile = this.validateMobile();
+                
+                this.updated = false;
+                this.once("sync", this.onProjectPublish, this);
+
+                if ( !this.get("published") ) {
+                     this.set({ published: true });
+                }
+                this.save({
+                    publish_update: 1,
+                    mobile: mobile
+                });
+                console.log("already published. published again");
+            } else {
+                this.trigger("update_buttons");
+            }
+        },
+
+        onProjectPublish: function( model, response ) {
+            this.set({ publish_update: 0 });
+        },
+
+        validateMobile: function() {
+            var layers, validLayerTypes, maxAudioLayers, valid;
+            
+            layers = [];
+            validLayerTypes = ["Image", "Audio", "Text", "Link", "Rectangle"];
+            maxAudioLayers = 1;
+            maxFrames = null;
+            valid = true;
+
+
+            this.sequences.each(function( sequence ) {
+
+                if ( maxFrames !== null && ( maxFrames -= sequence.frames.length ) < 0 ) {
+                    valid = false;
+                    return false;
+                }
+
+                sequence.frames.each(function( frame ) {
+                    frame.layers.each(function( layer ) {
+
+                        var layerTypeValid = _.contains( validLayerTypes, layer.get("type") );
+
+                        if ( !layerTypeValid ) {
+                            valid = false;
+                            return false;
+                        }
+
+                        // dupe layer. ignore
+                        if ( !_.contains( layers, layer.id ) && layer.get("type") == "Audio" && maxFrames-- < 0 ) {
+                            layers.push( layer.id );
+                            valid = false;
+                            return false;
+                        } else if ( !_.contains( layers, layer.id ) && layer.get("type") == "Audio" ) {
+                            layers.push( layer.id );
+                        }
+                    });
+                });
+            });
+
+            return valid;
         }
 
     });

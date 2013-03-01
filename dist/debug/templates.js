@@ -117,7 +117,27 @@ __p+='<div class="ZEEGA-project-cover" style="\n    background: url('+
 ( cover_image )+
 ') no-repeat center center;\n    -webkit-background-size: cover;\n    background-size: cover;\n">\n    <div class="project-meta-upper">\n        <div class="ZEEGA-project-title" contenteditable="true">'+
 ( title )+
-'</div>\n    </div>\n    <a href="#" class="preview"><i class="play-zcon"></i></a>\n    <div class="project-meta-lower">\n        <div class="ZEEGA-project-share">\n            share: \n            <a href="#"><i class="zsocial-twitter"></i></a>\n            <a href="#"><i class="zsocial-facebook"></i></a>\n            <a href="#"><i class="zsocial-tumblr"></i></a>\n            <a href="#"><i class="zsocial-email"></i></a>\n        </div>\n    </div>\n\n</div>';
+'</div>\n    </div>\n    <a href="#" class="preview"><i class="play-zcon"></i></a>\n    <div class="project-meta-lower">\n        <div class="ZEEGA-project-share">\n            <a href="#" class="project-share-toggle">share</a>:\n            <div class="hidden-drawer '+
+( drawerClass )+
+'">\n                <a href="https://twitter.com/intent/tweet?original_referer=http://www.zeega.com/'+
+( item_id )+
+'&text=Zeega%20Project%3A%20'+
+( title )+
+' &url=http://www.zeega.com/'+
+( item_id )+
+'"\n                    class="social-share"\n                    data-itemid="'+
+( item_id )+
+'"\n                    target="blank">\n                    <i class="zsocial-twitter">\n                    </i>\n                </a>\n                <a href="http://www.facebook.com/sharer.php?u=http://www.zeega.com/'+
+( item_id )+
+'"\n                    class="social-share"\n                    data-itemid="'+
+( item_id )+
+'"\n                    target="blank">\n                    <i class="zsocial-facebook"></i>\n                </a>\n                <a href="http://www.tumblr.com/share"\n                    class="social-share"\n                    data-itemid="'+
+( item_id )+
+'"\n                    target="blank">\n                    <i class="zsocial-tumblr"></i>\n                </a>\n                <a href="mailto:friend@example.com?subject=Check out this Zeega!&body=http://www.zeega.com/'+
+( item_id )+
+'"\n                    class="social-share"\n                    data-itemid="'+
+( item_id )+
+'">\n                    <i class="zsocial-email"></i>\n                </a>\n            </div>\n        </div>\n    </div>\n</div>';
 }
 return __p;
 };
@@ -166,6 +186,14 @@ this["JST"]["app/templates/workspace.html"] = function(obj){
 var __p='';var print=function(){__p+=Array.prototype.join.call(arguments, '')};
 with(obj||{}){
 __p+='<div class="frame-workspace"></div>';
+}
+return __p;
+};
+
+this["JST"]["app/zeega-parser/plugins/controls/av/av.html"] = function(obj){
+var __p='';var print=function(){__p+=Array.prototype.join.call(arguments, '')};
+with(obj||{}){
+__p+='<div class="control-name">media controls</div>\n<a href="#" class="playpause"><i class="icon-play icon-white"></i></a>\n<div class="av-slider"></div>\n';
 }
 return __p;
 };
