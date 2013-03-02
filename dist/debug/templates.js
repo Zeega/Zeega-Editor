@@ -198,6 +198,16 @@ __p+='<div class="control-name">media controls</div>\n<a href="#" class="playpau
 return __p;
 };
 
+this["JST"]["app/zeega-parser/plugins/controls/checkbox/checkbox.html"] = function(obj){
+var __p='';var print=function(){__p+=Array.prototype.join.call(arguments, '')};
+with(obj||{}){
+__p+='<div class="control-name">'+
+( title )+
+'</div>\n<div class="roundedOne">\n    <input type="checkbox" value="None" id="roundedOne" name="check" />\n    <label for="roundedOne"></label>\n</div>';
+}
+return __p;
+};
+
 this["JST"]["app/zeega-parser/plugins/controls/color/color.html"] = function(obj){
 var __p='';var print=function(){__p+=Array.prototype.join.call(arguments, '')};
 with(obj||{}){
@@ -206,14 +216,6 @@ __p+='<div class="control-name">'+
 '</div>\n<div class="color-selector">\n    <div class="color-preview" style="background-color: '+
 ( attr.backgroundColor )+
 '"></div>\n</div>';
-}
-return __p;
-};
-
-this["JST"]["app/zeega-parser/plugins/controls/dissolve/dissolve.html"] = function(obj){
-var __p='';var print=function(){__p+=Array.prototype.join.call(arguments, '')};
-with(obj||{}){
-__p+='<div class="control-name">fade in</div>\n<div class="roundedOne">\n    <input type="checkbox" value="None" id="roundedOne" name="check" />\n    <label for="roundedOne"></label>\n</div>';
 }
 return __p;
 };
@@ -242,6 +244,18 @@ with(obj||{}){
 __p+='<div class="hover-icon">\n    <i class="icon-eye-open id-icon icon-white"></i>\n    <input type="text" class="text-input" value="'+
 ( Math.floor( attr.opacity * 100 ) )+
 '">\n    <div class="hidden-controls">\n        <div class="opacity-slider"></div>\n    </div>\n</div>';
+}
+return __p;
+};
+
+this["JST"]["app/zeega-parser/plugins/controls/slider/slider.html"] = function(obj){
+var __p='';var print=function(){__p+=Array.prototype.join.call(arguments, '')};
+with(obj||{}){
+__p+='<div class="hover-icon">\n    <div class="control-name">'+
+( title )+
+'</div>\n    <input type="text" class="text-input" value="'+
+( Math.floor( attr[ _propertyName ] * 100 ) )+
+'">\n    <div class="hidden-controls">\n        <div class="control-slider"></div>\n    </div>\n</div>';
 }
 return __p;
 };
