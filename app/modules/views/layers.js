@@ -53,48 +53,54 @@ function( app, LayerList ) {
         },
 
         onLayerAdd: function( layerModel, collection ) {
-            var layerView = new LayerList({
-                    model: layerModel,
-                    attributes: {
-                        "data-id": layerModel.id || 0
-                    }
-                });
 
-            this.layerViews.push( layerView );
-            this.$("ul.layer-list").prepend( layerView.el );
-            layerView.render();
+            if ( !layerModel.getAttr("soundtrack") ) {
+                var layerView = new LayerList({
+                        model: layerModel,
+                        attributes: {
+                            "data-id": layerModel.id || 0
+                        }
+                    });
+
+                this.layerViews.push( layerView );
+                this.$("ul.layer-list").prepend( layerView.el );
+                layerView.render();
+            }
         },
 
         renderFrameLayers: function( frameModel ) {
             this.updateListeners();
             frameModel.layers.each(function( layer, i ) {
-                var layerView, isPersistent, nextFrameIndex, isContinued = false;
 
-                // check to see if persistent
-                isPersistent = _.contains( frameModel.collection.sequence.get("persistent_layers"), layer.id );
-                // check to see if continued to next frame
-                nextFrameIndex = _.indexOf( _.toArray( frameModel.collection ), frameModel );
+                if ( !layer.getAttr("soundtrack") ) {
+                    var layerView, isPersistent, nextFrameIndex, isContinued = false;
 
-                if ( nextFrameIndex > -1 && frameModel.collection.length > nextFrameIndex + 1 ) {
-                    var nextFrame = frameModel.collection.at( nextFrameIndex + 1 );
+                    // check to see if persistent
+                    isPersistent = _.contains( frameModel.collection.sequence.get("persistent_layers"), layer.id );
+                    // check to see if continued to next frame
+                    nextFrameIndex = _.indexOf( _.toArray( frameModel.collection ), frameModel );
 
-                    isContinued = !_.isUndefined( nextFrame.layers.get( layer.id ) );
-                }
+                    if ( nextFrameIndex > -1 && frameModel.collection.length > nextFrameIndex + 1 ) {
+                        var nextFrame = frameModel.collection.at( nextFrameIndex + 1 );
 
-                layerView = new LayerList({
-                    model: layer,
-                    attributes: {
-                        "data-id": layer.id,
-                        "data-persists": isPersistent,
-                        "data-continued": isContinued
+                        isContinued = !_.isUndefined( nextFrame.layers.get( layer.id ) );
                     }
-                });
 
-                this.layerViews.push( layerView );
+                    layerView = new LayerList({
+                        model: layer,
+                        attributes: {
+                            "data-id": layer.id,
+                            "data-persists": isPersistent,
+                            "data-continued": isContinued
+                        }
+                    });
 
-                // prepend because layers come in z-index order
-                this.$("ul.layer-list").prepend( layerView.el );
-                layerView.render();
+                    this.layerViews.push( layerView );
+
+                    // prepend because layers come in z-index order
+                    this.$("ul.layer-list").prepend( layerView.el );
+                    layerView.render();
+                }
             }, this );
 
             this.makeSortable( frameModel );

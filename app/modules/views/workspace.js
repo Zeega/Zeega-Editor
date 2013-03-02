@@ -92,7 +92,6 @@ function( app ) {
         },
 
         onChangeFrame: function( status, frameModel ) {
-            console.log('change frame', status, frameModel );
             this.clearWorkspace();
             this.renderFrame( frameModel );
         },

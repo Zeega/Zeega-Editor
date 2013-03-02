@@ -2115,7 +2115,7 @@ body .ui-tooltip {
 }
 
 .control-av {
-  width: 400px;
+  width: 529px;
 }
 .control-av .playpause {
   float: left;
@@ -2123,7 +2123,7 @@ body .ui-tooltip {
 }
 .control-av .av-slider {
   float: left;
-  width: 300px;
+  width: 500px;
   height: 2px;
   background: rgba(255, 255, 255, 0.5);
   top: 6px;
@@ -2159,19 +2159,6 @@ body .ui-tooltip {
   background: transparent;
   outline: none;
   margin: 0;
-}
-.control-color .color-selector {
-  height: 20px;
-  width: 20px;
-  margin: 0 auto;
-}
-.control-color .color-selector .color-preview {
-  height: 100%;
-  width: 100%;
-  cursor: pointer;
-}
-.colorpicker {
-  z-index: 20;
 }
 /*
 
@@ -2253,6 +2240,19 @@ body .ui-tooltip {
   -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=100)";
   filter: alpha(opacity=100);
   opacity: 1;
+}
+.control-color .color-selector {
+  height: 20px;
+  width: 20px;
+  margin: 0 auto;
+}
+.control-color .color-selector .color-preview {
+  height: 100%;
+  width: 100%;
+  cursor: pointer;
+}
+.colorpicker {
+  z-index: 20;
 }
 /*
 .dd-select {
@@ -2377,6 +2377,27 @@ body .ui-tooltip {
   display: block;
 }
 .control-opacity input {
+  margin: 0 auto;
+  display: block;
+  border: none;
+  padding: 2px;
+  text-align: center;
+}
+.control-slider {
+  position: relative;
+  width: 26px;
+}
+.control-slider .hover-icon .id-icon {
+  margin: 0 auto;
+  display: block;
+}
+.control-slider .hover-icon .hidden-controls {
+  display: none;
+}
+.control-slider .hover-icon:hover .hidden-controls {
+  display: block;
+}
+.control-slider input {
   margin: 0 auto;
   display: block;
   border: none;
