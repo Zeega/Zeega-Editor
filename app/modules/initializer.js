@@ -5,14 +5,16 @@ define([
     "modules/layout-main",
     // Plugins
     "zeega-parser/parser",
+    "modules/media-collection",
     "backbone"
 ],
 
-function( app, Status, Layout, ZeegaParser ) {
+function( app, Status, Layout, ZeegaParser, MediaCollection ) {
 
     return Backbone.Model.extend({
         
         initialize: function() {
+            app.mediaCollection = new MediaCollection();
             this.loadProject();
         },
 

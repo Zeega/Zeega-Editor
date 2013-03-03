@@ -10,8 +10,11 @@ define([
         root: "/",
         parserPath: "app/zeega-parser/",
         api: "http://dev.zeega.org/joseph/web/api/",
+        searchAPI: "http://www.zeega.com/api/items/search?",
         thumbServer: "http://dev.zeega.org/static/scripts/frame.php?id=",
-        dragging: null
+        featuredAPI: "http://staging.zeega.org/api/items/featured",
+        dragging: null,
+        mediaCollection: null
     };
 
     // Localize or create a new JavaScript Template object.
