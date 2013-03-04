@@ -11,12 +11,13 @@ define([
     "modules/views/layer-drawer",
     "modules/views/soundtrack",
 
-    "modules/search.model",
+    "modules/views/media-drawer",
+    // "modules/search.model",
 
     "backbone"
 ],
 
-function( app, Navbar, ProjectMeta, Sequences, Frames, Workspace, Layers, LayerControls, LayerDrawer, Soundtrack, SearchModel ) {
+function( app, Navbar, ProjectMeta, Sequences, Frames, Workspace, Layers, LayerControls, LayerDrawer, Soundtrack, MediaDrawer) {
 
     return Backbone.Layout.extend({
 
@@ -40,7 +41,6 @@ function( app, Navbar, ProjectMeta, Sequences, Frames, Workspace, Layers, LayerC
 
         afterRender: function() {
             // I like this better. eliminates wasted elements
-            app.search = new SearchModel();
 
             new Soundtrack({
                 model: app.project,
@@ -68,6 +68,11 @@ function( app, Navbar, ProjectMeta, Sequences, Frames, Workspace, Layers, LayerC
                 afterRender: function() {
                     app.trigger("rendered");
                 }
+            }).render();
+
+            new MediaDrawer({
+                collection: app.mediaCollection,
+                el: this.$(".media-drawer")
             }).render();
 
         },

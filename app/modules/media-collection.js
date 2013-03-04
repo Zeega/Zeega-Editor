@@ -1,10 +1,11 @@
 define([
     "app",
     "modules/item.model",
+    "modules/views/media-collection-view",
     "backbone"
 ],
 
-function( app, ItemModel ) {
+function( app, ItemModel, MediaCollectionView ) {
 
     var MediaCollection = Backbone.Collection.extend({
 
@@ -15,7 +16,7 @@ function( app, ItemModel ) {
         url: function() {
             var url = app.searchAPI;
 
-            _.each( this.mediaModel.toJSON(), function( value, key ) {
+            _.each( this.mediaModel.toJSON().urlArguments, function( value, key ) {
                 if ( value !== "" && value !== null ) {
                     url += key + "=" + value + "&";
                 }
@@ -36,34 +37,38 @@ function( app, ItemModel ) {
 
         // should this be a model?
         defaults: {
-            collection: "",
-            type: "-project AND -collection",
-            page: 1,
-            q: "",
-            user: 36, // should not be hardcoded!
-            sort: "date-desc"
+                urlArguments: {
+                collection: "",
+                type: "-project AND -collection",
+                page: 1,
+                q: "",
+                user: 36, // should not be hardcoded!
+                sort: "date-desc"
+            },
+            title: "Your Media"
         },
 
         initialize: function() {
+            this.view = new MediaCollectionView({ model: this });
             this.mediaCollection = new MediaCollection();
             this.mediaCollection.mediaModel = this;
             this.mediaCollection.on("sync", this.onSync, this );
-            // this.mediaCollection.fetch();
+            this.mediaCollection.fetch();
         },
 
         onSync: function( collection ) {
-            console.log("on sync", collection )
+            this.collection.trigger("user_media_ready", collection );
         }
 
     });
 
 //////////////////////
 
-    FeaturedCollectionModel = Backbone.Model.extend({
+    var FeaturedCollectionModel = Backbone.Model.extend({
 
         initialize: function() {
-            console.log( new MediaCollection() )
             this.mediaCollection = new MediaCollection( this.get("child_items") );
+            this.view = new MediaCollectionView({ model: this });
         }
     });
 
@@ -84,14 +89,18 @@ function( app, ItemModel ) {
     return Backbone.Collection.extend({
 
         initialize: function() {
-            this.on("add", this.onAdd, this );
+            var userMedia = new UserMedia;
+
+            userMedia.collection = this;
             this.unshift( new UserMedia );
+
+            this.on("add", this.onAdd, this );
             this.getFeatured();
         },
 
         getFeatured: function() {
             var featured = new FeaturedCollection();
-            
+
             featured.fetch().success(function() {
                 featured.each(function( collection ) {
                     this.push( collection );
@@ -100,7 +109,7 @@ function( app, ItemModel ) {
         },
 
         onAdd: function( collection, response ) {
-            console.log("onAdd", collection, this )
+            // console.log("onAdd", collection, this )
         }
 
     });

@@ -4777,3 +4777,41 @@ a:active {
   margin: 0 auto;
   display: block;
 }
+.media-collection .media-collection-title {
+  background: magenta;
+  padding: 5px 10px;
+  color: white;
+  font-size: 18px;
+}
+.media-collection .media-collection-items {
+  *zoom: 1;
+}
+.media-collection .media-collection-items:before,
+.media-collection .media-collection-items:after {
+  display: table;
+  content: "";
+  line-height: 0;
+}
+.media-collection .media-collection-items:after {
+  clear: both;
+}
+.media-collection .media-collection-items .media-more {
+  height: 50px;
+  width: 50px;
+  float: left;
+  background: red;
+}
+.media-collection .media-collection-items .media-more a {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+.media-collection .media-collection-items .media-more .item-label {
+  color: white;
+  text-align: center;
+  margin-top: 5px;
+}
+.media-collection .media-collection-items .media-more i {
+  margin: 0 auto;
+  display: block;
+}
