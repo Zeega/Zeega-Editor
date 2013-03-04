@@ -2,14 +2,16 @@ define([
     "app",
     "modules/item.model",
     "modules/views/media-collection-view",
+    "modules/views/item-collection-viewer",
     "backbone"
 ],
 
-function( app, ItemModel, MediaCollectionView ) {
+function( app, ItemModel, MediaCollectionView, ItemCollectionViewer ) {
 
     var MediaCollection = Backbone.Collection.extend({
 
         model: ItemModel,
+        view: null,
         mediaModel: null,
         itemsCount: 0,
 
@@ -22,6 +24,14 @@ function( app, ItemModel, MediaCollectionView ) {
                 }
             });
             return url;
+        },
+
+        itemViewer: function( model ) {
+            var startIndex = _.indexOf( _.toArray( this ), model );
+
+            startIndex = startIndex < 0 ? 0 : startIndex;
+
+            this.view = new ItemCollectionViewer({ collection: this, start: startIndex });
         },
 
         parse: function( res ) {

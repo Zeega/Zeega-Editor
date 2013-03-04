@@ -13,8 +13,6 @@ function( app, ItemView ) {
         tagName: "li",
         template: "item",
 
-        
-
         serialize: function() {
             return this.model.toJSON();
         },
@@ -36,6 +34,14 @@ function( app, ItemView ) {
                     app.dragging = null;
                 }
             });
+        },
+
+        events: {
+            "click": "viewItem"
+        },
+
+        viewItem: function() {
+            this.model.collection.itemViewer( this.model );
         }
 
     });
