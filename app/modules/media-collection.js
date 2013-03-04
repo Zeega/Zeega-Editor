@@ -31,7 +31,14 @@ function( app, ItemModel, MediaCollectionView, ItemCollectionViewer ) {
 
             startIndex = startIndex < 0 ? 0 : startIndex;
 
-            this.view = new ItemCollectionViewer({ collection: this, start: startIndex });
+            if ( this.view === null ) {
+                this.view = new ItemCollectionViewer({ collection: this, start: startIndex });
+            } else {
+                this.view.init( startIndex );
+            }
+
+            $("body").append( this.view.el );
+            this.view.render();
         },
 
         parse: function( res ) {
