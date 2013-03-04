@@ -99,10 +99,10 @@ function( app, ItemModel, MediaCollectionView, ItemCollectionViewer ) {
     return Backbone.Collection.extend({
 
         initialize: function() {
-            var userMedia = new UserMedia;
+            var userMedia = new UserMedia();
 
             userMedia.collection = this;
-            this.unshift( new UserMedia );
+            this.unshift( userMedia );
 
             this.on("add", this.onAdd, this );
             this.getFeatured();
@@ -114,7 +114,7 @@ function( app, ItemModel, MediaCollectionView, ItemCollectionViewer ) {
             featured.fetch().success(function() {
                 featured.each(function( collection ) {
                     this.push( collection );
-                }.bind( this ))
+                }.bind( this ));
             }.bind( this ));
         },
 

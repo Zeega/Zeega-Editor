@@ -24,6 +24,14 @@ __p+='<ul class="frame-list"></ul>\n<div class="add-frame"><a href="#"><i class=
 return __p;
 };
 
+this["JST"]["app/templates/item-collection-viewer.html"] = function(obj){
+var __p='';var print=function(){__p+=Array.prototype.join.call(arguments, '')};
+with(obj||{}){
+__p+='item';
+}
+return __p;
+};
+
 this["JST"]["app/templates/item.html"] = function(obj){
 var __p='';var print=function(){__p+=Array.prototype.join.call(arguments, '')};
 with(obj||{}){
@@ -38,14 +46,6 @@ __p+='<a href="#">\n    <div class="item-thumb">\n        <img src="'+
 ' zicon-white"></i>\n        <span class="item-title-text">'+
 ( title )+
 '</span>\n    </div>\n</a>';
-}
-return __p;
-};
-
-this["JST"]["app/templates/items.html"] = function(obj){
-var __p='';var print=function(){__p+=Array.prototype.join.call(arguments, '')};
-with(obj||{}){
-__p+='<div class="media-drawer-controls ZEEGA-hmenu dark">\n    <ul class=\'pull-left\'>\n        <li>\n            <a href="#" class="gridToggle"><i class="icon-th-list icon-white"></i></a>\n        </li>\n    </ul>\n    <ul class=\'pull-right\'>\n        <li>\n            <input class="search-box" type="text" placeholder="search media"/>\n        </li>\n    </ul>\n</div>\n<ul class="ZEEGA-items"></ul>';
 }
 return __p;
 };
@@ -98,6 +98,24 @@ this["JST"]["app/templates/layout-main.html"] = function(obj){
 var __p='';var print=function(){__p+=Array.prototype.join.call(arguments, '')};
 with(obj||{}){
 __p+='<div class=\'left-column\'>\n    <div class="static-upper">\n        <div class="nav"></div>\n        <div class="project-meta"></div>\n        <div class="layer-drawer"></div>\n    </div>\n    <div class="media-drawer"></div>\n</div>\n<div class=\'right-column\'>\n    <div class="project-navs">\n        <div class="sequences"></div>\n        <div class="frames"></div>\n        <div class="soundtrack"></div>\n        <div class="layer-controls"></div>\n    </div>\n    <div class="workspace"></div>\n    <div class="layers"></div>\n</div>';
+}
+return __p;
+};
+
+this["JST"]["app/templates/media-collection.html"] = function(obj){
+var __p='';var print=function(){__p+=Array.prototype.join.call(arguments, '')};
+with(obj||{}){
+__p+='<div class="media-collection-title">'+
+( title )+
+'</div>\n<ul class="media-collection-items"></ul>';
+}
+return __p;
+};
+
+this["JST"]["app/templates/media-drawer.html"] = function(obj){
+var __p='';var print=function(){__p+=Array.prototype.join.call(arguments, '')};
+with(obj||{}){
+__p+='<div class="media-drawer-controls ZEEGA-hmenu dark">\n    <ul class=\'pull-left\'>\n        <li>\n            <a href="#" class="gridToggle"><i class="icon-th-list icon-white"></i></a>\n        </li>\n    </ul>\n    <ul class=\'pull-right\'>\n        <li>\n            <input class="search-box" type="text" placeholder="search media"/>\n        </li>\n    </ul>\n</div>\n<ul class="ZEEGA-items"></ul>';
 }
 return __p;
 };

@@ -27,7 +27,7 @@ function( app ) {
             }, this );
 
             this.$(".media-collection-items")
-                .append("<li class='media-more'><a href='#'><div class='item-label'>more</div><i class='icon-plus icon-white'></i></a></li>")
+                .append("<li class='media-more'><a href='#'><div class='item-label'>more</div><i class='icon-plus icon-white'></i></a></li>");
 
             this.model.mediaCollection.on("sync", this.render, this );
         }

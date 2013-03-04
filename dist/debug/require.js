@@ -410,6 +410,14 @@ __p+='<ul class="frame-list"></ul>\n<div class="add-frame"><a href="#"><i class=
 return __p;
 };
 
+this["JST"]["app/templates/item-collection-viewer.html"] = function(obj){
+var __p='';var print=function(){__p+=Array.prototype.join.call(arguments, '')};
+with(obj||{}){
+__p+='item';
+}
+return __p;
+};
+
 this["JST"]["app/templates/item.html"] = function(obj){
 var __p='';var print=function(){__p+=Array.prototype.join.call(arguments, '')};
 with(obj||{}){
@@ -424,14 +432,6 @@ __p+='<a href="#">\n    <div class="item-thumb">\n        <img src="'+
 ' zicon-white"></i>\n        <span class="item-title-text">'+
 ( title )+
 '</span>\n    </div>\n</a>';
-}
-return __p;
-};
-
-this["JST"]["app/templates/items.html"] = function(obj){
-var __p='';var print=function(){__p+=Array.prototype.join.call(arguments, '')};
-with(obj||{}){
-__p+='<div class="media-drawer-controls ZEEGA-hmenu dark">\n    <ul class=\'pull-left\'>\n        <li>\n            <a href="#" class="gridToggle"><i class="icon-th-list icon-white"></i></a>\n        </li>\n    </ul>\n    <ul class=\'pull-right\'>\n        <li>\n            <input class="search-box" type="text" placeholder="search media"/>\n        </li>\n    </ul>\n</div>\n<ul class="ZEEGA-items"></ul>';
 }
 return __p;
 };
@@ -484,6 +484,24 @@ this["JST"]["app/templates/layout-main.html"] = function(obj){
 var __p='';var print=function(){__p+=Array.prototype.join.call(arguments, '')};
 with(obj||{}){
 __p+='<div class=\'left-column\'>\n    <div class="static-upper">\n        <div class="nav"></div>\n        <div class="project-meta"></div>\n        <div class="layer-drawer"></div>\n    </div>\n    <div class="media-drawer"></div>\n</div>\n<div class=\'right-column\'>\n    <div class="project-navs">\n        <div class="sequences"></div>\n        <div class="frames"></div>\n        <div class="soundtrack"></div>\n        <div class="layer-controls"></div>\n    </div>\n    <div class="workspace"></div>\n    <div class="layers"></div>\n</div>';
+}
+return __p;
+};
+
+this["JST"]["app/templates/media-collection.html"] = function(obj){
+var __p='';var print=function(){__p+=Array.prototype.join.call(arguments, '')};
+with(obj||{}){
+__p+='<div class="media-collection-title">'+
+( title )+
+'</div>\n<ul class="media-collection-items"></ul>';
+}
+return __p;
+};
+
+this["JST"]["app/templates/media-drawer.html"] = function(obj){
+var __p='';var print=function(){__p+=Array.prototype.join.call(arguments, '')};
+with(obj||{}){
+__p+='<div class="media-drawer-controls ZEEGA-hmenu dark">\n    <ul class=\'pull-left\'>\n        <li>\n            <a href="#" class="gridToggle"><i class="icon-th-list icon-white"></i></a>\n        </li>\n    </ul>\n    <ul class=\'pull-right\'>\n        <li>\n            <input class="search-box" type="text" placeholder="search media"/>\n        </li>\n    </ul>\n</div>\n<ul class="ZEEGA-items"></ul>';
 }
 return __p;
 };
@@ -67611,11 +67629,14 @@ define('app',[
     var app = {
         // The root path to run the application.
         // root: "/" + window.sessionStorage.getItem("projectID"),
-        root: "/joseph/web/newplayer/",
+        root: "/joseph/web/neweditor/",
         parserPath: "app/zeega-parser/",
         api: "http://dev.zeega.org/joseph/web/api/",
+        searchAPI: "http://www.zeega.com/api/items/search?",
         thumbServer: "http://dev.zeega.org/static/scripts/frame.php?id=",
-        dragging: null
+        featuredAPI: "http://staging.zeega.org/api/items/featured",
+        dragging: null,
+        mediaCollection: null
     };
 
     // Localize or create a new JavaScript Template object.
@@ -67777,15 +67798,69 @@ define('modules/views/project-meta',[
 
 function( app ) {
 
+    var adjective = [
+        "Soaking",
+        "Yellow",
+        "Green",
+        "Orange",
+        "Red",
+        "Blue",
+        "Jolly",
+        "Smelly",
+        "Oily",
+        "Tiny",
+        "Jumping",
+        "Sleeping",
+        "Walking",
+        "Sweet",
+        "Nerdy",
+        "Difficult",
+        "Broke"
+    ];
+
+    var noun = [
+        "Dog",
+        "Cat",
+        "Nile",
+        "Bike",
+        "Sloth",
+        "Motorcycle",
+        "Baby",
+        "Boy",
+        "Girl",
+        "Hat",
+        "Car",
+        "Train",
+        "Song",
+        "Guitar",
+        "Sky",
+        "Star",
+        "Moon",
+        "Country",
+        "Bath",
+        "Vacation",
+        "Work",
+        "Blanket"
+    ];
+
     // This will fetch the tutorial template and render it.
     ProjectMeta = Backbone.View.extend({
 
         drawerClass: "",
-
         template: "project-meta",
         
+        initialize: function() {
+            if ( this.model.project.get("title") == "Untitled Zeega" ) {
+                this.model.project.set("title", this.generateRandomTitle() );
+            }
+        },
+
         serialize: function() {
             return _.extend({ drawerClass: this.drawerClass }, this.model.project.toJSON() );
+        },
+
+        generateRandomTitle: function() {
+            return adjective[ Math.floor( Math.random() * adjective.length ) ] + " " + noun[ Math.floor( Math.random() * noun.length ) ];
         },
 
         afterRender: function() {
@@ -83559,109 +83634,7 @@ function( app ) {
 
 });
 
-define('modules/views/item',[
-    "app",
-    "backbone"
-],
-
-function( app, ItemView ) {
-
-    return Backbone.View.extend({
-
-        className: function() {
-            return "item item-" + this.id;
-        },
-        tagName: "li",
-        template: "item",
-
-        
-
-        serialize: function() {
-            return this.model.toJSON();
-        },
-
-        afterRender: function() {
-            this.$el.draggable({
-                revert: "invalid",
-                cursorAt: {
-                    left: 0,
-                    top: 0
-                },
-                helper: function( e ) {
-                    return $(this).find(".item-thumb").clone().addClass("item-dragging");
-                },
-                start: function() {
-                    app.dragging = this.model;
-                }.bind( this ),
-                stop: function() {
-                    app.dragging = null;
-                }
-            });
-        }
-
-    });
-
-});
-
-define('modules/item.model',[
-    "app",
-    "modules/views/item",
-    "backbone"
-],
-
-function( app, ItemView ) {
-
-    return Backbone.Model.extend({
-        
-        view: null,
-
-        initialize: function() {
-            this.view = new ItemView({ model: this });
-        }
-
-    });
-
-});
-
-define('modules/search.collection',[
-    "app",
-    "modules/item.model",
-    "backbone"
-],
-
-function( app, ItemModel ) {
-
-    return Backbone.Collection.extend({
-        
-        model: ItemModel,
-        search: null,
-
-        initialize: function( models, options ) {
-            this.search = options.search;
-            this.fetch();
-        },
-
-        url: function() {
-            var url = "http://www.zeega.com/api/items/search?";
-//            var url = app.api + "items/search?";
-
-            _.each( this.search.toJSON(), function( value, key ) {
-                if ( value !== "" && value !== null ) {
-                    url += key + "=" + value + "&";
-                }
-            });
-            return url;
-        },
-
-        parse: function( response ) {
-            return response.items;
-        }
-
-    });
-
-});
-
-define('modules/views/items',[
+define('modules/views/media-drawer',[
     "app",
     "backbone"
 ],
@@ -83671,20 +83644,39 @@ function( app ) {
     return Backbone.View.extend({
 
         el: null,
-        template: "items",
+        template: "media-drawer",
 
         initialize: function() {
             app.on("window-resize", this.onResize, this );
         },
 
-        renderItems: function() {
-            this.$(".ZEEGA-items").empty();
+        afterRender: function() {
+            this.renderCollections();
+            this.collection.on("add", this.renderCollection, this );
             this.onResize();
-            this.collection.each(function( item ) {
-                this.$(".ZEEGA-items").append( item.view.el );
-                item.view.render();
+        },
+
+        renderCollections: function() {
+            this.$(".ZEEGA-items").empty();
+            this.collection.each(function( collection ) {
+                this.renderCollection( collection );
             }, this );
         },
+
+        renderCollection: function( collection ) {
+            this.$(".ZEEGA-items").append( collection.view.el );
+            collection.view.render();
+        },
+
+
+        // renderItems: function() {
+        //     this.$(".ZEEGA-items").empty();
+        //     this.onResize();
+        //     this.collection.each(function( item ) {
+        //         this.$(".ZEEGA-items").append( item.view.el );
+        //         item.view.render();
+        //     }, this );
+        // },
 
         events: {
             "click .gridToggle": "gridToggle",
@@ -83718,62 +83710,6 @@ function( app ) {
 
 });
 
-define('modules/search.model',[
-    "app",
-
-    "modules/search.collection",
-    "modules/views/items",
-    "backbone"
-],
-
-function( app, SearchCollection, ItemsView ) {
-
-    return Backbone.Model.extend({
-        
-        items: null,
-        history: [],
-
-        defaults: {
-            collection: "",
-            type: "-project AND -collection",
-            page: 1,
-            q: "",
-            user: 36,
-            sort: "date-desc"
-        },
-
-        initialize: function() {
-
-            app.once("rendered", this.onLayoutRendered, this );
-            // create collection. bootstraps itself
-            this.collection = new SearchCollection([], { search: this });
-            this.collection.on("reset", this.onCollectionReset, this );
-            this.on("change:q", this.updateItems, this );
-        },
-
-        updateItems: function() {
-            this.collection.fetch();
-        },
-
-        onLayoutRendered: function() {
-            var itemsView = new ItemsView({
-                model: app,
-                el: app.layout.$(".media-drawer")
-            });
-
-            itemsView.render();
-            app.layout.itemsView = itemsView;
-        },
-
-        onCollectionReset: function( collection ) {
-            app.layout.itemsView.collection = collection;
-            app.layout.itemsView.renderItems();
-        }
-
-    });
-
-});
-
 define('modules/layout-main',[
     "app",
 
@@ -83787,12 +83723,13 @@ define('modules/layout-main',[
     "modules/views/layer-drawer",
     "modules/views/soundtrack",
 
-    "modules/search.model",
+    "modules/views/media-drawer",
+    // "modules/search.model",
 
     "backbone"
 ],
 
-function( app, Navbar, ProjectMeta, Sequences, Frames, Workspace, Layers, LayerControls, LayerDrawer, Soundtrack, SearchModel ) {
+function( app, Navbar, ProjectMeta, Sequences, Frames, Workspace, Layers, LayerControls, LayerDrawer, Soundtrack, MediaDrawer) {
 
     return Backbone.Layout.extend({
 
@@ -83816,7 +83753,6 @@ function( app, Navbar, ProjectMeta, Sequences, Frames, Workspace, Layers, LayerC
 
         afterRender: function() {
             // I like this better. eliminates wasted elements
-            app.search = new SearchModel();
 
             new Soundtrack({
                 model: app.project,
@@ -83844,6 +83780,11 @@ function( app, Navbar, ProjectMeta, Sequences, Frames, Workspace, Layers, LayerC
                 afterRender: function() {
                     app.trigger("rendered");
                 }
+            }).render();
+
+            new MediaDrawer({
+                collection: app.mediaCollection,
+                el: this.$(".media-drawer")
             }).render();
 
         },
@@ -85921,7 +85862,16 @@ function( Zeega, _Layer, Visual ){
                     propertyName: "dissolve"
                 }
             },
-            "opacity"
+            { type: "slider",
+                options: {
+                    title: "<i class='icon-eye-open icon-white'></i>",
+                    propertyName: "opacity",
+                    min: 0,
+                    max: 1,
+                    step: 0.001,
+                    css: true
+                }
+            }
         ]
 
     });
@@ -86131,7 +86081,31 @@ function( Zeega, _Layer, Visual, FrameChooser ) {
             "position",
             "resize",
             "linkto",
-            "linkimage"
+            "linkimage",
+            {
+                type: "checkbox",
+                options: {
+                    title: "hover",
+                    propertyName: "glow_on_hover"
+                }
+            },
+            { type: "slider",
+                options: {
+                    title: "hover opacity",
+                    propertyName: "opacity_hover",
+                    min: 0,
+                    max: 1,
+                    step: 0.001,
+                    css: false
+                }
+            },
+            {
+                type: "checkbox",
+                options: {
+                    title: "glow",
+                    propertyName: "blink_on_start"
+                }
+            }
         ]
     });
 
@@ -103567,6 +103541,296 @@ function( Zeega, _, ProjectModel, DataParser ) {
     return ZeegaParser;
 });
 
+define('modules/views/item',[
+    "app",
+    "backbone"
+],
+
+function( app, ItemView ) {
+
+    return Backbone.View.extend({
+
+        className: function() {
+            return "item item-" + this.id;
+        },
+        tagName: "li",
+        template: "item",
+
+        serialize: function() {
+            return this.model.toJSON();
+        },
+
+        afterRender: function() {
+            this.$el.draggable({
+                revert: "invalid",
+                cursorAt: {
+                    left: 0,
+                    top: 0
+                },
+                helper: function( e ) {
+                    return $(this).find(".item-thumb").clone().addClass("item-dragging");
+                },
+                start: function() {
+                    app.dragging = this.model;
+                }.bind( this ),
+                stop: function() {
+                    app.dragging = null;
+                }
+            });
+        },
+
+        events: {
+            "click": "viewItem"
+        },
+
+        viewItem: function() {
+            this.model.collection.itemViewer( this.model );
+        }
+
+    });
+
+});
+
+define('modules/item.model',[
+    "app",
+    "modules/views/item",
+    "backbone"
+],
+
+function( app, ItemView ) {
+
+    return Backbone.Model.extend({
+        
+        view: null,
+
+        initialize: function() {
+            this.view = new ItemView({ model: this });
+        }
+
+    });
+
+});
+
+define('modules/views/media-collection-view',[
+    "app",
+    "backbone"
+],
+
+function( app ) {
+
+    return Backbone.View.extend({
+
+        defaults: {
+            title: "untitled"
+        },
+
+        className: "media-collection",
+        template: "media-collection",
+
+        serialize: function() {
+            return _.defaults( this.model.toJSON(), this.defaults );
+        },
+
+        afterRender: function() {
+            console.log("AR", this, this.model.mediaCollection.length );
+            this.$(".media-collection-items").empty();
+            this.model.mediaCollection.each(function( item ) {
+                this.$(".media-collection-items").append( item.view.el );
+                item.view.render();
+            }, this );
+
+            this.$(".media-collection-items")
+                .append("<li class='media-more'><a href='#'><div class='item-label'>more</div><i class='icon-plus icon-white'></i></a></li>");
+
+            this.model.mediaCollection.on("sync", this.render, this );
+        }
+
+
+    });
+
+});
+
+define('modules/views/item-collection-viewer',[
+    "app",
+    "modules/views/frame",
+
+    "backbone"
+],
+
+function( app, FrameView ) {
+
+
+    return Backbone.View.extend({
+
+        start: 0,
+
+        template: "item-collection-viewer",
+        className: "ZEEGA-item-collection-viewer",
+        
+        initialize: function() {
+            this.start = this.options.start;
+
+            // render into body as modal
+            console.log('item viewr', this );
+        },
+
+        events: {
+            "click .close": "onClose",
+            "click .prev": "prev",
+            "click .next": "next",
+            "click .add-to-frame": "addToFrame"
+        },
+
+        prev: function() {
+
+        },
+
+        next: function() {
+
+        },
+
+        addToFrame: function() {
+            // move to individual view?
+        },
+
+        onClose: function() {
+            this.$el.fadeOut(function() {
+                this.remove();
+            }.bind( this ));
+        }
+
+    });
+
+});
+
+define('modules/media-collection',[
+    "app",
+    "modules/item.model",
+    "modules/views/media-collection-view",
+    "modules/views/item-collection-viewer",
+    "backbone"
+],
+
+function( app, ItemModel, MediaCollectionView, ItemCollectionViewer ) {
+
+    var MediaCollection = Backbone.Collection.extend({
+
+        model: ItemModel,
+        view: null,
+        mediaModel: null,
+        itemsCount: 0,
+
+        url: function() {
+            var url = app.searchAPI;
+
+            _.each( this.mediaModel.toJSON().urlArguments, function( value, key ) {
+                if ( value !== "" && value !== null ) {
+                    url += key + "=" + value + "&";
+                }
+            });
+            return url;
+        },
+
+        itemViewer: function( model ) {
+            var startIndex = _.indexOf( _.toArray( this ), model );
+
+            startIndex = startIndex < 0 ? 0 : startIndex;
+
+            this.view = new ItemCollectionViewer({ collection: this, start: startIndex });
+        },
+
+        parse: function( res ) {
+            this.itemsCount = res.items_count;
+
+            return res.items;
+        }
+    });
+
+    var UserMedia = Backbone.Model.extend({
+
+        mediaCollection: null,
+
+        // should this be a model?
+        defaults: {
+                urlArguments: {
+                collection: "",
+                type: "-project AND -collection",
+                page: 1,
+                q: "",
+                user: 36, // should not be hardcoded!
+                sort: "date-desc"
+            },
+            title: "Your Media"
+        },
+
+        initialize: function() {
+            this.view = new MediaCollectionView({ model: this });
+            this.mediaCollection = new MediaCollection();
+            this.mediaCollection.mediaModel = this;
+            this.mediaCollection.on("sync", this.onSync, this );
+            this.mediaCollection.fetch();
+        },
+
+        onSync: function( collection ) {
+            this.collection.trigger("user_media_ready", collection );
+        }
+
+    });
+
+//////////////////////
+
+    var FeaturedCollectionModel = Backbone.Model.extend({
+
+        initialize: function() {
+            this.mediaCollection = new MediaCollection( this.get("child_items") );
+            this.view = new MediaCollectionView({ model: this });
+        }
+    });
+
+    var FeaturedCollection = Backbone.Collection.extend({
+        
+        model: FeaturedCollectionModel,
+
+        url: function() {
+            return app.featuredAPI;
+        },
+
+        parse: function( res ) {
+            return res.items;
+        }
+    });
+
+
+    return Backbone.Collection.extend({
+
+        initialize: function() {
+            var userMedia = new UserMedia();
+
+            userMedia.collection = this;
+            this.unshift( userMedia );
+
+            this.on("add", this.onAdd, this );
+            this.getFeatured();
+        },
+
+        getFeatured: function() {
+            var featured = new FeaturedCollection();
+
+            featured.fetch().success(function() {
+                featured.each(function( collection ) {
+                    this.push( collection );
+                }.bind( this ));
+            }.bind( this ));
+        },
+
+        onAdd: function( collection, response ) {
+            // console.log("onAdd", collection, this )
+        }
+
+    });
+
+});
+
 define('modules/initializer',[
     "app",
     // Modules
@@ -103574,14 +103838,16 @@ define('modules/initializer',[
     "modules/layout-main",
     // Plugins
     "zeega-parser/parser",
+    "modules/media-collection",
     "backbone"
 ],
 
-function( app, Status, Layout, ZeegaParser ) {
+function( app, Status, Layout, ZeegaParser, MediaCollection ) {
 
     return Backbone.Model.extend({
         
         initialize: function() {
+            app.mediaCollection = new MediaCollection();
             this.loadProject();
         },
 
@@ -103639,19 +103905,18 @@ function(app, Initializer) {
     // Defining the application router, you can attach sub routers here.
     var Router = Backbone.Router.extend({
 
+        initialize: function() {
+            new Initializer();
+        },
+
         routes: {
             "": "index",
             ":projectID": "index"
         },
 
         index: function() {
-            this.initialize();
-        },
-
-        initialize: _.once(function() {
-            new Initializer();
-        })
-
+            // this.initialize();
+        }
     });
 
     return Router;
