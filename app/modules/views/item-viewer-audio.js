@@ -11,7 +11,6 @@ function( app ) {
         template: "item-viewer-audio",
 
         serialize: function() {
-            console.log("audio", this)
             return this.model.toJSON();
         },
 

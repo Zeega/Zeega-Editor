@@ -25,7 +25,6 @@ function( app, Status, Layout, ZeegaParser, MediaCollection ) {
             app.userId = meta.data("userId");
             app.projectId = meta.data("projectId");
             app.root = meta.data("root");
-console.log('loaded meta')
         },
 
         loadProject: function( attributes ) {

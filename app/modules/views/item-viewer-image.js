@@ -12,7 +12,6 @@ function( app ) {
         template: "item-viewer-image",
 
         serialize: function() {
-            console.log("img", this)
             return this.model.toJSON();
         },
 

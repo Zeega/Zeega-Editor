@@ -30,7 +30,7 @@ function( app ) {
             this.$("input").val("");
             this.$(".active").removeClass("active");
             if ( _.isEmpty( attr ) || attr.advance === 0 ) {
-                this.$(".advance-manual").addClass("active")
+                this.$(".advance-manual").addClass("active");
             } else {
                 this.$("input").val( attr.advance );
                 this.$(".advance-auto").addClass("active");
@@ -54,7 +54,7 @@ function( app ) {
 
         goAuto: function() {
             this.$(".active").removeClass("active");
-            this.$(".advance-auto").addClass("active")
+            this.$(".advance-auto").addClass("active");
         },
 
         keypress: function( e ) {
