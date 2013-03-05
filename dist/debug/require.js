@@ -386,6 +386,14 @@ var requirejs, require, define;
 
 this["JST"] = this["JST"] || {};
 
+this["JST"]["app/templates/frame-controls.html"] = function(obj){
+var __p='';var print=function(){__p+=Array.prototype.join.call(arguments, '')};
+with(obj||{}){
+__p+='<div class="section-header">Frame Advance</div>\n<div class="advance-controls">\n    <div class="adv-section advance-manual">\n        <a href="#">\n            <div>click</div>\n            <i class="icon-hand-up icon-white"></i>\n        </a>\n    </div>\n    <div class="adv-section advance-auto">\n        <a href="#">\n            <div>timed</div>\n            <i class="icon-time icon-white"></i>\n            <input type="text" placeholder="sec"/>\n        </a>\n    </div>\n</div>';
+}
+return __p;
+};
+
 this["JST"]["app/templates/frame.html"] = function(obj){
 var __p='';var print=function(){__p+=Array.prototype.join.call(arguments, '')};
 with(obj||{}){
@@ -413,7 +421,31 @@ return __p;
 this["JST"]["app/templates/item-collection-viewer.html"] = function(obj){
 var __p='';var print=function(){__p+=Array.prototype.join.call(arguments, '')};
 with(obj||{}){
-__p+='item';
+__p+='<a href="#" class="modal-close">&times;</a>\n<a href="#" class="prev arrow arrow-left"></a>\n<a href="#" class="next arrow arrow-right"></a>\n\n<div class="modal-content">\n\n    <div class="modal-title"></div>\n    <div class="modal-body"></div>\n    <div class="modal-footer"></div>\n</div>\n';
+}
+return __p;
+};
+
+this["JST"]["app/templates/item-viewer-audio.html"] = function(obj){
+var __p='';var print=function(){__p+=Array.prototype.join.call(arguments, '')};
+with(obj||{}){
+__p+='<div class="viewer-preview" style="">\n    <audio class="preview-audio" src="'+
+( uri )+
+'" controls="true" /></audio>\n</div>\n<div class="viewer-controls">\n    <a href="'+
+( attribution_uri )+
+'" target="blank"><i class="icon-share-alt"></i> view original</a>\n    <a class="add-to-frame" href="#"><i class="icon-download"></i> add to frame</a>\n</div>';
+}
+return __p;
+};
+
+this["JST"]["app/templates/item-viewer-image.html"] = function(obj){
+var __p='';var print=function(){__p+=Array.prototype.join.call(arguments, '')};
+with(obj||{}){
+__p+='<div class="viewer-preview" style="\n    background: url('+
+( uri )+
+');\n    background-size: contain;\n    background-position: 50% 50%;\n    background-repeat: no-repeat;\n"></div>\n<div class="viewer-controls">\n    <a href="'+
+( attribution_uri )+
+'" target="blank"><i class="icon-share-alt"></i> view original</a>\n    <a class="add-to-frame" href="#"><i class="icon-download"></i> add to frame</a>\n</div>';
 }
 return __p;
 };
@@ -483,7 +515,7 @@ return __p;
 this["JST"]["app/templates/layout-main.html"] = function(obj){
 var __p='';var print=function(){__p+=Array.prototype.join.call(arguments, '')};
 with(obj||{}){
-__p+='<div class=\'left-column\'>\n    <div class="static-upper">\n        <div class="nav"></div>\n        <div class="project-meta"></div>\n        <div class="layer-drawer"></div>\n    </div>\n    <div class="media-drawer"></div>\n</div>\n<div class=\'right-column\'>\n    <div class="project-navs">\n        <div class="sequences"></div>\n        <div class="frames"></div>\n        <div class="soundtrack"></div>\n        <div class="layer-controls"></div>\n    </div>\n    <div class="workspace"></div>\n    <div class="layers"></div>\n</div>';
+__p+='<div class=\'left-column\'>\n    <div class="static-upper">\n        <div class="nav"></div>\n        <div class="project-meta"></div>\n        <div class="layer-drawer"></div>\n    </div>\n    <div class="media-drawer"></div>\n</div>\n<div class=\'right-column\'>\n    <div class="project-navs">\n        <div class="sequences"></div>\n        <div class="frames"></div>\n        <div class="soundtrack"></div>\n        <div class="controls-wrapper">\n            <div class="frame-controls"></div>\n            <div class="layer-controls"></div>\n        </div>\n    </div>\n    <div class="workspace"></div>\n    <div class="layers"></div>\n</div>';
 }
 return __p;
 };
@@ -506,10 +538,28 @@ __p+='<div class="media-drawer-controls ZEEGA-hmenu dark">\n    <ul class=\'pull
 return __p;
 };
 
+this["JST"]["app/templates/modal.html"] = function(obj){
+var __p='';var print=function(){__p+=Array.prototype.join.call(arguments, '')};
+with(obj||{}){
+__p+='<a href="#" class="modal-close">&times;</a>\n<div class="modal-content">\n    <div class="modal-title"></div>\n    <div class="modal-body"></div>\n    <div class="modal-footer"></div>\n</div>\n';
+}
+return __p;
+};
+
 this["JST"]["app/templates/navbar.html"] = function(obj){
 var __p='';var print=function(){__p+=Array.prototype.join.call(arguments, '')};
 with(obj||{}){
-__p+='<ul class=\'pull-left\'>\n    <li class=\'logo\'>\n        <a href="#"><img src="assets/img/zeega-logo-header.png"/></a>\n    </li>\n</ul>\n<ul class=\'pull-right\'>\n    <li>\n        <a href="http://www.zeega.org/user/" target="blank"><i class="icon-user icon-white"></i></a>\n    </li>\n    <li>\n        <a href="#"><i class="icon-folder-open icon-white"></i></a>\n        <ul class="submenu">\n            <li>\n                <a href="#"><i class="icon-file"></i> New Zeega</a>\n            </li>\n            <li class="divider"></li>\n\n            <li>\n                <a href="#">project 1</a>\n            </li>\n            <li>\n                <a href="#">project 2</a>\n            </li>\n            <li>\n                <a href="#">project 3</a>\n            </li>\n            <li>\n                <a href="#">project 4</a>\n            </li>\n\n        </ul>\n    </li>\n    <li>\n        <a href="http://www.zeega.org/faq/" target="blank"><i class="icon-question-sign icon-white"></i></a>\n    </li>\n</ul>';
+__p+='<ul class=\'pull-left\'>\n    <li class=\'logo\'>\n        <a href="#"><img src="assets/img/zeega-logo-header.png"/></a>\n    </li>\n</ul>\n<ul class=\'pull-right\'>\n    <li>\n        <a href="http://www.zeega.org/user/'+
+( userId )+
+'" target="blank"><i class="icon-user icon-white"></i></a>\n    </li>\n    <li>\n        <a href="#"><i class="icon-folder-open icon-white"></i></a>\n        <ul class="submenu">\n            <li>\n                <a href="#"><i class="icon-file"></i> New Zeega</a>\n            </li>\n            <li class="divider"></li>\n\n            ';
+ _.each( userProjects, function( project) { 
+;__p+='\n                <li>\n                    <a href="'+
+( project.id )+
+'">'+
+( project.title )+
+'</a>\n                </li>\n            ';
+ }); 
+;__p+='\n\n        </ul>\n    </li>\n    <li>\n        <a href="http://www.zeega.org/faq/" target="blank"><i class="icon-question-sign icon-white"></i></a>\n    </li>\n</ul>';
 }
 return __p;
 };
@@ -589,7 +639,7 @@ return __p;
 this["JST"]["app/templates/workspace.html"] = function(obj){
 var __p='';var print=function(){__p+=Array.prototype.join.call(arguments, '')};
 with(obj||{}){
-__p+='<div class="frame-workspace"></div>';
+__p+='<div class="ZEEGA-workspace"></div>';
 }
 return __p;
 };
@@ -618,7 +668,7 @@ with(obj||{}){
 __p+='<div class="control-name">'+
 ( _propertyName )+
 '</div>\n<div class="color-selector">\n    <div class="color-preview" style="background-color: '+
-( attr.backgroundColor )+
+( attr[ _propertyName ] )+
 '"></div>\n</div>';
 }
 return __p;
@@ -660,6 +710,14 @@ __p+='<div class="hover-icon">\n    <div class="control-name">'+
 '</div>\n    <input type="text" class="text-input" value="'+
 ( Math.floor( attr[ _propertyName ] * 100 ) )+
 '">\n    <div class="hidden-controls">\n        <div class="control-slider"></div>\n    </div>\n</div>';
+}
+return __p;
+};
+
+this["JST"]["app/zeega-parser/plugins/controls/textbar/textbar.html"] = function(obj){
+var __p='';var print=function(){__p+=Array.prototype.join.call(arguments, '')};
+with(obj||{}){
+__p+='<div class="control-name">text controls</div>\n\n<a data-action="bold" class="textbar-btn" href="#" >\n    <i class="icon-bold"></i>\n</a>\n<a data-action="italic" class="textbar-btn" href="#" >\n    <i class="icon-italic"></i>\n</a>\n<a data-action="clear" class="textbar-btn" href="#" >\n    <i class="icon-ban-circle"></i>\n</a>\n\n<div class="font-chooser control">\n    <select class="font-list" style=""></select>\n    <select class="size-list" style="">\n        <option value="100">8</option>\n        <option value="125">10</option>\n        <option value="150">12</option>\n        <option value="175">14</option>\n        <option value="200">18</option>\n        <option value="250">24</option>\n        <option value="375">36</option>\n        <option value="500">48</option>\n        <option value="800">72</option>\n        <option value="1600">144</option>\n        <option value="2400">200</option>\n        <option value="3600">300</option>\n    </select>\n</div>';
 }
 return __p;
 };
@@ -843,9 +901,9 @@ return __p;
 this["JST"]["app/zeega-parser/plugins/layers/text/text.html"] = function(obj){
 var __p='';var print=function(){__p+=Array.prototype.join.call(arguments, '')};
 with(obj||{}){
-__p+=''+
+__p+='<div class="visual-target">'+
 ( attr.content )+
-'';
+'</div>\n<div class="controls-inline"></div>';
 }
 return __p;
 };
@@ -67628,13 +67686,17 @@ define('app',[
     // creation.
     var app = {
         // The root path to run the application.
-        // root: "/" + window.sessionStorage.getItem("projectID"),
-        root: "/joseph/web/neweditor/",
+        root: "/",
         parserPath: "app/zeega-parser/",
+
         api: "http://dev.zeega.org/joseph/web/api/",
         searchAPI: "http://www.zeega.com/api/items/search?",
         thumbServer: "http://dev.zeega.org/static/scripts/frame.php?id=",
         featuredAPI: "http://staging.zeega.org/api/items/featured",
+
+        userId: null,
+        projectId: null,
+
         dragging: null,
         mediaCollection: null
     };
@@ -67781,8 +67843,12 @@ function( app ) {
         template: "navbar",
         className: "navbar ZEEGA-hmenu dark",
         
-        initialize: function() {
-            
+        serialize: function() {
+            return {
+                userId: app.userId,
+                userProjects: window.userProjects,
+                directory: app.directory
+            };
         }
     });
 
@@ -68194,6 +68260,84 @@ function( app, FrameView ) {
 
 });
 
+define('modules/views/frame-controls',[
+    "app",
+    "backbone"
+],
+
+function( app ) {
+
+    return Backbone.View.extend({
+
+        template: "frame-controls",
+        className: "ZEEGA-frame",
+
+        initialize: function() {
+            app.status.on("change:currentFrame", this.onChangeFrame, this );
+        },
+
+        afterRender: function() {
+            if ( app.status.get("currentFrame") ) {
+                this.updateControls( app.status.get("currentFrame") );
+            }
+        },
+
+        onChangeFrame: function( status, frameModel ) {
+            this.updateControls( frameModel );
+        },
+
+        updateControls: function( frameModel ) {
+            var attr = frameModel.get("attr");
+
+            this.$("input").val("");
+            this.$(".active").removeClass("active");
+            if ( _.isEmpty( attr ) || attr.advance === 0 ) {
+                this.$(".advance-manual").addClass("active");
+            } else {
+                this.$("input").val( attr.advance );
+                this.$(".advance-auto").addClass("active");
+            }
+
+        },
+
+        events: {
+            "click .advance-manual a": "goManual",
+            "click .advance-auto a": "goAuto",
+            "keypress input": "keypress",
+            "blur input": "onInputBlur"
+        },
+
+        goManual: function() {
+            this.$(".active").removeClass("active");
+            this.$(".advance-manual").addClass("active");
+            this.$("input").val("");
+            app.status.get("currentFrame").saveAttr({ advance: 0 });
+        },
+
+        goAuto: function() {
+            this.$(".active").removeClass("active");
+            this.$(".advance-auto").addClass("active");
+        },
+
+        keypress: function( e ) {
+            if ( e.which >= 48 && e.which <= 57 ) { // numbers
+                return true;
+            } else if ( e.which == 13 ) {
+                this.$("input").blur();
+            } else {
+                e.preventDefault();
+                return false;
+            }
+        },
+
+        onInputBlur: function() {
+            app.status.get("currentFrame").saveAttr({ advance: parseInt( this.$("input").val(), 10 ) });
+        }
+        
+    });
+
+});
+
 define('modules/views/workspace',[
     "app",
     "backbone"
@@ -68206,12 +68350,12 @@ function( app ) {
 
         aspectRatio: 4/3,
 
-        //template: "workspace",
+        // template: "workspace",
         className: "ZEEGA-workspace",
 
         initialize: function() {
             app.on("window-resize", this.onResize, this );
-            app.once("rendered", this.onResize, this );
+            // app.once("rendered", this.onResize, this );
             app.status.on("change:currentFrame", this.onChangeFrame, this );
         },
 
@@ -68283,7 +68427,8 @@ function( app ) {
 
             this.$el.animate({
                 height: height,
-                width: width
+                width: width,
+                fontSize: ( width / 520 ) + "em"
             });
         },
 
@@ -83327,6 +83472,7 @@ function( app, LayerList ) {
 
         afterRender: function() {
             this.renderFrameLayers( this.model.status.get("currentFrame") );
+            app.trigger("rendered", this );
         },
 
         onResize: function() {
@@ -83450,6 +83596,10 @@ function( app ) {
             app.status.on("change:currentLayer", this.onLayerFocus, this );
         },
 
+        afterRender: function() {
+            app.trigger("rendered", this );
+        },
+
         onLayerFocus: function( status, layerModel ) {
             if ( layerModel !== null ) {
                 this.$(".layer-bar-title").text( layerModel.getAttr("title") );
@@ -83546,6 +83696,7 @@ function( app ) {
 
         afterRender: function() {
             this.makeDroppable();
+            app.trigger("rendered", this );
         },
 
         makeDroppable: function() {
@@ -83717,6 +83868,7 @@ define('modules/layout-main',[
     "modules/views/project-meta",
     "modules/views/sequences",
     "modules/views/frames",
+    "modules/views/frame-controls",
     "modules/views/workspace",
     "modules/views/layers",
     "modules/views/layer-controls",
@@ -83729,7 +83881,7 @@ define('modules/layout-main',[
     "backbone"
 ],
 
-function( app, Navbar, ProjectMeta, Sequences, Frames, Workspace, Layers, LayerControls, LayerDrawer, Soundtrack, MediaDrawer) {
+function( app, Navbar, ProjectMeta, Sequences, Frames, FrameControls, Workspace, Layers, LayerControls, LayerDrawer, Soundtrack, MediaDrawer) {
 
     return Backbone.Layout.extend({
 
@@ -83737,11 +83889,8 @@ function( app, Navbar, ProjectMeta, Sequences, Frames, Workspace, Layers, LayerC
         template: "layout-main",
 
         initialize: function() {
-            var lazyResize = _.debounce(function() {
-                this.lazyResize();
-            }.bind( this ), 300);
-
-            $( window ).resize( lazyResize );
+            app.on("rendered", this.lazyResize, this );
+            $( window ).resize( this.lazyResize );
         },
 
         beforeRender: function() {
@@ -83753,6 +83902,11 @@ function( app, Navbar, ProjectMeta, Sequences, Frames, Workspace, Layers, LayerC
 
         afterRender: function() {
             // I like this better. eliminates wasted elements
+
+            // new Workspace({
+            //     model: app,
+            //     el: this.$(".workspace")
+            // }).render();
 
             new Soundtrack({
                 model: app.project,
@@ -83774,6 +83928,11 @@ function( app, Navbar, ProjectMeta, Sequences, Frames, Workspace, Layers, LayerC
                 el: this.$(".frames")
             }).render();
 
+            new FrameControls({
+                model: app,
+                el: this.$(".frame-controls")
+            }).render();
+
             new LayerControls({
                 model: app,
                 el: this.$(".layer-controls"),
@@ -83789,14 +83948,9 @@ function( app, Navbar, ProjectMeta, Sequences, Frames, Workspace, Layers, LayerC
 
         },
 
-        lazyResize: function() {
-            // var height, width;
-
-            // width = window.innerWidth - $(".left-column").width();
-            // height = window.innerHeight - $(".project-navs").height();
-            // console.log("lazy resize", this, width, height)
+        lazyResize: _.debounce(function() {
             app.trigger("window-resize");
-        }
+        }, 500 )
     });
 
 });
@@ -84126,16 +84280,15 @@ function( Zeega, ControlView ) {
             makeResizable: function() {
                 var args = {
                     stop: function( e, ui ) {
-                        var width, height;
+                        var attr = {}, width, height;
 
-                        height = this.$visualContainer.height() / this.$workspace.height() * 100;
-                        width = this.$visualContainer.width() / this.$workspace.width() * 100;
-
-                        this.update({
-                            height: height,
-                            width: width
-                        });
-                        this.convertToPercents( width, height );
+                        attr.width = this.$visualContainer.width() / this.$workspace.width() * 100;
+                        if ( this.options.options != "e" ) {
+                            attr.height = this.$visualContainer.height() / this.$workspace.height() * 100;
+                        }
+                       
+                        this.update( attr );
+                        this.updateCSS( attr );
                     }.bind( this )
                 };
 
@@ -84146,11 +84299,19 @@ function( Zeega, ControlView ) {
                 this.$visualContainer.resizable( "destroy" );
             },
 
-            convertToPercents: function( width, height ) {
-                this.$visualContainer.css({
-                    width: width + "%",
-                    height: height + "%"
+            updateCSS: function( attr ) {
+                var workspace = this.$visualContainer.closest(".ZEEGA-workspace");
+
+                var css = {
+                    top: this.$visualContainer.position().top / workspace.height() * 100 + "%",
+                    left: this.$visualContainer.position().left / workspace.width() * 100 + "%"
+                };
+
+                _.each( attr, function( value, key ) {
+                    css[ key ] = value + "%";
                 });
+
+                this.$visualContainer.css( css );
             }
 
         }) // end control
@@ -84700,15 +84861,18 @@ function( app, ControlView ) {
             template: "color/color",
 
             init: function() {
-                this.propertyName = this.options.options.property;
+                this.propertyName = this.options.options.propertyName;
+            },
+
+            serialize: function() {
+                return _.extend({}, this.model.toJSON(), { _propertyName: !_.isUndefined( this.options.options ) ? this.options.options.title : this.propertyName });
             },
 
             create: function() {
                 /* plugin: http://www.eyecon.ro/colorpicker/#about */
-
                 this.$('.color-selector').ColorPicker({
                     
-                    color: this.model.getAttr("backgroundColor"),
+                    color: this.model.getAttr( this.propertyName ),
                     
                     onShow: function (colpkr) {
                         $( colpkr ).fadeIn(500);
@@ -84723,7 +84887,7 @@ function( app, ControlView ) {
                     onChange: function (hsb, hex, rgb) {
                         var hexValue = "#" + hex;
 
-                        this.$('.color-preview').css('backgroundColor', hexValue );
+                        this.$('.color-preview').css("backgroundColor", hexValue );
                         this.updateVisual( hexValue );
                         this.lazyUpdate( hexValue );
                     }.bind( this )
@@ -85357,6 +85521,145 @@ function( app, ControlView ) {
 
 });
 
+define('zeega_parser/plugins/controls/textbar/textbar',[
+    "app",
+    "zeega_parser/modules/control.view"
+],
+
+function( Zeega, ControlView ) {
+
+    return {
+
+        textbar: ControlView.extend({
+
+            type: "textbar",
+            template: "textbar/textbar",
+            propertyName: "textbar",
+
+            fontList: [
+                "Allerta Stencil",
+                "Antic",
+                "Archivo Black",
+                "Arial",
+                "Bilbo Swash Caps",
+                "Cabin Sketch",
+                "Codystar",
+                "Cutive Mono",
+                "Dosis",
+                "Ewert",
+                "Fascinate",
+                "Faster One",
+                "Finger Paint",
+                "Georgia",
+                "Great Vibes",
+                "Londrina Outline",
+                "Londrina Sketch",
+                "Monofett",
+                "Montserrat",
+                "New Rocker",
+                "Nobile",
+                "Nova Mono",
+                "Orbitron",
+                "Sorts Mill Goudy",
+                "Poiret One",
+                "Pontano Sans",
+                "Trocchi",
+                "Ultra",
+                "Verdana",
+                "Wendy One",
+                "Yellowtail"
+            ],
+
+            create: function() {
+                this.loadFonts();
+                this.setFont();
+                this.setSize();
+            },
+
+            destroy: function() {
+                this.$visualContainer.resizable( "destroy" );
+            },
+
+            loadFonts: function() {
+                this.$(".font-list").empty();
+                _.each( this.fontList, function( fontName ) {
+                    this.$(".font-list").append("<option value=" + fontName + ">" + fontName + "</option>");
+                }, this );
+            },
+
+            setFont: function() {
+                this.$(".font-list option[value='" + this.getAttr("fontFamily") + "']").prop("selected", true );
+            },
+
+            setSize: function() {
+                this.$(".size-list option[value='" + this.getAttr("fontSize") + "']").prop("selected", true );
+            },
+
+            events: {
+                "click .textbar-btn": "btnClick",
+                "change .font-list": "changeFont",
+                "change .size-list": "changeSize"
+            },
+
+            changeFont: function( e ) {
+                this.$visual.find('.style-font-family').contents().unwrap();
+                this.$visual.wrapInner('<span class="style-font-family" style="font-family:'+ $(e.target).val() +'"/>');
+                this.update({ fontFamily : $(e.target).val() });
+                this.saveContent();
+            },
+
+            changeSize: function( e ) {
+                this.model.visual.$el.css( 'fontSize', $(e.target).val() + '%' );
+                this.update({ fontSize : $(e.target).val() });
+            },
+
+            btnClick: function( e ) {
+                var action = $( e.target ).closest("a").data("action");
+
+                this[ action ]();
+            },
+
+            bold: function() {
+                if( this.$visual.find('.style-bold').length ) {
+                    this.$visual.find('.style-bold').contents().unwrap();
+                } else {
+                    this.$visual.wrapInner('<span class="style-bold" style="font-weight:bold"/>');
+                }
+
+                this.saveContent();
+            },
+
+            italic: function() {
+                if( this.$visual.find('.style-italic').length ) {
+                    this.$visual.find('.style-italic').contents().unwrap();
+                } else {
+                    this.$visual.wrapInner('<span class="style-italic" style="font-style:italic"/>');
+                }
+
+                this.saveContent();
+            },
+
+            clear: function() {
+                var clean = this.getAttr("content").replace(/(<([^>]+)>)/ig, "");
+
+                this.$visual.text( clean );
+                this.saveContent();
+            },
+
+            saveContent: function() {
+                this.lazyUpdate({ content: this.$visual.html() });
+            },
+
+            lazyUpdate: _.debounce(function( value ) {
+                this.update(value);
+            }, 500 )
+
+        }) // end control
+    
+    }; // end return
+
+});
+
 /*
 
 plugin/layer manifest file
@@ -85373,7 +85676,8 @@ define('zeega_parser/plugins/controls/_all-controls',[
     "zeega_parser/plugins/controls/color/color",
     "zeega_parser/plugins/controls/linkto/linkto",
     "zeega_parser/plugins/controls/linkimage/linkimage",
-    "zeega_parser/plugins/controls/av/av"
+    "zeega_parser/plugins/controls/av/av",
+    "zeega_parser/plugins/controls/textbar/textbar"
 ],
 function(
     Position,
@@ -85383,7 +85687,8 @@ function(
     Color,
     LinkTo,
     LinkImage,
-    AV
+    AV,
+    TextBar
 ) {
 
     return _.extend(
@@ -85394,7 +85699,8 @@ function(
         Color,
         LinkTo,
         LinkImage,
-        AV
+        AV,
+        TextBar
     );
 });
 
@@ -101700,9 +102006,10 @@ function( Zeega, LayerModel, Visual ) {
 
 define('zeega_parser/plugins/layers/text/text',[
     "app",
-    "zeega_parser/plugins/layers/_layer/_layer"
+    "zeega_parser/modules/layer.model",
+    "zeega_parser/modules/layer.visual.view"
 ],
-function( Zeega, _Layer ) {
+function( Zeega, _Layer, Visual ) {
 
     var Layer = Zeega.module();
 
@@ -101719,25 +102026,126 @@ function( Zeega, _Layer ) {
             title: "Text Layer",
             top: 40,
             width: 25
-        }
+        },
+
+        controls: [
+            // "position",
+            {
+                type: "resize",
+                options: {
+                    aspectRatio: false,
+                    handles: "e"
+                }
+            },
+            "rotate",
+            {
+                type: "checkbox",
+                options: {
+                    title: "fade in",
+                    propertyName: "dissolve"
+                }
+            },
+            { type: "slider",
+                options: {
+                    title: "<i class='icon-eye-open icon-white'></i>",
+                    propertyName: "opacity",
+                    min: 0,
+                    max: 1,
+                    step: 0.001,
+                    css: true
+                }
+            },
+            { type: "color",
+                options: {
+                    title: "color",
+                    propertyName: "color"
+                }
+            },
+            "textbar"
+        ]
     });
 
-    Layer.Text.Visual = _Layer.Visual.extend({
+    Layer.Text.Visual = Visual.extend({
 
-        template: "plugins/text",
+        template: "text/text",
+
+        visualProperties: [
+            "top",
+            "left",
+            "width",
+            "opacity"
+        ],
 
         serialize: function() {
             return this.model.toJSON();
         },
 
-        onRender: function() {
-
-            // using jquery because it provides a few vendor prefix styles
+        afterEditorRender: function() {
             this.$el.css({
                 color: this.model.get("attr").color,
                 fontSize: this.model.get("attr").fontSize + "%"
             });
-        }
+
+            this.$(".visual-target").attr("contenteditable", "true");
+
+            this.$el.append(
+                "<a class='drag-handle drag-handle-nw'><span class='icon-area'><i class='icon-move'></i></span></a>" +
+                "<a class='drag-handle drag-handle-ne'><span class='icon-area'><i class='icon-move'></i></span></a>" +
+                "<a class='drag-handle drag-handle-se'><span class='icon-area'><i class='icon-move'></i></span></a>" +
+                "<a class='drag-handle drag-handle-sw'><span class='icon-area'><i class='icon-move'></i></span></a>"
+            );
+            this.makeDraggable();
+            this.listen();
+        },
+
+        makeDraggable: function() {
+            this.$el.draggable({
+                handle: ".drag-handle",
+                stop: function( e, ui ) {
+                    var top, left, workspace;
+
+                    workspace = this.$el.closest(".ZEEGA-workspace");
+                    top = ui.position.top / workspace.height() * 100;
+                    left = ui.position.left / workspace.width() * 100;
+
+                    this.model.saveAttr({
+                        top: top,
+                        left: left
+                    });
+
+                    this.convertToPercents( top, left );
+                }.bind( this )
+            });
+        },
+
+        convertToPercents: function( top, left ) {
+            this.$el.css({
+                top: top + "%",
+                left: left + "%"
+            });
+        },
+
+        listen: function() {
+            this.$('.visual-target').keyup(function(e){
+                if ( e.which == 27 ) {
+                    this.$('.visual-target').blur();
+                }
+                this.lazyUpdate({ content: this.$('.visual-target').text() });
+            }.bind( this ))
+            .bind('paste', function(e){
+                _.delay(function() {
+                    this.$('.visual-target').html( this.$('.visual-target').text() );
+                    this.lazyUpdate({ content: this.$('.visual-target').text() });
+                }, 500);
+            }.bind( this ));
+        },
+
+        lazyUpdate: _.debounce(function( value ) {
+            var attr = {};
+            
+            attr[ this.propertyName ] = value;
+            this.model.saveAttr( attr );
+        }, 500 )
   });
 
   return Layer;
@@ -102233,7 +102641,6 @@ function( app, Backbone, Layers, ThumbWorker ) {
         addLayerType: function( type ) {
             var newLayer = new Layers[ type ]({ type: type });
 
-console.log("add layer by type:", type, newLayer );
             newLayer.order[ this.id ] = this.layers.length;
             newLayer.save().success(function( response ) {
                 this.layers.add( newLayer );
@@ -102281,6 +102688,15 @@ console.log("add layer by type:", type, newLayer );
 
         }, 1000),
 
+        saveAttr: function( attrObj ) {
+            var attr = this.get("attr");
+
+            if ( _.isArray( attr ) ) {
+                attr = {};
+            }
+
+            this.save("attr", _.extend( attr, attrObj ) );
+        },
 
 // end editor
 
@@ -102910,6 +103326,7 @@ function( app, SequenceCollection ) {
         },
 
         getFrame: function( frameID ) {
+            console.log( frameID, this.sequences, this.frameKey )
             return this.sequences.get( this.frameKey[ frameID ] ).frames.get( frameID );
         },
 
@@ -103632,15 +104049,14 @@ function( app ) {
         },
 
         afterRender: function() {
-            console.log("AR", this, this.model.mediaCollection.length );
             this.$(".media-collection-items").empty();
             this.model.mediaCollection.each(function( item ) {
                 this.$(".media-collection-items").append( item.view.el );
                 item.view.render();
             }, this );
 
-            this.$(".media-collection-items")
-                .append("<li class='media-more'><a href='#'><div class='item-label'>more</div><i class='icon-plus icon-white'></i></a></li>");
+            // this.$(".media-collection-items")
+            //     .append("<li class='media-more'><a href='#'><div class='item-label'>more</div><i class='icon-plus icon-white'></i></a></li>");
 
             this.model.mediaCollection.on("sync", this.render, this );
         }
@@ -103650,52 +104066,197 @@ function( app ) {
 
 });
 
+define('modules/views/modal',[
+    "app",
+    "backbone"
+],
+
+function( app ) {
+
+
+    return Backbone.View.extend({
+
+        template: "modal",
+        modalClass: "",
+        
+        className: function() {
+            return "ZEEGA-modal " + this.modalClass;
+        },
+        
+        events: {
+            "click .modal-close": "close"
+        },
+
+        close: function() {
+            this.$el.fadeOut(function() {
+                this.remove();
+            }.bind( this ));
+        }
+
+    });
+
+});
+
+define('modules/views/item-viewer-image',[
+    "app",
+    "backbone"
+],
+
+function( app ) {
+
+
+    return Backbone.View.extend({
+        
+        className: "item-viewer item-viewer-image",
+        template: "item-viewer-image",
+
+        serialize: function() {
+            return this.model.toJSON();
+        },
+
+        exit: function() {
+            
+        }
+        
+    });
+
+});
+
+define('modules/views/item-viewer-audio',[
+    "app",
+    "backbone"
+],
+
+function( app ) {
+
+    return Backbone.View.extend({
+        
+        className: "item-viewer item-viewer-audio",
+        template: "item-viewer-audio",
+
+        serialize: function() {
+            return this.model.toJSON();
+        },
+
+        exit: function() {
+            this.$("audio").attr("src", "");
+        }
+        
+    });
+
+});
+
 define('modules/views/item-collection-viewer',[
     "app",
+    "modules/views/modal",
     "modules/views/frame",
+    "modules/views/item-viewer-image",
+    "modules/views/item-viewer-audio",
 
     "backbone"
 ],
 
-function( app, FrameView ) {
+function( app, Modal, FrameView, ImageView, AudioView ) {
 
 
     return Backbone.View.extend({
 
         start: 0,
+        index: 0,
+        currentItem: null,
 
         template: "item-collection-viewer",
-        className: "ZEEGA-item-collection-viewer",
-        
+
+        className: "ZEEGA-modal ZEEGA-item-collection-viewer",
+
         initialize: function() {
             this.start = this.options.start;
+            this.goToItem( this.start );
+        },
 
-            // render into body as modal
-            console.log('item viewr', this );
+        init: function( startIndex ) {
+            this.start = startIndex;
+            this.goToItem( startIndex );
+        },
+
+        afterRender: function() {
+            $("#main").addClass("modal");
+            this.goToItem( this.start );
+            this.listen();
+        },
+
+        goToItem: function( index ) {
+            var item = this.collection.at( index );
+
+            if ( this.currentItem ) {
+                this.currentItem.itemView.exit();
+            }
+            this.index = index;
+            this.currentItem = item;
+            this.$(".modal-title").text( item.get("title") );
+
+            if ( _.isUndefined( item.itemView ) ) {
+                if ( item.get("layer_type") == "Image") {
+                    item.itemView = new ImageView({ model: item });
+                } else if ( item.get("layer_type") == "Audio") {
+                    item.itemView = new AudioView({ model: item });
+                }
+            }
+            // just render item.itemView
+            this.$(".modal-body").html( item.itemView.el );
+            item.itemView.render();
+
+            console.log("GO TO", item );
+        },
+
+        listen: function() {
+            $("body").bind("keyup.modal", function( e ) { this.keyup( e ); }.bind( this ));
+        },
+
+        unlisten: function() {
+            $("body").unbind("keyup.modal");
         },
 
         events: {
-            "click .close": "onClose",
+            "click .modal-close": "close",
             "click .prev": "prev",
             "click .next": "next",
             "click .add-to-frame": "addToFrame"
         },
 
-        prev: function() {
+        keyup: function( e ) {
+            if ( e.which == 37 ) { // left
+                this.prev();
+            } else if ( e.which == 39 ) { // right
+                this.next();
+            } else if ( e.which == 27 ) { // esc
+                this.close();
+            }
+        },
 
+        prev: function() {
+            if ( this.index > 0 ) {
+                this.goToItem( this.index - 1 );
+            }
         },
 
         next: function() {
-
+            if ( this.collection.length > this.index + 1 ) {
+                this.goToItem( this.index + 1 );
+            }
         },
 
         addToFrame: function() {
-            // move to individual view?
+            app.status.get('currentFrame').addLayerByItem( this.collection.at( this.index ) );
+            this.close();
         },
 
-        onClose: function() {
+        close: function() {
+            this.unlisten();
+            $("#main").removeClass("modal");
             this.$el.fadeOut(function() {
                 this.remove();
+                this.$el.attr("style", "");
             }.bind( this ));
         }
 
@@ -103725,9 +104286,10 @@ function( app, ItemModel, MediaCollectionView, ItemCollectionViewer ) {
 
             _.each( this.mediaModel.toJSON().urlArguments, function( value, key ) {
                 if ( value !== "" && value !== null ) {
-                    url += key + "=" + value + "&";
+                    url += key + "=" + ( _.isFunction( value ) ? value() : value ) + "&";
                 }
             });
+
             return url;
         },
 
@@ -103736,7 +104298,14 @@ function( app, ItemModel, MediaCollectionView, ItemCollectionViewer ) {
 
             startIndex = startIndex < 0 ? 0 : startIndex;
 
-            this.view = new ItemCollectionViewer({ collection: this, start: startIndex });
+            if ( this.view === null ) {
+                this.view = new ItemCollectionViewer({ collection: this, start: startIndex });
+            } else {
+                this.view.init( startIndex );
+            }
+
+            $("body").append( this.view.el );
+            this.view.render();
         },
 
         parse: function( res ) {
@@ -103757,7 +104326,9 @@ function( app, ItemModel, MediaCollectionView, ItemCollectionViewer ) {
                 type: "-project AND -collection",
                 page: 1,
                 q: "",
-                user: 36, // should not be hardcoded!
+                user: function() {
+                    return app.userId;
+                },
                 sort: "date-desc"
             },
             title: "Your Media"
@@ -103847,8 +104418,17 @@ function( app, Status, Layout, ZeegaParser, MediaCollection ) {
     return Backbone.Model.extend({
         
         initialize: function() {
+            this.loadMetadata();
             app.mediaCollection = new MediaCollection();
             this.loadProject();
+        },
+
+        loadMetadata: function() {
+            var meta = $("meta[name=zeega]");
+
+            app.userId = meta.data("userId");
+            app.projectId = meta.data("projectId");
+            app.root = meta.data("root");
         },
 
         loadProject: function( attributes ) {
