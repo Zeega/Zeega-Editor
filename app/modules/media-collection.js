@@ -23,7 +23,7 @@ function( app, ItemModel, MediaCollectionView, ItemCollectionViewer ) {
                     url += key + "=" + ( _.isFunction( value ) ? value() : value ) + "&";
                 }
             });
-console.log('URL:', url, this.mediaModel.toJSON() );
+
             return url;
         },
 
