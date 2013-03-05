@@ -5000,6 +5000,9 @@ a:active {
   margin: 0 auto;
   display: block;
 }
+.media-collection {
+  background: url(../img/transparency-grid.png);
+}
 .media-collection .media-collection-title {
   background: magenta;
   padding: 5px 10px;
