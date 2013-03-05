@@ -67689,9 +67689,8 @@ define('app',[
         root: "/",
         parserPath: "app/zeega-parser/",
 
-        api: "http://dev.zeega.org/joseph/web/api/",
+        api: "",
         searchAPI: "http://www.zeega.com/api/items/search?",
-        thumbServer: "http://dev.zeega.org/static/scripts/frame.php?id=",
         featuredAPI: "http://staging.zeega.org/api/items/featured",
 
         userId: null,
@@ -67846,7 +67845,7 @@ function( app ) {
         serialize: function() {
             return {
                 userId: app.userId,
-                userProjects: window.userProjects,
+                userProjects: $.parseJSON( window.userProjects ),
                 directory: app.directory
             };
         }
@@ -84914,6 +84913,8 @@ function( app, ControlView ) {
             template: "linkto/linkto",
 
             serialize: function() {
+                console.log("link to", this.getAttr("to_frame") )
+                // var targetFrame = 
                 return app.project.getFrame( this.getAttr("to_frame") ).toJSON();
             },
 
@@ -103003,6 +103004,7 @@ function( app, FrameModel, LayerCollection ) {
             newFrame.layers.frame = newFrame;
 
             newFrame.save().success(function() {
+                app.project.addFrameToKey( newFrame.id, this.sequence.id );
                 if ( _.isUndefined( index ) ) {
                     this.push( newFrame );
                 } else {
@@ -103149,6 +103151,11 @@ function( app, SequenceCollection ) {
                     this.frameKey[ frame.id ] = sequence.id;
                 }, this );
             }, this );
+        },
+
+        addFrameToKey: function( frameId, sequenceId ) {
+            this.frameKey[ frameId ] = sequenceId;
+            console.log('add frame to key', frameId, sequenceId, this.frameKey)
         },
 
         _setInnerSequenceConnections: function() {
@@ -103327,6 +103334,8 @@ function( app, SequenceCollection ) {
 
         getFrame: function( frameID ) {
             console.log( frameID, this.sequences, this.frameKey )
+            var sequence = this.sequences.get( this.frameKey[ frameID ] )
+            // if ( )
             return this.sequences.get( this.frameKey[ frameID ] ).frames.get( frameID );
         },
 
@@ -104429,6 +104438,9 @@ function( app, Status, Layout, ZeegaParser, MediaCollection ) {
             app.userId = meta.data("userId");
             app.projectId = meta.data("projectId");
             app.root = meta.data("root");
+            app.api = "http:" + meta.data("hostname") + "api/";
+            app.featuredAPI = app.api + "items/featured"
+
         },
 
         loadProject: function( attributes ) {

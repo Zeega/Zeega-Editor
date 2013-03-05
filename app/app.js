@@ -9,9 +9,8 @@ define([
         root: "/",
         parserPath: "app/zeega-parser/",
 
-        api: "http://dev.zeega.org/joseph/web/api/",
+        api: "",
         searchAPI: "http://www.zeega.com/api/items/search?",
-        thumbServer: "http://dev.zeega.org/static/scripts/frame.php?id=",
         featuredAPI: "http://staging.zeega.org/api/items/featured",
 
         userId: null,
