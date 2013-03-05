@@ -21,11 +21,11 @@ function( app, Status, Layout, ZeegaParser, MediaCollection ) {
 
         loadMetadata: function() {
             var meta = $("meta[name=zeega]");
-            console.log("load meta", meta.data("userId") );
 
             app.userId = meta.data("userId");
             app.projectId = meta.data("projectId");
             app.root = meta.data("root");
+console.log('loaded meta')
         },
 
         loadProject: function( attributes ) {

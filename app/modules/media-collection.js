@@ -20,9 +20,10 @@ function( app, ItemModel, MediaCollectionView, ItemCollectionViewer ) {
 
             _.each( this.mediaModel.toJSON().urlArguments, function( value, key ) {
                 if ( value !== "" && value !== null ) {
-                    url += key + "=" + value + "&";
+                    url += key + "=" + ( _.isFunction( value ) ? value() : value ) + "&";
                 }
             });
+console.log('URL:', url, this.mediaModel.toJSON() );
             return url;
         },
 
@@ -59,7 +60,9 @@ function( app, ItemModel, MediaCollectionView, ItemCollectionViewer ) {
                 type: "-project AND -collection",
                 page: 1,
                 q: "",
-                user: 36, // should not be hardcoded!
+                user: function() {
+                    return app.userId;
+                },
                 sort: "date-desc"
             },
             title: "Your Media"
