@@ -2115,7 +2115,7 @@ body .ui-tooltip {
 }
 
 .control-av {
-  width: 529px;
+  width: 429px;
 }
 .control-av .playpause {
   float: left;
@@ -2123,7 +2123,7 @@ body .ui-tooltip {
 }
 .control-av .av-slider {
   float: left;
-  width: 500px;
+  width: 400px;
   height: 2px;
   background: rgba(255, 255, 255, 0.5);
   top: 6px;
@@ -4302,7 +4302,7 @@ a:hover {
 }
 a:active {
   text-decoration: none;
-  color: orangered;
+  color: #ccc;
 }
 .project-meta {
   background: url(../img/tiny-stripes.png);
@@ -4564,54 +4564,95 @@ a:active {
   padding: 5px 29px 5px 5px;
   float: left;
 }
-.layer-controls {
-  min-height: 60px;
-  background: rgba(0, 0, 0, 0.25);
-  color: white;
-  font-size: 12px;
-  font-family: "Helvetica", sans-serif;
-  position: relative;
+.controls-wrapper {
   *zoom: 1;
+  background: rgba(0, 0, 0, 0.25);
 }
-.layer-controls:before,
-.layer-controls:after {
+.controls-wrapper:before,
+.controls-wrapper:after {
   display: table;
   content: "";
   line-height: 0;
 }
-.layer-controls:after {
+.controls-wrapper:after {
   clear: both;
 }
-.layer-controls .layer-bar-title {
+.controls-wrapper .frame-controls {
+  float: left;
+  width: 100px;
+  height: 55px;
+  color: white;
+  font-size: 12px;
+  text-align: center;
+  margin-top: 5px;
+}
+.controls-wrapper .frame-controls .section-header {
+  margin-bottom: 2px;
+}
+.controls-wrapper .frame-controls .adv-section {
+  display: inline-block;
+  width: 47%;
+  opacity: 0.25;
+}
+.controls-wrapper .frame-controls .adv-section.active {
+  opacity: 1;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 6px;
+}
+.controls-wrapper .frame-controls .adv-section input {
+  width: 24px;
+  border: none;
+  height: 12px;
+}
+.controls-wrapper .layer-controls {
+  float: left;
+  min-height: 60px;
+  color: white;
+  font-size: 12px;
+  font-family: "Helvetica", sans-serif;
+  position: relative;
+  border-left: 1px solid #444;
+  *zoom: 1;
+}
+.controls-wrapper .layer-controls:before,
+.controls-wrapper .layer-controls:after {
+  display: table;
+  content: "";
+  line-height: 0;
+}
+.controls-wrapper .layer-controls:after {
+  clear: both;
+}
+.controls-wrapper .layer-controls .layer-bar-title {
   font-size: 13px;
   padding: 5px;
   font-weight: bold;
   color: orangered;
 }
-.layer-controls .layer-controls-inner {
+.controls-wrapper .layer-controls .layer-controls-inner {
   *zoom: 1;
   padding-bottom: 5px;
 }
-.layer-controls .layer-controls-inner:before,
-.layer-controls .layer-controls-inner:after {
+.controls-wrapper .layer-controls .layer-controls-inner:before,
+.controls-wrapper .layer-controls .layer-controls-inner:after {
   display: table;
   content: "";
   line-height: 0;
 }
-.layer-controls .layer-controls-inner:after {
+.controls-wrapper .layer-controls .layer-controls-inner:after {
   clear: both;
 }
-.layer-controls .control {
+.controls-wrapper .layer-controls .control {
   margin-left: 10px;
   float: left;
 }
-.layer-controls .control .control-name {
+.controls-wrapper .layer-controls .control .control-name {
   color: #aaa;
 }
-.layer-controls .control input {
+.controls-wrapper .layer-controls .control input {
   margin-top: 5px;
 }
-.layer-controls .hidden-controls {
+.controls-wrapper .layer-controls .hidden-controls {
   position: absolute;
   z-index: 20;
   background: rgba(0, 0, 0, 0.8);
