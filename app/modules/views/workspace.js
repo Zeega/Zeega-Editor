@@ -54,7 +54,7 @@ function( app ) {
 
         onResize: function() {
             var h, w;
-console.log('on resize', h, w)
+
             h = window.innerHeight;
             w = window.innerWidth;
 
@@ -87,7 +87,8 @@ console.log('on resize', h, w)
 
             this.$el.animate({
                 height: height,
-                width: width
+                width: width,
+                fontSize: ( width / 520 ) + "em"
             });
         },
 
