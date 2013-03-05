@@ -4724,6 +4724,7 @@ a:active {
   top: 0;
   right: 0;
   bottom: 0;
+  font-size: 0.7692307692em;
 }
 .layers {
   min-width: 170px;
