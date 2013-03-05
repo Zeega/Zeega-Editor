@@ -11,8 +11,12 @@ function( app ) {
         template: "navbar",
         className: "navbar ZEEGA-hmenu dark",
         
-        initialize: function() {
-            
+        serialize: function() {
+            return {
+                userId: app.userId,
+                userProjects: window.userProjects,
+                directory: app.directory
+            };
         }
     });
 

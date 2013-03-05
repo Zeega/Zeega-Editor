@@ -14,8 +14,18 @@ function( app, Status, Layout, ZeegaParser, MediaCollection ) {
     return Backbone.Model.extend({
         
         initialize: function() {
+            this.loadMetadata();
             app.mediaCollection = new MediaCollection();
             this.loadProject();
+        },
+
+        loadMetadata: function() {
+            var meta = $("meta[name=zeega]");
+            console.log("load meta", meta.data("userId") );
+
+            app.userId = meta.data("userId");
+            app.projectId = meta.data("projectId");
+            app.root = meta.data("root");
         },
 
         loadProject: function( attributes ) {

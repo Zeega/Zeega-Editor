@@ -5,7 +5,7 @@
 </ul>
 <ul class='pull-right'>
     <li>
-        <a href="http://www.zeega.org/user/" target="blank"><i class="icon-user icon-white"></i></a>
+        <a href="http://www.zeega.org/user/<%= userId %>" target="blank"><i class="icon-user icon-white"></i></a>
     </li>
     <li>
         <a href="#"><i class="icon-folder-open icon-white"></i></a>
@@ -15,18 +15,11 @@
             </li>
             <li class="divider"></li>
 
-            <li>
-                <a href="#">project 1</a>
-            </li>
-            <li>
-                <a href="#">project 2</a>
-            </li>
-            <li>
-                <a href="#">project 3</a>
-            </li>
-            <li>
-                <a href="#">project 4</a>
-            </li>
+            <% _.each( userProjects, function( project) { %>
+                <li>
+                    <a href="<%= project.id %>"><%= project.title %></a>
+                </li>
+            <% }); %>
 
         </ul>
     </li>
