@@ -20,6 +20,7 @@ function( app ) {
 
         afterRender: function() {
             this.makeDroppable();
+            app.trigger("rendered", this );
         },
 
         makeDroppable: function() {

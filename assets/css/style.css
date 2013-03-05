@@ -3392,6 +3392,7 @@ html {
   z-index: 10;
 }
 .right-column {
+  overflow: hidden;
   background: url(../img/bg-dark.png);
   height: 100%;
   left: 300px;
@@ -5002,6 +5003,7 @@ a:active {
 }
 .media-collection {
   background: url(../img/transparency-grid.png);
+  background-color: #111;
 }
 .media-collection .media-collection-title {
   background: magenta;

@@ -10,12 +10,12 @@ function( app ) {
 
         aspectRatio: 4/3,
 
-        //template: "workspace",
+        // template: "workspace",
         className: "ZEEGA-workspace",
 
         initialize: function() {
             app.on("window-resize", this.onResize, this );
-            app.once("rendered", this.onResize, this );
+            // app.once("rendered", this.onResize, this );
             app.status.on("change:currentFrame", this.onChangeFrame, this );
         },
 
@@ -54,7 +54,7 @@ function( app ) {
 
         onResize: function() {
             var h, w;
-
+console.log('on resize', h, w)
             h = window.innerHeight;
             w = window.innerWidth;
 

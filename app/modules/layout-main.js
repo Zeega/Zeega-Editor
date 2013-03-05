@@ -26,11 +26,8 @@ function( app, Navbar, ProjectMeta, Sequences, Frames, FrameControls, Workspace,
         template: "layout-main",
 
         initialize: function() {
-            var lazyResize = _.debounce(function() {
-                this.lazyResize();
-            }.bind( this ), 300);
-
-            $( window ).resize( lazyResize );
+            app.on("rendered", this.lazyResize, this );
+            $( window ).resize( this.lazyResize );
         },
 
         beforeRender: function() {
@@ -42,6 +39,11 @@ function( app, Navbar, ProjectMeta, Sequences, Frames, FrameControls, Workspace,
 
         afterRender: function() {
             // I like this better. eliminates wasted elements
+
+            // new Workspace({
+            //     model: app,
+            //     el: this.$(".workspace")
+            // }).render();
 
             new Soundtrack({
                 model: app.project,
@@ -83,14 +85,9 @@ function( app, Navbar, ProjectMeta, Sequences, Frames, FrameControls, Workspace,
 
         },
 
-        lazyResize: function() {
-            // var height, width;
-
-            // width = window.innerWidth - $(".left-column").width();
-            // height = window.innerHeight - $(".project-navs").height();
-            // console.log("lazy resize", this, width, height)
+        lazyResize: _.debounce(function() {
             app.trigger("window-resize");
-        }
+        }, 500 )
     });
 
 });

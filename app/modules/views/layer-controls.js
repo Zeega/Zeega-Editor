@@ -17,6 +17,10 @@ function( app ) {
             app.status.on("change:currentLayer", this.onLayerFocus, this );
         },
 
+        afterRender: function() {
+            app.trigger("rendered", this );
+        },
+
         onLayerFocus: function( status, layerModel ) {
             if ( layerModel !== null ) {
                 this.$(".layer-bar-title").text( layerModel.getAttr("title") );
