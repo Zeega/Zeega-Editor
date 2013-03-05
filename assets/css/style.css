@@ -2445,6 +2445,13 @@ body .ui-tooltip {
   padding: 2px;
   text-align: center;
 }
+.control-textbar .textbar-btn {
+  background: #eee;
+  padding: 2px;
+  border-radius: 3px;
+  margin-right: 2px;
+  float: left;
+}
 
 /*! normalize.css v1.0.1 | MIT License | git.io/normalize */
 /* ==========================================================================

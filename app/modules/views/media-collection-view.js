@@ -19,7 +19,6 @@ function( app ) {
         },
 
         afterRender: function() {
-            console.log("AR", this, this.model.mediaCollection.length );
             this.$(".media-collection-items").empty();
             this.model.mediaCollection.each(function( item ) {
                 this.$(".media-collection-items").append( item.view.el );
