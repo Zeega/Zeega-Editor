@@ -10,6 +10,7 @@ define([
         parserPath: "app/zeega-parser/",
 
         api: "",
+        apiRoot: null,
         searchAPI: "http://www.zeega.com/api/items/search?",
         featuredAPI: "http://staging.zeega.org/api/items/featured",
 
