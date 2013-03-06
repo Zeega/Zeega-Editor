@@ -57,7 +57,7 @@ function( app, ItemModel, MediaCollectionView, ItemCollectionViewer ) {
         defaults: {
                 urlArguments: {
                 collection: "",
-                type: "-project AND -collection",
+                type: "-project AND -collection AND -Video",
                 page: 1,
                 q: "",
                 user: function() {

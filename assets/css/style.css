@@ -4274,6 +4274,8 @@ html {
   border-radius: 0 5px 0 5px;
   width: 150px;
   font-size: 14px;
+  max-height: 300px;
+  overflow: auto;
 }
 .submenu li.menu-head {
   text-align: center;
