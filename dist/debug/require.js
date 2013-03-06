@@ -67690,6 +67690,7 @@ define('app',[
         parserPath: "app/zeega-parser/",
 
         api: "",
+        apiRoot: null,
         searchAPI: "http://www.zeega.com/api/items/search?",
         featuredAPI: "http://staging.zeega.org/api/items/featured",
 
@@ -84913,9 +84914,13 @@ function( app, ControlView ) {
             template: "linkto/linkto",
 
             serialize: function() {
-                console.log("link to", this.getAttr("to_frame") )
-                // var targetFrame = 
-                return app.project.getFrame( this.getAttr("to_frame") ).toJSON();
+                var targetFrame = app.project.getFrame( this.getAttr("to_frame") );
+
+                if ( targetFrame === false ) {
+                    return { thumbnail_url: ""};
+                } else {
+                    return targetFrame.toJSON();
+                }
             },
 
             onPropertyUpdate: function( value ) {
@@ -103155,7 +103160,6 @@ function( app, SequenceCollection ) {
 
         addFrameToKey: function( frameId, sequenceId ) {
             this.frameKey[ frameId ] = sequenceId;
-            console.log('add frame to key', frameId, sequenceId, this.frameKey)
         },
 
         _setInnerSequenceConnections: function() {
@@ -103333,10 +103337,13 @@ function( app, SequenceCollection ) {
         },
 
         getFrame: function( frameID ) {
-            console.log( frameID, this.sequences, this.frameKey )
-            var sequence = this.sequences.get( this.frameKey[ frameID ] )
-            // if ( )
-            return this.sequences.get( this.frameKey[ frameID ] ).frames.get( frameID );
+            var sequence = this.sequences.get( this.frameKey[ frameID ] );
+
+            if ( sequence ) {
+                return this.sequences.get( this.frameKey[ frameID ] ).frames.get( frameID );
+            } else {
+                return false;
+            }
         },
 
         // this is not the best. cache these somewhere in a big collection?
@@ -104332,7 +104339,7 @@ function( app, ItemModel, MediaCollectionView, ItemCollectionViewer ) {
         defaults: {
                 urlArguments: {
                 collection: "",
-                type: "-project AND -collection",
+                type: "-project AND -collection AND -Video",
                 page: 1,
                 q: "",
                 user: function() {
@@ -104438,8 +104445,9 @@ function( app, Status, Layout, ZeegaParser, MediaCollection ) {
             app.userId = meta.data("userId");
             app.projectId = meta.data("projectId");
             app.root = meta.data("root");
-            app.api = "http:" + meta.data("hostname") + app.root + "api/";
-            app.featuredAPI = app.api + "items/featured"
+            app.apiRoot = meta.data("apiRoot");
+            app.api = "http:" + meta.data("hostname") + ( app.apiRoot ? app.apiRoot : app.root ) + "api/";
+            app.featuredAPI = app.api + "items/featured";
 
         },
 
