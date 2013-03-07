@@ -67723,8 +67723,7 @@ define('app',[
 
         fetch: function(path) {
             // Concatenate the file extension.
-            path = "app/templates/" + path + ".html";
-
+            path = app.root + "app/templates/" + path + ".html";
             // If cached, use the compiled template.
             if (JST[path]) {
                 return JST[path];
@@ -68006,7 +68005,8 @@ function( app ) {
 
         projectPreview: function() {
             var projectData = app.project.getProjectJSON();
-
+            
+console.log("preview project", projectData);
             app.zeegaplayer = new Zeega.player({
                 data: projectData,
                 startFrame: app.status.get("currentFrame").id,
@@ -83687,15 +83687,26 @@ function( app ) {
 
     return Backbone.View.extend({
 
+        model: null,
         template: "soundtrack",
         className: "ZEEGA-soundtrack",
 
         serialize: function() {
-            console.log("ST", this.model, this )
             if ( this.model === null || this.model.get("type") != "Audio" ) {
                 return { model: false };
             } else if ( this.model.get("type") == "Audio" ) {
                 return _.extend({ model: true }, this.model.toJSON() );
+            }
+        },
+
+        initialize: function() {
+            app.status.on("change:currentSequence", this.onEnterSequence, this );
+            this.onEnterSequence( app.status.get("currentSequence") );
+        },
+
+        onEnterSequence: function( sequence ) {
+            if ( sequence.get("attr").soundtrack ) {
+                this.setSoundtrackLayer( app.project.getLayer( sequence.get("attr").soundtrack ) );
             }
         },
 
@@ -83711,27 +83722,25 @@ function( app ) {
                 hoverClass: "can-drop",
                 drop: function( e, ui ) {
                     if ( _.contains( ["Audio"], app.dragging.get("layer_type") )) {
-                        console.log('make soundtrack', app.dragging );
-                        this.updateBackground( app.dragging.get("thumbnail_url") );
-                        this.persistToProject( app.dragging );
+                        this.updateWaveform( app.dragging.get("thumbnail_url") );
+
+                        app.status.get('currentSequence').setSoundtrack( app.dragging, this );
                     }
                 }.bind( this )
             });
         },
 
-        updateBackground: function( url ) {
+        updateWaveform: function( url ) {
             this.$(".soundtrack-waveform").css({
                 background: "url(" + url + ")",
                 backgroundSize: "100% 100%"
             });
         },
 
-        persistToProject: function( item ) {
-            app.status.get('currentSequence').setSoundtrack( item, this );
-        },
-
         setSoundtrackLayer: function( layer ) {
-            this.stopListening( this.model );
+            if ( this.model !== null ) {
+                this.removeSoundtrack( false );
+            }
             this.model = layer;
             this.model.on("play", this.onPlay, this );
             this.model.on("pause", this.onPause, this );
@@ -83765,13 +83774,18 @@ function( app ) {
             this.model.visual.playPause();
         },
 
-        removeSoundtrack: function() {
+        onRemoveSoundtrack: function() {
             if ( confirm("Remove soundtrack from project?") ) {
-                this.stopListening( this.model );
-                app.status.get('currentSequence').removeSoundtrack( this.model );
-                this.model = null;
-                this.render();
+                this.removeSoundtrack( true );
             }
+        },
+
+        removeSoundtrack: function() {
+            this.stopListening( this.model );
+            app.status.get('currentSequence').removeSoundtrack( this.model );
+            app.status.get('currentSequence').save();
+            this.model = null;
+            this.render();
         },
 
         toMinSec: function( s ) {
@@ -83783,7 +83797,6 @@ function( app ) {
             sec = sec < 10 ? "0" + sec : sec;
 
             return min + ":" + sec;
-
         }
         
     });
@@ -83892,6 +83905,7 @@ function( app, Navbar, ProjectMeta, Sequences, Frames, FrameControls, Workspace,
 
         el: "#main",
         template: "layout-main",
+        manage: true,
 
         initialize: function() {
             app.on("rendered", this.lazyResize, this );
@@ -83914,7 +83928,6 @@ function( app, Navbar, ProjectMeta, Sequences, Frames, FrameControls, Workspace,
             // }).render();
 console.log("sad;lfj", app.status.get("currentSequence") )
             new Soundtrack({
-                model: app.project,
                 el: this.$(".soundtrack")
             }).render();
 
@@ -83956,6 +83969,7 @@ console.log("sad;lfj", app.status.get("currentSequence") )
         lazyResize: _.debounce(function() {
             app.trigger("window-resize");
         }, 500 )
+
     });
 
 });
@@ -101892,7 +101906,7 @@ function( app, _Layer, Visual ){
             if ( this.audio === null ) {
                 this.audio = document.getElementById("audio-el-" + this.model.id );
                 this.listen();
-
+console.log(this, this.el)
                 this.audio.load();
             }
         },
@@ -102486,6 +102500,7 @@ function( app, Layers ) {
         },
 
         initialize: function() {
+            this.on("sync", function(){ console.log("SYNC SEQ", this )}, this)
             // this.on("change:frames", this.onFrameSort, this );
         },
 
@@ -102498,11 +102513,10 @@ function( app, Layers ) {
 
         setSoundtrack: function( item, view ) {
             var newLayer;
-console.log("set sndtrack", this.get("attr").soundtrack, this );
+
             if ( this.get("attr").soundtrack ) {
                 var layer = app.project.getLayer( this.get("attr").soundtrack );
 
-                console.log("rm sndtrack", this.get("attr").soundtrack, layer );
                 this.removeSoundtrack( layer, false ); // does not work
             }
 
@@ -102523,23 +102537,26 @@ console.log("set sndtrack", this.get("attr").soundtrack, this );
             newLayer.save().success(function( response ) {
                 var attr = this.get("attr");
 
+                if ( _.isArray( attr ) ) {
+                    attr = {};
+                }
+
                 attr.soundtrack = newLayer.id;
-                this.save("attr", attr ); //save
+
+                this.set("attr", attr );
                 this.persistLayer( newLayer );
                 view.setSoundtrackLayer( newLayer );
+
+                this.save();
             }.bind( this ));
         },
 
-        removeSoundtrack: function( layer, save ) {
+        removeSoundtrack: function( layer ) {
             var attr = this.get("attr");
 
-            attr.soundtrack = false;
-
-            this.set("attr", attr );
-            if ( save ) {
-                this.save();
-            }
             this.unpersistLayer( layer );
+            attr.soundtrack = false;
+            this.set("attr", attr );
         },
 
         persistLayer: function( layer ) {
@@ -102547,6 +102564,7 @@ console.log("set sndtrack", this.get("attr").soundtrack, this );
                 var pLayers = this.get("persistent_layers");
 
                 pLayers.push( layer.id );
+
                 this.set("persistent_layers", pLayers ); //save
                 this.frames.each(function( frame ) {
                     layer.order[ frame.id ] = frame.layers.length;
@@ -102559,7 +102577,7 @@ console.log("set sndtrack", this.get("attr").soundtrack, this );
             if ( _.contains( this.get("persistent_layers"), layer.id ) ) {
                 var pLayers = _.without( this.get("persistent_layers"), layer.id );
 
-                this.set("persistent_layers", pLayers ); //save
+                this.set("persistent_layers", pLayers );
                 this.frames.each(function( frame ) {
                     frame.layers.remove( layer );
                 });
@@ -102688,7 +102706,7 @@ function( app, Backbone, Layers, ThumbWorker ) {
         // debounce the thumbworker so it's not killing the thumb server!
 
         startThumbWorker: _.debounce(function() {
-            var worker = new Worker( "/" + app.root + "assets/thumb-worker.js" );
+            var worker = new Worker( "/" + app.root + "assets/js/thumb-worker.js" );
             
             worker.addEventListener("message", function(e) {
 
