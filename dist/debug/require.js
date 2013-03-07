@@ -104195,7 +104195,6 @@ function( app, Modal, FrameView, ImageView, AudioView ) {
 
         initialize: function() {
             this.start = this.options.start;
-            this.goToItem( this.start );
         },
 
         init: function( startIndex ) {
@@ -104229,8 +104228,6 @@ function( app, Modal, FrameView, ImageView, AudioView ) {
             // just render item.itemView
             this.$(".modal-body").html( item.itemView.el );
             item.itemView.render();
-
-            console.log("GO TO", item );
         },
 
         listen: function() {
@@ -104318,7 +104315,7 @@ function( app, ItemModel, MediaCollectionView, ItemCollectionViewer ) {
         },
 
         itemViewer: function( model ) {
-            var startIndex = _.indexOf( _.toArray( this ), model );
+            var startIndex = _.indexOf( this.pluck("id"), model.id );
 
             startIndex = startIndex < 0 ? 0 : startIndex;
 
@@ -104419,7 +104416,7 @@ function( app, ItemModel, MediaCollectionView, ItemCollectionViewer ) {
         },
 
         onAdd: function( collection, response ) {
-            // console.log("onAdd", collection, this )
+            // console.log("onAdd", collection, this );
         }
 
     });

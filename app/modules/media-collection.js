@@ -129,7 +129,7 @@ function( app, ItemModel, MediaCollectionView, ItemCollectionViewer ) {
         },
 
         onAdd: function( collection, response ) {
-            // console.log("onAdd", collection, this )
+            // console.log("onAdd", collection, this );
         }
 
     });
