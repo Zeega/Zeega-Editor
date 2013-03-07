@@ -100,10 +100,13 @@ function( app ) {
             }
         },
 
-        removeSoundtrack: function() {
+        removeSoundtrack: function( save ) {
             this.stopListening( this.model );
             app.status.get('currentSequence').removeSoundtrack( this.model );
-            app.status.get('currentSequence').save();
+
+            if ( save ) {
+                app.status.get('currentSequence').save();
+            }
             this.model = null;
             this.render();
         },
