@@ -15,7 +15,8 @@ function( app ) {
             return {
                 userId: app.userId,
                 userProjects: $.parseJSON( window.userProjects ),
-                directory: app.directory
+                directory: app.directory,
+                root: app.root
             };
         }
     });

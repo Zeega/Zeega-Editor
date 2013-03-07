@@ -25,7 +25,7 @@ function( app, Status, Layout, ZeegaParser, MediaCollection ) {
             app.userId = meta.data("userId");
             app.projectId = meta.data("projectId");
             app.root = meta.data("root");
-            app.apiRoot = meta.data("apiRoot");
+            app.apiRoot = meta.data("apiRoot"); // dev only
             app.api = "http:" + meta.data("hostname") + ( app.apiRoot ? app.apiRoot : app.root ) + "api/";
             app.featuredAPI = app.api + "items/featured";
 
