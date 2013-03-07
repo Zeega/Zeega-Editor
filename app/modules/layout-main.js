@@ -44,7 +44,7 @@ function( app, Navbar, ProjectMeta, Sequences, Frames, FrameControls, Workspace,
             //     model: app,
             //     el: this.$(".workspace")
             // }).render();
-
+console.log("sad;lfj", app.status.get("currentSequence") )
             new Soundtrack({
                 model: app.project,
                 el: this.$(".soundtrack")

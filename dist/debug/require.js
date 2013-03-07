@@ -83691,6 +83691,7 @@ function( app ) {
         className: "ZEEGA-soundtrack",
 
         serialize: function() {
+            console.log("ST", this.model, this )
             if ( this.model === null || this.model.get("type") != "Audio" ) {
                 return { model: false };
             } else if ( this.model.get("type") == "Audio" ) {
@@ -83911,7 +83912,7 @@ function( app, Navbar, ProjectMeta, Sequences, Frames, FrameControls, Workspace,
             //     model: app,
             //     el: this.$(".workspace")
             // }).render();
-
+console.log("sad;lfj", app.status.get("currentSequence") )
             new Soundtrack({
                 model: app.project,
                 el: this.$(".soundtrack")
@@ -86316,7 +86317,7 @@ function( app ) {
             this.$(".frame-chooser-list").empty();
             app.status.get("currentSequence").frames.each(function( frame ) {
                 var fv = $("<li>"),
-                    bg = frame.get("thumbnail_url") == "" ? "black" :
+                    bg = frame.get("thumbnail_url") === "" ? "black" :
                         "url(" + frame.get("thumbnail_url") +") no-repeat center center";
 
 
@@ -102523,7 +102524,7 @@ console.log("set sndtrack", this.get("attr").soundtrack, this );
                 var attr = this.get("attr");
 
                 attr.soundtrack = newLayer.id;
-                this.set("attr", attr ); //save
+                this.save("attr", attr ); //save
                 this.persistLayer( newLayer );
                 view.setSoundtrackLayer( newLayer );
             }.bind( this ));
@@ -102687,7 +102688,7 @@ function( app, Backbone, Layers, ThumbWorker ) {
         // debounce the thumbworker so it's not killing the thumb server!
 
         startThumbWorker: _.debounce(function() {
-            var worker = new Worker( "/" + app.root + "assets/js/thumb-worker.js" );
+            var worker = new Worker( "/" + app.root + "assets/thumb-worker.js" );
             
             worker.addEventListener("message", function(e) {
 
