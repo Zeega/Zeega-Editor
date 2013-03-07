@@ -7,11 +7,11 @@ function( app ) {
 
     return Backbone.View.extend({
 
+        model: null,
         template: "soundtrack",
         className: "ZEEGA-soundtrack",
 
         serialize: function() {
-            console.log("ST", this.model, this )
             if ( this.model === null || this.model.get("type") != "Audio" ) {
                 return { model: false };
             } else if ( this.model.get("type") == "Audio" ) {
@@ -25,11 +25,9 @@ function( app ) {
         },
 
         onEnterSequence: function( sequence ) {
-            console.log("new seq entered", sequence, sequence.get("attr").soundtrack, app );
             if ( sequence.get("attr").soundtrack ) {
                 this.setSoundtrackLayer( app.project.getLayer( sequence.get("attr").soundtrack ) );
             }
-
         },
 
         afterRender: function() {
@@ -44,27 +42,25 @@ function( app ) {
                 hoverClass: "can-drop",
                 drop: function( e, ui ) {
                     if ( _.contains( ["Audio"], app.dragging.get("layer_type") )) {
-                        console.log('make soundtrack', app.dragging );
-                        this.updateBackground( app.dragging.get("thumbnail_url") );
-                        this.persistToProject( app.dragging );
+                        this.updateWaveform( app.dragging.get("thumbnail_url") );
+
+                        app.status.get('currentSequence').setSoundtrack( app.dragging, this );
                     }
                 }.bind( this )
             });
         },
 
-        updateBackground: function( url ) {
+        updateWaveform: function( url ) {
             this.$(".soundtrack-waveform").css({
                 background: "url(" + url + ")",
                 backgroundSize: "100% 100%"
             });
         },
 
-        persistToProject: function( item ) {
-            app.status.get('currentSequence').setSoundtrack( item, this );
-        },
-
         setSoundtrackLayer: function( layer ) {
-            this.stopListening( this.model );
+            if ( this.model !== null ) {
+                this.removeSoundtrack( false );
+            }
             this.model = layer;
             this.model.on("play", this.onPlay, this );
             this.model.on("pause", this.onPause, this );
@@ -98,13 +94,18 @@ function( app ) {
             this.model.visual.playPause();
         },
 
-        removeSoundtrack: function() {
+        onRemoveSoundtrack: function() {
             if ( confirm("Remove soundtrack from project?") ) {
-                this.stopListening( this.model );
-                app.status.get('currentSequence').removeSoundtrack( this.model );
-                this.model = null;
-                this.render();
+                this.removeSoundtrack( true );
             }
+        },
+
+        removeSoundtrack: function() {
+            this.stopListening( this.model );
+            app.status.get('currentSequence').removeSoundtrack( this.model );
+            app.status.get('currentSequence').save();
+            this.model = null;
+            this.render();
         },
 
         toMinSec: function( s ) {
