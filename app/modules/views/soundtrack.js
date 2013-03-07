@@ -19,6 +19,19 @@ function( app ) {
             }
         },
 
+        initialize: function() {
+            app.status.on("change:currentSequence", this.onEnterSequence, this );
+            this.onEnterSequence( app.status.get("currentSequence") );
+        },
+
+        onEnterSequence: function( sequence ) {
+            console.log("new seq entered", sequence, sequence.get("attr").soundtrack, app );
+            if ( sequence.get("attr").soundtrack ) {
+                this.setSoundtrackLayer( app.project.getLayer( sequence.get("attr").soundtrack ) );
+            }
+
+        },
+
         afterRender: function() {
             this.makeDroppable();
             app.trigger("rendered", this );
@@ -103,7 +116,6 @@ function( app ) {
             sec = sec < 10 ? "0" + sec : sec;
 
             return min + ":" + sec;
-
         }
         
     });
