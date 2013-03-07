@@ -24,6 +24,7 @@ function( app, Navbar, ProjectMeta, Sequences, Frames, FrameControls, Workspace,
 
         el: "#main",
         template: "layout-main",
+        manage: true,
 
         initialize: function() {
             app.on("rendered", this.lazyResize, this );
@@ -88,6 +89,7 @@ console.log("sad;lfj", app.status.get("currentSequence") )
         lazyResize: _.debounce(function() {
             app.trigger("window-resize");
         }, 500 )
+
     });
 
 });
