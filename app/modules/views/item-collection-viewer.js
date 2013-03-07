@@ -23,7 +23,6 @@ function( app, Modal, FrameView, ImageView, AudioView ) {
 
         initialize: function() {
             this.start = this.options.start;
-            this.goToItem( this.start );
         },
 
         init: function( startIndex ) {
@@ -57,8 +56,6 @@ function( app, Modal, FrameView, ImageView, AudioView ) {
             // just render item.itemView
             this.$(".modal-body").html( item.itemView.el );
             item.itemView.render();
-
-            console.log("GO TO", item );
         },
 
         listen: function() {

@@ -41,6 +41,7 @@ function( app, ItemView ) {
         },
 
         viewItem: function() {
+            console.log("view item", this.model )
             this.model.collection.itemViewer( this.model );
         }
 

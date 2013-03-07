@@ -28,7 +28,7 @@ function( app, ItemModel, MediaCollectionView, ItemCollectionViewer ) {
         },
 
         itemViewer: function( model ) {
-            var startIndex = _.indexOf( _.toArray( this ), model );
+            var startIndex = _.indexOf( this.pluck("id"), model.id );
 
             startIndex = startIndex < 0 ? 0 : startIndex;
 
