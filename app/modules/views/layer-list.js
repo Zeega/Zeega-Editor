@@ -42,8 +42,9 @@ function( app ) {
         },
 
         deleteLayer: function() {
-            console.log("delete layer", this);
-            this.model.collection.remove( this.model );
+            if ( confirm("do you really want to delete this layer?") ) {
+                this.model.collection.remove( this.model );
+            }
         },
 
         selectLayer: function() {

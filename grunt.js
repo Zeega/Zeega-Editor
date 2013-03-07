@@ -186,6 +186,7 @@ module.exports = function(grunt) {
                         "vendor/h5bp/normalize.css",
                         "assets/js/plugins/jquery-ui/css/ui-lightness/jquery-ui-1.10.1.custom.css",
                         "vendor/colorpicker/css/colorpicker.css",
+                        "vendor/zeegaplayer/dist/debug/css/zeega.css",
                         "assets/css/layers.less",
                         "assets/css/controls.less",
                         "assets/css/less/_all.less"

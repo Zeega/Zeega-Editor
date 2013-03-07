@@ -68511,8 +68511,9 @@ function( app ) {
         },
 
         deleteLayer: function() {
-            console.log("delete layer", this);
-            this.model.collection.remove( this.model );
+            if ( confirm("do you really want to delete this layer?") ) {
+                this.model.collection.remove( this.model );
+            }
         },
 
         selectLayer: function() {
@@ -102636,7 +102637,12 @@ function( app, Backbone, Layers, ThumbWorker ) {
 // editor
         listenToLayers: function() {
             this.layers.on("sort", this.onLayerSort, this );
-            this.layers.on("add remove", this.updateThumb, this );
+            this.layers.on("add remove", this.onLayerAddRemove, this );
+        },
+
+        onLayerAddRemove: function() {
+            this.updateThumb();
+            this.onLayerSort();
         },
 
         onLayerSort: function() {
@@ -102921,6 +102927,8 @@ function( app, Layers ) {
 
         onRemove: function( layer ) {
             layer.editorCleanup();
+            layer.destroy();
+            console.log('layer', layer)
             app.trigger("layer_remove", layer );
         },
 
