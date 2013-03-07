@@ -551,9 +551,11 @@ var __p='';var print=function(){__p+=Array.prototype.join.call(arguments, '')};
 with(obj||{}){
 __p+='<ul class=\'pull-left\'>\n    <li class=\'logo\'>\n        <a href="#"><img src="assets/img/zeega-logo-header.png"/></a>\n    </li>\n</ul>\n<ul class=\'pull-right\'>\n    <li>\n        <a href="http://www.zeega.org/user/'+
 ( userId )+
-'" target="blank"><i class="icon-user icon-white"></i></a>\n    </li>\n    <li>\n        <a href="#"><i class="icon-folder-open icon-white"></i></a>\n        <ul class="submenu">\n            <li>\n                <a href="#"><i class="icon-file"></i> New Zeega</a>\n            </li>\n            <li class="divider"></li>\n\n            ';
+'" target="blank"><i class="icon-user icon-white"></i></a>\n    </li>\n    <li>\n        <a href="#"><i class="icon-folder-open icon-white"></i></a>\n        <ul class="submenu">\n            <li>\n                <a href="/'+
+( root )+
+'project/new"><i class="icon-file"></i> New Zeega</a>\n            </li>\n            <li class="divider"></li>\n\n            ';
  _.each( userProjects, function( project) { 
-;__p+='\n                <li>\n                    <a href="'+
+;__p+='\n                <li>\n                    <a href="/'+
 ( project.id )+
 '">'+
 ( project.title )+
@@ -67847,7 +67849,8 @@ function( app ) {
             return {
                 userId: app.userId,
                 userProjects: $.parseJSON( window.userProjects ),
-                directory: app.directory
+                directory: app.directory,
+                root: app.root
             };
         }
     });
@@ -102645,10 +102648,10 @@ function( app, Backbone, Layers, ThumbWorker ) {
             this.onLayerSort();
         },
 
-        onLayerSort: function() {
+        onLayerSort: _.debounce(function() {
             this.save("layers", this.layers.pluck("id") );
             this.updateThumb();
-        },
+        }, 100 ),
 
         addLayerType: function( type ) {
             var newLayer = new Layers[ type ]({ type: type });
@@ -102928,7 +102931,6 @@ function( app, Layers ) {
         onRemove: function( layer ) {
             layer.editorCleanup();
             layer.destroy();
-            console.log('layer', layer)
             app.trigger("layer_remove", layer );
         },
 
@@ -103015,6 +103017,7 @@ function( app, FrameModel, LayerCollection ) {
             newFrame.status = app.status;
             newFrame.layers = new LayerCollection( _.compact( continuingLayers ) );
             newFrame.layers.frame = newFrame;
+            newFrame.listenToLayers();
 
             newFrame.save().success(function() {
                 app.project.addFrameToKey( newFrame.id, this.sequence.id );
@@ -104450,7 +104453,7 @@ function( app, Status, Layout, ZeegaParser, MediaCollection ) {
             app.userId = meta.data("userId");
             app.projectId = meta.data("projectId");
             app.root = meta.data("root");
-            app.apiRoot = meta.data("apiRoot");
+            app.apiRoot = meta.data("apiRoot"); // dev only
             app.api = "http:" + meta.data("hostname") + ( app.apiRoot ? app.apiRoot : app.root ) + "api/";
             app.featuredAPI = app.api + "items/featured";
 
