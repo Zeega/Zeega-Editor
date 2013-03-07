@@ -41,7 +41,7 @@ define([
 
         fetch: function(path) {
             // Concatenate the file extension.
-            path = app.root + "app/templates/" + path + ".html";
+            path = "app/templates/" + path + ".html";
             // If cached, use the compiled template.
             if (JST[path]) {
                 return JST[path];
