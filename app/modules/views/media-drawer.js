@@ -34,6 +34,7 @@ function( app ) {
 
         events: {
             "click .gridToggle": "gridToggle",
+            "click .clearSearch": "clearSearch",
             "keyup .search-box": "onSearchKepress"
         },
 
@@ -45,14 +46,23 @@ function( app ) {
                 .toggleClass("icon-th-list");
         },
 
+        clearSearch: function() {
+            this.$(".search-box").val("");
+            this.search("");
+        },
+
         onSearchKepress: function( e ) {
             if ( e.which == 13 ) {
-                var args = this.collection.at(0).get("urlArguments");
-
-                args.q = this.$(".search-box").val();
-                this.collection.at(0).set("urlArguments", args );
-                this.collection.at(0).mediaCollection.fetch();
+                this.search( this.$(".search-box").val() );
             }
+        },
+
+        search: function( query ) {
+            var args = this.collection.at(0).get("urlArguments");
+
+            args.q = query;
+            this.collection.at(0).set("urlArguments", args );
+            this.collection.at(0).mediaCollection.fetch();
         },
 
         onResize: function() {
