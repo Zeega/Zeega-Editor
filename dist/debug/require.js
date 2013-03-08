@@ -104720,7 +104720,7 @@ function( app, ItemModel, MediaCollectionView, ItemCollectionViewer ) {
         model: FeaturedCollectionModel,
 
         url: function() {
-            return app.featuredAPI;
+            return "http://staging.zeega.org/api/items/featured";
         },
 
         parse: function( res ) {
