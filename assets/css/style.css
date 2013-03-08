@@ -6929,16 +6929,18 @@ a:active {
   left: -5px;
   margin: 0px;
 }
-.search-box {
-  border: none;
-  outline: 0;
-  padding: 8px;
-  width: 150px;
-}
 .item-dragging {
   height: 75px;
   width: 75px;
   opacity: 0.75;
+}
+.media-drawer .empty-collection {
+  background: rgba(0, 0, 0, 0.5);
+  color: orangered;
+  padding: 20px;
+  text-align: center;
+  font-family: futura;
+  font-size: 13px;
 }
 .media-drawer .ZEEGA-items {
   overflow: auto;
@@ -7169,4 +7171,13 @@ a:active {
 }
 .item-viewer-audio .preview-audio {
   width: 100%;
+}
+.media-drawer-controls {
+  border-top: 1px solid #555;
+}
+.media-drawer-controls .search-box {
+  border: none;
+  outline: 0;
+  padding: 8px;
+  width: 150px;
 }
