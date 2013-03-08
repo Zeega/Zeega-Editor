@@ -32,16 +32,6 @@ function( app ) {
             collection.view.render();
         },
 
-
-        // renderItems: function() {
-        //     this.$(".ZEEGA-items").empty();
-        //     this.onResize();
-        //     this.collection.each(function( item ) {
-        //         this.$(".ZEEGA-items").append( item.view.el );
-        //         item.view.render();
-        //     }, this );
-        // },
-
         events: {
             "click .gridToggle": "gridToggle",
             "keyup .search-box": "onSearchKepress"
@@ -57,8 +47,11 @@ function( app ) {
 
         onSearchKepress: function( e ) {
             if ( e.which == 13 ) {
-                console.log('search query:', this.$(".search-box").val() );
-                app.search.set("q", this.$(".search-box").val() );
+                var args = this.collection.at(0).get("urlArguments");
+
+                args.q = this.$(".search-box").val();
+                this.collection.at(0).set("urlArguments", args );
+                this.collection.at(0).mediaCollection.fetch();
             }
         },
 
