@@ -57,7 +57,7 @@ function( app, ItemModel, MediaCollectionView, ItemCollectionViewer ) {
         defaults: {
                 urlArguments: {
                 collection: "",
-                type: "-project AND -collection AND -Video",
+                type: "-project AND -Collection AND -Video",
                 page: 1,
                 q: "",
                 user: function() {
@@ -129,7 +129,7 @@ function( app, ItemModel, MediaCollectionView, ItemCollectionViewer ) {
         },
 
         onAdd: function( collection, response ) {
-            // console.log("onAdd", collection, this );
+            console.log("onAdd", collection, this );
         }
 
     });

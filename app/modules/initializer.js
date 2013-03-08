@@ -37,6 +37,7 @@ function( app, Status, Layout, ZeegaParser, MediaCollection ) {
             } else {
                 var rawDataModel = new Backbone.Model();
 
+                // mainly for testing
                 rawDataModel.url = "http://dev.zeega.org/joseph/web/api/projects/6911";
                 rawDataModel.fetch().success(function( response ) {
                     this._parseData( response );
