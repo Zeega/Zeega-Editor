@@ -50797,7 +50797,7 @@ function( Zeega ) {
         window.fireEvent("on" + event.eventType, event);
     }
 
-    $.noConflict( true ); // return $ to prev owner
+    $.noConflict(); // return $ to prev owner
 
 });
 
@@ -51053,7 +51053,7 @@ jQuery.fn = jQuery.prototype = {
 	selector: "",
 
 	// The current version of jQuery being used
-	jquery: "1.8.3",
+	jquery: "1.8.3x",
 
 	// The default length of a jQuery object is 0
 	length: 0,
@@ -67957,6 +67957,9 @@ define('app',[
         var args = [].slice.call( arguments ).concat([ { silent: true } ]);
         return this.set.apply( this, args );
     };
+
+    $.noConflict();
+    $ = jQuery;
 
     // Configure LayoutManager with Backbone Boilerplate defaults.
     Backbone.LayoutManager.configure({
@@ -85132,7 +85135,7 @@ function( app, ControlView ) {
 
             create: function() {
                 /* plugin: http://www.eyecon.ro/colorpicker/#about */
-                this.$('.color-selector').ColorPicker({
+                $( this.$('.color-selector') ).ColorPicker({
                     
                     color: this.model.getAttr( this.propertyName ),
                     
