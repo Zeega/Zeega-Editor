@@ -20,6 +20,7 @@ function( app ) {
             this.model.on("focus", this.onFocus, this );
             this.model.on("blur", this.onBlur, this );
             this.model.on("remove", this.onRemove, this );
+            this.model.on("all", function(e){ console.log("laye:", e)});
         },
 
         events: {
@@ -52,6 +53,7 @@ function( app ) {
         },
 
         onFocus: function() {
+            console.log("on focus", this)
             this.$el.addClass("active");
         },
 
