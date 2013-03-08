@@ -32,7 +32,7 @@ function( app ) {
             if ( _.isEmpty( attr ) || attr.advance === 0 ) {
                 this.$(".advance-manual").addClass("active");
             } else {
-                this.$("input").val( attr.advance );
+                this.$("input").val( attr.advance / 1000 );
                 this.$(".advance-auto").addClass("active");
             }
 
@@ -69,7 +69,7 @@ function( app ) {
         },
 
         onInputBlur: function() {
-            app.status.get("currentFrame").saveAttr({ advance: parseInt( this.$("input").val(), 10 ) });
+            app.status.get("currentFrame").saveAttr({ advance: parseInt( this.$("input").val() * 1000, 10 ) });
         }
         
     });
