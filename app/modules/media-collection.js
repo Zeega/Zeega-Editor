@@ -65,7 +65,7 @@ function( app, ItemModel, MediaCollectionView, ItemCollectionViewer ) {
                 },
                 sort: "date-desc"
             },
-            title: "Your Media"
+            title: "My Media"
         },
 
         initialize: function() {
