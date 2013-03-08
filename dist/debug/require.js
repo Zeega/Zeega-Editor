@@ -85854,7 +85854,6 @@ function( Zeega, ControlView ) {
             loadFonts: function() {
                 this.$(".font-list").empty();
                 _.each( this.fontList, function( fontName ) {
-                    console.log("FONT LIST:", fontName )
                     this.$(".font-list").append("<option value='" + fontName + "'>" + fontName + "</option>");
                 }, this );
             },
@@ -102153,7 +102152,6 @@ function( app, _Layer, Visual ){
             if ( this.audio === null ) {
                 this.audio = document.getElementById("audio-el-" + this.model.id );
                 this.listen();
-console.log(this, this.el)
                 this.audio.load();
             }
         },
@@ -102935,7 +102933,7 @@ function( app, Backbone, Layers, ThumbWorker ) {
                     msg: app.api + "frames/" + this.id + "/thumbnail"
                 });
 
-            }, 1000)
+            }, 1000);
         },
 
 // editor
