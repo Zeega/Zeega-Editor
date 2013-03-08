@@ -533,7 +533,7 @@ return __p;
 this["JST"]["app/templates/media-drawer.html"] = function(obj){
 var __p='';var print=function(){__p+=Array.prototype.join.call(arguments, '')};
 with(obj||{}){
-__p+='<div class="media-drawer-controls ZEEGA-hmenu dark">\n    <ul class=\'pull-left\'>\n        <li>\n            <a href="#" class="gridToggle"><i class="icon-th-list icon-white"></i></a>\n        </li>\n    </ul>\n    <ul class=\'pull-right\'>\n        <li>\n            <input class="search-box" type="text" placeholder="search media"/>\n        </li>\n    </ul>\n</div>\n<ul class="ZEEGA-items"></ul>';
+__p+='<div class="media-drawer-controls ZEEGA-hmenu dark">\n    <ul class=\'pull-left\'>\n        <li>\n            <input class="search-box" type="text" placeholder="search media"/>\n        </li>\n        <li>\n            <a href="#" class="clearSearch"><i class="icon-remove icon-white"></i></a>\n        </li>\n    </ul>\n    <ul class=\'pull-right\'>\n        <li>\n            <a href="#" class="gridToggle"><i class="icon-th-list icon-white"></i></a>\n        </li>\n    </ul>\n</div>\n<ul class="ZEEGA-items"></ul>';
 }
 return __p;
 };
@@ -68544,7 +68544,7 @@ function( app ) {
             if ( _.isEmpty( attr ) || attr.advance === 0 ) {
                 this.$(".advance-manual").addClass("active");
             } else {
-                this.$("input").val( attr.advance );
+                this.$("input").val( attr.advance / 1000 );
                 this.$(".advance-auto").addClass("active");
             }
 
@@ -68581,7 +68581,7 @@ function( app ) {
         },
 
         onInputBlur: function() {
-            app.status.get("currentFrame").saveAttr({ advance: parseInt( this.$("input").val(), 10 ) });
+            app.status.get("currentFrame").saveAttr({ advance: parseInt( this.$("input").val() * 1000, 10 ) });
         }
         
     });
@@ -68739,6 +68739,7 @@ function( app ) {
             this.model.on("focus", this.onFocus, this );
             this.model.on("blur", this.onBlur, this );
             this.model.on("remove", this.onRemove, this );
+            this.model.on("all", function(e){ console.log("laye:", e)});
         },
 
         events: {
@@ -68771,6 +68772,7 @@ function( app ) {
         },
 
         onFocus: function() {
+            console.log("on focus", this)
             this.$el.addClass("active");
         },
 
@@ -83839,6 +83841,7 @@ function( app ) {
     return Backbone.View.extend({
 
         controls: [],
+        inFocus: null,
 
         template: "layer-control-bar",
         className: "ZEEGA-layer-control-bar",
@@ -83852,13 +83855,24 @@ function( app ) {
         },
 
         onLayerFocus: function( status, layerModel ) {
+
+            if ( this.inFocus ) {
+                this.stopListening( this.inFocus );
+            }
+
             if ( layerModel !== null ) {
                 this.$(".layer-bar-title").text( layerModel.getAttr("title") );
                 this.loadControls( layerModel );
             } else if ( layerModel === null ) {
-                this.$(".layer-bar-title").empty();
                 this.clearControls();
             }
+            this.listen( layerModel )
+        },
+
+        listen: function( layerModel ) {
+            layerModel.on("focus", this.onFocus, this );
+            layerModel.on("blur", this.onBlur, this );
+            layerModel.on("remove", this.onRemove, this );
         },
 
         loadControls: function( layerModel ) {
@@ -83871,7 +83885,21 @@ function( app ) {
 
         },
 
+        onFocus: function() {
+
+        },
+
+        onBlur: function() {
+            this.clearControls();
+        },
+
+        onRemove: function() {
+            this.stopListening( this.inFocus );
+            this.clearControls();
+        },
+
         clearControls: function() {
+            this.$(".layer-bar-title").empty();
             this.$(".layer-controls-inner").empty();
         }
 
@@ -84089,19 +84117,11 @@ function( app ) {
             collection.view.render();
         },
 
-
-        // renderItems: function() {
-        //     this.$(".ZEEGA-items").empty();
-        //     this.onResize();
-        //     this.collection.each(function( item ) {
-        //         this.$(".ZEEGA-items").append( item.view.el );
-        //         item.view.render();
-        //     }, this );
-        // },
-
         events: {
             "click .gridToggle": "gridToggle",
-            "keyup .search-box": "onSearchKepress"
+            "click .clearSearch": "clearSearch",
+            "keyup .search-box": "onSearchKepress",
+            "focus .search-box": "onSearchFocus"
         },
 
         gridToggle: function() {
@@ -84112,11 +84132,27 @@ function( app ) {
                 .toggleClass("icon-th-list");
         },
 
+        clearSearch: function() {
+            this.$(".search-box").val("");
+            this.search("");
+        },
+
+        onSearchFocus: function() {
+            
+        },
+
         onSearchKepress: function( e ) {
             if ( e.which == 13 ) {
-                console.log('search query:', this.$(".search-box").val() );
-                app.search.set("q", this.$(".search-box").val() );
+                this.search( this.$(".search-box").val() );
             }
+        },
+
+        search: function( query ) {
+            var args = this.collection.at(0).get("urlArguments");
+
+            args.q = query;
+            this.collection.at(0).set("urlArguments", args );
+            this.collection.at(0).mediaCollection.fetch();
         },
 
         onResize: function() {
@@ -102975,6 +103011,8 @@ function( app, Backbone, Layers, ThumbWorker ) {
             newLayer.order[ this.id ] = this.layers.length;
             newLayer.save().success(function( response ) {
                 this.layers.add( newLayer );
+                app.status.set("currentLayer", newLayer );
+                newLayer.trigger("focus", newLayer );
             }.bind( this ));
         },
 
@@ -104357,19 +104395,32 @@ function( app ) {
             return _.defaults( this.model.toJSON(), this.defaults );
         },
 
+        listen: null,
+
+        initialize: function() {
+            this.listen = _.once(function() {
+                this.model.mediaCollection.on("sync", this.render, this );
+            }.bind( this ));
+        },
+
         afterRender: function() {
+            console.log("AR", this.model.mediaCollection.length );
             this.$(".media-collection-items").empty();
-            this.model.mediaCollection.each(function( item ) {
-                this.$(".media-collection-items").append( item.view.el );
-                item.view.render();
-            }, this );
+
+            if ( this.model.mediaCollection.length ) {
+                this.model.mediaCollection.each(function( item ) {
+                    this.$(".media-collection-items").append( item.view.el );
+                    item.view.render();
+                }, this );
+            } else {
+                this.$(".media-collection-items").append("<div class='empty-collection'>no items found :( try again?</div>");
+            }
 
             // this.$(".media-collection-items")
             //     .append("<li class='media-more'><a href='#'><div class='item-label'>more</div><i class='icon-plus icon-white'></i></a></li>");
-
-            this.model.mediaCollection.on("sync", this.render, this );
+            
+            this.listen();
         }
-
 
     });
 
@@ -104629,7 +104680,7 @@ function( app, ItemModel, MediaCollectionView, ItemCollectionViewer ) {
         defaults: {
                 urlArguments: {
                 collection: "",
-                type: "-project AND -collection AND -Video",
+                type: "-project AND -Collection AND -Video",
                 page: 1,
                 q: "",
                 user: function() {
@@ -104701,7 +104752,7 @@ function( app, ItemModel, MediaCollectionView, ItemCollectionViewer ) {
         },
 
         onAdd: function( collection, response ) {
-            // console.log("onAdd", collection, this );
+            console.log("onAdd", collection, this );
         }
 
     });
@@ -104747,6 +104798,7 @@ function( app, Status, Layout, ZeegaParser, MediaCollection ) {
             } else {
                 var rawDataModel = new Backbone.Model();
 
+                // mainly for testing
                 rawDataModel.url = "http://dev.zeega.org/joseph/web/api/projects/6911";
                 rawDataModel.fetch().success(function( response ) {
                     this._parseData( response );
