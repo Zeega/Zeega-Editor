@@ -102293,6 +102293,9 @@ function( Zeega, _Layer, Visual ) {
 
         attr: {
             citation: false,
+            color: "#F0F",
+            content: "text",
+            fontSize: 500,
             default_controls: true,
             left: 30,
             opacity: 1,
@@ -102302,7 +102305,6 @@ function( Zeega, _Layer, Visual ) {
         },
 
         controls: [
-            // "position",
             {
                 type: "resize",
                 options: {
