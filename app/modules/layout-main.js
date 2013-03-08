@@ -39,13 +39,6 @@ function( app, Navbar, ProjectMeta, Sequences, Frames, FrameControls, Workspace,
         },
 
         afterRender: function() {
-            // I like this better. eliminates wasted elements
-
-            // new Workspace({
-            //     model: app,
-            //     el: this.$(".workspace")
-            // }).render();
-            console.log("current sequence", app.status.get("currentSequence") );
 
             new Soundtrack({
                 el: this.$(".soundtrack")
