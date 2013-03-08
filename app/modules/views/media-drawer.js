@@ -35,7 +35,8 @@ function( app ) {
         events: {
             "click .gridToggle": "gridToggle",
             "click .clearSearch": "clearSearch",
-            "keyup .search-box": "onSearchKepress"
+            "keyup .search-box": "onSearchKepress",
+            "focus .search-box": "onSearchFocus"
         },
 
         gridToggle: function() {
@@ -49,6 +50,10 @@ function( app ) {
         clearSearch: function() {
             this.$(".search-box").val("");
             this.search("");
+        },
+
+        onSearchFocus: function() {
+            
         },
 
         onSearchKepress: function( e ) {
