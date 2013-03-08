@@ -83741,10 +83741,12 @@ function( app ) {
             if ( this.model !== null ) {
                 this.removeSoundtrack( false );
             }
-            this.model = layer;
-            this.model.on("play", this.onPlay, this );
-            this.model.on("pause", this.onPause, this );
-            this.model.on("timeupdate", this.onTimeupdate, this );
+            if ( layer ) {
+                this.model = layer;
+                this.model.on("play", this.onPlay, this );
+                this.model.on("pause", this.onPause, this );
+                this.model.on("timeupdate", this.onTimeupdate, this );
+            }
             this.render();
         },
 
@@ -83782,10 +83784,10 @@ function( app ) {
 
         removeSoundtrack: function( save ) {
             this.stopListening( this.model );
-            app.status.get('currentSequence').removeSoundtrack( this.model );
 
             if ( save ) {
-                app.status.get('currentSequence').save();
+                app.status.get('currentSequence').removeSoundtrack( this.model );
+                app.status.get('currentSequence').lazySave();
             }
             this.model = null;
             this.render();
@@ -83923,13 +83925,7 @@ function( app, Navbar, ProjectMeta, Sequences, Frames, FrameControls, Workspace,
         },
 
         afterRender: function() {
-            // I like this better. eliminates wasted elements
 
-            // new Workspace({
-            //     model: app,
-            //     el: this.$(".workspace")
-            // }).render();
-console.log("sad;lfj", app.status.get("currentSequence") )
             new Soundtrack({
                 el: this.$(".soundtrack")
             }).render();
@@ -85611,7 +85607,8 @@ function( Zeega, ControlView ) {
             loadFonts: function() {
                 this.$(".font-list").empty();
                 _.each( this.fontList, function( fontName ) {
-                    this.$(".font-list").append("<option value=" + fontName + ">" + fontName + "</option>");
+                    console.log("FONT LIST:", fontName )
+                    this.$(".font-list").append("<option value='" + fontName + "'>" + fontName + "</option>");
                 }, this );
             },
 
@@ -102502,9 +102499,13 @@ function( app, Layers ) {
             }
         },
 
+        lazySave: null,
+
         initialize: function() {
-            this.on("sync", function(){ console.log("SYNC SEQ", this )}, this)
-            // this.on("change:frames", this.onFrameSort, this );
+
+            this.lazySave = _.debounce(function() {
+                this.save();
+            }.bind( this ), 1000 );
         },
 
         onFrameSort: function() {
@@ -102515,12 +102516,11 @@ function( app, Layers ) {
         },
 
         setSoundtrack: function( item, view ) {
-            var newLayer;
+            var newLayer, oldlayer;
 
-            if ( this.get("attr").soundtrack ) {
-                var layer = app.project.getLayer( this.get("attr").soundtrack );
-
-                this.removeSoundtrack( layer, false ); // does not work
+            oldLayer = app.project.getLayer( this.get("attr").soundtrack );
+            if ( this.get("attr").soundtrack && oldLayer ) {
+                this.removeSoundtrack( oldLayer );
             }
 
             newLayer = new Layers[ item.get("layer_type") ]({
@@ -102545,14 +102545,11 @@ function( app, Layers ) {
                 }
 
                 attr.soundtrack = newLayer.id;
-
                 this.set("attr", attr );
                 this.persistLayer( newLayer );
                 view.setSoundtrackLayer( newLayer );
 
-console.log("new layer save", newLayer)
-
-                this.save();
+                this.lazySave();
             }.bind( this ));
         },
 
@@ -102569,8 +102566,7 @@ console.log("new layer save", newLayer)
                 var pLayers = this.get("persistent_layers");
 
                 pLayers.push( layer.id );
-
-                this.set("persistent_layers", pLayers ); //save
+                this.set("persistent_layers", pLayers );
                 this.frames.each(function( frame ) {
                     layer.order[ frame.id ] = frame.layers.length;
                     frame.layers.add( layer );
@@ -102664,8 +102660,40 @@ function( app, Backbone, Layers, ThumbWorker ) {
             }
         },
 
+        lazySave: null,
+        startThumbWorker: null,
+
+        initialize: function() {
+
+            this.lazySave = _.debounce(function() {
+                this.save();
+            }.bind( this ), 1000 );
+
+            this.startThumbWorker = _.debounce(function() {
+                var worker = new Worker( app.root + "assets/js/thumb-worker.js" );
+                
+                worker.addEventListener("message", function(e) {
+
+                    if( e.data ) {
+                        this.set("thumbnail_url", e.data );
+                        this.lazySave();
+                    } else {
+                        this.trigger('thumbUpdateFail');
+                    }
+                    worker.terminate();
+                }.bind( this ), false);
+
+                worker.postMessage({
+                    cmd: 'capture',
+                    msg: app.api + "frames/" + this.id + "/thumbnail"
+                });
+
+            }, 1000)
+        },
+
 // editor
         listenToLayers: function() {
+            this.stopListening( this.layers );
             this.layers.on("sort", this.onLayerSort, this );
             this.layers.on("add remove", this.onLayerAddRemove, this );
         },
@@ -102675,10 +102703,11 @@ function( app, Backbone, Layers, ThumbWorker ) {
             this.onLayerSort();
         },
 
-        onLayerSort: _.debounce(function() {
-            this.save("layers", this.layers.pluck("id") );
+        onLayerSort: function() {
+            this.set("layers", this.layers.pluck("id") );
+            this.lazySave();
             this.updateThumb();
-        }, 100 ),
+        },
 
         addLayerType: function( type ) {
             var newLayer = new Layers[ type ]({ type: type });
@@ -102708,28 +102737,6 @@ function( app, Backbone, Layers, ThumbWorker ) {
             this.startThumbWorker();
         },
 
-        // debounce the thumbworker so it's not killing the thumb server!
-
-        startThumbWorker: _.debounce(function() {
-            var worker = new Worker( "/" + app.root + "assets/js/thumb-worker.js" );
-            
-            worker.addEventListener("message", function(e) {
-
-                if( e.data ) {
-                    this.save("thumbnail_url", e.data );
-                } else {
-                    this.trigger('thumbUpdateFail');
-                }
-                worker.terminate();
-            }.bind( this ), false);
-
-            worker.postMessage({
-                cmd: 'capture',
-                msg: app.api + "frames/" + this.id + "/thumbnail"
-            });
-
-        }, 1000),
-
         saveAttr: function( attrObj ) {
             var attr = this.get("attr");
 
@@ -102737,7 +102744,8 @@ function( app, Backbone, Layers, ThumbWorker ) {
                 attr = {};
             }
 
-            this.save("attr", _.extend( attr, attrObj ) );
+            this.set("attr", _.extend( attr, attrObj ) );
+            this.lazySave();
         },
 
 // end editor
@@ -104382,7 +104390,7 @@ function( app, ItemModel, MediaCollectionView, ItemCollectionViewer ) {
                 },
                 sort: "date-desc"
             },
-            title: "Your Media"
+            title: "My Media"
         },
 
         initialize: function() {
@@ -104492,7 +104500,7 @@ function( app, Status, Layout, ZeegaParser, MediaCollection ) {
             } else {
                 var rawDataModel = new Backbone.Model();
 
-                rawDataModel.url = "test.json";
+                rawDataModel.url = "http://dev.zeega.org/joseph/web/api/projects/6911";
                 rawDataModel.fetch().success(function( response ) {
                     this._parseData( response );
                 }.bind( this )).error(function() {
