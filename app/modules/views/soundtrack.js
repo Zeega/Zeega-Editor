@@ -61,10 +61,12 @@ function( app ) {
             if ( this.model !== null ) {
                 this.removeSoundtrack( false );
             }
-            this.model = layer;
-            this.model.on("play", this.onPlay, this );
-            this.model.on("pause", this.onPause, this );
-            this.model.on("timeupdate", this.onTimeupdate, this );
+            if ( layer ) {
+                this.model = layer;
+                this.model.on("play", this.onPlay, this );
+                this.model.on("pause", this.onPause, this );
+                this.model.on("timeupdate", this.onTimeupdate, this );
+            }
             this.render();
         },
 
@@ -102,10 +104,10 @@ function( app ) {
 
         removeSoundtrack: function( save ) {
             this.stopListening( this.model );
-            app.status.get('currentSequence').removeSoundtrack( this.model );
 
             if ( save ) {
-                app.status.get('currentSequence').save();
+                app.status.get('currentSequence').removeSoundtrack( this.model );
+                app.status.get('currentSequence').lazySave();
             }
             this.model = null;
             this.render();
