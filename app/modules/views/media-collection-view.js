@@ -27,7 +27,6 @@ function( app ) {
         },
 
         afterRender: function() {
-            console.log("AR", this.model.mediaCollection.length );
             this.$(".media-collection-items").empty();
 
             if ( this.model.mediaCollection.length ) {

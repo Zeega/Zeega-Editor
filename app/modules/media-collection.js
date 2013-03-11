@@ -74,6 +74,15 @@ function( app, ItemModel, MediaCollectionView, ItemCollectionViewer ) {
             this.mediaCollection.mediaModel = this;
             this.mediaCollection.on("sync", this.onSync, this );
             this.mediaCollection.fetch();
+            this.listen();
+        },
+
+        listen: function() {
+
+            // fetch user items on window focus !
+            window.addEventListener("focus", function() {
+                this.mediaCollection.fetch();
+            }.bind( this ));
         },
 
         onSync: function( collection ) {
@@ -129,7 +138,7 @@ function( app, ItemModel, MediaCollectionView, ItemCollectionViewer ) {
         },
 
         onAdd: function( collection, response ) {
-            console.log("onAdd", collection, this );
+            // console.log("onAdd", collection, this );
         }
 
     });
