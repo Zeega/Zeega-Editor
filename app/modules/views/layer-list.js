@@ -20,6 +20,7 @@ function( app ) {
             this.model.on("focus", this.onFocus, this );
             this.model.on("blur", this.onBlur, this );
             this.model.on("remove", this.onRemove, this );
+            this.model.on("sync", this.onSync, this );
         },
 
         events: {
@@ -63,7 +64,15 @@ function( app ) {
         onRemove: function() {
             // this.model.onRemoveFrom Edito()>>???
             this.remove();
-        }
+        },
+
+        onSync: function() {
+            this.updateTitle();
+        },
+
+        updateTitle: function() {
+            this.$(".layer-title").text( this.model.getAttr("title"));
+        },
         
     });
 
