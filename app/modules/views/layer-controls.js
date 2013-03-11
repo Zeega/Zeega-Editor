@@ -38,9 +38,11 @@ function( app ) {
         },
 
         listen: function( layerModel ) {
-            layerModel.on("focus", this.onFocus, this );
-            layerModel.on("blur", this.onBlur, this );
-            layerModel.on("remove", this.onRemove, this );
+            if ( layerModel ) {
+                layerModel.on("focus", this.onFocus, this );
+                layerModel.on("blur", this.onBlur, this );
+                layerModel.on("remove", this.onRemove, this );
+            }
         },
 
         loadControls: function( layerModel ) {
