@@ -523,9 +523,9 @@ return __p;
 this["JST"]["app/templates/media-collection.html"] = function(obj){
 var __p='';var print=function(){__p+=Array.prototype.join.call(arguments, '')};
 with(obj||{}){
-__p+='<div class="media-collection-title">'+
+__p+='<div class="media-collection-title">\n    '+
 ( title )+
-'</div>\n<ul class="media-collection-items"></ul>';
+'\n    <a href="#" class="get-bookmarklet">get bookmarklet <i class="icon-bookmark icon-white"></i></a>\n</div>\n<ul class="media-collection-items"></ul>';
 }
 return __p;
 };
@@ -541,7 +541,11 @@ return __p;
 this["JST"]["app/templates/modal.html"] = function(obj){
 var __p='';var print=function(){__p+=Array.prototype.join.call(arguments, '')};
 with(obj||{}){
-__p+='<a href="#" class="modal-close">&times;</a>\n<div class="modal-content">\n    <div class="modal-title"></div>\n    <div class="modal-body"></div>\n    <div class="modal-footer"></div>\n</div>\n';
+__p+='<a href="#" class="modal-close">&times;</a>\n<div class="modal-content">\n    <div class="modal-title">'+
+( modal.title )+
+'</div>\n    <div class="modal-body">'+
+( modal.content )+
+'</div>\n    <div class="modal-footer"></div>\n</div>\n';
 }
 return __p;
 };
@@ -32487,7 +32491,7 @@ function( Backbone, jquery ) {
     var JST = window.JST = window.JST || {};
 
     var zeegaJQuery = jquery;
-    var zeegaBackbone = Backbone.noConflict(); // return backbone
+    var zeegaBackbone = Backbone;
     zeegaBackbone.$ = zeegaJQuery; // set backbone jquery
 
     // Curry the |set| method with a { silent: true } version
@@ -49089,13 +49093,20 @@ function( Zeega, SequenceCollection ) {
         },
 
         _setConnections: function( frame ) {
-            var prev, next;
+            var prev, next, hasLink = false;
 
             prev = frame.get("_prev"),
             next = frame.get("_next");
 
+            frame.layers.each(function( layer ) {
+                if ( layer.get("type") == "Link" ) {
+                    hasLink = true;
+                    return false;
+                }
+            });
+
             frame.put( "_connections",
-                frame.get('attr').advance ? "none" :
+                frame.get('attr').advance || hasLink ? "none" :
                 prev & next ? "lr" :
                 prev ? "l" :
                 next ? "r" : "none"
@@ -49926,15 +49937,18 @@ function( Zeega, ArrowView, CloseView, PlayPauseView ) {
             "click .ZEEGA-playpause": "playpause"
         },
 
-        close: function() {
+        close: function( event ) {
+            event.preventDefault();
             this.model.destroy();
         },
 
-        prev: function() {
+        prev: function( event ) {
+            event.preventDefault();
             this.model.cuePrev();
         },
 
-        next: function() {
+        next: function( event ) {
+            event.preventDefault();
             this.model.cueNext();
         },
 
@@ -49970,7 +49984,8 @@ function( Zeega, ArrowView, CloseView, PlayPauseView ) {
                 .removeClass("pause-zcon");
         },
 
-        playpause: function() {
+        playpause: function( event ) {
+            event.preventDefault();
             this.model.playPause();
         },
 
@@ -50533,7 +50548,9 @@ function( Zeega, ZeegaParser, Relay, Status, PlayerLayout ) {
                             _this.cuePrev();
                             break;
                         case 39: // right arrow
-                            if ( this.status.get("current_frame_model").get("attr").advance === 0 ) {
+                            var adv = this.status.get("current_frame_model").get("attr").advance;
+                            
+                            if ( adv === 0 || adv === undefined ) {
                                 _this.cueNext();
                             }
                             break;
@@ -50798,7 +50815,7 @@ function( Zeega ) {
     }
 
     $.noConflict(); // return $ to prev owner
-
+    Backbone.noConflict();
 });
 
 zeega.define("main", function(){});
@@ -68739,7 +68756,7 @@ function( app ) {
             this.model.on("focus", this.onFocus, this );
             this.model.on("blur", this.onBlur, this );
             this.model.on("remove", this.onRemove, this );
-            this.model.on("all", function(e){ console.log("laye:", e)});
+            this.model.on("sync", this.onSync, this );
         },
 
         events: {
@@ -68783,7 +68800,15 @@ function( app ) {
         onRemove: function() {
             // this.model.onRemoveFrom Edito()>>???
             this.remove();
-        }
+        },
+
+        onSync: function() {
+            this.updateTitle();
+        },
+
+        updateTitle: function() {
+            this.$(".layer-title").text( this.model.getAttr("title"));
+        },
         
     });
 
@@ -83870,9 +83895,11 @@ function( app ) {
         },
 
         listen: function( layerModel ) {
-            layerModel.on("focus", this.onFocus, this );
-            layerModel.on("blur", this.onBlur, this );
-            layerModel.on("remove", this.onRemove, this );
+            if ( layerModel ) {
+                layerModel.on("focus", this.onFocus, this );
+                layerModel.on("blur", this.onBlur, this );
+                layerModel.on("remove", this.onRemove, this );
+            }
         },
 
         loadControls: function( layerModel ) {
@@ -102391,6 +102418,17 @@ function( Zeega, _Layer, Visual ) {
             return this.model.toJSON();
         },
 
+        saveContent: null,
+
+        init: function() {
+            this.saveContent = _.debounce(function() {
+                this.model.saveAttr({
+                    title: this.$(".visual-target").text(),
+                    content: this.$(".visual-target").html()
+                });
+            }.bind( this ), 1000);
+        },
+
         afterEditorRender: function() {
             this.$el.css({
                 color: this.model.get("attr").color,
@@ -102437,19 +102475,27 @@ function( Zeega, _Layer, Visual ) {
         },
 
         listen: function() {
-            this.$('.visual-target').keyup(function(e){
-                if ( e.which == 27 ) {
-                    this.$('.visual-target').blur();
-                }
-                this.lazyUpdate({ content: this.$('.visual-target').text() });
-            }.bind( this ))
-            .bind('paste', function(e){
-                _.delay(function() {
-                    this.$('.visual-target').html( this.$('.visual-target').text() );
-                    this.lazyUpdate({ content: this.$('.visual-target').text() });
-                }, 500);
+            this.$(".visual-target")
+                .keyup(function(e){
+                    if ( e.which == 27 ) {
+                        this.$(".visual-target").blur();
+                    }
+                    this.saveContent();
+                }.bind( this ))
+
+                .bind("paste", function(e){
+                    _.delay(function() {
+                        this.$(".visual-target").html( this.$(".visual-target").text() );
+                        this.lazyUpdate({ content: this.$(".visual-target").text() });
+                    }, 500);
+                }.bind( this ));
+
+            this.$(".visual-target").blur(function() {
+                this.saveContent();
             }.bind( this ));
         },
+
+        
 
         lazyUpdate: _.debounce(function( value ) {
             var attr = {};
@@ -103552,12 +103598,15 @@ function( app, SequenceCollection ) {
 
                             targetFrameID = parseInt( layer.get("attr").to_frame, 10 );
                             targetFrame = this.getFrame( targetFrameID );
-                            linksFrom = [].concat( targetFrame.get("linksFrom") );
 
-                            linksTo.push( targetFrameID );
-                            linksFrom.push( frame.id );
+                            if ( targetFrame ) {
+                                linksFrom = [].concat( targetFrame.get("linksFrom") );
 
-                            targetFrame.put("linksFrom", linksFrom );
+                                linksTo.push( targetFrameID );
+                                linksFrom.push( frame.id );
+
+                                targetFrame.put("linksFrom", linksFrom );
+                            }
                         }
                     }, this );
 
@@ -104375,14 +104424,65 @@ function( app, ItemView ) {
 
 });
 
-define('modules/views/media-collection-view',[
+define('modules/views/modal',[
     "app",
     "backbone"
 ],
 
 function( app ) {
 
+
     return Backbone.View.extend({
+
+        template: "modal",
+        modalClass: "",
+        
+        className: function() {
+            console.log("cname", this.options.modal )
+            return "ZEEGA-modal " + this.options.modal.className;
+        },
+
+        serialize: function() {
+            console.log('this', this)
+            return this.options;
+        },
+
+        show: function() {
+            $("body").append( this.el );
+            $("#main").addClass("modal");
+            this.render();
+        },
+        
+        events: {
+            "click .modal-close": "hide"
+        },
+
+        close: function() {
+            $("#main").removeClass("modal");
+            this.$el.fadeOut(function() {
+                this.remove();
+            }.bind( this ));
+        },
+
+        hide: function() {
+            this.close();
+        }
+
+    });
+
+});
+
+define('modules/views/media-collection-view',[
+    "app",
+    "modules/views/modal",
+    "backbone"
+],
+
+function( app, Modal ) {
+
+    return Backbone.View.extend({
+
+        bmModal: null,
 
         defaults: {
             title: "untitled"
@@ -104404,7 +104504,6 @@ function( app ) {
         },
 
         afterRender: function() {
-            console.log("AR", this.model.mediaCollection.length );
             this.$(".media-collection-items").empty();
 
             if ( this.model.mediaCollection.length ) {
@@ -104420,39 +104519,39 @@ function( app ) {
             //     .append("<li class='media-more'><a href='#'><div class='item-label'>more</div><i class='icon-plus icon-white'></i></a></li>");
             
             this.listen();
-        }
 
-    });
-
-});
-
-define('modules/views/modal',[
-    "app",
-    "backbone"
-],
-
-function( app ) {
-
-
-    return Backbone.View.extend({
-
-        template: "modal",
-        modalClass: "",
-        
-        className: function() {
-            return "ZEEGA-modal " + this.modalClass;
+            // show bookmarklet link
+            if ( this.model.get("title") == "My Media" ) {
+                this.$(".get-bookmarklet").show();
+            }
         },
-        
+
         events: {
-            "click .modal-close": "close"
+            "click .get-bookmarklet": "bookmarkletModal"
         },
 
-        close: function() {
-            this.$el.fadeOut(function() {
-                this.remove();
-            }.bind( this ));
-        }
+        bookmarkletModal: function() {
+            if ( this.bmModal === null ) {
+                this.bmModal = new Modal({
+                    modal: {
+                        title: "Get the Zeega Bookmarklet",
+                        className: "bookmarklet-modal",
+                        content: this.modalContent
+                    }
+                });
+            }
 
+            this.bmModal.show();
+        },
+
+        modalContent: "<div><p>Just drag this link to your browser's bookmark bar:</p></div>" +
+            "<div class='bmLink'><a href='javascript:(function()%7Bvar%20head=document.getElementsByTagName('body')%5B0%5D,script=document.createElement('script');script.id='zeegabm';script.type='text/javascript';script.src='//zeega.com/js/widget/zeega.bookmarklet.js?'%20+%20Math.floor(Math.random()*99999);head.appendChild(script);%7D)();%20void%200'>Add to Zeega</a></div>" +
+            "<div>" +
+                "<p>When you find something awesome that you want to use in your Zeega, click the bookmark and follow the simple instructions</p>" +
+                "<p class='small'><i class='icon-question-sign'></i> Don't see your bookmark bar? Go to View and select 'Always Show Bookmarks Bar'</p>" +
+            "</div>" +
+            "<img class='bm-instructions' src='assets/img/bookmarklet-arrow.png'/>"
+            
     });
 
 });
@@ -104697,6 +104796,15 @@ function( app, ItemModel, MediaCollectionView, ItemCollectionViewer ) {
             this.mediaCollection.mediaModel = this;
             this.mediaCollection.on("sync", this.onSync, this );
             this.mediaCollection.fetch();
+            this.listen();
+        },
+
+        listen: function() {
+
+            // fetch user items on window focus !
+            window.addEventListener("focus", function() {
+                this.mediaCollection.fetch();
+            }.bind( this ));
         },
 
         onSync: function( collection ) {
@@ -104752,7 +104860,7 @@ function( app, ItemModel, MediaCollectionView, ItemCollectionViewer ) {
         },
 
         onAdd: function( collection, response ) {
-            console.log("onAdd", collection, this );
+            // console.log("onAdd", collection, this );
         }
 
     });
@@ -104799,7 +104907,7 @@ function( app, Status, Layout, ZeegaParser, MediaCollection ) {
                 var rawDataModel = new Backbone.Model();
 
                 // mainly for testing
-                rawDataModel.url = "http://dev.zeega.org/joseph/web/api/projects/6911";
+                rawDataModel.url = "http://dev.zeega.org/joseph/web/api/projects/6982";
                 rawDataModel.fetch().success(function( response ) {
                     this._parseData( response );
                 }.bind( this )).error(function() {

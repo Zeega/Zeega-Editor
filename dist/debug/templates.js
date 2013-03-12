@@ -137,9 +137,9 @@ return __p;
 this["JST"]["app/templates/media-collection.html"] = function(obj){
 var __p='';var print=function(){__p+=Array.prototype.join.call(arguments, '')};
 with(obj||{}){
-__p+='<div class="media-collection-title">'+
+__p+='<div class="media-collection-title">\n    '+
 ( title )+
-'</div>\n<ul class="media-collection-items"></ul>';
+'\n    <a href="#" class="get-bookmarklet">get bookmarklet <i class="icon-bookmark icon-white"></i></a>\n</div>\n<ul class="media-collection-items"></ul>';
 }
 return __p;
 };
@@ -155,7 +155,11 @@ return __p;
 this["JST"]["app/templates/modal.html"] = function(obj){
 var __p='';var print=function(){__p+=Array.prototype.join.call(arguments, '')};
 with(obj||{}){
-__p+='<a href="#" class="modal-close">&times;</a>\n<div class="modal-content">\n    <div class="modal-title"></div>\n    <div class="modal-body"></div>\n    <div class="modal-footer"></div>\n</div>\n';
+__p+='<a href="#" class="modal-close">&times;</a>\n<div class="modal-content">\n    <div class="modal-title">'+
+( modal.title )+
+'</div>\n    <div class="modal-body">'+
+( modal.content )+
+'</div>\n    <div class="modal-footer"></div>\n</div>\n';
 }
 return __p;
 };
