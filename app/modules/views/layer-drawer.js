@@ -28,18 +28,8 @@ function( app ) {
                     app.dragging = null;
                 }.bind( this )
             });
-        },
-
-        events: {
-            "click .ZEEGA-layer-drawer a": "createLayer"
-        },
-
-        createLayer: function( e ) {
-            var type = $(e.target).closest("a").data("layerType");
-
-            app.status.get('currentFrame').addLayerType( type );
         }
-
+        
     });
 
 });
