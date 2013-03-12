@@ -10,8 +10,16 @@ function( app ) {
         template: "frame-controls",
         className: "ZEEGA-frame",
 
+        saveAdvance: null,
+
         initialize: function() {
             app.status.on("change:currentFrame", this.onChangeFrame, this );
+
+            this.saveAdvance = _.debounce(function() {
+                app.status.get("currentFrame").saveAttr({
+                    advance: parseInt( this.$("input").val() * 1000, 10 )
+                });
+            }.bind( this ), 1000 );
         },
 
         afterRender: function() {
@@ -59,6 +67,7 @@ function( app ) {
 
         keypress: function( e ) {
             if ( e.which >= 48 && e.which <= 57 ) { // numbers
+                this.saveAdvance();
                 return true;
             } else if ( e.which == 13 ) {
                 this.$("input").blur();
@@ -69,7 +78,7 @@ function( app ) {
         },
 
         onInputBlur: function() {
-            app.status.get("currentFrame").saveAttr({ advance: parseInt( this.$("input").val() * 1000, 10 ) });
+            this.saveAdvance();
         }
         
     });
