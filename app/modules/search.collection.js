@@ -25,7 +25,7 @@ function( app, ItemModel ) {
                     url += key + "=" + value + "&";
                 }
             });
-            console.log("search url", url)
+
             return url;
         },
 

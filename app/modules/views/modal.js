@@ -12,12 +12,10 @@ function( app ) {
         modalClass: "",
         
         className: function() {
-            console.log("cname", this.options.modal )
             return "ZEEGA-modal " + this.options.modal.className;
         },
 
         serialize: function() {
-            console.log('this', this)
             return this.options;
         },
 

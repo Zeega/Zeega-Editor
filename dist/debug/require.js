@@ -515,7 +515,7 @@ return __p;
 this["JST"]["app/templates/layout-main.html"] = function(obj){
 var __p='';var print=function(){__p+=Array.prototype.join.call(arguments, '')};
 with(obj||{}){
-__p+='<div class=\'left-column\'>\n    <div class="static-upper">\n        <div class="nav"></div>\n        <div class="project-meta"></div>\n        <div class="layer-drawer"></div>\n    </div>\n    <div class="media-drawer"></div>\n</div>\n<div class=\'right-column\'>\n    <div class="project-navs">\n        <div class="sequences"></div>\n        <div class="frames"></div>\n        <div class="soundtrack"></div>\n        <div class="controls-wrapper">\n            <div class="frame-controls"></div>\n            <div class="layer-controls"></div>\n        </div>\n    </div>\n    <div class="workspace"></div>\n    <div class="layers"></div>\n</div>';
+__p+='<div class=\'left-column\'>\n    <div class="static-upper">\n        <div class="nav"></div>\n        <div class="project-meta"></div>\n        <div class="layer-drawer"></div>\n    </div>\n    <div class="media-drawer"></div>\n</div>\n<div class=\'right-column\'>\n    <div class="project-navs">\n        <div class="sequences"></div>\n        <div class="frames"></div>\n        <div class="soundtrack"></div>\n        <div class="controls-wrapper">\n            <div class="layer-controls"></div>\n            <div class="frame-controls"></div>\n        </div>\n    </div>\n    <div class="workspace"></div>\n    <div class="layers"></div>\n</div>';
 }
 return __p;
 };
@@ -68183,7 +68183,7 @@ function( app ) {
         
         initialize: function() {
             if ( this.model.project.get("title") == "Untitled Zeega" ) {
-                this.model.project.set("title", this.generateRandomTitle() );
+                this.model.project.save("title", this.generateRandomTitle() );
             }
         },
 
@@ -68487,7 +68487,7 @@ function( app, FrameView ) {
                 return parseInt( $( frame ).data("id"), 10 );
             });
 
-            this.model.status.get("currentSequence").save("frames", frameOrder );
+            this.model.status.get("currentSequence").save("frames", _.compact( frameOrder ) );
         },
 
         onFrameCollectionUpdate: function( frameModel, collection ) {
@@ -84152,8 +84152,7 @@ function( app ) {
         },
 
         gridToggle: function() {
-            this.$el.toggleClass("list")
-                .toggleClass("grid");
+            this.$el.toggleClass("list");
 
             this.$(".gridToggle i").toggleClass("icon-th")
                 .toggleClass("icon-th-list");
@@ -86485,7 +86484,8 @@ function( Zeega, _Layer, Visual ){
             top: 0,
             width: 100,
             opacity: 1,
-            aspectRatio: null
+            aspectRatio: null,
+            dissolve: true
         },
 
         controls: [
@@ -102287,7 +102287,8 @@ function( Zeega, LayerModel, Visual ) {
             opacity: 0.75,
             title: "Color Layer",
             top: 0,
-            width: 100
+            width: 100,
+            dissolve: true
         },
 
         controls: [
@@ -102364,7 +102365,8 @@ function( Zeega, _Layer, Visual ) {
             opacity: 1,
             title: "Text Layer",
             top: 40,
-            width: 25
+            width: 25,
+            dissolve: true
         },
 
         controls: [
@@ -103248,15 +103250,15 @@ function( app, Backbone, Layers, ThumbWorker ) {
         },
 
         // manages the removal of all child layers
-        destroy: function() {
-            // do not attempt to destroy if the layer is waiting or destroyed
-            if ( this.state !== "waiting" && this.state !== "destroyed" ) {
-                this.layers.each(function( layer ) {
-                    layer.destroy();
-                });
-                this.state = "destroyed";
-            }
-        }
+        // destroy: function() {
+        //     // do not attempt to destroy if the layer is waiting or destroyed
+        //     if ( this.state !== "waiting" && this.state !== "destroyed" ) {
+        //         this.layers.each(function( layer ) {
+        //             layer.destroy();
+        //         });
+        //         this.state = "destroyed";
+        //     }
+        // }
 
     });
 });
@@ -103405,10 +103407,13 @@ function( app, FrameModel, LayerCollection ) {
 
         onFrameRemove: function( frameModel ) {
             app.trigger("frame_remove", frameModel );
-            // console.log('on frame Remove', frameModel )
+            console.log('on frame Remove', frameModel )
+            frameModel.destroy();
             this.sort();
             if ( this.length === 0 ) {
                 this.addFrame();
+            } else {
+                this.sequence.save("frames", this.pluck("id") );
             }
         },
 

@@ -129,7 +129,7 @@ return __p;
 this["JST"]["app/templates/layout-main.html"] = function(obj){
 var __p='';var print=function(){__p+=Array.prototype.join.call(arguments, '')};
 with(obj||{}){
-__p+='<div class=\'left-column\'>\n    <div class="static-upper">\n        <div class="nav"></div>\n        <div class="project-meta"></div>\n        <div class="layer-drawer"></div>\n    </div>\n    <div class="media-drawer"></div>\n</div>\n<div class=\'right-column\'>\n    <div class="project-navs">\n        <div class="sequences"></div>\n        <div class="frames"></div>\n        <div class="soundtrack"></div>\n        <div class="controls-wrapper">\n            <div class="frame-controls"></div>\n            <div class="layer-controls"></div>\n        </div>\n    </div>\n    <div class="workspace"></div>\n    <div class="layers"></div>\n</div>';
+__p+='<div class=\'left-column\'>\n    <div class="static-upper">\n        <div class="nav"></div>\n        <div class="project-meta"></div>\n        <div class="layer-drawer"></div>\n    </div>\n    <div class="media-drawer"></div>\n</div>\n<div class=\'right-column\'>\n    <div class="project-navs">\n        <div class="sequences"></div>\n        <div class="frames"></div>\n        <div class="soundtrack"></div>\n        <div class="controls-wrapper">\n            <div class="layer-controls"></div>\n            <div class="frame-controls"></div>\n        </div>\n    </div>\n    <div class="workspace"></div>\n    <div class="layers"></div>\n</div>';
 }
 return __p;
 };

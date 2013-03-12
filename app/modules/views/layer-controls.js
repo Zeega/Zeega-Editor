@@ -34,7 +34,7 @@ function( app ) {
             } else if ( layerModel === null ) {
                 this.clearControls();
             }
-            this.listen( layerModel )
+            this.listen( layerModel );
         },
 
         listen: function( layerModel ) {

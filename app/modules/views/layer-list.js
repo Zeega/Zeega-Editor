@@ -53,7 +53,6 @@ function( app ) {
         },
 
         onFocus: function() {
-            console.log("on focus", this)
             this.$el.addClass("active");
         },
 
@@ -72,7 +71,7 @@ function( app ) {
 
         updateTitle: function() {
             this.$(".layer-title").text( this.model.getAttr("title"));
-        },
+        }
         
     });
 
