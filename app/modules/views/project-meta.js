@@ -58,7 +58,7 @@ function( app ) {
         
         initialize: function() {
             if ( this.model.project.get("title") == "Untitled Zeega" ) {
-                this.model.project.set("title", this.generateRandomTitle() );
+                this.model.project.save("title", this.generateRandomTitle() );
             }
         },
 
