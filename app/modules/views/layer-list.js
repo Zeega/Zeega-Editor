@@ -49,7 +49,9 @@ function( app ) {
         },
 
         selectLayer: function() {
-            app.status.setCurrentLayer( this.model );
+            if ( app.status.get("currentLayer") != this.model ) {
+                app.status.setCurrentLayer( this.model );
+            }
         },
 
         onFocus: function() {
