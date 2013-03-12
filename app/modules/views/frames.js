@@ -36,7 +36,7 @@ function( app, FrameView ) {
                 return parseInt( $( frame ).data("id"), 10 );
             });
 
-            this.model.status.get("currentSequence").save("frames", frameOrder );
+            this.model.status.get("currentSequence").save("frames", _.compact( frameOrder ) );
         },
 
         onFrameCollectionUpdate: function( frameModel, collection ) {
