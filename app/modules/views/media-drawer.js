@@ -40,8 +40,7 @@ function( app ) {
         },
 
         gridToggle: function() {
-            this.$el.toggleClass("list")
-                .toggleClass("grid");
+            this.$el.toggleClass("list");
 
             this.$(".gridToggle i").toggleClass("icon-th")
                 .toggleClass("icon-th-list");

@@ -7014,8 +7014,13 @@ a:active {
   font-size: 12px;
 }
 .media-drawer.list .item .item-title .item-title-text {
+  width: 225px;
   position: relative;
   top: 5px;
+  display: inline-block;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
 }
 .soundtrack {
   height: 30px;
@@ -7137,6 +7142,9 @@ a:active {
   text-align: center;
   margin: 0 auto;
   display: block;
+}
+.media-drawer.list .media-collection {
+  background: #111;
 }
 .media-collection {
   background: url(../img/transparency-grid.png);
