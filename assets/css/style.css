@@ -6761,7 +6761,7 @@ a:active {
   clear: both;
 }
 .controls-wrapper .frame-controls {
-  float: right;
+  float: left;
   width: 100px;
   height: 55px;
   color: white;
@@ -6769,6 +6769,8 @@ a:active {
   text-align: center;
   margin-top: 5px;
   margin-right: 10px;
+  padding-right: 10px;
+  border-right: 1px solid #444;
 }
 .controls-wrapper .frame-controls .section-header {
   margin-bottom: 2px;
@@ -6789,13 +6791,12 @@ a:active {
   height: 12px;
 }
 .controls-wrapper .layer-controls {
-  float: left;
+  float: right;
   min-height: 60px;
   color: white;
   font-size: 12px;
   font-family: "Helvetica", sans-serif;
   position: relative;
-  border-left: 1px solid #444;
   *zoom: 1;
 }
 .controls-wrapper .layer-controls:before,
