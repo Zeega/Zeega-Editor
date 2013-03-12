@@ -672,7 +672,7 @@ this["JST"]["app/zeega-parser/plugins/controls/color/color.html"] = function(obj
 var __p='';var print=function(){__p+=Array.prototype.join.call(arguments, '')};
 with(obj||{}){
 __p+='<div class="control-name">'+
-( _propertyName )+
+( _title )+
 '</div>\n<div class="color-selector">\n    <div class="color-preview" style="background-color: '+
 ( attr[ _propertyName ] )+
 '"></div>\n</div>';
@@ -765,7 +765,7 @@ return __p;
 this["JST"]["app/zeega-parser/plugins/layers/link/frame-chooser.html"] = function(obj){
 var __p='';var print=function(){__p+=Array.prototype.join.call(arguments, '')};
 with(obj||{}){
-__p+='<a href="#" class="close">&times;</a>\n<div class="modal-content">\n    <div class="modal-title">Which frame will this frame lead to?</div>\n    <div class="modal-body">\n        <ul class="frame-chooser-list clearfix">\n        </ul>\n        <div class="bottom-chooser">\n            <div class="new-frame">\n                <a href="#" class="link-new-frame"><i class="icon-plus icon-white"></i> New Frame</a>\n            </div>\n            <a href="#" class="submit">OK</a>\n        </div>\n    </div>\n</div>\n';
+__p+='<a href="#" class="close">&times;</a>\n<div class="modal-content">\n    <div class="modal-title">Where do you want your link to go?</div>\n    <div class="modal-body">\n        <ul class="frame-chooser-list clearfix">\n        </ul>\n        <div class="bottom-chooser">\n            <div class="new-frame">\n                <a href="#" class="link-new-frame"><i class="icon-plus icon-white"></i> New Frame</a>\n            </div>\n            <a href="#" class="submit">OK</a>\n        </div>\n    </div>\n</div>\n';
 }
 return __p;
 };
@@ -68539,8 +68539,16 @@ function( app ) {
         template: "frame-controls",
         className: "ZEEGA-frame",
 
+        saveAdvance: null,
+
         initialize: function() {
             app.status.on("change:currentFrame", this.onChangeFrame, this );
+
+            this.saveAdvance = _.debounce(function() {
+                app.status.get("currentFrame").saveAttr({
+                    advance: parseInt( this.$("input").val() * 1000, 10 )
+                });
+            }.bind( this ), 1000 );
         },
 
         afterRender: function() {
@@ -68588,6 +68596,7 @@ function( app ) {
 
         keypress: function( e ) {
             if ( e.which >= 48 && e.which <= 57 ) { // numbers
+                this.saveAdvance();
                 return true;
             } else if ( e.which == 13 ) {
                 this.$("input").blur();
@@ -68598,7 +68607,7 @@ function( app ) {
         },
 
         onInputBlur: function() {
-            app.status.get("currentFrame").saveAttr({ advance: parseInt( this.$("input").val() * 1000, 10 ) });
+            this.saveAdvance();
         }
         
     });
@@ -68785,7 +68794,9 @@ function( app ) {
         },
 
         selectLayer: function() {
-            app.status.setCurrentLayer( this.model );
+            if ( app.status.get("currentLayer") != this.model ) {
+                app.status.setCurrentLayer( this.model );
+            }
         },
 
         onFocus: function() {
@@ -83963,18 +83974,8 @@ function( app ) {
                     app.dragging = null;
                 }.bind( this )
             });
-        },
-
-        events: {
-            "click .ZEEGA-layer-drawer a": "createLayer"
-        },
-
-        createLayer: function( e ) {
-            var type = $(e.target).closest("a").data("layerType");
-
-            app.status.get('currentFrame').addLayerType( type );
         }
-
+        
     });
 
 });
@@ -85191,7 +85192,10 @@ function( app, ControlView ) {
             },
 
             serialize: function() {
-                return _.extend({}, this.model.toJSON(), { _propertyName: !_.isUndefined( this.options.options ) ? this.options.options.title : this.propertyName });
+                return _.extend({}, this.model.toJSON(), {
+                    _title: this.options.options.title,
+                    _propertyName: this.propertyName
+                });
             },
 
             create: function() {
@@ -102358,7 +102362,7 @@ function( Zeega, _Layer, Visual ) {
             citation: false,
             color: "#F0F",
             content: "text",
-            fontSize: 500,
+            fontSize: 200,
             default_controls: true,
             left: 30,
             opacity: 1,
@@ -103045,6 +103049,8 @@ function( app, Backbone, Layers, ThumbWorker ) {
             newLayer.order[ this.id ] = this.layers.length;
             newLayer.save().success(function( response ) {
                 this.layers.add( newLayer );
+                app.status.set("currentLayer", newLayer );
+                newLayer.trigger("focus", newLayer );
             }.bind( this ));
             
         },
@@ -104440,6 +104446,7 @@ function( app ) {
         show: function() {
             $("body").append( this.el );
             $("#main").addClass("modal");
+            this.$el.attr("style","");
             this.render();
         },
         
