@@ -68789,7 +68789,6 @@ function( app ) {
         },
 
         onFocus: function() {
-            console.log("on focus", this)
             this.$el.addClass("active");
         },
 
@@ -68808,7 +68807,7 @@ function( app ) {
 
         updateTitle: function() {
             this.$(".layer-title").text( this.model.getAttr("title"));
-        },
+        }
         
     });
 
@@ -83891,7 +83890,7 @@ function( app ) {
             } else if ( layerModel === null ) {
                 this.clearControls();
             }
-            this.listen( layerModel )
+            this.listen( layerModel );
         },
 
         listen: function( layerModel ) {
@@ -103247,18 +103246,7 @@ function( app, Backbone, Layers, ThumbWorker ) {
 
         unrender: function( newID ) {
             // not sure I need this
-        },
-
-        // manages the removal of all child layers
-        // destroy: function() {
-        //     // do not attempt to destroy if the layer is waiting or destroyed
-        //     if ( this.state !== "waiting" && this.state !== "destroyed" ) {
-        //         this.layers.each(function( layer ) {
-        //             layer.destroy();
-        //         });
-        //         this.state = "destroyed";
-        //     }
-        // }
+        }
 
     });
 });
@@ -103407,7 +103395,6 @@ function( app, FrameModel, LayerCollection ) {
 
         onFrameRemove: function( frameModel ) {
             app.trigger("frame_remove", frameModel );
-            console.log('on frame Remove', frameModel )
             frameModel.destroy();
             this.sort();
             if ( this.length === 0 ) {
@@ -104443,12 +104430,10 @@ function( app ) {
         modalClass: "",
         
         className: function() {
-            console.log("cname", this.options.modal )
             return "ZEEGA-modal " + this.options.modal.className;
         },
 
         serialize: function() {
-            console.log('this', this)
             return this.options;
         },
 
