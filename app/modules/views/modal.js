@@ -22,6 +22,7 @@ function( app ) {
         show: function() {
             $("body").append( this.el );
             $("#main").addClass("modal");
+            this.$el.attr("style","");
             this.render();
         },
         
