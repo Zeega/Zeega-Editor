@@ -6761,7 +6761,7 @@ a:active {
   clear: both;
 }
 .controls-wrapper .frame-controls {
-  float: left;
+  float: right;
   width: 100px;
   height: 55px;
   color: white;
