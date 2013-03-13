@@ -60,6 +60,7 @@ function( app, ItemModel, MediaCollectionView, ItemCollectionViewer ) {
                 type: "-project AND -Collection AND -Video",
                 page: 1,
                 q: "",
+                data_source: "db",
                 user: function() {
                     return app.userId;
                 },
