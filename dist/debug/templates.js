@@ -67,7 +67,13 @@ return __p;
 this["JST"]["app/templates/item.html"] = function(obj){
 var __p='';var print=function(){__p+=Array.prototype.join.call(arguments, '')};
 with(obj||{}){
-__p+='<a href="#">\n    <div class="item-thumb">\n        <img src="'+
+__p+='<a href="#">\n    <div class="item-thumb">\n        ';
+ if ( layer_type == "Audio" ) { 
+;__p+='\n            <div class="thumb-title">'+
+( title )+
+'</div>\n        ';
+ } 
+;__p+='\n        <img src="'+
 ( thumbnail_url )+
 '"\n            alt="'+
 ( title )+
