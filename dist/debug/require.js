@@ -104542,7 +104542,7 @@ function( app, Modal ) {
         },
 
         modalContent: "<div><p>Just drag this link to your browser's bookmark bar:</p></div>" +
-            "<div class='bmLink'><a href='javascript:(function()%7Bvar%20head=document.getElementsByTagName('body')%5B0%5D,script=document.createElement('script');script.id='zeegabm';script.type='text/javascript';script.src='//zeega.com/js/widget/zeega.bookmarklet.js?'%20+%20Math.floor(Math.random()*99999);head.appendChild(script);%7D)();%20void%200'>Add to Zeega</a></div>" +
+            "<div class='bmLink'><a href=\"javascript:(function()%7Bvar%20head=document.getElementsByTagName('body')%5B0%5D,script=document.createElement('script');script.id='zeegabm';script.type='text/javascript';script.src='//zeega.com/js/widget/zeega.bookmarklet.js?'%20+%20Math.floor(Math.random()*99999);head.appendChild(script);%7D)();%20void%200\">Add to Zeega</a></div>" +
             "<div>" +
                 "<p>When you find something awesome that you want to use in your Zeega, click the bookmark and follow the simple instructions</p>" +
                 "<p class='small'><i class='icon-question-sign'></i> Don't see your bookmark bar? Go to View and select 'Always Show Bookmarks Bar'</p>" +
@@ -104779,6 +104779,7 @@ function( app, ItemModel, MediaCollectionView, ItemCollectionViewer ) {
                 type: "-project AND -Collection AND -Video",
                 page: 1,
                 q: "",
+                data_source: "db",
                 user: function() {
                     return app.userId;
                 },
