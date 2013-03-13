@@ -397,7 +397,7 @@ return __p;
 this["JST"]["app/templates/frame.html"] = function(obj){
 var __p='';var print=function(){__p+=Array.prototype.join.call(arguments, '')};
 with(obj||{}){
-__p+='<div class="frame-menu">\n    <a href="#"><i class="icon-edit icon-white"></i></a>\n    <ul class="submenu">\n        <li class="menu-head">\n            Frame Options\n        </li>\n        <li class="divider"></li>\n        <li>\n            <a href="#" class="action" data-action="deleteFrame"><i class="icon-remove"></i> delete</a>\n        </li>\n    </ul>\n</div>\n\n<a href="#" class="frame-thumb"\n    data-id="'+
+__p+='<div class="frame-menu">\n    <a href="#"><i class="icon-edit icon-white"></i></a>\n    <ul class="submenu">\n        <li class="menu-head">\n            Page Options\n        </li>\n        <li class="divider"></li>\n        <li>\n            <a href="#" class="action" data-action="deleteFrame"><i class="icon-remove"></i> delete</a>\n        </li>\n    </ul>\n</div>\n\n<a href="#" class="frame-thumb"\n    data-id="'+
 ( id )+
 '"\n    style="\n        ';
  if( thumbnail_url !== "" ) { 
@@ -413,7 +413,7 @@ return __p;
 this["JST"]["app/templates/frames.html"] = function(obj){
 var __p='';var print=function(){__p+=Array.prototype.join.call(arguments, '')};
 with(obj||{}){
-__p+='<ul class="frame-list"></ul>\n<div class="add-frame"><a href="#"><i class="icon-plus icon-white"></i> add frame</a></div>';
+__p+='<ul class="frame-list"></ul>\n<div class="add-frame"><a href="#"><i class="icon-plus icon-white"></i> add page</a></div>';
 }
 return __p;
 };
@@ -68130,63 +68130,12 @@ define('modules/views/project-meta',[
 
 function( app ) {
 
-    var adjective = [
-        "Soaking",
-        "Yellow",
-        "Green",
-        "Orange",
-        "Red",
-        "Blue",
-        "Jolly",
-        "Smelly",
-        "Oily",
-        "Tiny",
-        "Jumping",
-        "Sleeping",
-        "Walking",
-        "Sweet",
-        "Nerdy",
-        "Difficult",
-        "Broke"
-    ];
-
-    var noun = [
-        "Dog",
-        "Cat",
-        "Nile",
-        "Bike",
-        "Sloth",
-        "Motorcycle",
-        "Baby",
-        "Boy",
-        "Girl",
-        "Hat",
-        "Car",
-        "Train",
-        "Song",
-        "Guitar",
-        "Sky",
-        "Star",
-        "Moon",
-        "Country",
-        "Bath",
-        "Vacation",
-        "Work",
-        "Blanket"
-    ];
-
     // This will fetch the tutorial template and render it.
     ProjectMeta = Backbone.View.extend({
 
         drawerClass: "",
         template: "project-meta",
         
-        initialize: function() {
-            if ( this.model.project.get("title") == "Untitled Zeega" ) {
-                this.model.project.save("title", this.generateRandomTitle() );
-            }
-        },
-
         serialize: function() {
             return _.extend({ drawerClass: this.drawerClass }, this.model.project.toJSON() );
         },
@@ -103049,7 +102998,7 @@ function( app, Backbone, Layers, ThumbWorker ) {
             newLayer.order[ this.id ] = this.layers.length;
             newLayer.save().success(function( response ) {
                 this.layers.add( newLayer );
-                app.status.set("currentLayer", newLayer );
+                app.status.setCurrentLayer( newLayer );
                 newLayer.trigger("focus", newLayer );
             }.bind( this ));
             
@@ -103064,7 +103013,7 @@ function( app, Backbone, Layers, ThumbWorker ) {
             newLayer.order[ this.id ] = this.layers.length;
             newLayer.save().success(function( response ) {
                 this.layers.add( newLayer );
-                app.status.set("currentLayer", newLayer );
+                app.status.setCurrentLayer( newLayer );
                 newLayer.trigger("focus", newLayer );
             }.bind( this ));
         },
