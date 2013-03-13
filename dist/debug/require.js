@@ -67954,7 +67954,7 @@ define('app',[
 
         api: "",
         apiRoot: null,
-        searchAPI: "http://www.zeega.com/api/items/search?",
+        searchAPI: "http://zeega.com/api/items/search?",
         featuredAPI: "http://staging.zeega.org/api/items/featured",
 
         userId: null,
