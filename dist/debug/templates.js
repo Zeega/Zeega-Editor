@@ -139,7 +139,7 @@ var __p='';var print=function(){__p+=Array.prototype.join.call(arguments, '')};
 with(obj||{}){
 __p+='<div class="media-collection-title">\n    '+
 ( title )+
-'\n    <a href="#" class="get-bookmarklet">get bookmarklet <i class="icon-bookmark icon-white"></i></a>\n</div>\n<ul class="media-collection-items"></ul>';
+'\n    <a href="#" class="get-bookmarklet">Add Media <i class="icon-bookmark icon-white"></i></a>\n</div>\n<ul class="media-collection-items"></ul>';
 }
 return __p;
 };
@@ -171,11 +171,11 @@ __p+='<ul class=\'pull-left\'>\n    <li class=\'logo\'>\n        <a href="#"><im
 ( userId )+
 '" target="blank"><i class="icon-user icon-white"></i></a>\n    </li>\n    <li>\n        <a href="#"><i class="icon-folder-open icon-white"></i></a>\n        <ul class="submenu">\n            <li>\n                <a href="/'+
 ( root )+
-'project/new"><i class="icon-file"></i> New Zeega</a>\n            </li>\n            <li class="divider"></li>\n\n            ';
+'project/new" data-bypass="true" ><i class="icon-file"></i> New Zeega</a>\n            </li>\n            <li class="divider"></li>\n\n            ';
  _.each( userProjects, function( project) { 
 ;__p+='\n                <li>\n                    <a href="/'+
 ( project.id )+
-'">'+
+'"  data-bypass="true" >'+
 ( project.title )+
 '</a>\n                </li>\n            ';
  }); 
