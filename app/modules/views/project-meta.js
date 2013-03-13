@@ -5,63 +5,12 @@ define([
 
 function( app ) {
 
-    var adjective = [
-        "Soaking",
-        "Yellow",
-        "Green",
-        "Orange",
-        "Red",
-        "Blue",
-        "Jolly",
-        "Smelly",
-        "Oily",
-        "Tiny",
-        "Jumping",
-        "Sleeping",
-        "Walking",
-        "Sweet",
-        "Nerdy",
-        "Difficult",
-        "Broke"
-    ];
-
-    var noun = [
-        "Dog",
-        "Cat",
-        "Nile",
-        "Bike",
-        "Sloth",
-        "Motorcycle",
-        "Baby",
-        "Boy",
-        "Girl",
-        "Hat",
-        "Car",
-        "Train",
-        "Song",
-        "Guitar",
-        "Sky",
-        "Star",
-        "Moon",
-        "Country",
-        "Bath",
-        "Vacation",
-        "Work",
-        "Blanket"
-    ];
-
     // This will fetch the tutorial template and render it.
     ProjectMeta = Backbone.View.extend({
 
         drawerClass: "",
         template: "project-meta",
         
-        initialize: function() {
-            if ( this.model.project.get("title") == "Untitled Zeega" ) {
-                this.model.project.save("title", this.generateRandomTitle() );
-            }
-        },
-
         serialize: function() {
             return _.extend({ drawerClass: this.drawerClass }, this.model.project.toJSON() );
         },
