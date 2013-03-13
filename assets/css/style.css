@@ -4535,6 +4535,22 @@ body .ui-tooltip {
   padding: 2px;
   text-align: center;
 }
+.ui-resizable-handle.ui-resizable-se {
+  display: inline-block;
+  width: 14px;
+  height: 14px;
+  line-height: 14px;
+  vertical-align: text-top;
+  background-image: url("../img/glyphicons-halflings.png");
+  background-position: 14px 14px;
+  background-repeat: no-repeat;
+  margin-top: 1px;
+  background-position: -360px -96px;
+  background-color: orange;
+  right: -2px;
+  bottom: -2px;
+  -webkit-transform: rotate(90deg);
+}
 .control-slider {
   position: relative;
   width: 26px;
@@ -6970,6 +6986,19 @@ a:active {
   height: 49px;
   width: 49px;
 }
+.media-drawer .item .item-thumb .thumb-title {
+  position: absolute;
+  font-size: 11px;
+  word-wrap: break-word;
+  width: 49px;
+  text-shadow: 1px 1px 0px black;
+  height: 49px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  text-align: left;
+  color: orangered;
+  line-height: 12px;
+}
 .media-drawer .item .item-title {
   display: none;
 }
@@ -7004,6 +7033,9 @@ a:active {
   height: 24px;
   width: 24px;
   margin-right: 10px;
+}
+.media-drawer.list .item .item-thumb .thumb-title {
+  display: none;
 }
 .media-drawer.list .item .item-title {
   display: inline-block;
@@ -7162,6 +7194,7 @@ a:active {
 }
 .media-collection .media-collection-items {
   *zoom: 1;
+  position: relative;
 }
 .media-collection .media-collection-items:before,
 .media-collection .media-collection-items:after {

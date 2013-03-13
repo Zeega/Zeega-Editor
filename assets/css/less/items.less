@@ -28,6 +28,20 @@
         .item-thumb {
             height: 49px;
             width: 49px;
+
+            .thumb-title {
+                position: absolute;
+                font-size: 11px;
+                word-wrap: break-word;
+                width: 49px;
+                text-shadow: 1px 1px 0px black;
+                height: 49px;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                text-align: left;
+                color: orangered;
+                line-height: 12px;
+            }
         }
 
         .item-title {
@@ -59,6 +73,10 @@
                 height: 24px;
                 width: 24px;
                 margin-right: 10px;
+
+                .thumb-title {
+                    display: none;
+                }
             }
 
             .item-title {
