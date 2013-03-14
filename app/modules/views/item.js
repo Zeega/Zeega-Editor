@@ -18,6 +18,7 @@ function( app, ItemView ) {
         },
 
         afterRender: function() {
+            this.listenTo(this.model, 'destroy', this.remove);
             this.$el.draggable({
                 revert: "invalid",
                 cursorAt: {

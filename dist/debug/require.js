@@ -386,10 +386,72 @@ var requirejs, require, define;
 
 this["JST"] = this["JST"] || {};
 
-this["JST"]["app/templates/frame-controls.html"] = function(obj){
+this["JST"]["app/templates/navbar.html"] = function(obj){
 var __p='';var print=function(){__p+=Array.prototype.join.call(arguments, '')};
 with(obj||{}){
-__p+='<div class="section-header">Frame Advance</div>\n<div class="advance-controls">\n    <div class="adv-section advance-manual">\n        <a href="#">\n            <div>click</div>\n            <i class="icon-hand-up icon-white"></i>\n        </a>\n    </div>\n    <div class="adv-section advance-auto">\n        <a href="#">\n            <div>timed</div>\n            <i class="icon-time icon-white"></i>\n            <input type="text" placeholder="sec"/>\n        </a>\n    </div>\n</div>';
+__p+='<ul class=\'pull-left\'>\n    <li class=\'logo\'>\n        <a href="#"><img src="assets/img/zeega-logo-header.png"/></a>\n    </li>\n</ul>\n<ul class=\'pull-right\'>\n    <li>\n        <a href="http://www.zeega.org/user/'+
+( userId )+
+'" target="blank"><i class="icon-user icon-white"></i></a>\n    </li>\n    <li>\n        <a href="#"><i class="icon-folder-open icon-white"></i></a>\n        <ul class="submenu">\n            <li>\n                <a href="/'+
+( root )+
+'project/new" data-bypass="true" ><i class="icon-file"></i> New Zeega</a>\n            </li>\n            <li class="divider"></li>\n\n            ';
+ _.each( userProjects, function( project) { 
+;__p+='\n                <li>\n                    <a href="/'+
+( project.id )+
+'"  data-bypass="true" >'+
+( project.title )+
+'</a>\n                </li>\n            ';
+ }); 
+;__p+='\n\n        </ul>\n    </li>\n    <li>\n        <a href="http://www.zeega.org/faq/" target="blank"><i class="icon-question-sign icon-white"></i></a>\n    </li>\n</ul>';
+}
+return __p;
+};
+
+this["JST"]["app/templates/modal.html"] = function(obj){
+var __p='';var print=function(){__p+=Array.prototype.join.call(arguments, '')};
+with(obj||{}){
+__p+='<a href="#" class="modal-close">&times;</a>\n<div class="modal-content">\n    <div class="modal-title">'+
+( modal.title )+
+'</div>\n    <div class="modal-body">'+
+( modal.content )+
+'</div>\n    <div class="modal-footer"></div>\n</div>\n';
+}
+return __p;
+};
+
+this["JST"]["app/templates/layers.html"] = function(obj){
+var __p='';var print=function(){__p+=Array.prototype.join.call(arguments, '')};
+with(obj||{}){
+__p+='<ul class="layer-list"></ul>';
+}
+return __p;
+};
+
+this["JST"]["app/templates/layout-main.html"] = function(obj){
+var __p='';var print=function(){__p+=Array.prototype.join.call(arguments, '')};
+with(obj||{}){
+__p+='<div class=\'left-column\'>\n    <div class="static-upper">\n        <div class="nav"></div>\n        <div class="project-meta"></div>\n        <div class="layer-drawer"></div>\n    </div>\n    <div class="media-drawer"></div>\n</div>\n<div class=\'right-column\'>\n    <div class="project-navs">\n        <div class="sequences"></div>\n        <div class="frames"></div>\n        <div class="soundtrack"></div>\n        <div class="controls-wrapper">\n            <div class="layer-controls"></div>\n            <div class="frame-controls"></div>\n        </div>\n    </div>\n    <div class="workspace"></div>\n    <div class="layers"></div>\n</div>';
+}
+return __p;
+};
+
+this["JST"]["app/templates/soundtrack.html"] = function(obj){
+var __p='';var print=function(){__p+=Array.prototype.join.call(arguments, '')};
+with(obj||{}){
+__p+='<div class="elapsed"></div>\n<div class="soundtrack-waveform"\n';
+ if ( model ) { 
+;__p+='\n    style=" background: url('+
+( attr.thumbnail_url )+
+');\n    background-size: 100% 100%"\n';
+ } 
+;__p+='\n></div>\n\n';
+ if ( model === false ) { 
+;__p+='\n    <span class="instructions-1">Drag audio here to add soundtrack</span>\n    <span class="instructions-2">Drop to add soundtrack</span>\n';
+ } else { 
+;__p+='\n    <div class="soundtrack-info">\n        <span class="title">'+
+( attr.title )+
+'</span>\n        <span class="time-display"></span>\n    </div>\n    <div class="soundtrack-controls">\n        <a href="#" class="playpause"><i class="icon-play icon-white"></i></a>\n        <a href="#" class="remove"><i class="icon-remove icon-white"></i></a>\n    </div>\n';
+ } 
+;__p+='';
 }
 return __p;
 };
@@ -410,42 +472,26 @@ __p+='<div class="frame-menu">\n    <a href="#"><i class="icon-edit icon-white">
 return __p;
 };
 
-this["JST"]["app/templates/frames.html"] = function(obj){
+this["JST"]["app/templates/layer-control-bar.html"] = function(obj){
 var __p='';var print=function(){__p+=Array.prototype.join.call(arguments, '')};
 with(obj||{}){
-__p+='<ul class="frame-list"></ul>\n<div class="add-frame"><a href="#"><i class="icon-plus icon-white"></i> add page</a></div>';
+__p+='<div class="layer-bar-title"></div>\n<div class="layer-controls-inner"></div>';
 }
 return __p;
 };
 
-this["JST"]["app/templates/item-collection-viewer.html"] = function(obj){
+this["JST"]["app/templates/media-drawer.html"] = function(obj){
 var __p='';var print=function(){__p+=Array.prototype.join.call(arguments, '')};
 with(obj||{}){
-__p+='<a href="#" class="modal-close">&times;</a>\n<a href="#" class="prev arrow arrow-left"></a>\n<a href="#" class="next arrow arrow-right"></a>\n\n<div class="modal-content">\n\n    <div class="modal-title"></div>\n    <div class="modal-body"></div>\n    <div class="modal-footer"></div>\n</div>\n';
+__p+='<div class="media-drawer-controls ZEEGA-hmenu dark">\n    <ul class=\'pull-left\'>\n        <li>\n            <input class="search-box" type="text" placeholder="search media"/>\n        </li>\n        <li>\n            <a href="#" class="clearSearch"><i class="icon-remove icon-white"></i></a>\n        </li>\n    </ul>\n    <ul class=\'pull-right\'>\n        <li>\n            <a href="#" class="gridToggle"><i class="icon-th-list icon-white"></i></a>\n        </li>\n    </ul>\n</div>\n<ul class="ZEEGA-items"></ul>';
 }
 return __p;
 };
 
-this["JST"]["app/templates/item-viewer-audio.html"] = function(obj){
+this["JST"]["app/templates/workspace.html"] = function(obj){
 var __p='';var print=function(){__p+=Array.prototype.join.call(arguments, '')};
 with(obj||{}){
-__p+='<div class="viewer-preview" style="">\n    <audio class="preview-audio" src="'+
-( uri )+
-'" controls="true" /></audio>\n</div>\n<div class="viewer-controls">\n    <a href="'+
-( attribution_uri )+
-'" target="blank"><i class="icon-share-alt"></i> view original</a>\n    <a class="add-to-frame" href="#"><i class="icon-download"></i> add to frame</a>\n</div>';
-}
-return __p;
-};
-
-this["JST"]["app/templates/item-viewer-image.html"] = function(obj){
-var __p='';var print=function(){__p+=Array.prototype.join.call(arguments, '')};
-with(obj||{}){
-__p+='<div class="viewer-preview" style="\n    background: url('+
-( uri )+
-');\n    background-size: contain;\n    background-position: 50% 50%;\n    background-repeat: no-repeat;\n"></div>\n<div class="viewer-controls">\n    <a href="'+
-( attribution_uri )+
-'" target="blank"><i class="icon-share-alt"></i> view original</a>\n    <a class="add-to-frame" href="#"><i class="icon-download"></i> add to frame</a>\n</div>';
+__p+='<div class="ZEEGA-workspace"></div>';
 }
 return __p;
 };
@@ -474,18 +520,32 @@ __p+='<a href="#">\n    <div class="item-thumb">\n        ';
 return __p;
 };
 
-this["JST"]["app/templates/layer-control-bar.html"] = function(obj){
+this["JST"]["app/templates/sequence.html"] = function(obj){
 var __p='';var print=function(){__p+=Array.prototype.join.call(arguments, '')};
 with(obj||{}){
-__p+='<div class="layer-bar-title"></div>\n<div class="layer-controls-inner"></div>';
+__p+='<a href="#" class="sequence-title">'+
+( title )+
+'</a>\n<a href="#" class="dropdown"><i class="icon-edit icon-white"></i></a>';
 }
 return __p;
 };
 
-this["JST"]["app/templates/layer-drawer.html"] = function(obj){
+this["JST"]["app/templates/item-viewer-audio.html"] = function(obj){
 var __p='';var print=function(){__p+=Array.prototype.join.call(arguments, '')};
 with(obj||{}){
-__p+='<div class="ZEEGA-layer-drawer">\n    <ul>\n        <li class="draggable-layer-type">\n            <a href="#" data-layer-type="Link">\n                <div class="item-label">link</div>\n                <i class="icon-arrow-up icon-white"></i>\n            </a>\n        </li>\n        <li class="draggable-layer-type">\n            <a href="#" data-layer-type="Text">\n                <div class="item-label">text</div>\n                <i class="icon-font icon-white"></i>\n            </a>\n        </li>\n        <li class="draggable-layer-type">\n            <a href="#" data-layer-type="Rectangle">\n                <div class="item-label">color</div>\n                <i class="icon-th-large icon-white"></i>\n            </a>\n        </li>\n    </ul>\n</div>';
+__p+='<div class="viewer-preview" style="">\n    <audio class="preview-audio" src="'+
+( uri )+
+'" controls="true" /></audio>\n</div>\n<div class="viewer-controls">\n    \n    <a class="add-to-frame" href="#"><i class="icon-download"></i> add to frame</a>\n    <a href="'+
+( attribution_uri )+
+'" target="blank"><i class="icon-share-alt"></i> view original</a>\n    <a class="delete-item" href="#"><i class="icon-remove"></i> delete</a>\n</div>';
+}
+return __p;
+};
+
+this["JST"]["app/templates/sequences.html"] = function(obj){
+var __p='';var print=function(){__p+=Array.prototype.join.call(arguments, '')};
+with(obj||{}){
+__p+='<ul class="sequence-list"></ul>\n<div class="add-sequence"><a href="#"><i class="icon-plus icon-white"></i> add sequence</a></div>';
 }
 return __p;
 };
@@ -498,80 +558,6 @@ __p+='<div class="layer-marker">\n    <div class="layer-list-top">\n        <spa
 '</span>\n    </div>\n    <div class="layer-list-bottom clearfix">\n        <a href="#" class="action-bg pull-left"><i class="zicon-'+
 ( type.toLowerCase() )+
 ' zicon-white"></i></a>\n        <a href="#" class="action-bg pull-left continued"><i data-action="continueToNextFrame" class="action icon-chevron-right icon-white"></i></a>\n        <a href="#" class="action-bg pull-left persists"><i data-action="continueToChapter" class="action icon-forward icon-white"></i></a>\n        <a href="#" class="action-bg pull-right"><i data-action="deleteLayer" class="action icon-trash icon-white"></i></a>\n    </div>\n</div>';
-}
-return __p;
-};
-
-this["JST"]["app/templates/layer-panel.html"] = function(obj){
-var __p='';var print=function(){__p+=Array.prototype.join.call(arguments, '')};
-with(obj||{}){
-__p+='<div class="ZEEGA-hmenu dark">\n    <ul class=\'pull-left\'>\n        <li>\n            <a href="#" data-layerType="Text">\n                <div class="hmenu-label">text</div>\n                <i class="icon-font icon-white"></i>\n            </a>\n        </li>\n        <li>\n            <a href="#" data-layerType="Rectangle">\n                <div class="hmenu-label">color</div>\n                <i class="icon-th-large icon-white"></i>\n            </a>\n        </li>\n        <li>\n            <a href="#" data-layerType="Geo">\n                <div class="hmenu-label">streetview</div>\n                <i class="icon-map-marker icon-white"></i>\n            </a>\n        </li>\n        <li>\n            <a href="#" data-layerType="Popup">\n                <div class="hmenu-label">popup</div>\n                <i class="icon-share icon-white"></i>\n            </a>\n        </li>\n    </ul>\n</div>\n\n<div class="ZEEGA-layer-list">\n    <ul></ul>\n</div>';
-}
-return __p;
-};
-
-this["JST"]["app/templates/layers.html"] = function(obj){
-var __p='';var print=function(){__p+=Array.prototype.join.call(arguments, '')};
-with(obj||{}){
-__p+='<ul class="layer-list"></ul>';
-}
-return __p;
-};
-
-this["JST"]["app/templates/layout-main.html"] = function(obj){
-var __p='';var print=function(){__p+=Array.prototype.join.call(arguments, '')};
-with(obj||{}){
-__p+='<div class=\'left-column\'>\n    <div class="static-upper">\n        <div class="nav"></div>\n        <div class="project-meta"></div>\n        <div class="layer-drawer"></div>\n    </div>\n    <div class="media-drawer"></div>\n</div>\n<div class=\'right-column\'>\n    <div class="project-navs">\n        <div class="sequences"></div>\n        <div class="frames"></div>\n        <div class="soundtrack"></div>\n        <div class="controls-wrapper">\n            <div class="layer-controls"></div>\n            <div class="frame-controls"></div>\n        </div>\n    </div>\n    <div class="workspace"></div>\n    <div class="layers"></div>\n</div>';
-}
-return __p;
-};
-
-this["JST"]["app/templates/media-collection.html"] = function(obj){
-var __p='';var print=function(){__p+=Array.prototype.join.call(arguments, '')};
-with(obj||{}){
-__p+='<div class="media-collection-title">\n    '+
-( title )+
-'\n    <a href="#" class="get-bookmarklet">Add Media <i class="icon-bookmark icon-white"></i></a>\n</div>\n<ul class="media-collection-items"></ul>';
-}
-return __p;
-};
-
-this["JST"]["app/templates/media-drawer.html"] = function(obj){
-var __p='';var print=function(){__p+=Array.prototype.join.call(arguments, '')};
-with(obj||{}){
-__p+='<div class="media-drawer-controls ZEEGA-hmenu dark">\n    <ul class=\'pull-left\'>\n        <li>\n            <input class="search-box" type="text" placeholder="search media"/>\n        </li>\n        <li>\n            <a href="#" class="clearSearch"><i class="icon-remove icon-white"></i></a>\n        </li>\n    </ul>\n    <ul class=\'pull-right\'>\n        <li>\n            <a href="#" class="gridToggle"><i class="icon-th-list icon-white"></i></a>\n        </li>\n    </ul>\n</div>\n<ul class="ZEEGA-items"></ul>';
-}
-return __p;
-};
-
-this["JST"]["app/templates/modal.html"] = function(obj){
-var __p='';var print=function(){__p+=Array.prototype.join.call(arguments, '')};
-with(obj||{}){
-__p+='<a href="#" class="modal-close">&times;</a>\n<div class="modal-content">\n    <div class="modal-title">'+
-( modal.title )+
-'</div>\n    <div class="modal-body">'+
-( modal.content )+
-'</div>\n    <div class="modal-footer"></div>\n</div>\n';
-}
-return __p;
-};
-
-this["JST"]["app/templates/navbar.html"] = function(obj){
-var __p='';var print=function(){__p+=Array.prototype.join.call(arguments, '')};
-with(obj||{}){
-__p+='<ul class=\'pull-left\'>\n    <li class=\'logo\'>\n        <a href="#"><img src="assets/img/zeega-logo-header.png"/></a>\n    </li>\n</ul>\n<ul class=\'pull-right\'>\n    <li>\n        <a href="http://www.zeega.org/user/'+
-( userId )+
-'" target="blank"><i class="icon-user icon-white"></i></a>\n    </li>\n    <li>\n        <a href="#"><i class="icon-folder-open icon-white"></i></a>\n        <ul class="submenu">\n            <li>\n                <a href="/'+
-( root )+
-'project/new" data-bypass="true" ><i class="icon-file"></i> New Zeega</a>\n            </li>\n            <li class="divider"></li>\n\n            ';
- _.each( userProjects, function( project) { 
-;__p+='\n                <li>\n                    <a href="/'+
-( project.id )+
-'"  data-bypass="true" >'+
-( project.title )+
-'</a>\n                </li>\n            ';
- }); 
-;__p+='\n\n        </ul>\n    </li>\n    <li>\n        <a href="http://www.zeega.org/faq/" target="blank"><i class="icon-question-sign icon-white"></i></a>\n    </li>\n</ul>';
 }
 return __p;
 };
@@ -608,58 +594,74 @@ __p+='<div class="ZEEGA-project-cover" style="\n    background: url('+
 return __p;
 };
 
-this["JST"]["app/templates/sequence.html"] = function(obj){
+this["JST"]["app/templates/item-collection-viewer.html"] = function(obj){
 var __p='';var print=function(){__p+=Array.prototype.join.call(arguments, '')};
 with(obj||{}){
-__p+='<a href="#" class="sequence-title">'+
+__p+='<a href="#" class="modal-close">&times;</a>\n<a href="#" class="prev arrow arrow-left"></a>\n<a href="#" class="next arrow arrow-right"></a>\n\n<div class="modal-content">\n\n    <div class="modal-title"></div>\n    <div class="modal-body"></div>\n    <div class="modal-footer"></div>\n</div>\n';
+}
+return __p;
+};
+
+this["JST"]["app/templates/layer-panel.html"] = function(obj){
+var __p='';var print=function(){__p+=Array.prototype.join.call(arguments, '')};
+with(obj||{}){
+__p+='<div class="ZEEGA-hmenu dark">\n    <ul class=\'pull-left\'>\n        <li>\n            <a href="#" data-layerType="Text">\n                <div class="hmenu-label">text</div>\n                <i class="icon-font icon-white"></i>\n            </a>\n        </li>\n        <li>\n            <a href="#" data-layerType="Rectangle">\n                <div class="hmenu-label">color</div>\n                <i class="icon-th-large icon-white"></i>\n            </a>\n        </li>\n        <li>\n            <a href="#" data-layerType="Geo">\n                <div class="hmenu-label">streetview</div>\n                <i class="icon-map-marker icon-white"></i>\n            </a>\n        </li>\n        <li>\n            <a href="#" data-layerType="Popup">\n                <div class="hmenu-label">popup</div>\n                <i class="icon-share icon-white"></i>\n            </a>\n        </li>\n    </ul>\n</div>\n\n<div class="ZEEGA-layer-list">\n    <ul></ul>\n</div>';
+}
+return __p;
+};
+
+this["JST"]["app/templates/item-viewer-image.html"] = function(obj){
+var __p='';var print=function(){__p+=Array.prototype.join.call(arguments, '')};
+with(obj||{}){
+__p+='<div class="viewer-preview" style="\n    background: url('+
+( uri )+
+');\n    background-size: contain;\n    background-position: 50% 50%;\n    background-repeat: no-repeat;\n"></div>\n<div class="viewer-controls">\n    <a class="add-to-frame" href="#"><i class="icon-download"></i> add to frame</a>\n    <a href="'+
+( attribution_uri )+
+'" target="blank"><i class="icon-share-alt"></i> view original</a>\n    <a class="delete-item" href="#"><i class="icon-remove"></i> delete</a>\n</div>';
+}
+return __p;
+};
+
+this["JST"]["app/templates/frames.html"] = function(obj){
+var __p='';var print=function(){__p+=Array.prototype.join.call(arguments, '')};
+with(obj||{}){
+__p+='<ul class="frame-list"></ul>\n<div class="add-frame"><a href="#"><i class="icon-plus icon-white"></i> add page</a></div>';
+}
+return __p;
+};
+
+this["JST"]["app/templates/frame-controls.html"] = function(obj){
+var __p='';var print=function(){__p+=Array.prototype.join.call(arguments, '')};
+with(obj||{}){
+__p+='<div class="section-header">Frame Advance</div>\n<div class="advance-controls">\n    <div class="adv-section advance-manual">\n        <a href="#">\n            <div>click</div>\n            <i class="icon-hand-up icon-white"></i>\n        </a>\n    </div>\n    <div class="adv-section advance-auto">\n        <a href="#">\n            <div>timed</div>\n            <i class="icon-time icon-white"></i>\n            <input type="text" placeholder="sec"/>\n        </a>\n    </div>\n</div>';
+}
+return __p;
+};
+
+this["JST"]["app/templates/media-collection.html"] = function(obj){
+var __p='';var print=function(){__p+=Array.prototype.join.call(arguments, '')};
+with(obj||{}){
+__p+='<div class="media-collection-title">\n    '+
 ( title )+
-'</a>\n<a href="#" class="dropdown"><i class="icon-edit icon-white"></i></a>';
+'\n    <a href="#" class="get-bookmarklet">Add Media <i class="icon-bookmark icon-white"></i></a>\n</div>\n<ul class="media-collection-items"></ul>';
 }
 return __p;
 };
 
-this["JST"]["app/templates/sequences.html"] = function(obj){
+this["JST"]["app/templates/layer-drawer.html"] = function(obj){
 var __p='';var print=function(){__p+=Array.prototype.join.call(arguments, '')};
 with(obj||{}){
-__p+='<ul class="sequence-list"></ul>\n<div class="add-sequence"><a href="#"><i class="icon-plus icon-white"></i> add sequence</a></div>';
+__p+='<div class="ZEEGA-layer-drawer">\n    <ul>\n        <li class="draggable-layer-type">\n            <a href="#" data-layer-type="Link">\n                <div class="item-label">link</div>\n                <i class="icon-arrow-up icon-white"></i>\n            </a>\n        </li>\n        <li class="draggable-layer-type">\n            <a href="#" data-layer-type="Text">\n                <div class="item-label">text</div>\n                <i class="icon-font icon-white"></i>\n            </a>\n        </li>\n        <li class="draggable-layer-type">\n            <a href="#" data-layer-type="Rectangle">\n                <div class="item-label">color</div>\n                <i class="icon-th-large icon-white"></i>\n            </a>\n        </li>\n    </ul>\n</div>';
 }
 return __p;
 };
 
-this["JST"]["app/templates/soundtrack.html"] = function(obj){
+this["JST"]["app/zeega-parser/plugins/controls/opacity/opacity.html"] = function(obj){
 var __p='';var print=function(){__p+=Array.prototype.join.call(arguments, '')};
 with(obj||{}){
-__p+='<div class="elapsed"></div>\n<div class="soundtrack-waveform"\n';
- if ( model ) { 
-;__p+='\n    style=" background: url('+
-( attr.thumbnail_url )+
-');\n    background-size: 100% 100%"\n';
- } 
-;__p+='\n></div>\n\n';
- if ( model === false ) { 
-;__p+='\n    <span class="instructions-1">Drag audio here to add soundtrack</span>\n    <span class="instructions-2">Drop to add soundtrack</span>\n';
- } else { 
-;__p+='\n    <div class="soundtrack-info">\n        <span class="title">'+
-( attr.title )+
-'</span>\n        <span class="time-display"></span>\n    </div>\n    <div class="soundtrack-controls">\n        <a href="#" class="playpause"><i class="icon-play icon-white"></i></a>\n        <a href="#" class="remove"><i class="icon-remove icon-white"></i></a>\n    </div>\n';
- } 
-;__p+='';
-}
-return __p;
-};
-
-this["JST"]["app/templates/workspace.html"] = function(obj){
-var __p='';var print=function(){__p+=Array.prototype.join.call(arguments, '')};
-with(obj||{}){
-__p+='<div class="ZEEGA-workspace"></div>';
-}
-return __p;
-};
-
-this["JST"]["app/zeega-parser/plugins/controls/av/av.html"] = function(obj){
-var __p='';var print=function(){__p+=Array.prototype.join.call(arguments, '')};
-with(obj||{}){
-__p+='<div class="control-name">media controls</div>\n<a href="#" class="playpause"><i class="icon-play icon-white"></i></a>\n<div class="av-slider"></div>\n';
+__p+='<div class="hover-icon">\n    <i class="icon-eye-open id-icon icon-white"></i>\n    <input type="text" class="text-input" value="'+
+( Math.floor( attr.opacity * 100 ) )+
+'">\n    <div class="hidden-controls">\n        <div class="opacity-slider"></div>\n    </div>\n</div>';
 }
 return __p;
 };
@@ -670,6 +672,28 @@ with(obj||{}){
 __p+='<div class="control-name">'+
 ( title )+
 '</div>\n<div class="roundedOne">\n    <input type="checkbox" value="None" id="roundedOne" name="check" />\n    <label for="roundedOne"></label>\n</div>';
+}
+return __p;
+};
+
+this["JST"]["app/zeega-parser/plugins/controls/slider/slider.html"] = function(obj){
+var __p='';var print=function(){__p+=Array.prototype.join.call(arguments, '')};
+with(obj||{}){
+__p+='<div class="hover-icon">\n    <div class="control-name">'+
+( title )+
+'</div>\n    <input type="text" class="text-input" value="'+
+( Math.floor( attr[ _propertyName ] * 100 ) )+
+'">\n    <div class="hidden-controls">\n        <div class="control-slider"></div>\n    </div>\n</div>';
+}
+return __p;
+};
+
+this["JST"]["app/zeega-parser/plugins/controls/linkto/linkto.html"] = function(obj){
+var __p='';var print=function(){__p+=Array.prototype.join.call(arguments, '')};
+with(obj||{}){
+__p+='<div class="control-name">link to</div>\n<div class="control-frame-thumb" style="\n    background: url('+
+( thumbnail_url )+
+') no-repeat center center; \n    -webkit-background-size: cover;\n    background-size: cover;\n">\n    <a href="#"></a>\n</div>';
 }
 return __p;
 };
@@ -694,34 +718,10 @@ __p+='<div class="control-name">image</div>\n<select class="link-image-select">\
 return __p;
 };
 
-this["JST"]["app/zeega-parser/plugins/controls/linkto/linkto.html"] = function(obj){
+this["JST"]["app/zeega-parser/plugins/controls/av/av.html"] = function(obj){
 var __p='';var print=function(){__p+=Array.prototype.join.call(arguments, '')};
 with(obj||{}){
-__p+='<div class="control-name">link to</div>\n<div class="control-frame-thumb" style="\n    background: url('+
-( thumbnail_url )+
-') no-repeat center center; \n    -webkit-background-size: cover;\n    background-size: cover;\n">\n    <a href="#"></a>\n</div>';
-}
-return __p;
-};
-
-this["JST"]["app/zeega-parser/plugins/controls/opacity/opacity.html"] = function(obj){
-var __p='';var print=function(){__p+=Array.prototype.join.call(arguments, '')};
-with(obj||{}){
-__p+='<div class="hover-icon">\n    <i class="icon-eye-open id-icon icon-white"></i>\n    <input type="text" class="text-input" value="'+
-( Math.floor( attr.opacity * 100 ) )+
-'">\n    <div class="hidden-controls">\n        <div class="opacity-slider"></div>\n    </div>\n</div>';
-}
-return __p;
-};
-
-this["JST"]["app/zeega-parser/plugins/controls/slider/slider.html"] = function(obj){
-var __p='';var print=function(){__p+=Array.prototype.join.call(arguments, '')};
-with(obj||{}){
-__p+='<div class="hover-icon">\n    <div class="control-name">'+
-( title )+
-'</div>\n    <input type="text" class="text-input" value="'+
-( Math.floor( attr[ _propertyName ] * 100 ) )+
-'">\n    <div class="hidden-controls">\n        <div class="control-slider"></div>\n    </div>\n</div>';
+__p+='<div class="control-name">media controls</div>\n<a href="#" class="playpause"><i class="icon-play icon-white"></i></a>\n<div class="av-slider"></div>\n';
 }
 return __p;
 };
@@ -734,23 +734,7 @@ __p+='<div class="control-name">text controls</div>\n\n<a data-action="bold" cla
 return __p;
 };
 
-this["JST"]["app/zeega-parser/plugins/layers/audio/audio.html"] = function(obj){
-var __p='';var print=function(){__p+=Array.prototype.join.call(arguments, '')};
-with(obj||{}){
-__p+='<audio id="audio-el-'+
-( id )+
-'" src="'+
-( attr.uri )+
-'"\n    ';
- if ( attr.loop ) { 
-;__p+='\n        loop\n    ';
- } 
-;__p+='\n    preload\n></audio>';
-}
-return __p;
-};
-
-this["JST"]["app/zeega-parser/plugins/layers/geo/geo.html"] = function(obj){
+this["JST"]["app/zeega-parser/plugins/layers/video/video.html"] = function(obj){
 var __p='';var print=function(){__p+=Array.prototype.join.call(arguments, '')};
 with(obj||{}){
 __p+='';
@@ -758,80 +742,18 @@ __p+='';
 return __p;
 };
 
-this["JST"]["app/zeega-parser/plugins/layers/image/image.html"] = function(obj){
+this["JST"]["app/zeega-parser/plugins/layers/slideshow/slideshowthumbslider.html"] = function(obj){
 var __p='';var print=function(){__p+=Array.prototype.join.call(arguments, '')};
 with(obj||{}){
-__p+='<div class="visual-target">\n    <img src="'+
-( attr.uri )+
-'" width=\'100%\' />\n</div>\n<div class="controls-inline"></div>';
-}
-return __p;
-};
-
-this["JST"]["app/zeega-parser/plugins/layers/link/frame-chooser.html"] = function(obj){
-var __p='';var print=function(){__p+=Array.prototype.join.call(arguments, '')};
-with(obj||{}){
-__p+='<a href="#" class="close">&times;</a>\n<div class="modal-content">\n    <div class="modal-title">Where do you want your link to go?</div>\n    <div class="modal-body">\n        <ul class="frame-chooser-list clearfix">\n        </ul>\n        <div class="bottom-chooser">\n            <div class="new-frame">\n                <a href="#" class="link-new-frame"><i class="icon-plus icon-white"></i> New Frame</a>\n            </div>\n            <a href="#" class="submit">OK</a>\n        </div>\n    </div>\n</div>\n';
-}
-return __p;
-};
-
-this["JST"]["app/zeega-parser/plugins/layers/link/link.html"] = function(obj){
-var __p='';var print=function(){__p+=Array.prototype.join.call(arguments, '')};
-with(obj||{}){
-__p+='<a href=\'#\' class=\'ZEEGA-link-inner\'></a>';
-}
-return __p;
-};
-
-this["JST"]["app/zeega-parser/plugins/layers/popup/popup-image.html"] = function(obj){
-var __p='';var print=function(){__p+=Array.prototype.join.call(arguments, '')};
-with(obj||{}){
-__p+='<div class=\'ZEEGA-popup-click-content popup-image\' style="\n  background: url('+
-( attr.popup_content.uri )+
-') no-repeat center center;\n  -webkit-background-size: contain;\n  -moz-background-size: contain;\n  -o-background-size: contain;\n  background-size: contain;\n">\n  <a href="#" class="popup-close">close</a>\n</div>\n';
-}
-return __p;
-};
-
-this["JST"]["app/zeega-parser/plugins/layers/popup/popup-video.html"] = function(obj){
-var __p='';var print=function(){__p+=Array.prototype.join.call(arguments, '')};
-with(obj||{}){
-__p+='<div class=\'ZEEGA-popup-click-content popup-video\' >\n  <a href="#" class="popup-close">close</a>\n</div>\n';
-}
-return __p;
-};
-
-this["JST"]["app/zeega-parser/plugins/layers/popup/popup.html"] = function(obj){
-var __p='';var print=function(){__p+=Array.prototype.join.call(arguments, '')};
-with(obj||{}){
-__p+='<a\n  href="#"\n  class="ZEEGA-popup-click-target"\n  ';
- if ( attr.popup_target ) { 
-;__p+='\n  style="\n    background: url('+
-( attr.popup_target.uri )+
-') no-repeat center center;\n    -webkit-background-size: cover;\n    -moz-background-size: cover;\n    -o-background-size: cover;\n    background-size: cover;\n  "\n  ';
- } 
-;__p+='\n  data-caption="';
- if ( attr.popup_content ) { 
-;__p+=''+
-( attr.popup_content.title )+
-'';
- } 
-;__p+='"\n  >\n  ';
- if ( attr.popup_content ) { 
-;__p+='<span class="popup-title" style=\'display:none\'>'+
-( attr.popup_content.title )+
-'</span>';
- } 
-;__p+='\n</a>';
-}
-return __p;
-};
-
-this["JST"]["app/zeega-parser/plugins/layers/rectangle/rectangle.html"] = function(obj){
-var __p='';var print=function(){__p+=Array.prototype.join.call(arguments, '')};
-with(obj||{}){
-__p+='<div class="visual-target"></div>\n<div class="controls-inline"></div>';
+__p+='<div class=\'slideshow-thumb-wrapper\'>\n    <ul>\n        ';
+ _.each(attr.slides, function(slide, i){ 
+;__p+='\n            <li>\n                <div class=\'slideshow-thumbnail\' style="background:url('+
+( slide.attr.thumbnail_url )+
+'); background-repeat:no-repeat;background-size:100%;background-position:center">\n                    <a href=\'#\' class=\'slider-thumb\' data-slidenum="'+
+( i )+
+'"></a>\n                </div>\n            </li>\n        ';
+ });
+;__p+='\n    </ul>\n</div>';
 }
 return __p;
 };
@@ -894,18 +816,20 @@ __p+='<a href=\'#\' class=\'slideshow-arrow arrow-left slideshow-control-prev di
 return __p;
 };
 
-this["JST"]["app/zeega-parser/plugins/layers/slideshow/slideshowthumbslider.html"] = function(obj){
+this["JST"]["app/zeega-parser/plugins/layers/image/image.html"] = function(obj){
 var __p='';var print=function(){__p+=Array.prototype.join.call(arguments, '')};
 with(obj||{}){
-__p+='<div class=\'slideshow-thumb-wrapper\'>\n    <ul>\n        ';
- _.each(attr.slides, function(slide, i){ 
-;__p+='\n            <li>\n                <div class=\'slideshow-thumbnail\' style="background:url('+
-( slide.attr.thumbnail_url )+
-'); background-repeat:no-repeat;background-size:100%;background-position:center">\n                    <a href=\'#\' class=\'slider-thumb\' data-slidenum="'+
-( i )+
-'"></a>\n                </div>\n            </li>\n        ';
- });
-;__p+='\n    </ul>\n</div>';
+__p+='<div class="visual-target">\n    <img src="'+
+( attr.uri )+
+'" width=\'100%\' />\n</div>\n<div class="controls-inline"></div>';
+}
+return __p;
+};
+
+this["JST"]["app/zeega-parser/plugins/layers/geo/geo.html"] = function(obj){
+var __p='';var print=function(){__p+=Array.prototype.join.call(arguments, '')};
+with(obj||{}){
+__p+='';
 }
 return __p;
 };
@@ -920,10 +844,86 @@ __p+='<div class="visual-target">'+
 return __p;
 };
 
-this["JST"]["app/zeega-parser/plugins/layers/video/video.html"] = function(obj){
+this["JST"]["app/zeega-parser/plugins/layers/link/link.html"] = function(obj){
 var __p='';var print=function(){__p+=Array.prototype.join.call(arguments, '')};
 with(obj||{}){
-__p+='';
+__p+='<a href=\'#\' class=\'ZEEGA-link-inner\'></a>';
+}
+return __p;
+};
+
+this["JST"]["app/zeega-parser/plugins/layers/link/frame-chooser.html"] = function(obj){
+var __p='';var print=function(){__p+=Array.prototype.join.call(arguments, '')};
+with(obj||{}){
+__p+='<a href="#" class="close">&times;</a>\n<div class="modal-content">\n    <div class="modal-title">Where do you want your link to go?</div>\n    <div class="modal-body">\n        <ul class="frame-chooser-list clearfix">\n        </ul>\n        <div class="bottom-chooser">\n            <div class="new-frame">\n                <a href="#" class="link-new-frame"><i class="icon-plus icon-white"></i> New Frame</a>\n            </div>\n            <a href="#" class="submit">OK</a>\n        </div>\n    </div>\n</div>\n';
+}
+return __p;
+};
+
+this["JST"]["app/zeega-parser/plugins/layers/popup/popup-video.html"] = function(obj){
+var __p='';var print=function(){__p+=Array.prototype.join.call(arguments, '')};
+with(obj||{}){
+__p+='<div class=\'ZEEGA-popup-click-content popup-video\' >\n  <a href="#" class="popup-close">close</a>\n</div>\n';
+}
+return __p;
+};
+
+this["JST"]["app/zeega-parser/plugins/layers/popup/popup-image.html"] = function(obj){
+var __p='';var print=function(){__p+=Array.prototype.join.call(arguments, '')};
+with(obj||{}){
+__p+='<div class=\'ZEEGA-popup-click-content popup-image\' style="\n  background: url('+
+( attr.popup_content.uri )+
+') no-repeat center center;\n  -webkit-background-size: contain;\n  -moz-background-size: contain;\n  -o-background-size: contain;\n  background-size: contain;\n">\n  <a href="#" class="popup-close">close</a>\n</div>\n';
+}
+return __p;
+};
+
+this["JST"]["app/zeega-parser/plugins/layers/popup/popup.html"] = function(obj){
+var __p='';var print=function(){__p+=Array.prototype.join.call(arguments, '')};
+with(obj||{}){
+__p+='<a\n  href="#"\n  class="ZEEGA-popup-click-target"\n  ';
+ if ( attr.popup_target ) { 
+;__p+='\n  style="\n    background: url('+
+( attr.popup_target.uri )+
+') no-repeat center center;\n    -webkit-background-size: cover;\n    -moz-background-size: cover;\n    -o-background-size: cover;\n    background-size: cover;\n  "\n  ';
+ } 
+;__p+='\n  data-caption="';
+ if ( attr.popup_content ) { 
+;__p+=''+
+( attr.popup_content.title )+
+'';
+ } 
+;__p+='"\n  >\n  ';
+ if ( attr.popup_content ) { 
+;__p+='<span class="popup-title" style=\'display:none\'>'+
+( attr.popup_content.title )+
+'</span>';
+ } 
+;__p+='\n</a>';
+}
+return __p;
+};
+
+this["JST"]["app/zeega-parser/plugins/layers/rectangle/rectangle.html"] = function(obj){
+var __p='';var print=function(){__p+=Array.prototype.join.call(arguments, '')};
+with(obj||{}){
+__p+='<div class="visual-target"></div>\n<div class="controls-inline"></div>';
+}
+return __p;
+};
+
+this["JST"]["app/zeega-parser/plugins/layers/audio/audio.html"] = function(obj){
+var __p='';var print=function(){__p+=Array.prototype.join.call(arguments, '')};
+with(obj||{}){
+__p+='<audio id="audio-el-'+
+( id )+
+'" src="'+
+( attr.uri )+
+'"\n    ';
+ if ( attr.loop ) { 
+;__p+='\n        loop\n    ';
+ } 
+;__p+='\n    preload\n></audio>';
 }
 return __p;
 };
@@ -104327,6 +104327,7 @@ function( app, ItemView ) {
         },
 
         afterRender: function() {
+            this.listenTo(this.model, 'destroy', this.remove);
             this.$el.draggable({
                 revert: "invalid",
                 cursorAt: {
@@ -104369,6 +104370,12 @@ function( app, ItemView ) {
         
         view: null,
 
+        url: function(){
+            var url = app.api + "items/" + this.id;
+
+            return url;
+        },
+        
         initialize: function() {
             this.view = new ItemView({ model: this });
         }
@@ -104629,7 +104636,8 @@ function( app, Modal, FrameView, ImageView, AudioView ) {
             "click .modal-close": "close",
             "click .prev": "prev",
             "click .next": "next",
-            "click .add-to-frame": "addToFrame"
+            "click .add-to-frame": "addToFrame",
+            "click .delete-item": "deleteItem"
         },
 
         keyup: function( e ) {
@@ -104666,6 +104674,15 @@ function( app, Modal, FrameView, ImageView, AudioView ) {
                 this.remove();
                 this.$el.attr("style", "");
             }.bind( this ));
+        },
+
+        deleteItem: function(){
+            this.currentItem.destroy();
+            if ( this.collection.length > this.index + 1 ) {
+                this.next();
+            } else {
+                this.prev();
+            }
         }
 
     });

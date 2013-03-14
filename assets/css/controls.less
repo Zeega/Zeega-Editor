@@ -1,48 +1,40 @@
-.control-av {
-  width: 429px;
+.ui-resizable-handle.ui-resizable-se {
+  display: inline-block;
+  width: 14px;
+  height: 14px;
+  line-height: 14px;
+  vertical-align: text-top;
+  background-image: url("../img/glyphicons-halflings.png");
+  background-position: 14px 14px;
+  background-repeat: no-repeat;
+  margin-top: 1px;
+  background-position: -360px -96px;
+  background-color: orange;
+  right: -2px;
+  bottom: -2px;
+  -webkit-transform: rotate(90deg);
 }
-.control-av .playpause {
-  float: left;
-  margin-right: 10px;
+
+.control-opacity {
+  position: relative;
+  width: 26px;
 }
-.control-av .av-slider {
-  float: left;
-  width: 400px;
-  height: 2px;
-  background: rgba(255, 255, 255, 0.5);
-  top: 6px;
+.control-opacity .hover-icon .id-icon {
+  margin: 0 auto;
+  display: block;
 }
-.control-av .av-slider .handle-playhead {
-  z-index: 3;
-  border-radius: 12px;
-  width: 12px;
-  height: 12px;
-  top: -6px;
-  border: 2px solid white;
+.control-opacity .hover-icon .hidden-controls {
+  display: none;
 }
-.control-av .av-slider .handle-cueIn {
-  z-index: 2;
-  width: 0;
-  height: 0;
-  border-left: 7px solid transparent;
-  border-right: 7px solid limegreen;
-  border-bottom: 7px solid limegreen;
-  border-top: 7px solid transparent;
-  background: transparent;
-  outline: none;
-  margin-left: -12px;
+.control-opacity .hover-icon:hover .hidden-controls {
+  display: block;
 }
-.control-av .av-slider .handle-cueOut {
-  z-index: 2;
-  width: 0;
-  height: 0;
-  border-left: 7px solid orangered;
-  border-right: 7px solid transparent;
-  border-bottom: 7px solid orangered;
-  border-top: 7px solid transparent;
-  background: transparent;
-  outline: none;
-  margin: 0;
+.control-opacity input {
+  margin: 0 auto;
+  display: block;
+  border: none;
+  padding: 2px;
+  text-align: center;
 }
 
 /*
@@ -121,6 +113,40 @@
   -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=100)";
   filter: alpha(opacity=100);
   opacity: 1;
+}
+
+.control-slider {
+  position: relative;
+  width: 26px;
+}
+.control-slider .hover-icon .id-icon {
+  margin: 0 auto;
+  display: block;
+}
+.control-slider .hover-icon .hidden-controls {
+  display: none;
+}
+.control-slider .hover-icon:hover .hidden-controls {
+  display: block;
+}
+.control-slider input {
+  margin: 0 auto;
+  display: block;
+  border: none;
+  padding: 2px;
+  text-align: center;
+}
+
+.control-to_frame .control-frame-thumb {
+  height: 20px;
+  width: 27px;
+  position: relative;
+  margin: 0 auto;
+}
+.control-to_frame .control-frame-thumb a {
+  display: block;
+  height: 100%;
+  width: 100%;
 }
 
 .control-color .color-selector {
@@ -234,77 +260,51 @@
     font-weight:bold;
 }​
 */
-.control-to_frame .control-frame-thumb {
-  height: 20px;
-  width: 27px;
-  position: relative;
-  margin: 0 auto;
+.control-av {
+  width: 429px;
 }
-.control-to_frame .control-frame-thumb a {
-  display: block;
-  height: 100%;
-  width: 100%;
+.control-av .playpause {
+  float: left;
+  margin-right: 10px;
 }
-
-.control-opacity {
-  position: relative;
-  width: 26px;
+.control-av .av-slider {
+  float: left;
+  width: 400px;
+  height: 2px;
+  background: rgba(255, 255, 255, 0.5);
+  top: 6px;
 }
-.control-opacity .hover-icon .id-icon {
-  margin: 0 auto;
-  display: block;
+.control-av .av-slider .handle-playhead {
+  z-index: 3;
+  border-radius: 12px;
+  width: 12px;
+  height: 12px;
+  top: -6px;
+  border: 2px solid white;
 }
-.control-opacity .hover-icon .hidden-controls {
-  display: none;
+.control-av .av-slider .handle-cueIn {
+  z-index: 2;
+  width: 0;
+  height: 0;
+  border-left: 7px solid transparent;
+  border-right: 7px solid limegreen;
+  border-bottom: 7px solid limegreen;
+  border-top: 7px solid transparent;
+  background: transparent;
+  outline: none;
+  margin-left: -12px;
 }
-.control-opacity .hover-icon:hover .hidden-controls {
-  display: block;
-}
-.control-opacity input {
-  margin: 0 auto;
-  display: block;
-  border: none;
-  padding: 2px;
-  text-align: center;
-}
-
-.ui-resizable-handle.ui-resizable-se {
-  display: inline-block;
-  width: 14px;
-  height: 14px;
-  line-height: 14px;
-  vertical-align: text-top;
-  background-image: url("../img/glyphicons-halflings.png");
-  background-position: 14px 14px;
-  background-repeat: no-repeat;
-  margin-top: 1px;
-  background-position: -360px -96px;
-  background-color: orange;
-  right: -2px;
-  bottom: -2px;
-  -webkit-transform: rotate(90deg);
-}
-
-.control-slider {
-  position: relative;
-  width: 26px;
-}
-.control-slider .hover-icon .id-icon {
-  margin: 0 auto;
-  display: block;
-}
-.control-slider .hover-icon .hidden-controls {
-  display: none;
-}
-.control-slider .hover-icon:hover .hidden-controls {
-  display: block;
-}
-.control-slider input {
-  margin: 0 auto;
-  display: block;
-  border: none;
-  padding: 2px;
-  text-align: center;
+.control-av .av-slider .handle-cueOut {
+  z-index: 2;
+  width: 0;
+  height: 0;
+  border-left: 7px solid orangered;
+  border-right: 7px solid transparent;
+  border-bottom: 7px solid orangered;
+  border-top: 7px solid transparent;
+  background: transparent;
+  outline: none;
+  margin: 0;
 }
 
 .control-textbar .textbar-btn {

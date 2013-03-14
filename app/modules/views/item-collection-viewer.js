@@ -70,7 +70,8 @@ function( app, Modal, FrameView, ImageView, AudioView ) {
             "click .modal-close": "close",
             "click .prev": "prev",
             "click .next": "next",
-            "click .add-to-frame": "addToFrame"
+            "click .add-to-frame": "addToFrame",
+            "click .delete-item": "deleteItem"
         },
 
         keyup: function( e ) {
@@ -107,6 +108,15 @@ function( app, Modal, FrameView, ImageView, AudioView ) {
                 this.remove();
                 this.$el.attr("style", "");
             }.bind( this ));
+        },
+
+        deleteItem: function(){
+            this.currentItem.destroy();
+            if ( this.collection.length > this.index + 1 ) {
+                this.next();
+            } else {
+                this.prev();
+            }
         }
 
     });
