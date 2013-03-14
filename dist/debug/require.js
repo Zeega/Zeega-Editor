@@ -569,7 +569,7 @@ __p+='<div class="ZEEGA-project-cover" style="\n    background: url('+
 ( cover_image )+
 ') no-repeat center center;\n    -webkit-background-size: cover;\n    background-size: cover;\n">\n    <div class="project-meta-upper">\n        <div class="ZEEGA-project-title" contenteditable="true">'+
 ( title )+
-'</div>\n    </div>\n    <a href="#" class="preview"><i class="play-zcon"></i></a>\n    <div class="project-meta-lower">\n        <div class="ZEEGA-project-share">\n            <a href="#" class="project-share-toggle">share</a>:\n            <div class="hidden-drawer '+
+'</div>\n    </div>\n    <a href="#" class="preview">\n        <i class="play-zcon"></i>\n        <span class="preview-text">Preview</span>\n    </a>\n    <div class="project-meta-lower">\n        <div class="ZEEGA-project-share">\n            <a href="#" class="project-share-toggle">share</a>:\n            <div class="hidden-drawer '+
 ( drawerClass )+
 '">\n                <a href="https://twitter.com/intent/tweet?original_referer=http://www.zeega.com/'+
 ( item_id )+
