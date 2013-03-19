@@ -16,7 +16,8 @@ function( app, FrameView ) {
         afterRender: function() {
             this.renderSequenceFrames( this.model.status.get("currentSequence") );
             this.makeSortable();
-            this.model.status.get("currentSequence").frames.on("add remove", this.onFrameCollectionUpdate, this );
+            this.model.status.get("currentSequence").frames.on("add", this.onFrameAdd, this );
+            this.model.status.get("currentSequence").frames.on("remove", this.onFrameRemove, this );
         },
 
         makeSortable: function() {
@@ -39,7 +40,12 @@ function( app, FrameView ) {
             this.model.status.get("currentSequence").save("frames", _.compact( frameOrder ) );
         },
 
-        onFrameCollectionUpdate: function( frameModel, collection ) {
+        onFrameAdd: function( frameModel, collection ) {
+            this.model.status.setCurrentFrame( frameModel );
+            this.renderSequenceFrames( this.model.status.get("currentSequence") );
+        },
+
+        onFrameRemove: function( frameModel, collection ) {
             this.renderSequenceFrames( this.model.status.get("currentSequence") );
         },
 
@@ -69,7 +75,10 @@ function( app, FrameView ) {
         },
 
         addFrame: function() {
-            this.model.status.get("currentSequence").frames.addFrame();
+            
+            var frameIndex = 1 + this.model.status.get("currentSequence").frames.indexOf( this.model.status.get("currentFrame") );
+            this.model.status.get("currentSequence").frames.addFrame( frameIndex );
+
         }
         
     });
