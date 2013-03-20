@@ -389,7 +389,7 @@ this["JST"] = this["JST"] || {};
 this["JST"]["app/templates/frame-controls.html"] = function(obj){
 var __p='';var print=function(){__p+=Array.prototype.join.call(arguments, '')};
 with(obj||{}){
-__p+='<div class="section-header">Frame Advance</div>\n<div class="advance-controls">\n    <div class="adv-section advance-manual">\n        <a href="#">\n            <div>click</div>\n            <i class="icon-hand-up icon-white"></i>\n        </a>\n    </div>\n    <div class="adv-section advance-auto">\n        <a href="#">\n            <div>timed</div>\n            <i class="icon-time icon-white"></i>\n            <input type="text" placeholder="sec"/>\n        </a>\n    </div>\n</div>';
+__p+='<div class="section-header">Transition</div>\n<div class="advance-controls">\n    <div class="adv-section advance-manual">\n        <a href="#">\n            <div>click</div>\n            <i class="icon-hand-up icon-white"></i>\n        </a>\n    </div>\n    <div class="adv-section advance-auto">\n        <a href="#">\n            <div>timed</div>\n            <i class="icon-time icon-white"></i>\n            <input type="text" placeholder="sec"/>\n        </a>\n    </div>\n</div>';
 }
 return __p;
 };
@@ -431,9 +431,9 @@ var __p='';var print=function(){__p+=Array.prototype.join.call(arguments, '')};
 with(obj||{}){
 __p+='<div class="viewer-preview" style="">\n    <audio class="preview-audio" src="'+
 ( uri )+
-'" controls="true" /></audio>\n</div>\n<div class="viewer-controls">\n    <a href="'+
+'" controls="true" /></audio>\n</div>\n<div class="viewer-controls">\n    <a class="add-to-frame" href="#"><i class="icon-download"></i> add to frame</a>\n    <a href="'+
 ( attribution_uri )+
-'" target="blank"><i class="icon-share-alt"></i> view original</a>\n    <a class="add-to-frame" href="#"><i class="icon-download"></i> add to page</a>\n</div>';
+'" target="blank"><i class="icon-share-alt"></i> view original</a>\n    <a class="delete-item" href="#"><i class="icon-remove"></i> delete</a>\n</div>';
 }
 return __p;
 };
@@ -443,9 +443,9 @@ var __p='';var print=function(){__p+=Array.prototype.join.call(arguments, '')};
 with(obj||{}){
 __p+='<div class="viewer-preview" style="\n    background: url('+
 ( uri )+
-');\n    background-size: contain;\n    background-position: 50% 50%;\n    background-repeat: no-repeat;\n"></div>\n<div class="viewer-controls">\n    <a href="'+
+');\n    background-size: contain;\n    background-position: 50% 50%;\n    background-repeat: no-repeat;\n"></div>\n<div class="viewer-controls">\n    <a class="add-to-frame" href="#"><i class="icon-download"></i> add to frame</a>\n    <a href="'+
 ( attribution_uri )+
-'" target="blank"><i class="icon-share-alt"></i> view original</a>\n    <a class="add-to-frame" href="#"><i class="icon-download"></i> add to page</a>\n</div>';
+'" target="blank"><i class="icon-share-alt"></i> view original</a>\n    <a class="delete-item" href="#"><i class="icon-remove"></i> delete</a>\n</div>';
 }
 return __p;
 };
@@ -497,7 +497,7 @@ __p+='<div class="layer-marker">\n    <div class="layer-list-top">\n        <spa
 ( attr.title )+
 '</span>\n    </div>\n    <div class="layer-list-bottom clearfix">\n        <a href="#" class="action-bg pull-left"><i class="zicon-'+
 ( type.toLowerCase() )+
-' zicon-white"></i></a>\n        <a href="#" class="action-bg pull-left continued"><i data-action="continueToNextFrame" class="action icon-chevron-right icon-white"></i></a>\n        <a href="#" class="action-bg pull-left persists"><i data-action="continueToChapter" class="action icon-forward icon-white"></i></a>\n        <a href="#" class="action-bg pull-right"><i data-action="deleteLayer" class="action icon-trash icon-white"></i></a>\n    </div>\n</div>';
+' zicon-white"></i></a>\n        <a href="#" class="action-bg pull-right"><i data-action="deleteLayer" class="action icon-trash icon-white"></i></a>\n    </div>\n</div>';
 }
 return __p;
 };
@@ -583,7 +583,7 @@ __p+='<div class="ZEEGA-project-cover" style="\n    background: url('+
 ( cover_image )+
 ') no-repeat center center;\n    -webkit-background-size: cover;\n    background-size: cover;\n">\n    <div class="project-meta-upper">\n        <div class="ZEEGA-project-title" contenteditable="true">'+
 ( title )+
-'</div>\n    </div>\n    <a href="#" class="preview"><i class="play-zcon"></i></a>\n    <div class="project-meta-lower">\n        <div class="ZEEGA-project-share">\n            <a href="#" class="project-share-toggle">share</a>:\n            <div class="hidden-drawer '+
+'</div>\n    </div>\n    <a href="#" class="preview">\n        <i class="play-zcon"></i>\n        <span class="preview-text">Preview</span>\n    </a>\n    <div class="project-meta-lower">\n        <div class="ZEEGA-project-share">\n            <a href="#" class="project-share-toggle">share</a>:\n            <div class="hidden-drawer '+
 ( drawerClass )+
 '">\n                <a href="https://twitter.com/intent/tweet?original_referer=http://www.zeega.com/'+
 ( item_id )+
@@ -68426,7 +68426,8 @@ function( app, FrameView ) {
         afterRender: function() {
             this.renderSequenceFrames( this.model.status.get("currentSequence") );
             this.makeSortable();
-            this.model.status.get("currentSequence").frames.on("add remove", this.onFrameCollectionUpdate, this );
+            this.model.status.get("currentSequence").frames.on("add", this.onFrameAdd, this );
+            this.model.status.get("currentSequence").frames.on("remove", this.onFrameRemove, this );
         },
 
         makeSortable: function() {
@@ -68449,7 +68450,12 @@ function( app, FrameView ) {
             this.model.status.get("currentSequence").save("frames", _.compact( frameOrder ) );
         },
 
-        onFrameCollectionUpdate: function( frameModel, collection ) {
+        onFrameAdd: function( frameModel, collection ) {
+            this.model.status.setCurrentFrame( frameModel );
+            this.renderSequenceFrames( this.model.status.get("currentSequence") );
+        },
+
+        onFrameRemove: function( frameModel, collection ) {
             this.renderSequenceFrames( this.model.status.get("currentSequence") );
         },
 
@@ -68479,7 +68485,10 @@ function( app, FrameView ) {
         },
 
         addFrame: function() {
-            this.model.status.get("currentSequence").frames.addFrame();
+            
+            var frameIndex = 1 + this.model.status.get("currentSequence").frames.indexOf( this.model.status.get("currentFrame") );
+            this.model.status.get("currentSequence").frames.addFrame( frameIndex );
+
         }
         
     });
@@ -104331,6 +104340,7 @@ function( app, ItemView ) {
         },
 
         afterRender: function() {
+            this.listenTo(this.model, 'destroy', this.remove);
             this.$el.draggable({
                 revert: "invalid",
                 cursorAt: {
@@ -104373,6 +104383,12 @@ function( app, ItemView ) {
         
         view: null,
 
+        url: function(){
+            var url = app.api + "items/" + this.id;
+
+            return url;
+        },
+        
         initialize: function() {
             this.view = new ItemView({ model: this });
         }
@@ -104633,7 +104649,8 @@ function( app, Modal, FrameView, ImageView, AudioView ) {
             "click .modal-close": "close",
             "click .prev": "prev",
             "click .next": "next",
-            "click .add-to-frame": "addToFrame"
+            "click .add-to-frame": "addToFrame",
+            "click .delete-item": "deleteItem"
         },
 
         keyup: function( e ) {
@@ -104670,6 +104687,15 @@ function( app, Modal, FrameView, ImageView, AudioView ) {
                 this.remove();
                 this.$el.attr("style", "");
             }.bind( this ));
+        },
+
+        deleteItem: function(){
+            this.currentItem.destroy();
+            if ( this.collection.length > this.index + 1 ) {
+                this.next();
+            } else {
+                this.prev();
+            }
         }
 
     });

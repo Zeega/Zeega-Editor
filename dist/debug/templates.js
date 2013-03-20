@@ -3,7 +3,7 @@ this["JST"] = this["JST"] || {};
 this["JST"]["app/templates/frame-controls.html"] = function(obj){
 var __p='';var print=function(){__p+=Array.prototype.join.call(arguments, '')};
 with(obj||{}){
-__p+='<div class="section-header">Frame Advance</div>\n<div class="advance-controls">\n    <div class="adv-section advance-manual">\n        <a href="#">\n            <div>click</div>\n            <i class="icon-hand-up icon-white"></i>\n        </a>\n    </div>\n    <div class="adv-section advance-auto">\n        <a href="#">\n            <div>timed</div>\n            <i class="icon-time icon-white"></i>\n            <input type="text" placeholder="sec"/>\n        </a>\n    </div>\n</div>';
+__p+='<div class="section-header">Transition</div>\n<div class="advance-controls">\n    <div class="adv-section advance-manual">\n        <a href="#">\n            <div>click</div>\n            <i class="icon-hand-up icon-white"></i>\n        </a>\n    </div>\n    <div class="adv-section advance-auto">\n        <a href="#">\n            <div>timed</div>\n            <i class="icon-time icon-white"></i>\n            <input type="text" placeholder="sec"/>\n        </a>\n    </div>\n</div>';
 }
 return __p;
 };
@@ -45,9 +45,9 @@ var __p='';var print=function(){__p+=Array.prototype.join.call(arguments, '')};
 with(obj||{}){
 __p+='<div class="viewer-preview" style="">\n    <audio class="preview-audio" src="'+
 ( uri )+
-'" controls="true" /></audio>\n</div>\n<div class="viewer-controls">\n    <a href="'+
+'" controls="true" /></audio>\n</div>\n<div class="viewer-controls">\n    <a class="add-to-frame" href="#"><i class="icon-download"></i> add to frame</a>\n    <a href="'+
 ( attribution_uri )+
-'" target="blank"><i class="icon-share-alt"></i> view original</a>\n    <a class="add-to-frame" href="#"><i class="icon-download"></i> add to page</a>\n</div>';
+'" target="blank"><i class="icon-share-alt"></i> view original</a>\n    <a class="delete-item" href="#"><i class="icon-remove"></i> delete</a>\n</div>';
 }
 return __p;
 };
@@ -57,9 +57,9 @@ var __p='';var print=function(){__p+=Array.prototype.join.call(arguments, '')};
 with(obj||{}){
 __p+='<div class="viewer-preview" style="\n    background: url('+
 ( uri )+
-');\n    background-size: contain;\n    background-position: 50% 50%;\n    background-repeat: no-repeat;\n"></div>\n<div class="viewer-controls">\n    <a href="'+
+');\n    background-size: contain;\n    background-position: 50% 50%;\n    background-repeat: no-repeat;\n"></div>\n<div class="viewer-controls">\n    <a class="add-to-frame" href="#"><i class="icon-download"></i> add to frame</a>\n    <a href="'+
 ( attribution_uri )+
-'" target="blank"><i class="icon-share-alt"></i> view original</a>\n    <a class="add-to-frame" href="#"><i class="icon-download"></i> add to page</a>\n</div>';
+'" target="blank"><i class="icon-share-alt"></i> view original</a>\n    <a class="delete-item" href="#"><i class="icon-remove"></i> delete</a>\n</div>';
 }
 return __p;
 };
@@ -111,7 +111,7 @@ __p+='<div class="layer-marker">\n    <div class="layer-list-top">\n        <spa
 ( attr.title )+
 '</span>\n    </div>\n    <div class="layer-list-bottom clearfix">\n        <a href="#" class="action-bg pull-left"><i class="zicon-'+
 ( type.toLowerCase() )+
-' zicon-white"></i></a>\n        <a href="#" class="action-bg pull-left continued"><i data-action="continueToNextFrame" class="action icon-chevron-right icon-white"></i></a>\n        <a href="#" class="action-bg pull-left persists"><i data-action="continueToChapter" class="action icon-forward icon-white"></i></a>\n        <a href="#" class="action-bg pull-right"><i data-action="deleteLayer" class="action icon-trash icon-white"></i></a>\n    </div>\n</div>';
+' zicon-white"></i></a>\n        <a href="#" class="action-bg pull-right"><i data-action="deleteLayer" class="action icon-trash icon-white"></i></a>\n    </div>\n</div>';
 }
 return __p;
 };
@@ -197,7 +197,7 @@ __p+='<div class="ZEEGA-project-cover" style="\n    background: url('+
 ( cover_image )+
 ') no-repeat center center;\n    -webkit-background-size: cover;\n    background-size: cover;\n">\n    <div class="project-meta-upper">\n        <div class="ZEEGA-project-title" contenteditable="true">'+
 ( title )+
-'</div>\n    </div>\n    <a href="#" class="preview"><i class="play-zcon"></i></a>\n    <div class="project-meta-lower">\n        <div class="ZEEGA-project-share">\n            <a href="#" class="project-share-toggle">share</a>:\n            <div class="hidden-drawer '+
+'</div>\n    </div>\n    <a href="#" class="preview">\n        <i class="play-zcon"></i>\n        <span class="preview-text">Preview</span>\n    </a>\n    <div class="project-meta-lower">\n        <div class="ZEEGA-project-share">\n            <a href="#" class="project-share-toggle">share</a>:\n            <div class="hidden-drawer '+
 ( drawerClass )+
 '">\n                <a href="https://twitter.com/intent/tweet?original_referer=http://www.zeega.com/'+
 ( item_id )+
