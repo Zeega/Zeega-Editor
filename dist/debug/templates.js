@@ -47,7 +47,7 @@ __p+='<div class="viewer-preview" style="">\n    <audio class="preview-audio" sr
 ( uri )+
 '" controls="true" /></audio>\n</div>\n<div class="viewer-controls">\n    <a href="'+
 ( attribution_uri )+
-'" target="blank"><i class="icon-share-alt"></i> view original</a>\n    <a class="add-to-frame" href="#"><i class="icon-download"></i> add to frame</a>\n</div>';
+'" target="blank"><i class="icon-share-alt"></i> view original</a>\n    <a class="add-to-frame" href="#"><i class="icon-download"></i> add to page</a>\n</div>';
 }
 return __p;
 };
@@ -59,7 +59,7 @@ __p+='<div class="viewer-preview" style="\n    background: url('+
 ( uri )+
 ');\n    background-size: contain;\n    background-position: 50% 50%;\n    background-repeat: no-repeat;\n"></div>\n<div class="viewer-controls">\n    <a href="'+
 ( attribution_uri )+
-'" target="blank"><i class="icon-share-alt"></i> view original</a>\n    <a class="add-to-frame" href="#"><i class="icon-download"></i> add to frame</a>\n</div>';
+'" target="blank"><i class="icon-share-alt"></i> view original</a>\n    <a class="add-to-frame" href="#"><i class="icon-download"></i> add to page</a>\n</div>';
 }
 return __p;
 };
