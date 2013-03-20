@@ -39,11 +39,15 @@ function( app ) {
         setCurrentLayer: function( layerModel ) {
             var previousLayer = this.get("currentLayer");
 
-            if ( previousLayer ) {
+            if ( previousLayer && previousLayer.id != layerModel.id ) {
                 previousLayer.trigger("blur");
+                this.set("currentLayer", layerModel );
+                layerModel.trigger("focus");
+            } else if ( !previousLayer ) {
+                this.set("currentLayer", layerModel );
+                layerModel.trigger("focus");
             }
-            this.set("currentLayer", layerModel );
-            layerModel.trigger("focus");
+            
         },
 
         onCurrentRemove: function( model, collection, options ) {
