@@ -21,6 +21,8 @@ function( app, ItemView ) {
             this.listenTo(this.model, 'destroy', this.remove);
             this.$el.draggable({
                 revert: "invalid",
+                appendTo: $("body"),
+                zIndex: 10000,
                 cursorAt: {
                     left: 0,
                     top: 0
