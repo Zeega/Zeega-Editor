@@ -16,7 +16,8 @@ require.config({
 
     zeegaplayer: "../vendor/zeegaplayer/dist/debug/zeega",
 
-    colorpicker: "../vendor/colorpicker/js/colorpicker",
+//    colorpicker: "../vendor/colorpicker/js/colorpicker",
+    simpleColorPicker: "../vendor/simple-color-picker/jquery.simple-color",
     ddslick: "../assets/js/plugins/jquery.ddslick",
     mousetrap: "../vendor/mousetrap/mousetrap"
 
@@ -24,8 +25,9 @@ require.config({
 
   shim: {
     jqueryUI: ["jquery"],
-    colorpicker: ["jquery"],
+//    colorpicker: ["jquery"],
     ddslick: ["jquery"],
+    simpleColorPicker: ["jquery"],
 
     mousetrap: {
         exports: 'Mousetrap'
