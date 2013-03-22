@@ -7,3 +7,6 @@
 [submodule "vendor/zeegaplayer"]
 	path = vendor/zeegaplayer
 	url = git@github.com:Zeega/Zeega-Player.git
+[submodule "vendor/mousetrap"]
+	path = vendor/mousetrap
+	url = https://github.com/ccampbell/mousetrap.git

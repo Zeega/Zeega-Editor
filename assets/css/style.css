@@ -6899,6 +6899,10 @@ a:active {
   padding: 10px;
   margin-bottom: 2px;
   cursor: move;
+  border-left: 5px solid black;
+}
+.layers .ZEEGA-layer-list.copied {
+  border-left: 5px solid limegreen;
 }
 .layers .ZEEGA-layer-list.active {
   background: orangered;

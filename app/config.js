@@ -17,14 +17,19 @@ require.config({
     zeegaplayer: "../vendor/zeegaplayer/dist/debug/zeega",
 
     colorpicker: "../vendor/colorpicker/js/colorpicker",
-    ddslick: "../assets/js/plugins/jquery.ddslick"
+    ddslick: "../assets/js/plugins/jquery.ddslick",
+    mousetrap: "../vendor/mousetrap/mousetrap"
 
   },
 
   shim: {
     jqueryUI: ["jquery"],
     colorpicker: ["jquery"],
-    ddslick: ["jquery"]
+    ddslick: ["jquery"],
+
+    mousetrap: {
+        exports: 'Mousetrap'
+    },
   }
 
 });

@@ -14,6 +14,7 @@ define([
 
     "modules/views/media-drawer",
     // "modules/search.model",
+    "mousetrap",
 
     "backbone"
 ],
@@ -29,6 +30,7 @@ function( app, Navbar, ProjectMeta, Sequences, Frames, FrameControls, Workspace,
         initialize: function() {
             app.on("rendered", this.lazyResize, this );
             $( window ).resize( this.lazyResize );
+            this.listenForKeys();
         },
 
         beforeRender: function() {
@@ -77,6 +79,32 @@ function( app, Navbar, ProjectMeta, Sequences, Frames, FrameControls, Workspace,
                 el: this.$(".media-drawer")
             }).render();
 
+        },
+
+        listenForKeys: function() {
+            Mousetrap.bind(['command+c', 'ctrl+c'], this.copyLayer );
+            Mousetrap.bind(['command+v', 'ctrl+v'], this.pasteLayer );
+        },
+
+        copyLayer: function() {
+            var layerToCopy = app.status.get("currentLayer");
+
+            if ( layerToCopy ) {
+                app.status.copyLayer( layerToCopy );
+
+                return false;
+            }
+        },
+
+        pasteLayer: function() {
+            var layerToPaste = app.status.get("copiedLayer");
+
+            if ( layerToPaste ) {
+//                console.log("Paste", layerToPaste, app.status.get("currentFrame") );
+                app.status.get("currentFrame").pasteLayer( layerToPaste );
+
+                return false;
+            }
         },
 
         lazyResize: _.debounce(function() {

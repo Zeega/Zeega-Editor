@@ -12,7 +12,8 @@ function( app ) {
             previousSequence: null,
             currentFrame: null,
             previousFrame: null,
-            currentLayer: null
+            currentLayer: null,
+            copiedLayer: null
         },
 
         setCurrentFrame: function( frameModel ) {
@@ -48,6 +49,16 @@ function( app ) {
                 layerModel.trigger("focus");
             }
             
+        },
+
+        copyLayer: function( layer ) {
+            if ( this.get("copiedLayer") ) {
+                this.get("copiedLayer").trigger("copy_blur");
+            }
+            this.set("copiedLayer", layer );
+            this.get("copiedLayer").trigger("copy_focus");
+
+            return _.extend({}, layer.toJSON(), { id: null });
         },
 
         onCurrentRemove: function( model, collection, options ) {
