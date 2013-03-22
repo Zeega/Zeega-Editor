@@ -293,9 +293,9 @@ var __p='';var print=function(){__p+=Array.prototype.join.call(arguments, '')};
 with(obj||{}){
 __p+='<div class="control-name">'+
 ( _title )+
-'</div>\n<div class="color-selector">\n    <div class="color-preview" style="background-color: '+
+'</div>\n<div class="color-selector">\n    <input class="simple_color" value="'+
 ( attr[ _propertyName ] )+
-'"></div>\n</div>';
+'"/>\n</div>';
 }
 return __p;
 };

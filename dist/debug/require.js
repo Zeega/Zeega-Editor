@@ -679,9 +679,9 @@ var __p='';var print=function(){__p+=Array.prototype.join.call(arguments, '')};
 with(obj||{}){
 __p+='<div class="control-name">'+
 ( _title )+
-'</div>\n<div class="color-selector">\n    <div class="color-preview" style="background-color: '+
+'</div>\n<div class="color-selector">\n    <input class="simple_color" value="'+
 ( attr[ _propertyName ] )+
-'"></div>\n</div>';
+'"/>\n</div>';
 }
 return __p;
 };
@@ -85547,496 +85547,272 @@ function( Zeega, ControlView ) {
 
 });
 
-/**
+/*
+ * jQuery simple-color plugin
+ * @requires jQuery v1.4.2 or later
  *
- * Color picker
- * Author: Stefan Petre www.eyecon.ro
- * 
- * Dual licensed under the MIT and GPL licenses
- * 
+ * See http://recursive-design.com/projects/jquery-simple-color/
+ *
+ * Licensed under the MIT license:
+ *   http://www.opensource.org/licenses/mit-license.php
+ *
+ * Version: 1.0.1 (201210141130)
  */
-(function ($) {
-	var ColorPicker = function () {
-		var
-			ids = {},
-			inAction,
-			charMin = 65,
-			visible,
-			tpl = '<div class="colorpicker"><div class="colorpicker_color"><div><div></div></div></div><div class="colorpicker_hue"><div></div></div><div class="colorpicker_new_color"></div><div class="colorpicker_current_color"></div><div class="colorpicker_hex"><input type="text" maxlength="6" size="6" /></div><div class="colorpicker_rgb_r colorpicker_field"><input type="text" maxlength="3" size="3" /><span></span></div><div class="colorpicker_rgb_g colorpicker_field"><input type="text" maxlength="3" size="3" /><span></span></div><div class="colorpicker_rgb_b colorpicker_field"><input type="text" maxlength="3" size="3" /><span></span></div><div class="colorpicker_hsb_h colorpicker_field"><input type="text" maxlength="3" size="3" /><span></span></div><div class="colorpicker_hsb_s colorpicker_field"><input type="text" maxlength="3" size="3" /><span></span></div><div class="colorpicker_hsb_b colorpicker_field"><input type="text" maxlength="3" size="3" /><span></span></div><div class="colorpicker_submit"></div></div>',
-			defaults = {
-				eventName: 'click',
-				onShow: function () {},
-				onBeforeShow: function(){},
-				onHide: function () {},
-				onChange: function () {},
-				onSubmit: function () {},
-				color: 'ff0000',
-				livePreview: true,
-				flat: false
-			},
-			fillRGBFields = function  (hsb, cal) {
-				var rgb = HSBToRGB(hsb);
-				$(cal).data('colorpicker').fields
-					.eq(1).val(rgb.r).end()
-					.eq(2).val(rgb.g).end()
-					.eq(3).val(rgb.b).end();
-			},
-			fillHSBFields = function  (hsb, cal) {
-				$(cal).data('colorpicker').fields
-					.eq(4).val(hsb.h).end()
-					.eq(5).val(hsb.s).end()
-					.eq(6).val(hsb.b).end();
-			},
-			fillHexFields = function (hsb, cal) {
-				$(cal).data('colorpicker').fields
-					.eq(0).val(HSBToHex(hsb)).end();
-			},
-			setSelector = function (hsb, cal) {
-				$(cal).data('colorpicker').selector.css('backgroundColor', '#' + HSBToHex({h: hsb.h, s: 100, b: 100}));
-				$(cal).data('colorpicker').selectorIndic.css({
-					left: parseInt(150 * hsb.s/100, 10),
-					top: parseInt(150 * (100-hsb.b)/100, 10)
-				});
-			},
-			setHue = function (hsb, cal) {
-				$(cal).data('colorpicker').hue.css('top', parseInt(150 - 150 * hsb.h/360, 10));
-			},
-			setCurrentColor = function (hsb, cal) {
-				$(cal).data('colorpicker').currentColor.css('backgroundColor', '#' + HSBToHex(hsb));
-			},
-			setNewColor = function (hsb, cal) {
-				$(cal).data('colorpicker').newColor.css('backgroundColor', '#' + HSBToHex(hsb));
-			},
-			keyDown = function (ev) {
-				var pressedKey = ev.charCode || ev.keyCode || -1;
-				if ((pressedKey > charMin && pressedKey <= 90) || pressedKey == 32) {
-					return false;
-				}
-				var cal = $(this).parent().parent();
-				if (cal.data('colorpicker').livePreview === true) {
-					change.apply(this);
-				}
-			},
-			change = function (ev) {
-				var cal = $(this).parent().parent(), col;
-				if (this.parentNode.className.indexOf('_hex') > 0) {
-					cal.data('colorpicker').color = col = HexToHSB(fixHex(this.value));
-				} else if (this.parentNode.className.indexOf('_hsb') > 0) {
-					cal.data('colorpicker').color = col = fixHSB({
-						h: parseInt(cal.data('colorpicker').fields.eq(4).val(), 10),
-						s: parseInt(cal.data('colorpicker').fields.eq(5).val(), 10),
-						b: parseInt(cal.data('colorpicker').fields.eq(6).val(), 10)
+ (function($) {
+/**
+ * simpleColor() provides a mechanism for displaying simple color-pickers.
+ *
+ * If an options Object is provided, the following attributes are supported:
+ *
+ *  defaultColor:       Default (initially selected) color.
+ *                      Default value: '#FFF'
+ *
+ *  border:             CSS border properties.
+ *                      Default value: '1px solid #000'
+ *
+ *  cellWidth:          Width of each individual color cell.
+ *                      Default value: 10
+ *
+ *  cellHeight:         Height of each individual color cell.
+ *                      Default value: 10
+ *
+ *  cellMargin:         Margin of each individual color cell.
+ *                      Default value: 1
+ *
+ *  boxWidth:           Width of the color display box.
+ *                      Default value: 115px
+ *
+ *  boxHeight:          Height of the color display box.
+ *                      Default value: 20px
+ *
+ *  columns:            Number of columns to display. Color order may look strange if this is altered.
+ *                      Default value: 16
+ *
+ *  insert:             The position to insert the color picker. 'before' or 'after'.
+ *                      Default value: 'after'
+ *
+ *  colors:             An array of colors to display, if you want to customize the default color set.
+ *                      Default value: default color set - see 'default_colors' below.
+ *
+ *  displayColorCode:   Display the color code (eg #333333) as text inside the button. true or false.
+ *                      Default value: false
+ *
+ *  colorCodeAlign:     Text alignment used to display the color code inside the button. Only used if 'displayColorCode' is true. 'left', 'center' or 'right'
+ *                      Default value: 'center'
+ *
+ *  colorCodeColor:     Text color of the color code inside the button. Only used if 'displayColorCode' is true.
+ *                      Default value: '#FFF'            
+ */
+  $.fn.simpleColor = function(options) {
+
+    var default_colors = [
+      '990033', 'ff3366', 'cc0033', 'ff0033', 'ff9999', 'cc3366', 'ffccff', 'cc6699',
+      '993366', '660033', 'cc3399', 'ff99cc', 'ff66cc', 'ff99ff', 'ff6699', 'cc0066',
+      'ff0066', 'ff3399', 'ff0099', 'ff33cc', 'ff00cc', 'ff66ff', 'ff33ff', 'ff00ff',
+      'cc0099', '990066', 'cc66cc', 'cc33cc', 'cc99ff', 'cc66ff', 'cc33ff', '993399',
+      'cc00cc', 'cc00ff', '9900cc', '990099', 'cc99cc', '996699', '663366', '660099',
+      '9933cc', '660066', '9900ff', '9933ff', '9966cc', '330033', '663399', '6633cc',
+      '6600cc', '9966ff', '330066', '6600ff', '6633ff', 'ccccff', '9999ff', '9999cc',
+      '6666cc', '6666ff', '666699', '333366', '333399', '330099', '3300cc', '3300ff',
+      '3333ff', '3333cc', '0066ff', '0033ff', '3366ff', '3366cc', '000066', '000033',
+      '0000ff', '000099', '0033cc', '0000cc', '336699', '0066cc', '99ccff', '6699ff',
+      '003366', '6699cc', '006699', '3399cc', '0099cc', '66ccff', '3399ff', '003399',
+      '0099ff', '33ccff', '00ccff', '99ffff', '66ffff', '33ffff', '00ffff', '00cccc',
+      '009999', '669999', '99cccc', 'ccffff', '33cccc', '66cccc', '339999', '336666',
+      '006666', '003333', '00ffcc', '33ffcc', '33cc99', '00cc99', '66ffcc', '99ffcc',
+      '00ff99', '339966', '006633', '336633', '669966', '66cc66', '99ff99', '66ff66',
+      '339933', '99cc99', '66ff99', '33ff99', '33cc66', '00cc66', '66cc99', '009966',
+      '009933', '33ff66', '00ff66', 'ccffcc', 'ccff99', '99ff66', '99ff33', '00ff33',
+      '33ff33', '00cc33', '33cc33', '66ff33', '00ff00', '66cc33', '006600', '003300',
+      '009900', '33ff00', '66ff00', '99ff00', '66cc00', '00cc00', '33cc00', '339900',
+      '99cc66', '669933', '99cc33', '336600', '669900', '99cc00', 'ccff66', 'ccff33',
+      'ccff00', '999900', 'cccc00', 'cccc33', '333300', '666600', '999933', 'cccc66',
+      '666633', '999966', 'cccc99', 'ffffcc', 'ffff99', 'ffff66', 'ffff33', 'ffff00',
+      'ffcc00', 'ffcc66', 'ffcc33', 'cc9933', '996600', 'cc9900', 'ff9900', 'cc6600',
+      '993300', 'cc6633', '663300', 'ff9966', 'ff6633', 'ff9933', 'ff6600', 'cc3300',
+      '996633', '330000', '663333', '996666', 'cc9999', '993333', 'cc6666', 'ffcccc',
+      'ff3333', 'cc3333', 'ff6666', '660000', '990000', 'cc0000', 'ff0000', 'ff3300',
+      'cc9966', 'ffcc99', 'ffffff', 'cccccc', '999999', '666666', '333333', '000000',
+      '000000', '000000', '000000', '000000', '000000', '000000', '000000', '000000'
+    ];
+
+    // Option defaults
+    options = $.extend({
+      defaultColor:   this.attr('defaultColor') || '#FFF',
+      border:       this.attr('border') || '1px solid #000',
+      cellWidth:    this.attr('cellWidth') || 10,
+      cellHeight:     this.attr('cellHeight') || 10,
+      cellMargin:     this.attr('cellMargin') || 1,
+      boxWidth:     this.attr('boxWidth') || '115px',
+      boxHeight:    this.attr('boxHeight') || '20px',
+      columns:      this.attr('columns') || 16,
+      insert:       this.attr('insert') || 'after',
+      buttonClass:    this.attr('buttonClass') || '',
+      colors:       this.attr('colors') || default_colors,
+      displayColorCode: this.attr('displayColorCode') || false,
+      colorCodeAlign:   this.attr('colorCodeAlign') || 'center',
+      colorCodeColor:   this.attr('colorCodeColor') || '#FFF'
+    }, options || {});
+
+    // Hide the input
+    this.hide();
+
+    // Figure out the cell dimensions
+    options.totalWidth = options.columns * (options.cellWidth + (2 * options.cellMargin));
+    if ($.browser.msie) {
+      options.totalWidth += 2;
+    }
+
+    options.totalHeight = Math.ceil(options.colors.length / options.columns) * (options.cellHeight + (2 * options.cellMargin));
+
+    // Store these options so they'll be available to the other functions
+    // TODO - must be a better way to do this, not sure what the 'official'
+    // jQuery method is. Ideally i want to pass these as a parameter to the 
+    // each() function but i'm not sure how
+    $.simpleColorOptions = options;
+
+    function buildSelector(index) {
+      options = $.simpleColorOptions;
+
+      // Create a container to hold everything
+      var container = $("<div class='simpleColorContainer' />");
+      
+      // Absolutely positioned child elements now 'work'.
+			container.css('position', 'relative');
+
+      // Create the color display box
+      var default_color = (this.value && this.value != '') ? this.value : options.defaultColor;
+
+      var display_box = $("<div class='simpleColorDisplay' />");
+      display_box.css({
+        'backgroundColor': default_color,
+      	'border':          options.border,
+				'width':           options.boxWidth,
+				'height':          options.boxHeight,
+				// Make sure that the code is vertically centered.
+				'line-height':     options.boxHeight,
+				'cursor':          'pointer'
+			});
+      container.append(display_box);
+      
+      // If 'displayColorCode' is turned on, display the currently selected color code as text inside the button.
+      if (options.displayColorCode) {
+        display_box.text(this.value);
+        display_box.css({
+          'color':     options.colorCodeColor,
+        	'textAlign': options.colorCodeAlign
+        });
+      }
+      
+      var select_callback = function (event) {
+
+        // Use an existing chooser if there is one
+        if (event.data.container.chooser) {
+          event.data.container.chooser.toggle();
+      
+        // Build the chooser.
+        } else {
+
+          // Make a chooser div to hold the cells
+          var chooser = $("<div class='simpleColorChooser'/>");
+          chooser.css({
+            'border':   options.border,
+			      'margin':   '0 0 0 5px',
+			      'width':    options.totalWidth,
+			      'height':   options.totalHeight,
+						'top':      0,
+						'left':     options.boxWidth,
+						'position': 'absolute'
 					});
-				} else {
-					cal.data('colorpicker').color = col = RGBToHSB(fixRGB({
-						r: parseInt(cal.data('colorpicker').fields.eq(1).val(), 10),
-						g: parseInt(cal.data('colorpicker').fields.eq(2).val(), 10),
-						b: parseInt(cal.data('colorpicker').fields.eq(3).val(), 10)
-					}));
-				}
-				if (ev) {
-					fillRGBFields(col, cal.get(0));
-					fillHexFields(col, cal.get(0));
-					fillHSBFields(col, cal.get(0));
-				}
-				setSelector(col, cal.get(0));
-				setHue(col, cal.get(0));
-				setNewColor(col, cal.get(0));
-				cal.data('colorpicker').onChange.apply(cal, [col, HSBToHex(col), HSBToRGB(col)]);
-			},
-			blur = function (ev) {
-				var cal = $(this).parent().parent();
-				cal.data('colorpicker').fields.parent().removeClass('colorpicker_focus');
-			},
-			focus = function () {
-				charMin = this.parentNode.className.indexOf('_hex') > 0 ? 70 : 65;
-				$(this).parent().parent().data('colorpicker').fields.parent().removeClass('colorpicker_focus');
-				$(this).parent().addClass('colorpicker_focus');
-			},
-			downIncrement = function (ev) {
-				var field = $(this).parent().find('input').focus();
-				var current = {
-					el: $(this).parent().addClass('colorpicker_slider'),
-					max: this.parentNode.className.indexOf('_hsb_h') > 0 ? 360 : (this.parentNode.className.indexOf('_hsb') > 0 ? 100 : 255),
-					y: ev.pageY,
-					field: field,
-					val: parseInt(field.val(), 10),
-					preview: $(this).parent().parent().data('colorpicker').livePreview					
-				};
-				$(document).bind('mouseup', current, upIncrement);
-				$(document).bind('mousemove', current, moveIncrement);
-			},
-			moveIncrement = function (ev) {
-				ev.data.field.val(Math.max(0, Math.min(ev.data.max, parseInt(ev.data.val + ev.pageY - ev.data.y, 10))));
-				if (ev.data.preview) {
-					change.apply(ev.data.field.get(0), [true]);
-				}
-				return false;
-			},
-			upIncrement = function (ev) {
-				change.apply(ev.data.field.get(0), [true]);
-				ev.data.el.removeClass('colorpicker_slider').find('input').focus();
-				$(document).unbind('mouseup', upIncrement);
-				$(document).unbind('mousemove', moveIncrement);
-				return false;
-			},
-			downHue = function (ev) {
-				var current = {
-					cal: $(this).parent(),
-					y: $(this).offset().top
-				};
-				current.preview = current.cal.data('colorpicker').livePreview;
-				$(document).bind('mouseup', current, upHue);
-				$(document).bind('mousemove', current, moveHue);
-			},
-			moveHue = function (ev) {
-				change.apply(
-					ev.data.cal.data('colorpicker')
-						.fields
-						.eq(4)
-						.val(parseInt(360*(150 - Math.max(0,Math.min(150,(ev.pageY - ev.data.y))))/150, 10))
-						.get(0),
-					[ev.data.preview]
-				);
-				return false;
-			},
-			upHue = function (ev) {
-				fillRGBFields(ev.data.cal.data('colorpicker').color, ev.data.cal.get(0));
-				fillHexFields(ev.data.cal.data('colorpicker').color, ev.data.cal.get(0));
-				$(document).unbind('mouseup', upHue);
-				$(document).unbind('mousemove', moveHue);
-				return false;
-			},
-			downSelector = function (ev) {
-				var current = {
-					cal: $(this).parent(),
-					pos: $(this).offset()
-				};
-				current.preview = current.cal.data('colorpicker').livePreview;
-				$(document).bind('mouseup', current, upSelector);
-				$(document).bind('mousemove', current, moveSelector);
-			},
-			moveSelector = function (ev) {
-				change.apply(
-					ev.data.cal.data('colorpicker')
-						.fields
-						.eq(6)
-						.val(parseInt(100*(150 - Math.max(0,Math.min(150,(ev.pageY - ev.data.pos.top))))/150, 10))
-						.end()
-						.eq(5)
-						.val(parseInt(100*(Math.max(0,Math.min(150,(ev.pageX - ev.data.pos.left))))/150, 10))
-						.get(0),
-					[ev.data.preview]
-				);
-				return false;
-			},
-			upSelector = function (ev) {
-				fillRGBFields(ev.data.cal.data('colorpicker').color, ev.data.cal.get(0));
-				fillHexFields(ev.data.cal.data('colorpicker').color, ev.data.cal.get(0));
-				$(document).unbind('mouseup', upSelector);
-				$(document).unbind('mousemove', moveSelector);
-				return false;
-			},
-			enterSubmit = function (ev) {
-				$(this).addClass('colorpicker_focus');
-			},
-			leaveSubmit = function (ev) {
-				$(this).removeClass('colorpicker_focus');
-			},
-			clickSubmit = function (ev) {
-				var cal = $(this).parent();
-				var col = cal.data('colorpicker').color;
-				cal.data('colorpicker').origColor = col;
-				setCurrentColor(col, cal.get(0));
-				cal.data('colorpicker').onSubmit(col, HSBToHex(col), HSBToRGB(col), cal.data('colorpicker').el);
-			},
-			show = function (ev) {
-				var cal = $('#' + $(this).data('colorpickerId'));
-				cal.data('colorpicker').onBeforeShow.apply(this, [cal.get(0)]);
-				var pos = $(this).offset();
-				var viewPort = getViewport();
-				var top = pos.top + this.offsetHeight;
-				var left = pos.left;
-				if (top + 176 > viewPort.t + viewPort.h) {
-					top -= this.offsetHeight + 176;
-				}
-				if (left + 356 > viewPort.l + viewPort.w) {
-					left -= 356;
-				}
-				cal.css({left: left + 'px', top: top + 'px'});
-				if (cal.data('colorpicker').onShow.apply(this, [cal.get(0)]) != false) {
-					cal.show();
-				}
-				$(document).bind('mousedown', {cal: cal}, hide);
-				return false;
-			},
-			hide = function (ev) {
-				if (!isChildOf(ev.data.cal.get(0), ev.target, ev.data.cal.get(0))) {
-					if (ev.data.cal.data('colorpicker').onHide.apply(this, [ev.data.cal.get(0)]) != false) {
-						ev.data.cal.hide();
-					}
-					$(document).unbind('mousedown', hide);
-				}
-			},
-			isChildOf = function(parentEl, el, container) {
-				if (parentEl == el) {
-					return true;
-				}
-				if (parentEl.contains) {
-					return parentEl.contains(el);
-				}
-				if ( parentEl.compareDocumentPosition ) {
-					return !!(parentEl.compareDocumentPosition(el) & 16);
-				}
-				var prEl = el.parentNode;
-				while(prEl && prEl != container) {
-					if (prEl == parentEl)
-						return true;
-					prEl = prEl.parentNode;
-				}
-				return false;
-			},
-			getViewport = function () {
-				var m = document.compatMode == 'CSS1Compat';
-				return {
-					l : window.pageXOffset || (m ? document.documentElement.scrollLeft : document.body.scrollLeft),
-					t : window.pageYOffset || (m ? document.documentElement.scrollTop : document.body.scrollTop),
-					w : window.innerWidth || (m ? document.documentElement.clientWidth : document.body.clientWidth),
-					h : window.innerHeight || (m ? document.documentElement.clientHeight : document.body.clientHeight)
-				};
-			},
-			fixHSB = function (hsb) {
-				return {
-					h: Math.min(360, Math.max(0, hsb.h)),
-					s: Math.min(100, Math.max(0, hsb.s)),
-					b: Math.min(100, Math.max(0, hsb.b))
-				};
-			}, 
-			fixRGB = function (rgb) {
-				return {
-					r: Math.min(255, Math.max(0, rgb.r)),
-					g: Math.min(255, Math.max(0, rgb.g)),
-					b: Math.min(255, Math.max(0, rgb.b))
-				};
-			},
-			fixHex = function (hex) {
-				var len = 6 - hex.length;
-				if (len > 0) {
-					var o = [];
-					for (var i=0; i<len; i++) {
-						o.push('0');
-					}
-					o.push(hex);
-					hex = o.join('');
-				}
-				return hex;
-			}, 
-			HexToRGB = function (hex) {
-				var hex = parseInt(((hex.indexOf('#') > -1) ? hex.substring(1) : hex), 16);
-				return {r: hex >> 16, g: (hex & 0x00FF00) >> 8, b: (hex & 0x0000FF)};
-			},
-			HexToHSB = function (hex) {
-				return RGBToHSB(HexToRGB(hex));
-			},
-			RGBToHSB = function (rgb) {
-				var hsb = {
-					h: 0,
-					s: 0,
-					b: 0
-				};
-				var min = Math.min(rgb.r, rgb.g, rgb.b);
-				var max = Math.max(rgb.r, rgb.g, rgb.b);
-				var delta = max - min;
-				hsb.b = max;
-				if (max != 0) {
-					
-				}
-				hsb.s = max != 0 ? 255 * delta / max : 0;
-				if (hsb.s != 0) {
-					if (rgb.r == max) {
-						hsb.h = (rgb.g - rgb.b) / delta;
-					} else if (rgb.g == max) {
-						hsb.h = 2 + (rgb.b - rgb.r) / delta;
-					} else {
-						hsb.h = 4 + (rgb.r - rgb.g) / delta;
-					}
-				} else {
-					hsb.h = -1;
-				}
-				hsb.h *= 60;
-				if (hsb.h < 0) {
-					hsb.h += 360;
-				}
-				hsb.s *= 100/255;
-				hsb.b *= 100/255;
-				return hsb;
-			},
-			HSBToRGB = function (hsb) {
-				var rgb = {};
-				var h = Math.round(hsb.h);
-				var s = Math.round(hsb.s*255/100);
-				var v = Math.round(hsb.b*255/100);
-				if(s == 0) {
-					rgb.r = rgb.g = rgb.b = v;
-				} else {
-					var t1 = v;
-					var t2 = (255-s)*v/255;
-					var t3 = (t1-t2)*(h%60)/60;
-					if(h==360) h = 0;
-					if(h<60) {rgb.r=t1;	rgb.b=t2; rgb.g=t2+t3}
-					else if(h<120) {rgb.g=t1; rgb.b=t2;	rgb.r=t1-t3}
-					else if(h<180) {rgb.g=t1; rgb.r=t2;	rgb.b=t2+t3}
-					else if(h<240) {rgb.b=t1; rgb.r=t2;	rgb.g=t1-t3}
-					else if(h<300) {rgb.b=t1; rgb.g=t2;	rgb.r=t2+t3}
-					else if(h<360) {rgb.r=t1; rgb.g=t2;	rgb.b=t1-t3}
-					else {rgb.r=0; rgb.g=0;	rgb.b=0}
-				}
-				return {r:Math.round(rgb.r), g:Math.round(rgb.g), b:Math.round(rgb.b)};
-			},
-			RGBToHex = function (rgb) {
-				var hex = [
-					rgb.r.toString(16),
-					rgb.g.toString(16),
-					rgb.b.toString(16)
-				];
-				$.each(hex, function (nr, val) {
-					if (val.length == 1) {
-						hex[nr] = '0' + val;
-					}
-				});
-				return hex.join('');
-			},
-			HSBToHex = function (hsb) {
-				return RGBToHex(HSBToRGB(hsb));
-			},
-			restoreOriginal = function () {
-				var cal = $(this).parent();
-				var col = cal.data('colorpicker').origColor;
-				cal.data('colorpicker').color = col;
-				fillRGBFields(col, cal.get(0));
-				fillHexFields(col, cal.get(0));
-				fillHSBFields(col, cal.get(0));
-				setSelector(col, cal.get(0));
-				setHue(col, cal.get(0));
-				setNewColor(col, cal.get(0));
-			};
-		return {
-			init: function (opt) {
-				opt = $.extend({}, defaults, opt||{});
-				if (typeof opt.color == 'string') {
-					opt.color = HexToHSB(opt.color);
-				} else if (opt.color.r != undefined && opt.color.g != undefined && opt.color.b != undefined) {
-					opt.color = RGBToHSB(opt.color);
-				} else if (opt.color.h != undefined && opt.color.s != undefined && opt.color.b != undefined) {
-					opt.color = fixHSB(opt.color);
-				} else {
-					return this;
-				}
-				return this.each(function () {
-					if (!$(this).data('colorpickerId')) {
-						var options = $.extend({}, opt);
-						options.origColor = opt.color;
-						var id = 'collorpicker_' + parseInt(Math.random() * 1000);
-						$(this).data('colorpickerId', id);
-						var cal = $(tpl).attr('id', id);
-						if (options.flat) {
-							cal.appendTo(this).show();
-						} else {
-							cal.appendTo(document.body);
-						}
-						options.fields = cal
-											.find('input')
-												.bind('keyup', keyDown)
-												.bind('change', change)
-												.bind('blur', blur)
-												.bind('focus', focus);
-						cal
-							.find('span').bind('mousedown', downIncrement).end()
-							.find('>div.colorpicker_current_color').bind('click', restoreOriginal);
-						options.selector = cal.find('div.colorpicker_color').bind('mousedown', downSelector);
-						options.selectorIndic = options.selector.find('div div');
-						options.el = this;
-						options.hue = cal.find('div.colorpicker_hue div');
-						cal.find('div.colorpicker_hue').bind('mousedown', downHue);
-						options.newColor = cal.find('div.colorpicker_new_color');
-						options.currentColor = cal.find('div.colorpicker_current_color');
-						cal.data('colorpicker', options);
-						cal.find('div.colorpicker_submit')
-							.bind('mouseenter', enterSubmit)
-							.bind('mouseleave', leaveSubmit)
-							.bind('click', clickSubmit);
-						fillRGBFields(options.color, cal.get(0));
-						fillHSBFields(options.color, cal.get(0));
-						fillHexFields(options.color, cal.get(0));
-						setHue(options.color, cal.get(0));
-						setSelector(options.color, cal.get(0));
-						setCurrentColor(options.color, cal.get(0));
-						setNewColor(options.color, cal.get(0));
-						if (options.flat) {
-							cal.css({
-								position: 'relative',
-								display: 'block'
-							});
-						} else {
-							$(this).bind(options.eventName, show);
-						}
-					}
-				});
-			},
-			showPicker: function() {
-				return this.each( function () {
-					if ($(this).data('colorpickerId')) {
-						show.apply(this);
-					}
-				});
-			},
-			hidePicker: function() {
-				return this.each( function () {
-					if ($(this).data('colorpickerId')) {
-						$('#' + $(this).data('colorpickerId')).hide();
-					}
-				});
-			},
-			setColor: function(col) {
-				if (typeof col == 'string') {
-					col = HexToHSB(col);
-				} else if (col.r != undefined && col.g != undefined && col.b != undefined) {
-					col = RGBToHSB(col);
-				} else if (col.h != undefined && col.s != undefined && col.b != undefined) {
-					col = fixHSB(col);
-				} else {
-					return this;
-				}
-				return this.each(function(){
-					if ($(this).data('colorpickerId')) {
-						var cal = $('#' + $(this).data('colorpickerId'));
-						cal.data('colorpicker').color = col;
-						cal.data('colorpicker').origColor = col;
-						fillRGBFields(col, cal.get(0));
-						fillHSBFields(col, cal.get(0));
-						fillHexFields(col, cal.get(0));
-						setHue(col, cal.get(0));
-						setSelector(col, cal.get(0));
-						setCurrentColor(col, cal.get(0));
-						setNewColor(col, cal.get(0));
-					}
-				});
-			}
-		};
-	}();
-	$.fn.extend({
-		ColorPicker: ColorPicker.init,
-		ColorPickerHide: ColorPicker.hidePicker,
-		ColorPickerShow: ColorPicker.showPicker,
-		ColorPickerSetColor: ColorPicker.setColor
-	});
+      
+          event.data.container.chooser = chooser;
+          event.data.container.append(chooser);
+      
+          // Create the cells
+          for (var i=0; i<options.colors.length; i++) {
+            var cell = $("<div class='simpleColorCell' id='" + options.colors[i] + "'/>");
+            cell.css({
+              'width':           options.cellWidth + 'px',
+             	'height':          options.cellHeight + 'px',
+			        'margin':          options.cellMargin + 'px',
+			        'cursor':          'pointer',
+			        'lineHeight':      options.cellHeight + 'px',
+			        'fontSize':        '1px',
+			        'float':           'left',
+			        'backgroundColor': '#'+options.colors[i]
+			      });
+            chooser.append(cell);
+
+            cell.bind('click', {
+              input: event.data.input, 
+              chooser: chooser, 
+              display_box: display_box
+            }, 
+            function(event) {
+              event.data.input.value = '#' + this.id;
+              $(event.data.input).change();
+              event.data.display_box.css('backgroundColor', '#' + this.id);
+              event.data.chooser.hide();
+              event.data.display_box.show();
+     
+              // If 'displayColorCode' is turned on, display the currently selected color code as text inside the button.
+              if (options.displayColorCode) {
+                event.data.display_box.text('#' + this.id);
+              }
+            });
+          }
+        }
+      };
+      
+      var callback_params = {
+        container: container, 
+        input: this, 
+        display_box: display_box
+      };
+
+      // Also bind the display box button to display the chooser.
+      display_box.bind('click', callback_params, select_callback);
+
+      $(this).after(container);
+
+    };
+
+    this.each(buildSelector);
+
+		$('html').click(function() {
+			$('.simpleColorChooser').hide();
+		});
+		
+		$('.simpleColorDisplay').each(function() {
+			$(this).click(function(e){
+				e.stopPropagation();
+			});
+		});
+
+    return this;
+  };
+
+  /*
+   * Close the given color selectors
+   */
+  $.fn.closeSelector = function() {
+    this.each( function(index) {
+      var container = $(this).parent().find('div.simpleColorContainer');
+      container.find('.simpleColorChooser').hide();
+      container.find('.simpleColorDisplay').show();
+    });
+
+    return this;
+  };
+
 })(jQuery);
-define("colorpicker", function(){});
+
+define("simpleColorPicker", function(){});
 
 define('zeega_parser/plugins/controls/color/color',[
     "app",
     "zeega_parser/modules/control.view",
-    "colorpicker"
+    "simpleColorPicker"
 ],
 
 function( app, ControlView ) {
@@ -86059,29 +85835,17 @@ function( app, ControlView ) {
             },
 
             create: function() {
-                /* plugin: http://www.eyecon.ro/colorpicker/#about */
-                $( this.$('.color-selector') ).ColorPicker({
-                    
-                    color: this.model.getAttr( this.propertyName ),
-                    
-                    onShow: function (colpkr) {
-                        $( colpkr ).fadeIn(500);
-                        
-                        return false;
-                    },
-                    onHide: function (colpkr) {
-                        $( colpkr ).fadeOut(500);
+                /* plugin: https://github.com/recurser/jquery-simple-color */
+                var $colorPicker = this.$(".simple_color");
 
-                        return false;
-                    },
-                    onChange: function (hsb, hex, rgb) {
-                        var hexValue = "#" + hex;
+                $colorPicker
+                    .simpleColor()
+                    .bind("change", function(e) {
+                        var hexValue = $colorPicker.val();
 
-                        this.$('.color-preview').css("backgroundColor", hexValue );
                         this.updateVisual( hexValue );
                         this.lazyUpdate( hexValue );
-                    }.bind( this )
-                });
+                    }.bind( this ));
             }
 
         })
@@ -105944,7 +105708,8 @@ require.config({
 
     zeegaplayer: "../vendor/zeegaplayer/dist/debug/zeega",
 
-    colorpicker: "../vendor/colorpicker/js/colorpicker",
+//    colorpicker: "../vendor/colorpicker/js/colorpicker",
+    simpleColorPicker: "../vendor/simple-color-picker/jquery.simple-color",
     ddslick: "../assets/js/plugins/jquery.ddslick",
     mousetrap: "../vendor/mousetrap/mousetrap"
 
@@ -105952,8 +105717,9 @@ require.config({
 
   shim: {
     jqueryUI: ["jquery"],
-    colorpicker: ["jquery"],
+//    colorpicker: ["jquery"],
     ddslick: ["jquery"],
+    simpleColorPicker: ["jquery"],
 
     mousetrap: {
         exports: 'Mousetrap'
