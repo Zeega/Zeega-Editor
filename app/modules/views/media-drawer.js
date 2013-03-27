@@ -33,17 +33,9 @@ function( app ) {
         },
 
         events: {
-            "click .gridToggle": "gridToggle",
-            "click .clearSearch": "clearSearch",
+            "click .clear-search": "clearSearch",
             "keyup .search-box": "onSearchKepress",
             "focus .search-box": "onSearchFocus"
-        },
-
-        gridToggle: function() {
-            this.$el.toggleClass("list");
-
-            this.$(".gridToggle i").toggleClass("icon-th")
-                .toggleClass("icon-th-list");
         },
 
         clearSearch: function() {
