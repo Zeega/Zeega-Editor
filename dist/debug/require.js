@@ -105195,7 +105195,7 @@ function( app, Modal ) {
             });
 
             item.url = app.api + "items";
-            item.on("sync", this.updateMediaCollection );
+            item.on("sync", this.updateMediaCollection, this );
             item.save();
         },
 
