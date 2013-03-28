@@ -59,11 +59,11 @@ function( app, Modal ) {
         },
 
         updateMediaCollection: function(){
-            this.search("");
+            this.model.search("");
         },
 
         imageUpload: function(event) {
-            console.log(this.model);
+
             var fileInput = event.target, imageData;
             imageData = new FormData();
             
