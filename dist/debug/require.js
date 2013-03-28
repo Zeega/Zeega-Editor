@@ -67972,7 +67972,8 @@ define('app',[
 
         api: "",
         apiRoot: null,
-        searchAPI: "http://zeega.com/api/items/search?",
+        //searchAPI: "http://zeega.com/api/items/search?",
+        searchAPI: "http://dev.zeega.org/james/web/items/search?",
         featuredAPI: "http://staging.zeega.org/api/items/featured",
 
         userId: null,
@@ -105199,11 +105200,11 @@ function( app, Modal ) {
         },
 
         updateMediaCollection: function(){
-            this.search("");
+            this.model.search("");
         },
 
         imageUpload: function(event) {
-            console.log(this.model);
+
             var fileInput = event.target, imageData;
             imageData = new FormData();
             
