@@ -27,6 +27,7 @@ function( app, Status, Layout, ZeegaParser, MediaBrowser ) {
             app.root = meta.data("root");
             app.apiRoot = meta.data("apiRoot"); // dev only
             app.api = "http:" + meta.data("hostname") + ( app.apiRoot ? app.apiRoot : app.root ) + "api/";
+            app.mediaServer = "http:" + meta.data("hostname") + "kinok/";
             app.featuredAPI = app.api + "items/featured";
 
         },
@@ -38,7 +39,7 @@ function( app, Status, Layout, ZeegaParser, MediaBrowser ) {
                 var rawDataModel = new Backbone.Model();
 
                 // mainly for testing
-                rawDataModel.url = "http://dev.zeega.org/james/web/api/projects/8188";
+                rawDataModel.url = "http://dev.zeega.org/james/web/api/projects/8190";
                 rawDataModel.fetch().success(function( response ) {
                     this._parseData( response );
                 }.bind( this )).error(function() {

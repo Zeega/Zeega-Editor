@@ -14,6 +14,8 @@ function( app, ItemModel, MediaView, ItemCollectionViewer ) {
         Zeega: {},
         Flickr: {},
         Soundcloud: {},
+        Tumblr: {},
+        Giphy: {},
         Web: {}
     };
 
@@ -33,7 +35,6 @@ function( app, ItemModel, MediaView, ItemCollectionViewer ) {
                     url += key + "=" + ( _.isFunction( value ) ? value() : value ) + "&";
                 }
             });
-
             return url;
         },
 
@@ -65,13 +66,16 @@ function( app, ItemModel, MediaView, ItemCollectionViewer ) {
             var photos = res.photos.photo;
 
             _.each( photos, function( photo ){
-                photo.layer_type ="Image";
+                photo.layer_type = "Image";
+                photo.media_type = "Image";
+                photo.archive = "Flickr";
                 photo.thumbnail_url = "https://farm" + photo.farm + ".static.flickr.com/" + photo.server + "/" +
                                     photo.id + "_" + photo.secret + "_s.jpg";
                 photo.uri = "https://farm" + photo.farm + ".static.flickr.com/" + photo.server + "/" +
                                     photo.id + "_" + photo.secret + ".jpg";
                 photo.attribution_uri =  "http://www.flickr.com/photos/" + photo.owner + "/" + photo.id;
                 photo.media_user_realname = photo.owner_name;
+                
             });
 
 
@@ -94,18 +98,23 @@ function( app, ItemModel, MediaView, ItemCollectionViewer ) {
             console.log(res);
             var photos = res.data;
             _.each( photos, function( photo ){
-                console.log(photo);
+                if( !_.isNull( photo.caption ) && !_.isNull( photo.caption.text ) ){
+                    var tmp = document.createElement("DIV");
+                    tmp.innerHTML = photo.caption.text;
+                    photo.title = tmp.textContent||tmp.innerText;
+                } else {
+                    photo.title = "Instagram by " + photo.user.user_name;
+                }
+                
+
+                photo.archive = "Instagram";
                 photo.layer_type ="Image";
+                photo.media_type = "Image";
+
                 photo.thumbnail_url = photo.images.thumbnail.url;
                 photo.uri = photo.images.standard_resolution.url;
                 photo.attribution_uri =  photo.link;
                 photo.media_user_realname = photo.user.user_name;
-                if( !_.isNull( photo.caption ) && !_.isNull( photo.caption.text ) ){
-                    photo.title = photo.caption.text;
-                } else {
-                    photo.title = "";
-                }
-                
             });
             return photos;
         }
@@ -127,11 +136,33 @@ function( app, ItemModel, MediaView, ItemCollectionViewer ) {
                     track.uri = track.stream_url + "?consumer_key=lyCI2ejeGofrnVyfMI18VQ";
                     track.attribution_uri =  track.permalink_url;
                     track.media_user_realname = track.user.username;
-                    
+                    track.archive = "Soundcloud";
 
                 });
                 return tracks;
             }
+    });
+
+    Media.Giphy.Collection = Media.Zeega.Collection.extend({
+
+        parse: function( res ) {
+            var photos = res.data;
+
+            _.each( photos, function( photo ){
+                photo.layer_type = "Image";
+                photo.media_type = "Image";
+                photo.archive = "Giphy";
+
+                photo.thumbnail_url = photo.image_fixed_height_still_url;
+                photo.uri = photo.urimage_fixed_height_urll;
+                photo.attribution_uri =  photo.url;
+                photo.media_user_realname = "";
+                photo.title = "Giphy gif";
+            });
+
+
+            return photos;
+        }
     });
 
     Media.Web.Collection = Media.Zeega.Collection.extend({
@@ -139,10 +170,11 @@ function( app, ItemModel, MediaView, ItemCollectionViewer ) {
         parse: function( res ) {
             console.log(res);
             this.itemsCount = 1;
-
             return res.items;
         }
     });
+
+    
 
 
     Media.Zeega.Model = Backbone.Model.extend({
@@ -158,13 +190,16 @@ function( app, ItemModel, MediaView, ItemCollectionViewer ) {
                     type: "-project AND -Collection AND -Video",
                     page: 1,
                     q: "",
+                    limit: 20,
                     data_source: "db",
                     user: function() {
                         return app.userId;
                 },
                 sort: "date-desc"
             },
-            title: "My Media"
+            title: "My Media",
+            placeholder: "search your media",
+            searchQuery:""
         },
 
         initialize: function() {
@@ -175,8 +210,14 @@ function( app, ItemModel, MediaView, ItemCollectionViewer ) {
 
             this.listen();
         },
-
+        getQuery: function(){
+            return this.get("urlArguments").q;
+        },
         search: function( query ){
+            this.set( "searchQuery", query );
+            this._search( query );
+        },
+        _search: function( query ){
 
             var args = this.get("urlArguments");
 
@@ -184,10 +225,8 @@ function( app, ItemModel, MediaView, ItemCollectionViewer ) {
 
             if(query === ""){
                 args.data_source = "db";
-            } else if( query === args.q ) {
-                this.mediaCollection.trigger( "sync" );
-            } else {
-                 args.q = query;
+            } else if( query !== args.q ) {
+                args.q = query;
                 args.data_source = "solr";
             }
 
@@ -202,6 +241,8 @@ function( app, ItemModel, MediaView, ItemCollectionViewer ) {
             //     this.mediaCollection.fetch();
             // }.bind( this ));
         },
+
+        
 
         onSync: function( collection ) {
             this.mediaBrowser.trigger( "media_ready", collection );
@@ -225,17 +266,20 @@ function( app, ItemModel, MediaView, ItemCollectionViewer ) {
                 text: ""
     
             },
-            title: "Flickr"
+            title: "Flickr",
+            placeholder: "search Flickr photos",
+            searchQuery:""
         },
-        search: function( query ){
+        getQuery: function(){
+            return this.get("urlArguments").text;
+        },
+        _search: function( query ){
 
             var args= this.get("urlArguments");
 
             
             
-            if( query === "" || query === args.text ){
-                this.mediaCollection.trigger("sync");
-            } else {
+            if( query !== "" && query !== args.text ){
                 args.text = query;
                 this.set("urlArguments", args );
                 this.mediaCollection.fetch();
@@ -258,15 +302,18 @@ function( app, ItemModel, MediaView, ItemCollectionViewer ) {
                 consumer_key: "lyCI2ejeGofrnVyfMI18VQ"
                 //client_id: "d2976f4acb249154e1095377a705c6c4"
             },
-            title: "Soundcloud"
+            title: "Soundcloud",
+            placeholder: "search SoundCloud audio",
+            searchQuery:""
         },
-        search: function( query ){
+        getQuery: function(){
+            return this.get("urlArguments").q;
+        },
+        _search: function( query ){
 
             var args= this.get("urlArguments");
 
-            if( query === "" || query === args.q ){
-                this.mediaCollection.trigger("sync");
-            } else {
+            if( query !== "" && query !== args.q ){
                 args.q = query;
                 this.set("urlArguments", args );
                 this.mediaCollection.fetch();
@@ -281,14 +328,17 @@ function( app, ItemModel, MediaView, ItemCollectionViewer ) {
 
         defaults: {
             query: "",
-            title: "Instagram"
+            title: "Instagram",
+            placeholder: "search Instagram photos",
+            searchQuery:""
         },
-        search: function( query ){
+        getQuery: function(){
+            return this.get("query");
+        },
+        _search: function( query ){
 
             
-            if( query === "" || query === this.get("query") ){
-                this.mediaCollection.trigger("sync");
-            } else {
+            if( query !== "" && query !== this.get("query") ){
                 this.set("query", query );
                 this.mediaCollection.fetch();
             }
@@ -298,26 +348,60 @@ function( app, ItemModel, MediaView, ItemCollectionViewer ) {
         }
     });
 
+    Media.Giphy.Model = Media.Zeega.Model.extend({
+        
+        api: "Giphy",
+        apiUrl: "http://giphy.com/api/gifs?",
+
+        defaults: {
+            urlArguments: {
+                tag:"",
+                page: 1,
+                size: 25
+            },
+            title: "Giphy",
+            placeholder: "search Giphy gifs",
+            searchQuery:""
+        },
+        getQuery: function(){
+            return this.get("urlArguments").tag;
+        },
+        _search: function( query ){
+
+            var args= this.get("urlArguments");
+
+            if( query !== "" && query !== args.tag ){
+                args.tag = query;
+                this.set("urlArguments", args );
+                this.mediaCollection.fetch();
+            }
+        }
+    });
+
     Media.Web.Model = Media.Zeega.Model.extend({
         
         api: "Web",
-        apiUrl: "https://zeega.com/api/items/parser?",
+        apiUrl: "http://dev.zeega.org/james/web/api/items/parser?",
 
          defaults: {
             urlArguments: {
                 url: ""
             },
-            title: "The web"
+            title: "The Web",
+            placeholder: "enter a url",
+            searchQuery: ""
         },
-
-        search: function( query ){
+        getQuery: function(){
+            return this.get("urlArguments").url;
+        },
+        _search: function( query ){
 
             
             
             var args= this.get("urlArguments");
 
             if( query === "" || query === args.url ){
-                this.mediaCollection.trigger("sync");
+                //this.mediaCollection.trigger("sync");
             } else {
                 args.url = query;
                 this.set("urlArguments", args );
@@ -330,32 +414,6 @@ function( app, ItemModel, MediaView, ItemCollectionViewer ) {
     });
 
 
-//////////////////////
-
-    var FeaturedCollectionModel = Backbone.Model.extend({
-
-        initialize: function() {
-            this.mediaCollection = new MediaCollection( this.get("child_items") );
-            this.view = new MediaCollectionView({ model: this });
-        }
-    });
-
-    var FeaturedCollection = Backbone.Collection.extend({
-        
-        model: FeaturedCollectionModel,
-
-        url: function() {
-            return "http://staging.zeega.org/api/items/featured";
-        },
-
-        parse: function( res ) {
-            return res.items;
-        }
-    });
-
-
-
-    // This collection is responsible for keeping track of various media collections, caching and
 
     return Backbone.Model.extend({
 
@@ -380,7 +438,6 @@ function( app, ItemModel, MediaView, ItemCollectionViewer ) {
             }
 
             this.set ( "currentAPI", api );
-            this.search( query );
 
         },
 

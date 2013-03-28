@@ -41,7 +41,7 @@ function( app ) {
         onMediaToggle: function(event){
             var api = $(event.target).data("api");
             this.$el.find(".search-box").attr("placeholder", "search " + api);
-            this.model.setAPI( api, this.$(".search-box").val() );
+            this.model.setAPI( api );
             this.renderMedia();
 
             if( api === "Soundcloud" ){

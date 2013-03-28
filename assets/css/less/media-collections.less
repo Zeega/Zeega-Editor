@@ -13,7 +13,8 @@
         border: none;
         outline: 0;
         padding: 8px;
-        width: 150px;
+        width: 170px;
+        font-size:80%;
     }
 
     .search-bar{
@@ -22,12 +23,13 @@
     
     .media-collection-header {
         position: absolute;
+        z-index:1;
         width:275px;
         background: orangered;
         padding: 5px 10px;
         color: white;
         font-size: 18px;
-        height:75px;
+        height:68px;
 
         .media-collection-extras{
             float:right;
@@ -39,8 +41,12 @@
         .get-bookmarklet {
             font-size: 12px;
             color: white;
-            display: none;
-            padding-right:20px;
+            
+        }
+        .upload-images{
+            font-size: 12px;
+            color: white;
+            padding-right:10px;
         }
         .media-collection-search {
             clear:both;
@@ -49,6 +55,7 @@
     }
     .media-collection-items {
         .clearfix;
+        padding-top: 78px;
         position: relative;
         
         .media-more {

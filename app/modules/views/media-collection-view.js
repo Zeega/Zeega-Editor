@@ -1,22 +1,23 @@
 define([
     "app",
     "modules/views/modal",
+    "modules/views/upload-modal",
     "backbone"
 ],
 
-function( app, Modal ) {
+function( app, Modal, UploadModal ) {
 
     var Media = {
+        Base: {},
+        Zeega:{},
         Instagram: {},
-        Zeega: {},
         Flickr: {},
         Soundcloud: {},
+        Giphy: {},
         Web: {}
     };
 
-    Media.Zeega.View = Backbone.View.extend({
-
-        bmModal: null,
+    Media.Base.View = Backbone.View.extend({
 
         defaults: {
             title: "untitled"
@@ -36,10 +37,14 @@ function( app, Modal ) {
                 this.model.mediaCollection.on("sync", this.renderItems, this );
             }.bind( this ));
         },
-
         afterRender: function() {
-            console.log("afer collection render");
             this.renderItems();
+            this._afterRender();
+        },
+
+        //extend this function
+        _afterRender: function(){
+
         },
 
         renderItems: function() {
@@ -50,7 +55,7 @@ function( app, Modal ) {
                     this.$(".media-collection-items").append( item.view.el );
                     item.view.render();
                 }, this );
-            } else {
+            } else if( this.model.getQuery() !== "" ) {
                 this.$(".media-collection-items").append("<div class='empty-collection'>no items found :( try again?</div>");
             }
 
@@ -63,7 +68,6 @@ function( app, Modal ) {
         },
 
         events: {
-            "click .get-bookmarklet": "bookmarkletModal",
             "keyup .search-box": "onSearchKepress"
         },
 
@@ -77,20 +81,41 @@ function( app, Modal ) {
             console.log(this.model);
             this.model.search( query );
 
+        }
+
+    });
+
+    Media.Zeega.View = Media.Base.View.extend({
+
+        _afterRender: function(){
+            $(this.el).find(".media-collection-extras").append("<a href='#' class='upload-images'>Upload</a><a href='#' class='get-bookmarklet'><i class='icon-bookmark icon-white'></i></a>");
+        },
+
+        events: {
+            "click .get-bookmarklet": "bookmarkletModal",
+            "click .upload-images": "uploadModal",
+            "keyup .search-box": "onSearchKepress"
+        },
+
+        uploadModal: function(){
+            var uploadModal = new UploadModal({ model: this.model });
+
+            uploadModal.show();
+
         },
 
         bookmarkletModal: function() {
-            if ( this.bmModal === null ) {
-                this.bmModal = new Modal({
-                    modal: {
-                        title: "Get the Zeega Bookmarklet",
-                        className: "bookmarklet-modal",
-                        content: this.modalContent
-                    }
-                });
-            }
 
-            this.bmModal.show();
+            var bmModal = new Modal({
+                modal: {
+                    title: "Get the Zeega Bookmarklet",
+                    className: "bookmarklet-modal",
+                    content: this.modalContent
+                }
+            });
+            
+
+            bmModal.show();
         },
 
         modalContent: "<div><p>Just drag this link to your browser's bookmark bar:</p></div>" +
@@ -103,12 +128,11 @@ function( app, Modal ) {
             
     });
 
-    Media.Instagram.View = Media.Zeega.View.extend({});
-    Media.Flickr.View = Media.Zeega.View.extend({});
-    Media.Soundcloud.View = Media.Zeega.View.extend({
-        className: "media-collection list"
-    });
-    Media.Web.View = Media.Zeega.View.extend({});
+    Media.Instagram.View = Media.Base.View.extend({});
+    Media.Flickr.View = Media.Base.View.extend({});
+    Media.Soundcloud.View = Media.Base.View.extend({});
+    Media.Giphy.View = Media.Base.View.extend({});
+    Media.Web.View = Media.Base.View.extend({});
 
     return Media;
 
