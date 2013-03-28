@@ -16,6 +16,7 @@ function( app, Status, Layout, ZeegaParser, MediaBrowser ) {
         initialize: function() {
             app.mediaBrowser = new MediaBrowser();
             this.loadProject();
+            console.log(app);
         },
 
         loadProject: function( attributes ) {
@@ -25,7 +26,7 @@ function( app, Status, Layout, ZeegaParser, MediaBrowser ) {
                 var rawDataModel = new Backbone.Model();
 
                 // mainly for testing
-                rawDataModel.url = "http://dev.zeega.org/james/web/api/projects/8190";
+                rawDataModel.url = "http://dev.zeega.org/james/web/api/projects/8211";
                 rawDataModel.fetch().success(function( response ) {
                     this._parseData( response );
                 }.bind( this )).error(function() {

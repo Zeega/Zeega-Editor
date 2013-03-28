@@ -18,11 +18,11 @@ define([
         userId: meta.data("userId") || null,
         projectId: meta.data("projectId")|| null,
         root: meta.data("root")|| null,
-         apiRoot: meta.data("apiRoot")||  null, // dev only
+        apiRoot: meta.data("apiRoot")||  null, // dev only
         api: "http:" + meta.data("hostname") +  ( meta.data("apiRoot") ? meta.data("apiRoot") : meta.data("root") ) + "api/"|| null,
-        mediaServer: "http:" + meta.data("hostname") + "kinok/"|| null,
-         searchAPI: "http:" + meta.data("hostname") +  ( meta.data("apiRoot") ? meta.data("apiRoot") : meta.data("root") ) + "api/items/search?"|| null,
-         featuredAPI: "http:" + meta.data("hostname") +  ( meta.data("apiRoot") ? meta.data("apiRoot") : meta.data("root") ) + "api/items/featured" || null
+        mediaServer: "http:" + meta.data("hostname") + meta.data("mediaRoot") || null,
+        searchAPI: "http:" + meta.data("hostname") +  ( meta.data("apiRoot") ? meta.data("apiRoot") : meta.data("root") ) + "api/items/search?"|| null,
+        featuredAPI: "http:" + meta.data("hostname") +  ( meta.data("apiRoot") ? meta.data("apiRoot") : meta.data("root") ) + "api/items/featured" || null
     
     };
 
