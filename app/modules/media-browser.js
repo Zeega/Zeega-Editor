@@ -260,8 +260,7 @@ function( app, ItemModel, MediaView, ItemCollectionViewer ) {
                 format: "json",
                 method: "flickr.photos.search",
                 extras: "owner_name",
-                type: "-project AND -Collection AND -Video",
-                per_page: "50",
+                per_page: "100",
                 api_key: "97ac5e379fbf4df38a357f9c0943e140",
                 text: ""
     
