@@ -68,7 +68,7 @@ function( app, Modal, UploadModal ) {
         },
 
         events: {
-            "keyup .search-box": "onSearchKepress"
+            "keyup .search-box": "onSearchKeypress"
         },
 
         onSearchKepress: function( e ) {

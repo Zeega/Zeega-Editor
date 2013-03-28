@@ -6194,7 +6194,7 @@ html {
   position: relative;
   overflow: hidden;
   text-indent: -9999px;
-  background: rgba(0, 0, 0, 0.3) url(../../../images/add-circle.png) no-repeat 50% 50%;
+  background: rgba(0, 0, 0, 0.3) url(../img/add-circle.png) no-repeat 50% 50%;
 }
 .upload-modal .add-photo input {
   cursor: pointer;
@@ -6209,6 +6209,10 @@ html {
 }
 .upload-modal .modal-body {
   height: 250px;
+}
+.upload-modal .close {
+  margin-top: -34px;
+  margin-right: 11px;
 }
 .bookmarklet-modal .small {
   font-size: 13px;

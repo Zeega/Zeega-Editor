@@ -655,7 +655,7 @@ return __p;
 this["JST"]["app/templates/upload-modal.html"] = function(obj){
 var __p='';var print=function(){__p+=Array.prototype.join.call(arguments, '')};
 with(obj||{}){
-__p+='<a href="#" class="modal-close">&times;</a>\n<div class="modal-content">\n    <div class="modal-title">Upload images from your computer!</div>\n    <div class="modal-body">\n        <div class = "image-uploads" >\n            <span class="add-photo" href="#">\n                <input id = "imagefile"  name = "imagefile"  type="file" href="#"></input>\n            </span>\n        </div>\n    </div>\n    <div class="modal-footer"></div>\n</div>\n';
+__p+='<a href="#" class="modal-close">&times;</a>\n<div class="modal-content">\n    <div class="modal-title">Upload images from your computer!</div>\n    <div class="modal-body">\n        <div class = "image-uploads" >\n            <span class="add-photo" href="#">\n                <input id = "imagefile"  name = "imagefile"  type="file" href="#"></input>\n            </span>\n        </div>\n\n    </div>\n    <div class="modal-footer">\n        <button class="btn secondary pull-right close"><i class="icon-ok-circle"></i> Done</button>\n    </div>\n</div>\n';
 }
 return __p;
 };
@@ -67972,8 +67972,7 @@ define('app',[
 
         api: "",
         apiRoot: null,
-        //searchAPI: "http://zeega.com/api/items/search?",
-        searchAPI: "http://dev.zeega.org/james/web/api/items/search?",
+        searchAPI: "http://zeega.com/api/items/search?",
         featuredAPI: "http://staging.zeega.org/api/items/featured",
 
         userId: null,
@@ -105159,7 +105158,9 @@ function( app, Modal ) {
 
         events: {
             "click .modal-close": "hide",
+            "click .close": "hide",
             "change .add-photo input" : "imageUpload"
+
         },
 
         addItem: function( data ) {
@@ -105200,7 +105201,6 @@ function( app, Modal ) {
         },
 
         updateMediaCollection: function(){
-            console.log(this,this.model);
             this.model.search("");
         },
 
@@ -105228,7 +105228,7 @@ function( app, Modal ) {
                     
                     this.addItem( data );
 
-                    this.$el.find("#image-uploads").append("<span class='add-photo' href='#'><input id = 'imagefile' name = 'imagefile' type='file' href='#'></input></span>");
+                    this.$el.find(".image-uploads").append("<span class='add-photo' href='#'><input id = 'imagefile' name = 'imagefile' type='file' href='#'></input></span>");
                     
                 }.bind(this)
             });
@@ -105310,7 +105310,7 @@ function( app, Modal, UploadModal ) {
         },
 
         events: {
-            "keyup .search-box": "onSearchKepress"
+            "keyup .search-box": "onSearchKeypress"
         },
 
         onSearchKepress: function( e ) {
@@ -106042,6 +106042,7 @@ function( app, Status, Layout, ZeegaParser, MediaBrowser ) {
             app.apiRoot = meta.data("apiRoot"); // dev only
             app.api = "http:" + meta.data("hostname") + ( app.apiRoot ? app.apiRoot : app.root ) + "api/";
             app.mediaServer = "http:" + meta.data("hostname") + "kinok/";
+            app.searchAPI = app.api + "search?";
             app.featuredAPI = app.api + "items/featured";
 
         },

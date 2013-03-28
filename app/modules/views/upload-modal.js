@@ -18,7 +18,9 @@ function( app, Modal ) {
 
         events: {
             "click .modal-close": "hide",
+            "click .close": "hide",
             "change .add-photo input" : "imageUpload"
+
         },
 
         addItem: function( data ) {
@@ -59,7 +61,6 @@ function( app, Modal ) {
         },
 
         updateMediaCollection: function(){
-            console.log(this,this.model);
             this.model.search("");
         },
 
@@ -87,7 +88,7 @@ function( app, Modal ) {
                     
                     this.addItem( data );
 
-                    this.$el.find("#image-uploads").append("<span class='add-photo' href='#'><input id = 'imagefile' name = 'imagefile' type='file' href='#'></input></span>");
+                    this.$el.find(".image-uploads").append("<span class='add-photo' href='#'><input id = 'imagefile' name = 'imagefile' type='file' href='#'></input></span>");
                     
                 }.bind(this)
             });

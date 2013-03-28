@@ -28,6 +28,7 @@ function( app, Status, Layout, ZeegaParser, MediaBrowser ) {
             app.apiRoot = meta.data("apiRoot"); // dev only
             app.api = "http:" + meta.data("hostname") + ( app.apiRoot ? app.apiRoot : app.root ) + "api/";
             app.mediaServer = "http:" + meta.data("hostname") + "kinok/";
+            app.searchAPI = app.api + "search?";
             app.featuredAPI = app.api + "items/featured";
 
         },
