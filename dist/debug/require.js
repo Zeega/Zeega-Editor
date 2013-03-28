@@ -105336,7 +105336,7 @@ function( app, Modal, UploadModal ) {
         events: {
             "click .get-bookmarklet": "bookmarkletModal",
             "click .upload-images": "uploadModal",
-            "keyup .search-box": "onSearchKepress"
+            "keyup .search-box": "onSearchKeyPress"
         },
 
         uploadModal: function(){
