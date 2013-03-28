@@ -12,30 +12,25 @@ function( app ) {
 
         initialize: function() {
             app.on("window-resize", this.onResize, this );
+            //this.model.on("media_ready", this.renderMedia, this);
         },
 
         afterRender: function() {
-            this.renderCollections();
-            this.collection.on("add", this.renderCollection, this );
+            
+            this.renderMedia();
             this.onResize();
         },
-
-        renderCollections: function() {
+        renderMedia: function() {
             this.$(".ZEEGA-items").empty();
-            this.collection.each(function( collection ) {
-                this.renderCollection( collection );
-            }, this );
-        },
-
-        renderCollection: function( collection ) {
+            var collection = this.model.getCurrent();
             this.$(".ZEEGA-items").append( collection.view.el );
             collection.view.render();
         },
 
         events: {
             "click .clear-search": "clearSearch",
-            "keyup .search-box": "onSearchKepress",
-            "focus .search-box": "onSearchFocus"
+            "focus .search-box": "onSearchFocus",
+            "click .media-toggle": "onMediaToggle"
         },
 
         clearSearch: function() {
@@ -43,23 +38,19 @@ function( app ) {
             this.search("");
         },
 
+        onMediaToggle: function(event){
+            var api = $(event.target).data("api");
+            this.$el.find(".search-box").attr("placeholder", "search " + api);
+            this.model.setAPI( api, this.$(".search-box").val() );
+            this.renderMedia();
+            return false;
+        },
+
         onSearchFocus: function() {
             
         },
 
-        onSearchKepress: function( e ) {
-            if ( e.which == 13 ) {
-                this.search( this.$(".search-box").val() );
-            }
-        },
-
-        search: function( query ) {
-            var args = this.collection.at(0).get("urlArguments");
-
-            args.q = query;
-            this.collection.at(0).set("urlArguments", args );
-            this.collection.at(0).mediaCollection.fetch();
-        },
+        
 
         onResize: function() {
             var leftCol = $(".left-column .static-upper").height() +

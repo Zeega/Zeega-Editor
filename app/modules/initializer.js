@@ -5,17 +5,17 @@ define([
     "modules/layout-main",
     // Plugins
     "zeega-parser/parser",
-    "modules/media-collection",
+    "modules/media-browser",
     "backbone"
 ],
 
-function( app, Status, Layout, ZeegaParser, MediaCollection ) {
+function( app, Status, Layout, ZeegaParser, MediaBrowser ) {
 
     return Backbone.Model.extend({
         
         initialize: function() {
             this.loadMetadata();
-            app.mediaCollection = new MediaCollection();
+            app.mediaBrowser = new MediaBrowser();
             this.loadProject();
         },
 
@@ -38,7 +38,7 @@ function( app, Status, Layout, ZeegaParser, MediaCollection ) {
                 var rawDataModel = new Backbone.Model();
 
                 // mainly for testing
-                rawDataModel.url = "http://dev.zeega.org/joseph/web/api/projects/7037";
+                rawDataModel.url = "http://dev.zeega.org/james/web/api/projects/8188";
                 rawDataModel.fetch().success(function( response ) {
                     this._parseData( response );
                 }.bind( this )).error(function() {

@@ -1,5 +1,15 @@
-<div class="media-collection-title">
-    <%= title %>
-    <a href="#" class="get-bookmarklet">Add Media <i class="icon-bookmark icon-white"></i></a>
+<div class="media-collection-header">
+
+    <div class="media-collection-title"><%= title %></div>
+    <div class="media-collection-extras">
+        <a href="#" class="get-bookmarklet">Add Media <i class="icon-bookmark icon-white"></i></a>
+    </div>
+    <div class="media-collection-search">
+        <ul class='pull-left search-bar'>
+            <li>
+                <input class="search-box" type="text" placeholder="search media"/>
+            </li>
+        </ul>
+    </div>
 </div>
 <ul class="media-collection-items"></ul>

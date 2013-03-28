@@ -9,17 +9,40 @@
     background: url(../img/transparency-grid.png);
     background-color: #111;
 
-    .media-collection-title {
+    .search-box {
+        border: none;
+        outline: 0;
+        padding: 8px;
+        width: 150px;
+    }
+
+    .search-bar{
+        margin-top:5px;
+    }
+    
+    .media-collection-header {
+        width:100%;
         background: orangered;
         padding: 5px 10px;
         color: white;
         font-size: 18px;
+        height:75px;
 
+        .media-collection-extras{
+            float:right;
+        }
+        .media-collection-title{
+            float:left;
+
+        }
         .get-bookmarklet {
             font-size: 12px;
-            float: right;
             color: white;
             display: none;
+            padding-right:20px;
+        }
+        .media-collection-search {
+            clear:both;
         }
 
     }

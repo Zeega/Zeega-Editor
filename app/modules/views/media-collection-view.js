@@ -6,7 +6,15 @@ define([
 
 function( app, Modal ) {
 
-    return Backbone.View.extend({
+    var Media = {
+        Instagram: {},
+        Zeega: {},
+        Flickr: {},
+        Soundcloud: {},
+        Web: {}
+    };
+
+    Media.Zeega.View = Backbone.View.extend({
 
         bmModal: null,
 
@@ -30,6 +38,11 @@ function( app, Modal ) {
         },
 
         afterRender: function() {
+            console.log("afer collection render");
+            this.renderItems();
+        },
+
+        renderItems: function() {
             this.$(".media-collection-items").empty();
 
             if ( this.model.mediaCollection.length ) {
@@ -41,9 +54,6 @@ function( app, Modal ) {
                 this.$(".media-collection-items").append("<div class='empty-collection'>no items found :( try again?</div>");
             }
 
-            // this.$(".media-collection-items")
-            //     .append("<li class='media-more'><a href='#'><div class='item-label'>more</div><i class='icon-plus icon-white'></i></a></li>");
-            
             this.listen();
 
             // show bookmarklet link
@@ -53,7 +63,20 @@ function( app, Modal ) {
         },
 
         events: {
-            "click .get-bookmarklet": "bookmarkletModal"
+            "click .get-bookmarklet": "bookmarkletModal",
+            "keyup .search-box": "onSearchKepress"
+        },
+
+        onSearchKepress: function( e ) {
+            if ( e.which == 13 ) {
+                this.search( this.$(".search-box").val() );
+            }
+        },
+
+        search: function( query ) {
+            console.log(this.model);
+            this.model.search( query );
+
         },
 
         bookmarkletModal: function() {
@@ -79,5 +102,12 @@ function( app, Modal ) {
             "<img class='bm-instructions' src='assets/img/bookmarklet-arrow.png'/>"
             
     });
+
+    Media.Instagram.View = Media.Zeega.View.extend({});
+    Media.Flickr.View = Media.Zeega.View.extend({});
+    Media.Soundcloud.View = Media.Zeega.View.extend({});
+    Media.Web.View = Media.Zeega.View.extend({});
+
+    return Media;
 
 });
