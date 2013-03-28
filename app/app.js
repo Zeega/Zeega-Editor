@@ -2,23 +2,28 @@ define([
     "backbone.layoutmanager"
 ], function() {
 
+    var meta = $("meta[name=zeega]");
+
+            
+
     // Provide a global location to place configuration settings and module
     // creation.
     var app = {
         // The root path to run the application.
-        root: "/",
+
         parserPath: "app/zeega-parser/",
-
-        api: "",
-        apiRoot: null,
-        searchAPI: "http://zeega.com/api/items/search?",
-        featuredAPI: "http://staging.zeega.org/api/items/featured",
-
-        userId: null,
-        projectId: null,
-
         dragging: null,
-        mediaCollection: null
+        mediaCollection: null,
+
+        userId: meta.data("userId") || null,
+        projectId: meta.data("projectId")|| null,
+        root: meta.data("root")|| null,
+         apiRoot: meta.data("apiRoot")||  null, // dev only
+        api: "http:" + meta.data("hostname") +  ( meta.data("apiRoot") ? meta.data("apiRoot") : meta.data("root") ) + "api/"|| null,
+        mediaServer: "http:" + meta.data("hostname") + "kinok/"|| null,
+         searchAPI: "http:" + meta.data("hostname") +  ( meta.data("apiRoot") ? meta.data("apiRoot") : meta.data("root") ) + "api/items/search?"|| null,
+         featuredAPI: "http:" + meta.data("hostname") +  ( meta.data("apiRoot") ? meta.data("apiRoot") : meta.data("root") ) + "api/items/featured" || null
+    
     };
 
     // Localize or create a new JavaScript Template object.

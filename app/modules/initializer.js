@@ -14,23 +14,8 @@ function( app, Status, Layout, ZeegaParser, MediaBrowser ) {
     return Backbone.Model.extend({
         
         initialize: function() {
-            this.loadMetadata();
             app.mediaBrowser = new MediaBrowser();
             this.loadProject();
-        },
-
-        loadMetadata: function() {
-            var meta = $("meta[name=zeega]");
-
-            app.userId = meta.data("userId");
-            app.projectId = meta.data("projectId");
-            app.root = meta.data("root");
-            app.apiRoot = meta.data("apiRoot"); // dev only
-            app.api = "http:" + meta.data("hostname") + ( app.apiRoot ? app.apiRoot : app.root ) + "api/";
-            app.mediaServer = "http:" + meta.data("hostname") + "kinok/";
-            app.searchAPI = app.api + "search?";
-            app.featuredAPI = app.api + "items/featured";
-
         },
 
         loadProject: function( attributes ) {

@@ -29,7 +29,7 @@ function( app, ItemModel, MediaView, ItemCollectionViewer ) {
 
         url: function() {
             var url = this.mediaModel.apiUrl;
-
+            console.log(url);
             _.each( this.mediaModel.toJSON().urlArguments, function( value, key ) {
                 if ( value !== "" && value !== null ) {
                     url += key + "=" + ( _.isFunction( value ) ? value() : value ) + "&";
