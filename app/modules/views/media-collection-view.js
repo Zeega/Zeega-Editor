@@ -68,10 +68,10 @@ function( app, Modal, UploadModal ) {
         },
 
         events: {
-            "keyup .search-box": "onSearchKeypress"
+            "keyup .search-box": "onSearchKeyPress"
         },
 
-        onSearchKepress: function( e ) {
+        onSearchKeyPress: function( e ) {
             if ( e.which == 13 ) {
                 this.search( this.$(".search-box").val() );
             }
