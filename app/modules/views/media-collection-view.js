@@ -33,7 +33,7 @@ function( app, Modal ) {
 
         initialize: function() {
             this.listen = _.once(function() {
-                this.model.mediaCollection.on("sync", this.render, this );
+                this.model.mediaCollection.on("sync", this.renderItems, this );
             }.bind( this ));
         },
 
@@ -105,7 +105,9 @@ function( app, Modal ) {
 
     Media.Instagram.View = Media.Zeega.View.extend({});
     Media.Flickr.View = Media.Zeega.View.extend({});
-    Media.Soundcloud.View = Media.Zeega.View.extend({});
+    Media.Soundcloud.View = Media.Zeega.View.extend({
+        className: "media-collection list"
+    });
     Media.Web.View = Media.Zeega.View.extend({});
 
     return Media;

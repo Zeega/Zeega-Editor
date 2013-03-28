@@ -140,12 +140,22 @@ __p+='<div class=\'left-column\'>\n    <div class="static-upper">\n        <div 
 return __p;
 };
 
+this["JST"]["app/templates/media-collection-soundcloud.html"] = function(obj){
+var __p='';var print=function(){__p+=Array.prototype.join.call(arguments, '')};
+with(obj||{}){
+__p+='<div class="media-collection-header">\n\n    <div class="media-collection-title">'+
+( title )+
+'</div>\n    <div class="media-collection-extras">\n        <a href="#" class="get-bookmarklet">Add Media <i class="icon-bookmark icon-white"></i></a>\n    </div>\n    <div class="media-collection-search">\n        <ul class=\'pull-left search-bar\'>\n            <li>\n                <input class="search-box" type="text" placeholder="search media"/>\n            </li>\n        </ul>\n    </div>\n</div>\n<ul class="media-collection-items"></ul>';
+}
+return __p;
+};
+
 this["JST"]["app/templates/media-collection.html"] = function(obj){
 var __p='';var print=function(){__p+=Array.prototype.join.call(arguments, '')};
 with(obj||{}){
-__p+='<div class="media-collection-title">\n    '+
+__p+='<div class="media-collection-header">\n\n    <div class="media-collection-title">'+
 ( title )+
-'\n    <a href="#" class="get-bookmarklet">Add Media <i class="icon-bookmark icon-white"></i></a>\n</div>\n<ul class="media-collection-items"></ul>';
+'</div>\n    <div class="media-collection-extras">\n        <a href="#" class="get-bookmarklet">Add Media <i class="icon-bookmark icon-white"></i></a>\n    </div>\n    <div class="media-collection-search">\n        <ul class=\'pull-left search-bar\'>\n            <li>\n                <input class="search-box" type="text" placeholder="search media"/>\n            </li>\n        </ul>\n    </div>\n</div>\n<ul class="media-collection-items"></ul>';
 }
 return __p;
 };
@@ -153,7 +163,7 @@ return __p;
 this["JST"]["app/templates/media-drawer.html"] = function(obj){
 var __p='';var print=function(){__p+=Array.prototype.join.call(arguments, '')};
 with(obj||{}){
-__p+='<div class="media-drawer-controls ZEEGA-hmenu dark">\n    <ul class=\'pull-left\'>\n        <li>\n            <input class="search-box" type="text" placeholder="search media"/>\n        </li>\n        <li>\n            <a href="#" class="clearSearch"><i class="icon-remove icon-white"></i></a>\n        </li>\n    </ul>\n    <ul class=\'pull-right\'>\n        <li>\n            <a href="#" class="gridToggle"><i class="icon-th-list icon-white"></i></a>\n        </li>\n    </ul>\n</div>\n<ul class="ZEEGA-items"></ul>';
+__p+='<div class="media-drawer-controls ZEEGA-hmenu dark">\n        <ul class=\'pull-left\'>\n        \n        <li>\n            <a href="#" data-api = "Zeega" class="media-toggle">MY</a>\n        </li>\n        <li>\n            <a href="#" data-api = "Tumblr" class="media-toggle">T</i></a>\n        </li>\n        <li>\n            <a href="#" data-api = "Soundcloud" class="media-toggle">S</i></a>\n        </li>\n        <li>\n            <a href="#" data-api = "Zeega" class="media-toggle">G</i></a>\n        </li>\n        <li>\n            <a href="#" data-api = "Flickr" class="media-toggle">F</i></a>\n        </li>\n        <li>\n            <a href="#" data-api = "Instagram" class="media-toggle">I</i></a>\n        </li>\n        <li>\n            <a href="#" data-api = "Web" class="media-toggle">W</i></a>\n        </li>\n    </ul>\n    \n    \n</div>\n<ul class="ZEEGA-items"></ul>';
 }
 return __p;
 };

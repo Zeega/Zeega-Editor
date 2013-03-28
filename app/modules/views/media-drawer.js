@@ -12,7 +12,6 @@ function( app ) {
 
         initialize: function() {
             app.on("window-resize", this.onResize, this );
-            //this.model.on("media_ready", this.renderMedia, this);
         },
 
         afterRender: function() {
@@ -21,6 +20,7 @@ function( app ) {
             this.onResize();
         },
         renderMedia: function() {
+
             this.$(".ZEEGA-items").empty();
             var collection = this.model.getCurrent();
             this.$(".ZEEGA-items").append( collection.view.el );
@@ -43,6 +43,13 @@ function( app ) {
             this.$el.find(".search-box").attr("placeholder", "search " + api);
             this.model.setAPI( api, this.$(".search-box").val() );
             this.renderMedia();
+
+            if( api === "Soundcloud" ){
+                this.$el.addClass("list");
+            } else {
+                this.$el.removeClass("list");
+            }
+
             return false;
         },
 

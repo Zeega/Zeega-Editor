@@ -168,7 +168,6 @@ function( app, ItemModel, MediaView, ItemCollectionViewer ) {
         },
 
         initialize: function() {
-            console.log("initializing this shit!!!!!")
             this.view = new MediaView[ this.api ].View({ model: this });
             this.mediaCollection = new Media[ this.api ].Collection();
             this.mediaCollection.mediaModel = this;
@@ -377,7 +376,6 @@ function( app, ItemModel, MediaView, ItemCollectionViewer ) {
 
                 var media = new Media[ api ].Model();
                 media.mediaBrowser = this;
-                media.on("media_ready", this.onMediaReady );
                 this.set( api, media );
             }
 
