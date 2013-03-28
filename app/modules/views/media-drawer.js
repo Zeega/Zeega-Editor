@@ -15,35 +15,22 @@ function( app ) {
         },
 
         afterRender: function() {
-            this.renderCollections();
-            this.collection.on("add", this.renderCollection, this );
+            
+            this.renderMedia();
             this.onResize();
         },
+        renderMedia: function() {
 
-        renderCollections: function() {
             this.$(".ZEEGA-items").empty();
-            this.collection.each(function( collection ) {
-                this.renderCollection( collection );
-            }, this );
-        },
-
-        renderCollection: function( collection ) {
+            var collection = this.model.getCurrent();
             this.$(".ZEEGA-items").append( collection.view.el );
             collection.view.render();
         },
 
         events: {
-            "click .gridToggle": "gridToggle",
-            "click .clearSearch": "clearSearch",
-            "keyup .search-box": "onSearchKepress",
-            "focus .search-box": "onSearchFocus"
-        },
-
-        gridToggle: function() {
-            this.$el.toggleClass("list");
-
-            this.$(".gridToggle i").toggleClass("icon-th")
-                .toggleClass("icon-th-list");
+            "click .clear-search": "clearSearch",
+            "focus .search-box": "onSearchFocus",
+            "click .media-toggle": "onMediaToggle"
         },
 
         clearSearch: function() {
@@ -51,23 +38,26 @@ function( app ) {
             this.search("");
         },
 
+        onMediaToggle: function(event){
+            var api = $(event.target).data("api");
+            this.$el.find(".search-box").attr("placeholder", "search " + api);
+            this.model.setAPI( api );
+            this.renderMedia();
+
+            if( api === "Soundcloud" ){
+                this.$el.addClass("list");
+            } else {
+                this.$el.removeClass("list");
+            }
+
+            return false;
+        },
+
         onSearchFocus: function() {
             
         },
 
-        onSearchKepress: function( e ) {
-            if ( e.which == 13 ) {
-                this.search( this.$(".search-box").val() );
-            }
-        },
-
-        search: function( query ) {
-            var args = this.collection.at(0).get("urlArguments");
-
-            args.q = query;
-            this.collection.at(0).set("urlArguments", args );
-            this.collection.at(0).mediaCollection.fetch();
-        },
+        
 
         onResize: function() {
             var leftCol = $(".left-column .static-upper").height() +

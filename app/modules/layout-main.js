@@ -75,7 +75,7 @@ function( app, Navbar, ProjectMeta, Sequences, Frames, FrameControls, Workspace,
             }).render();
 
             new MediaDrawer({
-                collection: app.mediaCollection,
+                model: app.mediaBrowser,
                 el: this.$(".media-drawer")
             }).render();
 

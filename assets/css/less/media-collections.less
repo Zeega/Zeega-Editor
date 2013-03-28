@@ -9,22 +9,53 @@
     background: url(../img/transparency-grid.png);
     background-color: #111;
 
-    .media-collection-title {
+    .search-box {
+        border: none;
+        outline: 0;
+        padding: 8px;
+        width: 170px;
+        font-size:80%;
+    }
+
+    .search-bar{
+        margin-top:5px;
+    }
+    
+    .media-collection-header {
+        position: absolute;
+        z-index:1;
+        width:275px;
         background: orangered;
         padding: 5px 10px;
         color: white;
         font-size: 18px;
+        height:68px;
 
+        .media-collection-extras{
+            float:right;
+        }
+        .media-collection-title{
+            float:left;
+
+        }
         .get-bookmarklet {
             font-size: 12px;
-            float: right;
             color: white;
-            display: none;
+            
+        }
+        .upload-images{
+            font-size: 12px;
+            color: white;
+            padding-right:10px;
+        }
+        .media-collection-search {
+            clear:both;
         }
 
     }
     .media-collection-items {
         .clearfix;
+        padding-top: 78px;
         position: relative;
         
         .media-more {

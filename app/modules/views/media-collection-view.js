@@ -1,14 +1,23 @@
 define([
     "app",
     "modules/views/modal",
+    "modules/views/upload-modal",
     "backbone"
 ],
 
-function( app, Modal ) {
+function( app, Modal, UploadModal ) {
 
-    return Backbone.View.extend({
+    var Media = {
+        Base: {},
+        Zeega:{},
+        Instagram: {},
+        Flickr: {},
+        Soundcloud: {},
+        Giphy: {},
+        Web: {}
+    };
 
-        bmModal: null,
+    Media.Base.View = Backbone.View.extend({
 
         defaults: {
             title: "untitled"
@@ -25,11 +34,20 @@ function( app, Modal ) {
 
         initialize: function() {
             this.listen = _.once(function() {
-                this.model.mediaCollection.on("sync", this.render, this );
+                this.model.mediaCollection.on("sync", this.renderItems, this );
             }.bind( this ));
         },
-
         afterRender: function() {
+            this.renderItems();
+            this._afterRender();
+        },
+
+        //extend this function
+        _afterRender: function(){
+
+        },
+
+        renderItems: function() {
             this.$(".media-collection-items").empty();
 
             if ( this.model.mediaCollection.length ) {
@@ -37,13 +55,10 @@ function( app, Modal ) {
                     this.$(".media-collection-items").append( item.view.el );
                     item.view.render();
                 }, this );
-            } else {
+            } else if( this.model.getQuery() !== "" ) {
                 this.$(".media-collection-items").append("<div class='empty-collection'>no items found :( try again?</div>");
             }
 
-            // this.$(".media-collection-items")
-            //     .append("<li class='media-more'><a href='#'><div class='item-label'>more</div><i class='icon-plus icon-white'></i></a></li>");
-            
             this.listen();
 
             // show bookmarklet link
@@ -53,21 +68,54 @@ function( app, Modal ) {
         },
 
         events: {
-            "click .get-bookmarklet": "bookmarkletModal"
+            "keyup .search-box": "onSearchKeyPress"
+        },
+
+        onSearchKeyPress: function( e ) {
+            if ( e.which == 13 ) {
+                this.search( this.$(".search-box").val() );
+            }
+        },
+
+        search: function( query ) {
+            console.log(this.model);
+            this.model.search( query );
+
+        }
+
+    });
+
+    Media.Zeega.View = Media.Base.View.extend({
+
+        _afterRender: function(){
+            $(this.el).find(".media-collection-extras").append("<a href='#' class='upload-images'>Upload</a><a href='#' class='get-bookmarklet'><i class='icon-bookmark icon-white'></i></a>");
+        },
+
+        events: {
+            "click .get-bookmarklet": "bookmarkletModal",
+            "click .upload-images": "uploadModal",
+            "keyup .search-box": "onSearchKeyPress"
+        },
+
+        uploadModal: function(){
+            var uploadModal = new UploadModal({ model: this.model });
+
+            uploadModal.show();
+
         },
 
         bookmarkletModal: function() {
-            if ( this.bmModal === null ) {
-                this.bmModal = new Modal({
-                    modal: {
-                        title: "Get the Zeega Bookmarklet",
-                        className: "bookmarklet-modal",
-                        content: this.modalContent
-                    }
-                });
-            }
 
-            this.bmModal.show();
+            var bmModal = new Modal({
+                modal: {
+                    title: "Get the Zeega Bookmarklet",
+                    className: "bookmarklet-modal",
+                    content: this.modalContent
+                }
+            });
+            
+
+            bmModal.show();
         },
 
         modalContent: "<div><p>Just drag this link to your browser's bookmark bar:</p></div>" +
@@ -79,5 +127,13 @@ function( app, Modal ) {
             "<img class='bm-instructions' src='assets/img/bookmarklet-arrow.png'/>"
             
     });
+
+    Media.Instagram.View = Media.Base.View.extend({});
+    Media.Flickr.View = Media.Base.View.extend({});
+    Media.Soundcloud.View = Media.Base.View.extend({});
+    Media.Giphy.View = Media.Base.View.extend({});
+    Media.Web.View = Media.Base.View.extend({});
+
+    return Media;
 
 });
