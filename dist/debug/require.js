@@ -105210,7 +105210,7 @@ function( app, Modal ) {
             imageData.append( "file", fileInput.files[0] );
 
             $.ajax({
-                url: this.mediaServer + "image",
+                url: app.mediaServer + "image",
                 type: "POST",
                 data: imageData,
                 dataType: "json",
