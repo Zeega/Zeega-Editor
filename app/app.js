@@ -16,6 +16,7 @@ define([
         mediaCollection: null,
 
         userId: meta.data("userId") || null,
+        userName: meta.data("userName") || null,
         projectId: meta.data("projectId")|| null,
         root: meta.data("root")|| null,
         apiRoot: meta.data("apiRoot")||  null, // dev only
