@@ -67963,23 +67963,28 @@ define('app',[
     "backbone.layoutmanager"
 ], function() {
 
+    var meta = $("meta[name=zeega]");
+
+            
+
     // Provide a global location to place configuration settings and module
     // creation.
     var app = {
         // The root path to run the application.
-        root: "/",
+
         parserPath: "app/zeega-parser/",
-
-        api: "",
-        apiRoot: null,
-        searchAPI: "http://zeega.com/api/items/search?",
-        featuredAPI: "http://staging.zeega.org/api/items/featured",
-
-        userId: null,
-        projectId: null,
-
         dragging: null,
-        mediaCollection: null
+        mediaCollection: null,
+
+        userId: meta.data("userId") || null,
+        projectId: meta.data("projectId")|| null,
+        root: meta.data("root")|| null,
+        apiRoot: meta.data("apiRoot")||  null, // dev only
+        api: "http:" + meta.data("hostname") +  ( meta.data("apiRoot") ? meta.data("apiRoot") : meta.data("root") ) + "api/"|| null,
+        mediaServer: "http:" + meta.data("hostname") + meta.data("mediaRoot") || null,
+        searchAPI: "http:" + meta.data("hostname") +  ( meta.data("apiRoot") ? meta.data("apiRoot") : meta.data("root") ) + "api/items/search?"|| null,
+        featuredAPI: "http:" + meta.data("hostname") +  ( meta.data("apiRoot") ? meta.data("apiRoot") : meta.data("root") ) + "api/items/featured" || null
+    
     };
 
     // Localize or create a new JavaScript Template object.
@@ -105585,7 +105590,7 @@ function( app, ItemModel, MediaView, ItemCollectionViewer ) {
 
         url: function() {
             var url = this.mediaModel.apiUrl;
-
+            console.log(url);
             _.each( this.mediaModel.toJSON().urlArguments, function( value, key ) {
                 if ( value !== "" && value !== null ) {
                     url += key + "=" + ( _.isFunction( value ) ? value() : value ) + "&";
@@ -105816,8 +105821,7 @@ function( app, ItemModel, MediaView, ItemCollectionViewer ) {
                 format: "json",
                 method: "flickr.photos.search",
                 extras: "owner_name",
-                type: "-project AND -Collection AND -Video",
-                per_page: "50",
+                per_page: "100",
                 api_key: "97ac5e379fbf4df38a357f9c0943e140",
                 text: ""
     
@@ -106028,23 +106032,9 @@ function( app, Status, Layout, ZeegaParser, MediaBrowser ) {
     return Backbone.Model.extend({
         
         initialize: function() {
-            this.loadMetadata();
             app.mediaBrowser = new MediaBrowser();
             this.loadProject();
-        },
-
-        loadMetadata: function() {
-            var meta = $("meta[name=zeega]");
-
-            app.userId = meta.data("userId");
-            app.projectId = meta.data("projectId");
-            app.root = meta.data("root");
-            app.apiRoot = meta.data("apiRoot"); // dev only
-            app.api = "http:" + meta.data("hostname") + ( app.apiRoot ? app.apiRoot : app.root ) + "api/";
-            app.mediaServer = "http:" + meta.data("hostname") + "kinok/";
-            app.searchAPI = app.api + "search?";
-            app.featuredAPI = app.api + "items/featured";
-
+            console.log(app);
         },
 
         loadProject: function( attributes ) {
@@ -106054,7 +106044,7 @@ function( app, Status, Layout, ZeegaParser, MediaBrowser ) {
                 var rawDataModel = new Backbone.Model();
 
                 // mainly for testing
-                rawDataModel.url = "http://dev.zeega.org/james/web/api/projects/8190";
+                rawDataModel.url = "http://dev.zeega.org/james/web/api/projects/8211";
                 rawDataModel.fetch().success(function( response ) {
                     this._parseData( response );
                 }.bind( this )).error(function() {
