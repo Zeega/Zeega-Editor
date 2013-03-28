@@ -105200,11 +105200,11 @@ function( app, Modal ) {
         },
 
         updateMediaCollection: function(){
+            console.log(this,this.model);
             this.model.search("");
         },
 
         imageUpload: function(event) {
-
             var fileInput = event.target, imageData;
             imageData = new FormData();
             
