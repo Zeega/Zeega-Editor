@@ -543,7 +543,7 @@ return __p;
 this["JST"]["app/templates/media-drawer.html"] = function(obj){
 var __p='';var print=function(){__p+=Array.prototype.join.call(arguments, '')};
 with(obj||{}){
-__p+='<div class="media-drawer-controls ZEEGA-hmenu dark">\n        <ul class=\'pull-left\'>\n        \n        <li>\n            <a href="#" data-api = "Zeega" class="media-toggle">M</a>\n        </li>\n        <!--\n        <li>\n            <a href="#" data-api = "Tumblr" class="media-toggle">T</i></a>\n        </li>\n        -->\n        <li>\n            <a href="#" data-api = "Soundcloud" class="media-toggle">S</i></a>\n        </li>\n        <!--\n\n        <li>\n            <a href="#" data-api = "Giphy" class="media-toggle">G</i></a>\n        </li>\n\n        -->\n\n        <li>\n            <a href="#" data-api = "Flickr" class="media-toggle">F</i></a>\n        </li>\n        <li>\n            <a href="#" data-api = "Instagram" class="media-toggle">I</i></a>\n        </li>\n        <li>\n            <a href="#" data-api = "Web" class="media-toggle">W</i></a>\n        </li>\n    </ul>\n    \n    \n</div>\n<ul class="ZEEGA-items"></ul>';
+__p+='<div class="media-drawer-controls ZEEGA-hmenu dark">\n        <ul class=\'pull-left\'>\n        \n        <li>\n            <a href="#" data-api = "Zeega" class="media-toggle">M</a>\n        </li>\n        <!--\n        <li>\n            <a href="#" data-api = "Tumblr" class="media-toggle">T</i></a>\n        </li>\n        -->\n        <li>\n            <a href="#" data-api = "Soundcloud" class="media-toggle">S</i></a>\n        </li>\n\n\n        <li>\n            <a href="#" data-api = "Giphy" class="media-toggle">G</i></a>\n        </li>\n\n\n\n        <li>\n            <a href="#" data-api = "Flickr" class="media-toggle">F</i></a>\n        </li>\n        <li>\n            <a href="#" data-api = "Instagram" class="media-toggle">I</i></a>\n        </li>\n        <li>\n            <a href="#" data-api = "Web" class="media-toggle">W</i></a>\n        </li>\n    </ul>\n    \n    \n</div>\n<ul class="ZEEGA-items"></ul>';
 }
 return __p;
 };
@@ -105302,9 +105302,10 @@ function( app, Modal, UploadModal ) {
         },
 
         renderItems: function() {
+            
             this.$(".media-collection-items").empty();
 
-            if ( this.model.mediaCollection.length ) {
+            if ( this.model.mediaCollection.length && this.model.mediaCollection.at( 0 ).get("uri") ) {
                 this.model.mediaCollection.each(function( item ) {
                     this.$(".media-collection-items").append( item.view.el );
                     item.view.render();
@@ -105597,7 +105598,6 @@ function( app, ItemModel, MediaView, ItemCollectionViewer ) {
 
         url: function() {
             var url = this.mediaModel.apiUrl;
-            console.log(url);
             _.each( this.mediaModel.toJSON().urlArguments, function( value, key ) {
                 if ( value !== "" && value !== null ) {
                     url += key + "=" + ( _.isFunction( value ) ? value() : value ) + "&";
@@ -105663,7 +105663,7 @@ function( app, ItemModel, MediaView, ItemCollectionViewer ) {
         
 
         parse: function(res){
-            console.log(res);
+            
             var photos = res.data;
             _.each( photos, function( photo ){
                 if( !_.isNull( photo.caption ) && !_.isNull( photo.caption.text ) ){
@@ -105713,36 +105713,36 @@ function( app, ItemModel, MediaView, ItemCollectionViewer ) {
 
     Media.Giphy.Collection = Media.Zeega.Collection.extend({
 
-        parse: function( res ) {
-            var photos = res.data;
-
+        parse: function(res){
+            var photos = res.items,
+                count = 1;
+            
             _.each( photos, function( photo ){
-                photo.layer_type = "Image";
-                photo.media_type = "Image";
-                photo.archive = "Giphy";
-
-                photo.thumbnail_url = photo.image_fixed_height_still_url;
-                photo.uri = photo.urimage_fixed_height_urll;
-                photo.attribution_uri =  photo.url;
-                photo.media_user_realname = "";
-                photo.title = "Giphy gif";
+                photo.id = count;
+                count++;
             });
 
-
+            this.itemsCount = res.items_count;
             return photos;
         }
+
     });
 
     Media.Web.Collection = Media.Zeega.Collection.extend({
-
         parse: function( res ) {
-            console.log(res);
-            this.itemsCount = 1;
+            if ( res.code == 500 ){
+                this.itemsCount = 0;
+                return array();
+            }
+
+            this.itemsCount = res.items_count;
+
             return res.items;
         }
     });
 
-    
+
+
 
 
     Media.Zeega.Model = Backbone.Model.extend({
@@ -105918,27 +105918,28 @@ function( app, ItemModel, MediaView, ItemCollectionViewer ) {
     Media.Giphy.Model = Media.Zeega.Model.extend({
         
         api: "Giphy",
-        apiUrl: "http://giphy.com/api/gifs?",
+        apiUrl: app.api + "items/parser?",
 
         defaults: {
             urlArguments: {
-                tag:"",
-                page: 1,
-                size: 25
+                url: "",
+                tag: ""
             },
             title: "Giphy",
             placeholder: "search Giphy gifs",
-            searchQuery:""
+            searchQuery: ""
         },
         getQuery: function(){
             return this.get("urlArguments").tag;
         },
         _search: function( query ){
 
-            var args= this.get("urlArguments");
+            var args = this.get("urlArguments");
 
             if( query !== "" && query !== args.tag ){
                 args.tag = query;
+                args.url = "http://giphy.com/tags/" + query;
+
                 this.set("urlArguments", args );
                 this.mediaCollection.fetch();
             }
@@ -105948,7 +105949,7 @@ function( app, ItemModel, MediaView, ItemCollectionViewer ) {
     Media.Web.Model = Media.Zeega.Model.extend({
         
         api: "Web",
-        apiUrl: "http://dev.zeega.org/james/web/api/items/parser?",
+        apiUrl: app.api + "items/parser?",
 
          defaults: {
             urlArguments: {
@@ -106041,7 +106042,6 @@ function( app, Status, Layout, ZeegaParser, MediaBrowser ) {
         initialize: function() {
             app.mediaBrowser = new MediaBrowser();
             this.loadProject();
-            console.log(app);
         },
 
         loadProject: function( attributes ) {
@@ -106073,7 +106073,6 @@ function( app, Status, Layout, ZeegaParser, MediaBrowser ) {
                 currentSequence: app.project.sequences.at( 0 ),
                 currentFrame: app.project.sequences.at( 0 ).frames.at( 0 )
             });
-            console.log( app.project );
             this.insertLayout();
         },
 
