@@ -6181,15 +6181,14 @@ html {
 
 }
 .upload-modal .image-uploads {
-  width: 48%;
   float: left;
-  max-height: 300px;
+  max-height: 160px;
   overflow-y: auto;
 }
 .upload-modal .add-photo {
   display: inline-block;
-  width: 60px;
-  height: 60px;
+  width: 69.3px;
+  height: 69.3px;
   margin: 0 5px 15px;
   position: relative;
   overflow: hidden;
@@ -6208,7 +6207,7 @@ html {
   top: 0;
 }
 .upload-modal .modal-body {
-  height: 250px;
+  height: 184px;
 }
 .upload-modal .close {
   margin-top: -34px;
