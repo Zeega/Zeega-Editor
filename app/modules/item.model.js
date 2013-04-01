@@ -9,7 +9,9 @@ function( app, ItemView ) {
     return Backbone.Model.extend({
         
         view: null,
-
+        defaults: {
+            editable: -1
+        },
         url: function(){
             var url = app.api + "items/" + this.id;
 
