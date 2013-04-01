@@ -45,9 +45,13 @@ var __p='';var print=function(){__p+=Array.prototype.join.call(arguments, '')};
 with(obj||{}){
 __p+='<div class="viewer-preview" style="">\n    <audio class="preview-audio" src="'+
 ( uri )+
-'" controls="true" /></audio>\n</div>\n<div class="viewer-controls">\n    <a class="add-to-frame" href="#"><i class="icon-download"></i> add to frame</a>\n    <a href="'+
+'" controls="true" /></audio>\n</div>\n<div class="viewer-controls">\n    <a class="add-to-frame" href="#"><i class="icon-download"></i> add to page</a>\n    <a href="'+
 ( attribution_uri )+
-'" target="blank"><i class="icon-share-alt"></i> view original</a>\n    <a class="delete-item" href="#"><i class="icon-remove"></i> delete</a>\n</div>';
+'" target="blank"><i class="icon-share-alt"></i> view original</a>\n   \n     ';
+ if( editable != -1 ) { 
+;__p+='\n            <a class="delete-item" href="#"><i class="icon-remove"></i> delete</a>\n    ';
+ } 
+;__p+='\n\n</div>';
 }
 return __p;
 };
@@ -59,7 +63,11 @@ __p+='<div class="viewer-preview" style="\n    background: url('+
 ( uri )+
 ');\n    background-size: contain;\n    background-position: 50% 50%;\n    background-repeat: no-repeat;\n"></div>\n<div class="viewer-controls">\n    <a class="add-to-frame" href="#"><i class="icon-download"></i> add to frame</a>\n    <a href="'+
 ( attribution_uri )+
-'" target="blank"><i class="icon-share-alt"></i> view original</a>\n    <a class="delete-item" href="#"><i class="icon-remove"></i> delete</a>\n</div>';
+'" target="blank"><i class="icon-share-alt"></i> view original</a>\n    ';
+ if( editable != -1 ) { 
+;__p+='\n        <a class="delete-item" href="#"><i class="icon-remove"></i> delete</a>\n    ';
+ } 
+;__p+='\n</div>';
 }
 return __p;
 };
