@@ -29,7 +29,6 @@ function( app, ItemModel, MediaView, ItemCollectionViewer ) {
 
         url: function() {
             var url = this.mediaModel.apiUrl;
-            console.log(url);
             _.each( this.mediaModel.toJSON().urlArguments, function( value, key ) {
                 if ( value !== "" && value !== null ) {
                     url += key + "=" + ( _.isFunction( value ) ? value() : value ) + "&";
@@ -95,7 +94,7 @@ function( app, ItemModel, MediaView, ItemCollectionViewer ) {
         
 
         parse: function(res){
-            console.log(res);
+            
             var photos = res.data;
             _.each( photos, function( photo ){
                 if( !_.isNull( photo.caption ) && !_.isNull( photo.caption.text ) ){
@@ -145,36 +144,36 @@ function( app, ItemModel, MediaView, ItemCollectionViewer ) {
 
     Media.Giphy.Collection = Media.Zeega.Collection.extend({
 
-        parse: function( res ) {
-            var photos = res.data;
-
+        parse: function(res){
+            var photos = res.items,
+                count = 1;
+            
             _.each( photos, function( photo ){
-                photo.layer_type = "Image";
-                photo.media_type = "Image";
-                photo.archive = "Giphy";
-
-                photo.thumbnail_url = photo.image_fixed_height_still_url;
-                photo.uri = photo.urimage_fixed_height_urll;
-                photo.attribution_uri =  photo.url;
-                photo.media_user_realname = "";
-                photo.title = "Giphy gif";
+                photo.id = count;
+                count++;
             });
 
-
+            this.itemsCount = res.items_count;
             return photos;
         }
+
     });
 
     Media.Web.Collection = Media.Zeega.Collection.extend({
-
         parse: function( res ) {
-            console.log(res);
-            this.itemsCount = 1;
+            if ( res.code == 500 ){
+                this.itemsCount = 0;
+                return array();
+            }
+
+            this.itemsCount = res.items_count;
+
             return res.items;
         }
     });
 
-    
+
+
 
 
     Media.Zeega.Model = Backbone.Model.extend({
@@ -350,27 +349,28 @@ function( app, ItemModel, MediaView, ItemCollectionViewer ) {
     Media.Giphy.Model = Media.Zeega.Model.extend({
         
         api: "Giphy",
-        apiUrl: "http://giphy.com/api/gifs?",
+        apiUrl: app.api + "items/parser?",
 
         defaults: {
             urlArguments: {
-                tag:"",
-                page: 1,
-                size: 25
+                url: "",
+                tag: ""
             },
             title: "Giphy",
             placeholder: "search Giphy gifs",
-            searchQuery:""
+            searchQuery: ""
         },
         getQuery: function(){
             return this.get("urlArguments").tag;
         },
         _search: function( query ){
 
-            var args= this.get("urlArguments");
+            var args = this.get("urlArguments");
 
             if( query !== "" && query !== args.tag ){
                 args.tag = query;
+                args.url = "http://giphy.com/tags/" + query;
+
                 this.set("urlArguments", args );
                 this.mediaCollection.fetch();
             }
@@ -380,7 +380,7 @@ function( app, ItemModel, MediaView, ItemCollectionViewer ) {
     Media.Web.Model = Media.Zeega.Model.extend({
         
         api: "Web",
-        apiUrl: "http://dev.zeega.org/james/web/api/items/parser?",
+        apiUrl: app.api + "items/parser?",
 
          defaults: {
             urlArguments: {

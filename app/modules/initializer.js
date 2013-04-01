@@ -16,7 +16,6 @@ function( app, Status, Layout, ZeegaParser, MediaBrowser ) {
         initialize: function() {
             app.mediaBrowser = new MediaBrowser();
             this.loadProject();
-            console.log(app);
         },
 
         loadProject: function( attributes ) {
@@ -48,7 +47,6 @@ function( app, Status, Layout, ZeegaParser, MediaBrowser ) {
                 currentSequence: app.project.sequences.at( 0 ),
                 currentFrame: app.project.sequences.at( 0 ).frames.at( 0 )
             });
-            console.log( app.project );
             this.insertLayout();
         },
 
