@@ -5401,6 +5401,25 @@ html {
     SPRITES
     
 ***********************************************/
+.zeega-play,
+.zeega-pause {
+  display: inline-block;
+  width: 30px;
+  height: 30px;
+  background-image: url('../img/sprites-playback.png');
+}
+.zeega-play {
+  background-position: 0px 0px;
+}
+.zeega-play.zeega-white {
+  background-position: -30px -30px;
+}
+.zeega-pause {
+  background-position: 0px -30px;
+}
+.zeega-pause.zeega-white {
+  background-position: -30px -30px;
+}
 [class^="zicon-"] {
   display: inline-block;
   width: 20px;
@@ -6065,6 +6084,16 @@ html {
 .zsocial-email {
   background-position: 0px -51px;
 }
+.project-preview {
+  position: absolute;
+  bottom: 10px;
+}
+.playback {
+  background: url(../img/tiny-stripes-dark.png);
+  position: absolute;
+  width: 100%;
+  bottom: 10px;
+}
 .navbar {
   margin-bottom: 10px;
 }
@@ -6252,6 +6281,7 @@ html {
   color: orangered;
 }
 .ZEEGA-hmenu {
+  font-weight: bold;
   *zoom: 1;
 }
 .ZEEGA-hmenu:before,
@@ -6264,7 +6294,7 @@ html {
   clear: both;
 }
 .ZEEGA-hmenu.dark {
-  background: rgba(0, 0, 0, 0.25);
+  background: url(../img/tiny-stripes-dark.png);
 }
 .ZEEGA-hmenu.light {
   background: rgba(255, 255, 255, 0.1);
@@ -6285,6 +6315,7 @@ html {
   border-left: 1px solid rgba(255, 255, 255, 0.25);
 }
 .ZEEGA-hmenu > ul > li > a {
+  border-radius: 2px;
   padding: 10px;
   display: block;
   text-align: center;
@@ -6429,7 +6460,7 @@ a:active {
   background: rgba(255, 255, 0, 0.25);
 }
 .project-head .project-share {
-  float: right;
+  float: left;
   margin-right: 10px;
 }
 .project-head .project-share a {
@@ -6745,7 +6776,7 @@ a:active {
   position: absolute;
   min-height: 320px;
   width: 100%;
-  height: calc(100% - 88px);
+  height: calc(100% - 118px);
   overflow: hidden;
   *zoom: 1;
 }
@@ -6969,16 +7000,20 @@ a:active {
   white-space: nowrap;
 }
 .soundtrack {
-  height: 30px;
-  background: url(../img/tiny-stripes.png);
-  box-shadow: inset 0 0 27px black;
-  font-size: 23px;
+  width: 148px;
+  height: 148px;
+  float: left;
+  margin: 0 0 10px 10px;
+  border-radius: 2px;
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.25);
+  background-color: rgba(0, 0, 0, 0.1);
+  border: 1px solid orangered;
+  background: url(../img/tiny-stripes-dark.png);
+  font-size: 20px;
   text-align: center;
-  text-shadow: 0 2px 0 black;
-  border-top: 1px solid white;
-  border-bottom: 1px solid white;
-  color: white;
+  color: #555;
   position: relative;
+  text-shadow: 2px 2px white;
 }
 .soundtrack .elapsed {
   background: orangered;
@@ -7001,17 +7036,17 @@ a:active {
 .soundtrack .soundtrack-info {
   font-size: 14px;
   position: absolute;
-  left: 5px;
-  bottom: 5px;
   pointer-events: none;
+  background: rgba(255, 255, 255, 0.5);
+  padding: 5px;
+  left: 0;
+  right: 0;
 }
 .soundtrack .soundtrack-controls {
   position: absolute;
-  right: 0;
-  top: 0;
   bottom: 0;
   background: rgba(0, 0, 0, 0.5);
-  height: 100%;
+  width: 100%;
 }
 .soundtrack .soundtrack-controls a {
   position: relative;
@@ -7022,18 +7057,9 @@ a:active {
 .soundtrack .soundtrack-controls i {
   vertical-align: middle;
 }
-.soundtrack .soundtrack-controls,
-.soundtrack .soundtrack-info {
-  opacity: 0.5;
-  transition: opacity 2s;
-  -webkit-transition: opacity 2s;
-  -webkit-transition-delay: 2s;
-}
-.soundtrack:hover .soundtrack-controls,
-.soundtrack:hover .soundtrack-info {
-  opacity: 1;
-  transition: opacity 0.5s;
-  -webkit-transition: opacity 0.5s;
+.soundtrack .instructions-1,
+.soundtrack .instructions-2 {
+  padding: 10px;
 }
 .soundtrack .instructions-1 {
   display: block;
@@ -7042,8 +7068,7 @@ a:active {
   display: none;
 }
 .soundtrack.can-drop {
-  border-top: 1px solid limegreen;
-  border-bottom: 1px solid limegreen;
+  border: 1px solid limegreen;
 }
 .soundtrack.can-drop .instructions-1 {
   display: none;
@@ -7051,43 +7076,16 @@ a:active {
 .soundtrack.can-drop .instructions-2 {
   display: block;
 }
-.ZEEGA-layer-drawer {
-  *zoom: 1;
+.section-head {
+  float: left;
+  margin-left: 10px;
+  font-weight: bold;
+  opacity: 0.75;
 }
-.ZEEGA-layer-drawer:before,
-.ZEEGA-layer-drawer:after {
-  display: table;
-  content: "";
-  line-height: 0;
-}
-.ZEEGA-layer-drawer:after {
-  clear: both;
-}
-.ZEEGA-layer-drawer li {
-  float: right;
-  height: 50px;
-  width: 50px;
-  margin-left: 1px;
-}
-.ZEEGA-layer-drawer li a {
-  height: 100%;
-  width: 100%;
-  background: rgba(0, 0, 0, 0.25);
-  display: inline-block;
-  font-size: 13px;
-  cursor: move;
-}
-.ZEEGA-layer-drawer li a:hover {
-  background: rgba(0, 0, 0, 0.5);
-}
-.ZEEGA-layer-drawer li .item-label {
-  text-align: center;
-  margin-top: 8px;
-}
-.ZEEGA-layer-drawer li i {
-  text-align: center;
-  margin: 0 auto;
-  display: block;
+.layer-picker {
+  float: left;
+  width: 150px;
+  margin: 0 0 10px 10px;
 }
 .media-drawer.list .media-collection {
   background: #111;

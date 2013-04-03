@@ -13,13 +13,14 @@ define([
     "modules/views/soundtrack",
 
     "modules/views/media-drawer",
+    "modules/views/project-preview",
     // "modules/search.model",
     "mousetrap",
 
     "backbone"
 ],
 
-function( app, Navbar, ProjectMeta, Sequences, Frames, FrameControls, Workspace, Layers, LayerControls, LayerDrawer, Soundtrack, MediaDrawer) {
+function( app, Navbar, ProjectMeta, Sequences, Frames, FrameControls, Workspace, Layers, LayerControls, LayerDrawer, Soundtrack, MediaDrawer, ProjectPreview ) {
 
     return Backbone.Layout.extend({
 
@@ -42,19 +43,25 @@ function( app, Navbar, ProjectMeta, Sequences, Frames, FrameControls, Workspace,
 
         afterRender: function() {
 
-            // new Soundtrack({
-            //     el: this.$(".soundtrack")
-            // }).render();
+            new Soundtrack({
+                el: this.$(".soundtrack")
+            }).render();
+
+            new ProjectPreview({
+                model: app,
+                el: this.$(".project-preview")
+            }).render();
+
 
             // new ProjectMeta({
             //     model: app,
             //     el: this.$(".project-meta")
             // }).render();
 
-            // new LayerDrawer({
-            //     model: app,
-            //     el: this.$(".layer-drawer")
-            // }).render();
+            new LayerDrawer({
+                model: app,
+                el: this.$(".layer-picker")
+            }).render();
 
             new Frames({
                 model: app,

@@ -6,6 +6,29 @@
 
 @image-folder: '../img';
 
+.zeega-play,
+.zeega-pause {
+  display: inline-block;
+  width: 30px;
+  height: 30px;
+  background-image: url('@{image-folder}/sprites-playback.png');
+}
+
+.zeega-play {
+  background-position: 0px 0px;
+
+  &.zeega-white {
+    background-position: -30px -30px;
+  }
+}
+.zeega-pause {
+  background-position: 0px -30px;
+
+  &.zeega-white {
+    background-position: -30px -30px;
+  }
+}
+
 [class^="zicon-"] {
     display: inline-block;
     width: 20px;
