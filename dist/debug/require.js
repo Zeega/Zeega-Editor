@@ -413,7 +413,7 @@ return __p;
 this["JST"]["app/templates/frames.html"] = function(obj){
 var __p='';var print=function(){__p+=Array.prototype.join.call(arguments, '')};
 with(obj||{}){
-__p+='<ul class="frame-list"></ul>\n<div class="add-frame"><a href="#"><i class="icon-plus icon-white"></i> add page</a></div>';
+__p+='<ul class="frame-list"></ul>\n<div class="add-frame"><a href="#"><i class="icon-plus icon-white"></i></a></div>';
 }
 return __p;
 };
@@ -529,7 +529,7 @@ return __p;
 this["JST"]["app/templates/layout-main.html"] = function(obj){
 var __p='';var print=function(){__p+=Array.prototype.join.call(arguments, '')};
 with(obj||{}){
-__p+='<div class=\'left-column\'>\n    <div class="static-upper">\n        <div class="nav"></div>\n        <div class="project-meta"></div>\n        <div class="layer-drawer"></div>\n    </div>\n    <div class="media-drawer"></div>\n</div>\n<div class=\'right-column\'>\n    <div class="project-navs">\n        <div class="sequences"></div>\n        <div class="frames"></div>\n        <div class="soundtrack"></div>\n        <div class="controls-wrapper">\n            <div class="layer-controls"></div>\n            <div class="frame-controls"></div>\n        </div>\n    </div>\n    <div class="workspace"></div>\n    <div class="layers"></div>\n</div>';
+__p+='<div class=\'left-column\'>\n    <div class="static-upper">\n        <div class="nav"></div>\n    </div>\n    <div class="media-drawer"></div>\n</div>\n<div class=\'right-column\'>\n    <div class="project-head">\n        <div class="project-info" contenteditable>My Awesome Zeega!!!</div>\n        <div class="project-share">\n            <a href="#"><i class="zitem-twitter zitem-30 color"></i></a>\n            <a href="#"><i class="zitem-facebook zitem-30 color"></i></a>\n            <a href="#"><i class="zitem-tumblr zitem-30 color"></i></a>\n        </div>\n    </div>\n\n    <div class="edit-box">\n        <div class="project-navs">\n            <div class="frames"></div>\n        </div>\n        <div class="workspace"></div>\n    </div>\n    <div class="layers"></div>\n</div>';
 }
 return __p;
 };
@@ -573,7 +573,7 @@ var __p='';var print=function(){__p+=Array.prototype.join.call(arguments, '')};
 with(obj||{}){
 __p+='<ul class=\'pull-left\'>\n    <li class=\'logo\'>\n        <a href="#"><img src="assets/img/zeega-logo-header.png"/></a>\n    </li>\n</ul>\n<ul class=\'pull-right\'>\n    <li>\n        <a href="http://www.zeega.org/user/'+
 ( userId )+
-'" target="blank"><i class="icon-user icon-white"></i></a>\n    </li>\n    <li>\n        <a href="#"><i class="icon-folder-open icon-white"></i></a>\n        <ul class="submenu">\n            <li>\n                <a href="/'+
+'" target="blank"><i class="icon-user"></i></a>\n    </li>\n    <li>\n        <a href="#"><i class="icon-folder-open"></i></a>\n        <ul class="submenu">\n            <li>\n                <a href="/'+
 ( root )+
 'project/new" data-bypass="true" ><i class="icon-file"></i> New Zeega</a>\n            </li>\n            <li class="divider"></li>\n\n            ';
  _.each( userProjects, function( project) { 
@@ -583,7 +583,7 @@ __p+='<ul class=\'pull-left\'>\n    <li class=\'logo\'>\n        <a href="#"><im
 ( project.title )+
 '</a>\n                </li>\n            ';
  }); 
-;__p+='\n\n        </ul>\n    </li>\n    <li>\n        <a href="http://www.zeega.org/faq/" target="blank"><i class="icon-question-sign icon-white"></i></a>\n    </li>\n</ul>';
+;__p+='\n\n        </ul>\n    </li>\n    <li>\n        <a href="http://www.zeega.org/faq/" target="blank"><i class="icon-question-sign"></i></a>\n    </li>\n</ul>';
 }
 return __p;
 };
@@ -67990,7 +67990,9 @@ define('app',[
         root: meta.data("root")|| null,
         apiRoot: meta.data("apiRoot")||  null, // dev only
         api: "http:" + meta.data("hostname") +  ( meta.data("apiRoot") ? meta.data("apiRoot") : meta.data("root") ) + "api/"|| null,
+
         mediaServer: "http:" + meta.data("hostname") + meta.data("mediaRoot") || null,
+
         searchAPI: "http:" + meta.data("hostname") +  ( meta.data("apiRoot") ? meta.data("apiRoot") : meta.data("root") ) + "api/items/search?"|| null,
         featuredAPI: "http:" + meta.data("hostname") +  ( meta.data("apiRoot") ? meta.data("apiRoot") : meta.data("root") ) + "api/items/featured" || null
     
@@ -68153,7 +68155,7 @@ function( app ) {
     Navbar = Backbone.View.extend({
 
         template: "navbar",
-        className: "navbar ZEEGA-hmenu dark",
+        className: "navbar ZEEGA-hmenu clear",
         
         serialize: function() {
             return {
@@ -68689,29 +68691,15 @@ function( app ) {
         },
 
         onResize: function() {
-            var h, w;
+            var h, w,
+                workspace = this.$el.closest(".workspace");
 
-            h = window.innerHeight;
-            w = window.innerWidth;
+            // h = window.innerHeight;
+            // w = window.innerWidth;
 
-            this.resizeParent( w, h );
-        },
+            w = workspace.width();
+            h = workspace.height();
 
-        resizeParent: function( w, h ) {
-            var height, width;
-
-            height = h - $(".project-navs").height();
-            width = $(".right-column").width() - $(".layers").width();
-
-            this.$el.parent().css({
-                height: height,
-                width: width
-            });
-            this.resizeWorkspace( width, height );
-        },
-
-        resizeWorkspace: function( w, h ) {
-            var height, width;
 
             if ( w / h > this.aspectRatio ) {
                 height = h - 20;
@@ -84209,10 +84197,11 @@ function( app ) {
         
 
         onResize: function() {
-            var leftCol = $(".left-column .static-upper").height() +
-                $(".left-column .media-drawer-controls").height();
+            //var leftCol = $(".left-column .static-upper").height() + 30;
 
-            this.$(".ZEEGA-items").css("height", window.innerHeight - leftCol );
+            //console.log("resizeeee", leftCol, window.innerHeight - leftCol )
+
+            //this.$(".ZEEGA-items").css("height", window.innerHeight - leftCol );
         }
 
 
@@ -85085,37 +85074,37 @@ function( app, Navbar, ProjectMeta, Sequences, Frames, FrameControls, Workspace,
 
         afterRender: function() {
 
-            new Soundtrack({
-                el: this.$(".soundtrack")
-            }).render();
+            // new Soundtrack({
+            //     el: this.$(".soundtrack")
+            // }).render();
 
-            new ProjectMeta({
-                model: app,
-                el: this.$(".project-meta")
-            }).render();
+            // new ProjectMeta({
+            //     model: app,
+            //     el: this.$(".project-meta")
+            // }).render();
 
-            new LayerDrawer({
-                model: app,
-                el: this.$(".layer-drawer")
-            }).render();
+            // new LayerDrawer({
+            //     model: app,
+            //     el: this.$(".layer-drawer")
+            // }).render();
 
             new Frames({
                 model: app,
                 el: this.$(".frames")
             }).render();
 
-            new FrameControls({
-                model: app,
-                el: this.$(".frame-controls")
-            }).render();
+            // new FrameControls({
+            //     model: app,
+            //     el: this.$(".frame-controls")
+            // }).render();
 
-            new LayerControls({
-                model: app,
-                el: this.$(".layer-controls"),
-                afterRender: function() {
-                    app.trigger("rendered");
-                }
-            }).render();
+            // new LayerControls({
+            //     model: app,
+            //     el: this.$(".layer-controls"),
+            //     afterRender: function() {
+            //         app.trigger("rendered");
+            //     }
+            // }).render();
 
             new MediaDrawer({
                 model: app.mediaBrowser,
@@ -105566,11 +105555,7 @@ function( app, Modal, FrameView, ImageView, AudioView ) {
 
         deleteItem: function(){
             this.currentItem.destroy();
-            if ( this.collection.length > this.index + 1 ) {
-                this.next();
-            } else {
-                this.prev();
-            }
+            this.goToItem( this.index );
         }
 
     });
@@ -106072,7 +106057,9 @@ function( app, Status, Layout, ZeegaParser, MediaBrowser ) {
                 var rawDataModel = new Backbone.Model();
 
                 // mainly for testing
+
                 rawDataModel.url = "http://dev.zeega.org/james/web/api/projects/8211";
+
                 rawDataModel.fetch().success(function( response ) {
                     this._parseData( response );
                 }.bind( this )).error(function() {
