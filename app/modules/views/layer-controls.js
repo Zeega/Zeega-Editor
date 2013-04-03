@@ -11,67 +11,75 @@ function( app ) {
         controls: [],
         inFocus: null,
 
-        template: "layer-control-bar",
-        className: "ZEEGA-layer-control-bar",
+        template: "layer-controls",
+        className: "ZEEGA-control-floater",
 
         initialize: function() {
             app.status.on("change:currentLayer", this.onLayerFocus, this );
         },
 
         afterRender: function() {
+            var $target = this.options.target.$el;
+
             app.trigger("rendered", this );
+            this.loadControls();
+
+            this.$el.css({
+                top: $target.offset().top + "px",
+                right: "160px",
+                height: ( $target.height() - 2 )+ "px"
+            });
+            console.log("this", this)
         },
 
-        onLayerFocus: function( status, layerModel ) {
-
-            if ( this.inFocus ) {
-                this.stopListening( this.inFocus );
-            }
-
-            if ( layerModel !== null ) {
-                this.$(".layer-bar-title").text( layerModel.getAttr("title") );
-                this.loadControls( layerModel );
-            } else if ( layerModel === null ) {
-                this.clearControls();
-            }
-            this.listen( layerModel );
-        },
-
-        listen: function( layerModel ) {
-            if ( layerModel ) {
-                layerModel.on("focus", this.onFocus, this );
-                layerModel.on("blur", this.onBlur, this );
-                layerModel.on("remove", this.onRemove, this );
-            }
-        },
-
-        loadControls: function( layerModel ) {
-            this.clearControls();
-
-            _.each( layerModel._controls, function( control ) {
-                    this.$(".layer-controls-inner").append( control.el );
-                    control.render();
+        loadControls: function() {
+            _.each( this.model._controls, function( control ) {
+                this.$(".layer-controls-inner").append( control.el );
+                control.render();
             });
 
         },
 
-        onFocus: function() {
+        // onLayerFocus: function( status, layerModel ) {
 
-        },
+        //     if ( this.inFocus ) {
+        //         this.stopListening( this.inFocus );
+        //     }
 
-        onBlur: function() {
-            this.clearControls();
-        },
+        //     if ( layerModel !== null ) {
+        //         this.$(".layer-bar-title").text( layerModel.getAttr("title") );
+        //         this.loadControls( layerModel );
+        //     } else if ( layerModel === null ) {
+        //         this.clearControls();
+        //     }
+        //     this.listen( layerModel );
+        // },
 
-        onRemove: function() {
-            this.stopListening( this.inFocus );
-            this.clearControls();
-        },
+        // listen: function( layerModel ) {
+        //     if ( layerModel ) {
+        //         layerModel.on("focus", this.onFocus, this );
+        //         layerModel.on("blur", this.onBlur, this );
+        //         layerModel.on("remove", this.onRemove, this );
+        //     }
+        // },
 
-        clearControls: function() {
-            this.$(".layer-bar-title").empty();
-            this.$(".layer-controls-inner").empty();
-        }
+        // onFocus: function() {
+
+        // },
+
+        // onBlur: function() {
+        //     this.clearControls();
+        // },
+
+        // onRemove: function() {
+        //     this.stopListening( this.inFocus );
+        //     this.clearControls();
+        // },
+
+        // clearControls: function() {
+        //     this.$(".layer-bar-title").empty();
+        //     this.$(".layer-controls-inner").empty();
+        // }
 
     });
 

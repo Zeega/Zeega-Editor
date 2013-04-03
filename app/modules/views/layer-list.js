@@ -1,9 +1,10 @@
 define([
     "app",
+    "modules/views/layer-controls",
     "backbone"
 ],
 
-function( app ) {
+function( app, LayerControls ) {
 
     // This will fetch the tutorial template and render it.
     return Backbone.View.extend({
@@ -17,6 +18,9 @@ function( app ) {
         },
 
         initialize: function() {
+
+            this.controls = new LayerControls({ model: this.model, target: this });
+
             this.model.on("focus", this.onFocus, this );
             this.model.on("blur", this.onBlur, this );
             this.model.on("remove", this.onRemove, this );
@@ -73,14 +77,15 @@ function( app ) {
 
         onFocus: function() {
             this.$el.addClass("active");
+            this.openControls();
         },
 
         onBlur: function() {
             this.$el.removeClass("active");
+            this.closeControls();
         },
 
         onRemove: function() {
-            // this.model.onRemoveFrom Edito()>>???
             this.remove();
         },
 
@@ -90,6 +95,17 @@ function( app ) {
 
         updateTitle: function() {
             this.$(".layer-title").text( this.model.getAttr("title"));
+        },
+
+        openControls: function() {
+            console.log("open controls");
+            $("body").append( this.controls.el );
+            this.controls.render();
+        },
+
+        closeControls: function() {
+            console.log("close controls")
+            this.controls.remove();
         }
         
     });
