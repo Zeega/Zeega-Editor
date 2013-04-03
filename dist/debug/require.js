@@ -447,7 +447,7 @@ var __p='';var print=function(){__p+=Array.prototype.join.call(arguments, '')};
 with(obj||{}){
 __p+='<div class="viewer-preview" style="\n    background: url('+
 ( uri )+
-');\n    background-size: contain;\n    background-position: 50% 50%;\n    background-repeat: no-repeat;\n"></div>\n<div class="viewer-controls">\n    <a class="add-to-frame" href="#"><i class="icon-download"></i> add to frame</a>\n    <a href="'+
+');\n    background-size: contain;\n    background-position: 50% 50%;\n    background-repeat: no-repeat;\n"></div>\n<div class="viewer-controls">\n    <a class="add-to-frame" href="#"><i class="icon-download"></i> add to page</a>\n    <a href="'+
 ( attribution_uri )+
 '" target="blank"><i class="icon-share-alt"></i> view original</a>\n    ';
  if( editable != -1 ) { 
@@ -483,7 +483,7 @@ __p+='<div class="viewer-preview" style="">\n    <iframe width="560" height="315
 ( attribution_uri )+
 '" target="blank"><i class="icon-share-alt"></i> view original</a>\n   \n     ';
  if( editable != -1  ) { 
-;__p+='\n            <a class="delete-item" href="#"><i class="icon-remove"></i>  delete</a>\n    ';
+;__p+='\n            <a class="delete-item" href="#"><i class="icon-remove"></i> delete</a>\n    ';
  } 
 ;__p+='\n\n</div>';
 }
@@ -575,7 +575,7 @@ __p+='<div class="media-collection-header">\n\n    <div class="media-collection-
 ( placeholder )+
 '" value="'+
 ( searchQuery )+
-'" />\n            </li>\n        </ul>\n    </div>\n</div>\n<ul class="media-collection-items"></ul>';
+'" />\n            </li>\n        </ul>\n        <div class="pull-right collection-options">\n        </div>\n    </div>\n</div>\n<ul class="media-collection-items"></ul>';
 }
 return __p;
 };
@@ -583,7 +583,7 @@ return __p;
 this["JST"]["app/templates/media-drawer.html"] = function(obj){
 var __p='';var print=function(){__p+=Array.prototype.join.call(arguments, '')};
 with(obj||{}){
-__p+='<div class="media-drawer-controls ZEEGA-hmenu dark">\n        <ul class=\'pull-left\'>\n        \n        <li>\n            <a href="#" data-api = "Zeega" class="media-toggle">M</a>\n        </li>\n        <!--\n        <li>\n            <a href="#" data-api = "Tumblr" class="media-toggle">T</i></a>\n        </li>\n        -->\n        <li>\n            <a href="#" data-api = "Soundcloud" class="media-toggle">S</i></a>\n        </li>\n\n\n        <li>\n            <a href="#" data-api = "Giphy" class="media-toggle">G</i></a>\n        </li>\n\n\n\n        <li>\n            <a href="#" data-api = "Flickr" class="media-toggle">F</i></a>\n        </li>\n        <li>\n            <a href="#" data-api = "Instagram" class="media-toggle">I</i></a>\n        </li>\n        <li>\n            <a href="#" data-api = "Web" class="media-toggle">W</i></a>\n        </li>\n    </ul>\n    \n    \n</div>\n<ul class="ZEEGA-items"></ul>';
+__p+='<div class="media-drawer-controls ZEEGA-hmenu dark">\n        <ul class=\'pull-left\'>\n        \n        <li>\n            <a href="#" data-api = "Zeega" class="media-toggle">M</a>\n        </li>\n        <!--\n        <li>\n            <a href="#" data-api = "Tumblr" class="media-toggle">T</i></a>\n        </li>\n        -->\n        <li>\n            <a href="#" data-api = "Soundcloud" class="media-toggle">S</i></a>\n        </li>\n\n\n        <li>\n            <a href="#" data-api = "Giphy" class="media-toggle">G</i></a>\n        </li>\n\n\n\n        <li>\n            <a href="#" data-api = "Flickr" class="media-toggle">F</i></a>\n        </li>\n        <li>\n            <a href="#" data-api = "Instagram" class="media-toggle">I</i></a>\n        </li>\n        <li>\n            <a href="#" data-api = "Youtube" class="media-toggle">Y</i></a>\n        </li>\n        <li>\n            <a href="#" data-api = "Web" class="media-toggle">W</i></a>\n        </li>\n    </ul>\n    \n    \n</div>\n<ul class="ZEEGA-items"></ul>';
 }
 return __p;
 };
@@ -105299,6 +105299,7 @@ function( app, Modal, UploadModal ) {
         Flickr: {},
         Soundcloud: {},
         Giphy: {},
+        Youtube: {},
         Web: {}
     };
 
@@ -105364,7 +105365,7 @@ function( app, Modal, UploadModal ) {
         },
 
         search: function( query ) {
-            console.log(this.model);
+            console.log(this.model, query);
             this.model.search( query );
 
         }
@@ -105414,10 +105415,33 @@ function( app, Modal, UploadModal ) {
             
     });
 
-    Media.Instagram.View = Media.Base.View.extend({});
+    Media.Instagram.View = Media.Base.View.extend({
+
+
+        _afterRender: function(){
+            console.log("beforerender");
+            this.$el.find(".collection-options").append("<select class = 'query-type' >" +
+              "<option value='user'>username</option>" +
+              "<option value='tag'>tag</option>" +
+            "</select>");
+        },
+
+        events: {
+            "keyup .search-box": "onSearchKeyPress",
+            "change .query-type": "onQueryTypeChange"
+        },
+
+        onQueryTypeChange: function( ){
+            var type = this.$el.find(".query-type").attr("value");
+            this.model.setQueryType( type );
+
+        }
+
+    });
     Media.Flickr.View = Media.Base.View.extend({});
     Media.Soundcloud.View = Media.Base.View.extend({});
     Media.Giphy.View = Media.Base.View.extend({});
+    Media.Youtube.View = Media.Base.View.extend({});
     Media.Web.View = Media.Base.View.extend({});
 
     return Media;
@@ -105668,6 +105692,7 @@ function( app, ItemModel, MediaView, ItemCollectionViewer ) {
         Soundcloud: {},
         Tumblr: {},
         Giphy: {},
+        Youtube: {},
         Web: {}
     };
 
@@ -105744,41 +105769,73 @@ function( app, ItemModel, MediaView, ItemCollectionViewer ) {
         
 
         url : function(){
-            var url = this.mediaModel.apiUrl + "tags/" + this.mediaModel.get("query") +
+            var url;
+            if( this.mediaModel.queryType == "tag" ){
+                url = this.mediaModel.apiUrl + "tags/" + this.mediaModel.get("query") +
                         "/media/recent?client_id=725bbc7af5094c8682bdb322d29734cc&callback=?";
+            } else {
+
+                // Instagram User queries require user id, route through Zeega
+                url = app.api + "items/parser?url=http://instagram.com/" + this.mediaModel.get("query");
+            }
+
             return url;
         },
         
 
         parse: function(res){
             
-            var items = [];
+            if( this.mediaModel.queryType == "tag" ){
+                var items = [];
 
-            _.each( res.data, function( photo ){
+                _.each( res.data, function( photo ){
 
-                var item = {};
-                item.id = photo.id;
-                if( !_.isNull( photo.caption ) && !_.isNull( photo.caption.text ) ){
-                    var tmp = document.createElement("DIV");
-                    tmp.innerHTML = photo.caption.text;
-                    item.title = tmp.textContent||tmp.innerText;
-                } else {
-                    item.title = "Instagram by " + photo.user.user_name;
+                    var item = {};
+                    item.id = photo.id;
+                    if( !_.isNull( photo.caption ) && !_.isNull( photo.caption.text ) ){
+                        var tmp = document.createElement("DIV");
+                        tmp.innerHTML = photo.caption.text;
+                        item.title = tmp.textContent||tmp.innerText;
+                    } else {
+                        item.title = "Instagram by " + photo.user.user_name;
+                    }
+                    
+
+                    item.archive = "Instagram";
+                    item.layer_type ="Image";
+                    item.media_type = "Image";
+
+                    item.thumbnail_url = photo.images.thumbnail.url;
+                    item.uri = photo.images.standard_resolution.url;
+                    item.attribution_uri =  photo.link;
+                    item.media_user_realname = photo.user.user_name;
+
+                    items.push( item );
+                });
+                return items;
+            } else {
+                var photos,
+                    count = 1;
+
+                if ( res.code == 500 ){
+                    this.itemsCount = 0;
+                    return array();
                 }
+
+
+                photos = res.items;
                 
+                _.each( photos, function( photo ){
+                    photo.editable = -1;
+                    photo.id = count;
+                    count++;
+                });
+     
+                this.itemsCount = res.items_count;
 
-                item.archive = "Instagram";
-                item.layer_type ="Image";
-                item.media_type = "Image";
+                return res.items;
 
-                item.thumbnail_url = photo.images.thumbnail.url;
-                item.uri = photo.images.standard_resolution.url;
-                item.attribution_uri =  photo.link;
-                item.media_user_realname = photo.user.user_name;
-
-                items.push( item );
-            });
-            return items;
+            }
         }
     });
 
@@ -105822,6 +105879,38 @@ function( app, ItemModel, MediaView, ItemCollectionViewer ) {
         }
     });
 
+    Media.Youtube.Collection = Media.Zeega.Collection.extend({
+
+        parse: function(res){
+            var items = [],
+                count = 1;
+
+            
+            _.each( res.data.items, function( video ){
+                var item = {};
+                item.id = count;
+                item.layer_type = "Youtube";
+                item.media_type = "Video";
+                count++;
+
+                item.uri = video.id;
+                item.title = video.title;
+                item.attribution_uri = video.player[ "default" ];
+                item.thumbnail_url = video.thumbnail.hqDefault;
+                item.aspectRatio = video.aspectRatio;
+
+
+                if( video.accessControl.embed == "allowed" ){
+                     items.push( item );
+                }
+
+            });
+
+            this.itemsCount = res.items_count;
+            return items;
+        }
+    });
+
     Media.Web.Collection = Media.Zeega.Collection.extend({
         parse: function( res ) {
             var photos;
@@ -105837,7 +105926,7 @@ function( app, ItemModel, MediaView, ItemCollectionViewer ) {
             _.each( photos, function( photo ){
                 photo.editable = -1;
             });
-
+ 
             this.itemsCount = res.items_count;
 
             return res.items;
@@ -105995,6 +106084,7 @@ function( app, ItemModel, MediaView, ItemCollectionViewer ) {
         
         api: "Instagram",
         apiUrl: "https://api.instagram.com/v1/",
+        queryType: "user",
 
         defaults: {
             query: "",
@@ -106004,6 +106094,10 @@ function( app, ItemModel, MediaView, ItemCollectionViewer ) {
         },
         getQuery: function(){
             return this.get("query");
+        },
+
+        setQueryType: function( selection ){
+            this.queryType = selection;
         },
         _search: function( query ){
 
@@ -106046,6 +106140,45 @@ function( app, ItemModel, MediaView, ItemCollectionViewer ) {
                 this.set("urlArguments", args );
                 this.mediaCollection.fetch();
             }
+        }
+    });
+
+    Media.Youtube.Model = Media.Zeega.Model.extend({
+        
+        api: "Youtube",
+        apiUrl: "https://gdata.youtube.com/feeds/api/videos?",
+
+        defaults: {
+            urlArguments: {
+                callback: "?",
+                orderby: "relevance",
+                alt: "jsonc",
+                v: "2",
+                "max-results": "50",
+                q: ""
+    
+            },
+            title: "Youtube",
+            placeholder: "search Youtube",
+            searchQuery:""
+        },
+        getQuery: function(){
+            return this.get("urlArguments").q;
+        },
+        _search: function( query ){
+
+            var args= this.get("urlArguments");
+
+            
+            
+            if( query !== "" && query !== args.q ){
+                args.q = query;
+                this.set("urlArguments", args );
+                this.mediaCollection.fetch();
+            }
+
+
+            
         }
     });
 
