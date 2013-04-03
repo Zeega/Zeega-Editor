@@ -7147,6 +7147,9 @@ a:active {
 .media-collection .media-collection-items:after {
   clear: both;
 }
+.media-collection .media-collection-items img {
+  border: 1px solid rgba(255, 255, 255, 0.15);
+}
 .media-collection .media-collection-items .media-more {
   height: 50px;
   width: 50px;
