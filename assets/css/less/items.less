@@ -6,6 +6,15 @@
 
 .media-drawer {
 
+    border: 1px solid orangered;
+    bottom: 0;
+    top: 45px;
+    position: absolute;
+    width: 100%;
+    overflow: hidden;
+    border-radius: 2px;
+    box-shadow: 2px 2px 5px rgba(0,0,0,0.25);
+
     .empty-collection {
         background: rgba(0,0,0,0.5);
         color: orangered;
@@ -17,6 +26,7 @@
 
     .ZEEGA-items {
         overflow: auto;
+        height: calc(~"100% - 30px");
     }
 
     .item {
@@ -26,8 +36,8 @@
         }
         float: left;
         .item-thumb {
-            height: 73.6px;
-            width: 73.6px;
+            height: 75px;
+            width: 75px;
             background-color:black;
 
             .thumb-title {

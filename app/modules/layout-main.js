@@ -42,37 +42,37 @@ function( app, Navbar, ProjectMeta, Sequences, Frames, FrameControls, Workspace,
 
         afterRender: function() {
 
-            new Soundtrack({
-                el: this.$(".soundtrack")
-            }).render();
+            // new Soundtrack({
+            //     el: this.$(".soundtrack")
+            // }).render();
 
-            new ProjectMeta({
-                model: app,
-                el: this.$(".project-meta")
-            }).render();
+            // new ProjectMeta({
+            //     model: app,
+            //     el: this.$(".project-meta")
+            // }).render();
 
-            new LayerDrawer({
-                model: app,
-                el: this.$(".layer-drawer")
-            }).render();
+            // new LayerDrawer({
+            //     model: app,
+            //     el: this.$(".layer-drawer")
+            // }).render();
 
             new Frames({
                 model: app,
                 el: this.$(".frames")
             }).render();
 
-            new FrameControls({
-                model: app,
-                el: this.$(".frame-controls")
-            }).render();
+            // new FrameControls({
+            //     model: app,
+            //     el: this.$(".frame-controls")
+            // }).render();
 
-            new LayerControls({
-                model: app,
-                el: this.$(".layer-controls"),
-                afterRender: function() {
-                    app.trigger("rendered");
-                }
-            }).render();
+            // new LayerControls({
+            //     model: app,
+            //     el: this.$(".layer-controls"),
+            //     afterRender: function() {
+            //         app.trigger("rendered");
+            //     }
+            // }).render();
 
             new MediaDrawer({
                 model: app.mediaBrowser,

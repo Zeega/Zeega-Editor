@@ -25,7 +25,11 @@ function( app, Status, Layout, ZeegaParser, MediaBrowser ) {
                 var rawDataModel = new Backbone.Model();
 
                 // mainly for testing
+<<<<<<< HEAD
                 rawDataModel.url = "http://dev.zeega.org/james/web/api/projects/8211";
+=======
+                rawDataModel.url = "http://dev.zeega.org/joseph/web/api/projects/8214";
+>>>>>>> 326c1cacf2a53b48d14b1eed59684daf85d3fc9a
                 rawDataModel.fetch().success(function( response ) {
                     this._parseData( response );
                 }.bind( this )).error(function() {
