@@ -112,11 +112,7 @@ function( app, Modal, FrameView, ImageView, AudioView ) {
 
         deleteItem: function(){
             this.currentItem.destroy();
-            if ( this.collection.length > this.index + 1 ) {
-                this.next();
-            } else {
-                this.prev();
-            }
+            this.goToItem( this.index );
         }
 
     });

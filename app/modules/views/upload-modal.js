@@ -24,6 +24,9 @@ function( app, Modal ) {
         },
 
         addItem: function( data ) {
+
+
+
             var item = new Backbone.Model({
                 // "id": -1,
                 // "user_id": -1,
@@ -33,18 +36,18 @@ function( app, Modal ) {
                 "headline": "",
                 "description": "",
                 "text": "",
-                "uri": data.image_url_7,
-                "attribution_uri": data.image_url_7,
+                "uri": data.fullsize_url,
+                "attribution_uri": data.fullsize_url,
                 //"date_created": "2013-02-24 22:36:57",
                 "media_type": "Image",
                 "layer_type": "Image",
                 "archive": "Absolute",
-                "thumbnail_url": data.image_url_6,
+                "thumbnail_url": data.image_url_4,
                 "media_geo_latitude": null,
                 "media_geo_longitude": null,
-                "media_date_created": "2013-02-24 10:36:43",
-                "media_creator_username": sessionStorage.getItem('display_name'),
-                "media_creator_realname": sessionStorage.getItem('display_name'),
+                "media_date_created": "",
+                "media_creator_username": app.userName,
+                "media_creator_realname": app.userName,
                 "child_items_count": 0,
                 // "attributes": [],
                 // "child_items": [],
@@ -54,6 +57,9 @@ function( app, Modal ) {
                 "enabled": true
 
             });
+
+            
+
 
             item.url = app.api + "items";
             item.on("sync", this.updateMediaCollection, this );

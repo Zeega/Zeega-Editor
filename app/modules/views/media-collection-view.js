@@ -48,9 +48,10 @@ function( app, Modal, UploadModal ) {
         },
 
         renderItems: function() {
+            
             this.$(".media-collection-items").empty();
 
-            if ( this.model.mediaCollection.length ) {
+            if ( this.model.mediaCollection.length && this.model.mediaCollection.at( 0 ).get("uri") ) {
                 this.model.mediaCollection.each(function( item ) {
                     this.$(".media-collection-items").append( item.view.el );
                     item.view.render();

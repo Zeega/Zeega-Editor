@@ -25,7 +25,9 @@ function( app, Status, Layout, ZeegaParser, MediaBrowser ) {
                 var rawDataModel = new Backbone.Model();
 
                 // mainly for testing
-                rawDataModel.url = "http://dev.zeega.org/joseph/web/api/projects/8214";
+
+                rawDataModel.url = "http://dev.zeega.org/james/web/api/projects/8211";
+
                 rawDataModel.fetch().success(function( response ) {
                     this._parseData( response );
                 }.bind( this )).error(function() {
@@ -47,7 +49,6 @@ function( app, Status, Layout, ZeegaParser, MediaBrowser ) {
                 currentSequence: app.project.sequences.at( 0 ),
                 currentFrame: app.project.sequences.at( 0 ).frames.at( 0 )
             });
-            console.log( app.project );
             this.insertLayout();
         },
 
