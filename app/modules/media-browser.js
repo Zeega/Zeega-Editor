@@ -16,6 +16,7 @@ function( app, ItemModel, MediaView, ItemCollectionViewer ) {
         Soundcloud: {},
         Tumblr: {},
         Giphy: {},
+        Youtube: {},
         Web: {}
     };
 
@@ -170,13 +171,54 @@ function( app, ItemModel, MediaView, ItemCollectionViewer ) {
         }
     });
 
+    Media.Youtube.Collection = Media.Zeega.Collection.extend({
+
+        parse: function(res){
+            var items = [],
+                count = 1;
+
+            
+            _.each( res.data.items, function( video ){
+                var item = {};
+                item.id = count;
+                item.layer_type = "Youtube";
+                item.media_type = "Video";
+                count++;
+
+                item.uri = video.id;
+                item.title = video.title;
+                item.attribution_uri = video.player[ "default" ];
+                item.thumbnail_url = video.thumbnail.hqDefault;
+                item.aspectRatio = video.aspectRatio;
+
+
+                if( video.accessControl.embed == "allowed" ){
+                     items.push( item );
+                }
+
+            });
+
+            this.itemsCount = res.items_count;
+            return items;
+        }
+    });
+
     Media.Web.Collection = Media.Zeega.Collection.extend({
         parse: function( res ) {
+            var photos;
+
             if ( res.code == 500 ){
                 this.itemsCount = 0;
                 return array();
             }
 
+
+            photos = res.items;
+            
+            _.each( photos, function( photo ){
+                photo.editable = -1;
+            });
+ 
             this.itemsCount = res.items_count;
 
             return res.items;
@@ -385,6 +427,45 @@ function( app, ItemModel, MediaView, ItemCollectionViewer ) {
                 this.set("urlArguments", args );
                 this.mediaCollection.fetch();
             }
+        }
+    });
+
+    Media.Youtube.Model = Media.Zeega.Model.extend({
+        
+        api: "Youtube",
+        apiUrl: "https://gdata.youtube.com/feeds/api/videos?",
+
+        defaults: {
+            urlArguments: {
+                callback: "?",
+                orderby: "relevance",
+                alt: "jsonc",
+                v: "2",
+                "max-results": "50",
+                q: ""
+    
+            },
+            title: "Youtube",
+            placeholder: "search Youtube",
+            searchQuery:""
+        },
+        getQuery: function(){
+            return this.get("urlArguments").q;
+        },
+        _search: function( query ){
+
+            var args= this.get("urlArguments");
+
+            
+            
+            if( query !== "" && query !== args.q ){
+                args.q = query;
+                this.set("urlArguments", args );
+                this.mediaCollection.fetch();
+            }
+
+
+            
         }
     });
 

@@ -458,6 +458,38 @@ __p+='<div class="viewer-preview" style="\n    background: url('+
 return __p;
 };
 
+this["JST"]["app/templates/item-viewer-video.html"] = function(obj){
+var __p='';var print=function(){__p+=Array.prototype.join.call(arguments, '')};
+with(obj||{}){
+__p+='<div class="viewer-preview" style="">\n    <video class="preview-video" src="'+
+( uri )+
+'" controls="true" /></audio>\n</div>\n<div class="viewer-controls">\n    <a class="add-to-frame" href="#"><i class="icon-download"></i> add to page</a>\n    <a href="'+
+( attribution_uri )+
+'" target="blank"><i class="icon-share-alt"></i> view original</a>\n   \n     ';
+ if( editable != -1 ) { 
+;__p+='\n            <a class="delete-item" href="#"><i class="icon-remove"></i> delete</a>\n    ';
+ } 
+;__p+='\n\n</div>';
+}
+return __p;
+};
+
+this["JST"]["app/templates/item-viewer-youtube.html"] = function(obj){
+var __p='';var print=function(){__p+=Array.prototype.join.call(arguments, '')};
+with(obj||{}){
+__p+='<div class="viewer-preview" style="">\n    <iframe width="560" height="315" src="http://www.youtube.com/embed/'+
+( uri )+
+'" frameborder="0" allowfullscreen></iframe>\n</div>\n<div class="viewer-controls">\n    <a class="add-to-frame" href="#"><i class="icon-download"></i> add to page</a>\n    <a href="'+
+( attribution_uri )+
+'" target="blank"><i class="icon-share-alt"></i> view original</a>\n   \n     ';
+ if( editable != -1  ) { 
+;__p+='\n            <a class="delete-item" href="#"><i class="icon-remove"></i>  delete</a>\n    ';
+ } 
+;__p+='\n\n</div>';
+}
+return __p;
+};
+
 this["JST"]["app/templates/item.html"] = function(obj){
 var __p='';var print=function(){__p+=Array.prototype.join.call(arguments, '')};
 with(obj||{}){
@@ -105441,17 +105473,69 @@ function( app ) {
 
 });
 
+define('modules/views/item-viewer-video',[
+    "app",
+    "backbone"
+],
+
+function( app ) {
+
+
+    return Backbone.View.extend({
+        
+        className: "item-viewer item-viewer-video",
+        template: "item-viewer-video",
+
+        serialize: function() {
+            return this.model.toJSON();
+        },
+
+        exit: function() {
+            this.$("video").attr("src", "");
+        }
+        
+    });
+
+});
+
+define('modules/views/item-viewer-youtube',[
+    "app",
+    "backbone"
+],
+
+function( app ) {
+
+
+    return Backbone.View.extend({
+        
+        className: "item-viewer item-viewer-youtube",
+        template: "item-viewer-youtube",
+
+        serialize: function() {
+            return this.model.toJSON();
+        },
+
+        exit: function() {
+          
+        }
+        
+    });
+
+});
+
 define('modules/views/item-collection-viewer',[
     "app",
     "modules/views/modal",
     "modules/views/frame",
     "modules/views/item-viewer-image",
     "modules/views/item-viewer-audio",
+    "modules/views/item-viewer-video",
+    "modules/views/item-viewer-youtube",
 
     "backbone"
 ],
 
-function( app, Modal, FrameView, ImageView, AudioView ) {
+function( app, Modal, FrameView, ImageView, AudioView, VideoView, YoutubeView ) {
 
 
     return Backbone.View.extend({
@@ -105494,6 +105578,10 @@ function( app, Modal, FrameView, ImageView, AudioView ) {
                     item.itemView = new ImageView({ model: item });
                 } else if ( item.get("layer_type") == "Audio") {
                     item.itemView = new AudioView({ model: item });
+                } else if ( item.get("layer_type") == "Video") {
+                    item.itemView = new VideoView({ model: item });
+                } else if ( item.get("layer_type") == "Youtube") {
+                    item.itemView = new YoutubeView({ model: item });
                 }
             }
             // just render item.itemView
@@ -105736,10 +105824,19 @@ function( app, ItemModel, MediaView, ItemCollectionViewer ) {
 
     Media.Web.Collection = Media.Zeega.Collection.extend({
         parse: function( res ) {
+            var photos;
+
             if ( res.code == 500 ){
                 this.itemsCount = 0;
                 return array();
             }
+
+
+            photos = res.items;
+            
+            _.each( photos, function( photo ){
+                photo.editable = -1;
+            });
 
             this.itemsCount = res.items_count;
 

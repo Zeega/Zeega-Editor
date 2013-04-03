@@ -7176,6 +7176,9 @@ a:active {
 .item-viewer-audio .preview-audio {
   width: 100%;
 }
+.item-viewer-video {
+  text-align: center;
+}
 .viewer-controls {
   margin-top: 10px;
   margin-bottom: -10px;

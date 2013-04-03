@@ -72,6 +72,38 @@ __p+='<div class="viewer-preview" style="\n    background: url('+
 return __p;
 };
 
+this["JST"]["app/templates/item-viewer-video.html"] = function(obj){
+var __p='';var print=function(){__p+=Array.prototype.join.call(arguments, '')};
+with(obj||{}){
+__p+='<div class="viewer-preview" style="">\n    <video class="preview-video" src="'+
+( uri )+
+'" controls="true" /></audio>\n</div>\n<div class="viewer-controls">\n    <a class="add-to-frame" href="#"><i class="icon-download"></i> add to page</a>\n    <a href="'+
+( attribution_uri )+
+'" target="blank"><i class="icon-share-alt"></i> view original</a>\n   \n     ';
+ if( editable != -1 ) { 
+;__p+='\n            <a class="delete-item" href="#"><i class="icon-remove"></i> delete</a>\n    ';
+ } 
+;__p+='\n\n</div>';
+}
+return __p;
+};
+
+this["JST"]["app/templates/item-viewer-youtube.html"] = function(obj){
+var __p='';var print=function(){__p+=Array.prototype.join.call(arguments, '')};
+with(obj||{}){
+__p+='<div class="viewer-preview" style="">\n    <iframe width="560" height="315" src="http://www.youtube.com/embed/'+
+( uri )+
+'" frameborder="0" allowfullscreen></iframe>\n</div>\n<div class="viewer-controls">\n    <a class="add-to-frame" href="#"><i class="icon-download"></i> add to page</a>\n    <a href="'+
+( attribution_uri )+
+'" target="blank"><i class="icon-share-alt"></i> view original</a>\n   \n     ';
+ if( editable != -1  ) { 
+;__p+='\n            <a class="delete-item" href="#"><i class="icon-remove"></i>  delete</a>\n    ';
+ } 
+;__p+='\n\n</div>';
+}
+return __p;
+};
+
 this["JST"]["app/templates/item.html"] = function(obj){
 var __p='';var print=function(){__p+=Array.prototype.join.call(arguments, '')};
 with(obj||{}){

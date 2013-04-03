@@ -14,6 +14,7 @@ function( app, Modal, UploadModal ) {
         Flickr: {},
         Soundcloud: {},
         Giphy: {},
+        Youtube: {},
         Web: {}
     };
 
@@ -133,6 +134,7 @@ function( app, Modal, UploadModal ) {
     Media.Flickr.View = Media.Base.View.extend({});
     Media.Soundcloud.View = Media.Base.View.extend({});
     Media.Giphy.View = Media.Base.View.extend({});
+    Media.Youtube.View = Media.Base.View.extend({});
     Media.Web.View = Media.Base.View.extend({});
 
     return Media;
