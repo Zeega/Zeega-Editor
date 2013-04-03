@@ -9,7 +9,7 @@ function( app ) {
     Navbar = Backbone.View.extend({
 
         template: "navbar",
-        className: "navbar ZEEGA-hmenu dark",
+        className: "navbar ZEEGA-hmenu clear",
         
         serialize: function() {
             return {

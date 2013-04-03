@@ -1,5 +1,7 @@
 html {
-    background: url(../img/bg-dark.png);
+    background: url(../img/graphpaper.png);
+    height: 100%;
+    overflow: hidden;
 }
 
 #main.modal {
@@ -7,23 +9,30 @@ html {
 }
 
 .left-column {
-    background: url(../img/bg-dark.png);
-    box-shadow: 0 0 10px black;
-    height: 100%;
     position: absolute;
-    width: 300px;
-    z-index: 10
+    width: 305px;
+    z-index: 10;
+    top: 10px;
+    left: 10px;
+    bottom: 10px;
+}
+
+.edit-box {
+    width: calc(~"100% - 170px");
+    height: calc(~"100% - 54px");
+    float: left;
+    position: relative;
+    min-width: 450px;
+    .clearfix;
 }
 
 .right-column {
-    overflow: hidden;
-    background: url(../img/bg-dark.png);
     height: 100%;
-    left: 300px;
-    min-width: 500px;
+    left: 327px;
+    min-width: 630px;
     position: absolute;
     z-index: 1;
-    width: -webkit-calc(~"100% - 300px");
+    width: -webkit-calc(~"100% - 327px");
 }
 
 .ZEEGA-player {

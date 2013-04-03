@@ -53,29 +53,15 @@ function( app ) {
         },
 
         onResize: function() {
-            var h, w;
+            var h, w,
+                workspace = this.$el.closest(".workspace");
 
-            h = window.innerHeight;
-            w = window.innerWidth;
+            // h = window.innerHeight;
+            // w = window.innerWidth;
 
-            this.resizeParent( w, h );
-        },
+            w = workspace.width();
+            h = workspace.height();
 
-        resizeParent: function( w, h ) {
-            var height, width;
-
-            height = h - $(".project-navs").height();
-            width = $(".right-column").width() - $(".layers").width();
-
-            this.$el.parent().css({
-                height: height,
-                width: width
-            });
-            this.resizeWorkspace( width, height );
-        },
-
-        resizeWorkspace: function( w, h ) {
-            var height, width;
 
             if ( w / h > this.aspectRatio ) {
                 height = h - 20;

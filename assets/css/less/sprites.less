@@ -112,19 +112,18 @@
 }
 
 .zitem-mixin( @position ) {
-                        background-position: (-50px)    (@position*-50px);
-    &.loaded {          background-position: (0)        (@position*-50px)   }
-    &.loaded {          background-position: (-100px)   (@position*-50px)   }
+                       background-position: (-50px)    (@position*-50px);
+    &.color {          background-position: (0)        (@position*-50px)   }
+    &.color {          background-position: (-100px)   (@position*-50px)   }
     &.zitem-30 {
-                        background-position: (-30px)    (@position*-30px);
-        &.loaded {      background-position: (0)        (@position*-30px)   }
-        &.error {       background-position: (-60px)    (@position*-30px)   }
+                       background-position: (-30px)    (@position*-30px);
+        &.color {      background-position: (0)        (@position*-30px)   }
+        &.pink {       background-position: (-60px)    (@position*-30px)   }
     }
 }
 
 .zitem-zeega00              { .zitem-mixin(0) }
 .zitem-zeega01              { .zitem-mixin(1) }
-
 .zitem-flickr               { .zitem-mixin(2) }
 .zitem-vimeo                { .zitem-mixin(3) }
 .zitem-youtube              { .zitem-mixin(4) }

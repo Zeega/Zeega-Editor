@@ -1,93 +1,33 @@
-.project-meta {
-    background: url(../img/tiny-stripes.png);
-    position: relative;
-    height: 125px;
-    color: white;
+.project-head {
+    padding: 10px 0;
+    font-size: 1.75em;
+    color: #555;
+    height: 35px;
 
-    .ZEEGA-project-cover {
-        background: white;
-        height: 100%;
-        position: absolute;
-        width: 100%;
-        top: 0;
-        left: 0;
-    }
+    .clearfix;
 
-    .project-meta-upper {
-        position: absolute;
-        background: rgba(0,0,0,0.75);
-        width: 100%;
+    .project-info {
+        float: left;
+        width: calc(~"100% - 175px");
+        border-bottom: 2px dotted transparent;
 
-        .ZEEGA-project-title {
-            padding: 5px 10px;
-            width: 200px;
-        }
-    }
-
-    .project-meta-lower {
-        position: absolute;
-        bottom: 0;
-        background: rgba(0,0,0,0.75);
-        width: 100%;
-
-        .ZEEGA-project-share {
-            padding: 5px 10px;
+        &:hover, &:focus {
+            border-bottom: 2px dotted #999;
+            outline: none;
+            background: rgba(255,255,0,0.25);
         }
 
-        .social-share {
-            opacity: 1;
+    }
 
-            &[data-itemid=null] {
-                opacity: 0.2;
+    .project-share {
+        float: right;
+        margin-right: 10px;
+
+        a {
+            opacity: 0.75;
+            &:hover {
+                opacity: 1;
             }
         }
-
-        .hidden-drawer {
-            display: none;
-            &.open {
-                display: inline-block;
-            }
-        }
-
     }
-
-    .preview {
-        display: block;
-        position: absolute;
-        top: 0;
-        right: 0;
-        bottom: 0;
-        left: 0;
-        margin: auto;
-        height: 25px;
-        width: 104px;
-        background: rgba(0,0,0,0.5);
-        border-radius: 5px;
-        padding: 5px;
-
-        .preview-text{
-            float: left;
-            color: white;
-            font-size: 1.2em;
-            margin-left: 4px;
-            padding: 2px;
-        }
-        i {
-            float:left;
-        }
-    }
-    
-}
-
-.play-zcon,
-.pause-zcon {
-    background-image: url('@{image-folder}/playpause.png');
-    background-position: 0px 0px;
-    background-repeat: no-repeat;
-    display: inline-block;
-    height: 25px;
-    width: 25px; 
-}
-.pause-zcon {
-    background-position: -25px 0px;
 }

@@ -60,10 +60,11 @@ function( app ) {
         
 
         onResize: function() {
-            var leftCol = $(".left-column .static-upper").height() +
-                $(".left-column .media-drawer-controls").height();
+            //var leftCol = $(".left-column .static-upper").height() + 30;
 
-            this.$(".ZEEGA-items").css("height", window.innerHeight - leftCol );
+            //console.log("resizeeee", leftCol, window.innerHeight - leftCol )
+
+            //this.$(".ZEEGA-items").css("height", window.innerHeight - leftCol );
         }
 
 
