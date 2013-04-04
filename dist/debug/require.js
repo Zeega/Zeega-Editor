@@ -482,10 +482,10 @@ __p+='<a href="#">\n    <div class="item-thumb">\n        ';
 return __p;
 };
 
-this["JST"]["app/templates/layer-control-bar.html"] = function(obj){
+this["JST"]["app/templates/layer-controls.html"] = function(obj){
 var __p='';var print=function(){__p+=Array.prototype.join.call(arguments, '')};
 with(obj||{}){
-__p+='<div class="layer-bar-title"></div>\n<div class="layer-controls-inner"></div>';
+__p+='<div class="layer-edit-floater">\n    <div class="layer-controls-inner"></div>\n</div>';
 }
 return __p;
 };
@@ -493,7 +493,7 @@ return __p;
 this["JST"]["app/templates/layer-drawer.html"] = function(obj){
 var __p='';var print=function(){__p+=Array.prototype.join.call(arguments, '')};
 with(obj||{}){
-__p+='<div class="ZEEGA-layer-drawer">\n    <ul>\n        <li class="draggable-layer-type">\n            <a href="#" data-layer-type="Link">\n                <div class="item-label">link</div>\n                <i class="icon-arrow-up icon-white"></i>\n            </a>\n        </li>\n        <li class="draggable-layer-type">\n            <a href="#" data-layer-type="Text">\n                <div class="item-label">text</div>\n                <i class="icon-font icon-white"></i>\n            </a>\n        </li>\n        <li class="draggable-layer-type">\n            <a href="#" data-layer-type="Rectangle">\n                <div class="item-label">color</div>\n                <i class="icon-th-large icon-white"></i>\n            </a>\n        </li>\n    </ul>\n</div>';
+__p+='<div class="ZEEGA-layer-drawer ZEEGA-hmenu clear">\n    <ul>\n        <li class="draggable-layer-type">\n            <a href="#" data-layer-type="Link">\n                <div class="item-label">link</div>\n                <i class="icon-arrow-up"></i>\n            </a>\n        </li>\n        <li class="draggable-layer-type">\n            <a href="#" data-layer-type="Text">\n                <div class="item-label">text</div>\n                <i class="icon-font"></i>\n            </a>\n        </li>\n        <li class="draggable-layer-type">\n            <a href="#" data-layer-type="Rectangle">\n                <div class="item-label">color</div>\n                <i class="icon-th-large"></i>\n            </a>\n        </li>\n    </ul>\n</div>';
 }
 return __p;
 };
@@ -529,7 +529,7 @@ return __p;
 this["JST"]["app/templates/layout-main.html"] = function(obj){
 var __p='';var print=function(){__p+=Array.prototype.join.call(arguments, '')};
 with(obj||{}){
-__p+='<div class=\'left-column\'>\n    <div class="static-upper">\n        <div class="nav"></div>\n    </div>\n    <div class="media-drawer"></div>\n</div>\n<div class=\'right-column\'>\n    <div class="project-head">\n        <div class="project-info" contenteditable>My Awesome Zeega!!!</div>\n        <div class="project-share">\n            <a href="#"><i class="zitem-twitter zitem-30 color"></i></a>\n            <a href="#"><i class="zitem-facebook zitem-30 color"></i></a>\n            <a href="#"><i class="zitem-tumblr zitem-30 color"></i></a>\n        </div>\n    </div>\n\n    <div class="edit-box">\n        <div class="project-navs">\n            <div class="frames"></div>\n        </div>\n        <div class="workspace"></div>\n    </div>\n    <div class="layers"></div>\n</div>';
+__p+='<div class=\'left-column\'>\n    <div class="static-upper">\n        <div class="nav"></div>\n    </div>\n    <div class="media-drawer"></div>\n</div>\n<div class=\'right-column\'>\n    <div class="project-head">\n        <div class="project-share">\n            <a href="#"><i class="zitem-twitter zitem-30 color"></i></a>\n            <a href="#"><i class="zitem-facebook zitem-30 color"></i></a>\n            <a href="#"><i class="zitem-tumblr zitem-30 color"></i></a>\n        </div>\n        <div class="project-info" contenteditable>My Awesome Zeega!!!</div>\n    </div>\n\n    <div class="edit-box">\n        <div class="project-navs">\n            <div class="frames"></div>\n        </div>\n        <div class="workspace"></div>\n        <div class="project-preview">playpause</div>\n    </div>\n    <div class="soundtrack"></div>\n\n    <div class="section-head">Layers</div>\n    <div class="layer-picker"></div>\n    <div class="layers"></div>\n</div>';
 }
 return __p;
 };
@@ -616,6 +616,14 @@ __p+='<div class="ZEEGA-project-cover" style="\n    background: url('+
 '"\n                    class="social-share"\n                    data-itemid="'+
 ( item_id )+
 '">\n                    <i class="zsocial-email"></i>\n                </a>\n            </div>\n        </div>\n    </div>\n</div>';
+}
+return __p;
+};
+
+this["JST"]["app/templates/project-preview.html"] = function(obj){
+var __p='';var print=function(){__p+=Array.prototype.join.call(arguments, '')};
+with(obj||{}){
+__p+='<a href="#" class="preview">\n    <i class="zeega-play"></i>\n</a>';
 }
 return __p;
 };
@@ -68097,14 +68105,20 @@ function( app ) {
                 this.get("previousFrame").trigger("blur");
                 frameModel.trigger("focus");
 
-                this.set("currentLayer", null );
+                this.setCurrentLayer( null );
+//                this.set("currentLayer", null );
             }
         },
 
         setCurrentLayer: function( layerModel ) {
             var previousLayer = this.get("currentLayer");
 
-            if ( previousLayer && previousLayer.id != layerModel.id ) {
+            if ( previousLayer && layerModel === null ) {
+                previousLayer.trigger("blur");
+                this.set("currentLayer", layerModel );
+            } else if ( layerModel === null ) {
+                this.set("currentLayer", layerModel );
+            } else if ( previousLayer && previousLayer.id != layerModel.id ) {
                 previousLayer.trigger("blur");
                 this.set("currentLayer", layerModel );
                 layerModel.trigger("focus");
@@ -68517,20 +68531,22 @@ function( app, FrameView ) {
             this.$(".frame-list").empty();
 
             sequence.frames.each(function( frame ) {
-                var newFrameView = new FrameView({
-                    model: frame,
-                    attributes: {
-                        "data-id": frame.id
-                    }
-                });
+                if ( !frame._frameView ) {
+                    frame._frameView = new FrameView({
+                        model: frame,
+                        attributes: {
+                            "data-id": frame.id
+                        }
+                    });
+                }
 
-                this.$(".frame-list").append( newFrameView.el );
+                this.$(".frame-list").append( frame._frameView.el );
 
                 if ( app.status.get("currentFrame").id == frame.id ) {
-                    newFrameView.$el.addClass("active");
+                    frame._frameView.$el.addClass("active");
                 }
                 
-                newFrameView.render();
+                frame._frameView.render();
             }.bind( this ));
         },
 
@@ -68751,12 +68767,62 @@ function( app ) {
 
 });
 
-define('modules/views/layer-list',[
+define('modules/views/layer-controls',[
     "app",
+
     "backbone"
 ],
 
 function( app ) {
+
+    return Backbone.View.extend({
+
+        controls: [],
+        inFocus: null,
+
+        template: "layer-controls",
+        className: "ZEEGA-control-floater",
+
+        initialize: function() {
+            app.status.on("change:currentLayer", this.onLayerFocus, this );
+        },
+
+        afterRender: function() {
+            var $target = this.options.target.$el;
+
+            app.trigger("rendered", this );
+            this.loadControls();
+
+            this.$el.css({
+                top: $target.offset().top + "px",
+                right: "160px",
+                height: ( $target.height() - 2 )+ "px"
+            });
+        },
+
+        loadControls: function() {
+            _.each( this.model._controls, function( control ) {
+                this.$(".layer-controls-inner").append( control.el );
+                control.render();
+            });
+
+        },
+
+        cleanup: function() {
+            this.$el.empty();
+        }
+
+    });
+
+});
+
+define('modules/views/layer-list',[
+    "app",
+    "modules/views/layer-controls",
+    "backbone"
+],
+
+function( app, LayerControls ) {
 
     // This will fetch the tutorial template and render it.
     return Backbone.View.extend({
@@ -68770,6 +68836,8 @@ function( app ) {
         },
 
         initialize: function() {
+            this.controls = new LayerControls({ model: this.model, target: this });
+
             this.model.on("focus", this.onFocus, this );
             this.model.on("blur", this.onBlur, this );
             this.model.on("remove", this.onRemove, this );
@@ -68821,19 +68889,22 @@ function( app ) {
         selectLayer: function() {
             if ( app.status.get("currentLayer") != this.model ) {
                 app.status.setCurrentLayer( this.model );
+            } else {
+                app.status.setCurrentLayer( null );
             }
         },
 
         onFocus: function() {
             this.$el.addClass("active");
+            this.openControls();
         },
 
         onBlur: function() {
             this.$el.removeClass("active");
+            this.closeControls();
         },
 
         onRemove: function() {
-            // this.model.onRemoveFrom Edito()>>???
             this.remove();
         },
 
@@ -68843,6 +68914,15 @@ function( app ) {
 
         updateTitle: function() {
             this.$(".layer-title").text( this.model.getAttr("title"));
+        },
+
+        openControls: function() {
+            $("body").append( this.controls.el );
+            this.controls.render();
+        },
+
+        closeControls: function() {
+            this.controls.remove();
         }
         
     });
@@ -83827,37 +83907,28 @@ function( app, LayerList ) {
         },
 
         renderFrameLayers: function( frameModel ) {
+
             this.updateListeners();
+
             frameModel.layers.each(function( layer, i ) {
 
                 if ( !layer.getAttr("soundtrack") ) {
-                    var layerView, isPersistent, nextFrameIndex, isContinued = false;
+                    // only generate layer list views if not cached!
+                    if ( !layer._layerListView ) {
+                        var layerView = new LayerList({
+                            model: layer,
+                            attributes: {
+                                "data-id": layer.id
+                            }
+                        });
 
-                    // check to see if persistent
-                    isPersistent = _.contains( frameModel.collection.sequence.get("persistent_layers"), layer.id );
-                    // check to see if continued to next frame
-                    nextFrameIndex = _.indexOf( _.toArray( frameModel.collection ), frameModel );
-
-                    if ( nextFrameIndex > -1 && frameModel.collection.length > nextFrameIndex + 1 ) {
-                        var nextFrame = frameModel.collection.at( nextFrameIndex + 1 );
-
-                        isContinued = !_.isUndefined( nextFrame.layers.get( layer.id ) );
+                        layer._layerListView = layerView;
+                        this.layerViews.push( layerView );
                     }
 
-                    layerView = new LayerList({
-                        model: layer,
-                        attributes: {
-                            "data-id": layer.id,
-                            "data-persists": isPersistent,
-                            "data-continued": isContinued
-                        }
-                    });
-
-                    this.layerViews.push( layerView );
-
                     // prepend because layers come in z-index order
-                    this.$("ul.layer-list").prepend( layerView.el );
-                    layerView.render();
+                    this.$("ul.layer-list").prepend( layer._layerListView.el );
+                    layer._layerListView.render();
                 }
             }, this );
 
@@ -83890,85 +83961,6 @@ function( app, LayerList ) {
 
 });
 
-define('modules/views/layer-controls',[
-    "app",
-
-    "backbone"
-],
-
-function( app ) {
-
-    return Backbone.View.extend({
-
-        controls: [],
-        inFocus: null,
-
-        template: "layer-control-bar",
-        className: "ZEEGA-layer-control-bar",
-
-        initialize: function() {
-            app.status.on("change:currentLayer", this.onLayerFocus, this );
-        },
-
-        afterRender: function() {
-            app.trigger("rendered", this );
-        },
-
-        onLayerFocus: function( status, layerModel ) {
-
-            if ( this.inFocus ) {
-                this.stopListening( this.inFocus );
-            }
-
-            if ( layerModel !== null ) {
-                this.$(".layer-bar-title").text( layerModel.getAttr("title") );
-                this.loadControls( layerModel );
-            } else if ( layerModel === null ) {
-                this.clearControls();
-            }
-            this.listen( layerModel );
-        },
-
-        listen: function( layerModel ) {
-            if ( layerModel ) {
-                layerModel.on("focus", this.onFocus, this );
-                layerModel.on("blur", this.onBlur, this );
-                layerModel.on("remove", this.onRemove, this );
-            }
-        },
-
-        loadControls: function( layerModel ) {
-            this.clearControls();
-
-            _.each( layerModel._controls, function( control ) {
-                    this.$(".layer-controls-inner").append( control.el );
-                    control.render();
-            });
-
-        },
-
-        onFocus: function() {
-
-        },
-
-        onBlur: function() {
-            this.clearControls();
-        },
-
-        onRemove: function() {
-            this.stopListening( this.inFocus );
-            this.clearControls();
-        },
-
-        clearControls: function() {
-            this.$(".layer-bar-title").empty();
-            this.$(".layer-controls-inner").empty();
-        }
-
-    });
-
-});
-
 define('modules/views/layer-drawer',[
     "app",
     "backbone"
@@ -83981,24 +83973,12 @@ function( app ) {
         el: null,
         template: "layer-drawer",
 
-        afterRender: function() {
-            this.$("li").draggable({
-                revert: "invalid",
-                helper: "clone",
-                cursorAt: {
-                    left: 0,
-                    top: 0
-                },
-                // helper: function( e ) {
-                //     return $(this).find(".item-thumb").clone().addClass("item-dragging");
-                // },
-                start: function( e, ui ) {
-                    app.dragging = $(e.target).find("a").data("layerType");
-                }.bind( this ),
-                stop: function( e, ui ) {
-                    app.dragging = null;
-                }.bind( this )
-            });
+        events: {
+            "click a": "clickedLayerType"
+        },
+
+        clickedLayerType: function( e ) {
+            app.status.get('currentFrame').addLayerType( $(e.target).closest("a").data("layerType") );
         }
         
     });
@@ -84204,6 +84184,59 @@ function( app ) {
             //this.$(".ZEEGA-items").css("height", window.innerHeight - leftCol );
         }
 
+
+    });
+
+});
+
+define('modules/views/project-preview',[
+    "app",
+    "backbone"
+],
+
+function( app ) {
+
+    return Backbone.View.extend({
+
+        drawerClass: "",
+        template: "project-preview",
+        
+        serialize: function() {
+            return _.extend({ drawerClass: this.drawerClass }, this.model.project.toJSON() );
+        },
+
+        events: {
+            "click .preview": "projectPreview"
+        },
+
+        projectPreview: function() {
+            var projectData = app.project.getProjectJSON();
+            
+            console.log("preview project", projectData);
+            app.zeegaplayer = new Zeega.player({
+                data: projectData,
+                startFrame: app.status.get("currentFrame").id,
+
+                controls: {
+                    arrows: true,
+                    close: true
+                }
+            });
+
+            // listen for esc key to close preview
+            $("body").bind("keyup.player", function( e ) {
+                if ( e.which == 27 ) {
+                    app.zeegaplayer.destroy();
+                }
+            });
+
+            this.stopListening( app.zeegaplayer );
+            app.zeegaplayer.on("player_destroyed", this.stopListeningToPlayer, this );
+        },
+
+        stopListeningToPlayer: function() {
+            $("body").unbind("keyup.player");
+        }
 
     });
 
@@ -85045,13 +85078,14 @@ define('modules/layout-main',[
     "modules/views/soundtrack",
 
     "modules/views/media-drawer",
+    "modules/views/project-preview",
     // "modules/search.model",
     "mousetrap",
 
     "backbone"
 ],
 
-function( app, Navbar, ProjectMeta, Sequences, Frames, FrameControls, Workspace, Layers, LayerControls, LayerDrawer, Soundtrack, MediaDrawer) {
+function( app, Navbar, ProjectMeta, Sequences, Frames, FrameControls, Workspace, Layers, LayerControls, LayerDrawer, Soundtrack, MediaDrawer, ProjectPreview ) {
 
     return Backbone.Layout.extend({
 
@@ -85074,19 +85108,25 @@ function( app, Navbar, ProjectMeta, Sequences, Frames, FrameControls, Workspace,
 
         afterRender: function() {
 
-            // new Soundtrack({
-            //     el: this.$(".soundtrack")
-            // }).render();
+            new Soundtrack({
+                el: this.$(".soundtrack")
+            }).render();
+
+            new ProjectPreview({
+                model: app,
+                el: this.$(".project-preview")
+            }).render();
+
 
             // new ProjectMeta({
             //     model: app,
             //     el: this.$(".project-meta")
             // }).render();
 
-            // new LayerDrawer({
-            //     model: app,
-            //     el: this.$(".layer-drawer")
-            // }).render();
+            new LayerDrawer({
+                model: app,
+                el: this.$(".layer-picker")
+            }).render();
 
             new Frames({
                 model: app,
@@ -85830,6 +85870,7 @@ function( app, ControlView ) {
 
             init: function() {
                 this.propertyName = this.options.options.propertyName;
+                this.model.on("change", this.onChange, this );
             },
 
             serialize: function() {
@@ -85844,13 +85885,26 @@ function( app, ControlView ) {
                 var $colorPicker = this.$(".simple_color");
 
                 $colorPicker
-                    .simpleColor()
-                    .bind("change", function(e) {
-                        var hexValue = $colorPicker.val();
+                    .simpleColor({
+                        livePreview: true,
+                        onCellEnter: function( hex ) {
+                            this.updateVisual( "#" + hex );
+                        }.bind( this ),
+                        onClose: function() {
+                            this.onChange();
+                        }.bind( this ),
+                        callback: function( hex ) {
+                            var attr = {};
 
-                        this.updateVisual( hexValue );
-                        this.lazyUpdate( hexValue );
-                    }.bind( this ));
+                            attr[ this.propertyName ] = "#" + hex;
+                            this.updateVisual( "#" + hex );
+                            this.update( attr );
+                        }.bind( this )
+                    });
+            },
+
+            onChange: function() {
+                this.updateVisual( this.getAttr( this.propertyName ) );
             }
 
         })
@@ -86331,7 +86385,7 @@ function( app, ControlView ) {
 
             createSlider: function() {
                 var cueIn, cueOut, max, $avSlider, cues = {};
-
+console.log("create Slider", this.cid)
                 cueIn = this.getAttr("cue_in");
                 cueOut = this.getAttr("cue_out");
                 duration = this.getAttr("duration");
@@ -86436,20 +86490,35 @@ function( app, ControlView ) {
             },
 
             listen: function() {
+
                 this.audio = this.model.visual.getAudio();
+
+                console.log("LISTEN", this.audio)
+
+                // if ( !this.audio ) {
+                //     this.audio = this.model.visual.getAudio();
+                // }
                 this.model.on("play", this.onPlay, this );
                 this.model.on("pause", this.onPause, this );
                 this.model.on("timeupdate", this.onTimeupdate, this );
             },
             
             onBlur: function() {
+                console.log("AV BLUR")
                 this.audio.pause();
                 this.$avSlider.slider("destroy");
+                this.$avSlider.empty();
+                // if ( this.$avSlider.slider ) {
+                //     this.$avSlider.slider("destroy");
+                // }
             },
 
             onFocus: function() {},
             
             onPlay: function( obj ) {
+
+                console.log( this.cid );
+
                 this.$(".playpause i")
                     .addClass("icon-pause")
                     .removeClass("icon-play");
@@ -86476,6 +86545,7 @@ function( app, ControlView ) {
             },
 
             playpause: function() {
+                console.log('playpause')
                 this.model.visual.playPause();
             }
 
@@ -86780,18 +86850,23 @@ function( app, Controls ) {
         },
 
         loadControls: function() {
-            this._controls = _.map( this.controls, function( controlType ) {
-                var control = false;
+            if ( !this._controls ) {
 
-                if ( _.isObject( controlType ) && Controls[ controlType.type ] ) {
-                    control = new Controls[ controlType.type ]({ model: this, options: controlType.options });
-                } else if ( Controls[ controlType ] ) {
-                    control = new Controls[ controlType ]({ model: this });
-                }
+            console.log("load controls", this.id)
 
-                return control;
-            }, this );
-            this._controls = _.compact( this._controls );
+                this._controls = _.map( this.controls, function( controlType ) {
+                    var control = false;
+
+                    if ( _.isObject( controlType ) && Controls[ controlType.type ] ) {
+                        control = new Controls[ controlType.type ]({ model: this, options: controlType.options });
+                    } else if ( Controls[ controlType ] ) {
+                        control = new Controls[ controlType ]({ model: this });
+                    }
+
+                    return control;
+                }, this );
+                this._controls = _.compact( this._controls );
+            }
 
             return this._controls;
         },
@@ -86822,6 +86897,7 @@ function( app, Controls ) {
         },
 
         exit: function() {
+            console.log("EXIT", this)
             if ( this.layerClass ) {
                 this.visual.player_onExit();
             }
@@ -86867,10 +86943,14 @@ function( app, Controls ) {
 
         initialize: function() {
             this.init();
-
             this.model.off("blur focus");
             this.model.on("focus", this.onFocus, this );
             this.model.on("blur", this.onBlur, this );
+
+            this.listenToFrame = _.once(function() {
+                this.model.collection.frame.on("focus", this.editor_onLayerEnter, this );
+                this.model.collection.frame.on("blur", this.editor_onLayerExit, this );
+            }.bind( this ));
         },
 
         events: {},
@@ -86884,9 +86964,13 @@ function( app, Controls ) {
 
         /* editor fxns */
         enterEditorMode: function() {
+            this.listenToFrame();
+
             this.loadControls();
             this.delegateEvents( _.extend( this.events, this.editorEvents ));
         },
+
+        listenToFrame: null,
 
         onFocus: function() {
             this.$el.addClass('active');
@@ -102814,16 +102898,6 @@ function( app, _Layer, Visual ){
                     propertyName: "loop"
                 }
             },
-            { type: "slider",
-                options: {
-                    title: "vol",
-                    propertyName: "volume",
-                    min: 0,
-                    max: 1,
-                    step: 0.001,
-                    css: false
-                }
-            },
             "av"
         ]
     });
@@ -102856,9 +102930,20 @@ function( app, _Layer, Visual ){
             this.audio.pause();
         },
 
+        editor_onLayerEnter: function() {
+            // this.render();
+        },
+
+        editor_onLayerExit: function() {
+            console.log("audio exit", this.$("audio"))
+            this.$("audio").attr("src", "");
+            this.audio = null;
+            this.render();
+        },
+
         playPause: function() {
             this.setAudio();
-
+console.log("AUDIO", this.audio)
             if ( this.audio.paused ) {
                 this.audio.play();
             } else {
@@ -106058,7 +106143,7 @@ function( app, Status, Layout, ZeegaParser, MediaBrowser ) {
 
                 // mainly for testing
 
-                rawDataModel.url = "http://dev.zeega.org/james/web/api/projects/8211";
+                rawDataModel.url = "http://dev.zeega.org/joseph/web/api/projects/8214";
 
                 rawDataModel.fetch().success(function( response ) {
                     this._parseData( response );
