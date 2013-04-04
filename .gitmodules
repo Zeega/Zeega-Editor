@@ -10,3 +10,6 @@
 [submodule "vendor/mousetrap"]
 	path = vendor/mousetrap
 	url = https://github.com/ccampbell/mousetrap.git
+[submodule "vendor/simple-color-picker"]
+	path = vendor/simple-color-picker
+	url = https://github.com/jbergen/jquery-simple-color.git
