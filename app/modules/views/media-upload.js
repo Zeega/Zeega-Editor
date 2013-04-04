@@ -64,7 +64,7 @@ function( app ) {
         events: {
 
             "change .add-photo input" : "imageUpload",
-            "keyup .search-box": "onSearchKeyPress"
+            "keyup .url-box": "onSearchKeyPress"
 
         },
 
