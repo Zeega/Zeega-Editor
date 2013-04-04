@@ -10,14 +10,16 @@ function( app, ItemModel, MediaView, ItemCollectionViewer ) {
 
 
     var Media = {
-        Instagram: {},
+        
         Zeega: {},
+        Instagram: {},
         Flickr: {},
         Soundcloud: {},
         Tumblr: {},
         Giphy: {},
         Youtube: {},
-        Web: {}
+        Web: {},
+        MyZeega:{}
     };
 
 
@@ -59,6 +61,8 @@ function( app, ItemModel, MediaView, ItemCollectionViewer ) {
             return res.items;
         }
     });
+
+    Media.MyZeega.Collection = Media.Zeega.Collection.extend();
 
     Media.Flickr.Collection = Media.Zeega.Collection.extend({
 
@@ -257,17 +261,12 @@ function( app, ItemModel, MediaView, ItemCollectionViewer ) {
         }
     });
 
-
-
-
-
     Media.Zeega.Model = Backbone.Model.extend({
 
         api: "Zeega",
         mediaCollection: null,
         apiUrl: app.searchAPI,
 
-        // should this be a model?
         defaults: {
                 urlArguments: {
                     collection: "",
@@ -275,14 +274,11 @@ function( app, ItemModel, MediaView, ItemCollectionViewer ) {
                     page: 1,
                     q: "",
                     limit: 20,
-                    data_source: "db",
-                    user: function() {
-                        return app.userId;
-                },
-                sort: "date-desc"
+                    user: 1,
+                    sort: "date-desc"
             },
-            title: "My Media",
-            placeholder: "search your media",
+            title: "Zeega",
+            placeholder: "search Zeega favorites",
             searchQuery:""
         },
 
@@ -305,6 +301,49 @@ function( app, ItemModel, MediaView, ItemCollectionViewer ) {
 
             var args = this.get("urlArguments");
 
+            if( query !== args.q ) {
+                args.q = query;
+            }
+
+            this.set("urlArguments", args );
+            this.mediaCollection.fetch();
+        },
+
+        listen: function() {
+        },
+
+        onSync: function( collection ) {
+            this.mediaBrowser.trigger( "media_ready", collection );
+        }
+    });
+
+    Media.MyZeega.Model = Media.Zeega.Model.extend({
+
+        api: "MyZeega",
+        defaults: {
+                urlArguments: {
+                    collection: "",
+                    type: "-project AND -Collection AND -Video",
+                    page: 1,
+                    q: "",
+                    limit: 20,
+                    data_source: "db",
+                    user: function() {
+                        return app.userId;
+                },
+                sort: "date-desc"
+            },
+            title: "My Media",
+            placeholder: "search your media",
+            searchQuery:""
+        },
+
+        
+        _search: function( query ){
+
+
+            var args = this.get("urlArguments");
+
            
 
             if(query === ""){
@@ -316,20 +355,6 @@ function( app, ItemModel, MediaView, ItemCollectionViewer ) {
 
             this.set("urlArguments", args );
             this.mediaCollection.fetch();
-        },
-
-        listen: function() {
-
-            // fetch user items on window focus !
-            // window.addEventListener("focus", function() {
-            //     this.mediaCollection.fetch();
-            // }.bind( this ));
-        },
-
-        
-
-        onSync: function( collection ) {
-            this.mediaBrowser.trigger( "media_ready", collection );
         }
     });
 
@@ -540,6 +565,7 @@ function( app, ItemModel, MediaView, ItemCollectionViewer ) {
             
         }
     });
+
 
 
 

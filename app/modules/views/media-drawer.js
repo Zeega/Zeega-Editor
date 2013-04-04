@@ -1,9 +1,10 @@
 define([
     "app",
+    "modules/views/media-upload",
     "backbone"
 ],
 
-function( app ) {
+function( app, MediaUpload ) {
 
     return Backbone.View.extend({
 
@@ -27,6 +28,14 @@ function( app ) {
             collection.view.render();
         },
 
+        renderUpload: function() {
+            var uploadView = new MediaUpload();
+            this.$(".ZEEGA-items").empty().append(uploadView.el);
+            uploadView.render();
+
+
+        },
+
         events: {
             "click .clear-search": "clearSearch",
             "focus .search-box": "onSearchFocus",
@@ -39,7 +48,19 @@ function( app ) {
         },
 
         onMediaToggle: function(event){
+
+
+
             var api = $(event.target).data("api");
+
+
+            if( api == "Upload"){
+                this.renderUpload();
+                return false;
+
+            }
+
+
             this.$el.find(".search-box").attr("placeholder", "search " + api);
             this.model.setAPI( api );
             this.renderMedia();
@@ -48,6 +69,10 @@ function( app ) {
                 this.$el.addClass("list");
             } else {
                 this.$el.removeClass("list");
+            }
+
+            if( api === "MyZeega" ){
+                this.model.search( "" );
             }
 
             return false;

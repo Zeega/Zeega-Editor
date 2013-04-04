@@ -1,24 +1,19 @@
 define([
     "app",
 
-    "modules/views/modal",
-
     "backbone"
 ],
 
-function( app, Modal ) {
+function( app ) {
 
 
-    return Modal.extend({
+    return Backbone.View.extend({
 
-        template: "upload-modal",
-        modalClass: "",
-        
-        className: "ZEEGA-modal upload-modal",
+        template: "media-upload",
+        className: "media-upload",
 
         events: {
-            "click .modal-close": "hide",
-            "click .close": "hide",
+
             "change .add-photo input" : "imageUpload"
 
         },
@@ -58,7 +53,7 @@ function( app, Modal ) {
 
             });
 
-            
+            app.status.get('currentFrame').addLayerByItem( item );
 
 
             item.url = app.api + "items";
