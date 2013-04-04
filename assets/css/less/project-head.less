@@ -1,0 +1,63 @@
+.project-head {
+    padding: 10px 0;
+    font-size: 1.75em;
+    color: #555;
+    z-index: 100;
+    position: relative;
+    .clearfix;
+
+    .nav {
+        float: left;
+        .clearfix();
+    }
+
+    .project-info {
+        float: left;
+        width: calc(~"100% - 175px");
+        border-bottom: 2px dotted transparent;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        overflow: hidden;
+
+        &:hover, &:focus {
+            border-bottom: 2px dotted #999;
+            outline: none;
+            background: rgba(255,255,0,0.25);
+        }
+    }
+
+    .project-preview {
+        float:right;
+    }
+
+    .project-share {
+        position: relative;
+    }
+
+}
+
+.share-grave {
+    background: url(../img/tiny-stripes-dark.png);
+    background-color: #ccc;
+    clear: both;
+    display: none;
+    box-shadow: inset 0px 5px 5px rgba(0,0,0,0.25);
+    padding: 10px;
+    .clearfix;
+
+    .close-wrapper {
+        text-align: right;
+
+        a {
+            color: #555;
+            height: 20px;
+            display: inline-block;
+            top: -11px;
+            position: relative;
+        }
+    }
+
+    .project-share {
+        float: right;
+    }
+}
