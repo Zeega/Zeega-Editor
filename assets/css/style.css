@@ -6079,6 +6079,36 @@ html {
 .pause-zcon {
   background-position: -25px 0px;
 }
+[class^="socialz-"] {
+  background-image: url('../img/sprites-social-search-30.png');
+  background-position: 0px 0px;
+  background-repeat: no-repeat;
+  display: inline-block;
+  height: 30px;
+  vertical-align: text-top;
+  width: 30px;
+}
+.socialz-zeega {
+  background-position: 0px -30px;
+}
+.socialz-soundcloud {
+  background-position: 0px -60px;
+}
+.socialz-giphy {
+  background-position: 0px -90px;
+}
+.socialz-flickr {
+  background-position: 0px -120px;
+}
+.socialz-instagram {
+  background-position: 0px -150px;
+}
+.socialz-youtube {
+  background-position: 0px -180px;
+}
+.socialz-user {
+  background-position: 0px -210px;
+}
 [class^="zsocial-"] {
   background-image: url('../img/social-sprites-20px.png');
   background-position: 0px 0px;
@@ -6422,6 +6452,10 @@ html {
 }
 .ZEEGA-hmenu .logo a {
   padding: 4px 10px;
+}
+.ZEEGA-hmenu.img-tabs > ul > li > a {
+  padding: 0;
+  margin-right: 5px;
 }
 .ZEEGA-hmenu ul {
   margin: 0;
