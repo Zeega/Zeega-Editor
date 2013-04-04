@@ -1,9 +1,10 @@
 define([
     "app",
+    "modules/views/media-upload",
     "backbone"
 ],
 
-function( app ) {
+function( app, UploadView ) {
 
     var Media = {
         Zeega:{},
@@ -116,7 +117,19 @@ function( app ) {
     Media.Giphy.View = Media.Zeega.View.extend({});
     Media.Youtube.View = Media.Zeega.View.extend({});
     Media.Web.View = Media.Zeega.View.extend({});
-     Media.MyZeega.View = Media.Zeega.View.extend();
+    
+    Media.MyZeega.View = Media.Zeega.View.extend({
+
+        template: "media-collection",
+
+        _afterRender: function(){
+            var uploadView = new UploadView({ model: this.model });
+            this.$el.find(".media-collection-header").prepend( uploadView.el );
+            uploadView.render();
+        }
+
+
+    });
 
     return Media;
 

@@ -7190,8 +7190,8 @@ a:active {
 }
 .media-upload .add-photo {
   display: inline-block;
-  width: 68px;
-  height: 68px;
+  width: 30px;
+  height: 30px;
   margin: 0 5px 15px;
   position: relative;
   overflow: hidden;

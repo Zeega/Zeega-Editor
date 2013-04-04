@@ -1,10 +1,10 @@
 define([
     "app",
-
+    "assets/js/libs/spin.js",
     "backbone"
 ],
 
-function( app ) {
+function( app, Spinner ) {
 
     var UploadItem = Backbone.Model.extend({
             url: app.api + "items",
@@ -69,38 +69,29 @@ function( app ) {
 
         },
 
-
+        
         onSearchKeyPress: function( e ) {
             if ( e.which == 13 ) {
                 this.search( this.$(".search-box").val() );
             }
         },
 
-        addUploadItem: function( data ) {
-
-            var item = new UploadItem({
-
-                "title": data.title,
-                "uri": data.fullsize_url,
-                "attribution_uri": data.fullsize_url,
-                "thumbnail_url": data.image_url_4
-
-            });
-
-            app.status.get('currentFrame').addLayerByItem( item );
-            item.save();
-        },
-        addWebItem: function( item, response ) {
+        addItem: function( item ) {
 
             item.url = app.api + "items";
             app.status.get('currentFrame').addLayerByItem( item );
+            item.on("sync", this.refreshUploads, this );
             item.save();
         },
 
         search: function( url ){
             var item = new WebItem({ web_url: url });
-            item.on("sync", this.addWebItem, this );
+            item.on("sync", this.addItem, this );
             item.fetch();
+        },
+
+        refreshUploads: function(){
+            this.model.search();
         },
 
 
@@ -126,8 +117,16 @@ function( app ) {
                         "background-image" : "url(" + data.image_url_4 + ")",
                         "background-size" : "cover"
                     });
-                    
-                    this.addUploadItem( data );
+                    var item = new UploadItem({
+
+                        "title": data.title,
+                        "uri": data.fullsize_url,
+                        "attribution_uri": data.fullsize_url,
+                        "thumbnail_url": data.image_url_4
+
+                    });
+
+                    this.addItem( item );
 
                     this.$el.find(".image-uploads").append("<span class='add-photo' href='#'><input id = 'imagefile' name = 'imagefile' type='file' href='#'></input></span>");
                     

@@ -18,7 +18,6 @@ function( app, ItemModel, MediaView, ItemCollectionViewer ) {
         Tumblr: {},
         Giphy: {},
         Youtube: {},
-        Web: {},
         MyZeega:{}
     };
 
@@ -236,28 +235,6 @@ function( app, ItemModel, MediaView, ItemCollectionViewer ) {
 
             this.itemsCount = res.items_count;
             return items;
-        }
-    });
-
-    Media.Web.Collection = Media.Zeega.Collection.extend({
-        parse: function( res ) {
-            var photos;
-
-            if ( res.code == 500 ){
-                this.itemsCount = 0;
-                return array();
-            }
-
-
-            photos = res.items;
-            
-            _.each( photos, function( photo ){
-                photo.editable = -1;
-            });
- 
-            this.itemsCount = res.items_count;
-
-            return res.items;
         }
     });
 
@@ -522,41 +499,6 @@ function( app, ItemModel, MediaView, ItemCollectionViewer ) {
             
             if( query !== "" && query !== args.q ){
                 args.q = query;
-                this.set("urlArguments", args );
-                this.mediaCollection.fetch();
-            }
-
-
-            
-        }
-    });
-
-    Media.Web.Model = Media.Zeega.Model.extend({
-        
-        api: "Web",
-        apiUrl: app.api + "items/parser?",
-
-         defaults: {
-            urlArguments: {
-                url: ""
-            },
-            title: "The Web",
-            placeholder: "enter a url",
-            searchQuery: ""
-        },
-        getQuery: function(){
-            return this.get("urlArguments").url;
-        },
-        _search: function( query ){
-
-            
-            
-            var args= this.get("urlArguments");
-
-            if( query === "" || query === args.url ){
-                //this.mediaCollection.trigger("sync");
-            } else {
-                args.url = query;
                 this.set("urlArguments", args );
                 this.mediaCollection.fetch();
             }
