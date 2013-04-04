@@ -18,7 +18,6 @@ function( app, LayerControls ) {
         },
 
         initialize: function() {
-
             this.controls = new LayerControls({ model: this.model, target: this });
 
             this.model.on("focus", this.onFocus, this );
@@ -72,6 +71,8 @@ function( app, LayerControls ) {
         selectLayer: function() {
             if ( app.status.get("currentLayer") != this.model ) {
                 app.status.setCurrentLayer( this.model );
+            } else {
+                app.status.setCurrentLayer( null );
             }
         },
 
@@ -98,13 +99,11 @@ function( app, LayerControls ) {
         },
 
         openControls: function() {
-            console.log("open controls");
             $("body").append( this.controls.el );
             this.controls.render();
         },
 
         closeControls: function() {
-            console.log("close controls")
             this.controls.remove();
         }
         

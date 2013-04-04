@@ -33,14 +33,20 @@ function( app ) {
                 this.get("previousFrame").trigger("blur");
                 frameModel.trigger("focus");
 
-                this.set("currentLayer", null );
+                this.setCurrentLayer( null );
+//                this.set("currentLayer", null );
             }
         },
 
         setCurrentLayer: function( layerModel ) {
             var previousLayer = this.get("currentLayer");
 
-            if ( previousLayer && previousLayer.id != layerModel.id ) {
+            if ( previousLayer && layerModel === null ) {
+                previousLayer.trigger("blur");
+                this.set("currentLayer", layerModel );
+            } else if ( layerModel === null ) {
+                this.set("currentLayer", layerModel );
+            } else if ( previousLayer && previousLayer.id != layerModel.id ) {
                 previousLayer.trigger("blur");
                 this.set("currentLayer", layerModel );
                 layerModel.trigger("focus");

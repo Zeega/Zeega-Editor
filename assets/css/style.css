@@ -6669,7 +6669,8 @@ a:active {
   box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.25);
 }
 .ZEEGA-control-floater {
-  background: rgba(255, 255, 255, 0.9);
+  background: rgba(0, 0, 0, 0.5);
+  background-image: url(../img/tiny-stripes-dark.png);
   padding: 10px;
   border: 1px solid orangered;
   position: absolute;
@@ -6682,7 +6683,7 @@ a:active {
   float: left;
 }
 .ZEEGA-control-floater .control .control-name {
-  color: #aaa;
+  color: #fff;
 }
 .ZEEGA-control-floater .control input {
   margin-top: 5px;

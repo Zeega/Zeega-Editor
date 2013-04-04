@@ -70,37 +70,28 @@ function( app, LayerList ) {
         },
 
         renderFrameLayers: function( frameModel ) {
+
             this.updateListeners();
+
             frameModel.layers.each(function( layer, i ) {
 
                 if ( !layer.getAttr("soundtrack") ) {
-                    var layerView, isPersistent, nextFrameIndex, isContinued = false;
+                    // only generate layer list views if not cached!
+                    if ( !layer._layerListView ) {
+                        var layerView = new LayerList({
+                            model: layer,
+                            attributes: {
+                                "data-id": layer.id
+                            }
+                        });
 
-                    // check to see if persistent
-                    isPersistent = _.contains( frameModel.collection.sequence.get("persistent_layers"), layer.id );
-                    // check to see if continued to next frame
-                    nextFrameIndex = _.indexOf( _.toArray( frameModel.collection ), frameModel );
-
-                    if ( nextFrameIndex > -1 && frameModel.collection.length > nextFrameIndex + 1 ) {
-                        var nextFrame = frameModel.collection.at( nextFrameIndex + 1 );
-
-                        isContinued = !_.isUndefined( nextFrame.layers.get( layer.id ) );
+                        layer._layerListView = layerView;
+                        this.layerViews.push( layerView );
                     }
 
-                    layerView = new LayerList({
-                        model: layer,
-                        attributes: {
-                            "data-id": layer.id,
-                            "data-persists": isPersistent,
-                            "data-continued": isContinued
-                        }
-                    });
-
-                    this.layerViews.push( layerView );
-
                     // prepend because layers come in z-index order
-                    this.$("ul.layer-list").prepend( layerView.el );
-                    layerView.render();
+                    this.$("ul.layer-list").prepend( layer._layerListView.el );
+                    layer._layerListView.render();
                 }
             }, this );
 

@@ -53,20 +53,22 @@ function( app, FrameView ) {
             this.$(".frame-list").empty();
 
             sequence.frames.each(function( frame ) {
-                var newFrameView = new FrameView({
-                    model: frame,
-                    attributes: {
-                        "data-id": frame.id
-                    }
-                });
+                if ( !frame._frameView ) {
+                    frame._frameView = new FrameView({
+                        model: frame,
+                        attributes: {
+                            "data-id": frame.id
+                        }
+                    });
+                }
 
-                this.$(".frame-list").append( newFrameView.el );
+                this.$(".frame-list").append( frame._frameView.el );
 
                 if ( app.status.get("currentFrame").id == frame.id ) {
-                    newFrameView.$el.addClass("active");
+                    frame._frameView.$el.addClass("active");
                 }
                 
-                newFrameView.render();
+                frame._frameView.render();
             }.bind( this ));
         },
 
