@@ -90,7 +90,7 @@ function( app ) {
         },
 
         refreshUploads: function(){
-            this.model.search();
+            this.model.search("");
         },
 
 
@@ -112,10 +112,11 @@ function( app ) {
                 
                 success: function( data ) {
 
-                    $(fileInput).parent('span').css({
-                        "background-image" : "url(" + data.image_url_4 + ")",
-                        "background-size" : "cover"
-                    });
+                    // $(fileInput).parent('span').css({
+                    //     "background-image" : "url(" + data.image_url_4 + ")",
+                    //     "background-size" : "cover"
+                    // });
+
                     var item = new UploadItem({
 
                         "title": data.title,
@@ -127,7 +128,7 @@ function( app ) {
 
                     this.addItem( item );
 
-                    this.$el.find(".image-uploads").append("<span class='add-photo' href='#'><input id = 'imagefile' name = 'imagefile' type='file' href='#'></input></span>");
+                    //this.$el.find(".image-uploads").append("<span class='add-photo' href='#'><input id = 'imagefile' name = 'imagefile' type='file' href='#'></input></span>");
                     
                 }.bind(this)
             });
