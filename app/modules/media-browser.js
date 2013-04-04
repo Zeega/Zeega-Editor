@@ -16,6 +16,7 @@ function( app, ItemModel, MediaView, ItemCollectionViewer ) {
         Soundcloud: {},
         Tumblr: {},
         Giphy: {},
+        Youtube: {},
         Web: {}
     };
 
@@ -92,41 +93,73 @@ function( app, ItemModel, MediaView, ItemCollectionViewer ) {
         
 
         url : function(){
-            var url = this.mediaModel.apiUrl + "tags/" + this.mediaModel.get("query") +
+            var url;
+            if( this.mediaModel.queryType == "tag" ){
+                url = this.mediaModel.apiUrl + "tags/" + this.mediaModel.get("query") +
                         "/media/recent?client_id=725bbc7af5094c8682bdb322d29734cc&callback=?";
+            } else {
+
+                // Instagram User queries require user id, route through Zeega
+                url = app.api + "items/parser?url=http://instagram.com/" + this.mediaModel.get("query");
+            }
+
             return url;
         },
         
 
         parse: function(res){
             
-            var items = [];
+            if( this.mediaModel.queryType == "tag" ){
+                var items = [];
 
-            _.each( res.data, function( photo ){
+                _.each( res.data, function( photo ){
 
-                var item = {};
-                item.id = photo.id;
-                if( !_.isNull( photo.caption ) && !_.isNull( photo.caption.text ) ){
-                    var tmp = document.createElement("DIV");
-                    tmp.innerHTML = photo.caption.text;
-                    item.title = tmp.textContent||tmp.innerText;
-                } else {
-                    item.title = "Instagram by " + photo.user.user_name;
+                    var item = {};
+                    item.id = photo.id;
+                    if( !_.isNull( photo.caption ) && !_.isNull( photo.caption.text ) ){
+                        var tmp = document.createElement("DIV");
+                        tmp.innerHTML = photo.caption.text;
+                        item.title = tmp.textContent||tmp.innerText;
+                    } else {
+                        item.title = "Instagram by " + photo.user.user_name;
+                    }
+                    
+
+                    item.archive = "Instagram";
+                    item.layer_type ="Image";
+                    item.media_type = "Image";
+
+                    item.thumbnail_url = photo.images.thumbnail.url;
+                    item.uri = photo.images.standard_resolution.url;
+                    item.attribution_uri =  photo.link;
+                    item.media_user_realname = photo.user.user_name;
+
+                    items.push( item );
+                });
+                return items;
+            } else {
+                var photos,
+                    count = 1;
+
+                if ( res.code == 500 ){
+                    this.itemsCount = 0;
+                    return array();
                 }
+
+
+                photos = res.items;
                 
+                _.each( photos, function( photo ){
+                    photo.editable = -1;
+                    photo.id = count;
+                    count++;
+                });
+     
+                this.itemsCount = res.items_count;
 
-                item.archive = "Instagram";
-                item.layer_type ="Image";
-                item.media_type = "Image";
+                return res.items;
 
-                item.thumbnail_url = photo.images.thumbnail.url;
-                item.uri = photo.images.standard_resolution.url;
-                item.attribution_uri =  photo.link;
-                item.media_user_realname = photo.user.user_name;
-
-                items.push( item );
-            });
-            return items;
+            }
         }
     });
 
@@ -170,13 +203,54 @@ function( app, ItemModel, MediaView, ItemCollectionViewer ) {
         }
     });
 
+    Media.Youtube.Collection = Media.Zeega.Collection.extend({
+
+        parse: function(res){
+            var items = [],
+                count = 1;
+
+            
+            _.each( res.data.items, function( video ){
+                var item = {};
+                item.id = count;
+                item.layer_type = "Youtube";
+                item.media_type = "Video";
+                count++;
+
+                item.uri = video.id;
+                item.title = video.title;
+                item.attribution_uri = video.player[ "default" ];
+                item.thumbnail_url = video.thumbnail.hqDefault;
+                item.aspectRatio = video.aspectRatio;
+
+
+                if( video.accessControl.embed == "allowed" ){
+                     items.push( item );
+                }
+
+            });
+
+            this.itemsCount = res.items_count;
+            return items;
+        }
+    });
+
     Media.Web.Collection = Media.Zeega.Collection.extend({
         parse: function( res ) {
+            var photos;
+
             if ( res.code == 500 ){
                 this.itemsCount = 0;
                 return array();
             }
 
+
+            photos = res.items;
+            
+            _.each( photos, function( photo ){
+                photo.editable = -1;
+            });
+ 
             this.itemsCount = res.items_count;
 
             return res.items;
@@ -334,6 +408,7 @@ function( app, ItemModel, MediaView, ItemCollectionViewer ) {
         
         api: "Instagram",
         apiUrl: "https://api.instagram.com/v1/",
+        queryType: "user",
 
         defaults: {
             query: "",
@@ -343,6 +418,10 @@ function( app, ItemModel, MediaView, ItemCollectionViewer ) {
         },
         getQuery: function(){
             return this.get("query");
+        },
+
+        setQueryType: function( selection ){
+            this.queryType = selection;
         },
         _search: function( query ){
 
@@ -385,6 +464,45 @@ function( app, ItemModel, MediaView, ItemCollectionViewer ) {
                 this.set("urlArguments", args );
                 this.mediaCollection.fetch();
             }
+        }
+    });
+
+    Media.Youtube.Model = Media.Zeega.Model.extend({
+        
+        api: "Youtube",
+        apiUrl: "https://gdata.youtube.com/feeds/api/videos?",
+
+        defaults: {
+            urlArguments: {
+                callback: "?",
+                orderby: "relevance",
+                alt: "jsonc",
+                v: "2",
+                "max-results": "50",
+                q: ""
+    
+            },
+            title: "Youtube",
+            placeholder: "search Youtube",
+            searchQuery:""
+        },
+        getQuery: function(){
+            return this.get("urlArguments").q;
+        },
+        _search: function( query ){
+
+            var args= this.get("urlArguments");
+
+            
+            
+            if( query !== "" && query !== args.q ){
+                args.q = query;
+                this.set("urlArguments", args );
+                this.mediaCollection.fetch();
+            }
+
+
+            
         }
     });
 

@@ -14,6 +14,7 @@ function( app, Modal, UploadModal ) {
         Flickr: {},
         Soundcloud: {},
         Giphy: {},
+        Youtube: {},
         Web: {}
     };
 
@@ -79,7 +80,7 @@ function( app, Modal, UploadModal ) {
         },
 
         search: function( query ) {
-            console.log(this.model);
+            console.log(this.model, query);
             this.model.search( query );
 
         }
@@ -129,10 +130,33 @@ function( app, Modal, UploadModal ) {
             
     });
 
-    Media.Instagram.View = Media.Base.View.extend({});
+    Media.Instagram.View = Media.Base.View.extend({
+
+
+        _afterRender: function(){
+            console.log("beforerender");
+            this.$el.find(".collection-options").append("<select class = 'query-type' >" +
+              "<option value='user'>username</option>" +
+              "<option value='tag'>tag</option>" +
+            "</select>");
+        },
+
+        events: {
+            "keyup .search-box": "onSearchKeyPress",
+            "change .query-type": "onQueryTypeChange"
+        },
+
+        onQueryTypeChange: function( ){
+            var type = this.$el.find(".query-type").attr("value");
+            this.model.setQueryType( type );
+
+        }
+
+    });
     Media.Flickr.View = Media.Base.View.extend({});
     Media.Soundcloud.View = Media.Base.View.extend({});
     Media.Giphy.View = Media.Base.View.extend({});
+    Media.Youtube.View = Media.Base.View.extend({});
     Media.Web.View = Media.Base.View.extend({});
 
     return Media;

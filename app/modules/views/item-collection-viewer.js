@@ -4,11 +4,13 @@ define([
     "modules/views/frame",
     "modules/views/item-viewer-image",
     "modules/views/item-viewer-audio",
+    "modules/views/item-viewer-video",
+    "modules/views/item-viewer-youtube",
 
     "backbone"
 ],
 
-function( app, Modal, FrameView, ImageView, AudioView ) {
+function( app, Modal, FrameView, ImageView, AudioView, VideoView, YoutubeView ) {
 
 
     return Backbone.View.extend({
@@ -51,6 +53,10 @@ function( app, Modal, FrameView, ImageView, AudioView ) {
                     item.itemView = new ImageView({ model: item });
                 } else if ( item.get("layer_type") == "Audio") {
                     item.itemView = new AudioView({ model: item });
+                } else if ( item.get("layer_type") == "Video") {
+                    item.itemView = new VideoView({ model: item });
+                } else if ( item.get("layer_type") == "Youtube") {
+                    item.itemView = new YoutubeView({ model: item });
                 }
             }
             // just render item.itemView
