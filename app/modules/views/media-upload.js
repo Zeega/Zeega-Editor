@@ -1,10 +1,9 @@
 define([
     "app",
-    "assets/js/libs/spin.js",
     "backbone"
 ],
 
-function( app, Spinner ) {
+function( app ) {
 
     var UploadItem = Backbone.Model.extend({
             url: app.api + "items",
