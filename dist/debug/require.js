@@ -569,9 +569,7 @@ return __p;
 this["JST"]["app/templates/media-collection.html"] = function(obj){
 var __p='';var print=function(){__p+=Array.prototype.join.call(arguments, '')};
 with(obj||{}){
-__p+='<div class="media-collection-header">\n\n    <div class="media-collection-title">'+
-( title )+
-'</div>\n    <div class="media-collection-extras">\n        \n    </div>\n    <div class="media-collection-search">\n        <ul class=\'pull-left search-bar\'>\n            <li>\n                <input class="search-box" type="text" placeholder="'+
+__p+='<div class="media-collection-header">\n    <div class="media-collection-search">\n        <ul class=\'pull-left search-bar\'>\n            <li>\n                <input class="search-box" type="text" placeholder="'+
 ( placeholder )+
 '" value="'+
 ( searchQuery )+
@@ -591,7 +589,7 @@ return __p;
 this["JST"]["app/templates/media-upload.html"] = function(obj){
 var __p='';var print=function(){__p+=Array.prototype.join.call(arguments, '')};
 with(obj||{}){
-__p+='\n\n<div class = "image-uploads" >\n    <span class="add-photo" href="#">\n        <input id = "imagefile"  name = "imagefile"  type="file" href="#"></input>\n    </span>\n</div>\n\n';
+__p+='\n\n<div class = "image-uploads" >\n    <span class="add-photo" href="#">\n        <input id = "imagefile"  name = "imagefile"  type="file" href="#"></input>\n    </span>\n</div>\n<ul class=\'pull-left search-bar\'>\n            <li>\n                <input class="search-box" type="text" placeholder="enter url here" value="" />\n            </li>\n        </ul>\n';
 }
 return __p;
 };
@@ -84155,6 +84153,56 @@ define('modules/views/media-upload',[
 
 function( app ) {
 
+    var UploadItem = Backbone.Model.extend({
+            url: app.api + "items",
+            defaults:{
+                "title": "",
+                "headline": "",
+                "description": "",
+                "text": "",
+                "uri": "",
+                "attribution_uri": "",
+                "thumbnail_url": "",
+                "media_type": "Image",
+                "layer_type": "Image",
+                "archive": "Absolute",
+                "media_geo_latitude": null,
+                "media_geo_longitude": null,
+                "media_date_created": "",
+                "child_items_count": 0,
+                "editable": true,
+                "published": false,
+                "enabled": true
+            }
+    });
+
+    var WebItem = UploadItem.extend({
+
+        url: function(){
+
+            var url = app.api + "items/parser?url=" + this.get("web_url");
+
+            return url;
+        },
+
+        parse: function( res ) {
+            var item;
+
+            if ( res.code == 500 ){
+                this.itemsCount = 0;
+                return array();
+            }
+
+            item = res.items[ 0 ];
+            item.editable = -1;
+
+            return item;
+        }
+
+    });
+
+
+
 
     return Backbone.View.extend({
 
@@ -84163,56 +84211,46 @@ function( app ) {
 
         events: {
 
-            "change .add-photo input" : "imageUpload"
+            "change .add-photo input" : "imageUpload",
+            "keyup .search-box": "onSearchKeyPress"
 
         },
 
-        addItem: function( data ) {
 
+        onSearchKeyPress: function( e ) {
+            if ( e.which == 13 ) {
+                this.search( this.$(".search-box").val() );
+            }
+        },
 
+        addUploadItem: function( data ) {
 
-            var item = new Backbone.Model({
-                // "id": -1,
-                // "user_id": -1,
-                // "username": "",
-                // "display_name": "",
+            var item = new UploadItem({
+
                 "title": data.title,
-                "headline": "",
-                "description": "",
-                "text": "",
                 "uri": data.fullsize_url,
                 "attribution_uri": data.fullsize_url,
-                //"date_created": "2013-02-24 22:36:57",
-                "media_type": "Image",
-                "layer_type": "Image",
-                "archive": "Absolute",
-                "thumbnail_url": data.image_url_4,
-                "media_geo_latitude": null,
-                "media_geo_longitude": null,
-                "media_date_created": "",
-                "media_creator_username": app.userName,
-                "media_creator_realname": app.userName,
-                "child_items_count": 0,
-                // "attributes": [],
-                // "child_items": [],
-                // "tags": [],
-                "editable": true,
-                "published": false,
-                "enabled": true
+                "thumbnail_url": data.image_url_4
 
             });
 
             app.status.get('currentFrame').addLayerByItem( item );
-
+            item.save();
+        },
+        addWebItem: function( item, response ) {
 
             item.url = app.api + "items";
-            item.on("sync", this.updateMediaCollection, this );
+            app.status.get('currentFrame').addLayerByItem( item );
             item.save();
         },
 
-        updateMediaCollection: function(){
-            this.model.search("");
+        search: function( url ){
+            var item = new WebItem({ web_url: url });
+            item.on("sync", this.addWebItem, this );
+            item.fetch();
         },
+
+
 
         imageUpload: function(event) {
             var fileInput = event.target, imageData;
@@ -84236,7 +84274,7 @@ function( app ) {
                         "background-size" : "cover"
                     });
                     
-                    this.addItem( data );
+                    this.addUploadItem( data );
 
                     this.$el.find(".image-uploads").append("<span class='add-photo' href='#'><input id = 'imagefile' name = 'imagefile' type='file' href='#'></input></span>");
                     

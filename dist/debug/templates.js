@@ -183,9 +183,7 @@ return __p;
 this["JST"]["app/templates/media-collection.html"] = function(obj){
 var __p='';var print=function(){__p+=Array.prototype.join.call(arguments, '')};
 with(obj||{}){
-__p+='<div class="media-collection-header">\n\n    <div class="media-collection-title">'+
-( title )+
-'</div>\n    <div class="media-collection-extras">\n        \n    </div>\n    <div class="media-collection-search">\n        <ul class=\'pull-left search-bar\'>\n            <li>\n                <input class="search-box" type="text" placeholder="'+
+__p+='<div class="media-collection-header">\n    <div class="media-collection-search">\n        <ul class=\'pull-left search-bar\'>\n            <li>\n                <input class="search-box" type="text" placeholder="'+
 ( placeholder )+
 '" value="'+
 ( searchQuery )+
@@ -205,7 +203,7 @@ return __p;
 this["JST"]["app/templates/media-upload.html"] = function(obj){
 var __p='';var print=function(){__p+=Array.prototype.join.call(arguments, '')};
 with(obj||{}){
-__p+='\n\n<div class = "image-uploads" >\n    <span class="add-photo" href="#">\n        <input id = "imagefile"  name = "imagefile"  type="file" href="#"></input>\n    </span>\n</div>\n\n';
+__p+='\n\n<div class = "image-uploads" >\n    <span class="add-photo" href="#">\n        <input id = "imagefile"  name = "imagefile"  type="file" href="#"></input>\n    </span>\n</div>\n<ul class=\'pull-left search-bar\'>\n            <li>\n                <input class="search-box" type="text" placeholder="enter url here" value="" />\n            </li>\n        </ul>\n';
 }
 return __p;
 };

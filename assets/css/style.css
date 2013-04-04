@@ -7101,7 +7101,7 @@ a:active {
   padding: 5px 10px;
   color: white;
   font-size: 18px;
-  height: 68px;
+  height: 42px;
 }
 .media-collection .media-collection-header .media-collection-extras {
   float: right;
@@ -7123,7 +7123,7 @@ a:active {
 }
 .media-collection .media-collection-items {
   *zoom: 1;
-  padding-top: 78px;
+  padding-top: 52px;
   position: relative;
 }
 .media-collection .media-collection-items:before,
