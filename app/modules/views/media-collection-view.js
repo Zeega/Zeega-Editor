@@ -1,23 +1,23 @@
 define([
     "app",
-    "modules/views/modal",
-    "modules/views/upload-modal",
+    "modules/views/media-upload",
     "backbone"
 ],
 
-function( app, Modal, UploadModal ) {
+function( app, UploadView ) {
 
     var Media = {
-        Base: {},
         Zeega:{},
         Instagram: {},
         Flickr: {},
         Soundcloud: {},
         Giphy: {},
-        Web: {}
+        Youtube: {},
+        Web: {},
+        MyZeega: {}
     };
 
-    Media.Base.View = Backbone.View.extend({
+    Media.Zeega.View = Backbone.View.extend({
 
         defaults: {
             title: "untitled"
@@ -79,61 +79,57 @@ function( app, Modal, UploadModal ) {
         },
 
         search: function( query ) {
-            console.log(this.model);
+            console.log(this.model, query);
             this.model.search( query );
 
         }
 
     });
 
-    Media.Zeega.View = Media.Base.View.extend({
+   
+            
+
+    Media.Instagram.View = Media.Zeega.View.extend({
+
 
         _afterRender: function(){
-            $(this.el).find(".media-collection-extras").append("<a href='#' class='upload-images'>Upload</a><a href='#' class='get-bookmarklet'><i class='icon-bookmark icon-white'></i></a>");
+            console.log("beforerender");
+            this.$el.find(".collection-options").append("<select class = 'query-type' >" +
+              "<option value='user'>username</option>" +
+              "<option value='tag'>tag</option>" +
+            "</select>");
         },
 
         events: {
-            "click .get-bookmarklet": "bookmarkletModal",
-            "click .upload-images": "uploadModal",
-            "keyup .search-box": "onSearchKeyPress"
+            "keyup .search-box": "onSearchKeyPress",
+            "change .query-type": "onQueryTypeChange"
         },
 
-        uploadModal: function(){
-            var uploadModal = new UploadModal({ model: this.model });
+        onQueryTypeChange: function( ){
+            var type = this.$el.find(".query-type").attr("value");
+            this.model.setQueryType( type );
 
-            uploadModal.show();
+        }
 
-        },
-
-        bookmarkletModal: function() {
-
-            var bmModal = new Modal({
-                modal: {
-                    title: "Get the Zeega Bookmarklet",
-                    className: "bookmarklet-modal",
-                    content: this.modalContent
-                }
-            });
-            
-
-            bmModal.show();
-        },
-
-        modalContent: "<div><p>Just drag this link to your browser's bookmark bar:</p></div>" +
-            "<div class='bmLink'><a href=\"javascript:(function()%7Bvar%20head=document.getElementsByTagName('body')%5B0%5D,script=document.createElement('script');script.id='zeegabm';script.type='text/javascript';script.src='//zeega.com/js/widget/zeega.bookmarklet.js?'%20+%20Math.floor(Math.random()*99999);head.appendChild(script);%7D)();%20void%200\">Add to Zeega</a></div>" +
-            "<div>" +
-                "<p>When you find something awesome that you want to use in your Zeega, click the bookmark and follow the simple instructions</p>" +
-                "<p class='small'><i class='icon-question-sign'></i> Don't see your bookmark bar? Go to View and select 'Always Show Bookmarks Bar'</p>" +
-            "</div>" +
-            "<img class='bm-instructions' src='assets/img/bookmarklet-arrow.png'/>"
-            
     });
+    Media.Flickr.View = Media.Zeega.View.extend({});
+    Media.Soundcloud.View = Media.Zeega.View.extend({});
+    Media.Giphy.View = Media.Zeega.View.extend({});
+    Media.Youtube.View = Media.Zeega.View.extend({});
+    Media.Web.View = Media.Zeega.View.extend({});
+    
+    Media.MyZeega.View = Media.Zeega.View.extend({
 
-    Media.Instagram.View = Media.Base.View.extend({});
-    Media.Flickr.View = Media.Base.View.extend({});
-    Media.Soundcloud.View = Media.Base.View.extend({});
-    Media.Giphy.View = Media.Base.View.extend({});
-    Media.Web.View = Media.Base.View.extend({});
+        template: "media-collection",
+
+        _afterRender: function(){
+            var uploadView = new UploadView({ model: this.model });
+            this.$el.find(".media-collection-header").prepend( uploadView.el );
+            uploadView.render();
+        }
+
+
+    });
 
     return Media;
 

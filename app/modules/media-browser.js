@@ -10,13 +10,15 @@ function( app, ItemModel, MediaView, ItemCollectionViewer ) {
 
 
     var Media = {
-        Instagram: {},
+        
         Zeega: {},
+        Instagram: {},
         Flickr: {},
         Soundcloud: {},
         Tumblr: {},
         Giphy: {},
-        Web: {}
+        Youtube: {},
+        MyZeega:{}
     };
 
 
@@ -59,6 +61,8 @@ function( app, ItemModel, MediaView, ItemCollectionViewer ) {
         }
     });
 
+    Media.MyZeega.Collection = Media.Zeega.Collection.extend();
+
     Media.Flickr.Collection = Media.Zeega.Collection.extend({
 
         parse: function( res ) {
@@ -92,41 +96,73 @@ function( app, ItemModel, MediaView, ItemCollectionViewer ) {
         
 
         url : function(){
-            var url = this.mediaModel.apiUrl + "tags/" + this.mediaModel.get("query") +
+            var url;
+            if( this.mediaModel.queryType == "tag" ){
+                url = this.mediaModel.apiUrl + "tags/" + this.mediaModel.get("query") +
                         "/media/recent?client_id=725bbc7af5094c8682bdb322d29734cc&callback=?";
+            } else {
+
+                // Instagram User queries require user id, route through Zeega
+                url = app.api + "items/parser?url=http://instagram.com/" + this.mediaModel.get("query");
+            }
+
             return url;
         },
         
 
         parse: function(res){
             
-            var items = [];
+            if( this.mediaModel.queryType == "tag" ){
+                var items = [];
 
-            _.each( res.data, function( photo ){
+                _.each( res.data, function( photo ){
 
-                var item = {};
-                item.id = photo.id;
-                if( !_.isNull( photo.caption ) && !_.isNull( photo.caption.text ) ){
-                    var tmp = document.createElement("DIV");
-                    tmp.innerHTML = photo.caption.text;
-                    item.title = tmp.textContent||tmp.innerText;
-                } else {
-                    item.title = "Instagram by " + photo.user.user_name;
+                    var item = {};
+                    item.id = photo.id;
+                    if( !_.isNull( photo.caption ) && !_.isNull( photo.caption.text ) ){
+                        var tmp = document.createElement("DIV");
+                        tmp.innerHTML = photo.caption.text;
+                        item.title = tmp.textContent||tmp.innerText;
+                    } else {
+                        item.title = "Instagram by " + photo.user.user_name;
+                    }
+                    
+
+                    item.archive = "Instagram";
+                    item.layer_type ="Image";
+                    item.media_type = "Image";
+
+                    item.thumbnail_url = photo.images.thumbnail.url;
+                    item.uri = photo.images.standard_resolution.url;
+                    item.attribution_uri =  photo.link;
+                    item.media_user_realname = photo.user.user_name;
+
+                    items.push( item );
+                });
+                return items;
+            } else {
+                var photos,
+                    count = 1;
+
+                if ( res.code == 500 ){
+                    this.itemsCount = 0;
+                    return array();
                 }
+
+
+                photos = res.items;
                 
+                _.each( photos, function( photo ){
+                    photo.editable = -1;
+                    photo.id = count;
+                    count++;
+                });
+     
+                this.itemsCount = res.items_count;
 
-                item.archive = "Instagram";
-                item.layer_type ="Image";
-                item.media_type = "Image";
+                return res.items;
 
-                item.thumbnail_url = photo.images.thumbnail.url;
-                item.uri = photo.images.standard_resolution.url;
-                item.attribution_uri =  photo.link;
-                item.media_user_realname = photo.user.user_name;
-
-                items.push( item );
-            });
-            return items;
+            }
         }
     });
 
@@ -170,22 +206,37 @@ function( app, ItemModel, MediaView, ItemCollectionViewer ) {
         }
     });
 
-    Media.Web.Collection = Media.Zeega.Collection.extend({
-        parse: function( res ) {
-            if ( res.code == 500 ){
-                this.itemsCount = 0;
-                return array();
-            }
+    Media.Youtube.Collection = Media.Zeega.Collection.extend({
+
+        parse: function(res){
+            var items = [],
+                count = 1;
+
+            
+            _.each( res.data.items, function( video ){
+                var item = {};
+                item.id = count;
+                item.layer_type = "Youtube";
+                item.media_type = "Video";
+                count++;
+
+                item.uri = video.id;
+                item.title = video.title;
+                item.attribution_uri = video.player[ "default" ];
+                item.thumbnail_url = video.thumbnail.hqDefault;
+                item.aspectRatio = video.aspectRatio;
+
+
+                if( video.accessControl.embed == "allowed" ){
+                     items.push( item );
+                }
+
+            });
 
             this.itemsCount = res.items_count;
-
-            return res.items;
+            return items;
         }
     });
-
-
-
-
 
     Media.Zeega.Model = Backbone.Model.extend({
 
@@ -193,7 +244,6 @@ function( app, ItemModel, MediaView, ItemCollectionViewer ) {
         mediaCollection: null,
         apiUrl: app.searchAPI,
 
-        // should this be a model?
         defaults: {
                 urlArguments: {
                     collection: "",
@@ -201,14 +251,11 @@ function( app, ItemModel, MediaView, ItemCollectionViewer ) {
                     page: 1,
                     q: "",
                     limit: 20,
-                    data_source: "db",
-                    user: function() {
-                        return app.userId;
-                },
-                sort: "date-desc"
+                    user: 1,
+                    sort: "date-desc"
             },
-            title: "My Media",
-            placeholder: "search your media",
+            title: "Zeega",
+            placeholder: "search Zeega favorites",
             searchQuery:""
         },
 
@@ -231,6 +278,49 @@ function( app, ItemModel, MediaView, ItemCollectionViewer ) {
 
             var args = this.get("urlArguments");
 
+            if( query !== args.q ) {
+                args.q = query;
+            }
+
+            this.set("urlArguments", args );
+            this.mediaCollection.fetch();
+        },
+
+        listen: function() {
+        },
+
+        onSync: function( collection ) {
+            this.mediaBrowser.trigger( "media_ready", collection );
+        }
+    });
+
+    Media.MyZeega.Model = Media.Zeega.Model.extend({
+
+        api: "MyZeega",
+        defaults: {
+                urlArguments: {
+                    collection: "",
+                    type: "-project AND -Collection AND -Video",
+                    page: 1,
+                    q: "",
+                    limit: 20,
+                    data_source: "db",
+                    user: function() {
+                        return app.userId;
+                },
+                sort: "date-desc"
+            },
+            title: "My Media",
+            placeholder: "search your media",
+            searchQuery:""
+        },
+
+        
+        _search: function( query ){
+
+
+            var args = this.get("urlArguments");
+
            
 
             if(query === ""){
@@ -242,20 +332,6 @@ function( app, ItemModel, MediaView, ItemCollectionViewer ) {
 
             this.set("urlArguments", args );
             this.mediaCollection.fetch();
-        },
-
-        listen: function() {
-
-            // fetch user items on window focus !
-            // window.addEventListener("focus", function() {
-            //     this.mediaCollection.fetch();
-            // }.bind( this ));
-        },
-
-        
-
-        onSync: function( collection ) {
-            this.mediaBrowser.trigger( "media_ready", collection );
         }
     });
 
@@ -334,6 +410,7 @@ function( app, ItemModel, MediaView, ItemCollectionViewer ) {
         
         api: "Instagram",
         apiUrl: "https://api.instagram.com/v1/",
+        queryType: "user",
 
         defaults: {
             query: "",
@@ -343,6 +420,10 @@ function( app, ItemModel, MediaView, ItemCollectionViewer ) {
         },
         getQuery: function(){
             return this.get("query");
+        },
+
+        setQueryType: function( selection ){
+            this.queryType = selection;
         },
         _search: function( query ){
 
@@ -388,32 +469,36 @@ function( app, ItemModel, MediaView, ItemCollectionViewer ) {
         }
     });
 
-    Media.Web.Model = Media.Zeega.Model.extend({
+    Media.Youtube.Model = Media.Zeega.Model.extend({
         
-        api: "Web",
-        apiUrl: app.api + "items/parser?",
+        api: "Youtube",
+        apiUrl: "https://gdata.youtube.com/feeds/api/videos?",
 
-         defaults: {
+        defaults: {
             urlArguments: {
-                url: ""
+                callback: "?",
+                orderby: "relevance",
+                alt: "jsonc",
+                v: "2",
+                "max-results": "50",
+                q: ""
+    
             },
-            title: "The Web",
-            placeholder: "enter a url",
-            searchQuery: ""
+            title: "Youtube",
+            placeholder: "search Youtube",
+            searchQuery:""
         },
         getQuery: function(){
-            return this.get("urlArguments").url;
+            return this.get("urlArguments").q;
         },
         _search: function( query ){
 
-            
-            
             var args= this.get("urlArguments");
 
-            if( query === "" || query === args.url ){
-                //this.mediaCollection.trigger("sync");
-            } else {
-                args.url = query;
+            
+            
+            if( query !== "" && query !== args.q ){
+                args.q = query;
                 this.set("urlArguments", args );
                 this.mediaCollection.fetch();
             }
@@ -422,6 +507,7 @@ function( app, ItemModel, MediaView, ItemCollectionViewer ) {
             
         }
     });
+
 
 
 

@@ -447,13 +447,45 @@ var __p='';var print=function(){__p+=Array.prototype.join.call(arguments, '')};
 with(obj||{}){
 __p+='<div class="viewer-preview" style="\n    background: url('+
 ( uri )+
-');\n    background-size: contain;\n    background-position: 50% 50%;\n    background-repeat: no-repeat;\n"></div>\n<div class="viewer-controls">\n    <a class="add-to-frame" href="#"><i class="icon-download"></i> add to frame</a>\n    <a href="'+
+');\n    background-size: contain;\n    background-position: 50% 50%;\n    background-repeat: no-repeat;\n"></div>\n<div class="viewer-controls">\n    <a class="add-to-frame" href="#"><i class="icon-download"></i> add to page</a>\n    <a href="'+
 ( attribution_uri )+
 '" target="blank"><i class="icon-share-alt"></i> view original</a>\n    ';
  if( editable != -1 ) { 
 ;__p+='\n        <a class="delete-item" href="#"><i class="icon-remove"></i> delete</a>\n    ';
  } 
 ;__p+='\n</div>';
+}
+return __p;
+};
+
+this["JST"]["app/templates/item-viewer-video.html"] = function(obj){
+var __p='';var print=function(){__p+=Array.prototype.join.call(arguments, '')};
+with(obj||{}){
+__p+='<div class="viewer-preview" style="">\n    <video class="preview-video" src="'+
+( uri )+
+'" controls="true" /></audio>\n</div>\n<div class="viewer-controls">\n    <a class="add-to-frame" href="#"><i class="icon-download"></i> add to page</a>\n    <a href="'+
+( attribution_uri )+
+'" target="blank"><i class="icon-share-alt"></i> view original</a>\n   \n     ';
+ if( editable != -1 ) { 
+;__p+='\n            <a class="delete-item" href="#"><i class="icon-remove"></i> delete</a>\n    ';
+ } 
+;__p+='\n\n</div>';
+}
+return __p;
+};
+
+this["JST"]["app/templates/item-viewer-youtube.html"] = function(obj){
+var __p='';var print=function(){__p+=Array.prototype.join.call(arguments, '')};
+with(obj||{}){
+__p+='<div class="viewer-preview" style="">\n    <iframe width="560" height="315" src="http://www.youtube.com/embed/'+
+( uri )+
+'" frameborder="0" allowfullscreen></iframe>\n</div>\n<div class="viewer-controls">\n    <a class="add-to-frame" href="#"><i class="icon-download"></i> add to page</a>\n    <a href="'+
+( attribution_uri )+
+'" target="blank"><i class="icon-share-alt"></i> view original</a>\n   \n     ';
+ if( editable != -1  ) { 
+;__p+='\n            <a class="delete-item" href="#"><i class="icon-remove"></i> delete</a>\n    ';
+ } 
+;__p+='\n\n</div>';
 }
 return __p;
 };
@@ -482,10 +514,10 @@ __p+='<a href="#">\n    <div class="item-thumb">\n        ';
 return __p;
 };
 
-this["JST"]["app/templates/layer-control-bar.html"] = function(obj){
+this["JST"]["app/templates/layer-controls.html"] = function(obj){
 var __p='';var print=function(){__p+=Array.prototype.join.call(arguments, '')};
 with(obj||{}){
-__p+='<div class="layer-bar-title"></div>\n<div class="layer-controls-inner"></div>';
+__p+='<div class="layer-edit-floater">\n    <div class="layer-controls-inner"></div>\n</div>';
 }
 return __p;
 };
@@ -493,7 +525,7 @@ return __p;
 this["JST"]["app/templates/layer-drawer.html"] = function(obj){
 var __p='';var print=function(){__p+=Array.prototype.join.call(arguments, '')};
 with(obj||{}){
-__p+='<div class="ZEEGA-layer-drawer">\n    <ul>\n        <li class="draggable-layer-type">\n            <a href="#" data-layer-type="Link">\n                <div class="item-label">link</div>\n                <i class="icon-arrow-up icon-white"></i>\n            </a>\n        </li>\n        <li class="draggable-layer-type">\n            <a href="#" data-layer-type="Text">\n                <div class="item-label">text</div>\n                <i class="icon-font icon-white"></i>\n            </a>\n        </li>\n        <li class="draggable-layer-type">\n            <a href="#" data-layer-type="Rectangle">\n                <div class="item-label">color</div>\n                <i class="icon-th-large icon-white"></i>\n            </a>\n        </li>\n    </ul>\n</div>';
+__p+='<div class="ZEEGA-layer-drawer ZEEGA-hmenu clear">\n    <ul>\n        <li class="draggable-layer-type">\n            <a href="#" data-layer-type="Link">\n                <div class="item-label">link</div>\n                <i class="icon-arrow-up"></i>\n            </a>\n        </li>\n        <li class="draggable-layer-type">\n            <a href="#" data-layer-type="Text">\n                <div class="item-label">text</div>\n                <i class="icon-font"></i>\n            </a>\n        </li>\n        <li class="draggable-layer-type">\n            <a href="#" data-layer-type="Rectangle">\n                <div class="item-label">color</div>\n                <i class="icon-th-large"></i>\n            </a>\n        </li>\n    </ul>\n</div>';
 }
 return __p;
 };
@@ -529,7 +561,7 @@ return __p;
 this["JST"]["app/templates/layout-main.html"] = function(obj){
 var __p='';var print=function(){__p+=Array.prototype.join.call(arguments, '')};
 with(obj||{}){
-__p+='<div class=\'left-column\'>\n    <div class="static-upper">\n        <div class="nav"></div>\n    </div>\n    <div class="media-drawer"></div>\n</div>\n<div class=\'right-column\'>\n    <div class="project-head">\n        <div class="project-info" contenteditable>My Awesome Zeega!!!</div>\n        <div class="project-share">\n            <a href="#"><i class="zitem-twitter zitem-30 color"></i></a>\n            <a href="#"><i class="zitem-facebook zitem-30 color"></i></a>\n            <a href="#"><i class="zitem-tumblr zitem-30 color"></i></a>\n        </div>\n    </div>\n\n    <div class="edit-box">\n        <div class="project-navs">\n            <div class="frames"></div>\n        </div>\n        <div class="workspace"></div>\n    </div>\n    <div class="layers"></div>\n</div>';
+__p+='<div class=\'left-column\'>\n    <div class="static-upper">\n        <div class="nav"></div>\n    </div>\n    <div class="media-drawer"></div>\n</div>\n<div class=\'right-column\'>\n    <div class="project-head">\n        <div class="project-share">\n            <a href="#"><i class="zitem-twitter zitem-30 color"></i></a>\n            <a href="#"><i class="zitem-facebook zitem-30 color"></i></a>\n            <a href="#"><i class="zitem-tumblr zitem-30 color"></i></a>\n        </div>\n        <div class="project-info" contenteditable>My Awesome Zeega!!!</div>\n    </div>\n\n    <div class="edit-box">\n        <div class="project-navs">\n            <div class="frames"></div>\n        </div>\n        <div class="workspace"></div>\n        <div class="project-preview">playpause</div>\n    </div>\n    <div class="soundtrack"></div>\n\n    <div class="section-head">Layers</div>\n    <div class="layer-picker"></div>\n    <div class="layers"></div>\n</div>';
 }
 return __p;
 };
@@ -537,13 +569,11 @@ return __p;
 this["JST"]["app/templates/media-collection.html"] = function(obj){
 var __p='';var print=function(){__p+=Array.prototype.join.call(arguments, '')};
 with(obj||{}){
-__p+='<div class="media-collection-header">\n\n    <div class="media-collection-title">'+
-( title )+
-'</div>\n    <div class="media-collection-extras">\n        \n    </div>\n    <div class="media-collection-search">\n        <ul class=\'pull-left search-bar\'>\n            <li>\n                <input class="search-box" type="text" placeholder="'+
+__p+='<div class="media-collection-header">\n    <div class="media-collection-search">\n        <ul class=\'pull-left search-bar\'>\n            <li>\n                <input class="search-box" type="text" placeholder="'+
 ( placeholder )+
 '" value="'+
 ( searchQuery )+
-'" />\n            </li>\n        </ul>\n    </div>\n</div>\n<ul class="media-collection-items"></ul>';
+'" />\n            </li>\n        </ul>\n        <div class="pull-right collection-options">\n        </div>\n    </div>\n</div>\n<ul class="media-collection-items"></ul>';
 }
 return __p;
 };
@@ -551,7 +581,15 @@ return __p;
 this["JST"]["app/templates/media-drawer.html"] = function(obj){
 var __p='';var print=function(){__p+=Array.prototype.join.call(arguments, '')};
 with(obj||{}){
-__p+='<div class="media-drawer-controls ZEEGA-hmenu dark">\n        <ul class=\'pull-left\'>\n        \n        <li>\n            <a href="#" data-api = "Zeega" class="media-toggle">M</a>\n        </li>\n        <!--\n        <li>\n            <a href="#" data-api = "Tumblr" class="media-toggle">T</i></a>\n        </li>\n        -->\n        <li>\n            <a href="#" data-api = "Soundcloud" class="media-toggle">S</i></a>\n        </li>\n\n\n        <li>\n            <a href="#" data-api = "Giphy" class="media-toggle">G</i></a>\n        </li>\n\n\n\n        <li>\n            <a href="#" data-api = "Flickr" class="media-toggle">F</i></a>\n        </li>\n        <li>\n            <a href="#" data-api = "Instagram" class="media-toggle">I</i></a>\n        </li>\n        <li>\n            <a href="#" data-api = "Web" class="media-toggle">W</i></a>\n        </li>\n    </ul>\n    \n    \n</div>\n<ul class="ZEEGA-items"></ul>';
+__p+='<div class="media-drawer-controls ZEEGA-hmenu dark">\n        <ul class=\'pull-left\'>\n        \n        <li>\n            <a href="#" data-api = "Zeega" class="media-toggle">Z</a>\n        </li>\n        <!--\n        <li>\n            <a href="#" data-api = "Tumblr" class="media-toggle">T</i></a>\n        </li>\n        -->\n        <li>\n            <a href="#" data-api = "Soundcloud" class="media-toggle">S</i></a>\n        </li>\n\n        <li>\n            <a href="#" data-api = "Giphy" class="media-toggle">G</i></a>\n        </li>\n\n        <li>\n            <a href="#" data-api = "Flickr" class="media-toggle">F</i></a>\n        </li>\n        <li>\n            <a href="#" data-api = "Instagram" class="media-toggle">I</i></a>\n        </li>\n        <li>\n            <a href="#" data-api = "Youtube" class="media-toggle">Y</i></a>\n        </li>\n\n        <li >\n            <a href="#" data-api = "MyZeega" class="media-toggle">Upload</i></a>\n        </li>\n    </ul>\n    \n    \n</div>\n<ul class="ZEEGA-items"></ul>';
+}
+return __p;
+};
+
+this["JST"]["app/templates/media-upload.html"] = function(obj){
+var __p='';var print=function(){__p+=Array.prototype.join.call(arguments, '')};
+with(obj||{}){
+__p+='\n\n<div class = "image-uploads" >\n    <span class="add-photo" href="#">\n        <input id = "imagefile"  name = "imagefile"  type="file" href="#"></input>\n    </span>\n</div>\n<ul class=\'pull-left search-bar\'>\n    <li>\n        <input class="url-box" type="text" placeholder="enter url here" value="" />\n    </li>\n</ul>\n';
 }
 return __p;
 };
@@ -620,6 +658,14 @@ __p+='<div class="ZEEGA-project-cover" style="\n    background: url('+
 return __p;
 };
 
+this["JST"]["app/templates/project-preview.html"] = function(obj){
+var __p='';var print=function(){__p+=Array.prototype.join.call(arguments, '')};
+with(obj||{}){
+__p+='<a href="#" class="preview">\n    <i class="zeega-play"></i>\n</a>';
+}
+return __p;
+};
+
 this["JST"]["app/templates/sequence.html"] = function(obj){
 var __p='';var print=function(){__p+=Array.prototype.join.call(arguments, '')};
 with(obj||{}){
@@ -656,14 +702,6 @@ __p+='<div class="elapsed"></div>\n<div class="soundtrack-waveform"\n';
 '</span>\n        <span class="time-display"></span>\n    </div>\n    <div class="soundtrack-controls">\n        <a href="#" class="playpause"><i class="icon-play icon-white"></i></a>\n        <a href="#" class="remove"><i class="icon-remove icon-white"></i></a>\n    </div>\n';
  } 
 ;__p+='';
-}
-return __p;
-};
-
-this["JST"]["app/templates/upload-modal.html"] = function(obj){
-var __p='';var print=function(){__p+=Array.prototype.join.call(arguments, '')};
-with(obj||{}){
-__p+='<a href="#" class="modal-close">&times;</a>\n<div class="modal-content">\n    <div class="modal-title">Upload images from your computer!</div>\n    <div class="modal-body">\n        <div class = "image-uploads" >\n            <span class="add-photo" href="#">\n                <input id = "imagefile"  name = "imagefile"  type="file" href="#"></input>\n            </span>\n        </div>\n\n    </div>\n    <div class="modal-footer">\n        <button class="btn secondary pull-right close"><i class="icon-ok-circle"></i> Done</button>\n    </div>\n</div>\n';
 }
 return __p;
 };
@@ -68097,14 +68135,20 @@ function( app ) {
                 this.get("previousFrame").trigger("blur");
                 frameModel.trigger("focus");
 
-                this.set("currentLayer", null );
+                this.setCurrentLayer( null );
+//                this.set("currentLayer", null );
             }
         },
 
         setCurrentLayer: function( layerModel ) {
             var previousLayer = this.get("currentLayer");
 
-            if ( previousLayer && previousLayer.id != layerModel.id ) {
+            if ( previousLayer && layerModel === null ) {
+                previousLayer.trigger("blur");
+                this.set("currentLayer", layerModel );
+            } else if ( layerModel === null ) {
+                this.set("currentLayer", layerModel );
+            } else if ( previousLayer && previousLayer.id != layerModel.id ) {
                 previousLayer.trigger("blur");
                 this.set("currentLayer", layerModel );
                 layerModel.trigger("focus");
@@ -68517,20 +68561,22 @@ function( app, FrameView ) {
             this.$(".frame-list").empty();
 
             sequence.frames.each(function( frame ) {
-                var newFrameView = new FrameView({
-                    model: frame,
-                    attributes: {
-                        "data-id": frame.id
-                    }
-                });
+                if ( !frame._frameView ) {
+                    frame._frameView = new FrameView({
+                        model: frame,
+                        attributes: {
+                            "data-id": frame.id
+                        }
+                    });
+                }
 
-                this.$(".frame-list").append( newFrameView.el );
+                this.$(".frame-list").append( frame._frameView.el );
 
                 if ( app.status.get("currentFrame").id == frame.id ) {
-                    newFrameView.$el.addClass("active");
+                    frame._frameView.$el.addClass("active");
                 }
                 
-                newFrameView.render();
+                frame._frameView.render();
             }.bind( this ));
         },
 
@@ -68751,12 +68797,62 @@ function( app ) {
 
 });
 
-define('modules/views/layer-list',[
+define('modules/views/layer-controls',[
     "app",
+
     "backbone"
 ],
 
 function( app ) {
+
+    return Backbone.View.extend({
+
+        controls: [],
+        inFocus: null,
+
+        template: "layer-controls",
+        className: "ZEEGA-control-floater",
+
+        initialize: function() {
+            app.status.on("change:currentLayer", this.onLayerFocus, this );
+        },
+
+        afterRender: function() {
+            var $target = this.options.target.$el;
+
+            app.trigger("rendered", this );
+            this.loadControls();
+
+            this.$el.css({
+                top: $target.offset().top + "px",
+                right: "160px",
+                height: ( $target.height() - 2 )+ "px"
+            });
+        },
+
+        loadControls: function() {
+            _.each( this.model._controls, function( control ) {
+                this.$(".layer-controls-inner").append( control.el );
+                control.render();
+            });
+
+        },
+
+        cleanup: function() {
+            this.$el.empty();
+        }
+
+    });
+
+});
+
+define('modules/views/layer-list',[
+    "app",
+    "modules/views/layer-controls",
+    "backbone"
+],
+
+function( app, LayerControls ) {
 
     // This will fetch the tutorial template and render it.
     return Backbone.View.extend({
@@ -68770,6 +68866,8 @@ function( app ) {
         },
 
         initialize: function() {
+            this.controls = new LayerControls({ model: this.model, target: this });
+
             this.model.on("focus", this.onFocus, this );
             this.model.on("blur", this.onBlur, this );
             this.model.on("remove", this.onRemove, this );
@@ -68821,19 +68919,22 @@ function( app ) {
         selectLayer: function() {
             if ( app.status.get("currentLayer") != this.model ) {
                 app.status.setCurrentLayer( this.model );
+            } else {
+                app.status.setCurrentLayer( null );
             }
         },
 
         onFocus: function() {
             this.$el.addClass("active");
+            this.openControls();
         },
 
         onBlur: function() {
             this.$el.removeClass("active");
+            this.closeControls();
         },
 
         onRemove: function() {
-            // this.model.onRemoveFrom Edito()>>???
             this.remove();
         },
 
@@ -68843,6 +68944,15 @@ function( app ) {
 
         updateTitle: function() {
             this.$(".layer-title").text( this.model.getAttr("title"));
+        },
+
+        openControls: function() {
+            $("body").append( this.controls.el );
+            this.controls.render();
+        },
+
+        closeControls: function() {
+            this.controls.remove();
         }
         
     });
@@ -83827,37 +83937,28 @@ function( app, LayerList ) {
         },
 
         renderFrameLayers: function( frameModel ) {
+
             this.updateListeners();
+
             frameModel.layers.each(function( layer, i ) {
 
                 if ( !layer.getAttr("soundtrack") ) {
-                    var layerView, isPersistent, nextFrameIndex, isContinued = false;
+                    // only generate layer list views if not cached!
+                    if ( !layer._layerListView ) {
+                        var layerView = new LayerList({
+                            model: layer,
+                            attributes: {
+                                "data-id": layer.id
+                            }
+                        });
 
-                    // check to see if persistent
-                    isPersistent = _.contains( frameModel.collection.sequence.get("persistent_layers"), layer.id );
-                    // check to see if continued to next frame
-                    nextFrameIndex = _.indexOf( _.toArray( frameModel.collection ), frameModel );
-
-                    if ( nextFrameIndex > -1 && frameModel.collection.length > nextFrameIndex + 1 ) {
-                        var nextFrame = frameModel.collection.at( nextFrameIndex + 1 );
-
-                        isContinued = !_.isUndefined( nextFrame.layers.get( layer.id ) );
+                        layer._layerListView = layerView;
+                        this.layerViews.push( layerView );
                     }
 
-                    layerView = new LayerList({
-                        model: layer,
-                        attributes: {
-                            "data-id": layer.id,
-                            "data-persists": isPersistent,
-                            "data-continued": isContinued
-                        }
-                    });
-
-                    this.layerViews.push( layerView );
-
                     // prepend because layers come in z-index order
-                    this.$("ul.layer-list").prepend( layerView.el );
-                    layerView.render();
+                    this.$("ul.layer-list").prepend( layer._layerListView.el );
+                    layer._layerListView.render();
                 }
             }, this );
 
@@ -83890,85 +83991,6 @@ function( app, LayerList ) {
 
 });
 
-define('modules/views/layer-controls',[
-    "app",
-
-    "backbone"
-],
-
-function( app ) {
-
-    return Backbone.View.extend({
-
-        controls: [],
-        inFocus: null,
-
-        template: "layer-control-bar",
-        className: "ZEEGA-layer-control-bar",
-
-        initialize: function() {
-            app.status.on("change:currentLayer", this.onLayerFocus, this );
-        },
-
-        afterRender: function() {
-            app.trigger("rendered", this );
-        },
-
-        onLayerFocus: function( status, layerModel ) {
-
-            if ( this.inFocus ) {
-                this.stopListening( this.inFocus );
-            }
-
-            if ( layerModel !== null ) {
-                this.$(".layer-bar-title").text( layerModel.getAttr("title") );
-                this.loadControls( layerModel );
-            } else if ( layerModel === null ) {
-                this.clearControls();
-            }
-            this.listen( layerModel );
-        },
-
-        listen: function( layerModel ) {
-            if ( layerModel ) {
-                layerModel.on("focus", this.onFocus, this );
-                layerModel.on("blur", this.onBlur, this );
-                layerModel.on("remove", this.onRemove, this );
-            }
-        },
-
-        loadControls: function( layerModel ) {
-            this.clearControls();
-
-            _.each( layerModel._controls, function( control ) {
-                    this.$(".layer-controls-inner").append( control.el );
-                    control.render();
-            });
-
-        },
-
-        onFocus: function() {
-
-        },
-
-        onBlur: function() {
-            this.clearControls();
-        },
-
-        onRemove: function() {
-            this.stopListening( this.inFocus );
-            this.clearControls();
-        },
-
-        clearControls: function() {
-            this.$(".layer-bar-title").empty();
-            this.$(".layer-controls-inner").empty();
-        }
-
-    });
-
-});
-
 define('modules/views/layer-drawer',[
     "app",
     "backbone"
@@ -83981,24 +84003,12 @@ function( app ) {
         el: null,
         template: "layer-drawer",
 
-        afterRender: function() {
-            this.$("li").draggable({
-                revert: "invalid",
-                helper: "clone",
-                cursorAt: {
-                    left: 0,
-                    top: 0
-                },
-                // helper: function( e ) {
-                //     return $(this).find(".item-thumb").clone().addClass("item-dragging");
-                // },
-                start: function( e, ui ) {
-                    app.dragging = $(e.target).find("a").data("layerType");
-                }.bind( this ),
-                stop: function( e, ui ) {
-                    app.dragging = null;
-                }.bind( this )
-            });
+        events: {
+            "click a": "clickedLayerType"
+        },
+
+        clickedLayerType: function( e ) {
+            app.status.get('currentFrame').addLayerType( $(e.target).closest("a").data("layerType") );
         }
         
     });
@@ -84135,12 +84145,155 @@ function( app ) {
 
 });
 
-define('modules/views/media-drawer',[
+define('modules/views/media-upload',[
     "app",
     "backbone"
 ],
 
 function( app ) {
+
+    var UploadItem = Backbone.Model.extend({
+            url: app.api + "items",
+            defaults:{
+                "title": "",
+                "headline": "",
+                "description": "",
+                "text": "",
+                "uri": "",
+                "attribution_uri": "",
+                "thumbnail_url": "",
+                "media_type": "Image",
+                "layer_type": "Image",
+                "archive": "Absolute",
+                "media_geo_latitude": null,
+                "media_geo_longitude": null,
+                "media_date_created": "",
+                "child_items_count": 0,
+                "editable": true,
+                "published": false,
+                "enabled": true
+            }
+    });
+
+    var WebItem = UploadItem.extend({
+
+        url: function(){
+
+            var url = app.api + "items/parser?url=" + this.get("web_url");
+
+            return url;
+        },
+
+        parse: function( res ) {
+            var item;
+
+            if ( res.code == 500 ){
+                this.itemsCount = 0;
+                return array();
+            }
+
+            item = res.items[ 0 ];
+            item.editable = -1;
+
+            return item;
+        }
+
+    });
+
+
+
+
+    return Backbone.View.extend({
+
+        template: "media-upload",
+        className: "media-upload",
+
+        events: {
+
+            "change .add-photo input" : "imageUpload",
+            "keyup .url-box": "onSearchKeyPress"
+
+        },
+
+        
+        onSearchKeyPress: function( e ) {
+            if ( e.which == 13 ) {
+                this.search( this.$(".search-box").val() );
+            }
+        },
+
+        addItem: function( item ) {
+
+            item.url = app.api + "items";
+            app.status.get('currentFrame').addLayerByItem( item );
+            item.on("sync", this.refreshUploads, this );
+            item.save();
+        },
+
+        search: function( url ){
+            var item = new WebItem({ web_url: url });
+            item.on("sync", this.addItem, this );
+            item.fetch();
+        },
+
+        refreshUploads: function(){
+            this.model.search("");
+        },
+
+
+
+        imageUpload: function(event) {
+            var fileInput = event.target, imageData;
+            imageData = new FormData();
+            
+            imageData.append( "file", fileInput.files[0] );
+
+            $.ajax({
+                url: app.mediaServer + "image",
+                type: "POST",
+                data: imageData,
+                dataType: "json",
+                processData: false,
+                contentType: false,
+                fileElementId: "imagefile",
+                
+                success: function( data ) {
+
+                    // $(fileInput).parent('span').css({
+                    //     "background-image" : "url(" + data.image_url_4 + ")",
+                    //     "background-size" : "cover"
+                    // });
+
+                    var item = new UploadItem({
+
+                        "title": data.title,
+                        "uri": data.fullsize_url,
+                        "attribution_uri": data.fullsize_url,
+                        "thumbnail_url": data.image_url_4
+
+                    });
+
+                    this.addItem( item );
+
+                    //this.$el.find(".image-uploads").append("<span class='add-photo' href='#'><input id = 'imagefile' name = 'imagefile' type='file' href='#'></input></span>");
+                    
+                }.bind(this)
+            });
+        }
+
+
+    });
+
+});
+
+
+define('modules/views/media-drawer',[
+    "app",
+    "modules/views/media-upload",
+    "backbone"
+],
+
+function( app, MediaUpload ) {
 
     return Backbone.View.extend({
 
@@ -84164,6 +84317,14 @@ function( app ) {
             collection.view.render();
         },
 
+        renderUpload: function() {
+            var uploadView = new MediaUpload();
+            this.$(".ZEEGA-items").empty().append(uploadView.el);
+            uploadView.render();
+
+
+        },
+
         events: {
             "click .clear-search": "clearSearch",
             "focus .search-box": "onSearchFocus",
@@ -84176,7 +84337,19 @@ function( app ) {
         },
 
         onMediaToggle: function(event){
+
+
+
             var api = $(event.target).data("api");
+
+
+            if( api == "Upload"){
+                this.renderUpload();
+                return false;
+
+            }
+
+
             this.$el.find(".search-box").attr("placeholder", "search " + api);
             this.model.setAPI( api );
             this.renderMedia();
@@ -84185,6 +84358,10 @@ function( app ) {
                 this.$el.addClass("list");
             } else {
                 this.$el.removeClass("list");
+            }
+
+            if( api === "MyZeega" ){
+                this.model.search( "" );
             }
 
             return false;
@@ -84204,6 +84381,59 @@ function( app ) {
             //this.$(".ZEEGA-items").css("height", window.innerHeight - leftCol );
         }
 
+
+    });
+
+});
+
+define('modules/views/project-preview',[
+    "app",
+    "backbone"
+],
+
+function( app ) {
+
+    return Backbone.View.extend({
+
+        drawerClass: "",
+        template: "project-preview",
+        
+        serialize: function() {
+            return _.extend({ drawerClass: this.drawerClass }, this.model.project.toJSON() );
+        },
+
+        events: {
+            "click .preview": "projectPreview"
+        },
+
+        projectPreview: function() {
+            var projectData = app.project.getProjectJSON();
+            
+            console.log("preview project", projectData);
+            app.zeegaplayer = new Zeega.player({
+                data: projectData,
+                startFrame: app.status.get("currentFrame").id,
+
+                controls: {
+                    arrows: true,
+                    close: true
+                }
+            });
+
+            // listen for esc key to close preview
+            $("body").bind("keyup.player", function( e ) {
+                if ( e.which == 27 ) {
+                    app.zeegaplayer.destroy();
+                }
+            });
+
+            this.stopListening( app.zeegaplayer );
+            app.zeegaplayer.on("player_destroyed", this.stopListeningToPlayer, this );
+        },
+
+        stopListeningToPlayer: function() {
+            $("body").unbind("keyup.player");
+        }
 
     });
 
@@ -85045,13 +85275,14 @@ define('modules/layout-main',[
     "modules/views/soundtrack",
 
     "modules/views/media-drawer",
+    "modules/views/project-preview",
     // "modules/search.model",
     "mousetrap",
 
     "backbone"
 ],
 
-function( app, Navbar, ProjectMeta, Sequences, Frames, FrameControls, Workspace, Layers, LayerControls, LayerDrawer, Soundtrack, MediaDrawer) {
+function( app, Navbar, ProjectMeta, Sequences, Frames, FrameControls, Workspace, Layers, LayerControls, LayerDrawer, Soundtrack, MediaDrawer, ProjectPreview ) {
 
     return Backbone.Layout.extend({
 
@@ -85074,19 +85305,25 @@ function( app, Navbar, ProjectMeta, Sequences, Frames, FrameControls, Workspace,
 
         afterRender: function() {
 
-            // new Soundtrack({
-            //     el: this.$(".soundtrack")
-            // }).render();
+            new Soundtrack({
+                el: this.$(".soundtrack")
+            }).render();
+
+            new ProjectPreview({
+                model: app,
+                el: this.$(".project-preview")
+            }).render();
+
 
             // new ProjectMeta({
             //     model: app,
             //     el: this.$(".project-meta")
             // }).render();
 
-            // new LayerDrawer({
-            //     model: app,
-            //     el: this.$(".layer-drawer")
-            // }).render();
+            new LayerDrawer({
+                model: app,
+                el: this.$(".layer-picker")
+            }).render();
 
             new Frames({
                 model: app,
@@ -85830,6 +86067,7 @@ function( app, ControlView ) {
 
             init: function() {
                 this.propertyName = this.options.options.propertyName;
+                this.model.on("change", this.onChange, this );
             },
 
             serialize: function() {
@@ -85844,13 +86082,26 @@ function( app, ControlView ) {
                 var $colorPicker = this.$(".simple_color");
 
                 $colorPicker
-                    .simpleColor()
-                    .bind("change", function(e) {
-                        var hexValue = $colorPicker.val();
+                    .simpleColor({
+                        livePreview: true,
+                        onCellEnter: function( hex ) {
+                            this.updateVisual( "#" + hex );
+                        }.bind( this ),
+                        onClose: function() {
+                            this.onChange();
+                        }.bind( this ),
+                        callback: function( hex ) {
+                            var attr = {};
 
-                        this.updateVisual( hexValue );
-                        this.lazyUpdate( hexValue );
-                    }.bind( this ));
+                            attr[ this.propertyName ] = "#" + hex;
+                            this.updateVisual( "#" + hex );
+                            this.update( attr );
+                        }.bind( this )
+                    });
+            },
+
+            onChange: function() {
+                this.updateVisual( this.getAttr( this.propertyName ) );
             }
 
         })
@@ -86331,7 +86582,7 @@ function( app, ControlView ) {
 
             createSlider: function() {
                 var cueIn, cueOut, max, $avSlider, cues = {};
-
+console.log("create Slider", this.cid)
                 cueIn = this.getAttr("cue_in");
                 cueOut = this.getAttr("cue_out");
                 duration = this.getAttr("duration");
@@ -86436,20 +86687,35 @@ function( app, ControlView ) {
             },
 
             listen: function() {
+
                 this.audio = this.model.visual.getAudio();
+
+                console.log("LISTEN", this.audio)
+
+                // if ( !this.audio ) {
+                //     this.audio = this.model.visual.getAudio();
+                // }
                 this.model.on("play", this.onPlay, this );
                 this.model.on("pause", this.onPause, this );
                 this.model.on("timeupdate", this.onTimeupdate, this );
             },
             
             onBlur: function() {
+                console.log("AV BLUR")
                 this.audio.pause();
                 this.$avSlider.slider("destroy");
+                this.$avSlider.empty();
+                // if ( this.$avSlider.slider ) {
+                //     this.$avSlider.slider("destroy");
+                // }
             },
 
             onFocus: function() {},
             
             onPlay: function( obj ) {
+
+                console.log( this.cid );
+
                 this.$(".playpause i")
                     .addClass("icon-pause")
                     .removeClass("icon-play");
@@ -86476,6 +86742,7 @@ function( app, ControlView ) {
             },
 
             playpause: function() {
+                console.log('playpause')
                 this.model.visual.playPause();
             }
 
@@ -86780,18 +87047,23 @@ function( app, Controls ) {
         },
 
         loadControls: function() {
-            this._controls = _.map( this.controls, function( controlType ) {
-                var control = false;
+            if ( !this._controls ) {
 
-                if ( _.isObject( controlType ) && Controls[ controlType.type ] ) {
-                    control = new Controls[ controlType.type ]({ model: this, options: controlType.options });
-                } else if ( Controls[ controlType ] ) {
-                    control = new Controls[ controlType ]({ model: this });
-                }
+            console.log("load controls", this.id)
 
-                return control;
-            }, this );
-            this._controls = _.compact( this._controls );
+                this._controls = _.map( this.controls, function( controlType ) {
+                    var control = false;
+
+                    if ( _.isObject( controlType ) && Controls[ controlType.type ] ) {
+                        control = new Controls[ controlType.type ]({ model: this, options: controlType.options });
+                    } else if ( Controls[ controlType ] ) {
+                        control = new Controls[ controlType ]({ model: this });
+                    }
+
+                    return control;
+                }, this );
+                this._controls = _.compact( this._controls );
+            }
 
             return this._controls;
         },
@@ -86822,6 +87094,7 @@ function( app, Controls ) {
         },
 
         exit: function() {
+            console.log("EXIT", this)
             if ( this.layerClass ) {
                 this.visual.player_onExit();
             }
@@ -86867,10 +87140,14 @@ function( app, Controls ) {
 
         initialize: function() {
             this.init();
-
             this.model.off("blur focus");
             this.model.on("focus", this.onFocus, this );
             this.model.on("blur", this.onBlur, this );
+
+            this.listenToFrame = _.once(function() {
+                this.model.collection.frame.on("focus", this.editor_onLayerEnter, this );
+                this.model.collection.frame.on("blur", this.editor_onLayerExit, this );
+            }.bind( this ));
         },
 
         events: {},
@@ -86884,9 +87161,13 @@ function( app, Controls ) {
 
         /* editor fxns */
         enterEditorMode: function() {
+            this.listenToFrame();
+
             this.loadControls();
             this.delegateEvents( _.extend( this.events, this.editorEvents ));
         },
+
+        listenToFrame: null,
 
         onFocus: function() {
             this.$el.addClass('active');
@@ -102814,16 +103095,6 @@ function( app, _Layer, Visual ){
                     propertyName: "loop"
                 }
             },
-            { type: "slider",
-                options: {
-                    title: "vol",
-                    propertyName: "volume",
-                    min: 0,
-                    max: 1,
-                    step: 0.001,
-                    css: false
-                }
-            },
             "av"
         ]
     });
@@ -102856,9 +103127,20 @@ function( app, _Layer, Visual ){
             this.audio.pause();
         },
 
+        editor_onLayerEnter: function() {
+            // this.render();
+        },
+
+        editor_onLayerExit: function() {
+            console.log("audio exit", this.$("audio"))
+            this.$("audio").attr("src", "");
+            this.audio = null;
+            this.render();
+        },
+
         playPause: function() {
             this.setAudio();
-
+console.log("AUDIO", this.audio)
             if ( this.audio.paused ) {
                 this.audio.play();
             } else {
@@ -105094,183 +105376,26 @@ function( app, ItemView ) {
 
 });
 
-define('modules/views/modal',[
-    "app",
-
-
-    "backbone"
-],
-
-function( app ) {
-
-
-    return Backbone.View.extend({
-
-        template: "modal",
-        modalClass: "",
-        
-        className: function() {
-            return "ZEEGA-modal " + this.options.modal.className;
-        },
-
-        serialize: function() {
-            return this.options;
-        },
-
-        show: function() {
-            $("body").append( this.el );
-            $("#main").addClass("modal");
-            this.$el.attr("style","");
-            this.render();
-        },
-        
-        events: {
-            "click .modal-close": "hide"
-        },
-
-        close: function() {
-            $("#main").removeClass("modal");
-            this.$el.fadeOut(function() {
-                this.remove();
-            }.bind( this ));
-        },
-
-        hide: function() {
-            this.close();
-        }
-
-    });
-
-});
-
-define('modules/views/upload-modal',[
-    "app",
-
-    "modules/views/modal",
-
-    "backbone"
-],
-
-function( app, Modal ) {
-
-
-    return Modal.extend({
-
-        template: "upload-modal",
-        modalClass: "",
-        
-        className: "ZEEGA-modal upload-modal",
-
-        events: {
-            "click .modal-close": "hide",
-            "click .close": "hide",
-            "change .add-photo input" : "imageUpload"
-
-        },
-
-        addItem: function( data ) {
-
-
-
-            var item = new Backbone.Model({
-                // "id": -1,
-                // "user_id": -1,
-                // "username": "",
-                // "display_name": "",
-                "title": data.title,
-                "headline": "",
-                "description": "",
-                "text": "",
-                "uri": data.fullsize_url,
-                "attribution_uri": data.fullsize_url,
-                //"date_created": "2013-02-24 22:36:57",
-                "media_type": "Image",
-                "layer_type": "Image",
-                "archive": "Absolute",
-                "thumbnail_url": data.image_url_4,
-                "media_geo_latitude": null,
-                "media_geo_longitude": null,
-                "media_date_created": "",
-                "media_creator_username": app.userName,
-                "media_creator_realname": app.userName,
-                "child_items_count": 0,
-                // "attributes": [],
-                // "child_items": [],
-                // "tags": [],
-                "editable": true,
-                "published": false,
-                "enabled": true
-
-            });
-
-            
-
-
-            item.url = app.api + "items";
-            item.on("sync", this.updateMediaCollection, this );
-            item.save();
-        },
-
-        updateMediaCollection: function(){
-            this.model.search("");
-        },
-
-        imageUpload: function(event) {
-            var fileInput = event.target, imageData;
-            imageData = new FormData();
-            
-            imageData.append( "file", fileInput.files[0] );
-
-            $.ajax({
-                url: app.mediaServer + "image",
-                type: "POST",
-                data: imageData,
-                dataType: "json",
-                processData: false,
-                contentType: false,
-                fileElementId: "imagefile",
-                
-                success: function( data ) {
-
-                    $(fileInput).parent('span').css({
-                        "background-image" : "url(" + data.image_url_4 + ")",
-                        "background-size" : "cover"
-                    });
-                    
-                    this.addItem( data );
-
-                    this.$el.find(".image-uploads").append("<span class='add-photo' href='#'><input id = 'imagefile' name = 'imagefile' type='file' href='#'></input></span>");
-                    
-                }.bind(this)
-            });
-        }
-
-
-    });
-
-});
-
-
 define('modules/views/media-collection-view',[
     "app",
-    "modules/views/modal",
-    "modules/views/upload-modal",
+    "modules/views/media-upload",
     "backbone"
 ],
 
-function( app, Modal, UploadModal ) {
+function( app, UploadView ) {
 
     var Media = {
-        Base: {},
         Zeega:{},
         Instagram: {},
         Flickr: {},
         Soundcloud: {},
         Giphy: {},
-        Web: {}
+        Youtube: {},
+        Web: {},
+        MyZeega: {}
     };
 
-    Media.Base.View = Backbone.View.extend({
+    Media.Zeega.View = Backbone.View.extend({
 
         defaults: {
             title: "untitled"
@@ -105332,63 +105457,108 @@ function( app, Modal, UploadModal ) {
         },
 
         search: function( query ) {
-            console.log(this.model);
+            console.log(this.model, query);
             this.model.search( query );
 
         }
 
     });
 
-    Media.Zeega.View = Media.Base.View.extend({
+   
+            
+
+    Media.Instagram.View = Media.Zeega.View.extend({
+
 
         _afterRender: function(){
-            $(this.el).find(".media-collection-extras").append("<a href='#' class='upload-images'>Upload</a><a href='#' class='get-bookmarklet'><i class='icon-bookmark icon-white'></i></a>");
+            console.log("beforerender");
+            this.$el.find(".collection-options").append("<select class = 'query-type' >" +
+              "<option value='user'>username</option>" +
+              "<option value='tag'>tag</option>" +
+            "</select>");
         },
 
         events: {
-            "click .get-bookmarklet": "bookmarkletModal",
-            "click .upload-images": "uploadModal",
-            "keyup .search-box": "onSearchKeyPress"
+            "keyup .search-box": "onSearchKeyPress",
+            "change .query-type": "onQueryTypeChange"
         },
 
-        uploadModal: function(){
-            var uploadModal = new UploadModal({ model: this.model });
+        onQueryTypeChange: function( ){
+            var type = this.$el.find(".query-type").attr("value");
+            this.model.setQueryType( type );
 
-            uploadModal.show();
+        }
 
-        },
+    });
+    Media.Flickr.View = Media.Zeega.View.extend({});
+    Media.Soundcloud.View = Media.Zeega.View.extend({});
+    Media.Giphy.View = Media.Zeega.View.extend({});
+    Media.Youtube.View = Media.Zeega.View.extend({});
+    Media.Web.View = Media.Zeega.View.extend({});
+    
+    Media.MyZeega.View = Media.Zeega.View.extend({
 
-        bookmarkletModal: function() {
+        template: "media-collection",
 
-            var bmModal = new Modal({
-                modal: {
-                    title: "Get the Zeega Bookmarklet",
-                    className: "bookmarklet-modal",
-                    content: this.modalContent
-                }
-            });
-            
+        _afterRender: function(){
+            var uploadView = new UploadView({ model: this.model });
+            this.$el.find(".media-collection-header").prepend( uploadView.el );
+            uploadView.render();
+        }
 
-            bmModal.show();
-        },
 
-        modalContent: "<div><p>Just drag this link to your browser's bookmark bar:</p></div>" +
-            "<div class='bmLink'><a href=\"javascript:(function()%7Bvar%20head=document.getElementsByTagName('body')%5B0%5D,script=document.createElement('script');script.id='zeegabm';script.type='text/javascript';script.src='//zeega.com/js/widget/zeega.bookmarklet.js?'%20+%20Math.floor(Math.random()*99999);head.appendChild(script);%7D)();%20void%200\">Add to Zeega</a></div>" +
-            "<div>" +
-                "<p>When you find something awesome that you want to use in your Zeega, click the bookmark and follow the simple instructions</p>" +
-                "<p class='small'><i class='icon-question-sign'></i> Don't see your bookmark bar? Go to View and select 'Always Show Bookmarks Bar'</p>" +
-            "</div>" +
-            "<img class='bm-instructions' src='assets/img/bookmarklet-arrow.png'/>"
-            
     });
 
-    Media.Instagram.View = Media.Base.View.extend({});
-    Media.Flickr.View = Media.Base.View.extend({});
-    Media.Soundcloud.View = Media.Base.View.extend({});
-    Media.Giphy.View = Media.Base.View.extend({});
-    Media.Web.View = Media.Base.View.extend({});
-
     return Media;
+
+});
+
+define('modules/views/modal',[
+    "app",
+
+
+    "backbone"
+],
+
+function( app ) {
+
+
+    return Backbone.View.extend({
+
+        template: "modal",
+        modalClass: "",
+        
+        className: function() {
+            return "ZEEGA-modal " + this.options.modal.className;
+        },
+
+        serialize: function() {
+            return this.options;
+        },
+
+        show: function() {
+            $("body").append( this.el );
+            $("#main").addClass("modal");
+            this.$el.attr("style","");
+            this.render();
+        },
+        
+        events: {
+            "click .modal-close": "hide"
+        },
+
+        close: function() {
+            $("#main").removeClass("modal");
+            this.$el.fadeOut(function() {
+                this.remove();
+            }.bind( this ));
+        },
+
+        hide: function() {
+            this.close();
+        }
+
+    });
 
 });
 
@@ -105441,17 +105611,69 @@ function( app ) {
 
 });
 
+define('modules/views/item-viewer-video',[
+    "app",
+    "backbone"
+],
+
+function( app ) {
+
+
+    return Backbone.View.extend({
+        
+        className: "item-viewer item-viewer-video",
+        template: "item-viewer-video",
+
+        serialize: function() {
+            return this.model.toJSON();
+        },
+
+        exit: function() {
+            this.$("video").attr("src", "");
+        }
+        
+    });
+
+});
+
+define('modules/views/item-viewer-youtube',[
+    "app",
+    "backbone"
+],
+
+function( app ) {
+
+
+    return Backbone.View.extend({
+        
+        className: "item-viewer item-viewer-youtube",
+        template: "item-viewer-youtube",
+
+        serialize: function() {
+            return this.model.toJSON();
+        },
+
+        exit: function() {
+          
+        }
+        
+    });
+
+});
+
 define('modules/views/item-collection-viewer',[
     "app",
     "modules/views/modal",
     "modules/views/frame",
     "modules/views/item-viewer-image",
     "modules/views/item-viewer-audio",
+    "modules/views/item-viewer-video",
+    "modules/views/item-viewer-youtube",
 
     "backbone"
 ],
 
-function( app, Modal, FrameView, ImageView, AudioView ) {
+function( app, Modal, FrameView, ImageView, AudioView, VideoView, YoutubeView ) {
 
 
     return Backbone.View.extend({
@@ -105494,6 +105716,10 @@ function( app, Modal, FrameView, ImageView, AudioView ) {
                     item.itemView = new ImageView({ model: item });
                 } else if ( item.get("layer_type") == "Audio") {
                     item.itemView = new AudioView({ model: item });
+                } else if ( item.get("layer_type") == "Video") {
+                    item.itemView = new VideoView({ model: item });
+                } else if ( item.get("layer_type") == "Youtube") {
+                    item.itemView = new YoutubeView({ model: item });
                 }
             }
             // just render item.itemView
@@ -105574,13 +105800,15 @@ function( app, ItemModel, MediaView, ItemCollectionViewer ) {
 
 
     var Media = {
-        Instagram: {},
+        
         Zeega: {},
+        Instagram: {},
         Flickr: {},
         Soundcloud: {},
         Tumblr: {},
         Giphy: {},
-        Web: {}
+        Youtube: {},
+        MyZeega:{}
     };
 
 
@@ -105623,6 +105851,8 @@ function( app, ItemModel, MediaView, ItemCollectionViewer ) {
         }
     });
 
+    Media.MyZeega.Collection = Media.Zeega.Collection.extend();
+
     Media.Flickr.Collection = Media.Zeega.Collection.extend({
 
         parse: function( res ) {
@@ -105656,41 +105886,73 @@ function( app, ItemModel, MediaView, ItemCollectionViewer ) {
         
 
         url : function(){
-            var url = this.mediaModel.apiUrl + "tags/" + this.mediaModel.get("query") +
+            var url;
+            if( this.mediaModel.queryType == "tag" ){
+                url = this.mediaModel.apiUrl + "tags/" + this.mediaModel.get("query") +
                         "/media/recent?client_id=725bbc7af5094c8682bdb322d29734cc&callback=?";
+            } else {
+
+                // Instagram User queries require user id, route through Zeega
+                url = app.api + "items/parser?url=http://instagram.com/" + this.mediaModel.get("query");
+            }
+
             return url;
         },
         
 
         parse: function(res){
             
-            var items = [];
+            if( this.mediaModel.queryType == "tag" ){
+                var items = [];
 
-            _.each( res.data, function( photo ){
+                _.each( res.data, function( photo ){
 
-                var item = {};
-                item.id = photo.id;
-                if( !_.isNull( photo.caption ) && !_.isNull( photo.caption.text ) ){
-                    var tmp = document.createElement("DIV");
-                    tmp.innerHTML = photo.caption.text;
-                    item.title = tmp.textContent||tmp.innerText;
-                } else {
-                    item.title = "Instagram by " + photo.user.user_name;
+                    var item = {};
+                    item.id = photo.id;
+                    if( !_.isNull( photo.caption ) && !_.isNull( photo.caption.text ) ){
+                        var tmp = document.createElement("DIV");
+                        tmp.innerHTML = photo.caption.text;
+                        item.title = tmp.textContent||tmp.innerText;
+                    } else {
+                        item.title = "Instagram by " + photo.user.user_name;
+                    }
+                    
+
+                    item.archive = "Instagram";
+                    item.layer_type ="Image";
+                    item.media_type = "Image";
+
+                    item.thumbnail_url = photo.images.thumbnail.url;
+                    item.uri = photo.images.standard_resolution.url;
+                    item.attribution_uri =  photo.link;
+                    item.media_user_realname = photo.user.user_name;
+
+                    items.push( item );
+                });
+                return items;
+            } else {
+                var photos,
+                    count = 1;
+
+                if ( res.code == 500 ){
+                    this.itemsCount = 0;
+                    return array();
                 }
+
+
+                photos = res.items;
                 
+                _.each( photos, function( photo ){
+                    photo.editable = -1;
+                    photo.id = count;
+                    count++;
+                });
+     
+                this.itemsCount = res.items_count;
 
-                item.archive = "Instagram";
-                item.layer_type ="Image";
-                item.media_type = "Image";
+                return res.items;
 
-                item.thumbnail_url = photo.images.thumbnail.url;
-                item.uri = photo.images.standard_resolution.url;
-                item.attribution_uri =  photo.link;
-                item.media_user_realname = photo.user.user_name;
-
-                items.push( item );
-            });
-            return items;
+            }
         }
     });
 
@@ -105734,22 +105996,37 @@ function( app, ItemModel, MediaView, ItemCollectionViewer ) {
         }
     });
 
-    Media.Web.Collection = Media.Zeega.Collection.extend({
-        parse: function( res ) {
-            if ( res.code == 500 ){
-                this.itemsCount = 0;
-                return array();
-            }
+    Media.Youtube.Collection = Media.Zeega.Collection.extend({
+
+        parse: function(res){
+            var items = [],
+                count = 1;
+
+            
+            _.each( res.data.items, function( video ){
+                var item = {};
+                item.id = count;
+                item.layer_type = "Youtube";
+                item.media_type = "Video";
+                count++;
+
+                item.uri = video.id;
+                item.title = video.title;
+                item.attribution_uri = video.player[ "default" ];
+                item.thumbnail_url = video.thumbnail.hqDefault;
+                item.aspectRatio = video.aspectRatio;
+
+
+                if( video.accessControl.embed == "allowed" ){
+                     items.push( item );
+                }
+
+            });
 
             this.itemsCount = res.items_count;
-
-            return res.items;
+            return items;
         }
     });
-
-
-
-
 
     Media.Zeega.Model = Backbone.Model.extend({
 
@@ -105757,7 +106034,6 @@ function( app, ItemModel, MediaView, ItemCollectionViewer ) {
         mediaCollection: null,
         apiUrl: app.searchAPI,
 
-        // should this be a model?
         defaults: {
                 urlArguments: {
                     collection: "",
@@ -105765,14 +106041,11 @@ function( app, ItemModel, MediaView, ItemCollectionViewer ) {
                     page: 1,
                     q: "",
                     limit: 20,
-                    data_source: "db",
-                    user: function() {
-                        return app.userId;
-                },
-                sort: "date-desc"
+                    user: 1,
+                    sort: "date-desc"
             },
-            title: "My Media",
-            placeholder: "search your media",
+            title: "Zeega",
+            placeholder: "search Zeega favorites",
             searchQuery:""
         },
 
@@ -105795,6 +106068,49 @@ function( app, ItemModel, MediaView, ItemCollectionViewer ) {
 
             var args = this.get("urlArguments");
 
+            if( query !== args.q ) {
+                args.q = query;
+            }
+
+            this.set("urlArguments", args );
+            this.mediaCollection.fetch();
+        },
+
+        listen: function() {
+        },
+
+        onSync: function( collection ) {
+            this.mediaBrowser.trigger( "media_ready", collection );
+        }
+    });
+
+    Media.MyZeega.Model = Media.Zeega.Model.extend({
+
+        api: "MyZeega",
+        defaults: {
+                urlArguments: {
+                    collection: "",
+                    type: "-project AND -Collection AND -Video",
+                    page: 1,
+                    q: "",
+                    limit: 20,
+                    data_source: "db",
+                    user: function() {
+                        return app.userId;
+                },
+                sort: "date-desc"
+            },
+            title: "My Media",
+            placeholder: "search your media",
+            searchQuery:""
+        },
+
+        
+        _search: function( query ){
+
+
+            var args = this.get("urlArguments");
+
            
 
             if(query === ""){
@@ -105806,20 +106122,6 @@ function( app, ItemModel, MediaView, ItemCollectionViewer ) {
 
             this.set("urlArguments", args );
             this.mediaCollection.fetch();
-        },
-
-        listen: function() {
-
-            // fetch user items on window focus !
-            // window.addEventListener("focus", function() {
-            //     this.mediaCollection.fetch();
-            // }.bind( this ));
-        },
-
-        
-
-        onSync: function( collection ) {
-            this.mediaBrowser.trigger( "media_ready", collection );
         }
     });
 
@@ -105898,6 +106200,7 @@ function( app, ItemModel, MediaView, ItemCollectionViewer ) {
         
         api: "Instagram",
         apiUrl: "https://api.instagram.com/v1/",
+        queryType: "user",
 
         defaults: {
             query: "",
@@ -105907,6 +106210,10 @@ function( app, ItemModel, MediaView, ItemCollectionViewer ) {
         },
         getQuery: function(){
             return this.get("query");
+        },
+
+        setQueryType: function( selection ){
+            this.queryType = selection;
         },
         _search: function( query ){
 
@@ -105952,32 +106259,36 @@ function( app, ItemModel, MediaView, ItemCollectionViewer ) {
         }
     });
 
-    Media.Web.Model = Media.Zeega.Model.extend({
+    Media.Youtube.Model = Media.Zeega.Model.extend({
         
-        api: "Web",
-        apiUrl: app.api + "items/parser?",
+        api: "Youtube",
+        apiUrl: "https://gdata.youtube.com/feeds/api/videos?",
 
-         defaults: {
+        defaults: {
             urlArguments: {
-                url: ""
+                callback: "?",
+                orderby: "relevance",
+                alt: "jsonc",
+                v: "2",
+                "max-results": "50",
+                q: ""
+    
             },
-            title: "The Web",
-            placeholder: "enter a url",
-            searchQuery: ""
+            title: "Youtube",
+            placeholder: "search Youtube",
+            searchQuery:""
         },
         getQuery: function(){
-            return this.get("urlArguments").url;
+            return this.get("urlArguments").q;
         },
         _search: function( query ){
 
-            
-            
             var args= this.get("urlArguments");
 
-            if( query === "" || query === args.url ){
-                //this.mediaCollection.trigger("sync");
-            } else {
-                args.url = query;
+            
+            
+            if( query !== "" && query !== args.q ){
+                args.q = query;
                 this.set("urlArguments", args );
                 this.mediaCollection.fetch();
             }
@@ -105986,6 +106297,7 @@ function( app, ItemModel, MediaView, ItemCollectionViewer ) {
             
         }
     });
+
 
 
 
@@ -106058,7 +106370,7 @@ function( app, Status, Layout, ZeegaParser, MediaBrowser ) {
 
                 // mainly for testing
 
-                rawDataModel.url = "http://dev.zeega.org/james/web/api/projects/8211";
+                rawDataModel.url = "http://dev.zeega.org/joseph/web/api/projects/8214";
 
                 rawDataModel.fetch().success(function( response ) {
                     this._parseData( response );

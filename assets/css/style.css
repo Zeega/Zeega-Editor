@@ -6380,39 +6380,6 @@ html {
   /* Opera */
 
 }
-.upload-modal .image-uploads {
-  float: left;
-  max-height: 176px;
-  overflow-y: auto;
-}
-.upload-modal .add-photo {
-  display: inline-block;
-  width: 68px;
-  height: 68px;
-  margin: 0 5px 15px;
-  position: relative;
-  overflow: hidden;
-  text-indent: -9999px;
-  background: rgba(0, 0, 0, 0.3) url(../img/add-circle.png) no-repeat 50% 50%;
-}
-.upload-modal .add-photo input {
-  cursor: pointer;
-  font-size: 90px;
-  height: 100%;
-  height: 113px;
-  right: 0;
-  line-height: 176px;
-  opacity: 0;
-  position: absolute;
-  top: 0;
-}
-.upload-modal .modal-body {
-  height: 200px;
-}
-.upload-modal .close {
-  margin-top: -34px;
-  margin-right: 11px;
-}
 .bookmarklet-modal .small {
   font-size: 13px;
 }
@@ -6447,7 +6414,7 @@ html {
   background: url(../img/tiny-stripes-dark.png);
 }
 .ZEEGA-hmenu.light {
-  background: rgba(255, 255, 255, 0.1);
+  background: white;
   box-shadow: 0 3px 5px rgba(0, 0, 0, 0.25);
 }
 .ZEEGA-hmenu .logo a {
@@ -6456,6 +6423,10 @@ html {
 .ZEEGA-hmenu.img-tabs > ul > li > a {
   padding: 0;
   margin-right: 5px;
+}
+.ZEEGA-hmenu.img-tabs > ul > li > a:hover {
+  background: yellow;
+  box-shadow: none;
 }
 .ZEEGA-hmenu ul {
   margin: 0;
@@ -7252,7 +7223,7 @@ a:active {
   padding: 5px 10px;
   color: white;
   font-size: 18px;
-  height: 68px;
+  height: 42px;
 }
 .media-collection .media-collection-header .media-collection-extras {
   float: right;
@@ -7274,7 +7245,7 @@ a:active {
 }
 .media-collection .media-collection-items {
   *zoom: 1;
-  padding-top: 78px;
+  padding-top: 52px;
   position: relative;
 }
 .media-collection .media-collection-items:before,
@@ -7285,6 +7256,9 @@ a:active {
 }
 .media-collection .media-collection-items:after {
   clear: both;
+}
+.media-collection .media-collection-items img {
+  border: 1px solid rgba(255, 255, 255, 0.15);
 }
 .media-collection .media-collection-items .media-more {
   height: 50px;
@@ -7315,6 +7289,9 @@ a:active {
 .item-viewer-audio .preview-audio {
   width: 100%;
 }
+.item-viewer-video {
+  text-align: center;
+}
 .viewer-controls {
   margin-top: 10px;
   margin-bottom: -10px;
@@ -7327,4 +7304,37 @@ a:active {
   outline: 0;
   padding: 8px;
   width: 150px;
+}
+.media-upload .image-uploads {
+  float: left;
+  max-height: 176px;
+  overflow-y: auto;
+}
+.media-upload .add-photo {
+  display: inline-block;
+  width: 30px;
+  height: 30px;
+  margin: 0 5px 15px;
+  position: relative;
+  overflow: hidden;
+  text-indent: -9999px;
+  background: rgba(0, 0, 0, 0.3) url(../img/add-circle.png) no-repeat 50% 50%;
+}
+.media-upload .add-photo input {
+  cursor: pointer;
+  font-size: 90px;
+  height: 100%;
+  height: 113px;
+  right: 0;
+  line-height: 176px;
+  opacity: 0;
+  position: absolute;
+  top: 0;
+}
+.media-upload .modal-body {
+  height: 200px;
+}
+.media-upload .close {
+  margin-top: -34px;
+  margin-right: 11px;
 }
