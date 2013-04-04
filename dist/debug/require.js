@@ -561,7 +561,7 @@ return __p;
 this["JST"]["app/templates/layout-main.html"] = function(obj){
 var __p='';var print=function(){__p+=Array.prototype.join.call(arguments, '')};
 with(obj||{}){
-__p+='<div class=\'left-column\'>\n    <div class="static-upper">\n        <div class="nav"></div>\n    </div>\n    <div class="media-drawer"></div>\n</div>\n<div class=\'right-column\'>\n    <div class="project-head">\n        <div class="project-share">\n            <a href="#"><i class="zitem-twitter zitem-30 color"></i></a>\n            <a href="#"><i class="zitem-facebook zitem-30 color"></i></a>\n            <a href="#"><i class="zitem-tumblr zitem-30 color"></i></a>\n        </div>\n        <div class="project-info" contenteditable>My Awesome Zeega!!!</div>\n    </div>\n\n    <div class="edit-box">\n        <div class="project-navs">\n            <div class="frames"></div>\n        </div>\n        <div class="workspace"></div>\n        <div class="project-preview">playpause</div>\n    </div>\n    <div class="soundtrack"></div>\n\n    <div class="section-head">Layers</div>\n    <div class="layer-picker"></div>\n    <div class="layers"></div>\n</div>';
+__p+='<div class="project-head"></div>\n\n<div class=\'left-column\'>\n    <div class="media-drawer"></div>\n</div>\n\n<div class=\'right-column\'>\n\n    <div class="edit-box">\n        <div class="project-navs">\n            <div class="frames"></div>\n        </div>\n        <div class="workspace"></div>\n    </div>\n    <div class="soundtrack"></div>\n\n    <div class="section-head">Layers</div>\n    <div class="layer-picker"></div>\n    <div class="layers"></div>\n</div>';
 }
 return __p;
 };
@@ -581,7 +581,7 @@ return __p;
 this["JST"]["app/templates/media-drawer.html"] = function(obj){
 var __p='';var print=function(){__p+=Array.prototype.join.call(arguments, '')};
 with(obj||{}){
-__p+='<div class="media-drawer-controls ZEEGA-hmenu dark">\n        <ul class=\'pull-left\'>\n        \n        <li>\n            <a href="#" data-api = "Zeega" class="media-toggle">Z</a>\n        </li>\n        <!--\n        <li>\n            <a href="#" data-api = "Tumblr" class="media-toggle">T</i></a>\n        </li>\n        -->\n        <li>\n            <a href="#" data-api = "Soundcloud" class="media-toggle">S</i></a>\n        </li>\n\n        <li>\n            <a href="#" data-api = "Giphy" class="media-toggle">G</i></a>\n        </li>\n\n        <li>\n            <a href="#" data-api = "Flickr" class="media-toggle">F</i></a>\n        </li>\n        <li>\n            <a href="#" data-api = "Instagram" class="media-toggle">I</i></a>\n        </li>\n        <li>\n            <a href="#" data-api = "Youtube" class="media-toggle">Y</i></a>\n        </li>\n\n        <li >\n            <a href="#" data-api = "MyZeega" class="media-toggle">Upload</i></a>\n        </li>\n    </ul>\n    \n    \n</div>\n<ul class="ZEEGA-items"></ul>';
+__p+='<div class="media-drawer-controls ZEEGA-hmenu light img-tabs">\n        <ul class=\'pull-left\'>\n        \n        <li>\n            <a href="#" data-api = "Zeega" class="media-toggle"><i class="socialz-zeega"></i></a>\n        </li>\n        <!--\n        <li>\n            <a href="#" data-api = "Tumblr" class="media-toggle">T</i></a>\n        </li>\n        -->\n        <li>\n            <a href="#" data-api = "Soundcloud" class="media-toggle"><i class="socialz-soundcloud"></i></i></a>\n        </li>\n\n        <li>\n            <a href="#" data-api = "Giphy" class="media-toggle"><i class="socialz-giphy"></i></i></a>\n        </li>\n\n        <li>\n            <a href="#" data-api = "Flickr" class="media-toggle"><i class="socialz-flickr"></i></i></a>\n        </li>\n        <li>\n            <a href="#" data-api = "Instagram" class="media-toggle"><i class="socialz-instagram"></i></i></a>\n        </li>\n        <li>\n            <a href="#" data-api = "Youtube" class="media-toggle"><i class="socialz-youtube"></i></i></a>\n        </li>\n\n        <li >\n            <a href="#" data-api = "MyZeega" class="media-toggle">Upload</i></a>\n        </li>\n    </ul>\n    \n    \n</div>\n<ul class="ZEEGA-items"></ul>';
 }
 return __p;
 };
@@ -626,42 +626,74 @@ __p+='<ul class=\'pull-left\'>\n    <li class=\'logo\'>\n        <a href="#"><im
 return __p;
 };
 
-this["JST"]["app/templates/project-meta.html"] = function(obj){
+this["JST"]["app/templates/project-head.html"] = function(obj){
 var __p='';var print=function(){__p+=Array.prototype.join.call(arguments, '')};
 with(obj||{}){
-__p+='<div class="ZEEGA-project-cover" style="\n    background: url('+
-( cover_image )+
-') no-repeat center center;\n    -webkit-background-size: cover;\n    background-size: cover;\n">\n    <div class="project-meta-upper">\n        <div class="ZEEGA-project-title" contenteditable="true">'+
+__p+='<div class="nav col-left navbar ZEEGA-hmenu clear">\n    <ul class=\'pull-left\'>\n        <li class=\'logo\'>\n            <a href="#"><img src="assets/img/zeega-logo-header.png"/></a>\n        </li>\n    </ul>\n    <ul class=\'pull-right\'>\n        <li>\n            <a href="http://www.zeega.org/user/'+
+( userId )+
+'" target="blank"><i class="icon-user"></i></a>\n        </li>\n        <li>\n            <a href="#"><i class="icon-folder-open"></i></a>\n            <ul class="submenu">\n                <li>\n                    <a href="/'+
+( root )+
+'project/new" data-bypass="true" ><i class="icon-file"></i> New Zeega</a>\n                </li>\n                <li class="divider"></li>\n\n                ';
+ _.each( userProjects, function( project) { 
+;__p+='\n                    <li>\n                        <a href="/'+
+( project.id )+
+'"  data-bypass="true" >'+
+( project.title )+
+'</a>\n                    </li>\n                ';
+ }); 
+;__p+='\n\n            </ul>\n        </li>\n        <li>\n            <a href="http://www.zeega.org/faq/" target="blank"><i class="icon-question-sign"></i></a>\n        </li>\n    </ul>\n</div>\n<div class="project-title col-middle clearfix">\n    <div class="project-info" contenteditable>'+
 ( title )+
-'</div>\n    </div>\n    <a href="#" class="preview">\n        <i class="play-zcon"></i>\n        <span class="preview-text">Preview</span>\n    </a>\n    <div class="project-meta-lower">\n        <div class="ZEEGA-project-share">\n            <a href="#" class="project-share-toggle">share</a>:\n            <div class="hidden-drawer '+
-( drawerClass )+
-'">\n                <a href="https://twitter.com/intent/tweet?original_referer=http://www.zeega.com/'+
+'</div>\n    <a href="#" class="project-preview btnz"><i class="icon-play icon-white"></i> Preview</a>\n</div>\n<div class="project-share col-right clearfix">\n    <a href="#" class="project-share btnz btnz-blue btnz-fullwidth"><i class="icon-retweet icon-white"></i> Share</a>\n</div>\n\n<div class="share-grave">\n\n    <div class="close-wrapper">\n        <a href="#" class="close-grave">&times;</a>\n    </div>\n\n    <div class="project-share">\n        <a href="https://twitter.com/intent/tweet?original_referer=http://www.zeega.com/'+
 ( item_id )+
 '&text=Zeega%20Project%3A%20'+
 ( title )+
 ' &url=http://www.zeega.com/'+
 ( item_id )+
-'"\n                    class="social-share"\n                    data-itemid="'+
+'"\n                        class="social-share"\n                        data-itemid="'+
 ( item_id )+
-'"\n                    target="blank">\n                    <i class="zsocial-twitter">\n                    </i>\n                </a>\n                <a href="http://www.facebook.com/sharer.php?u=http://www.zeega.com/'+
+'"\n                        target="blank">\n            <i class="zitem-twitter zitem-30 color"></i>\n        </a>\n        <a href="http://www.facebook.com/sharer.php?u=http://www.zeega.com/'+
 ( item_id )+
-'"\n                    class="social-share"\n                    data-itemid="'+
+'"\n                        class="social-share"\n                        data-itemid="'+
 ( item_id )+
-'"\n                    target="blank">\n                    <i class="zsocial-facebook"></i>\n                </a>\n                <a href="http://www.tumblr.com/share"\n                    class="social-share"\n                    data-itemid="'+
+'"\n                        target="blank">\n            <i class="zitem-facebook zitem-30 color"></i>\n        </a>\n        <a href="mailto:friend@example.com?subject=Check out this Zeega!&body=http://www.zeega.com/'+
 ( item_id )+
-'"\n                    target="blank">\n                    <i class="zsocial-tumblr"></i>\n                </a>\n                <a href="mailto:friend@example.com?subject=Check out this Zeega!&body=http://www.zeega.com/'+
+'"\n                        class="social-share"\n                        data-itemid="'+
 ( item_id )+
-'"\n                    class="social-share"\n                    data-itemid="'+
-( item_id )+
-'">\n                    <i class="zsocial-email"></i>\n                </a>\n            </div>\n        </div>\n    </div>\n</div>';
+'">\n            <i class="zitem-tumblr zitem-30 color"></i>\n        </a>\n    </div>\n</div>';
 }
 return __p;
 };
 
-this["JST"]["app/templates/project-preview.html"] = function(obj){
+this["JST"]["app/templates/project-share.html"] = function(obj){
 var __p='';var print=function(){__p+=Array.prototype.join.call(arguments, '')};
 with(obj||{}){
-__p+='<a href="#" class="preview">\n    <i class="zeega-play"></i>\n</a>';
+__p+='<div class="project-preview"><a href="#"><i class="icon-retweet icon-white"></i> Share</a></div>\n\n<div class="share-grave">\n\n    <div class="project-share">\n        <a href="https://twitter.com/intent/tweet?original_referer=http://www.zeega.com/'+
+( item_id )+
+'&text=Zeega%20Project%3A%20'+
+( title )+
+' &url=http://www.zeega.com/'+
+( item_id )+
+'"\n                        class="social-share"\n                        data-itemid="'+
+( item_id )+
+'"\n                        target="blank">\n            <i class="zitem-twitter zitem-30 color"></i>\n        </a>\n        <a href="http://www.facebook.com/sharer.php?u=http://www.zeega.com/'+
+( item_id )+
+'"\n                        class="social-share"\n                        data-itemid="'+
+( item_id )+
+'"\n                        target="blank">\n            <i class="zitem-facebook zitem-30 color"></i>\n        </a>\n        <a href="mailto:friend@example.com?subject=Check out this Zeega!&body=http://www.zeega.com/'+
+( item_id )+
+'"\n                        class="social-share"\n                        data-itemid="'+
+( item_id )+
+'">\n            <i class="zitem-tumblr zitem-30 color"></i>\n        </a>\n    </div>\n</div>';
+}
+return __p;
+};
+
+this["JST"]["app/templates/project-title.html"] = function(obj){
+var __p='';var print=function(){__p+=Array.prototype.join.call(arguments, '')};
+with(obj||{}){
+__p+='<div class="project-info" contenteditable>'+
+( title )+
+'</div>\n<div class="project-preview"><a href="#"><i class="icon-play icon-white"></i> Preview</a></div>';
 }
 return __p;
 };
@@ -68188,115 +68220,47 @@ function( app ) {
 
 });
 
-define('modules/views/navbar',[
+define('modules/views/project-head',[
     "app",
     "backbone"
 ],
 
 function( app ) {
 
-    // This will fetch the tutorial template and render it.
-    Navbar = Backbone.View.extend({
+    return Backbone.View.extend({
 
-        template: "navbar",
-        className: "navbar ZEEGA-hmenu clear",
-        
+        template: "project-head",
+
         serialize: function() {
-            return {
+            return _.extend({
                 userId: app.userId,
                 userProjects: $.parseJSON( window.userProjects ),
                 directory: app.directory,
                 root: app.root
-            };
-        }
-    });
-
-    // Required, return the module for AMD compliance
-    return Navbar;
-
-});
-
-define('modules/views/project-meta',[
-    "app",
-    "backbone"
-],
-
-function( app ) {
-
-    // This will fetch the tutorial template and render it.
-    ProjectMeta = Backbone.View.extend({
-
-        drawerClass: "",
-        template: "project-meta",
-        
-        serialize: function() {
-            return _.extend({ drawerClass: this.drawerClass }, this.model.project.toJSON() );
-        },
-
-        generateRandomTitle: function() {
-            return adjective[ Math.floor( Math.random() * adjective.length ) ] + " " + noun[ Math.floor( Math.random() * noun.length ) ];
-        },
-
-        afterRender: function() {
-            this.makeCoverDroppable();
-
-            if ( app.project.get("cover_image") === "" ) {
-                this.model.on("layer_added", this.onLayerAdded, this );
-            }
-
-            this.model.project.on("sync", this.render, this );
-        },
-
-        makeCoverDroppable: function() {
-            this.$el.droppable({
-                accept: ".item",
-                tolerance: "pointer",
-                drop: function( e, ui ) {
-                    if ( _.contains( ["Image"], app.dragging.get("layer_type") )) {
-                        var cover = app.dragging.get("uri");
-
-                        this.updateCoverImage( cover );
-                    }
-                }.bind( this )
-            });
-        },
-
-        onLayerAdded: function( layer ) {
-            if ( this.model.project.get("cover_image") === "" ) {
-                if ( layer.get("type") == "Image" ) {
-                    this.updateCoverImage( layer.getAttr("uri") );
-                }
-            } else {
-                this.model.off("layer_added");
-            }
-        },
-
-        updateCoverImage: function( url ) {
-            app.project.save("cover_image", url );
-
-            $(".ZEEGA-project-cover").fadeOut("fast", function() {
-                $(".ZEEGA-project-cover")
-                    .attr("style", "")
-                    .css({
-                        background: "url(" + url + ")",
-                        "-webkit-background-size": "cover"
-                    })
-                    .fadeIn("fast");
-            });
+            }, this.model.project.toJSON() );
         },
 
         events: {
-            "keypress .ZEEGA-project-title": "onTitleKeyup",
-            "blur .ZEEGA-project-title": "onBlur",
-            "click .meta-menu a": "onMenuClick",
-            "click .preview": "projectPreview",
-            "click .project-share-toggle": "toggleShare",
-            "click .social-share": "socialShare"
+            "click .project-share a": "toggleShareGrave",
+            "keypress .project-info": "onTitleKeyup",
+            "blur .project-info": "onBlur",
+            "click .project-preview": "projectPreview",
+
+            "click .close-grave": "closeGrave"
+            // "click .project-share-toggle": "toggleShare",
+        },
+
+        closeGrave: function() {
+            this.$(".share-grave").hide();
+        },
+
+        toggleShareGrave: function() {
+            this.$(".share-grave").toggle();
         },
 
         onTitleKeyup: function( e ) {
             if ( e.which == 13 ) {
-                this.$(".ZEEGA-project-title").blur();
+                this.$(".project-info").blur();
                 return false;
             }
         },
@@ -68338,35 +68302,13 @@ console.log("preview project", projectData);
             $("body").unbind("keyup.player");
         },
 
-        toggleShare: function() {
-
-            if ( this.drawerClass == "open" ) {
-                this.drawerClass = "";
-                this.$(".hidden-drawer").removeClass("open");
-            } else {
-                this.drawerClass = "open";
-                this.$(".hidden-drawer").addClass("open");
-                this.model.project.publishProject();
-            }
-        },
-
-        socialShare: function( e ) {
-            // prevent unpublished links from being shared
-            if ( $( e.target ).closest(".social-share").data("itemid") === null ) {
-                e.preventDefault();
-                return false;
-            }
-        },
-
         onBlur: function() {
-            if ( this.model.project.get("title") != this.$(".ZEEGA-project-title").text() ) {
-                this.model.project.save("title", this.$(".ZEEGA-project-title").text() );
+            if ( this.model.project.get("title") != this.$(".project-info").text() ) {
+                this.model.project.save("title", this.$(".project-info").text() );
             }
         }
-    });
 
-    // Required, return the module for AMD compliance
-    return ProjectMeta;
+    });
 
 });
 
@@ -68595,93 +68537,6 @@ function( app, FrameView ) {
 
 });
 
-define('modules/views/frame-controls',[
-    "app",
-    "backbone"
-],
-
-function( app ) {
-
-    return Backbone.View.extend({
-
-        template: "frame-controls",
-        className: "ZEEGA-frame",
-
-        saveAdvance: null,
-
-        initialize: function() {
-            app.status.on("change:currentFrame", this.onChangeFrame, this );
-
-            this.saveAdvance = _.debounce(function() {
-                app.status.get("currentFrame").saveAttr({
-                    advance: parseInt( this.$("input").val() * 1000, 10 )
-                });
-            }.bind( this ), 1000 );
-        },
-
-        afterRender: function() {
-            if ( app.status.get("currentFrame") ) {
-                this.updateControls( app.status.get("currentFrame") );
-            }
-        },
-
-        onChangeFrame: function( status, frameModel ) {
-            this.updateControls( frameModel );
-        },
-
-        updateControls: function( frameModel ) {
-            var attr = frameModel.get("attr");
-
-            this.$("input").val("");
-            this.$(".active").removeClass("active");
-            if ( _.isEmpty( attr ) || attr.advance === 0 ) {
-                this.$(".advance-manual").addClass("active");
-            } else {
-                this.$("input").val( attr.advance / 1000 );
-                this.$(".advance-auto").addClass("active");
-            }
-
-        },
-
-        events: {
-            "click .advance-manual a": "goManual",
-            "click .advance-auto a": "goAuto",
-            "keypress input": "keypress",
-            "blur input": "onInputBlur"
-        },
-
-        goManual: function() {
-            this.$(".active").removeClass("active");
-            this.$(".advance-manual").addClass("active");
-            this.$("input").val("");
-            app.status.get("currentFrame").saveAttr({ advance: 0 });
-        },
-
-        goAuto: function() {
-            this.$(".active").removeClass("active");
-            this.$(".advance-auto").addClass("active");
-        },
-
-        keypress: function( e ) {
-            if ( e.which >= 48 && e.which <= 57 ) { // numbers
-                this.saveAdvance();
-                return true;
-            } else if ( e.which == 13 ) {
-                this.$("input").blur();
-            } else {
-                e.preventDefault();
-                return false;
-            }
-        },
-
-        onInputBlur: function() {
-            this.saveAdvance();
-        }
-        
-    });
-
-});
-
 define('modules/views/workspace',[
     "app",
     "backbone"
@@ -68751,7 +68606,7 @@ function( app ) {
                 height = h - 20;
                 width = this.aspectRatio * height;
             } else {
-                width = w - 20;
+                width = w - 20 ;
                 height = width / this.aspectRatio;
             }
 
@@ -84317,13 +84172,6 @@ function( app, MediaUpload ) {
             collection.view.render();
         },
 
-        renderUpload: function() {
-            var uploadView = new MediaUpload();
-            this.$(".ZEEGA-items").empty().append(uploadView.el);
-            uploadView.render();
-
-
-        },
 
         events: {
             "click .clear-search": "clearSearch",
@@ -84337,18 +84185,7 @@ function( app, MediaUpload ) {
         },
 
         onMediaToggle: function(event){
-
-
-
-            var api = $(event.target).data("api");
-
-
-            if( api == "Upload"){
-                this.renderUpload();
-                return false;
-
-            }
-
+            var api = $(event.target).closest("a").data("api");
 
             this.$el.find(".search-box").attr("placeholder", "search " + api);
             this.model.setAPI( api );
@@ -84381,59 +84218,6 @@ function( app, MediaUpload ) {
             //this.$(".ZEEGA-items").css("height", window.innerHeight - leftCol );
         }
 
-
-    });
-
-});
-
-define('modules/views/project-preview',[
-    "app",
-    "backbone"
-],
-
-function( app ) {
-
-    return Backbone.View.extend({
-
-        drawerClass: "",
-        template: "project-preview",
-        
-        serialize: function() {
-            return _.extend({ drawerClass: this.drawerClass }, this.model.project.toJSON() );
-        },
-
-        events: {
-            "click .preview": "projectPreview"
-        },
-
-        projectPreview: function() {
-            var projectData = app.project.getProjectJSON();
-            
-            console.log("preview project", projectData);
-            app.zeegaplayer = new Zeega.player({
-                data: projectData,
-                startFrame: app.status.get("currentFrame").id,
-
-                controls: {
-                    arrows: true,
-                    close: true
-                }
-            });
-
-            // listen for esc key to close preview
-            $("body").bind("keyup.player", function( e ) {
-                if ( e.which == 27 ) {
-                    app.zeegaplayer.destroy();
-                }
-            });
-
-            this.stopListening( app.zeegaplayer );
-            app.zeegaplayer.on("player_destroyed", this.stopListeningToPlayer, this );
-        },
-
-        stopListeningToPlayer: function() {
-            $("body").unbind("keyup.player");
-        }
 
     });
 
@@ -85263,26 +85047,23 @@ function( app ) {
 define('modules/layout-main',[
     "app",
 
-    "modules/views/navbar",
-    "modules/views/project-meta",
+    "modules/views/project-head",
+
     "modules/views/sequences",
     "modules/views/frames",
-    "modules/views/frame-controls",
     "modules/views/workspace",
     "modules/views/layers",
-    "modules/views/layer-controls",
     "modules/views/layer-drawer",
     "modules/views/soundtrack",
 
     "modules/views/media-drawer",
-    "modules/views/project-preview",
     // "modules/search.model",
     "mousetrap",
 
     "backbone"
 ],
 
-function( app, Navbar, ProjectMeta, Sequences, Frames, FrameControls, Workspace, Layers, LayerControls, LayerDrawer, Soundtrack, MediaDrawer, ProjectPreview ) {
+function( app, ProjectHead, Sequences, Frames, Workspace, Layers, LayerDrawer, Soundtrack, MediaDrawer ) {
 
     return Backbone.Layout.extend({
 
@@ -85297,7 +85078,6 @@ function( app, Navbar, ProjectMeta, Sequences, Frames, FrameControls, Workspace,
         },
 
         beforeRender: function() {
-            this.insertView( ".nav", new Navbar({ model: app }) );
             this.insertView( ".sequences", new Sequences({ model: app }) );
             this.insertView( ".workspace", new Workspace({ model: app }) );
             this.insertView( ".layers", new Layers({ model: app }) );
@@ -85305,20 +85085,14 @@ function( app, Navbar, ProjectMeta, Sequences, Frames, FrameControls, Workspace,
 
         afterRender: function() {
 
+            new ProjectHead({
+                model: app,
+                el: this.$(".project-head")
+            }).render();
+
             new Soundtrack({
                 el: this.$(".soundtrack")
             }).render();
-
-            new ProjectPreview({
-                model: app,
-                el: this.$(".project-preview")
-            }).render();
-
-
-            // new ProjectMeta({
-            //     model: app,
-            //     el: this.$(".project-meta")
-            // }).render();
 
             new LayerDrawer({
                 model: app,
@@ -85330,24 +85104,10 @@ function( app, Navbar, ProjectMeta, Sequences, Frames, FrameControls, Workspace,
                 el: this.$(".frames")
             }).render();
 
-            // new FrameControls({
-            //     model: app,
-            //     el: this.$(".frame-controls")
-            // }).render();
-
-            // new LayerControls({
-            //     model: app,
-            //     el: this.$(".layer-controls"),
-            //     afterRender: function() {
-            //         app.trigger("rendered");
-            //     }
-            // }).render();
-
             new MediaDrawer({
                 model: app.mediaBrowser,
                 el: this.$(".media-drawer")
             }).render();
-
         },
 
         listenForKeys: function() {
@@ -85798,7 +85558,7 @@ function( Zeega, ControlView ) {
  * Licensed under the MIT license:
  *   http://www.opensource.org/licenses/mit-license.php
  *
- * Version: 1.0.1 (201210141130)
+ * Version: 1.1.1 (201303290104)
  */
  (function($) {
 /**
@@ -85843,7 +85603,10 @@ function( Zeega, ControlView ) {
  *                      Default value: 'center'
  *
  *  colorCodeColor:     Text color of the color code inside the button. Only used if 'displayColorCode' is true.
- *                      Default value: '#FFF'            
+ *                      Default value: '#FFF'
+ *
+ *  callback:           Callback function to call after a color has been chosen.
+ *                      Default value: null
  */
   $.fn.simpleColor = function(options) {
 
@@ -85880,20 +85643,21 @@ function( Zeega, ControlView ) {
 
     // Option defaults
     options = $.extend({
-      defaultColor:   this.attr('defaultColor') || '#FFF',
-      border:       this.attr('border') || '1px solid #000',
-      cellWidth:    this.attr('cellWidth') || 10,
-      cellHeight:     this.attr('cellHeight') || 10,
-      cellMargin:     this.attr('cellMargin') || 1,
-      boxWidth:     this.attr('boxWidth') || '115px',
-      boxHeight:    this.attr('boxHeight') || '20px',
-      columns:      this.attr('columns') || 16,
-      insert:       this.attr('insert') || 'after',
-      buttonClass:    this.attr('buttonClass') || '',
-      colors:       this.attr('colors') || default_colors,
+      defaultColor:     this.attr('defaultColor') || '#FFF',
+      border:           this.attr('border') || '1px solid #000',
+      cellWidth:        this.attr('cellWidth') || 10,
+      cellHeight:       this.attr('cellHeight') || 10,
+      cellMargin:       this.attr('cellMargin') || 1,
+      boxWidth:         this.attr('boxWidth') || '115px',
+      boxHeight:        this.attr('boxHeight') || '20px',
+      columns:          this.attr('columns') || 16,
+      insert:           this.attr('insert') || 'after',
+      buttonClass:      this.attr('buttonClass') || '',
+      colors:           this.attr('colors') || default_colors,
       displayColorCode: this.attr('displayColorCode') || false,
       colorCodeAlign:   this.attr('colorCodeAlign') || 'center',
-      colorCodeColor:   this.attr('colorCodeColor') || '#FFF'
+      colorCodeColor:   this.attr('colorCodeColor') || '#FFF',
+      callback:         null
     }, options || {});
 
     // Hide the input
@@ -85996,11 +85760,16 @@ function( Zeega, ControlView ) {
               event.data.display_box.css('backgroundColor', '#' + this.id);
               event.data.chooser.hide();
               event.data.display_box.show();
-     
+
               // If 'displayColorCode' is turned on, display the currently selected color code as text inside the button.
               if (options.displayColorCode) {
                 event.data.display_box.text('#' + this.id);
               }
+              // If a callback function is defined then excecute it.
+              if (options.callback) {
+                options.callback(this.id);
+              }
+
             });
           }
         }

@@ -1,0 +1,65 @@
+<div class="nav col-left navbar ZEEGA-hmenu clear">
+    <ul class='pull-left'>
+        <li class='logo'>
+            <a href="#"><img src="assets/img/zeega-logo-header.png"/></a>
+        </li>
+    </ul>
+    <ul class='pull-right'>
+        <li>
+            <a href="http://www.zeega.org/user/<%= userId %>" target="blank"><i class="icon-user"></i></a>
+        </li>
+        <li>
+            <a href="#"><i class="icon-folder-open"></i></a>
+            <ul class="submenu">
+                <li>
+                    <a href="/<%= root %>project/new" data-bypass="true" ><i class="icon-file"></i> New Zeega</a>
+                </li>
+                <li class="divider"></li>
+
+                <% _.each( userProjects, function( project) { %>
+                    <li>
+                        <a href="/<%= project.id %>"  data-bypass="true" ><%= project.title %></a>
+                    </li>
+                <% }); %>
+
+            </ul>
+        </li>
+        <li>
+            <a href="http://www.zeega.org/faq/" target="blank"><i class="icon-question-sign"></i></a>
+        </li>
+    </ul>
+</div>
+<div class="project-title col-middle clearfix">
+    <div class="project-info" contenteditable><%= title %></div>
+    <a href="#" class="project-preview btnz"><i class="icon-play icon-white"></i> Preview</a>
+</div>
+<div class="project-share col-right clearfix">
+    <a href="#" class="project-share btnz btnz-blue btnz-fullwidth"><i class="icon-retweet icon-white"></i> Share</a>
+</div>
+
+<div class="share-grave">
+
+    <div class="close-wrapper">
+        <a href="#" class="close-grave">&times;</a>
+    </div>
+
+    <div class="project-share">
+        <a href="https://twitter.com/intent/tweet?original_referer=http://www.zeega.com/<%= item_id %>&text=Zeega%20Project%3A%20<%= title %> &url=http://www.zeega.com/<%= item_id %>"
+                        class="social-share"
+                        data-itemid="<%= item_id %>"
+                        target="blank">
+            <i class="zitem-twitter zitem-30 color"></i>
+        </a>
+        <a href="http://www.facebook.com/sharer.php?u=http://www.zeega.com/<%= item_id %>"
+                        class="social-share"
+                        data-itemid="<%= item_id %>"
+                        target="blank">
+            <i class="zitem-facebook zitem-30 color"></i>
+        </a>
+        <a href="mailto:friend@example.com?subject=Check out this Zeega!&body=http://www.zeega.com/<%= item_id %>"
+                        class="social-share"
+                        data-itemid="<%= item_id %>">
+            <i class="zitem-tumblr zitem-30 color"></i>
+        </a>
+    </div>
+</div>

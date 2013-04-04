@@ -5360,13 +5360,30 @@ html {
 #main.modal {
   -webkit-filter: blur(4px);
 }
+.col-left,
+.col-middle,
+.col-right {
+  float: left;
+  margin-left: 10px;
+}
+.col-left {
+  width: 305px;
+}
+.col-middle {
+  width: calc(100% - 180px - 315px);
+}
+.col-right {
+  width: 150px;
+}
+.left-column,
+.right-column {
+  height: calc(100% - 66px);
+}
 .left-column {
   position: absolute;
   width: 305px;
   z-index: 10;
-  top: 10px;
   left: 10px;
-  bottom: 10px;
 }
 .edit-box {
   width: calc(100% - 170px);
@@ -5386,7 +5403,6 @@ html {
   clear: both;
 }
 .right-column {
-  height: 100%;
   left: 327px;
   min-width: 630px;
   position: absolute;
@@ -6063,6 +6079,36 @@ html {
 .pause-zcon {
   background-position: -25px 0px;
 }
+[class^="socialz-"] {
+  background-image: url('../img/sprites-social-search-30.png');
+  background-position: 0px 0px;
+  background-repeat: no-repeat;
+  display: inline-block;
+  height: 30px;
+  vertical-align: text-top;
+  width: 30px;
+}
+.socialz-zeega {
+  background-position: 0px -30px;
+}
+.socialz-soundcloud {
+  background-position: 0px -60px;
+}
+.socialz-giphy {
+  background-position: 0px -90px;
+}
+.socialz-flickr {
+  background-position: 0px -120px;
+}
+.socialz-instagram {
+  background-position: 0px -150px;
+}
+.socialz-youtube {
+  background-position: 0px -180px;
+}
+.socialz-user {
+  background-position: 0px -210px;
+}
 [class^="zsocial-"] {
   background-image: url('../img/social-sprites-20px.png');
   background-position: 0px 0px;
@@ -6084,18 +6130,123 @@ html {
 .zsocial-email {
   background-position: 0px -51px;
 }
-.project-preview {
-  position: absolute;
-  bottom: 10px;
+.btnz {
+  background: url(../img/tiny-stripes-dark.png);
+  background-color: #666;
+  border-radius: 2px;
+  padding: 5px;
+  font-size: 15px;
+  top: 0;
+  height: 20px;
+  color: white;
+  text-align: center;
+  transition: all 0.5s;
+  -webkit-transition: all 0.5s;
+}
+.btnz.btnz-fullwidth {
+  display: block;
+}
+.btnz:link,
+.btnz:visited {
+  color: white;
+}
+.btnz:hover {
+  background-color: orange;
+  color: white;
+  box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.5);
+}
+.btnz.btnz-blue {
+  background-color: #06C;
+}
+.btnz.btnz-blue:hover {
+  background-color: #6FF;
+}
+.project-head {
+  padding: 10px 0;
+  font-size: 1.75em;
+  color: #555;
+  z-index: 100;
+  position: relative;
+  *zoom: 1;
+}
+.project-head:before,
+.project-head:after {
+  display: table;
+  content: "";
+  line-height: 0;
+}
+.project-head:after {
+  clear: both;
+}
+.project-head .nav {
+  float: left;
+  *zoom: 1;
+}
+.project-head .nav:before,
+.project-head .nav:after {
+  display: table;
+  content: "";
+  line-height: 0;
+}
+.project-head .nav:after {
+  clear: both;
+}
+.project-head .project-info {
+  float: left;
+  width: calc(100% - 175px);
+  border-bottom: 2px dotted transparent;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+}
+.project-head .project-info:hover,
+.project-head .project-info:focus {
+  border-bottom: 2px dotted #999;
+  outline: none;
+  background: rgba(255, 255, 0, 0.25);
+}
+.project-head .project-preview {
+  float: right;
+}
+.project-head .project-share {
+  position: relative;
+}
+.share-grave {
+  background: url(../img/tiny-stripes-dark.png);
+  background-color: #ccc;
+  clear: both;
+  display: none;
+  box-shadow: inset 0px 5px 5px rgba(0, 0, 0, 0.25);
+  padding: 10px;
+  *zoom: 1;
+}
+.share-grave:before,
+.share-grave:after {
+  display: table;
+  content: "";
+  line-height: 0;
+}
+.share-grave:after {
+  clear: both;
+}
+.share-grave .close-wrapper {
+  text-align: right;
+}
+.share-grave .close-wrapper a {
+  color: #555;
+  height: 20px;
+  display: inline-block;
+  top: -11px;
+  position: relative;
+}
+.share-grave .project-share {
+  float: right;
 }
 .playback {
   background: url(../img/tiny-stripes-dark.png);
   position: absolute;
   width: 100%;
   bottom: 10px;
-}
-.navbar {
-  margin-bottom: 10px;
 }
 .ZEEGA-modal {
   position: fixed;
@@ -6263,11 +6414,19 @@ html {
   background: url(../img/tiny-stripes-dark.png);
 }
 .ZEEGA-hmenu.light {
-  background: rgba(255, 255, 255, 0.1);
+  background: white;
   box-shadow: 0 3px 5px rgba(0, 0, 0, 0.25);
 }
 .ZEEGA-hmenu .logo a {
   padding: 4px 10px;
+}
+.ZEEGA-hmenu.img-tabs > ul > li > a {
+  padding: 0;
+  margin-right: 5px;
+}
+.ZEEGA-hmenu.img-tabs > ul > li > a:hover {
+  background: yellow;
+  box-shadow: none;
 }
 .ZEEGA-hmenu ul {
   margin: 0;
@@ -6392,43 +6551,6 @@ a:hover {
 a:active {
   text-decoration: none;
   color: #ccc;
-}
-.project-head {
-  padding: 10px 0;
-  font-size: 1.75em;
-  color: #555;
-  height: 35px;
-  *zoom: 1;
-}
-.project-head:before,
-.project-head:after {
-  display: table;
-  content: "";
-  line-height: 0;
-}
-.project-head:after {
-  clear: both;
-}
-.project-head .project-info {
-  float: left;
-  width: calc(100% - 175px);
-  border-bottom: 2px dotted transparent;
-}
-.project-head .project-info:hover,
-.project-head .project-info:focus {
-  border-bottom: 2px dotted #999;
-  outline: none;
-  background: rgba(255, 255, 0, 0.25);
-}
-.project-head .project-share {
-  float: left;
-  margin-right: 10px;
-}
-.project-head .project-share a {
-  opacity: 0.75;
-}
-.project-head .project-share a:hover {
-  opacity: 1;
 }
 .ZEEGA-sequences {
   display: none;
@@ -6765,7 +6887,7 @@ a:active {
   position: absolute;
   min-height: 320px;
   width: 100%;
-  height: calc(100% - 118px);
+  height: calc(100% - 88px);
   overflow: hidden;
   *zoom: 1;
 }
@@ -6890,7 +7012,7 @@ a:active {
 .media-drawer {
   border: 1px solid orangered;
   bottom: 0;
-  top: 45px;
+  top: 0;
   position: absolute;
   width: 100%;
   overflow: hidden;

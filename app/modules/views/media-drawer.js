@@ -28,13 +28,6 @@ function( app, MediaUpload ) {
             collection.view.render();
         },
 
-        renderUpload: function() {
-            var uploadView = new MediaUpload();
-            this.$(".ZEEGA-items").empty().append(uploadView.el);
-            uploadView.render();
-
-
-        },
 
         events: {
             "click .clear-search": "clearSearch",
@@ -48,18 +41,7 @@ function( app, MediaUpload ) {
         },
 
         onMediaToggle: function(event){
-
-
-
-            var api = $(event.target).data("api");
-
-
-            if( api == "Upload"){
-                this.renderUpload();
-                return false;
-
-            }
-
+            var api = $(event.target).closest("a").data("api");
 
             this.$el.find(".search-box").attr("placeholder", "search " + api);
             this.model.setAPI( api );

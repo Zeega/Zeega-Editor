@@ -67,7 +67,7 @@ function( app ) {
                 height = h - 20;
                 width = this.aspectRatio * height;
             } else {
-                width = w - 20;
+                width = w - 20 ;
                 height = width / this.aspectRatio;
             }
 

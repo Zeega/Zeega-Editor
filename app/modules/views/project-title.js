@@ -8,20 +8,46 @@ function( app ) {
     return Backbone.View.extend({
 
         drawerClass: "",
-        template: "project-preview",
+        template: "project-title",
         
         serialize: function() {
             return _.extend({ drawerClass: this.drawerClass }, this.model.project.toJSON() );
         },
 
+        afterRender: function() {
+
+            if ( app.project.get("cover_image") === "" ) {
+                this.model.on("layer_added", this.onLayerAdded, this );
+            }
+
+            this.model.project.on("sync", this.render, this );
+        },
+
         events: {
-            "click .preview": "projectPreview"
+            "keypress .project-info": "onTitleKeyup",
+            "blur .project-info": "onBlur",
+            // "click .project-share-toggle": "toggleShare",
+        },
+
+        onTitleKeyup: function( e ) {
+            if ( e.which == 13 ) {
+                this.$(".project-info").blur();
+                return false;
+            }
+        },
+
+        onMenuClick: function( e ) {
+            var $target = $(e.target).closest("a");
+
+            if ( !$target.hasClass("disabled") ) {
+                this[ $target.data("action") ]();
+            }
         },
 
         projectPreview: function() {
             var projectData = app.project.getProjectJSON();
             
-            console.log("preview project", projectData);
+console.log("preview project", projectData);
             app.zeegaplayer = new Zeega.player({
                 data: projectData,
                 startFrame: app.status.get("currentFrame").id,
@@ -45,8 +71,13 @@ function( app ) {
 
         stopListeningToPlayer: function() {
             $("body").unbind("keyup.player");
-        }
+        },
 
+        onBlur: function() {
+            if ( this.model.project.get("title") != this.$(".project-info").text() ) {
+                this.model.project.save("title", this.$(".project-info").text() );
+            }
+        }
     });
 
 });

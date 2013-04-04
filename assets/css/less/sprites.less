@@ -184,6 +184,28 @@
   background-position: -25px 0px;
 }
 
+[class^="socialz-"] {
+  
+  background-image: url('@{image-folder}/sprites-social-search-30.png');
+  background-position: 0px 0px;
+  background-repeat: no-repeat;
+  display: inline-block;
+  height: 30px;
+  vertical-align: text-top;
+  width: 30px;  
+}
+
+.socialz-mixin(@position) {
+  background-position: (0px)  (@position*-30px);
+}
+
+.socialz-zeega        { .socialz-mixin(1) }
+.socialz-soundcloud       { .socialz-mixin(2) }
+.socialz-giphy         { .socialz-mixin(3) }
+.socialz-flickr          { .socialz-mixin(4) }
+.socialz-instagram          { .socialz-mixin(5) }
+.socialz-youtube          { .socialz-mixin(6) }
+.socialz-user          { .socialz-mixin(7) }
 
 [class^="zsocial-"] {
   

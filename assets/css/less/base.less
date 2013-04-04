@@ -8,13 +8,40 @@ html {
     -webkit-filter: blur(4px);
 }
 
+
+.col-left,
+.col-middle,
+.col-right {
+    float: left;
+    margin-left: 10px;
+}
+
+.col-left {
+    width: 305px;
+}
+
+.col-middle {
+    width: calc(~"100% - 180px - 315px");
+}
+
+.col-right {
+    width: 150px;
+}
+
+
+.left-column,
+.right-column {
+    height: calc( ~"100% - 66px" );
+}
+
+
 .left-column {
     position: absolute;
     width: 305px;
     z-index: 10;
-    top: 10px;
+    // top: 56px;
     left: 10px;
-    bottom: 10px;
+    // bottom: 10px;
 }
 
 .edit-box {
@@ -27,7 +54,6 @@ html {
 }
 
 .right-column {
-    height: 100%;
     left: 327px;
     min-width: 630px;
     position: absolute;
