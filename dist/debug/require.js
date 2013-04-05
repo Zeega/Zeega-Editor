@@ -84189,6 +84189,9 @@ function( app, LayerList ) {
             this.$("ul.layer-list").sortable({
                 containment: "parent",
                 tolerance: "pointer",
+                start: function() {
+                    app.status.setCurrentLayer( null );
+                },
                 update: function( e, ui ) {
                     this.updateLayerOrder( frameModel );
                 }.bind(this)
