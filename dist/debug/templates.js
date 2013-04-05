@@ -243,71 +243,59 @@ return __p;
 this["JST"]["app/templates/project-head.html"] = function(obj){
 var __p='';var print=function(){__p+=Array.prototype.join.call(arguments, '')};
 with(obj||{}){
-__p+='<div class="nav col-left navbar ZEEGA-hmenu clear">\n    <ul class=\'pull-left\'>\n        <li class=\'logo\'>\n            <a href="#"><img src="assets/img/zeega-logo-header.png"/></a>\n        </li>\n    </ul>\n    <ul class=\'pull-right\'>\n        <li>\n            <a href="http://www.zeega.org/user/'+
+__p+='<div class="nav col-left navbar ZEEGA-hmenu clear">\n    <ul class=\'pull-left\'>\n        <li class=\'logo\'>\n            <a href="'+
+( webRoot )+
+'"><img src="assets/img/zeega-logo-header.png"/></a>\n        </li>\n    </ul>\n    <ul class=\'pull-right\'>\n        <li>\n            <a href="'+
+( webRoot )+
+'profile/'+
 ( userId )+
-'" target="blank"><i class="icon-user"></i></a>\n        </li>\n        <li>\n            <a href="#"><i class="icon-folder-open"></i></a>\n            <ul class="submenu">\n                <li>\n                    <a href="/'+
-( root )+
+'" ><i class="icon-user"></i></a>\n        </li>\n        <li>\n            <a href="#"><i class="icon-folder-open"></i></a>\n            <ul class="submenu">\n                <li>\n                    <a href="'+
+( webRoot )+
 'project/new" data-bypass="true" ><i class="icon-file"></i> New Zeega</a>\n                </li>\n                <li class="divider"></li>\n\n                ';
  _.each( userProjects, function( project) { 
-;__p+='\n                    <li>\n                        <a href="/'+
+;__p+='\n                    <li>\n                        <a href="'+
+( webRoot )+
+'editor/'+
 ( project.id )+
 '"  data-bypass="true" >'+
 ( project.title )+
 '</a>\n                    </li>\n                ';
  }); 
-;__p+='\n\n            </ul>\n        </li>\n        <li>\n            <a href="http://www.zeega.org/faq/" target="blank"><i class="icon-question-sign"></i></a>\n        </li>\n    </ul>\n</div>\n<div class="project-title col-middle clearfix">\n    <div class="project-info" contenteditable>'+
+;__p+='\n\n            </ul>\n        </li>\n        <li>\n            <a href="#" target="blank"><i class="icon-question-sign"></i></a>\n        </li>\n    </ul>\n</div>\n<div class="project-title col-middle clearfix">\n    <div class="project-info" contenteditable>'+
 ( title )+
-'</div>\n    <a href="#" class="project-preview btnz"><i class="icon-play icon-white"></i> Preview</a>\n</div>\n<div class="project-share col-right clearfix">\n    <a href="#" class="project-share btnz btnz-blue btnz-fullwidth"><i class="icon-retweet icon-white"></i> Share</a>\n</div>\n\n<div class="share-grave">\n\n    <div class="close-wrapper">\n        <a href="#" class="close-grave">&times;</a>\n    </div>\n\n    <div class="project-share">\n        <a href="https://twitter.com/intent/tweet?original_referer=http://www.zeega.com/'+
+'</div>\n    <a href="#" class="project-preview btnz"><i class="icon-play icon-white"></i> Preview</a>\n</div>\n<div class="project-share col-right clearfix">\n    <a href="#" class="project-share btnz btnz-blue btnz-fullwidth"><i class="icon-retweet icon-white"></i> Share</a>\n</div>\n\n<div class="share-grave">\n\n    <div class="close-wrapper">\n        <a href="#" class="close-grave">&times;</a>\n    </div>\n\n    <div class="project-share">\n\n\n        < >\n        <input class="text-box" type="text" value=\'<iframe src="'+
+( webRoot )+
+''+
+( item_id )+
+'/embed" width="100%" height="100%" webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe>\'></input>\n        ∞\n        <input class="text-box" type="text" value="'+
+( webRoot )+
+''+
+( item_id )+
+'"></input>\n        <a href="https://twitter.com/intent/tweet?original_referer='+
+( webRoot )+
+''+
 ( item_id )+
 '&text=Zeega%20Project%3A%20'+
 ( title )+
-' &url=http://www.zeega.com/'+
+' &url='+
+( webRoot )+
+''+
 ( item_id )+
 '"\n                        class="social-share"\n                        data-itemid="'+
 ( item_id )+
-'"\n                        target="blank">\n            <i class="zitem-twitter zitem-30 color"></i>\n        </a>\n        <a href="http://www.facebook.com/sharer.php?u=http://www.zeega.com/'+
+'"\n                        target="blank">\n            <i class="zitem-twitter zitem-30 color"></i>\n        </a>\n        <a href="http://www.facebook.com/sharer.php?u='+
+( webRoot )+
+''+
 ( item_id )+
 '"\n                        class="social-share"\n                        data-itemid="'+
 ( item_id )+
-'"\n                        target="blank">\n            <i class="zitem-facebook zitem-30 color"></i>\n        </a>\n        <a href="mailto:friend@example.com?subject=Check out this Zeega!&body=http://www.zeega.com/'+
+'"\n                        target="blank">\n            <i class="zitem-facebook zitem-30 color"></i>\n        </a>\n        <a href="mailto:friend@example.com?subject=Check out this Zeega!&body='+
+( webRoot )+
+''+
 ( item_id )+
 '"\n                        class="social-share"\n                        data-itemid="'+
 ( item_id )+
 '">\n            <i class="zitem-tumblr zitem-30 color"></i>\n        </a>\n    </div>\n</div>';
-}
-return __p;
-};
-
-this["JST"]["app/templates/project-share.html"] = function(obj){
-var __p='';var print=function(){__p+=Array.prototype.join.call(arguments, '')};
-with(obj||{}){
-__p+='<div class="project-preview"><a href="#"><i class="icon-retweet icon-white"></i> Share</a></div>\n\n<div class="share-grave">\n\n    <div class="project-share">\n        <a href="https://twitter.com/intent/tweet?original_referer=http://www.zeega.com/'+
-( item_id )+
-'&text=Zeega%20Project%3A%20'+
-( title )+
-' &url=http://www.zeega.com/'+
-( item_id )+
-'"\n                        class="social-share"\n                        data-itemid="'+
-( item_id )+
-'"\n                        target="blank">\n            <i class="zitem-twitter zitem-30 color"></i>\n        </a>\n        <a href="http://www.facebook.com/sharer.php?u=http://www.zeega.com/'+
-( item_id )+
-'"\n                        class="social-share"\n                        data-itemid="'+
-( item_id )+
-'"\n                        target="blank">\n            <i class="zitem-facebook zitem-30 color"></i>\n        </a>\n        <a href="mailto:friend@example.com?subject=Check out this Zeega!&body=http://www.zeega.com/'+
-( item_id )+
-'"\n                        class="social-share"\n                        data-itemid="'+
-( item_id )+
-'">\n            <i class="zitem-tumblr zitem-30 color"></i>\n        </a>\n    </div>\n</div>';
-}
-return __p;
-};
-
-this["JST"]["app/templates/project-title.html"] = function(obj){
-var __p='';var print=function(){__p+=Array.prototype.join.call(arguments, '')};
-with(obj||{}){
-__p+='<div class="project-info" contenteditable>'+
-( title )+
-'</div>\n<div class="project-preview"><a href="#"><i class="icon-play icon-white"></i> Preview</a></div>';
 }
 return __p;
 };
@@ -393,7 +381,7 @@ return __p;
 this["JST"]["app/zeega-parser/plugins/controls/linkimage/linkimage.html"] = function(obj){
 var __p='';var print=function(){__p+=Array.prototype.join.call(arguments, '')};
 with(obj||{}){
-__p+='<div class="control-name">type</div>\n<select class="link-image-select">\n    <option value="arrow_up">Up Arrow</option>\n    <option value="arrow_down">Down Arrow</option>\n    <option value="arrow_left">Left Arrow</option>\n    <option value="arrow_right">Right Arrow</option>\n    <option value="default">Glowing Rectangle</option>\n</select>';
+__p+='<div class="control-name">image</div>\n<select class="link-image-select">\n    <option value="arrow_up">Up Arrow</option>\n    <option value="arrow_down">Down Arrow</option>\n    <option value="arrow_left">Left Arrow</option>\n    <option value="arrow_right">Right Arrow</option>\n    <option value="default">none</option>\n</select>';
 }
 return __p;
 };
@@ -475,7 +463,7 @@ return __p;
 this["JST"]["app/zeega-parser/plugins/layers/link/frame-chooser.html"] = function(obj){
 var __p='';var print=function(){__p+=Array.prototype.join.call(arguments, '')};
 with(obj||{}){
-__p+='<a href="#" class="modal-close">&times;</a>\n<div class="modal-content">\n    <div class="modal-title">Where do you want your link to go?</div>\n    <div class="modal-body">\n        <ul class="frame-chooser-list clearfix">\n        </ul>\n        <div class="bottom-chooser">\n            <div class="new-frame">\n                <a href="#" class="link-new-frame"><i class="icon-plus"></i> New Page</a>\n            </div>\n            <a href="#" class="submit">OK</a>\n        </div>\n    </div>\n</div>\n';
+__p+='<a href="#" class="close">&times;</a>\n<div class="modal-content">\n    <div class="modal-title">Where do you want your link to go?</div>\n    <div class="modal-body">\n        <ul class="frame-chooser-list clearfix">\n        </ul>\n        <div class="bottom-chooser">\n            <div class="new-frame">\n                <a href="#" class="link-new-frame"><i class="icon-plus icon-white"></i> New Page</a>\n            </div>\n            <a href="#" class="submit">OK</a>\n        </div>\n    </div>\n</div>\n';
 }
 return __p;
 };
