@@ -3,7 +3,7 @@ require.config({
 
   // Initialize the application with the main application file and the JamJS
   // generated configuration file.
-  deps: ["zeegaplayer", "../vendor/jam/require.config", "main"],
+  deps: [ "../vendor/simple-color-picker/src/jquery.simple-color", "zeegaplayer", "../vendor/jam/require.config", "main"],
 
   paths: {
 
