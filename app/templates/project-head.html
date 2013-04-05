@@ -1,12 +1,12 @@
 <div class="nav col-left navbar ZEEGA-hmenu clear">
     <ul class='pull-left'>
         <li class='logo'>
-            <a href="#"><img src="assets/img/zeega-logo-header.png"/></a>
+            <a href="<%= webRoot %>"><img src="assets/img/zeega-logo-header.png"/></a>
         </li>
     </ul>
     <ul class='pull-right'>
         <li>
-            <a href="<%= webRoot %>/profile/<%= userId %>" target="blank"><i class="icon-user"></i></a>
+            <a href="<%= webRoot %>profile/<%= userId %>" ><i class="icon-user"></i></a>
         </li>
         <li>
             <a href="#"><i class="icon-folder-open"></i></a>
@@ -18,7 +18,7 @@
 
                 <% _.each( userProjects, function( project) { %>
                     <li>
-                        <a href="<%= webRoot %>/editor/<%= project.id %>"  data-bypass="true" ><%= project.title %></a>
+                        <a href="<%= webRoot %>editor/<%= project.id %>"  data-bypass="true" ><%= project.title %></a>
                     </li>
                 <% }); %>
 
