@@ -40,6 +40,8 @@ function( app, UploadView ) {
         afterRender: function() {
             this.renderItems();
             this._afterRender();
+console.log( this.$(".media-collection-header").height() );
+            this.$(".media-collection-wrapper").css("top", this.$(".media-collection-header").height() + "px" );
         },
 
         //extend this function
@@ -124,7 +126,7 @@ function( app, UploadView ) {
 
         _afterRender: function(){
             var uploadView = new UploadView({ model: this.model });
-            this.$el.find(".media-collection-header").prepend( uploadView.el );
+            this.$el.find(".media-collection-header").append( uploadView.el );
             uploadView.render();
         }
 

@@ -62,12 +62,25 @@ function( app ) {
         className: "media-upload",
 
         events: {
-
-            "change .add-photo input" : "imageUpload",
+            "click .upload-image-action": "showUploadImage",
+            "click .paste-url-action": "showPasteBox",
+            "change .add-photo input": "imageUpload",
             "keyup .url-box": "onSearchKeyPress"
-
         },
 
+        showUploadImage: function() {
+            this.$(".upload-file").show();
+            this.$(".paste-url").hide();
+            this.$(".upload-image-action").addClass("active");
+            this.$(".paste-url-action").removeClass("active");
+        },
+
+        showPasteBox: function() {
+            this.$(".upload-file").hide();
+            this.$(".paste-url").show();
+            this.$(".upload-image-action").removeClass("active");
+            this.$(".paste-url-action").addClass("active");
+        },
         
         onSearchKeyPress: function( e ) {
             if ( e.which == 13 ) {

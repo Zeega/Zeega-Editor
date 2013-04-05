@@ -5,7 +5,7 @@
 }
 
 .media-collection {
-
+    position: relative;
     background: url(../img/transparency-grid-dark.png);
     height: 100%;
 
@@ -22,14 +22,14 @@
     }
     
     .media-collection-header {
-        position: absolute;
+        position: relative;
         z-index:1;
-        width: 280px;
+        width: 285px;
         background: orangered;
         padding: 5px 10px;
         color: white;
         font-size: 18px;
-        height:42px;
+        .clearfix;
 
         .media-collection-extras{
             float:right;
@@ -52,10 +52,54 @@
             clear:both;
         }
 
+
+        .media-upload {
+            clear: both;
+            padding: 10px 0;
+            font-size: 14px;
+
+            a:link, a:visited, a:hover, a:active {
+                color: white;
+            }
+
+            a {
+                opacity: 1;
+            }
+            a.active {
+                opacity: 0.75;
+            }
+
+            .upload-chooser {
+                margin-bottom: 10px;
+            }
+
+            .upload-file {
+
+            }
+
+            .paste-url {
+                display: none;
+            }
+
+            .url-box {
+                width: 100%;
+                border: 0;
+            }
+        }
+
     }
+
+
+    .media-collection-wrapper {
+        overflow-y: scroll;
+        overflow-x: hidden;
+        position: absolute;
+        bottom: 0;
+        width: 100%;
+    }
+
     .media-collection-items {
         .clearfix;
-        padding-top: 52px;
         position: relative;
         
         img {

@@ -192,11 +192,14 @@
   display: inline-block;
   height: 30px;
   vertical-align: text-top;
-  width: 30px;  
+  width: 30px;
 }
 
 .socialz-mixin(@position) {
   background-position: (0px)  (@position*-30px);
+  &.socialz-white {
+    background-position: (-30px)  (@position*-30px);
+  }
 }
 
 .socialz-zeega        { .socialz-mixin(1) }
