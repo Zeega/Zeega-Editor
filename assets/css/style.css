@@ -6229,6 +6229,9 @@ html {
 .share-grave:after {
   clear: both;
 }
+.share-grave .text-box {
+  font-size: 80%;
+}
 .share-grave .close-wrapper {
   text-align: right;
 }

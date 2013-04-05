@@ -250,7 +250,7 @@ function( app, ItemModel, MediaView, ItemCollectionViewer ) {
                     type: "-project AND -Collection AND -Video",
                     page: 1,
                     q: "",
-                    limit: 20,
+                    limit: 48,
                     user: 1,
                     sort: "date-desc"
             },
@@ -303,7 +303,7 @@ function( app, ItemModel, MediaView, ItemCollectionViewer ) {
                     type: "-project AND -Collection AND -Video",
                     page: 1,
                     q: "",
-                    limit: 20,
+                    limit: 48,
                     data_source: "db",
                     user: function() {
                         return app.userId;

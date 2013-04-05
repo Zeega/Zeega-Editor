@@ -13,19 +13,24 @@ function( app ) {
             return _.extend({
                 userId: app.userId,
                 userProjects: $.parseJSON( window.userProjects ),
-                directory: app.directory,
-                root: app.root
+                api: app.api
+
             }, this.model.project.toJSON() );
         },
-
         events: {
             "click .project-share a": "toggleShareGrave",
             "keypress .project-info": "onTitleKeyup",
             "blur .project-info": "onBlur",
             "click .project-preview": "projectPreview",
 
-            "click .close-grave": "closeGrave"
+            "click .close-grave": "closeGrave",
+            "mousedown .text-box": "onBoxFocus"
             // "click .project-share-toggle": "toggleShare",
+        },
+
+        onBoxFocus: function( e ) {
+            $(e.target).select();
+            return false;
         },
 
         closeGrave: function() {
@@ -52,12 +57,11 @@ function( app ) {
         },
 
         projectPreview: function() {
-            
+
             this.model.project.save( "publish_update", 1 );
             
             var projectData = app.project.getProjectJSON();
-            
-            console.log("preview project", projectData);
+
             app.zeegaplayer = new Zeega.player({
                 data: projectData,
                 startFrame: app.status.get("currentFrame").id,
@@ -67,6 +71,9 @@ function( app ) {
                     close: true
                 }
             });
+
+            //this is a wild hack, should not be necessary
+            app.zeegaplayer.status.set("frameHistory",[]);
 
             // listen for esc key to close preview
             $("body").bind("keyup.player", function( e ) {
