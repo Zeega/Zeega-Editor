@@ -629,19 +629,23 @@ return __p;
 this["JST"]["app/templates/project-head.html"] = function(obj){
 var __p='';var print=function(){__p+=Array.prototype.join.call(arguments, '')};
 with(obj||{}){
-__p+='<div class="nav col-left navbar ZEEGA-hmenu clear">\n    <ul class=\'pull-left\'>\n        <li class=\'logo\'>\n            <a href="#"><img src="assets/img/zeega-logo-header.png"/></a>\n        </li>\n    </ul>\n    <ul class=\'pull-right\'>\n        <li>\n            <a href="http://www.zeega.org/user/'+
+__p+='<div class="nav col-left navbar ZEEGA-hmenu clear">\n    <ul class=\'pull-left\'>\n        <li class=\'logo\'>\n            <a href="#"><img src="assets/img/zeega-logo-header.png"/></a>\n        </li>\n    </ul>\n    <ul class=\'pull-right\'>\n        <li>\n            <a href="'+
+( webRoot )+
+'/profile/'+
 ( userId )+
-'" target="blank"><i class="icon-user"></i></a>\n        </li>\n        <li>\n            <a href="#"><i class="icon-folder-open"></i></a>\n            <ul class="submenu">\n                <li>\n                    <a href="/'+
-( api )+
+'" target="blank"><i class="icon-user"></i></a>\n        </li>\n        <li>\n            <a href="#"><i class="icon-folder-open"></i></a>\n            <ul class="submenu">\n                <li>\n                    <a href="'+
+( webRoot )+
 'project/new" data-bypass="true" ><i class="icon-file"></i> New Zeega</a>\n                </li>\n                <li class="divider"></li>\n\n                ';
  _.each( userProjects, function( project) { 
-;__p+='\n                    <li>\n                        <a href="/'+
+;__p+='\n                    <li>\n                        <a href="'+
+( webRoot )+
+'/editor/'+
 ( project.id )+
 '"  data-bypass="true" >'+
 ( project.title )+
 '</a>\n                    </li>\n                ';
  }); 
-;__p+='\n\n            </ul>\n        </li>\n        <li>\n            <a href="http://www.zeega.org/faq/" target="blank"><i class="icon-question-sign"></i></a>\n        </li>\n    </ul>\n</div>\n<div class="project-title col-middle clearfix">\n    <div class="project-info" contenteditable>'+
+;__p+='\n\n            </ul>\n        </li>\n        <li>\n            <a href="#" target="blank"><i class="icon-question-sign"></i></a>\n        </li>\n    </ul>\n</div>\n<div class="project-title col-middle clearfix">\n    <div class="project-info" contenteditable>'+
 ( title )+
 '</div>\n    <a href="#" class="project-preview btnz"><i class="icon-play icon-white"></i> Preview</a>\n</div>\n<div class="project-share col-right clearfix">\n    <a href="#" class="project-share btnz btnz-blue btnz-fullwidth"><i class="icon-retweet icon-white"></i> Share</a>\n</div>\n\n<div class="share-grave">\n\n    <div class="close-wrapper">\n        <a href="#" class="close-grave">&times;</a>\n    </div>\n\n    <div class="project-share">\n\n\n        < >\n        <input class="text-box" type="text" value=\'<iframe src="http://zeega.com/'+
 ( item_id )+
@@ -68396,10 +68400,10 @@ define('app',[
         projectId: meta.data("projectId")|| null,
         root: meta.data("root")|| null,
         apiRoot: meta.data("apiRoot")||  null, // dev only
+        
+        webRoot:  "http:" + meta.data("hostname") +  ( meta.data("apiRoot") ? meta.data("apiRoot") : meta.data("root") ) || null,
         api: "http:" + meta.data("hostname") +  ( meta.data("apiRoot") ? meta.data("apiRoot") : meta.data("root") ) + "api/"|| null,
-
         mediaServer: "http:" + meta.data("hostname") + meta.data("mediaRoot") || null,
-
         searchAPI: "http:" + meta.data("hostname") +  ( meta.data("apiRoot") ? meta.data("apiRoot") : meta.data("root") ) + "api/items/search?"|| null,
         featuredAPI: "http:" + meta.data("hostname") +  ( meta.data("apiRoot") ? meta.data("apiRoot") : meta.data("root") ) + "api/items/featured" || null
     
@@ -68572,7 +68576,7 @@ function( app ) {
             return _.extend({
                 userId: app.userId,
                 userProjects: $.parseJSON( window.userProjects ),
-                api: app.api
+                webRoot: app.webRoot
 
             }, this.model.project.toJSON() );
         },
