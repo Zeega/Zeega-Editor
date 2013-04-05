@@ -6,26 +6,26 @@
     </ul>
     <ul class='pull-right'>
         <li>
-            <a href="http://www.zeega.org/user/<%= userId %>" target="blank"><i class="icon-user"></i></a>
+            <a href="<%= webRoot %>/profile/<%= userId %>" target="blank"><i class="icon-user"></i></a>
         </li>
         <li>
             <a href="#"><i class="icon-folder-open"></i></a>
             <ul class="submenu">
                 <li>
-                    <a href="/<%= api %>project/new" data-bypass="true" ><i class="icon-file"></i> New Zeega</a>
+                    <a href="<%= webRoot %>project/new" data-bypass="true" ><i class="icon-file"></i> New Zeega</a>
                 </li>
                 <li class="divider"></li>
 
                 <% _.each( userProjects, function( project) { %>
                     <li>
-                        <a href="/<%= project.id %>"  data-bypass="true" ><%= project.title %></a>
+                        <a href="<%= webRoot %>/editor/<%= project.id %>"  data-bypass="true" ><%= project.title %></a>
                     </li>
                 <% }); %>
 
             </ul>
         </li>
         <li>
-            <a href="http://www.zeega.org/faq/" target="blank"><i class="icon-question-sign"></i></a>
+            <a href="#" target="blank"><i class="icon-question-sign"></i></a>
         </li>
     </ul>
 </div>

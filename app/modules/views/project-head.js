@@ -13,7 +13,7 @@ function( app ) {
             return _.extend({
                 userId: app.userId,
                 userProjects: $.parseJSON( window.userProjects ),
-                api: app.api
+                webRoot: app.webRoot
 
             }, this.model.project.toJSON() );
         },
