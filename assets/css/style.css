@@ -6275,6 +6275,7 @@ html {
   width: 100%;
   background: rgba(0, 0, 0, 0.75);
   z-index: 20;
+  top: 0;
 }
 .ZEEGA-modal .modal-close {
   font-size: 3em;
@@ -6299,6 +6300,7 @@ html {
   border-radius: 5px;
   overflow: hidden;
   text-overflow: ellipsis;
+  white-space: nowrap;
 }
 .ZEEGA-modal .modal-content .modal-body {
   background: white;

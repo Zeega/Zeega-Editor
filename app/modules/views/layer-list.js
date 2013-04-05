@@ -99,7 +99,7 @@ function( app, LayerControls ) {
         },
 
         openControls: function() {
-            $("body").append( this.controls.el );
+            $("#main").append( this.controls.el );
             this.controls.render();
         },
 
