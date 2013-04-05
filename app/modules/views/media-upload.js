@@ -83,8 +83,9 @@ function( app ) {
         },
         
         onSearchKeyPress: function( e ) {
+            console.log("key")
             if ( e.which == 13 ) {
-                this.search( this.$(".search-box").val() );
+                this.search( this.$(".url-box").val() );
             }
         },
 
