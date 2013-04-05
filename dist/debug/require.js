@@ -573,7 +573,7 @@ __p+='<div class="media-collection-header">\n    <div class="media-collection-se
 ( placeholder )+
 '" value="'+
 ( searchQuery )+
-'" />\n            </li>\n        </ul>\n        <div class="pull-right collection-options">\n        </div>\n    </div>\n</div>\n<ul class="media-collection-items"></ul>';
+'" />\n            </li>\n        </ul>\n        <div class="pull-right collection-options">\n        </div>\n    </div>\n</div>\n<div class="media-collection-wrapper">\n    <ul class="media-collection-items"></ul>\n</div>';
 }
 return __p;
 };
@@ -581,7 +581,7 @@ return __p;
 this["JST"]["app/templates/media-drawer.html"] = function(obj){
 var __p='';var print=function(){__p+=Array.prototype.join.call(arguments, '')};
 with(obj||{}){
-__p+='<div class="media-drawer-controls ZEEGA-hmenu light img-tabs">\n        <ul class=\'pull-left\'>\n        \n        <li>\n            <a href="#" data-api = "Zeega" class="media-toggle"><i class="socialz-zeega"></i></a>\n        </li>\n        <!--\n        <li>\n            <a href="#" data-api = "Tumblr" class="media-toggle">T</i></a>\n        </li>\n        -->\n        <li>\n            <a href="#" data-api = "Soundcloud" class="media-toggle"><i class="socialz-soundcloud"></i></i></a>\n        </li>\n\n        <li>\n            <a href="#" data-api = "Giphy" class="media-toggle"><i class="socialz-giphy"></i></i></a>\n        </li>\n\n        <li>\n            <a href="#" data-api = "Flickr" class="media-toggle"><i class="socialz-flickr"></i></i></a>\n        </li>\n        <li>\n            <a href="#" data-api = "Instagram" class="media-toggle"><i class="socialz-instagram"></i></i></a>\n        </li>\n        <li>\n            <a href="#" data-api = "Youtube" class="media-toggle"><i class="socialz-youtube"></i></i></a>\n        </li>\n\n        <li >\n            <a href="#" data-api = "MyZeega" class="media-toggle">Upload</i></a>\n        </li>\n    </ul>\n    \n    \n</div>\n<ul class="ZEEGA-items"></ul>';
+__p+='<div class="media-drawer-controls ZEEGA-hmenu light img-tabs">\n        <ul class=\'pull-left\'>\n        \n        <li>\n            <a href="#" data-api = "Zeega" class="media-toggle"><i class="socialz-zeega"></i></a>\n        </li>\n        <!--\n        <li>\n            <a href="#" data-api = "Tumblr" class="media-toggle">T</i></a>\n        </li>\n        -->\n        <li>\n            <a href="#" data-api = "Soundcloud" class="media-toggle"><i class="socialz-soundcloud"></i></a>\n        </li>\n\n        <li>\n            <a href="#" data-api = "Giphy" class="media-toggle"><i class="socialz-giphy"></i></a>\n        </li>\n\n        <li>\n            <a href="#" data-api = "Flickr" class="media-toggle"><i class="socialz-flickr"></i></a>\n        </li>\n        <li>\n            <a href="#" data-api = "Instagram" class="media-toggle"><i class="socialz-instagram"></i></a>\n        </li>\n        <li>\n            <a href="#" data-api = "Youtube" class="media-toggle"><i class="socialz-youtube"></i></a>\n        </li>\n\n        <li >\n            <a href="#" data-api = "MyZeega" class="media-toggle"><i class="socialz-user"></i></a>\n        </li>\n    </ul>\n    \n    \n</div>\n<ul class="ZEEGA-items"></ul>';
 }
 return __p;
 };
@@ -589,7 +589,7 @@ return __p;
 this["JST"]["app/templates/media-upload.html"] = function(obj){
 var __p='';var print=function(){__p+=Array.prototype.join.call(arguments, '')};
 with(obj||{}){
-__p+='\n\n<div class = "image-uploads" >\n    <span class="add-photo" href="#">\n        <input id = "imagefile"  name = "imagefile"  type="file" href="#"></input>\n    </span>\n</div>\n<ul class=\'pull-left search-bar\'>\n    <li>\n        <input class="url-box" type="text" placeholder="enter url here" value="" />\n    </li>\n</ul>\n';
+__p+='<div class="upload-chooser">\n    <a href="#" class="upload-image-action active">upload image file</a> | <a href="#" class="paste-url-action">paste an image url</a>\n</div>\n\n<div class="upload-toggle">\n    <div class="upload-file">\n        <input id="imagefile"  name="imagefile"  type="file" href="#"></input>\n    </div>\n    <div class="paste-url">\n        <input class="url-box" type="text" placeholder="enter url here" value="" />\n    </div>\n</div>\n\n\n\n<!-- \n<div class = "image-uploads" >\n    <span class="add-photo" href="#">\n        <input id="imagefile"  name="imagefile"  type="file" href="#"></input>\n    </span>\n</div>\n<ul class=\'pull-left search-bar\'>\n    <li>\n        <input class="url-box" type="text" placeholder="enter url here" value="" />\n    </li>\n</ul>\n -->';
 }
 return __p;
 };
@@ -68802,7 +68802,7 @@ function( app, LayerControls ) {
         },
 
         openControls: function() {
-            $("body").append( this.controls.el );
+            $("#main").append( this.controls.el );
             this.controls.render();
         },
 
@@ -84064,12 +84064,25 @@ function( app ) {
         className: "media-upload",
 
         events: {
-
-            "change .add-photo input" : "imageUpload",
+            "click .upload-image-action": "showUploadImage",
+            "click .paste-url-action": "showPasteBox",
+            "change #imagefile": "imageUpload",
             "keyup .url-box": "onSearchKeyPress"
-
         },
 
+        showUploadImage: function() {
+            this.$(".upload-file").show();
+            this.$(".paste-url").hide();
+            this.$(".upload-image-action").addClass("active");
+            this.$(".paste-url-action").removeClass("active");
+        },
+
+        showPasteBox: function() {
+            this.$(".upload-file").hide();
+            this.$(".paste-url").show();
+            this.$(".upload-image-action").removeClass("active");
+            this.$(".paste-url-action").addClass("active");
+        },
         
         onSearchKeyPress: function( e ) {
             if ( e.which == 13 ) {
@@ -84095,10 +84108,9 @@ function( app ) {
             this.model.search("");
         },
 
-
-
         imageUpload: function(event) {
             var fileInput = event.target, imageData;
+
             imageData = new FormData();
             
             imageData.append( "file", fileInput.files[0] );
@@ -84113,25 +84125,15 @@ function( app ) {
                 fileElementId: "imagefile",
                 
                 success: function( data ) {
-
-                    // $(fileInput).parent('span').css({
-                    //     "background-image" : "url(" + data.image_url_4 + ")",
-                    //     "background-size" : "cover"
-                    // });
-
                     var item = new UploadItem({
-
                         "title": data.title,
                         "uri": data.fullsize_url,
                         "attribution_uri": data.fullsize_url,
                         "thumbnail_url": data.image_url_4
-
                     });
 
                     this.addItem( item );
-
-                    //this.$el.find(".image-uploads").append("<span class='add-photo' href='#'><input id = 'imagefile' name = 'imagefile' type='file' href='#'></input></span>");
-                    
+                    this.render();
                 }.bind(this)
             });
         }
@@ -84186,6 +84188,12 @@ function( app, MediaUpload ) {
 
         onMediaToggle: function(event){
             var api = $(event.target).closest("a").data("api");
+
+
+            this.$(".media-toggle").removeClass("active");
+            this.$(".media-toggle i").removeClass("socialz-white");
+            $(event.target).closest("a").addClass("active");
+            $(event.target).closest("a").find("i").addClass("socialz-white")
 
             this.$el.find(".search-box").attr("placeholder", "search " + api);
             this.model.setAPI( api );
@@ -105187,6 +105195,8 @@ function( app, UploadView ) {
         afterRender: function() {
             this.renderItems();
             this._afterRender();
+console.log( this.$(".media-collection-header").height() );
+            this.$(".media-collection-wrapper").css("top", this.$(".media-collection-header").height() + "px" );
         },
 
         //extend this function
@@ -105271,7 +105281,7 @@ function( app, UploadView ) {
 
         _afterRender: function(){
             var uploadView = new UploadView({ model: this.model });
-            this.$el.find(".media-collection-header").prepend( uploadView.el );
+            this.$el.find(".media-collection-header").append( uploadView.el );
             uploadView.render();
         }
 
