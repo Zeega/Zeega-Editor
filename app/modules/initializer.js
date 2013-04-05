@@ -26,7 +26,7 @@ function( app, Status, Layout, ZeegaParser, MediaBrowser ) {
 
                 // mainly for testing
 
-                rawDataModel.url = "http://dev.zeega.org/joseph/web/api/projects/8214";
+                rawDataModel.url = app.api + "projects/"+ app.projectId;
 
                 rawDataModel.fetch().success(function( response ) {
                     this._parseData( response );
