@@ -664,40 +664,6 @@ __p+='<div class="nav col-left navbar ZEEGA-hmenu clear">\n    <ul class=\'pull-
 return __p;
 };
 
-this["JST"]["app/templates/project-share.html"] = function(obj){
-var __p='';var print=function(){__p+=Array.prototype.join.call(arguments, '')};
-with(obj||{}){
-__p+='<div class="project-preview"><a href="#"><i class="icon-retweet icon-white"></i> Share</a></div>\n\n<div class="share-grave">\n\n    <div class="project-share">\n        <a href="https://twitter.com/intent/tweet?original_referer=http://www.zeega.com/'+
-( item_id )+
-'&text=Zeega%20Project%3A%20'+
-( title )+
-' &url=http://www.zeega.com/'+
-( item_id )+
-'"\n                        class="social-share"\n                        data-itemid="'+
-( item_id )+
-'"\n                        target="blank">\n            <i class="zitem-twitter zitem-30 color"></i>\n        </a>\n        <a href="http://www.facebook.com/sharer.php?u=http://www.zeega.com/'+
-( item_id )+
-'"\n                        class="social-share"\n                        data-itemid="'+
-( item_id )+
-'"\n                        target="blank">\n            <i class="zitem-facebook zitem-30 color"></i>\n        </a>\n        <a href="mailto:friend@example.com?subject=Check out this Zeega!&body=http://www.zeega.com/'+
-( item_id )+
-'"\n                        class="social-share"\n                        data-itemid="'+
-( item_id )+
-'">\n            <i class="zitem-tumblr zitem-30 color"></i>\n        </a>\n    </div>\n</div>';
-}
-return __p;
-};
-
-this["JST"]["app/templates/project-title.html"] = function(obj){
-var __p='';var print=function(){__p+=Array.prototype.join.call(arguments, '')};
-with(obj||{}){
-__p+='<div class="project-info" contenteditable>'+
-( title )+
-'</div>\n<div class="project-preview"><a href="#"><i class="icon-play icon-white"></i> Preview</a></div>';
-}
-return __p;
-};
-
 this["JST"]["app/templates/sequence.html"] = function(obj){
 var __p='';var print=function(){__p+=Array.prototype.join.call(arguments, '')};
 with(obj||{}){
@@ -68641,9 +68607,12 @@ function( app ) {
         },
 
         projectPreview: function() {
+            
+            this.model.project.save( "publishUpdate", true );
+            
             var projectData = app.project.getProjectJSON();
             
-console.log("preview project", projectData);
+            console.log("preview project", projectData);
             app.zeegaplayer = new Zeega.player({
                 data: projectData,
                 startFrame: app.status.get("currentFrame").id,

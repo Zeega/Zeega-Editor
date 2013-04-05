@@ -52,9 +52,12 @@ function( app ) {
         },
 
         projectPreview: function() {
+            
+            this.model.project.save( "publishUpdate", true );
+            
             var projectData = app.project.getProjectJSON();
             
-console.log("preview project", projectData);
+            console.log("preview project", projectData);
             app.zeegaplayer = new Zeega.player({
                 data: projectData,
                 startFrame: app.status.get("currentFrame").id,
