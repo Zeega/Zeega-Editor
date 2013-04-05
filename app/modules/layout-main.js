@@ -67,6 +67,9 @@ function( app, ProjectHead, Sequences, Frames, Workspace, Layers, LayerDrawer, S
         listenForKeys: function() {
             Mousetrap.bind(['command+c', 'ctrl+c'], this.copyLayer );
             Mousetrap.bind(['command+v', 'ctrl+v'], this.pasteLayer );
+            Mousetrap.bind(["backspace"], this.deleteLayer );
+
+            window.onbeforeunload = function() { return "Do you really want to navigate away??"; }
         },
 
         copyLayer: function() {
@@ -77,6 +80,16 @@ function( app, ProjectHead, Sequences, Frames, Workspace, Layers, LayerDrawer, S
 
                 return false;
             }
+        },
+
+        deleteLayer: function( e ) {
+            var layer = app.status.get("currentLayer");
+
+            if ( layer && confirm("do you really want to delete this layer?") ) {
+                app.status.setCurrentLayer( null );
+                app.status.get("currentFrame").layers.remove( layer );
+            }
+            e.preventDefault();
         },
 
         pasteLayer: function() {

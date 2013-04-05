@@ -104,6 +104,7 @@ function( app, LayerControls ) {
         },
 
         closeControls: function() {
+            console.log("close controls");
             this.controls.remove();
         }
         
