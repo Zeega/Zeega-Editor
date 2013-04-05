@@ -17,7 +17,7 @@ require.config({
     zeegaplayer: "../vendor/zeegaplayer/dist/debug/zeega",
 
 //    colorpicker: "../vendor/colorpicker/js/colorpicker",
-    simpleColorPicker: "../vendor/simple-color-picker/jquery.simple-color",
+    simpleColorPicker: "../vendor/simple-color-picker/src/jquery.simple-color",
     ddslick: "../assets/js/plugins/jquery.ddslick",
     mousetrap: "../vendor/mousetrap/mousetrap"
 
@@ -31,7 +31,7 @@ require.config({
 
     mousetrap: {
         exports: 'Mousetrap'
-    },
+    }
   }
 
 });
