@@ -43,6 +43,12 @@ function( app, MediaUpload ) {
         onMediaToggle: function(event){
             var api = $(event.target).closest("a").data("api");
 
+
+            this.$(".media-toggle").removeClass("active");
+            this.$(".media-toggle i").removeClass("socialz-white");
+            $(event.target).closest("a").addClass("active");
+            $(event.target).closest("a").find("i").addClass("socialz-white")
+
             this.$el.find(".search-box").attr("placeholder", "search " + api);
             this.model.setAPI( api );
             this.renderMedia();

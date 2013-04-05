@@ -187,7 +187,7 @@ __p+='<div class="media-collection-header">\n    <div class="media-collection-se
 ( placeholder )+
 '" value="'+
 ( searchQuery )+
-'" />\n            </li>\n        </ul>\n        <div class="pull-right collection-options">\n        </div>\n    </div>\n</div>\n<ul class="media-collection-items"></ul>';
+'" />\n            </li>\n        </ul>\n        <div class="pull-right collection-options">\n        </div>\n    </div>\n</div>\n<div class="media-collection-wrapper">\n    <ul class="media-collection-items"></ul>\n</div>';
 }
 return __p;
 };
@@ -195,7 +195,7 @@ return __p;
 this["JST"]["app/templates/media-drawer.html"] = function(obj){
 var __p='';var print=function(){__p+=Array.prototype.join.call(arguments, '')};
 with(obj||{}){
-__p+='<div class="media-drawer-controls ZEEGA-hmenu light img-tabs">\n        <ul class=\'pull-left\'>\n        \n        <li>\n            <a href="#" data-api = "Zeega" class="media-toggle"><i class="socialz-zeega"></i></a>\n        </li>\n        <!--\n        <li>\n            <a href="#" data-api = "Tumblr" class="media-toggle">T</i></a>\n        </li>\n        -->\n        <li>\n            <a href="#" data-api = "Soundcloud" class="media-toggle"><i class="socialz-soundcloud"></i></i></a>\n        </li>\n\n        <li>\n            <a href="#" data-api = "Giphy" class="media-toggle"><i class="socialz-giphy"></i></i></a>\n        </li>\n\n        <li>\n            <a href="#" data-api = "Flickr" class="media-toggle"><i class="socialz-flickr"></i></i></a>\n        </li>\n        <li>\n            <a href="#" data-api = "Instagram" class="media-toggle"><i class="socialz-instagram"></i></i></a>\n        </li>\n        <li>\n            <a href="#" data-api = "Youtube" class="media-toggle"><i class="socialz-youtube"></i></i></a>\n        </li>\n\n        <li >\n            <a href="#" data-api = "MyZeega" class="media-toggle">Upload</i></a>\n        </li>\n    </ul>\n    \n    \n</div>\n<ul class="ZEEGA-items"></ul>';
+__p+='<div class="media-drawer-controls ZEEGA-hmenu light img-tabs">\n        <ul class=\'pull-left\'>\n        \n        <li>\n            <a href="#" data-api = "Zeega" class="media-toggle"><i class="socialz-zeega"></i></a>\n        </li>\n        <!--\n        <li>\n            <a href="#" data-api = "Tumblr" class="media-toggle">T</i></a>\n        </li>\n        -->\n        <li>\n            <a href="#" data-api = "Soundcloud" class="media-toggle"><i class="socialz-soundcloud"></i></a>\n        </li>\n\n        <li>\n            <a href="#" data-api = "Giphy" class="media-toggle"><i class="socialz-giphy"></i></a>\n        </li>\n\n        <li>\n            <a href="#" data-api = "Flickr" class="media-toggle"><i class="socialz-flickr"></i></a>\n        </li>\n        <li>\n            <a href="#" data-api = "Instagram" class="media-toggle"><i class="socialz-instagram"></i></a>\n        </li>\n        <li>\n            <a href="#" data-api = "Youtube" class="media-toggle"><i class="socialz-youtube"></i></a>\n        </li>\n\n        <li >\n            <a href="#" data-api = "MyZeega" class="media-toggle"><i class="socialz-user"></i></a>\n        </li>\n    </ul>\n    \n    \n</div>\n<ul class="ZEEGA-items"></ul>';
 }
 return __p;
 };
@@ -203,7 +203,7 @@ return __p;
 this["JST"]["app/templates/media-upload.html"] = function(obj){
 var __p='';var print=function(){__p+=Array.prototype.join.call(arguments, '')};
 with(obj||{}){
-__p+='\n\n<div class = "image-uploads" >\n    <span class="add-photo" href="#">\n        <input id = "imagefile"  name = "imagefile"  type="file" href="#"></input>\n    </span>\n</div>\n<ul class=\'pull-left search-bar\'>\n    <li>\n        <input class="url-box" type="text" placeholder="enter url here" value="" />\n    </li>\n</ul>\n';
+__p+='<div class="upload-chooser">\n    <a href="#" class="upload-image-action active">upload image file</a> | <a href="#" class="paste-url-action">paste an image url</a>\n</div>\n\n<div class="upload-toggle">\n    <div class="upload-file">\n        <input id="imagefile"  name="imagefile"  type="file" href="#"></input>\n    </div>\n    <div class="paste-url">\n        <input class="url-box" type="text" placeholder="enter url here" value="" />\n    </div>\n</div>\n\n\n\n<!-- \n<div class = "image-uploads" >\n    <span class="add-photo" href="#">\n        <input id="imagefile"  name="imagefile"  type="file" href="#"></input>\n    </span>\n</div>\n<ul class=\'pull-left search-bar\'>\n    <li>\n        <input class="url-box" type="text" placeholder="enter url here" value="" />\n    </li>\n</ul>\n -->';
 }
 return __p;
 };

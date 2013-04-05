@@ -62,12 +62,25 @@ function( app ) {
         className: "media-upload",
 
         events: {
-
-            "change .add-photo input" : "imageUpload",
+            "click .upload-image-action": "showUploadImage",
+            "click .paste-url-action": "showPasteBox",
+            "change #imagefile": "imageUpload",
             "keyup .url-box": "onSearchKeyPress"
-
         },
 
+        showUploadImage: function() {
+            this.$(".upload-file").show();
+            this.$(".paste-url").hide();
+            this.$(".upload-image-action").addClass("active");
+            this.$(".paste-url-action").removeClass("active");
+        },
+
+        showPasteBox: function() {
+            this.$(".upload-file").hide();
+            this.$(".paste-url").show();
+            this.$(".upload-image-action").removeClass("active");
+            this.$(".paste-url-action").addClass("active");
+        },
         
         onSearchKeyPress: function( e ) {
             if ( e.which == 13 ) {
@@ -93,10 +106,9 @@ function( app ) {
             this.model.search("");
         },
 
-
-
         imageUpload: function(event) {
             var fileInput = event.target, imageData;
+
             imageData = new FormData();
             
             imageData.append( "file", fileInput.files[0] );
@@ -111,25 +123,15 @@ function( app ) {
                 fileElementId: "imagefile",
                 
                 success: function( data ) {
-
-                    // $(fileInput).parent('span').css({
-                    //     "background-image" : "url(" + data.image_url_4 + ")",
-                    //     "background-size" : "cover"
-                    // });
-
                     var item = new UploadItem({
-
                         "title": data.title,
                         "uri": data.fullsize_url,
                         "attribution_uri": data.fullsize_url,
                         "thumbnail_url": data.image_url_4
-
                     });
 
                     this.addItem( item );
-
-                    //this.$el.find(".image-uploads").append("<span class='add-photo' href='#'><input id = 'imagefile' name = 'imagefile' type='file' href='#'></input></span>");
-                    
+                    this.render();
                 }.bind(this)
             });
         }

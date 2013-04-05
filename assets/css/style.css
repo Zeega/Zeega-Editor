@@ -6091,23 +6091,44 @@ html {
 .socialz-zeega {
   background-position: 0px -30px;
 }
+.socialz-zeega.socialz-white {
+  background-position: -30px -30px;
+}
 .socialz-soundcloud {
   background-position: 0px -60px;
+}
+.socialz-soundcloud.socialz-white {
+  background-position: -30px -60px;
 }
 .socialz-giphy {
   background-position: 0px -90px;
 }
+.socialz-giphy.socialz-white {
+  background-position: -30px -90px;
+}
 .socialz-flickr {
   background-position: 0px -120px;
+}
+.socialz-flickr.socialz-white {
+  background-position: -30px -120px;
 }
 .socialz-instagram {
   background-position: 0px -150px;
 }
+.socialz-instagram.socialz-white {
+  background-position: -30px -150px;
+}
 .socialz-youtube {
   background-position: 0px -180px;
 }
+.socialz-youtube.socialz-white {
+  background-position: -30px -180px;
+}
 .socialz-user {
   background-position: 0px -210px;
+}
+.socialz-user.socialz-white {
+  background-position: -30px -210px;
 }
 [class^="zsocial-"] {
   background-image: url('../img/social-sprites-20px.png');
@@ -6257,6 +6278,7 @@ html {
   width: 100%;
   background: rgba(0, 0, 0, 0.75);
   z-index: 20;
+  top: 0;
 }
 .ZEEGA-modal .modal-close {
   font-size: 3em;
@@ -6281,6 +6303,7 @@ html {
   border-radius: 5px;
   overflow: hidden;
   text-overflow: ellipsis;
+  white-space: nowrap;
 }
 .ZEEGA-modal .modal-content .modal-body {
   background: white;
@@ -6426,10 +6449,14 @@ html {
 .ZEEGA-hmenu.img-tabs > ul > li > a {
   padding: 0;
   margin-right: 5px;
+  border-radius: 0;
 }
 .ZEEGA-hmenu.img-tabs > ul > li > a:hover {
   background: yellow;
   box-shadow: none;
+}
+.ZEEGA-hmenu.img-tabs > ul > li > a.active {
+  background: orangered;
 }
 .ZEEGA-hmenu ul {
   margin: 0;
@@ -7013,6 +7040,7 @@ a:active {
   opacity: 0.75;
 }
 .media-drawer {
+  background: white;
   border: 1px solid orangered;
   bottom: 0;
   top: 0;
@@ -7031,7 +7059,6 @@ a:active {
   font-size: 13px;
 }
 .media-drawer .ZEEGA-items {
-  overflow: auto;
   height: calc(100% - 30px);
 }
 .media-drawer .item {
@@ -7205,6 +7232,7 @@ a:active {
   background: #111;
 }
 .media-collection {
+  position: relative;
   background: url(../img/transparency-grid-dark.png);
   height: 100%;
 }
@@ -7219,14 +7247,23 @@ a:active {
   margin-top: 5px;
 }
 .media-collection .media-collection-header {
-  position: absolute;
+  position: relative;
   z-index: 1;
-  width: 280px;
+  width: 285px;
   background: orangered;
   padding: 5px 10px;
   color: white;
   font-size: 18px;
-  height: 42px;
+  *zoom: 1;
+}
+.media-collection .media-collection-header:before,
+.media-collection .media-collection-header:after {
+  display: table;
+  content: "";
+  line-height: 0;
+}
+.media-collection .media-collection-header:after {
+  clear: both;
 }
 .media-collection .media-collection-header .media-collection-extras {
   float: right;
@@ -7246,9 +7283,42 @@ a:active {
 .media-collection .media-collection-header .media-collection-search {
   clear: both;
 }
+.media-collection .media-collection-header .media-upload {
+  clear: both;
+  padding: 10px 0;
+  font-size: 14px;
+}
+.media-collection .media-collection-header .media-upload a:link,
+.media-collection .media-collection-header .media-upload a:visited,
+.media-collection .media-collection-header .media-upload a:hover,
+.media-collection .media-collection-header .media-upload a:active {
+  color: white;
+}
+.media-collection .media-collection-header .media-upload a {
+  opacity: 1;
+}
+.media-collection .media-collection-header .media-upload a.active {
+  opacity: 0.75;
+}
+.media-collection .media-collection-header .media-upload .upload-chooser {
+  margin-bottom: 10px;
+}
+.media-collection .media-collection-header .media-upload .paste-url {
+  display: none;
+}
+.media-collection .media-collection-header .media-upload .url-box {
+  width: 100%;
+  border: 0;
+}
+.media-collection .media-collection-wrapper {
+  overflow-y: scroll;
+  overflow-x: hidden;
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+}
 .media-collection .media-collection-items {
   *zoom: 1;
-  padding-top: 52px;
   position: relative;
 }
 .media-collection .media-collection-items:before,
