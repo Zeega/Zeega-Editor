@@ -647,23 +647,35 @@ __p+='<div class="nav col-left navbar ZEEGA-hmenu clear">\n    <ul class=\'pull-
  }); 
 ;__p+='\n\n            </ul>\n        </li>\n        <li>\n            <a href="#" target="blank"><i class="icon-question-sign"></i></a>\n        </li>\n    </ul>\n</div>\n<div class="project-title col-middle clearfix">\n    <div class="project-info" contenteditable>'+
 ( title )+
-'</div>\n    <a href="#" class="project-preview btnz"><i class="icon-play icon-white"></i> Preview</a>\n</div>\n<div class="project-share col-right clearfix">\n    <a href="#" class="project-share btnz btnz-blue btnz-fullwidth"><i class="icon-retweet icon-white"></i> Share</a>\n</div>\n\n<div class="share-grave">\n\n    <div class="close-wrapper">\n        <a href="#" class="close-grave">&times;</a>\n    </div>\n\n    <div class="project-share">\n\n\n        < >\n        <input class="text-box" type="text" value=\'<iframe src="http://zeega.com/'+
+'</div>\n    <a href="#" class="project-preview btnz"><i class="icon-play icon-white"></i> Preview</a>\n</div>\n<div class="project-share col-right clearfix">\n    <a href="#" class="project-share btnz btnz-blue btnz-fullwidth"><i class="icon-retweet icon-white"></i> Share</a>\n</div>\n\n<div class="share-grave">\n\n    <div class="close-wrapper">\n        <a href="#" class="close-grave">&times;</a>\n    </div>\n\n    <div class="project-share">\n\n\n        < >\n        <input class="text-box" type="text" value=\'<iframe src="'+
+( webRoot )+
+''+
 ( item_id )+
-'/embed" width="100%" height="100%" webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe>\'></input>\n        ∞\n        <input class="text-box" type="text" value="http://www.zeega.com/'+
+'/embed" width="100%" height="100%" webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe>\'></input>\n        ∞\n        <input class="text-box" type="text" value="'+
+( webRoot )+
+''+
 ( item_id )+
-'"></input>\n        <a href="https://twitter.com/intent/tweet?original_referer=http://www.zeega.com/'+
+'"></input>\n        <a href="https://twitter.com/intent/tweet?original_referer='+
+( webRoot )+
+''+
 ( item_id )+
 '&text=Zeega%20Project%3A%20'+
 ( title )+
-' &url=http://www.zeega.com/'+
+' &url='+
+( webRoot )+
+''+
 ( item_id )+
 '"\n                        class="social-share"\n                        data-itemid="'+
 ( item_id )+
-'"\n                        target="blank">\n            <i class="zitem-twitter zitem-30 color"></i>\n        </a>\n        <a href="http://www.facebook.com/sharer.php?u=http://www.zeega.com/'+
+'"\n                        target="blank">\n            <i class="zitem-twitter zitem-30 color"></i>\n        </a>\n        <a href="http://www.facebook.com/sharer.php?u='+
+( webRoot )+
+''+
 ( item_id )+
 '"\n                        class="social-share"\n                        data-itemid="'+
 ( item_id )+
-'"\n                        target="blank">\n            <i class="zitem-facebook zitem-30 color"></i>\n        </a>\n        <a href="mailto:friend@example.com?subject=Check out this Zeega!&body=http://www.zeega.com/'+
+'"\n                        target="blank">\n            <i class="zitem-facebook zitem-30 color"></i>\n        </a>\n        <a href="mailto:friend@example.com?subject=Check out this Zeega!&body='+
+( webRoot )+
+''+
 ( item_id )+
 '"\n                        class="social-share"\n                        data-itemid="'+
 ( item_id )+

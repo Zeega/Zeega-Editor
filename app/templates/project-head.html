@@ -47,22 +47,22 @@
 
 
         < >
-        <input class="text-box" type="text" value='<iframe src="http://zeega.com/<%= item_id %>/embed" width="100%" height="100%" webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe>'></input>
+        <input class="text-box" type="text" value='<iframe src="<%= webRoot %><%= item_id %>/embed" width="100%" height="100%" webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe>'></input>
         ∞
-        <input class="text-box" type="text" value="http://www.zeega.com/<%= item_id %>"></input>
-        <a href="https://twitter.com/intent/tweet?original_referer=http://www.zeega.com/<%= item_id %>&text=Zeega%20Project%3A%20<%= title %> &url=http://www.zeega.com/<%= item_id %>"
+        <input class="text-box" type="text" value="<%= webRoot %><%= item_id %>"></input>
+        <a href="https://twitter.com/intent/tweet?original_referer=<%= webRoot %><%= item_id %>&text=Zeega%20Project%3A%20<%= title %> &url=<%= webRoot %><%= item_id %>"
                         class="social-share"
                         data-itemid="<%= item_id %>"
                         target="blank">
             <i class="zitem-twitter zitem-30 color"></i>
         </a>
-        <a href="http://www.facebook.com/sharer.php?u=http://www.zeega.com/<%= item_id %>"
+        <a href="http://www.facebook.com/sharer.php?u=<%= webRoot %><%= item_id %>"
                         class="social-share"
                         data-itemid="<%= item_id %>"
                         target="blank">
             <i class="zitem-facebook zitem-30 color"></i>
         </a>
-        <a href="mailto:friend@example.com?subject=Check out this Zeega!&body=http://www.zeega.com/<%= item_id %>"
+        <a href="mailto:friend@example.com?subject=Check out this Zeega!&body=<%= webRoot %><%= item_id %>"
                         class="social-share"
                         data-itemid="<%= item_id %>">
             <i class="zitem-tumblr zitem-30 color"></i>
