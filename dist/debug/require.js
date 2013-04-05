@@ -767,7 +767,7 @@ return __p;
 this["JST"]["app/zeega-parser/plugins/controls/linkimage/linkimage.html"] = function(obj){
 var __p='';var print=function(){__p+=Array.prototype.join.call(arguments, '')};
 with(obj||{}){
-__p+='<div class="control-name">image</div>\n<select class="link-image-select">\n    <option value="arrow_up">Up Arrow</option>\n    <option value="arrow_down">Down Arrow</option>\n    <option value="arrow_left">Left Arrow</option>\n    <option value="arrow_right">Right Arrow</option>\n    <option value="default">none</option>\n</select>';
+__p+='<div class="control-name">type</div>\n<select class="link-image-select">\n    <option value="arrow_up">Up Arrow</option>\n    <option value="arrow_down">Down Arrow</option>\n    <option value="arrow_left">Left Arrow</option>\n    <option value="arrow_right">Right Arrow</option>\n    <option value="default">Glowing Rectangle</option>\n</select>';
 }
 return __p;
 };
@@ -849,7 +849,7 @@ return __p;
 this["JST"]["app/zeega-parser/plugins/layers/link/frame-chooser.html"] = function(obj){
 var __p='';var print=function(){__p+=Array.prototype.join.call(arguments, '')};
 with(obj||{}){
-__p+='<a href="#" class="close">&times;</a>\n<div class="modal-content">\n    <div class="modal-title">Where do you want your link to go?</div>\n    <div class="modal-body">\n        <ul class="frame-chooser-list clearfix">\n        </ul>\n        <div class="bottom-chooser">\n            <div class="new-frame">\n                <a href="#" class="link-new-frame"><i class="icon-plus icon-white"></i> New Page</a>\n            </div>\n            <a href="#" class="submit">OK</a>\n        </div>\n    </div>\n</div>\n';
+__p+='<a href="#" class="modal-close">&times;</a>\n<div class="modal-content">\n    <div class="modal-title">Where do you want your link to go?</div>\n    <div class="modal-body">\n        <ul class="frame-chooser-list clearfix">\n        </ul>\n        <div class="bottom-chooser">\n            <div class="new-frame">\n                <a href="#" class="link-new-frame"><i class="icon-plus"></i> New Page</a>\n            </div>\n            <a href="#" class="submit">OK</a>\n        </div>\n    </div>\n</div>\n';
 }
 return __p;
 };
@@ -85932,7 +85932,7 @@ function( Zeega, ControlView ) {
  * Licensed under the MIT license:
  *   http://www.opensource.org/licenses/mit-license.php
  *
- * Version: 1.0.1 (201210141130)
+ * Version: @VERSION (@DATE)
  */
  (function($) {
 /**
@@ -85977,7 +85977,22 @@ function( Zeega, ControlView ) {
  *                      Default value: 'center'
  *
  *  colorCodeColor:     Text color of the color code inside the button. Only used if 'displayColorCode' is true.
- *                      Default value: '#FFF'            
+ *                      Default value: '#FFF'
+ *
+ *  callback:           Callback function to call after a color has been chosen.
+ *                      Default value: null
+ *                      Returns: Hex Value
+ *
+ *  onCellEnter:        Callback function that excecutes when a cell is entered by the user's mouse
+ *                      Default value: null
+ *                      Returns: Hex Value
+ *
+ *  onClose:            Callback function that executes whenever the chooser is closed
+ *                      Default value: null
+ *
+ *  livePreview:        The color display will change to show the color of the hovered color cell.
+ *                      The display will revert if no color is selected.
+ *                      Default value: false
  */
   $.fn.simpleColor = function(options) {
 
@@ -86014,20 +86029,24 @@ function( Zeega, ControlView ) {
 
     // Option defaults
     options = $.extend({
-      defaultColor:   this.attr('defaultColor') || '#FFF',
-      border:       this.attr('border') || '1px solid #000',
-      cellWidth:    this.attr('cellWidth') || 10,
-      cellHeight:     this.attr('cellHeight') || 10,
-      cellMargin:     this.attr('cellMargin') || 1,
-      boxWidth:     this.attr('boxWidth') || '115px',
-      boxHeight:    this.attr('boxHeight') || '20px',
-      columns:      this.attr('columns') || 16,
-      insert:       this.attr('insert') || 'after',
-      buttonClass:    this.attr('buttonClass') || '',
-      colors:       this.attr('colors') || default_colors,
+      defaultColor:     this.attr('defaultColor') || '#FFF',
+      border:           this.attr('border') || '1px solid #000',
+      cellWidth:        this.attr('cellWidth') || 10,
+      cellHeight:       this.attr('cellHeight') || 10,
+      cellMargin:       this.attr('cellMargin') || 1,
+      boxWidth:         this.attr('boxWidth') || '115px',
+      boxHeight:        this.attr('boxHeight') || '20px',
+      columns:          this.attr('columns') || 16,
+      insert:           this.attr('insert') || 'after',
+      buttonClass:      this.attr('buttonClass') || '',
+      colors:           this.attr('colors') || default_colors,
       displayColorCode: this.attr('displayColorCode') || false,
       colorCodeAlign:   this.attr('colorCodeAlign') || 'center',
-      colorCodeColor:   this.attr('colorCodeColor') || '#FFF'
+      colorCodeColor:   this.attr('colorCodeColor') || '#FFF',
+      callback: null,
+      onCellEnter: null,
+      onClose: null,
+      livePreview: false
     }, options || {});
 
     // Hide the input
@@ -86054,7 +86073,7 @@ function( Zeega, ControlView ) {
       var container = $("<div class='simpleColorContainer' />");
       
       // Absolutely positioned child elements now 'work'.
-			container.css('position', 'relative');
+      container.css('position', 'relative');
 
       // Create the color display box
       var default_color = (this.value && this.value != '') ? this.value : options.defaultColor;
@@ -86062,13 +86081,13 @@ function( Zeega, ControlView ) {
       var display_box = $("<div class='simpleColorDisplay' />");
       display_box.css({
         'backgroundColor': default_color,
-      	'border':          options.border,
-				'width':           options.boxWidth,
-				'height':          options.boxHeight,
-				// Make sure that the code is vertically centered.
-				'line-height':     options.boxHeight,
-				'cursor':          'pointer'
-			});
+        'border': options.border,
+        'width':           options.boxWidth,
+        'height':          options.boxHeight,
+        // Make sure that the code is vertically centered.
+        'line-height':     options.boxHeight,
+        'cursor':          'pointer'
+      });
       container.append(display_box);
       
       // If 'displayColorCode' is turned on, display the currently selected color code as text inside the button.
@@ -86076,11 +86095,32 @@ function( Zeega, ControlView ) {
         display_box.text(this.value);
         display_box.css({
           'color':     options.colorCodeColor,
-        	'textAlign': options.colorCodeAlign
+            'textAlign': options.colorCodeAlign
         });
       }
       
       var select_callback = function (event) {
+
+        // bind and namespace the click listener only when the chooser is displayed
+        // unbind when the chooser is closed
+        $('html').bind("click.simpleColorDisplay", function(e) {
+
+          $('html').unbind("click.simpleColorDisplay");
+          $('.simpleColorChooser').hide();
+
+          // if the user has not selected a new color, then revert the display
+          // makes sure the selected cell is within the current color selector
+          if (!$(e.target).hasClass("simpleColorCell")||!$.contains( $(event.target).closest(".simpleColorContainer")[0], $(e.target)[0] )) {
+            display_box.css('backgroundColor', default_color);
+            if (options.displayColorCode) {
+              display_box.text(default_color);
+            }
+          }
+          // execute onClose callback whenever the color chooser is closed
+          if (options.onClose) {
+            options.onClose();
+          }
+        });
 
         // Use an existing chooser if there is one
         if (event.data.container.chooser) {
@@ -86093,13 +86133,13 @@ function( Zeega, ControlView ) {
           var chooser = $("<div class='simpleColorChooser'/>");
           chooser.css({
             'border':   options.border,
-			      'margin':   '0 0 0 5px',
-			      'width':    options.totalWidth,
-			      'height':   options.totalHeight,
-						'top':      0,
-						'left':     options.boxWidth,
-						'position': 'absolute'
-					});
+            'margin':   '0 0 0 5px',
+            'width':    options.totalWidth,
+            'height':   options.totalHeight,
+            'top':      0,
+            'left':     options.boxWidth,
+            'position': 'absolute'
+          });
       
           event.data.container.chooser = chooser;
           event.data.container.append(chooser);
@@ -86109,15 +86149,29 @@ function( Zeega, ControlView ) {
             var cell = $("<div class='simpleColorCell' id='" + options.colors[i] + "'/>");
             cell.css({
               'width':           options.cellWidth + 'px',
-             	'height':          options.cellHeight + 'px',
-			        'margin':          options.cellMargin + 'px',
-			        'cursor':          'pointer',
-			        'lineHeight':      options.cellHeight + 'px',
-			        'fontSize':        '1px',
-			        'float':           'left',
-			        'backgroundColor': '#'+options.colors[i]
-			      });
+              'height':          options.cellHeight + 'px',
+              'margin':          options.cellMargin + 'px',
+              'cursor':          'pointer',
+              'lineHeight':      options.cellHeight + 'px',
+              'fontSize':        '1px',
+              'float':           'left',
+              'backgroundColor': '#'+options.colors[i]
+            });
             chooser.append(cell);
+
+            if (options.onCellEnter||options.livePreview) {
+              cell.bind('mouseenter', function(event) {
+                if (options.onCellEnter) {
+                  options.onCellEnter(this.id)
+                }
+                if (options.livePreview) {
+                  display_box.css('backgroundColor', '#' + this.id);
+                  if (options.displayColorCode) {
+                    display_box.text('#' + this.id);
+                  }
+                }
+              });
+            }
 
             cell.bind('click', {
               input: event.data.input, 
@@ -86130,11 +86184,17 @@ function( Zeega, ControlView ) {
               event.data.display_box.css('backgroundColor', '#' + this.id);
               event.data.chooser.hide();
               event.data.display_box.show();
-     
+
               // If 'displayColorCode' is turned on, display the currently selected color code as text inside the button.
               if (options.displayColorCode) {
                 event.data.display_box.text('#' + this.id);
               }
+
+              // If a callback function is defined then excecute it.
+              if (options.callback) {
+                options.callback(this.id);
+              }
+
             });
           }
         }
@@ -86155,15 +86215,11 @@ function( Zeega, ControlView ) {
 
     this.each(buildSelector);
 
-		$('html').click(function() {
-			$('.simpleColorChooser').hide();
-		});
-		
-		$('.simpleColorDisplay').each(function() {
-			$(this).click(function(e){
-				e.stopPropagation();
-			});
-		});
+        $('.simpleColorDisplay').each(function() {
+            $(this).click(function(e){
+                e.stopPropagation();
+            });
+        });
 
     return this;
   };
@@ -87660,16 +87716,17 @@ function( app ) {
         serialize: function() {
             return this.model.toJSON();
         },
-        className: "frame-chooser overlay-dimmer modal",
+        className: "frame-chooser overlay-dimmer ZEEGA-modal",
 
         events: {
-            "click .close": "closeThis",
+            "click .modal-close": "closeThis",
             "click .submit": "submit",
             "click .frame" : "selectFrame",
             "click .link-new-frame": "linkToNewFrame"
         },
 
         closeThis: function() {
+            $("#main").removeClass("modal");
             this.$el.fadeOut(function() {
                 this.$el.attr("style", "");
                 this.remove();
@@ -87707,6 +87764,7 @@ function( app ) {
         },
 
         afterRender: function() {
+            $("#main").addClass("modal");
             this.$(".frame-chooser-list").empty();
             app.status.get("currentSequence").frames.each(function( frame ) {
                 var fv = $("<li>"),
@@ -87794,31 +87852,7 @@ function( Zeega, _Layer, Visual, FrameChooser ) {
             "position",
             "resize",
             "linkto",
-            "linkimage",
-            {
-                type: "checkbox",
-                options: {
-                    title: "hover",
-                    propertyName: "glow_on_hover"
-                }
-            },
-            { type: "slider",
-                options: {
-                    title: "hover opacity",
-                    propertyName: "opacity_hover",
-                    min: 0,
-                    max: 1,
-                    step: 0.001,
-                    css: false
-                }
-            },
-            {
-                type: "checkbox",
-                options: {
-                    title: "glow",
-                    propertyName: "blink_on_start"
-                }
-            }
+            "linkimage"
         ]
     });
 
@@ -103428,9 +103462,10 @@ function( Zeega, _Layer, Visual ) {
 
         attr: {
             citation: false,
-            color: "#F0F",
+            color: "#FFF",
             content: "text",
             fontSize: 200,
+            fontFamily: "Archivo Black",
             default_controls: true,
             left: 30,
             opacity: 1,
@@ -103505,7 +103540,8 @@ function( Zeega, _Layer, Visual ) {
         afterEditorRender: function() {
             this.$el.css({
                 color: this.model.get("attr").color,
-                fontSize: this.model.get("attr").fontSize + "%"
+                fontSize: this.model.get("attr").fontSize + "%",
+                fontFamily: this.model.get("attr").fontFamily
             });
 
             this.$(".visual-target").attr("contenteditable", "true");
@@ -106635,7 +106671,7 @@ require.config({
     zeegaplayer: "../vendor/zeegaplayer/dist/debug/zeega",
 
 //    colorpicker: "../vendor/colorpicker/js/colorpicker",
-    simpleColorPicker: "../vendor/simple-color-picker/jquery.simple-color",
+    simpleColorPicker: "../vendor/simple-color-picker/src/jquery.simple-color",
     ddslick: "../assets/js/plugins/jquery.ddslick",
     mousetrap: "../vendor/mousetrap/mousetrap"
 
@@ -106649,7 +106685,7 @@ require.config({
 
     mousetrap: {
         exports: 'Mousetrap'
-    },
+    }
   }
 
 });
