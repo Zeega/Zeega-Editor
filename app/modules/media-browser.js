@@ -170,10 +170,13 @@ function( app, ItemModel, MediaView, ItemCollectionViewer ) {
             
             parse: function(res){
                 var items = [],
-                    item;
+                    item,
+                    count =1;
 
                 _.each( res, function( track ){
                     item = {};
+                    item.id = count;
+                    count++;
                     item.layer_type ="Audio";
                     item.media_type = "Audio";
                     item.archive = "SoundCloud";
@@ -191,6 +194,23 @@ function( app, ItemModel, MediaView, ItemCollectionViewer ) {
     });
 
     Media.Giphy.Collection = Media.Zeega.Collection.extend({
+
+        parse: function(res){
+            var photos = res.items,
+                count = 1;
+            
+            _.each( photos, function( photo ){
+                photo.id = count;
+                count++;
+            });
+
+            this.itemsCount = res.items_count;
+            return photos;
+        }
+    });
+
+
+    Media.Tumblr.Collection = Media.Zeega.Collection.extend({
 
         parse: function(res){
             var photos = res.items,
@@ -264,7 +284,7 @@ function( app, ItemModel, MediaView, ItemCollectionViewer ) {
             this.mediaCollection = new Media[ this.api ].Collection();
             this.mediaCollection.mediaModel = this;
             //this.mediaCollection.on("sync", this.onSync, this );
-
+            this.search( "" );
             this.listen();
         },
         getQuery: function(){
@@ -462,6 +482,37 @@ function( app, ItemModel, MediaView, ItemCollectionViewer ) {
             if( query !== "" && query !== args.tag ){
                 args.tag = query;
                 args.url = "http://giphy.com/tags/" + query;
+
+                this.set("urlArguments", args );
+                this.mediaCollection.fetch();
+            }
+        }
+    });
+
+    Media.Tumblr.Model = Media.Zeega.Model.extend({
+        
+        api: "Tumblr",
+        apiUrl: app.api + "items/parser?",
+
+        defaults: {
+            urlArguments: {
+                url: "",
+                tag: ""
+            },
+            title: "Tumblr",
+            placeholder: "search Tumblr posts",
+            searchQuery: ""
+        },
+        getQuery: function(){
+            return this.get("urlArguments").tag;
+        },
+        _search: function( query ){
+
+            var args = this.get("urlArguments");
+
+            if( query !== "" && query !== args.tag ){
+                args.tag = query;
+                args.url = "http://www.tumblr.com/tagged/" + query;
 
                 this.set("urlArguments", args );
                 this.mediaCollection.fetch();

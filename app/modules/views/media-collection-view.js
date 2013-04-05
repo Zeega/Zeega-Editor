@@ -12,6 +12,7 @@ function( app, UploadView ) {
         Flickr: {},
         Soundcloud: {},
         Giphy: {},
+        Tumblr: {},
         Youtube: {},
         Web: {},
         MyZeega: {}
@@ -117,6 +118,7 @@ console.log( this.$(".media-collection-header").height() );
     Media.Flickr.View = Media.Zeega.View.extend({});
     Media.Soundcloud.View = Media.Zeega.View.extend({});
     Media.Giphy.View = Media.Zeega.View.extend({});
+    Media.Tumblr.View = Media.Zeega.View.extend({});
     Media.Youtube.View = Media.Zeega.View.extend({});
     Media.Web.View = Media.Zeega.View.extend({});
     
