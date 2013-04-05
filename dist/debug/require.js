@@ -779,7 +779,7 @@ return __p;
 this["JST"]["app/zeega-parser/plugins/controls/linkimage/linkimage.html"] = function(obj){
 var __p='';var print=function(){__p+=Array.prototype.join.call(arguments, '')};
 with(obj||{}){
-__p+='<div class="control-name">image</div>\n<select class="link-image-select">\n    <option value="arrow_up">Up Arrow</option>\n    <option value="arrow_down">Down Arrow</option>\n    <option value="arrow_left">Left Arrow</option>\n    <option value="arrow_right">Right Arrow</option>\n    <option value="default">none</option>\n</select>';
+__p+='<div class="control-name">type</div>\n<select class="link-image-select">\n    <option value="arrow_up">Up Arrow</option>\n    <option value="arrow_down">Down Arrow</option>\n    <option value="arrow_left">Left Arrow</option>\n    <option value="arrow_right">Right Arrow</option>\n    <option value="default">Glowing Rectangle</option>\n</select>';
 }
 return __p;
 };
@@ -861,7 +861,7 @@ return __p;
 this["JST"]["app/zeega-parser/plugins/layers/link/frame-chooser.html"] = function(obj){
 var __p='';var print=function(){__p+=Array.prototype.join.call(arguments, '')};
 with(obj||{}){
-__p+='<a href="#" class="close">&times;</a>\n<div class="modal-content">\n    <div class="modal-title">Where do you want your link to go?</div>\n    <div class="modal-body">\n        <ul class="frame-chooser-list clearfix">\n        </ul>\n        <div class="bottom-chooser">\n            <div class="new-frame">\n                <a href="#" class="link-new-frame"><i class="icon-plus icon-white"></i> New Page</a>\n            </div>\n            <a href="#" class="submit">OK</a>\n        </div>\n    </div>\n</div>\n';
+__p+='<a href="#" class="modal-close">&times;</a>\n<div class="modal-content">\n    <div class="modal-title">Where do you want your link to go?</div>\n    <div class="modal-body">\n        <ul class="frame-chooser-list clearfix">\n        </ul>\n        <div class="bottom-chooser">\n            <div class="new-frame">\n                <a href="#" class="link-new-frame"><i class="icon-plus"></i> New Page</a>\n            </div>\n            <a href="#" class="submit">OK</a>\n        </div>\n    </div>\n</div>\n';
 }
 return __p;
 };
@@ -87303,16 +87303,17 @@ function( app ) {
         serialize: function() {
             return this.model.toJSON();
         },
-        className: "frame-chooser overlay-dimmer modal",
+        className: "frame-chooser overlay-dimmer ZEEGA-modal",
 
         events: {
-            "click .close": "closeThis",
+            "click .modal-close": "closeThis",
             "click .submit": "submit",
             "click .frame" : "selectFrame",
             "click .link-new-frame": "linkToNewFrame"
         },
 
         closeThis: function() {
+            $("#main").removeClass("modal");
             this.$el.fadeOut(function() {
                 this.$el.attr("style", "");
                 this.remove();
@@ -87350,6 +87351,7 @@ function( app ) {
         },
 
         afterRender: function() {
+            $("#main").addClass("modal");
             this.$(".frame-chooser-list").empty();
             app.status.get("currentSequence").frames.each(function( frame ) {
                 var fv = $("<li>"),
@@ -87437,31 +87439,7 @@ function( Zeega, _Layer, Visual, FrameChooser ) {
             "position",
             "resize",
             "linkto",
-            "linkimage",
-            {
-                type: "checkbox",
-                options: {
-                    title: "hover",
-                    propertyName: "glow_on_hover"
-                }
-            },
-            { type: "slider",
-                options: {
-                    title: "hover opacity",
-                    propertyName: "opacity_hover",
-                    min: 0,
-                    max: 1,
-                    step: 0.001,
-                    css: false
-                }
-            },
-            {
-                type: "checkbox",
-                options: {
-                    title: "glow",
-                    propertyName: "blink_on_start"
-                }
-            }
+            "linkimage"
         ]
     });
 
