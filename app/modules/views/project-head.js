@@ -53,7 +53,7 @@ function( app ) {
 
         projectPreview: function() {
             
-            this.model.project.save( "publishUpdate", 1 );
+            this.model.project.save( "publish_update", 1 );
             
             var projectData = app.project.getProjectJSON();
             
