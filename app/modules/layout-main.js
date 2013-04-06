@@ -65,11 +65,11 @@ function( app, ProjectHead, Sequences, Frames, Workspace, Layers, LayerDrawer, S
         },
 
         listenForKeys: function() {
-            Mousetrap.bind(['command+c', 'ctrl+c'], this.copyLayer );
-            Mousetrap.bind(['command+v', 'ctrl+v'], this.pasteLayer );
+            Mousetrap.bind(["command+c", "ctrl+c"], this.copyLayer );
+            Mousetrap.bind(["command+v", "ctrl+v"], this.pasteLayer );
             Mousetrap.bind(["backspace"], this.deleteLayer );
 
-            window.onbeforeunload = function() { return "Do you really want to navigate away??"; }
+            // window.onbeforeunload = function() { return "Do you really want to navigate away??"; }
         },
 
         copyLayer: function() {

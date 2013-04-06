@@ -7237,11 +7237,14 @@ a:active {
   height: 100%;
 }
 .media-collection .search-box {
+  border-radius: 2px;
   border: none;
-  outline: 0;
-  padding: 8px;
-  width: 170px;
-  font-size: 80%;
+  padding: 4px;
+  width: 208px;
+  margin: 0;
+}
+.media-collection .submit {
+  float: right;
 }
 .media-collection .search-bar {
   margin-top: 5px;

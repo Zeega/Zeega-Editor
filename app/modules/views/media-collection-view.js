@@ -1,10 +1,11 @@
 define([
     "app",
     "modules/views/media-upload",
+    "spin",
     "backbone"
 ],
 
-function( app, UploadView ) {
+function( app, UploadView, Spinner ) {
 
     var Media = {
         Zeega:{},
@@ -18,6 +19,9 @@ function( app, UploadView ) {
     };
 
     Media.Zeega.View = Backbone.View.extend({
+
+        busy: false,
+        spinner: null,
 
         defaults: {
             title: "untitled"
@@ -36,7 +40,22 @@ function( app, UploadView ) {
             this.listen = _.once(function() {
                 this.model.mediaCollection.on("sync", this.renderItems, this );
             }.bind( this ));
+
+            this.initSpinner();
         },
+
+        initSpinner: function() {
+            var opts = {
+                lines: 12, // The number of lines to draw
+                length: 5, // The length of each line
+                width: 2, // The line thickness
+                radius: 5, // The radius of the inner circle
+                corners: 1, // Corner roundness (0..1)
+                color: '#fff', // #rgb or #rrggbb
+            };
+            this.spinner = new Spinner( opts );
+        },
+
         afterRender: function() {
             this.renderItems();
             this._afterRender();
@@ -68,21 +87,49 @@ console.log( this.$(".media-collection-header").height() );
             if ( this.model.get("title") == "My Media" ) {
                 this.$(".get-bookmarklet").show();
             }
+
+            this.$(".search-box, .media-collection-wrapper").css({
+                opacity: 1
+            });
+            this.$(".label").css("visibility", "visible");
+
+            this.spinner.stop();
+            this.busy = false;
         },
 
         events: {
-            "keyup .search-box": "onSearchKeyPress"
+            "keyup .search-box": "onSearchKeyPress",
+            "click .submit": "onSubmitClick"
         },
 
         onSearchKeyPress: function( e ) {
-            if ( e.which == 13 ) {
+            if ( !this.busy ){
+                if ( e.which == 13 ) {
+                    this.search( this.$(".search-box").val() );
+                }
+            }
+        },
+
+        onSubmitClick: function() {
+            if ( !this.busy ) {
                 this.search( this.$(".search-box").val() );
             }
         },
 
         search: function( query ) {
             console.log(this.model, query);
+
+            this.busy = true;
+
             this.model.search( query );
+            this.$(".search-box").blur();
+            this.$(".search-box, .media-collection-wrapper").css({
+                opacity: 0.5
+            });
+
+            this.$(".label").css("visibility", "hidden");
+
+            this.spinner.spin( this.$(".submit")[0] );
 
         }
 
