@@ -581,7 +581,7 @@ return __p;
 this["JST"]["app/templates/media-drawer.html"] = function(obj){
 var __p='';var print=function(){__p+=Array.prototype.join.call(arguments, '')};
 with(obj||{}){
-__p+='<div class="media-drawer-controls ZEEGA-hmenu light img-tabs">\n        <ul class=\'pull-left\'>\n        \n        <li>\n            <a href="#" data-api = "Zeega" class="media-toggle"><i class="socialz-zeega"></i></a>\n        </li>\n        <!--\n        <li>\n            <a href="#" data-api = "Tumblr" class="media-toggle">T</i></a>\n        </li>\n        -->\n        <li>\n            <a href="#" data-api = "Soundcloud" class="media-toggle"><i class="socialz-soundcloud"></i></a>\n        </li>\n\n        <li>\n            <a href="#" data-api = "Giphy" class="media-toggle"><i class="socialz-giphy"></i></a>\n        </li>\n\n        <li>\n            <a href="#" data-api = "Flickr" class="media-toggle"><i class="socialz-flickr"></i></a>\n        </li>\n        <li>\n            <a href="#" data-api = "Instagram" class="media-toggle"><i class="socialz-instagram"></i></a>\n        </li>\n        <li>\n            <a href="#" data-api = "Youtube" class="media-toggle"><i class="socialz-youtube"></i></a>\n        </li>\n\n        <li >\n            <a href="#" data-api = "MyZeega" class="media-toggle"><i class="socialz-user"></i></a>\n        </li>\n    </ul>\n    \n    \n</div>\n<ul class="ZEEGA-items"></ul>';
+__p+='<div class="media-drawer-controls ZEEGA-hmenu light img-tabs">\n        <ul class=\'pull-left\'>\n        \n        <li>\n            <a href="#" data-api = "Zeega" class="media-toggle"><i class="socialz-zeega"></i></a>\n        </li>\n        <!--\n        <li>\n            <a href="#" data-api = "Tumblr" class="media-toggle">T</i></a>\n        </li>\n        -->\n        <li>\n            <a href="#" data-api = "Soundcloud" class="media-toggle"><i class="socialz-soundcloud"></i></a>\n        </li>\n\n        <li>\n            <a href="#" data-api = "Giphy" class="media-toggle"><i class="socialz-giphy"></i></a>\n        </li>\n\n        <li>\n            <a href="#" data-api = "Flickr" class="media-toggle"><i class="socialz-flickr"></i></a>\n        </li>\n        <li>\n            <a href="#" data-api = "Instagram" class="media-toggle"><i class="socialz-instagram"></i></a>\n        </li>\n        <li>\n            <a href="#" data-api = "Tumblr" class="media-toggle"><i class="socialz-youtube"></i></a>\n        </li>\n        <!--\n        <li>\n            <a href="#" data-api = "Youtube" class="media-toggle"><i class="socialz-youtube"></i></a>\n        </li>\n        -->\n        <li >\n            <a href="#" data-api = "MyZeega" class="media-toggle"><i class="socialz-user"></i></a>\n        </li>\n    </ul>\n    \n    \n</div>\n<ul class="ZEEGA-items"></ul>';
 }
 return __p;
 };
@@ -105986,6 +105986,7 @@ console.log( this.$(".media-collection-header").height() );
     Media.Flickr.View = Media.Zeega.View.extend({});
     Media.Soundcloud.View = Media.Zeega.View.extend({});
     Media.Giphy.View = Media.Zeega.View.extend({});
+    Media.Tumblr.View = Media.Zeega.View.extend({});
     Media.Youtube.View = Media.Zeega.View.extend({});
     Media.Web.View = Media.Zeega.View.extend({});
     
@@ -106453,10 +106454,13 @@ function( app, ItemModel, MediaView, ItemCollectionViewer ) {
             
             parse: function(res){
                 var items = [],
-                    item;
+                    item,
+                    count =1;
 
                 _.each( res, function( track ){
                     item = {};
+                    item.id = count;
+                    count++;
                     item.layer_type ="Audio";
                     item.media_type = "Audio";
                     item.archive = "SoundCloud";
@@ -106474,6 +106478,23 @@ function( app, ItemModel, MediaView, ItemCollectionViewer ) {
     });
 
     Media.Giphy.Collection = Media.Zeega.Collection.extend({
+
+        parse: function(res){
+            var photos = res.items,
+                count = 1;
+            
+            _.each( photos, function( photo ){
+                photo.id = count;
+                count++;
+            });
+
+            this.itemsCount = res.items_count;
+            return photos;
+        }
+    });
+
+
+    Media.Tumblr.Collection = Media.Zeega.Collection.extend({
 
         parse: function(res){
             var photos = res.items,
@@ -106745,6 +106766,37 @@ function( app, ItemModel, MediaView, ItemCollectionViewer ) {
             if( query !== "" && query !== args.tag ){
                 args.tag = query;
                 args.url = "http://giphy.com/tags/" + query;
+
+                this.set("urlArguments", args );
+                this.mediaCollection.fetch();
+            }
+        }
+    });
+
+    Media.Tumblr.Model = Media.Zeega.Model.extend({
+        
+        api: "Tumblr",
+        apiUrl: app.api + "items/parser?",
+
+        defaults: {
+            urlArguments: {
+                url: "",
+                tag: ""
+            },
+            title: "Tumblr",
+            placeholder: "search Tumblr posts",
+            searchQuery: ""
+        },
+        getQuery: function(){
+            return this.get("urlArguments").tag;
+        },
+        _search: function( query ){
+
+            var args = this.get("urlArguments");
+
+            if( query !== "" && query !== args.tag ){
+                args.tag = query;
+                args.url = "http://wwww.tumblr.com/tagged/" + query;
 
                 this.set("urlArguments", args );
                 this.mediaCollection.fetch();

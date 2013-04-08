@@ -3,7 +3,9 @@ require.config({
 
   // Initialize the application with the main application file and the JamJS
   // generated configuration file.
-  deps: [ "../vendor/simple-color-picker/src/jquery.simple-color", "zeegaplayer", "../vendor/jam/require.config", "main"],
+
+  deps: ["zeegaplayer", "../vendor/jam/require.config", "main", "spin"],
+
 
   paths: {
 
@@ -19,7 +21,8 @@ require.config({
 //    colorpicker: "../vendor/colorpicker/js/colorpicker",
     simpleColorPicker: "../vendor/simple-color-picker/src/jquery.simple-color",
     ddslick: "../assets/js/plugins/jquery.ddslick",
-    mousetrap: "../vendor/mousetrap/mousetrap"
+    mousetrap: "../vendor/mousetrap/mousetrap",
+    spin: "../assets/js/libs/spin"
 
   },
 
