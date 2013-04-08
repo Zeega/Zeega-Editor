@@ -52,21 +52,32 @@ function( app, UploadView, Spinner ) {
                 width: 2, // The line thickness
                 radius: 5, // The radius of the inner circle
                 corners: 1, // Corner roundness (0..1)
-                color: '#fff', // #rgb or #rrggbb
+                color: '#fff' // #rgb or #rrggbb
             };
             this.spinner = new Spinner( opts );
         },
 
         afterRender: function() {
+            
             this.renderItems();
             this._afterRender();
-console.log( this.$(".media-collection-header").height() );
-            this.$(".media-collection-wrapper").css("top", this.$(".media-collection-header").height() + "px" );
+            
+            if( this.model.allowSearch ){
+                $(".media-collection-search").show();
+            }
+
+            if( this.model.getQuery() === "" && this.model.api != "MyZeega" ){
+                this.$(".media-collection-headline").show();
+            } else {
+                this.$(".media-collection-headline").hide();
+            }
+
         },
 
         //extend this function
         _afterRender: function(){
-
+            
+           
         },
 
         renderItems: function() {
@@ -84,15 +95,13 @@ console.log( this.$(".media-collection-header").height() );
 
             this.listen();
 
-            // show bookmarklet link
-            if ( this.model.get("title") == "My Media" ) {
-                this.$(".get-bookmarklet").show();
-            }
-
             this.$(".search-box, .media-collection-wrapper").css({
                 opacity: 1
             });
             this.$(".label").css("visibility", "visible");
+
+            
+
 
             this.spinner.stop();
             this.busy = false;

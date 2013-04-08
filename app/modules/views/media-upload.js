@@ -83,7 +83,6 @@ function( app ) {
         },
         
         onSearchKeyPress: function( e ) {
-            console.log("key")
             if ( e.which == 13 ) {
                 this.search( this.$(".url-box").val() );
             }
@@ -108,10 +107,13 @@ function( app ) {
         },
 
         imageUpload: function(event) {
+
+
+            this.$('.upload-instructions').html("uploading... ");
+
             var fileInput = event.target, imageData;
 
             imageData = new FormData();
-            
             imageData.append( "file", fileInput.files[0] );
 
             $.ajax({

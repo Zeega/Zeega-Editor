@@ -1,39 +1,25 @@
+
+
+
+
+
+
 .media-upload {
-    .image-uploads {
-        
-        float:left;
-        max-height:176px;
-        overflow-y:auto;
 
-
-    }
-    .add-photo {
-        display: inline-block;
-        width: 30px;
-        height: 30px;
-        margin: 0 5px 15px;
-        position: relative;
-        overflow: hidden;
-        text-indent: -9999px;
-        background: rgba(0,0,0,0.3) url(../img/add-circle.png) no-repeat 50% 50%;
-    }
-
-    .add-photo input {
+    .upload-file{
         cursor: pointer;
-        font-size: 90px;
-        height: 100%;
-        height: 113px;
-        right: 0;
-        line-height:176px;
-        opacity: 0;
-        position: absolute;
-        top: 0;
+        border: 1px dashed white;
+        padding: 8px;
+        span {
+            position: absolute;
+            font-size: 12px;
+            cursor: pointer;
+        }
+        input {
+            opacity: 0;
+            margin-bottom: -2px;
+        }
+
     }
-    .modal-body {
-        height:200px;
-    }
-    .close{
-        margin-top: -34px;
-        margin-right: 11px;
-    }
+
 }

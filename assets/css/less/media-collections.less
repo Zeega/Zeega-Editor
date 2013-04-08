@@ -57,6 +57,14 @@
         }
         .media-collection-search {
             clear:both;
+            display:none;
+        }
+
+        .media-collection-headline {
+            p{
+                margin: 0;
+                padding-top:5px;
+            }
         }
 
 
@@ -96,13 +104,18 @@
 
     }
 
-
     .media-collection-wrapper {
+
+        position:relative;
+        height:100%;
+    }
+    .media-collection-container {
+        top:0;
         overflow-y: scroll;
         overflow-x: hidden;
         position: absolute;
-        bottom: 0;
         width: 100%;
+        height: 100%;
     }
 
     .media-collection-items {

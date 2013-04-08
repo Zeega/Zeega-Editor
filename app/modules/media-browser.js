@@ -30,12 +30,23 @@ function( app, ItemModel, MediaView, ItemCollectionViewer ) {
         itemsCount: 0,
 
         url: function() {
-            var url = this.mediaModel.apiUrl;
-            _.each( this.mediaModel.toJSON().urlArguments, function( value, key ) {
-                if ( value !== "" && value !== null ) {
-                    url += key + "=" + ( _.isFunction( value ) ? value() : value ) + "&";
-                }
-            });
+            var url;
+
+
+            if( this.mediaModel.getQuery() === "" ){
+                
+                url = this.mediaModel.favUrl;
+
+            } else {
+
+                url = this.mediaModel.apiUrl;
+                _.each( this.mediaModel.toJSON().urlArguments, function( value, key ) {
+                    if ( value !== "" && value !== null ) {
+                        url += key + "=" + ( _.isFunction( value ) ? value() : value ) + "&";
+                    }
+                });
+            }
+            console.log(url);
             return url;
         },
 
@@ -61,11 +72,34 @@ function( app, ItemModel, MediaView, ItemCollectionViewer ) {
         }
     });
 
-    Media.MyZeega.Collection = Media.Zeega.Collection.extend();
+    Media.MyZeega.Collection = Media.Zeega.Collection.extend({
+
+        parse: function( res ) {
+            var photos = res.items,
+                count = 1;
+            
+            _.each( photos, function( photo ){
+                photo.id = count;
+                photo.editable = 1;
+                count++;
+            });
+
+            this.itemsCount = res.items_count;
+            return photos;
+        }
+    });
 
     Media.Flickr.Collection = Media.Zeega.Collection.extend({
 
         parse: function( res ) {
+
+            if(!_.isUndefined( res.items_count )){
+                this.itemsCount = res.items_count;
+
+                return res.items;
+            }
+
+
             var items =[],
                 item;
 
@@ -97,22 +131,25 @@ function( app, ItemModel, MediaView, ItemCollectionViewer ) {
 
         url : function(){
             var url;
-            if( this.mediaModel.queryType == "tag" ){
-                url = this.mediaModel.apiUrl + "tags/" + this.mediaModel.get("query") +
-                        "/media/recent?client_id=725bbc7af5094c8682bdb322d29734cc&callback=?";
+            if( this.mediaModel.getQuery() === "" ){
+                url = this.mediaModel.favUrl;
             } else {
+                if( this.mediaModel.queryType == "tag" ){
+                    url = this.mediaModel.apiUrl + "tags/" + this.mediaModel.get("query") +
+                            "/media/recent?client_id=725bbc7af5094c8682bdb322d29734cc&callback=?";
+                } else {
 
-                // Instagram User queries require user id, route through Zeega
-                url = app.api + "items/parser?url=http://instagram.com/" + this.mediaModel.get("query");
+                    // Instagram User queries require user id, route through Zeega
+                    url = app.api + "items/parser?url=http://instagram.com/" + this.mediaModel.get("query");
+                }
             }
-
             return url;
         },
         
 
         parse: function(res){
             
-            if( this.mediaModel.queryType == "tag" ){
+            if( this.mediaModel.queryType == "tag" && this.mediaModel.getQuery() !== ""){
                 var items = [];
 
                 _.each( res.data, function( photo ){
@@ -153,7 +190,6 @@ function( app, ItemModel, MediaView, ItemCollectionViewer ) {
                 photos = res.items;
                 
                 _.each( photos, function( photo ){
-                    photo.editable = -1;
                     photo.id = count;
                     count++;
                 });
@@ -172,6 +208,12 @@ function( app, ItemModel, MediaView, ItemCollectionViewer ) {
                 var items = [],
                     item,
                     count =1;
+
+                if(!_.isUndefined( res.items_count )){
+                    this.itemsCount = res.items_count;
+
+                    return res.items;
+                }
 
                 _.each( res, function( track ){
                     item = {};
@@ -196,6 +238,7 @@ function( app, ItemModel, MediaView, ItemCollectionViewer ) {
     Media.Giphy.Collection = Media.Zeega.Collection.extend({
 
         parse: function(res){
+            
             var photos = res.items,
                 count = 1;
             
@@ -258,11 +301,20 @@ function( app, ItemModel, MediaView, ItemCollectionViewer ) {
         }
     });
 
+
+
+
+
+
+
+
     Media.Zeega.Model = Backbone.Model.extend({
 
         api: "Zeega",
         mediaCollection: null,
         apiUrl: app.searchAPI,
+        favUrl: app.searchAPI + "type=-project AND -Collection AND -Video AND -Audio&user=1&limit=48&sort=date-desc",
+        allowSearch: false,
 
         defaults: {
                 urlArguments: {
@@ -317,6 +369,7 @@ function( app, ItemModel, MediaView, ItemCollectionViewer ) {
     Media.MyZeega.Model = Media.Zeega.Model.extend({
 
         api: "MyZeega",
+        allowSearch: true,
         defaults: {
                 urlArguments: {
                     collection: "",
@@ -359,6 +412,8 @@ function( app, ItemModel, MediaView, ItemCollectionViewer ) {
         
         api: "Flickr",
         apiUrl: "https://secure.flickr.com/services/rest/?",
+        favUrl: app.searchAPI + "archive=Flickr&type=Image&user=1&limit=48&sort=date-desc",
+        allowSearch: true,
 
         defaults: {
             urlArguments: {
@@ -384,11 +439,11 @@ function( app, ItemModel, MediaView, ItemCollectionViewer ) {
 
             
             
-            if( query !== "" && query !== args.text ){
-                args.text = query;
-                this.set("urlArguments", args );
-                this.mediaCollection.fetch();
-            }
+            
+            args.text = query;
+            this.set("urlArguments", args );
+            this.mediaCollection.fetch();
+            
 
 
             
@@ -399,7 +454,9 @@ function( app, ItemModel, MediaView, ItemCollectionViewer ) {
         
         api: "Soundcloud",
         apiUrl: "https://api.soundcloud.com/tracks.json?",
-
+        favUrl: app.searchAPI + "archive=Soundcloud&type=Audio&user=1&limit=48&sort=date-desc",
+        
+        allowSearch: true,
         defaults: {
             urlArguments: {
                 callback: "?",
@@ -418,11 +475,11 @@ function( app, ItemModel, MediaView, ItemCollectionViewer ) {
 
             var args= this.get("urlArguments");
 
-            if( query !== "" && query !== args.q ){
+            
                 args.q = query;
                 this.set("urlArguments", args );
                 this.mediaCollection.fetch();
-            }
+            
         }
     });
 
@@ -430,7 +487,9 @@ function( app, ItemModel, MediaView, ItemCollectionViewer ) {
         
         api: "Instagram",
         apiUrl: "https://api.instagram.com/v1/",
-        queryType: "user",
+        queryType: "tag",
+        favUrl: app.searchAPI + "archive=Instagram&type=Image&user=1&limit=48&sort=date-desc",
+        allowSearch: true,
 
         defaults: {
             query: "",
@@ -447,14 +506,8 @@ function( app, ItemModel, MediaView, ItemCollectionViewer ) {
         },
         _search: function( query ){
 
-            
-            if( query !== "" && query !== this.get("query") ){
-                this.set("query", query );
-                this.mediaCollection.fetch();
-            }
-
-
-            
+            this.set("query", query );
+            this.mediaCollection.fetch();
         }
     });
 
@@ -462,6 +515,9 @@ function( app, ItemModel, MediaView, ItemCollectionViewer ) {
         
         api: "Giphy",
         apiUrl: app.api + "items/parser?",
+        allowSearch: true,
+        favUrl: app.searchAPI + "archive=Giphy&type=Image&user=1&limit=48&sort=date-desc",
+
 
         defaults: {
             urlArguments: {
@@ -479,13 +535,13 @@ function( app, ItemModel, MediaView, ItemCollectionViewer ) {
 
             var args = this.get("urlArguments");
 
-            if( query !== "" && query !== args.tag ){
-                args.tag = query;
-                args.url = "http://giphy.com/tags/" + query;
+         
+            args.tag = query;
+            args.url = "http://giphy.com/tags/" + query;
 
-                this.set("urlArguments", args );
-                this.mediaCollection.fetch();
-            }
+            this.set("urlArguments", args );
+            this.mediaCollection.fetch();
+            
         }
     });
 
@@ -493,6 +549,8 @@ function( app, ItemModel, MediaView, ItemCollectionViewer ) {
         
         api: "Tumblr",
         apiUrl: app.api + "items/parser?",
+        allowSearch: true,
+        favUrl: app.searchAPI + "archive=Tumblr&type=Image&user=1&limit=48&sort=date-desc",
 
         defaults: {
             urlArguments: {
@@ -510,13 +568,13 @@ function( app, ItemModel, MediaView, ItemCollectionViewer ) {
 
             var args = this.get("urlArguments");
 
-            if( query !== "" && query !== args.tag ){
-                args.tag = query;
-                args.url = "http://www.tumblr.com/tagged/" + query;
+           
+            args.tag = query;
+            args.url = "http://www.tumblr.com/tagged/" + query;
 
-                this.set("urlArguments", args );
-                this.mediaCollection.fetch();
-            }
+            this.set("urlArguments", args );
+            this.mediaCollection.fetch();
+            
         }
     });
 
@@ -524,6 +582,9 @@ function( app, ItemModel, MediaView, ItemCollectionViewer ) {
         
         api: "Youtube",
         apiUrl: "https://gdata.youtube.com/feeds/api/videos?",
+        favUrl: app.searchAPI + "archive=Youtube&type=Image&user=1&limit=48&sort=date-desc",
+
+        allowSearch: true,
 
         defaults: {
             urlArguments: {
