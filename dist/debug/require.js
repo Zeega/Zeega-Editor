@@ -84504,7 +84504,7 @@ function( app ) {
                 _this.$('.upload-progress').clearQueue().animate ({ "width": w + "px"}, 1000);
                 if( w > 140 ) {
                     _this.$('.upload-instructions').html("processing...");
-                    _this.$('.upload-progress').clearQueue().animate ({ "width": "283px"}, 5000);
+                    _this.$('.upload-progress').clearQueue().animate ({ "width": "283px"}, 10000);
                 }
 
             };
@@ -86824,7 +86824,7 @@ function( app, ControlView ) {
 
             createSlider: function() {
                 var cueIn, cueOut, max, $avSlider, cues = {};
-console.log("create Slider", this.cid)
+
                 cueIn = this.getAttr("cue_in");
                 cueOut = this.getAttr("cue_out");
                 duration = this.getAttr("duration");
@@ -86932,7 +86932,6 @@ console.log("create Slider", this.cid)
 
                 this.audio = this.model.visual.getAudio();
 
-                console.log("LISTEN", this.audio)
 
                 // if ( !this.audio ) {
                 //     this.audio = this.model.visual.getAudio();
@@ -86943,7 +86942,6 @@ console.log("create Slider", this.cid)
             },
             
             onBlur: function() {
-                console.log("AV BLUR")
                 this.audio.pause();
                 this.$avSlider.slider("destroy");
                 this.$avSlider.empty();
@@ -86984,7 +86982,6 @@ console.log("create Slider", this.cid)
             },
 
             playpause: function() {
-                console.log('playpause')
                 this.model.visual.playPause();
             }
 
@@ -87291,7 +87288,7 @@ function( app, Controls ) {
         loadControls: function() {
             if ( !this._controls ) {
 
-            console.log("load controls", this.id)
+            
 
                 this._controls = _.map( this.controls, function( controlType ) {
                     var control = false;
@@ -87336,7 +87333,7 @@ function( app, Controls ) {
         },
 
         exit: function() {
-            console.log("EXIT", this)
+
             if ( this.layerClass ) {
                 this.visual.player_onExit();
             }
@@ -103352,7 +103349,6 @@ function( app, _Layer, Visual ){
         },
 
         editor_onLayerExit: function() {
-            console.log("audio exit", this.$("audio"))
             this.$("audio").attr("src", "");
             this.audio = null;
             this.render();
@@ -103360,7 +103356,6 @@ function( app, _Layer, Visual ){
 
         playPause: function() {
             this.setAudio();
-console.log("AUDIO", this.audio)
             if ( this.audio.paused ) {
                 this.audio.play();
             } else {

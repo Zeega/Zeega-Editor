@@ -25,7 +25,7 @@ function( app ) {
 
         events: {
             "keypress .project-info": "onTitleKeyup",
-            "blur .project-info": "onBlur",
+            "blur .project-info": "onBlur"
             // "click .project-share-toggle": "toggleShare",
         },
 

@@ -6130,6 +6130,12 @@ html {
 .socialz-user.socialz-white {
   background-position: -30px -210px;
 }
+.socialz-tumblr {
+  background-position: 0px -240px;
+}
+.socialz-tumblr.socialz-white {
+  background-position: -30px -240px;
+}
 [class^="zsocial-"] {
   background-image: url('../img/social-sprites-20px.png');
   background-position: 0px 0px;
@@ -7396,7 +7402,7 @@ a:active {
   position: absolute;
   width: 0px;
   height: 32px;
-  background: rgba(126, 126, 126, 0.71);
+  background: rgba(256, 256, 256, 0.5);
   margin: -8px;
 }
 .media-upload .upload-file {
