@@ -227,7 +227,7 @@ function( app, ItemModel, MediaView, ItemCollectionViewer ) {
                     item.uri = track.stream_url + "?consumer_key=lyCI2ejeGofrnVyfMI18VQ";
                     item.attribution_uri =  track.permalink_url;
                     item.media_user_realname = track.user.username;
-                    item.archive = "Soundcloud";
+                    item.archive = "SoundCloud";
                     items.push( item );
                 });
 
@@ -454,7 +454,7 @@ function( app, ItemModel, MediaView, ItemCollectionViewer ) {
         
         api: "Soundcloud",
         apiUrl: "https://api.soundcloud.com/tracks.json?",
-        favUrl: app.searchAPI + "archive=Soundcloud&type=Audio&user=1&limit=48&sort=date-desc",
+        favUrl: app.searchAPI + "archive=SoundCloud&type=Audio&user=1&limit=48&sort=date-desc",
         
         allowSearch: true,
         defaults: {

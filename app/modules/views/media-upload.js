@@ -105,7 +105,9 @@ function( app ) {
         refreshUploads: function(){
             this.model.search("");
         },
-
+        updateProgress: function(){
+            console.log("updating progress");
+        },
         imageUpload: function(event) {
 
 
@@ -116,6 +118,8 @@ function( app ) {
             imageData = new FormData();
             imageData.append( "file", fileInput.files[0] );
 
+
+
             $.ajax({
                 url: app.mediaServer + "image",
                 type: "POST",
@@ -124,6 +128,15 @@ function( app ) {
                 processData: false,
                 contentType: false,
                 fileElementId: "imagefile",
+                xhr: function() {  // custom xhr
+                    myXhr = $.ajaxSettings.xhr();
+                    if(myXhr.upload){ // check if upload property exists
+                        myXhr.upload.addEventListener('progress',this.updateProgress, false); // for handling the progress of the upload
+                    } else {
+                        console.log("broke style");
+                    }
+                    return myXhr;
+                },
                 
                 success: function( data ) {
                     var item = new UploadItem({

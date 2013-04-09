@@ -597,7 +597,7 @@ return __p;
 this["JST"]["app/templates/media-upload.html"] = function(obj){
 var __p='';var print=function(){__p+=Array.prototype.join.call(arguments, '')};
 with(obj||{}){
-__p+='<div class="upload-chooser">\n    <a href="#" class="upload-image-action active">upload image file</a> | <a href="#" class="paste-url-action">paste an image url</a>\n</div>\n\n<div class="upload-toggle">\n    <div class="upload-file">\n        <span class="upload-instructions">click or drag images here to upload</span>\n        <input id="imagefile"  name="imagefile"  type="file" href="#"></input>\n    </div>\n    <div class="paste-url">\n        <input class="url-box" type="text" placeholder="enter url here" value="" />\n    </div>\n</div>\n\n\n\n<!-- \n<div class = "image-uploads" >\n    <span class="add-photo" href="#">\n        <input id="imagefile"  name="imagefile"  type="file" href="#"></input>\n    </span>\n</div>\n<ul class=\'pull-left search-bar\'>\n    <li>\n        <input class="url-box" type="text" placeholder="enter url here" value="" />\n    </li>\n</ul>\n -->';
+__p+='<div class="upload-chooser">\n    <a href="#" class="upload-image-action active">upload image file</a> | <a href="#" class="paste-url-action">paste an image url</a>\n</div>\n\n<div class="upload-toggle">\n    <div class="upload-file">\n        <div class = "upload-progress" ></div>\n        <span class="upload-instructions">click or drag an image here to upload</span>\n        <input id="imagefile"  name="imagefile"  type="file" href="#"></input>\n    </div>\n    <div class="paste-url">\n        <input class="url-box" type="text" placeholder="enter url here" value="" />\n    </div>\n</div>\n\n\n\n<!-- \n<div class = "image-uploads" >\n    <span class="add-photo" href="#">\n        <input id="imagefile"  name="imagefile"  type="file" href="#"></input>\n    </span>\n</div>\n<ul class=\'pull-left search-bar\'>\n    <li>\n        <input class="url-box" type="text" placeholder="enter url here" value="" />\n    </li>\n</ul>\n -->';
 }
 return __p;
 };
@@ -84484,7 +84484,9 @@ function( app ) {
         refreshUploads: function(){
             this.model.search("");
         },
-
+        updateProgress: function(){
+            console.log("updating progress");
+        },
         imageUpload: function(event) {
 
 
@@ -84495,6 +84497,8 @@ function( app ) {
             imageData = new FormData();
             imageData.append( "file", fileInput.files[0] );
 
+
+
             $.ajax({
                 url: app.mediaServer + "image",
                 type: "POST",
@@ -84503,6 +84507,15 @@ function( app ) {
                 processData: false,
                 contentType: false,
                 fileElementId: "imagefile",
+                xhr: function() {  // custom xhr
+                    myXhr = $.ajaxSettings.xhr();
+                    if(myXhr.upload){ // check if upload property exists
+                        myXhr.upload.addEventListener('progress',this.updateProgress, false); // for handling the progress of the upload
+                    } else {
+                        console.log("broke style");
+                    }
+                    return myXhr;
+                },
                 
                 success: function( data ) {
                     var item = new UploadItem({
@@ -106623,7 +106636,7 @@ function( app, ItemModel, MediaView, ItemCollectionViewer ) {
                     item.uri = track.stream_url + "?consumer_key=lyCI2ejeGofrnVyfMI18VQ";
                     item.attribution_uri =  track.permalink_url;
                     item.media_user_realname = track.user.username;
-                    item.archive = "Soundcloud";
+                    item.archive = "SoundCloud";
                     items.push( item );
                 });
 
@@ -106850,7 +106863,7 @@ function( app, ItemModel, MediaView, ItemCollectionViewer ) {
         
         api: "Soundcloud",
         apiUrl: "https://api.soundcloud.com/tracks.json?",
-        favUrl: app.searchAPI + "archive=Soundcloud&type=Audio&user=1&limit=48&sort=date-desc",
+        favUrl: app.searchAPI + "archive=SoundCloud&type=Audio&user=1&limit=48&sort=date-desc",
         
         allowSearch: true,
         defaults: {
