@@ -6745,10 +6745,15 @@ a:active {
   transition: all 0.5s;
   -webkit-transition: all 0.5s;
 }
+.frames .frame-placeholder:hover .frame-menu,
+.frames .ZEEGA-frame:hover .frame-menu {
+  opacity: 1;
+}
 .frames .frame-placeholder .frame-menu,
 .frames .ZEEGA-frame .frame-menu {
   position: absolute;
   right: 5px;
+  opacity: 0.25;
 }
 .frames .frame-placeholder .frame-menu .icon-edit,
 .frames .ZEEGA-frame .frame-menu .icon-edit {
