@@ -123,8 +123,7 @@ function( app ) {
             var updateProgress = function( e ){
                 var w = e.loaded * 141 / e.total;
                 _this.$('.upload-progress').clearQueue().animate ({ "width": w + "px"}, 1000);
-                if( w > 140 ) {
-                    _this.$('.upload-instructions').html("processing...");
+                if(  w == 141 ) {
                     _this.$('.upload-progress').clearQueue().animate ({ "width": "283px"}, 10000);
                 }
 
@@ -144,8 +143,6 @@ function( app ) {
                     myXhr = $.ajaxSettings.xhr();
                     if(myXhr.upload){ // check if upload property exists
                         myXhr.upload.addEventListener('progress', updateProgress, false); // for handling the progress of the upload
-                    } else {
-                        console.log("broke style");
                     }
                     return myXhr;
                 },

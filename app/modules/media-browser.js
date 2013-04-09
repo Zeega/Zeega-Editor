@@ -46,7 +46,6 @@ function( app, ItemModel, MediaView, ItemCollectionViewer ) {
                     }
                 });
             }
-            console.log(url);
             return url;
         },
 
@@ -149,7 +148,7 @@ function( app, ItemModel, MediaView, ItemCollectionViewer ) {
 
         parse: function(res){
             
-            if( this.mediaModel.queryType == "tag" && this.mediaModel.getQuery() !== ""){
+            if( this.mediaModel.queryType == "tag" || this.mediaModel.getQuery() === ""){
                 var items = [];
 
                 _.each( res.data, function( photo ){
@@ -412,7 +411,9 @@ function( app, ItemModel, MediaView, ItemCollectionViewer ) {
         
         api: "Flickr",
         apiUrl: "https://secure.flickr.com/services/rest/?",
-        favUrl: app.searchAPI + "archive=Flickr&type=Image&user=1&limit=48&sort=date-desc",
+        
+        favUrl: "https://secure.flickr.com/services/rest/?nojsoncallback=1&format=json&method=flickr.interestingness.getList&extras=owner_name&per_page=100&api_key=97ac5e379fbf4df38a357f9c0943e140",
+        //favUrl: app.searchAPI + "archive=Flickr&type=Image&user=1&limit=48&sort=date-desc",
         allowSearch: true,
 
         defaults: {
@@ -487,8 +488,9 @@ function( app, ItemModel, MediaView, ItemCollectionViewer ) {
         
         api: "Instagram",
         apiUrl: "https://api.instagram.com/v1/",
-        queryType: "tag",
-        favUrl: app.searchAPI + "archive=Instagram&type=Image&user=1&limit=48&sort=date-desc",
+        queryType: "user",
+        favUrl: "https://api.instagram.com/v1/media/popular?client_id=725bbc7af5094c8682bdb322d29734cc&callback=?",
+        //favUrl: app.searchAPI + "archive=Instagram&type=Image&user=1&limit=48&sort=date-desc",
         allowSearch: true,
 
         defaults: {

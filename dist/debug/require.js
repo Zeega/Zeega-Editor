@@ -589,7 +589,7 @@ return __p;
 this["JST"]["app/templates/media-drawer.html"] = function(obj){
 var __p='';var print=function(){__p+=Array.prototype.join.call(arguments, '')};
 with(obj||{}){
-__p+='<div class="media-drawer-controls ZEEGA-hmenu light img-tabs">\n        <ul class=\'pull-left\'>\n        \n        <li>\n            <a href="#" data-api = "Zeega" class="active media-toggle"><i class="socialz-zeega socialz-white"></i></a>\n        </li>\n        <!--\n        <li>\n            <a href="#" data-api = "Tumblr" class="media-toggle">T</i></a>\n        </li>\n        -->\n        <li>\n            <a href="#" data-api = "Soundcloud" class="media-toggle"><i class="socialz-soundcloud"></i></a>\n        </li>\n\n        <li>\n            <a href="#" data-api = "Giphy" class="media-toggle"><i class="socialz-giphy"></i></a>\n        </li>\n\n        <li>\n            <a href="#" data-api = "Flickr" class="media-toggle"><i class="socialz-flickr"></i></a>\n        </li>\n        <li>\n            <a href="#" data-api = "Instagram" class="media-toggle"><i class="socialz-instagram"></i></a>\n        </li>\n        <li>\n            <a href="#" data-api = "Tumblr" class="media-toggle"><i class="socialz-tumblr"></i></a>\n        </li>\n        <!--\n        <li>\n            <a href="#" data-api = "Youtube" class="media-toggle"><i class="socialz-youtube"></i></a>\n        </li>\n        -->\n        <li >\n            <a href="#" data-api = "MyZeega" class="media-toggle"><i class="socialz-user"></i></a>\n        </li>\n\n    </ul>\n    \n    \n</div>\n<ul class="ZEEGA-items"></ul>';
+__p+='<div class="media-drawer-controls ZEEGA-hmenu light img-tabs">\n    <ul class=\'pull-left\'>\n        \n        <li>\n            <a href="#" data-api = "Zeega" class="active media-toggle"><i class="socialz-zeega socialz-white"></i></a>\n        </li>\n\n      \n\n        <li>\n            <a href="#" data-api = "Tumblr" class="media-toggle"><i class="socialz-tumblr"></i></a>\n        </li>\n\n        <li>\n            <a href="#" data-api = "Soundcloud" class="media-toggle"><i class="socialz-soundcloud"></i></a>\n        </li>\n\n        \n        <li>\n            <a href="#" data-api = "Instagram" class="media-toggle"><i class="socialz-instagram"></i></a>\n        </li>\n\n        <li>\n            <a href="#" data-api = "Flickr" class="media-toggle"><i class="socialz-flickr"></i></a>\n        </li>\n\n        <li>\n            <a href="#" data-api = "Giphy" class="media-toggle"><i class="socialz-giphy"></i></a>\n        </li>\n       \n        <!--\n        <li>\n            <a href="#" data-api = "Youtube" class="media-toggle"><i class="socialz-youtube"></i></a>\n        </li>\n       \n        <li >\n            <a href="#" data-api = "MyZeega" class="media-toggle"><i class="socialz-user"></i></a>\n        </li>\n         -->\n\n    </ul>\n    <ul class="pull-right">\n        <li >\n            <a id="media-upload-tab" href="#" data-api = "MyZeega" class="media-toggle">UPLOAD</a>\n        </li>\n    </ul>\n    \n    \n</div>\n<ul class="ZEEGA-items"></ul>';
 }
 return __p;
 };
@@ -84502,8 +84502,7 @@ function( app ) {
             var updateProgress = function( e ){
                 var w = e.loaded * 141 / e.total;
                 _this.$('.upload-progress').clearQueue().animate ({ "width": w + "px"}, 1000);
-                if( w > 140 ) {
-                    _this.$('.upload-instructions').html("processing...");
+                if(  w == 141 ) {
                     _this.$('.upload-progress').clearQueue().animate ({ "width": "283px"}, 10000);
                 }
 
@@ -84523,8 +84522,6 @@ function( app ) {
                     myXhr = $.ajaxSettings.xhr();
                     if(myXhr.upload){ // check if upload property exists
                         myXhr.upload.addEventListener('progress', updateProgress, false); // for handling the progress of the upload
-                    } else {
-                        console.log("broke style");
                     }
                     return myXhr;
                 },
@@ -106462,7 +106459,6 @@ function( app, ItemModel, MediaView, ItemCollectionViewer ) {
                     }
                 });
             }
-            console.log(url);
             return url;
         },
 
@@ -106565,7 +106561,7 @@ function( app, ItemModel, MediaView, ItemCollectionViewer ) {
 
         parse: function(res){
             
-            if( this.mediaModel.queryType == "tag" && this.mediaModel.getQuery() !== ""){
+            if( this.mediaModel.queryType == "tag" || this.mediaModel.getQuery() === ""){
                 var items = [];
 
                 _.each( res.data, function( photo ){
@@ -106828,7 +106824,9 @@ function( app, ItemModel, MediaView, ItemCollectionViewer ) {
         
         api: "Flickr",
         apiUrl: "https://secure.flickr.com/services/rest/?",
-        favUrl: app.searchAPI + "archive=Flickr&type=Image&user=1&limit=48&sort=date-desc",
+        
+        favUrl: "https://secure.flickr.com/services/rest/?nojsoncallback=1&format=json&method=flickr.interestingness.getList&extras=owner_name&per_page=100&api_key=97ac5e379fbf4df38a357f9c0943e140",
+        //favUrl: app.searchAPI + "archive=Flickr&type=Image&user=1&limit=48&sort=date-desc",
         allowSearch: true,
 
         defaults: {
@@ -106903,8 +106901,9 @@ function( app, ItemModel, MediaView, ItemCollectionViewer ) {
         
         api: "Instagram",
         apiUrl: "https://api.instagram.com/v1/",
-        queryType: "tag",
-        favUrl: app.searchAPI + "archive=Instagram&type=Image&user=1&limit=48&sort=date-desc",
+        queryType: "user",
+        favUrl: "https://api.instagram.com/v1/media/popular?client_id=725bbc7af5094c8682bdb322d29734cc&callback=?",
+        //favUrl: app.searchAPI + "archive=Instagram&type=Image&user=1&limit=48&sort=date-desc",
         allowSearch: true,
 
         defaults: {
