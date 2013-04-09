@@ -84501,9 +84501,9 @@ function( app ) {
 
             var updateProgress = function( e ){
                 var w = e.loaded * 283 / e.total;
-                console.log(w);
-                _this.$('.upload-progress').clearQueue().animate ({ "width": w + "px"}, 100 );
-
+                _this.$('.upload-progress').clearQueue().animate ({ "width": w + "px"}, 1000, function(){
+                    _this.$('.upload-instructions').html("upload successful!");
+                } );
             };
 
 
