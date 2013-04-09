@@ -125,7 +125,7 @@ function( app ) {
                 _this.$('.upload-progress').clearQueue().animate ({ "width": w + "px"}, 1000);
                 if( w > 140 ) {
                     _this.$('.upload-instructions').html("processing...");
-                    _this.$('.upload-progress').clearQueue().animate ({ "width": "283px"}, 5000);
+                    _this.$('.upload-progress').clearQueue().animate ({ "width": "283px"}, 10000);
                 }
 
             };
