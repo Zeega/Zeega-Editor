@@ -561,7 +561,7 @@ return __p;
 this["JST"]["app/templates/layout-main.html"] = function(obj){
 var __p='';var print=function(){__p+=Array.prototype.join.call(arguments, '')};
 with(obj||{}){
-__p+='<div class="project-head"></div>\n\n<div class=\'left-column\'>\n    <div class="media-drawer"></div>\n</div>\n\n<div class=\'right-column\'>\n\n    <div class="edit-box">\n        <div class="project-navs">\n            <div class="frames"></div>\n        </div>\n        <div class="workspace"></div>\n    </div>\n    <div class="soundtrack"></div>\n\n    <div class="section-head">Layers</div>\n    <div class="layer-picker"></div>\n    <div class="layers"></div>\n</div>';
+__p+='<div class="project-head"></div>\n\n<div class=\'left-column\'>\n    <div class="media-drawer"></div>\n</div>\n\n<div class=\'right-column\'>\n\n    <div class="project-navs">\n        <div class="soundtrack"></div>\n        <div class="frames"></div>\n    </div>\n    <div class="edit-box">\n        <div class="workspace"></div>\n    </div>\n\n    <div class="section-head">Layers</div>\n    <div class="layer-picker"></div>\n    <div class="layers"></div>\n</div>';
 }
 return __p;
 };
@@ -569,11 +569,11 @@ return __p;
 this["JST"]["app/templates/media-collection.html"] = function(obj){
 var __p='';var print=function(){__p+=Array.prototype.join.call(arguments, '')};
 with(obj||{}){
-__p+='<div class="media-collection-header">\n    <div class="media-collection-search">\n        <ul class=\'pull-left search-bar\'>\n            <li>\n                <input class="search-box" type="text" placeholder="'+
+__p+='<div class="media-collection-header">\n    <div class="media-collection-search">\n\n        <input class="search-box" type="text" placeholder="'+
 ( placeholder )+
 '" value="'+
 ( searchQuery )+
-'" />\n            </li>\n        </ul>\n        <div class="pull-right collection-options">\n        </div>\n    </div>\n</div>\n<div class="media-collection-wrapper">\n    <ul class="media-collection-items"></ul>\n</div>';
+'" />\n        <a class="submit btnz"><span class="label">search</span></a>\n\n    </div>\n</div>\n<div class="media-collection-wrapper">\n    <ul class="media-collection-items"></ul>\n</div>';
 }
 return __p;
 };
@@ -767,7 +767,7 @@ return __p;
 this["JST"]["app/zeega-parser/plugins/controls/linkimage/linkimage.html"] = function(obj){
 var __p='';var print=function(){__p+=Array.prototype.join.call(arguments, '')};
 with(obj||{}){
-__p+='<div class="control-name">image</div>\n<select class="link-image-select">\n    <option value="arrow_up">Up Arrow</option>\n    <option value="arrow_down">Down Arrow</option>\n    <option value="arrow_left">Left Arrow</option>\n    <option value="arrow_right">Right Arrow</option>\n    <option value="default">none</option>\n</select>';
+__p+='<div class="control-name">type</div>\n<select class="link-image-select">\n    <option value="arrow_up">Up Arrow</option>\n    <option value="arrow_down">Down Arrow</option>\n    <option value="arrow_left">Left Arrow</option>\n    <option value="arrow_right">Right Arrow</option>\n    <option value="default">Glowing Rectangle</option>\n</select>';
 }
 return __p;
 };
@@ -849,7 +849,7 @@ return __p;
 this["JST"]["app/zeega-parser/plugins/layers/link/frame-chooser.html"] = function(obj){
 var __p='';var print=function(){__p+=Array.prototype.join.call(arguments, '')};
 with(obj||{}){
-__p+='<a href="#" class="close">&times;</a>\n<div class="modal-content">\n    <div class="modal-title">Where do you want your link to go?</div>\n    <div class="modal-body">\n        <ul class="frame-chooser-list clearfix">\n        </ul>\n        <div class="bottom-chooser">\n            <div class="new-frame">\n                <a href="#" class="link-new-frame"><i class="icon-plus icon-white"></i> New Page</a>\n            </div>\n            <a href="#" class="submit">OK</a>\n        </div>\n    </div>\n</div>\n';
+__p+='<a href="#" class="modal-close">&times;</a>\n<div class="modal-content">\n    <div class="modal-title">Where do you want your link to go?</div>\n    <div class="modal-body">\n        <ul class="frame-chooser-list clearfix">\n        </ul>\n        <div class="bottom-chooser">\n            <div class="new-frame">\n                <a href="#" class="link-new-frame"><i class="icon-plus"></i> New Page</a>\n            </div>\n            <a href="#" class="submit">OK</a>\n        </div>\n    </div>\n</div>\n';
 }
 return __p;
 };
@@ -16824,327 +16824,6 @@ zeega.define("backbone", ["lodash","jquery"], (function (global) {
     };
 }(this)));
 
-//fgnass.github.com/spin.js#v1.2.8
-!function(window, document, undefined) {
-
-  /**
-   * Copyright (c) 2011 Felix Gnass [fgnass at neteye dot de]
-   * Licensed under the MIT license
-   */
-
-  var prefixes = ['webkit', 'Moz', 'ms', 'O'] /* Vendor prefixes */
-    , animations = {} /* Animation rules keyed by their name */
-    , useCssAnimations
-
-  /**
-   * Utility function to create elements. If no tag name is given,
-   * a DIV is created. Optionally properties can be passed.
-   */
-  function createEl(tag, prop) {
-    var el = document.createElement(tag || 'div')
-      , n
-
-    for(n in prop) el[n] = prop[n]
-    return el
-  }
-
-  /**
-   * Appends children and returns the parent.
-   */
-  function ins(parent /* child1, child2, ...*/) {
-    for (var i=1, n=arguments.length; i<n; i++)
-      parent.appendChild(arguments[i])
-
-    return parent
-  }
-
-  /**
-   * Insert a new stylesheet to hold the @keyframe or VML rules.
-   */
-  var sheet = function() {
-    var el = createEl('style', {type : 'text/css'})
-    ins(document.getElementsByTagName('head')[0], el)
-    return el.sheet || el.styleSheet
-  }()
-
-  /**
-   * Creates an opacity keyframe animation rule and returns its name.
-   * Since most mobile Webkits have timing issues with animation-delay,
-   * we create separate rules for each line/segment.
-   */
-  function addAnimation(alpha, trail, i, lines) {
-    var name = ['opacity', trail, ~~(alpha*100), i, lines].join('-')
-      , start = 0.01 + i/lines*100
-      , z = Math.max(1 - (1-alpha) / trail * (100-start), alpha)
-      , prefix = useCssAnimations.substring(0, useCssAnimations.indexOf('Animation')).toLowerCase()
-      , pre = prefix && '-'+prefix+'-' || ''
-
-    if (!animations[name]) {
-      sheet.insertRule(
-        '@' + pre + 'keyframes ' + name + '{' +
-        '0%{opacity:' + z + '}' +
-        start + '%{opacity:' + alpha + '}' +
-        (start+0.01) + '%{opacity:1}' +
-        (start+trail) % 100 + '%{opacity:' + alpha + '}' +
-        '100%{opacity:' + z + '}' +
-        '}', sheet.cssRules.length)
-
-      animations[name] = 1
-    }
-    return name
-  }
-
-  /**
-   * Tries various vendor prefixes and returns the first supported property.
-   **/
-  function vendor(el, prop) {
-    var s = el.style
-      , pp
-      , i
-
-    if(s[prop] !== undefined) return prop
-    prop = prop.charAt(0).toUpperCase() + prop.slice(1)
-    for(i=0; i<prefixes.length; i++) {
-      pp = prefixes[i]+prop
-      if(s[pp] !== undefined) return pp
-    }
-  }
-
-  /**
-   * Sets multiple style properties at once.
-   */
-  function css(el, prop) {
-    for (var n in prop)
-      el.style[vendor(el, n)||n] = prop[n]
-
-    return el
-  }
-
-  /**
-   * Fills in default values.
-   */
-  function merge(obj) {
-    for (var i=1; i < arguments.length; i++) {
-      var def = arguments[i]
-      for (var n in def)
-        if (obj[n] === undefined) obj[n] = def[n]
-    }
-    return obj
-  }
-
-  /**
-   * Returns the absolute page-offset of the given element.
-   */
-  function pos(el) {
-    var o = { x:el.offsetLeft, y:el.offsetTop }
-    while((el = el.offsetParent))
-      o.x+=el.offsetLeft, o.y+=el.offsetTop
-
-    return o
-  }
-
-  var defaults = {
-    lines: 12,            // The number of lines to draw
-    length: 7,            // The length of each line
-    width: 5,             // The line thickness
-    radius: 10,           // The radius of the inner circle
-    rotate: 0,            // Rotation offset
-    corners: 1,           // Roundness (0..1)
-    color: '#000',        // #rgb or #rrggbb
-    speed: 1,             // Rounds per second
-    trail: 100,           // Afterglow percentage
-    opacity: 1/4,         // Opacity of the lines
-    fps: 20,              // Frames per second when using setTimeout()
-    zIndex: 2e9,          // Use a high z-index by default
-    className: 'spinner', // CSS class to assign to the element
-    top: 'auto',          // center vertically
-    left: 'auto',         // center horizontally
-    position: 'relative'  // element position
-  }
-
-  /** The constructor */
-  function Spinner(o) {
-    if (!this.spin) return new Spinner(o)
-    this.opts = merge(o || {}, Spinner.defaults, defaults)
-  }
-
-  Spinner.defaults = {}
-
-  merge(Spinner.prototype, {
-    spin: function(target) {
-      this.stop()
-      var self = this
-        , o = self.opts
-        , el = self.el = css(createEl(0, {className: o.className}), {position: o.position, width: 0, zIndex: o.zIndex})
-        , mid = o.radius+o.length+o.width
-        , ep // element position
-        , tp // target position
-
-      if (target) {
-        target.insertBefore(el, target.firstChild||null)
-        tp = pos(target)
-        ep = pos(el)
-        css(el, {
-          left: (o.left == 'auto' ? tp.x-ep.x + (target.offsetWidth >> 1) : parseInt(o.left, 10) + mid) + 'px',
-          top: (o.top == 'auto' ? tp.y-ep.y + (target.offsetHeight >> 1) : parseInt(o.top, 10) + mid)  + 'px'
-        })
-      }
-
-      el.setAttribute('aria-role', 'progressbar')
-      self.lines(el, self.opts)
-
-      if (!useCssAnimations) {
-        // No CSS animation support, use setTimeout() instead
-        var i = 0
-          , fps = o.fps
-          , f = fps/o.speed
-          , ostep = (1-o.opacity) / (f*o.trail / 100)
-          , astep = f/o.lines
-
-        ;(function anim() {
-          i++;
-          for (var s=o.lines; s; s--) {
-            var alpha = Math.max(1-(i+s*astep)%f * ostep, o.opacity)
-            self.opacity(el, o.lines-s, alpha, o)
-          }
-          self.timeout = self.el && setTimeout(anim, ~~(1000/fps))
-        })()
-      }
-      return self
-    },
-
-    stop: function() {
-      var el = this.el
-      if (el) {
-        clearTimeout(this.timeout)
-        if (el.parentNode) el.parentNode.removeChild(el)
-        this.el = undefined
-      }
-      return this
-    },
-
-    lines: function(el, o) {
-      var i = 0
-        , seg
-
-      function fill(color, shadow) {
-        return css(createEl(), {
-          position: 'absolute',
-          width: (o.length+o.width) + 'px',
-          height: o.width + 'px',
-          background: color,
-          boxShadow: shadow,
-          transformOrigin: 'left',
-          transform: 'rotate(' + ~~(360/o.lines*i+o.rotate) + 'deg) translate(' + o.radius+'px' +',0)',
-          borderRadius: (o.corners * o.width>>1) + 'px'
-        })
-      }
-
-      for (; i < o.lines; i++) {
-        seg = css(createEl(), {
-          position: 'absolute',
-          top: 1+~(o.width/2) + 'px',
-          transform: o.hwaccel ? 'translate3d(0,0,0)' : '',
-          opacity: o.opacity,
-          animation: useCssAnimations && addAnimation(o.opacity, o.trail, i, o.lines) + ' ' + 1/o.speed + 's linear infinite'
-        })
-
-        if (o.shadow) ins(seg, css(fill('#000', '0 0 4px ' + '#000'), {top: 2+'px'}))
-
-        ins(el, ins(seg, fill(o.color, '0 0 1px rgba(0,0,0,.1)')))
-      }
-      return el
-    },
-
-    opacity: function(el, i, val) {
-      if (i < el.childNodes.length) el.childNodes[i].style.opacity = val
-    }
-
-  })
-
-  /////////////////////////////////////////////////////////////////////////
-  // VML rendering for IE
-  /////////////////////////////////////////////////////////////////////////
-
-  /**
-   * Check and init VML support
-   */
-  ;(function() {
-
-    function vml(tag, attr) {
-      return createEl('<' + tag + ' xmlns="urn:schemas-microsoft.com:vml" class="spin-vml">', attr)
-    }
-
-    var s = css(createEl('group'), {behavior: 'url(#default#VML)'})
-
-    if (!vendor(s, 'transform') && s.adj) {
-
-      // VML support detected. Insert CSS rule ...
-      sheet.addRule('.spin-vml', 'behavior:url(#default#VML)')
-
-      Spinner.prototype.lines = function(el, o) {
-        var r = o.length+o.width
-          , s = 2*r
-
-        function grp() {
-          return css(
-            vml('group', {
-              coordsize: s + ' ' + s,
-              coordorigin: -r + ' ' + -r
-            }),
-            { width: s, height: s }
-          )
-        }
-
-        var margin = -(o.width+o.length)*2 + 'px'
-          , g = css(grp(), {position: 'absolute', top: margin, left: margin})
-          , i
-
-        function seg(i, dx, filter) {
-          ins(g,
-            ins(css(grp(), {rotation: 360 / o.lines * i + 'deg', left: ~~dx}),
-              ins(css(vml('roundrect', {arcsize: o.corners}), {
-                  width: r,
-                  height: o.width,
-                  left: o.radius,
-                  top: -o.width>>1,
-                  filter: filter
-                }),
-                vml('fill', {color: o.color, opacity: o.opacity}),
-                vml('stroke', {opacity: 0}) // transparent stroke to fix color bleeding upon opacity change
-              )
-            )
-          )
-        }
-
-        if (o.shadow)
-          for (i = 1; i <= o.lines; i++)
-            seg(i, -2, 'progid:DXImageTransform.Microsoft.Blur(pixelradius=2,makeshadow=1,shadowopacity=.3)')
-
-        for (i = 1; i <= o.lines; i++) seg(i)
-        return ins(el, g)
-      }
-
-      Spinner.prototype.opacity = function(el, i, val, o) {
-        var c = el.firstChild
-        o = o.shadow && o.lines || 0
-        if (c && i+o < c.childNodes.length) {
-          c = c.childNodes[i+o]; c = c && c.firstChild; c = c && c.firstChild
-          if (c) c.opacity = val
-        }
-      }
-    }
-    else
-      useCssAnimations = vendor(s, 'animation')
-  })()
-
-  if (typeof define == 'function' && define.amd)
-    zeega.define('../assets/js/libs/spin',[],function() { return Spinner })
-  else
-    window.Spinner = Spinner
-
-}(window, document);
-
 /*! jQuery UI - v1.10.1 - 2013-02-26
 * http://jqueryui.com
 * Includes: jquery.ui.core.js, jquery.ui.widget.js, jquery.ui.mouse.js, jquery.ui.position.js, jquery.ui.draggable.js, jquery.ui.droppable.js, jquery.ui.resizable.js, jquery.ui.selectable.js, jquery.ui.sortable.js, jquery.ui.accordion.js, jquery.ui.autocomplete.js, jquery.ui.button.js, jquery.ui.datepicker.js, jquery.ui.dialog.js, jquery.ui.menu.js, jquery.ui.progressbar.js, jquery.ui.slider.js, jquery.ui.spinner.js, jquery.ui.tabs.js, jquery.ui.tooltip.js, jquery.ui.effect.js, jquery.ui.effect-blind.js, jquery.ui.effect-bounce.js, jquery.ui.effect-clip.js, jquery.ui.effect-drop.js, jquery.ui.effect-explode.js, jquery.ui.effect-fade.js, jquery.ui.effect-fold.js, jquery.ui.effect-highlight.js, jquery.ui.effect-pulsate.js, jquery.ui.effect-scale.js, jquery.ui.effect-shake.js, jquery.ui.effect-slide.js, jquery.ui.effect-transfer.js
@@ -32879,35 +32558,17 @@ zeega.define("plugins/backbone.layoutmanager", function(){});
 zeega.define('zeega',[
     "backbone",
     "jquery",
-    "../assets/js/libs/spin",
     "jqueryUI",
     "plugins/backbone.layoutmanager"
 ],
 
-function( Backbone, jquery, Spinner ) {
+function( Backbone, jquery ) {
     // Provide a global location to place configuration settings and module
     // creation.
     var app = {
         // The root path to run the application.
         root: "/",
-        gmapAPI: "waiting",
-        spinner: new Spinner({
-            lines: 13, // The number of lines to draw
-            length: 7, // The length of each line
-            width: 4, // The line thickness
-            radius: 20, // The radius of the inner circle
-            corners: 1, // Corner roundness (0..1)
-            rotate: 0, // The rotation offset
-            color: '#fff', // #rgb or #rrggbb
-            speed: 1, // Rounds per second
-            trail: 60, // Afterglow percentage
-            shadow: false, // Whether to render a shadow
-            hwaccel: false, // Whether to use hardware acceleration
-            className: 'spinner', // The CSS class to assign to the spinner
-            zIndex: 100, // The z-index (defaults to 2000000000)
-            top: 'auto', // Top position relative to parent in px
-            left: 'auto' // Left position relative to parent in px
-        })
+        gmapAPI: "waiting"
     };
 
     // Localize or create a new JavaScript Template object.
@@ -33090,7 +32751,6 @@ function( Zeega ) {
 
             } else {
                 this.renderOnReady = oldID;
-                Zeega.spinner.spin( Zeega.$(".ZEEGA-player")[0] );
             }
             /* determines the z-index of the layer in relation to other layers on the frame */
             _.each( this.get("layers"), function( layerID, i ) {
@@ -33114,7 +32774,7 @@ function( Zeega ) {
             this.state = "ready";
             this.status.emit( "frame_preloaded", data );
             if ( !_.isNull( this.renderOnReady ) ) {
-                Zeega.spinner.stop();
+
                 this.status.emit( "canplay", data );
                 this.render( this.renderOnReady );
                 this.renderOnReady = null;
@@ -48871,7 +48531,7 @@ function( Zeega, _Layer, MediaPlayer ) {
                 this.popup.render();
                 this.model.on("popup_remove", this.popupClosed, this );
                 // pause the player
-                this.model.status.get("project").suspend();
+                this.model.status.get("project").pause();
             }
         },
 
@@ -49522,14 +49182,12 @@ function( Zeega, SequenceCollection ) {
             prev = frame.get("_prev"),
             next = frame.get("_next");
 
-/*
             frame.layers.each(function( layer ) {
                 if ( layer.get("type") == "Link" ) {
                     hasLink = true;
                     return false;
                 }
             });
-*/
 
             frame.put( "_connections",
                 frame.get('attr').advance || hasLink ? "none" :
@@ -50217,11 +49875,7 @@ function( Zeega ) {
             sequence = frame.collection.sequence;
 
             fHist = this.get("frameHistory");
-            if ( fHist.length === 0 || fHist[ fHist.length - 1 ] != frame.id ){
-                fHist.push( frame.id );
-            }
-            
-
+            fHist.push( frame.id );
             this.put({
                 current_frame_model: frame,
                 frameHistory: fHist
@@ -50247,19 +49901,6 @@ function( Zeega ) {
                     _.extend({}, this.get("current_sequence_model").toJSON() )
                 );
             }
-        },
-
-        onBack: function() {
-
-            fHist = this.get("frameHistory");
-            
-            if( fHist.length > 1 && fHist[ fHist.length - 1 ] == this.get("current_frame")){
-                fHist.pop();
-                this.put({
-                    frameHistory: fHist
-                }); 
-            }
-            
         },
 
         /*
@@ -50387,7 +50028,7 @@ function( Zeega, ArrowView, CloseView, PlayPauseView ) {
 
         prev: function( event ) {
             event.preventDefault();
-            this.model.cueBack();
+            this.model.cuePrev();
         },
 
         next: function( event ) {
@@ -50395,20 +50036,23 @@ function( Zeega, ArrowView, CloseView, PlayPauseView ) {
             this.model.cueNext();
         },
 
-       
         onFramePlay: function( info ) {
-
-            if( this.model.status.get("frameHistory").length > 1 ){
-                this.activateArrow("ZEEGA-prev");
-            } else {
-                this.disableArrow("ZEEGA-prev");
-            }
-
-
-            if( info._connections == "r" || info._connections == "lr" ){
-                this.activateArrow("ZEEGA-next");
-            } else {
-                this.disableArrow("ZEEGA-next");
+            switch(info._connections) {
+                case "l":
+                    this.activateArrow("ZEEGA-prev");
+                    this.disableArrow("ZEEGA-next");
+                    break;
+                case "r":
+                    this.disableArrow("ZEEGA-prev");
+                    this.activateArrow("ZEEGA-next");
+                    break;
+                case "lr":
+                    this.activateArrow("ZEEGA-prev");
+                    this.activateArrow("ZEEGA-next");
+                    break;
+                default:
+                    this.disableArrow("ZEEGA-prev");
+                    this.disableArrow("ZEEGA-next");
             }
         },
 
@@ -51079,17 +50723,6 @@ function( Zeega, ZeegaParser, Relay, Status, PlayerLayout ) {
         // goes to the prev frame after n ms
         cuePrev: function( ms ) {
             this.cueFrame( this.status.get("current_frame_model").get("_prev"), ms );
-        },
-
-        // goes to previous frame in history
-        cueBack: function() {
-
-            this.status.onBack();
-            var history = this.status.get("frameHistory");
-            if( history.length > 0 ){
-                this.cueFrame( history [ history.length - 1 ] );
-            }
-
         },
 
         // goes to specified frame after n ms
@@ -68419,7 +68052,8 @@ define('app',[
         api: "http:" + meta.data("hostname") +  ( meta.data("apiRoot") ? meta.data("apiRoot") : meta.data("root") ) + "api/"|| null,
         mediaServer: "http:" + meta.data("hostname") + meta.data("mediaRoot") || null,
         searchAPI: "http:" + meta.data("hostname") +  ( meta.data("apiRoot") ? meta.data("apiRoot") : meta.data("root") ) + "api/items/search?"|| null,
-        featuredAPI: "http:" + meta.data("hostname") +  ( meta.data("apiRoot") ? meta.data("apiRoot") : meta.data("root") ) + "api/items/featured" || null
+        featuredAPI: "http:" + meta.data("hostname") +  ( meta.data("apiRoot") ? meta.data("apiRoot") : meta.data("root") ) + "api/items/featured" || null,
+        thumbnailServer: meta.data("thumbnailServer")
     
     };
 
@@ -69172,6 +68806,7 @@ function( app, LayerControls ) {
         },
 
         closeControls: function() {
+            console.log("close controls");
             this.controls.remove();
         }
         
@@ -84189,6 +83824,9 @@ function( app, LayerList ) {
             this.$("ul.layer-list").sortable({
                 containment: "parent",
                 tolerance: "pointer",
+                start: function() {
+                    app.status.setCurrentLayer( null );
+                },
                 update: function( e, ui ) {
                     this.updateLayerOrder( frameModel );
                 }.bind(this)
@@ -85485,8 +85123,11 @@ function( app, ProjectHead, Sequences, Frames, Workspace, Layers, LayerDrawer, S
         },
 
         listenForKeys: function() {
-            Mousetrap.bind(['command+c', 'ctrl+c'], this.copyLayer );
-            Mousetrap.bind(['command+v', 'ctrl+v'], this.pasteLayer );
+            Mousetrap.bind(["command+c", "ctrl+c"], this.copyLayer );
+            Mousetrap.bind(["command+v", "ctrl+v"], this.pasteLayer );
+            Mousetrap.bind(["backspace"], this.deleteLayer );
+
+            // window.onbeforeunload = function() { return "Do you really want to navigate away??"; }
         },
 
         copyLayer: function() {
@@ -85497,6 +85138,16 @@ function( app, ProjectHead, Sequences, Frames, Workspace, Layers, LayerDrawer, S
 
                 return false;
             }
+        },
+
+        deleteLayer: function( e ) {
+            var layer = app.status.get("currentLayer");
+
+            if ( layer && confirm("do you really want to delete this layer?") ) {
+                app.status.setCurrentLayer( null );
+                app.status.get("currentFrame").layers.remove( layer );
+            }
+            e.preventDefault();
         },
 
         pasteLayer: function() {
@@ -85932,7 +85583,7 @@ function( Zeega, ControlView ) {
  * Licensed under the MIT license:
  *   http://www.opensource.org/licenses/mit-license.php
  *
- * Version: 1.0.1 (201210141130)
+ * Version: 1.1.1 (201303290104)
  */
  (function($) {
 /**
@@ -85977,7 +85628,10 @@ function( Zeega, ControlView ) {
  *                      Default value: 'center'
  *
  *  colorCodeColor:     Text color of the color code inside the button. Only used if 'displayColorCode' is true.
- *                      Default value: '#FFF'            
+ *                      Default value: '#FFF'
+ *
+ *  callback:           Callback function to call after a color has been chosen.
+ *                      Default value: null
  */
   $.fn.simpleColor = function(options) {
 
@@ -86014,20 +85668,21 @@ function( Zeega, ControlView ) {
 
     // Option defaults
     options = $.extend({
-      defaultColor:   this.attr('defaultColor') || '#FFF',
-      border:       this.attr('border') || '1px solid #000',
-      cellWidth:    this.attr('cellWidth') || 10,
-      cellHeight:     this.attr('cellHeight') || 10,
-      cellMargin:     this.attr('cellMargin') || 1,
-      boxWidth:     this.attr('boxWidth') || '115px',
-      boxHeight:    this.attr('boxHeight') || '20px',
-      columns:      this.attr('columns') || 16,
-      insert:       this.attr('insert') || 'after',
-      buttonClass:    this.attr('buttonClass') || '',
-      colors:       this.attr('colors') || default_colors,
+      defaultColor:     this.attr('defaultColor') || '#FFF',
+      border:           this.attr('border') || '1px solid #000',
+      cellWidth:        this.attr('cellWidth') || 10,
+      cellHeight:       this.attr('cellHeight') || 10,
+      cellMargin:       this.attr('cellMargin') || 1,
+      boxWidth:         this.attr('boxWidth') || '115px',
+      boxHeight:        this.attr('boxHeight') || '20px',
+      columns:          this.attr('columns') || 16,
+      insert:           this.attr('insert') || 'after',
+      buttonClass:      this.attr('buttonClass') || '',
+      colors:           this.attr('colors') || default_colors,
       displayColorCode: this.attr('displayColorCode') || false,
       colorCodeAlign:   this.attr('colorCodeAlign') || 'center',
-      colorCodeColor:   this.attr('colorCodeColor') || '#FFF'
+      colorCodeColor:   this.attr('colorCodeColor') || '#FFF',
+      callback:         null
     }, options || {});
 
     // Hide the input
@@ -86130,11 +85785,16 @@ function( Zeega, ControlView ) {
               event.data.display_box.css('backgroundColor', '#' + this.id);
               event.data.chooser.hide();
               event.data.display_box.show();
-     
+
               // If 'displayColorCode' is turned on, display the currently selected color code as text inside the button.
               if (options.displayColorCode) {
                 event.data.display_box.text('#' + this.id);
               }
+              // If a callback function is defined then excecute it.
+              if (options.callback) {
+                options.callback(this.id);
+              }
+
             });
           }
         }
@@ -87660,16 +87320,17 @@ function( app ) {
         serialize: function() {
             return this.model.toJSON();
         },
-        className: "frame-chooser overlay-dimmer modal",
+        className: "frame-chooser overlay-dimmer ZEEGA-modal",
 
         events: {
-            "click .close": "closeThis",
+            "click .modal-close": "closeThis",
             "click .submit": "submit",
             "click .frame" : "selectFrame",
             "click .link-new-frame": "linkToNewFrame"
         },
 
         closeThis: function() {
+            $("#main").removeClass("modal");
             this.$el.fadeOut(function() {
                 this.$el.attr("style", "");
                 this.remove();
@@ -87707,6 +87368,7 @@ function( app ) {
         },
 
         afterRender: function() {
+            $("#main").addClass("modal");
             this.$(".frame-chooser-list").empty();
             app.status.get("currentSequence").frames.each(function( frame ) {
                 var fv = $("<li>"),
@@ -87794,31 +87456,7 @@ function( Zeega, _Layer, Visual, FrameChooser ) {
             "position",
             "resize",
             "linkto",
-            "linkimage",
-            {
-                type: "checkbox",
-                options: {
-                    title: "hover",
-                    propertyName: "glow_on_hover"
-                }
-            },
-            { type: "slider",
-                options: {
-                    title: "hover opacity",
-                    propertyName: "opacity_hover",
-                    min: 0,
-                    max: 1,
-                    step: 0.001,
-                    css: false
-                }
-            },
-            {
-                type: "checkbox",
-                options: {
-                    title: "glow",
-                    propertyName: "blink_on_start"
-                }
-            }
+            "linkimage"
         ]
     });
 
@@ -103428,9 +103066,10 @@ function( Zeega, _Layer, Visual ) {
 
         attr: {
             citation: false,
-            color: "#F0F",
+            color: "#FFF",
             content: "text",
             fontSize: 200,
+            fontFamily: "Archivo Black",
             default_controls: true,
             left: 30,
             opacity: 1,
@@ -103505,7 +103144,8 @@ function( Zeega, _Layer, Visual ) {
         afterEditorRender: function() {
             this.$el.css({
                 color: this.model.get("attr").color,
-                fontSize: this.model.get("attr").fontSize + "%"
+                fontSize: this.model.get("attr").fontSize + "%",
+                fontFamily: this.model.get("attr").fontFamily
             });
 
             this.$(".visual-target").attr("contenteditable", "true");
@@ -105510,13 +105150,363 @@ function( app, ItemView ) {
 
 });
 
+//fgnass.github.com/spin.js#v1.3
+
+/**
+ * Copyright (c) 2011-2013 Felix Gnass
+ * Licensed under the MIT license
+ */
+(function(root, factory) {
+
+  /* CommonJS */
+  if (typeof exports == 'object')  module.exports = factory()
+
+  /* AMD module */
+  else if (typeof define == 'function' && define.amd) define('spin',[],factory)
+
+  /* Browser global */
+  else root.Spinner = factory()
+}
+(this, function() {
+  
+
+  var prefixes = ['webkit', 'Moz', 'ms', 'O'] /* Vendor prefixes */
+    , animations = {} /* Animation rules keyed by their name */
+    , useCssAnimations /* Whether to use CSS animations or setTimeout */
+
+  /**
+   * Utility function to create elements. If no tag name is given,
+   * a DIV is created. Optionally properties can be passed.
+   */
+  function createEl(tag, prop) {
+    var el = document.createElement(tag || 'div')
+      , n
+
+    for(n in prop) el[n] = prop[n]
+    return el
+  }
+
+  /**
+   * Appends children and returns the parent.
+   */
+  function ins(parent /* child1, child2, ...*/) {
+    for (var i=1, n=arguments.length; i<n; i++)
+      parent.appendChild(arguments[i])
+
+    return parent
+  }
+
+  /**
+   * Insert a new stylesheet to hold the @keyframe or VML rules.
+   */
+  var sheet = (function() {
+    var el = createEl('style', {type : 'text/css'})
+    ins(document.getElementsByTagName('head')[0], el)
+    return el.sheet || el.styleSheet
+  }())
+
+  /**
+   * Creates an opacity keyframe animation rule and returns its name.
+   * Since most mobile Webkits have timing issues with animation-delay,
+   * we create separate rules for each line/segment.
+   */
+  function addAnimation(alpha, trail, i, lines) {
+    var name = ['opacity', trail, ~~(alpha*100), i, lines].join('-')
+      , start = 0.01 + i/lines * 100
+      , z = Math.max(1 - (1-alpha) / trail * (100-start), alpha)
+      , prefix = useCssAnimations.substring(0, useCssAnimations.indexOf('Animation')).toLowerCase()
+      , pre = prefix && '-' + prefix + '-' || ''
+
+    if (!animations[name]) {
+      sheet.insertRule(
+        '@' + pre + 'keyframes ' + name + '{' +
+        '0%{opacity:' + z + '}' +
+        start + '%{opacity:' + alpha + '}' +
+        (start+0.01) + '%{opacity:1}' +
+        (start+trail) % 100 + '%{opacity:' + alpha + '}' +
+        '100%{opacity:' + z + '}' +
+        '}', sheet.cssRules.length)
+
+      animations[name] = 1
+    }
+
+    return name
+  }
+
+  /**
+   * Tries various vendor prefixes and returns the first supported property.
+   */
+  function vendor(el, prop) {
+    var s = el.style
+      , pp
+      , i
+
+    if(s[prop] !== undefined) return prop
+    prop = prop.charAt(0).toUpperCase() + prop.slice(1)
+    for(i=0; i<prefixes.length; i++) {
+      pp = prefixes[i]+prop
+      if(s[pp] !== undefined) return pp
+    }
+  }
+
+  /**
+   * Sets multiple style properties at once.
+   */
+  function css(el, prop) {
+    for (var n in prop)
+      el.style[vendor(el, n)||n] = prop[n]
+
+    return el
+  }
+
+  /**
+   * Fills in default values.
+   */
+  function merge(obj) {
+    for (var i=1; i < arguments.length; i++) {
+      var def = arguments[i]
+      for (var n in def)
+        if (obj[n] === undefined) obj[n] = def[n]
+    }
+    return obj
+  }
+
+  /**
+   * Returns the absolute page-offset of the given element.
+   */
+  function pos(el) {
+    var o = { x:el.offsetLeft, y:el.offsetTop }
+    while((el = el.offsetParent))
+      o.x+=el.offsetLeft, o.y+=el.offsetTop
+
+    return o
+  }
+
+  // Built-in defaults
+
+  var defaults = {
+    lines: 12,            // The number of lines to draw
+    length: 7,            // The length of each line
+    width: 5,             // The line thickness
+    radius: 10,           // The radius of the inner circle
+    rotate: 0,            // Rotation offset
+    corners: 1,           // Roundness (0..1)
+    color: '#000',        // #rgb or #rrggbb
+    direction: 1,         // 1: clockwise, -1: counterclockwise
+    speed: 1,             // Rounds per second
+    trail: 100,           // Afterglow percentage
+    opacity: 1/4,         // Opacity of the lines
+    fps: 20,              // Frames per second when using setTimeout()
+    zIndex: 2e9,          // Use a high z-index by default
+    className: 'spinner', // CSS class to assign to the element
+    top: 'auto',          // center vertically
+    left: 'auto',         // center horizontally
+    position: 'relative'  // element position
+  }
+
+  /** The constructor */
+  function Spinner(o) {
+    if (typeof this == 'undefined') return new Spinner(o)
+    this.opts = merge(o || {}, Spinner.defaults, defaults)
+  }
+
+  // Global defaults that override the built-ins:
+  Spinner.defaults = {}
+
+  merge(Spinner.prototype, {
+
+    /**
+     * Adds the spinner to the given target element. If this instance is already
+     * spinning, it is automatically removed from its previous target b calling
+     * stop() internally.
+     */
+    spin: function(target) {
+      this.stop()
+
+      var self = this
+        , o = self.opts
+        , el = self.el = css(createEl(0, {className: o.className}), {position: o.position, width: 0, zIndex: o.zIndex})
+        , mid = o.radius+o.length+o.width
+        , ep // element position
+        , tp // target position
+
+      if (target) {
+        target.insertBefore(el, target.firstChild||null)
+        tp = pos(target)
+        ep = pos(el)
+        css(el, {
+          left: (o.left == 'auto' ? tp.x-ep.x + (target.offsetWidth >> 1) : parseInt(o.left, 10) + mid) + 'px',
+          top: (o.top == 'auto' ? tp.y-ep.y + (target.offsetHeight >> 1) : parseInt(o.top, 10) + mid)  + 'px'
+        })
+      }
+
+      el.setAttribute('role', 'progressbar')
+      self.lines(el, self.opts)
+
+      if (!useCssAnimations) {
+        // No CSS animation support, use setTimeout() instead
+        var i = 0
+          , start = (o.lines - 1) * (1 - o.direction) / 2
+          , alpha
+          , fps = o.fps
+          , f = fps/o.speed
+          , ostep = (1-o.opacity) / (f*o.trail / 100)
+          , astep = f/o.lines
+
+        ;(function anim() {
+          i++;
+          for (var j = 0; j < o.lines; j++) {
+            alpha = Math.max(1 - (i + (o.lines - j) * astep) % f * ostep, o.opacity)
+
+            self.opacity(el, j * o.direction + start, alpha, o)
+          }
+          self.timeout = self.el && setTimeout(anim, ~~(1000/fps))
+        })()
+      }
+      return self
+    },
+
+    /**
+     * Stops and removes the Spinner.
+     */
+    stop: function() {
+      var el = this.el
+      if (el) {
+        clearTimeout(this.timeout)
+        if (el.parentNode) el.parentNode.removeChild(el)
+        this.el = undefined
+      }
+      return this
+    },
+
+    /**
+     * Internal method that draws the individual lines. Will be overwritten
+     * in VML fallback mode below.
+     */
+    lines: function(el, o) {
+      var i = 0
+        , start = (o.lines - 1) * (1 - o.direction) / 2
+        , seg
+
+      function fill(color, shadow) {
+        return css(createEl(), {
+          position: 'absolute',
+          width: (o.length+o.width) + 'px',
+          height: o.width + 'px',
+          background: color,
+          boxShadow: shadow,
+          transformOrigin: 'left',
+          transform: 'rotate(' + ~~(360/o.lines*i+o.rotate) + 'deg) translate(' + o.radius+'px' +',0)',
+          borderRadius: (o.corners * o.width>>1) + 'px'
+        })
+      }
+
+      for (; i < o.lines; i++) {
+        seg = css(createEl(), {
+          position: 'absolute',
+          top: 1+~(o.width/2) + 'px',
+          transform: o.hwaccel ? 'translate3d(0,0,0)' : '',
+          opacity: o.opacity,
+          animation: useCssAnimations && addAnimation(o.opacity, o.trail, start + i * o.direction, o.lines) + ' ' + 1/o.speed + 's linear infinite'
+        })
+
+        if (o.shadow) ins(seg, css(fill('#000', '0 0 4px ' + '#000'), {top: 2+'px'}))
+
+        ins(el, ins(seg, fill(o.color, '0 0 1px rgba(0,0,0,.1)')))
+      }
+      return el
+    },
+
+    /**
+     * Internal method that adjusts the opacity of a single line.
+     * Will be overwritten in VML fallback mode below.
+     */
+    opacity: function(el, i, val) {
+      if (i < el.childNodes.length) el.childNodes[i].style.opacity = val
+    }
+
+  })
+
+
+  function initVML() {
+
+    /* Utility function to create a VML tag */
+    function vml(tag, attr) {
+      return createEl('<' + tag + ' xmlns="urn:schemas-microsoft.com:vml" class="spin-vml">', attr)
+    }
+
+    // No CSS transforms but VML support, add a CSS rule for VML elements:
+    sheet.addRule('.spin-vml', 'behavior:url(#default#VML)')
+
+    Spinner.prototype.lines = function(el, o) {
+      var r = o.length+o.width
+        , s = 2*r
+
+      function grp() {
+        return css(
+          vml('group', {
+            coordsize: s + ' ' + s,
+            coordorigin: -r + ' ' + -r
+          }),
+          { width: s, height: s }
+        )
+      }
+
+      var margin = -(o.width+o.length)*2 + 'px'
+        , g = css(grp(), {position: 'absolute', top: margin, left: margin})
+        , i
+
+      function seg(i, dx, filter) {
+        ins(g,
+          ins(css(grp(), {rotation: 360 / o.lines * i + 'deg', left: ~~dx}),
+            ins(css(vml('roundrect', {arcsize: o.corners}), {
+                width: r,
+                height: o.width,
+                left: o.radius,
+                top: -o.width>>1,
+                filter: filter
+              }),
+              vml('fill', {color: o.color, opacity: o.opacity}),
+              vml('stroke', {opacity: 0}) // transparent stroke to fix color bleeding upon opacity change
+            )
+          )
+        )
+      }
+
+      if (o.shadow)
+        for (i = 1; i <= o.lines; i++)
+          seg(i, -2, 'progid:DXImageTransform.Microsoft.Blur(pixelradius=2,makeshadow=1,shadowopacity=.3)')
+
+      for (i = 1; i <= o.lines; i++) seg(i)
+      return ins(el, g)
+    }
+
+    Spinner.prototype.opacity = function(el, i, val, o) {
+      var c = el.firstChild
+      o = o.shadow && o.lines || 0
+      if (c && i+o < c.childNodes.length) {
+        c = c.childNodes[i+o]; c = c && c.firstChild; c = c && c.firstChild
+        if (c) c.opacity = val
+      }
+    }
+  }
+
+  var probe = css(createEl('group'), {behavior: 'url(#default#VML)'})
+
+  if (!vendor(probe, 'transform') && probe.adj) initVML()
+  else useCssAnimations = vendor(probe, 'animation')
+
+  return Spinner
+
+}));
 define('modules/views/media-collection-view',[
     "app",
     "modules/views/media-upload",
+    "spin",
     "backbone"
 ],
 
-function( app, UploadView ) {
+function( app, UploadView, Spinner ) {
 
     var Media = {
         Zeega:{},
@@ -105530,6 +105520,9 @@ function( app, UploadView ) {
     };
 
     Media.Zeega.View = Backbone.View.extend({
+
+        busy: false,
+        spinner: null,
 
         defaults: {
             title: "untitled"
@@ -105548,7 +105541,22 @@ function( app, UploadView ) {
             this.listen = _.once(function() {
                 this.model.mediaCollection.on("sync", this.renderItems, this );
             }.bind( this ));
+
+            this.initSpinner();
         },
+
+        initSpinner: function() {
+            var opts = {
+                lines: 12, // The number of lines to draw
+                length: 5, // The length of each line
+                width: 2, // The line thickness
+                radius: 5, // The radius of the inner circle
+                corners: 1, // Corner roundness (0..1)
+                color: '#fff', // #rgb or #rrggbb
+            };
+            this.spinner = new Spinner( opts );
+        },
+
         afterRender: function() {
             this.renderItems();
             this._afterRender();
@@ -105580,21 +105588,49 @@ console.log( this.$(".media-collection-header").height() );
             if ( this.model.get("title") == "My Media" ) {
                 this.$(".get-bookmarklet").show();
             }
+
+            this.$(".search-box, .media-collection-wrapper").css({
+                opacity: 1
+            });
+            this.$(".label").css("visibility", "visible");
+
+            this.spinner.stop();
+            this.busy = false;
         },
 
         events: {
-            "keyup .search-box": "onSearchKeyPress"
+            "keyup .search-box": "onSearchKeyPress",
+            "click .submit": "onSubmitClick"
         },
 
         onSearchKeyPress: function( e ) {
-            if ( e.which == 13 ) {
+            if ( !this.busy ){
+                if ( e.which == 13 ) {
+                    this.search( this.$(".search-box").val() );
+                }
+            }
+        },
+
+        onSubmitClick: function() {
+            if ( !this.busy ) {
                 this.search( this.$(".search-box").val() );
             }
         },
 
         search: function( query ) {
             console.log(this.model, query);
+
+            this.busy = true;
+
             this.model.search( query );
+            this.$(".search-box").blur();
+            this.$(".search-box, .media-collection-wrapper").css({
+                opacity: 0.5
+            });
+
+            this.$(".label").css("visibility", "hidden");
+
+            this.spinner.spin( this.$(".submit")[0] );
 
         }
 
@@ -106621,7 +106657,7 @@ require.config({
 
   // Initialize the application with the main application file and the JamJS
   // generated configuration file.
-  deps: ["zeegaplayer", "../vendor/jam/require.config", "main"],
+  deps: ["zeegaplayer", "../vendor/jam/require.config", "main", "spin"],
 
   paths: {
 
@@ -106637,7 +106673,8 @@ require.config({
 //    colorpicker: "../vendor/colorpicker/js/colorpicker",
     simpleColorPicker: "../vendor/simple-color-picker/jquery.simple-color",
     ddslick: "../assets/js/plugins/jquery.ddslick",
-    mousetrap: "../vendor/mousetrap/mousetrap"
+    mousetrap: "../vendor/mousetrap/mousetrap",
+    spin: "../assets/js/libs/spin"
 
   },
 
