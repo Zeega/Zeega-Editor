@@ -17,6 +17,7 @@
     data-project-id="7037"
     data-api-root="joseph/web/"
     data-media-root="kinok/web/"
+    data-thumbnail-server="/"
   />
 
   <script>
