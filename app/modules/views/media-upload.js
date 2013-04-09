@@ -113,11 +113,19 @@ function( app ) {
 
             this.$('.upload-instructions').html("uploading... ");
 
-            var fileInput = event.target, imageData;
+            var fileInput = event.target,
+                imageData,
+                _this = this;
 
             imageData = new FormData();
             imageData.append( "file", fileInput.files[0] );
 
+            var updateProgress = function( e ){
+                var w = e.loaded * 283 / e.total;
+                console.log(w);
+                _this.$('.upload-progress').clearQueue().animate ({ "width": w + "px"}, 100 );
+
+            };
 
 
             $.ajax({
@@ -128,10 +136,11 @@ function( app ) {
                 processData: false,
                 contentType: false,
                 fileElementId: "imagefile",
+                
                 xhr: function() {  // custom xhr
                     myXhr = $.ajaxSettings.xhr();
                     if(myXhr.upload){ // check if upload property exists
-                        myXhr.upload.addEventListener('progress',this.updateProgress, false); // for handling the progress of the upload
+                        myXhr.upload.addEventListener('progress', updateProgress, false); // for handling the progress of the upload
                     } else {
                         console.log("broke style");
                     }

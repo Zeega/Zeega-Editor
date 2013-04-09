@@ -7392,6 +7392,13 @@ a:active {
   padding: 8px;
   width: 150px;
 }
+.media-upload .upload-progress {
+  position: absolute;
+  width: 0px;
+  height: 32px;
+  background: rgba(126, 126, 126, 0.71);
+  margin: -8px;
+}
 .media-upload .upload-file {
   cursor: pointer;
   border: 1px dashed white;
