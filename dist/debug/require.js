@@ -434,7 +434,7 @@ __p+='<div class="viewer-preview" style="">\n    <audio class="preview-audio" sr
 '" controls="true" /></audio>\n</div>\n<div class="viewer-controls">\n    <a class="add-to-frame" href="#"><i class="icon-download"></i> add to page</a>\n    <a href="'+
 ( attribution_uri )+
 '" target="blank"><i class="icon-share-alt"></i> view original</a>\n   \n     ';
- if( editable != -1 ) { 
+ if( editable == 1  ) { 
 ;__p+='\n            <a class="delete-item" href="#"><i class="icon-remove"></i> delete</a>\n    ';
  } 
 ;__p+='\n\n</div>';
@@ -450,7 +450,7 @@ __p+='<div class="viewer-preview" style="\n    background: url('+
 ');\n    background-size: contain;\n    background-position: 50% 50%;\n    background-repeat: no-repeat;\n"></div>\n<div class="viewer-controls">\n    <a class="add-to-frame" href="#"><i class="icon-download"></i> add to page</a>\n    <a href="'+
 ( attribution_uri )+
 '" target="blank"><i class="icon-share-alt"></i> view original</a>\n    ';
- if( editable != -1 ) { 
+ if( editable == 1  ) { 
 ;__p+='\n        <a class="delete-item" href="#"><i class="icon-remove"></i> delete</a>\n    ';
  } 
 ;__p+='\n</div>';
@@ -466,7 +466,7 @@ __p+='<div class="viewer-preview" style="">\n    <video class="preview-video" sr
 '" controls="true" /></audio>\n</div>\n<div class="viewer-controls">\n    <a class="add-to-frame" href="#"><i class="icon-download"></i> add to page</a>\n    <a href="'+
 ( attribution_uri )+
 '" target="blank"><i class="icon-share-alt"></i> view original</a>\n   \n     ';
- if( editable != -1 ) { 
+ if( editable == 1  ) { 
 ;__p+='\n            <a class="delete-item" href="#"><i class="icon-remove"></i> delete</a>\n    ';
  } 
 ;__p+='\n\n</div>';
@@ -482,7 +482,7 @@ __p+='<div class="viewer-preview" style="">\n    <iframe width="560" height="315
 '" frameborder="0" allowfullscreen></iframe>\n</div>\n<div class="viewer-controls">\n    <a class="add-to-frame" href="#"><i class="icon-download"></i> add to page</a>\n    <a href="'+
 ( attribution_uri )+
 '" target="blank"><i class="icon-share-alt"></i> view original</a>\n   \n     ';
- if( editable != -1  ) { 
+ if( editable == 1  ) { 
 ;__p+='\n            <a class="delete-item" href="#"><i class="icon-remove"></i> delete</a>\n    ';
  } 
 ;__p+='\n\n</div>';
@@ -573,7 +573,15 @@ __p+='<div class="media-collection-header">\n    <div class="media-collection-se
 ( placeholder )+
 '" value="'+
 ( searchQuery )+
-'" />\n        <a class="submit btnz"><span class="label">search</span></a>\n\n    </div>\n</div>\n<div class="media-collection-wrapper">\n    <ul class="media-collection-items"></ul>\n</div>';
+'" />\n        <a class="submit btnz"><span class="label">search</span></a>\n\n    </div>\n    <div class="media-collection-headline">\n        \n\n        ';
+ if( title == "Zeega"  ) { 
+;__p+='\n            <p> Some of our favorites </p>\n        ';
+ } else { 
+;__p+='\n\n        <p> Favorites from '+
+( title )+
+' </p>\n        \n        ';
+ } 
+;__p+='\n\n    </div>\n\n</div>\n<div class="media-collection-wrapper" >\n    <div class="media-collection-container">\n        <ul class="media-collection-items"></ul>\n    </div>\n</div>';
 }
 return __p;
 };
@@ -581,7 +589,7 @@ return __p;
 this["JST"]["app/templates/media-drawer.html"] = function(obj){
 var __p='';var print=function(){__p+=Array.prototype.join.call(arguments, '')};
 with(obj||{}){
-__p+='<div class="media-drawer-controls ZEEGA-hmenu light img-tabs">\n        <ul class=\'pull-left\'>\n        \n        <li>\n            <a href="#" data-api = "Zeega" class="media-toggle"><i class="socialz-zeega"></i></a>\n        </li>\n        <!--\n        <li>\n            <a href="#" data-api = "Tumblr" class="media-toggle">T</i></a>\n        </li>\n        -->\n        <li>\n            <a href="#" data-api = "Soundcloud" class="media-toggle"><i class="socialz-soundcloud"></i></a>\n        </li>\n\n        <li>\n            <a href="#" data-api = "Giphy" class="media-toggle"><i class="socialz-giphy"></i></a>\n        </li>\n\n        <li>\n            <a href="#" data-api = "Flickr" class="media-toggle"><i class="socialz-flickr"></i></a>\n        </li>\n        <li>\n            <a href="#" data-api = "Instagram" class="media-toggle"><i class="socialz-instagram"></i></a>\n        </li>\n        <li>\n            <a href="#" data-api = "Youtube" class="media-toggle"><i class="socialz-youtube"></i></a>\n        </li>\n\n        <li >\n            <a href="#" data-api = "MyZeega" class="media-toggle"><i class="socialz-user"></i></a>\n        </li>\n    </ul>\n    \n    \n</div>\n<ul class="ZEEGA-items"></ul>';
+__p+='<div class="media-drawer-controls ZEEGA-hmenu light img-tabs">\n    <ul class=\'pull-left\'>\n        \n        <li>\n            <a href="#" data-api = "Zeega" class="active media-toggle"><i class="socialz-zeega socialz-white"></i></a>\n        </li>\n\n      \n\n        <li>\n            <a href="#" data-api = "Tumblr" class="media-toggle"><i class="socialz-tumblr"></i></a>\n        </li>\n\n        <li>\n            <a href="#" data-api = "Soundcloud" class="media-toggle"><i class="socialz-soundcloud"></i></a>\n        </li>\n\n        \n        <li>\n            <a href="#" data-api = "Instagram" class="media-toggle"><i class="socialz-instagram"></i></a>\n        </li>\n\n        <li>\n            <a href="#" data-api = "Flickr" class="media-toggle"><i class="socialz-flickr"></i></a>\n        </li>\n\n        <li>\n            <a href="#" data-api = "Giphy" class="media-toggle"><i class="socialz-giphy"></i></a>\n        </li>\n       \n        <!--\n        <li>\n            <a href="#" data-api = "Youtube" class="media-toggle"><i class="socialz-youtube"></i></a>\n        </li>\n       \n        <li >\n            <a href="#" data-api = "MyZeega" class="media-toggle"><i class="socialz-user"></i></a>\n        </li>\n         -->\n\n    </ul>\n    <ul class="pull-right">\n        <li >\n            <a id="media-upload-tab" href="#" data-api = "MyZeega" class="media-toggle">UPLOAD</a>\n        </li>\n    </ul>\n    \n    \n</div>\n<ul class="ZEEGA-items"></ul>';
 }
 return __p;
 };
@@ -589,7 +597,7 @@ return __p;
 this["JST"]["app/templates/media-upload.html"] = function(obj){
 var __p='';var print=function(){__p+=Array.prototype.join.call(arguments, '')};
 with(obj||{}){
-__p+='<div class="upload-chooser">\n    <a href="#" class="upload-image-action active">upload image file</a> | <a href="#" class="paste-url-action">paste an image url</a>\n</div>\n\n<div class="upload-toggle">\n    <div class="upload-file">\n        <input id="imagefile"  name="imagefile"  type="file" href="#"></input>\n    </div>\n    <div class="paste-url">\n        <input class="url-box" type="text" placeholder="enter url here" value="" />\n    </div>\n</div>\n\n\n\n<!-- \n<div class = "image-uploads" >\n    <span class="add-photo" href="#">\n        <input id="imagefile"  name="imagefile"  type="file" href="#"></input>\n    </span>\n</div>\n<ul class=\'pull-left search-bar\'>\n    <li>\n        <input class="url-box" type="text" placeholder="enter url here" value="" />\n    </li>\n</ul>\n -->';
+__p+='<div class="upload-chooser">\n    <a href="#" class="upload-image-action active">upload image file</a> | <a href="#" class="paste-url-action">paste an image url</a>\n</div>\n\n<div class="upload-toggle">\n    <div class="upload-file">\n        <div class = "upload-progress" ></div>\n        <span class="upload-instructions">click or drag an image here to upload</span>\n        <input id="imagefile"  name="imagefile"  type="file" href="#"></input>\n    </div>\n    <div class="paste-url">\n        <input class="url-box" type="text" placeholder="enter url here" value="" />\n    </div>\n</div>\n\n\n\n<!-- \n<div class = "image-uploads" >\n    <span class="add-photo" href="#">\n        <input id="imagefile"  name="imagefile"  type="file" href="#"></input>\n    </span>\n</div>\n<ul class=\'pull-left search-bar\'>\n    <li>\n        <input class="url-box" type="text" placeholder="enter url here" value="" />\n    </li>\n</ul>\n -->';
 }
 return __p;
 };
@@ -84088,7 +84096,6 @@ function( app ) {
         },
         
         onSearchKeyPress: function( e ) {
-            console.log("key")
             if ( e.which == 13 ) {
                 this.search( this.$(".url-box").val() );
             }
@@ -84111,13 +84118,30 @@ function( app ) {
         refreshUploads: function(){
             this.model.search("");
         },
-
+        updateProgress: function(){
+            console.log("updating progress");
+        },
         imageUpload: function(event) {
-            var fileInput = event.target, imageData;
+
+
+            this.$('.upload-instructions').html("uploading... ");
+
+            var fileInput = event.target,
+                imageData,
+                _this = this;
 
             imageData = new FormData();
-            
             imageData.append( "file", fileInput.files[0] );
+
+            var updateProgress = function( e ){
+                var w = e.loaded * 141 / e.total;
+                _this.$('.upload-progress').clearQueue().animate ({ "width": w + "px"}, 1000);
+                if(  w == 141 ) {
+                    _this.$('.upload-progress').clearQueue().animate ({ "width": "283px"}, 10000);
+                }
+
+            };
+
 
             $.ajax({
                 url: app.mediaServer + "image",
@@ -84127,6 +84151,14 @@ function( app ) {
                 processData: false,
                 contentType: false,
                 fileElementId: "imagefile",
+                
+                xhr: function() {  // custom xhr
+                    myXhr = $.ajaxSettings.xhr();
+                    if(myXhr.upload){ // check if upload property exists
+                        myXhr.upload.addEventListener('progress', updateProgress, false); // for handling the progress of the upload
+                    }
+                    return myXhr;
+                },
                 
                 success: function( data ) {
                     var item = new UploadItem({
@@ -84197,7 +84229,7 @@ function( app, MediaUpload ) {
             this.$(".media-toggle").removeClass("active");
             this.$(".media-toggle i").removeClass("socialz-white");
             $(event.target).closest("a").addClass("active");
-            $(event.target).closest("a").find("i").addClass("socialz-white")
+            $(event.target).closest("a").find("i").addClass("socialz-white");
 
             this.$el.find(".search-box").attr("placeholder", "search " + api);
             this.model.setAPI( api );
@@ -85583,7 +85615,7 @@ function( Zeega, ControlView ) {
  * Licensed under the MIT license:
  *   http://www.opensource.org/licenses/mit-license.php
  *
- * Version: 1.1.1 (201303290104)
+ * Version: @VERSION (@DATE)
  */
  (function($) {
 /**
@@ -85632,6 +85664,18 @@ function( Zeega, ControlView ) {
  *
  *  callback:           Callback function to call after a color has been chosen.
  *                      Default value: null
+ *                      Returns: Hex Value
+ *
+ *  onCellEnter:        Callback function that excecutes when a cell is entered by the user's mouse
+ *                      Default value: null
+ *                      Returns: Hex Value
+ *
+ *  onClose:            Callback function that executes whenever the chooser is closed
+ *                      Default value: null
+ *
+ *  livePreview:        The color display will change to show the color of the hovered color cell.
+ *                      The display will revert if no color is selected.
+ *                      Default value: false
  */
   $.fn.simpleColor = function(options) {
 
@@ -85682,7 +85726,10 @@ function( Zeega, ControlView ) {
       displayColorCode: this.attr('displayColorCode') || false,
       colorCodeAlign:   this.attr('colorCodeAlign') || 'center',
       colorCodeColor:   this.attr('colorCodeColor') || '#FFF',
-      callback:         null
+      callback: null,
+      onCellEnter: null,
+      onClose: null,
+      livePreview: false
     }, options || {});
 
     // Hide the input
@@ -85709,7 +85756,7 @@ function( Zeega, ControlView ) {
       var container = $("<div class='simpleColorContainer' />");
       
       // Absolutely positioned child elements now 'work'.
-			container.css('position', 'relative');
+      container.css('position', 'relative');
 
       // Create the color display box
       var default_color = (this.value && this.value != '') ? this.value : options.defaultColor;
@@ -85717,13 +85764,13 @@ function( Zeega, ControlView ) {
       var display_box = $("<div class='simpleColorDisplay' />");
       display_box.css({
         'backgroundColor': default_color,
-      	'border':          options.border,
-				'width':           options.boxWidth,
-				'height':          options.boxHeight,
-				// Make sure that the code is vertically centered.
-				'line-height':     options.boxHeight,
-				'cursor':          'pointer'
-			});
+        'border': options.border,
+        'width':           options.boxWidth,
+        'height':          options.boxHeight,
+        // Make sure that the code is vertically centered.
+        'line-height':     options.boxHeight,
+        'cursor':          'pointer'
+      });
       container.append(display_box);
       
       // If 'displayColorCode' is turned on, display the currently selected color code as text inside the button.
@@ -85731,11 +85778,32 @@ function( Zeega, ControlView ) {
         display_box.text(this.value);
         display_box.css({
           'color':     options.colorCodeColor,
-        	'textAlign': options.colorCodeAlign
+            'textAlign': options.colorCodeAlign
         });
       }
       
       var select_callback = function (event) {
+
+        // bind and namespace the click listener only when the chooser is displayed
+        // unbind when the chooser is closed
+        $('html').bind("click.simpleColorDisplay", function(e) {
+
+          $('html').unbind("click.simpleColorDisplay");
+          $('.simpleColorChooser').hide();
+
+          // if the user has not selected a new color, then revert the display
+          // makes sure the selected cell is within the current color selector
+          if (!$(e.target).hasClass("simpleColorCell")||!$.contains( $(event.target).closest(".simpleColorContainer")[0], $(e.target)[0] )) {
+            display_box.css('backgroundColor', default_color);
+            if (options.displayColorCode) {
+              display_box.text(default_color);
+            }
+          }
+          // execute onClose callback whenever the color chooser is closed
+          if (options.onClose) {
+            options.onClose();
+          }
+        });
 
         // Use an existing chooser if there is one
         if (event.data.container.chooser) {
@@ -85748,13 +85816,13 @@ function( Zeega, ControlView ) {
           var chooser = $("<div class='simpleColorChooser'/>");
           chooser.css({
             'border':   options.border,
-			      'margin':   '0 0 0 5px',
-			      'width':    options.totalWidth,
-			      'height':   options.totalHeight,
-						'top':      0,
-						'left':     options.boxWidth,
-						'position': 'absolute'
-					});
+            'margin':   '0 0 0 5px',
+            'width':    options.totalWidth,
+            'height':   options.totalHeight,
+            'top':      0,
+            'left':     options.boxWidth,
+            'position': 'absolute'
+          });
       
           event.data.container.chooser = chooser;
           event.data.container.append(chooser);
@@ -85764,15 +85832,29 @@ function( Zeega, ControlView ) {
             var cell = $("<div class='simpleColorCell' id='" + options.colors[i] + "'/>");
             cell.css({
               'width':           options.cellWidth + 'px',
-             	'height':          options.cellHeight + 'px',
-			        'margin':          options.cellMargin + 'px',
-			        'cursor':          'pointer',
-			        'lineHeight':      options.cellHeight + 'px',
-			        'fontSize':        '1px',
-			        'float':           'left',
-			        'backgroundColor': '#'+options.colors[i]
-			      });
+              'height':          options.cellHeight + 'px',
+              'margin':          options.cellMargin + 'px',
+              'cursor':          'pointer',
+              'lineHeight':      options.cellHeight + 'px',
+              'fontSize':        '1px',
+              'float':           'left',
+              'backgroundColor': '#'+options.colors[i]
+            });
             chooser.append(cell);
+
+            if (options.onCellEnter||options.livePreview) {
+              cell.bind('mouseenter', function(event) {
+                if (options.onCellEnter) {
+                  options.onCellEnter(this.id)
+                }
+                if (options.livePreview) {
+                  display_box.css('backgroundColor', '#' + this.id);
+                  if (options.displayColorCode) {
+                    display_box.text('#' + this.id);
+                  }
+                }
+              });
+            }
 
             cell.bind('click', {
               input: event.data.input, 
@@ -85790,6 +85872,7 @@ function( Zeega, ControlView ) {
               if (options.displayColorCode) {
                 event.data.display_box.text('#' + this.id);
               }
+
               // If a callback function is defined then excecute it.
               if (options.callback) {
                 options.callback(this.id);
@@ -85815,15 +85898,11 @@ function( Zeega, ControlView ) {
 
     this.each(buildSelector);
 
-		$('html').click(function() {
-			$('.simpleColorChooser').hide();
-		});
-		
-		$('.simpleColorDisplay').each(function() {
-			$(this).click(function(e){
-				e.stopPropagation();
-			});
-		});
+        $('.simpleColorDisplay').each(function() {
+            $(this).click(function(e){
+                e.stopPropagation();
+            });
+        });
 
     return this;
   };
@@ -105514,6 +105593,7 @@ function( app, UploadView, Spinner ) {
         Flickr: {},
         Soundcloud: {},
         Giphy: {},
+        Tumblr: {},
         Youtube: {},
         Web: {},
         MyZeega: {}
@@ -105552,21 +105632,32 @@ function( app, UploadView, Spinner ) {
                 width: 2, // The line thickness
                 radius: 5, // The radius of the inner circle
                 corners: 1, // Corner roundness (0..1)
-                color: '#fff', // #rgb or #rrggbb
+                color: '#fff' // #rgb or #rrggbb
             };
             this.spinner = new Spinner( opts );
         },
 
         afterRender: function() {
+            
             this.renderItems();
             this._afterRender();
-console.log( this.$(".media-collection-header").height() );
-            this.$(".media-collection-wrapper").css("top", this.$(".media-collection-header").height() + "px" );
+            
+            if( this.model.allowSearch ){
+                $(".media-collection-search").show();
+            }
+
+            if( this.model.getQuery() === "" && this.model.api != "MyZeega" ){
+                this.$(".media-collection-headline").show();
+            } else {
+                this.$(".media-collection-headline").hide();
+            }
+
         },
 
         //extend this function
         _afterRender: function(){
-
+            
+           
         },
 
         renderItems: function() {
@@ -105584,15 +105675,13 @@ console.log( this.$(".media-collection-header").height() );
 
             this.listen();
 
-            // show bookmarklet link
-            if ( this.model.get("title") == "My Media" ) {
-                this.$(".get-bookmarklet").show();
-            }
-
             this.$(".search-box, .media-collection-wrapper").css({
                 opacity: 1
             });
             this.$(".label").css("visibility", "visible");
+
+            
+
 
             this.spinner.stop();
             this.busy = false;
@@ -105665,6 +105754,7 @@ console.log( this.$(".media-collection-header").height() );
     Media.Flickr.View = Media.Zeega.View.extend({});
     Media.Soundcloud.View = Media.Zeega.View.extend({});
     Media.Giphy.View = Media.Zeega.View.extend({});
+    Media.Tumblr.View = Media.Zeega.View.extend({});
     Media.Youtube.View = Media.Zeega.View.extend({});
     Media.Web.View = Media.Zeega.View.extend({});
     
@@ -105992,12 +106082,22 @@ function( app, ItemModel, MediaView, ItemCollectionViewer ) {
         itemsCount: 0,
 
         url: function() {
-            var url = this.mediaModel.apiUrl;
-            _.each( this.mediaModel.toJSON().urlArguments, function( value, key ) {
-                if ( value !== "" && value !== null ) {
-                    url += key + "=" + ( _.isFunction( value ) ? value() : value ) + "&";
-                }
-            });
+            var url;
+
+
+            if( this.mediaModel.getQuery() === "" && this.mediaModel.api != "MyZeega" ){
+                
+                url = this.mediaModel.favUrl;
+
+            } else {
+
+                url = this.mediaModel.apiUrl;
+                _.each( this.mediaModel.toJSON().urlArguments, function( value, key ) {
+                    if ( value !== "" && value !== null ) {
+                        url += key + "=" + ( _.isFunction( value ) ? value() : value ) + "&";
+                    }
+                });
+            }
             return url;
         },
 
@@ -106023,11 +106123,34 @@ function( app, ItemModel, MediaView, ItemCollectionViewer ) {
         }
     });
 
-    Media.MyZeega.Collection = Media.Zeega.Collection.extend();
+    Media.MyZeega.Collection = Media.Zeega.Collection.extend({
+
+        parse: function( res ) {
+            var photos = res.items,
+                count = 1;
+            
+            _.each( photos, function( photo ){
+                photo.id = count;
+                photo.editable = 1;
+                count++;
+            });
+
+            this.itemsCount = res.items_count;
+            return photos;
+        }
+    });
 
     Media.Flickr.Collection = Media.Zeega.Collection.extend({
 
         parse: function( res ) {
+
+            if(!_.isUndefined( res.items_count )){
+                this.itemsCount = res.items_count;
+
+                return res.items;
+            }
+
+
             var items =[],
                 item;
 
@@ -106059,22 +106182,25 @@ function( app, ItemModel, MediaView, ItemCollectionViewer ) {
 
         url : function(){
             var url;
-            if( this.mediaModel.queryType == "tag" ){
-                url = this.mediaModel.apiUrl + "tags/" + this.mediaModel.get("query") +
-                        "/media/recent?client_id=725bbc7af5094c8682bdb322d29734cc&callback=?";
+            if( this.mediaModel.getQuery() === "" ){
+                url = this.mediaModel.favUrl;
             } else {
+                if( this.mediaModel.queryType == "tag" ){
+                    url = this.mediaModel.apiUrl + "tags/" + this.mediaModel.get("query") +
+                            "/media/recent?client_id=725bbc7af5094c8682bdb322d29734cc&callback=?";
+                } else {
 
-                // Instagram User queries require user id, route through Zeega
-                url = app.api + "items/parser?url=http://instagram.com/" + this.mediaModel.get("query");
+                    // Instagram User queries require user id, route through Zeega
+                    url = app.api + "items/parser?url=http://instagram.com/" + this.mediaModel.get("query");
+                }
             }
-
             return url;
         },
         
 
         parse: function(res){
             
-            if( this.mediaModel.queryType == "tag" ){
+            if( this.mediaModel.queryType == "tag" || this.mediaModel.getQuery() === ""){
                 var items = [];
 
                 _.each( res.data, function( photo ){
@@ -106115,7 +106241,6 @@ function( app, ItemModel, MediaView, ItemCollectionViewer ) {
                 photos = res.items;
                 
                 _.each( photos, function( photo ){
-                    photo.editable = -1;
                     photo.id = count;
                     count++;
                 });
@@ -106132,10 +106257,19 @@ function( app, ItemModel, MediaView, ItemCollectionViewer ) {
             
             parse: function(res){
                 var items = [],
-                    item;
+                    item,
+                    count =1;
+
+                if(!_.isUndefined( res.items_count )){
+                    this.itemsCount = res.items_count;
+
+                    return res.items;
+                }
 
                 _.each( res, function( track ){
                     item = {};
+                    item.id = count;
+                    count++;
                     item.layer_type ="Audio";
                     item.media_type = "Audio";
                     item.archive = "SoundCloud";
@@ -106144,7 +106278,7 @@ function( app, ItemModel, MediaView, ItemCollectionViewer ) {
                     item.uri = track.stream_url + "?consumer_key=lyCI2ejeGofrnVyfMI18VQ";
                     item.attribution_uri =  track.permalink_url;
                     item.media_user_realname = track.user.username;
-                    item.archive = "Soundcloud";
+                    item.archive = "SoundCloud";
                     items.push( item );
                 });
 
@@ -106153,6 +106287,24 @@ function( app, ItemModel, MediaView, ItemCollectionViewer ) {
     });
 
     Media.Giphy.Collection = Media.Zeega.Collection.extend({
+
+        parse: function(res){
+            
+            var photos = res.items,
+                count = 1;
+            
+            _.each( photos, function( photo ){
+                photo.id = count;
+                count++;
+            });
+
+            this.itemsCount = res.items_count;
+            return photos;
+        }
+    });
+
+
+    Media.Tumblr.Collection = Media.Zeega.Collection.extend({
 
         parse: function(res){
             var photos = res.items,
@@ -106200,11 +106352,20 @@ function( app, ItemModel, MediaView, ItemCollectionViewer ) {
         }
     });
 
+
+
+
+
+
+
+
     Media.Zeega.Model = Backbone.Model.extend({
 
         api: "Zeega",
         mediaCollection: null,
         apiUrl: app.searchAPI,
+        favUrl: app.searchAPI + "type=-project AND -Collection AND -Video AND -Audio&user=1&limit=48&sort=date-desc",
+        allowSearch: false,
 
         defaults: {
                 urlArguments: {
@@ -106226,7 +106387,7 @@ function( app, ItemModel, MediaView, ItemCollectionViewer ) {
             this.mediaCollection = new Media[ this.api ].Collection();
             this.mediaCollection.mediaModel = this;
             //this.mediaCollection.on("sync", this.onSync, this );
-
+            this.search( "" );
             this.listen();
         },
         getQuery: function(){
@@ -106259,6 +106420,7 @@ function( app, ItemModel, MediaView, ItemCollectionViewer ) {
     Media.MyZeega.Model = Media.Zeega.Model.extend({
 
         api: "MyZeega",
+        allowSearch: true,
         defaults: {
                 urlArguments: {
                     collection: "",
@@ -106301,6 +106463,10 @@ function( app, ItemModel, MediaView, ItemCollectionViewer ) {
         
         api: "Flickr",
         apiUrl: "https://secure.flickr.com/services/rest/?",
+        
+        favUrl: "https://secure.flickr.com/services/rest/?nojsoncallback=1&format=json&method=flickr.interestingness.getList&extras=owner_name&per_page=100&api_key=97ac5e379fbf4df38a357f9c0943e140",
+        //favUrl: app.searchAPI + "archive=Flickr&type=Image&user=1&limit=48&sort=date-desc",
+        allowSearch: true,
 
         defaults: {
             urlArguments: {
@@ -106326,11 +106492,11 @@ function( app, ItemModel, MediaView, ItemCollectionViewer ) {
 
             
             
-            if( query !== "" && query !== args.text ){
-                args.text = query;
-                this.set("urlArguments", args );
-                this.mediaCollection.fetch();
-            }
+            
+            args.text = query;
+            this.set("urlArguments", args );
+            this.mediaCollection.fetch();
+            
 
 
             
@@ -106341,7 +106507,9 @@ function( app, ItemModel, MediaView, ItemCollectionViewer ) {
         
         api: "Soundcloud",
         apiUrl: "https://api.soundcloud.com/tracks.json?",
-
+        favUrl: app.searchAPI + "archive=SoundCloud&type=Audio&user=1&limit=48&sort=date-desc",
+        
+        allowSearch: true,
         defaults: {
             urlArguments: {
                 callback: "?",
@@ -106360,11 +106528,11 @@ function( app, ItemModel, MediaView, ItemCollectionViewer ) {
 
             var args= this.get("urlArguments");
 
-            if( query !== "" && query !== args.q ){
+            
                 args.q = query;
                 this.set("urlArguments", args );
                 this.mediaCollection.fetch();
-            }
+            
         }
     });
 
@@ -106373,6 +106541,9 @@ function( app, ItemModel, MediaView, ItemCollectionViewer ) {
         api: "Instagram",
         apiUrl: "https://api.instagram.com/v1/",
         queryType: "user",
+        favUrl: "https://api.instagram.com/v1/media/popular?client_id=725bbc7af5094c8682bdb322d29734cc&callback=?",
+        //favUrl: app.searchAPI + "archive=Instagram&type=Image&user=1&limit=48&sort=date-desc",
+        allowSearch: true,
 
         defaults: {
             query: "",
@@ -106389,14 +106560,8 @@ function( app, ItemModel, MediaView, ItemCollectionViewer ) {
         },
         _search: function( query ){
 
-            
-            if( query !== "" && query !== this.get("query") ){
-                this.set("query", query );
-                this.mediaCollection.fetch();
-            }
-
-
-            
+            this.set("query", query );
+            this.mediaCollection.fetch();
         }
     });
 
@@ -106404,6 +106569,9 @@ function( app, ItemModel, MediaView, ItemCollectionViewer ) {
         
         api: "Giphy",
         apiUrl: app.api + "items/parser?",
+        allowSearch: true,
+        favUrl: app.searchAPI + "archive=Giphy&type=Image&user=1&limit=48&sort=date-desc",
+
 
         defaults: {
             urlArguments: {
@@ -106421,13 +106589,46 @@ function( app, ItemModel, MediaView, ItemCollectionViewer ) {
 
             var args = this.get("urlArguments");
 
-            if( query !== "" && query !== args.tag ){
-                args.tag = query;
-                args.url = "http://giphy.com/tags/" + query;
+         
+            args.tag = query;
+            args.url = "http://giphy.com/tags/" + query;
 
-                this.set("urlArguments", args );
-                this.mediaCollection.fetch();
-            }
+            this.set("urlArguments", args );
+            this.mediaCollection.fetch();
+            
+        }
+    });
+
+    Media.Tumblr.Model = Media.Zeega.Model.extend({
+        
+        api: "Tumblr",
+        apiUrl: app.api + "items/parser?",
+        allowSearch: true,
+        favUrl: app.searchAPI + "archive=Tumblr&type=Image&user=1&limit=48&sort=date-desc",
+
+        defaults: {
+            urlArguments: {
+                url: "",
+                tag: ""
+            },
+            title: "Tumblr",
+            placeholder: "search Tumblr posts",
+            searchQuery: ""
+        },
+        getQuery: function(){
+            return this.get("urlArguments").tag;
+        },
+        _search: function( query ){
+
+            var args = this.get("urlArguments");
+
+           
+            args.tag = query;
+            args.url = "http://www.tumblr.com/tagged/" + query;
+
+            this.set("urlArguments", args );
+            this.mediaCollection.fetch();
+            
         }
     });
 
@@ -106435,6 +106636,9 @@ function( app, ItemModel, MediaView, ItemCollectionViewer ) {
         
         api: "Youtube",
         apiUrl: "https://gdata.youtube.com/feeds/api/videos?",
+        favUrl: app.searchAPI + "archive=Youtube&type=Image&user=1&limit=48&sort=date-desc",
+
+        allowSearch: true,
 
         defaults: {
             urlArguments: {
@@ -106657,7 +106861,13 @@ require.config({
 
   // Initialize the application with the main application file and the JamJS
   // generated configuration file.
+
+  // Release
+  // deps: [ "../vendor/simple-color-picker/src/jquery.simple-color", "zeegaplayer", "../vendor/jam/require.config", "main", "spin"],
+
+
   deps: ["zeegaplayer", "../vendor/jam/require.config", "main", "spin"],
+
 
   paths: {
 
@@ -106671,7 +106881,7 @@ require.config({
     zeegaplayer: "../vendor/zeegaplayer/dist/debug/zeega",
 
 //    colorpicker: "../vendor/colorpicker/js/colorpicker",
-    simpleColorPicker: "../vendor/simple-color-picker/jquery.simple-color",
+    simpleColorPicker: "../vendor/simple-color-picker/src/jquery.simple-color",
     ddslick: "../assets/js/plugins/jquery.ddslick",
     mousetrap: "../vendor/mousetrap/mousetrap",
     spin: "../assets/js/libs/spin"
@@ -106686,7 +106896,7 @@ require.config({
 
     mousetrap: {
         exports: 'Mousetrap'
-    },
+    }
   }
 
 });

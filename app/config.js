@@ -3,7 +3,13 @@ require.config({
 
   // Initialize the application with the main application file and the JamJS
   // generated configuration file.
+
+  // Release
+  // deps: [ "../vendor/simple-color-picker/src/jquery.simple-color", "zeegaplayer", "../vendor/jam/require.config", "main", "spin"],
+
+
   deps: ["zeegaplayer", "../vendor/jam/require.config", "main", "spin"],
+
 
   paths: {
 
@@ -17,7 +23,7 @@ require.config({
     zeegaplayer: "../vendor/zeegaplayer/dist/debug/zeega",
 
 //    colorpicker: "../vendor/colorpicker/js/colorpicker",
-    simpleColorPicker: "../vendor/simple-color-picker/jquery.simple-color",
+    simpleColorPicker: "../vendor/simple-color-picker/src/jquery.simple-color",
     ddslick: "../assets/js/plugins/jquery.ddslick",
     mousetrap: "../vendor/mousetrap/mousetrap",
     spin: "../assets/js/libs/spin"
@@ -32,7 +38,7 @@ require.config({
 
     mousetrap: {
         exports: 'Mousetrap'
-    },
+    }
   }
 
 });

@@ -6130,6 +6130,12 @@ html {
 .socialz-user.socialz-white {
   background-position: -30px -210px;
 }
+.socialz-tumblr {
+  background-position: 0px -240px;
+}
+.socialz-tumblr.socialz-white {
+  background-position: -30px -240px;
+}
 [class^="zsocial-"] {
   background-image: url('../img/social-sprites-20px.png');
   background-position: 0px 0px;
@@ -7248,6 +7254,7 @@ a:active {
 }
 .media-collection .submit {
   float: right;
+  cursor: pointer;
 }
 .media-collection .search-bar {
   margin-top: 5px;
@@ -7288,6 +7295,11 @@ a:active {
 }
 .media-collection .media-collection-header .media-collection-search {
   clear: both;
+  display: none;
+}
+.media-collection .media-collection-header .media-collection-headline p {
+  margin: 0;
+  padding-top: 5px;
 }
 .media-collection .media-collection-header .media-upload {
   clear: both;
@@ -7317,11 +7329,16 @@ a:active {
   border: 0;
 }
 .media-collection .media-collection-wrapper {
+  position: relative;
+  height: 100%;
+}
+.media-collection .media-collection-container {
+  top: 0;
   overflow-y: scroll;
   overflow-x: hidden;
   position: absolute;
-  bottom: 0;
   width: 100%;
+  height: 100%;
 }
 .media-collection .media-collection-items {
   *zoom: 1;
@@ -7384,36 +7401,47 @@ a:active {
   padding: 8px;
   width: 150px;
 }
-.media-upload .image-uploads {
-  float: left;
-  max-height: 176px;
-  overflow-y: auto;
+.media-upload-tab {
+  color: grey;
+  font-size: 15px;
+  padding: 5px;
+  padding-top: 7px;
+  padding-bottom: 6px;
+  padding-right: 5px;
+  padding-left: 5px;
+  margin-left: 0;
 }
-.media-upload .add-photo {
-  display: inline-block;
-  width: 30px;
-  height: 30px;
-  margin: 0 5px 15px;
-  position: relative;
-  overflow: hidden;
-  text-indent: -9999px;
-  background: rgba(0, 0, 0, 0.3) url(../img/add-circle.png) no-repeat 50% 50%;
-}
-.media-upload .add-photo input {
-  cursor: pointer;
-  font-size: 90px;
-  height: 100%;
-  height: 113px;
-  right: 0;
-  line-height: 176px;
-  opacity: 0;
+.media-upload .upload-progress {
   position: absolute;
-  top: 0;
+  width: 0px;
+  height: 32px;
+  background: rgba(256, 256, 256, 0.5);
+  margin: -8px;
 }
-.media-upload .modal-body {
-  height: 200px;
+.media-upload .upload-file {
+  cursor: pointer;
+  border: 1px dashed white;
+  padding: 8px;
 }
-.media-upload .close {
-  margin-top: -34px;
-  margin-right: 11px;
+.media-upload .upload-file span {
+  position: absolute;
+  font-size: 12px;
+  cursor: pointer;
+}
+.media-upload .upload-file input {
+  opacity: 0;
+  margin-bottom: -2px;
+}
+#media-upload-tab {
+  color: grey;
+  font-size: 15px;
+  padding: 5px;
+  padding-top: 7px;
+  padding-bottom: 6px;
+  padding-right: 5px;
+  padding-left: 5px;
+  margin-right: 0;
+}
+#media-upload-tab.active {
+  color: white;
 }

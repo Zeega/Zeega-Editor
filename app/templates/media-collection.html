@@ -5,7 +5,22 @@
         <a class="submit btnz"><span class="label">search</span></a>
 
     </div>
+    <div class="media-collection-headline">
+        
+
+        <% if( title == "Zeega"  ) { %>
+            <p> Some of our favorites </p>
+        <% } else { %>
+
+        <p> Favorites from <%= title %> </p>
+        
+        <% } %>
+
+    </div>
+
 </div>
-<div class="media-collection-wrapper">
-    <ul class="media-collection-items"></ul>
+<div class="media-collection-wrapper" >
+    <div class="media-collection-container">
+        <ul class="media-collection-items"></ul>
+    </div>
 </div>

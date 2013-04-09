@@ -83,7 +83,6 @@ function( app ) {
         },
         
         onSearchKeyPress: function( e ) {
-            console.log("key")
             if ( e.which == 13 ) {
                 this.search( this.$(".url-box").val() );
             }
@@ -106,13 +105,30 @@ function( app ) {
         refreshUploads: function(){
             this.model.search("");
         },
-
+        updateProgress: function(){
+            console.log("updating progress");
+        },
         imageUpload: function(event) {
-            var fileInput = event.target, imageData;
+
+
+            this.$('.upload-instructions').html("uploading... ");
+
+            var fileInput = event.target,
+                imageData,
+                _this = this;
 
             imageData = new FormData();
-            
             imageData.append( "file", fileInput.files[0] );
+
+            var updateProgress = function( e ){
+                var w = e.loaded * 141 / e.total;
+                _this.$('.upload-progress').clearQueue().animate ({ "width": w + "px"}, 1000);
+                if(  w == 141 ) {
+                    _this.$('.upload-progress').clearQueue().animate ({ "width": "283px"}, 10000);
+                }
+
+            };
+
 
             $.ajax({
                 url: app.mediaServer + "image",
@@ -122,6 +138,14 @@ function( app ) {
                 processData: false,
                 contentType: false,
                 fileElementId: "imagefile",
+                
+                xhr: function() {  // custom xhr
+                    myXhr = $.ajaxSettings.xhr();
+                    if(myXhr.upload){ // check if upload property exists
+                        myXhr.upload.addEventListener('progress', updateProgress, false); // for handling the progress of the upload
+                    }
+                    return myXhr;
+                },
                 
                 success: function( data ) {
                     var item = new UploadItem({
