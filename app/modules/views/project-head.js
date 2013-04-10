@@ -50,6 +50,19 @@ function( app ) {
 
         updateCoverImage: function( url ) {
             app.project.save("cover_image", url );
+
+            tumblr_caption = "<p><a href='" + app.webRoot + app.project.get("item_id") + "'><strong>Play&nbsp;► " +
+                            app.project.get("title") + "</strong></a></p><p>A Zeega by&nbsp;<a href='" +
+                            app.webRoot + "profile/" + app.project.get("user_id") + "'>" + app.project.get("authors") + "</a></p>";
+
+
+            tumblr_share = "source=" + encodeURIComponent( app.project.get("cover_image") ) +
+                            "&caption=" + encodeURIComponent( tumblr_caption ) +
+                            "&click_thru="+ encodeURIComponent( app.webRoot ) + app.project.get("item_id");
+            this.$("#tumblr-share").attr("href", "http://www.tumblr.com/share/photo?" + tumblr_share );
+
+
+
         },
 
         events: {

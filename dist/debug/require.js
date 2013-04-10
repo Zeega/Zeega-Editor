@@ -663,7 +663,7 @@ __p+='<div class="nav col-left navbar ZEEGA-hmenu clear">\n    <ul class=\'pull-
 ( item_id )+
 '"\n                        class="social-share"\n                        data-itemid="'+
 ( item_id )+
-'"\n                        target="blank">\n            <i class="zitem-facebook zitem-30 color"></i>\n        </a>\n        <a href="http://www.tumblr.com/share/photo?'+
+'"\n                        target="blank">\n            <i class="zitem-facebook zitem-30 color"></i>\n        </a>\n        <a id ="tumblr-share" href="http://www.tumblr.com/share/photo?'+
 ( tumblr_share )+
 '" \n                        class="social-share"\n                        data-itemid="'+
 ( item_id )+
@@ -69193,6 +69193,19 @@ function( app ) {
 
         updateCoverImage: function( url ) {
             app.project.save("cover_image", url );
+
+            tumblr_caption = "<p><a href='" + app.webRoot + app.project.get("item_id") + "'><strong>Play&nbsp;► " +
+                            app.project.get("title") + "</strong></a></p><p>A Zeega by&nbsp;<a href='" +
+                            app.webRoot + "profile/" + app.project.get("user_id") + "'>" + app.project.get("authors") + "</a></p>";
+
+
+            tumblr_share = "source=" + encodeURIComponent( app.project.get("cover_image") ) +
+                            "&caption=" + encodeURIComponent( tumblr_caption ) +
+                            "&click_thru="+ encodeURIComponent( app.webRoot ) + app.project.get("item_id");
+            this.$("#tumblr-share").attr("href", "http://www.tumblr.com/share/photo?" + tumblr_share );
+
+
+
         },
 
         events: {

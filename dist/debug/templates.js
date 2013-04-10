@@ -277,7 +277,7 @@ __p+='<div class="nav col-left navbar ZEEGA-hmenu clear">\n    <ul class=\'pull-
 ( item_id )+
 '"\n                        class="social-share"\n                        data-itemid="'+
 ( item_id )+
-'"\n                        target="blank">\n            <i class="zitem-facebook zitem-30 color"></i>\n        </a>\n        <a href="http://www.tumblr.com/share/photo?'+
+'"\n                        target="blank">\n            <i class="zitem-facebook zitem-30 color"></i>\n        </a>\n        <a id ="tumblr-share" href="http://www.tumblr.com/share/photo?'+
 ( tumblr_share )+
 '" \n                        class="social-share"\n                        data-itemid="'+
 ( item_id )+
