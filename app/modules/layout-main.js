@@ -82,7 +82,7 @@ function( app, ProjectHead, Sequences, Frames, Workspace, Layers, LayerDrawer, S
 
                     fade: true,
                     gravity: function() {
-                        return $(this).data("gravity")
+                        return $(this).data("gravity") || "s"
                     }
                 });
             }, 1000)
