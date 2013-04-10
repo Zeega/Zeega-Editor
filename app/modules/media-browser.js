@@ -488,7 +488,7 @@ function( app, ItemModel, MediaView, ItemCollectionViewer ) {
         
         api: "Instagram",
         apiUrl: "https://api.instagram.com/v1/",
-        queryType: "user",
+        queryType: "tag",
         favUrl: "https://api.instagram.com/v1/media/popular?client_id=725bbc7af5094c8682bdb322d29734cc&callback=?",
         //favUrl: app.searchAPI + "archive=Instagram&type=Image&user=1&limit=48&sort=date-desc",
         allowSearch: true,
