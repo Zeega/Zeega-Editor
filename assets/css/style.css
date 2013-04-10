@@ -6341,8 +6341,12 @@ html {
   outline: none;
   background: rgba(255, 255, 0, 0.25);
 }
+.project-head .zeega-faq,
 .project-head .project-preview {
   float: right;
+}
+.project-head .zeega-faq {
+  margin-right: 10px;
 }
 .project-head .project-share {
   position: relative;

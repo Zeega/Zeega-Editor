@@ -16,6 +16,8 @@ function( app ) {
 
         clickedLayerType: function( e ) {
             app.status.get('currentFrame').addLayerType( $(e.target).closest("a").data("layerType") );
+            app.layout.$(".intro").remove();
+
         }
         
     });
