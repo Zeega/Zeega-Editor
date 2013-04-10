@@ -6,7 +6,10 @@
     </ul>
     <ul class='pull-right'>
         <li>
-            <a href="<%= webRoot %>profile/<%= userId %>" ><i class="icon-user"></i></a>
+            <a href="<%= webRoot %>profile/<%= userId %>"
+                title="user profile"
+                data-gravity="n"
+                ><i class="icon-user"></i></a>
         </li>
         <li>
             <a href="#"><i class="icon-folder-open"></i></a>
@@ -24,16 +27,29 @@
 
             </ul>
         </li>
+
+        <li>
+            <a href="http://blog.zeega.com/faq" data-bypass="true" target="blank"
+                title="FAQ"
+                data-gravity="n"
+            ><i class="icon-question-sign"></i></a>
+        </li>
+
         
     </ul>
 </div>
 <div class="project-title col-middle clearfix">
-    <div class="project-info" contenteditable><%= title %></div>
+    <div class="project-info" contenteditable
+        title="title of your Zeega"
+        data-gravity="n"
+    ><%= title %></div>
     <a href="#" class="project-preview btnz"><i class="icon-play icon-white"></i> Preview</a>
-    <a href="http://blog.zeega.com/faq" data-bypass="true" target="blank" class="zeega-faq btnz"><i class="icon-question-sign icon-white"></i> FAQ</a>
 </div>
 <div class="project-share col-right clearfix">
-    <a href="#" class="project-share btnz btnz-blue btnz-fullwidth"><i class="icon-retweet icon-white"></i> Share</a>
+    <a href="#" class="project-share btnz btnz-blue btnz-fullwidth"
+        title="share your Zeega with the world"
+        data-gravity="ne"
+    ><i class="icon-retweet icon-white"></i> Share</a>
 </div>
 
 <div class="share-grave">
