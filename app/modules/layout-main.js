@@ -45,7 +45,7 @@ function( app, ProjectHead, Sequences, Frames, Workspace, Layers, LayerDrawer, S
                 el: this.$(".project-head")
             }).render();
 
-            new Soundtrack({
+            this.soundtrack = new Soundtrack({
                 el: this.$(".soundtrack")
             }).render();
 

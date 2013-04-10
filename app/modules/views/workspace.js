@@ -46,7 +46,14 @@ function( app ) {
                     if ( _.isString( app.dragging ) ) {
                         app.status.get('currentFrame').addLayerType( app.dragging );
                     } else if ( app.dragging.get("layer_type") ) {
-                        this.model.status.get('currentFrame').addLayerByItem( app.dragging );
+                        if ( _.contains( ["Audio"], app.dragging.get("layer_type") )) {
+                            //app.layout.soundtrack.updateWaveform( app.dragging.get("thumbnail_url") );
+
+                            app.status.get('currentSequence').setSoundtrack( app.dragging, app.layout.soundtrack );
+                        } else {
+                            this.model.status.get('currentFrame').addLayerByItem( app.dragging );
+                        }
+
                     }
                 }.bind( this )
             });
