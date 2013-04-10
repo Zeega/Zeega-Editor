@@ -31,6 +31,27 @@ function( app ) {
 
             }, this.model.project.toJSON() );
         },
+
+        afterRender: function() {
+            if ( app.project.get("cover_image") === "" ) {
+                this.model.on("layer_added", this.onLayerAdded, this );
+            }
+        },
+
+        onLayerAdded: function( layer ) {
+            if ( this.model.project.get("cover_image") === "" ) {
+                if ( layer.get("type") == "Image" ) {
+                    this.updateCoverImage( layer.getAttr("uri") );
+                }
+            } else {
+                this.model.off("layer_added");
+            }
+        },
+
+        updateCoverImage: function( url ) {
+            app.project.save("cover_image", url );
+        },
+
         events: {
             "click .project-share a": "toggleShareGrave",
             "keypress .project-info": "onTitleKeyup",

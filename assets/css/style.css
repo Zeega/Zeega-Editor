@@ -5352,6 +5352,115 @@ table {
 .icon-fullscreen {
   background-position: -456px -144px;
 }
+.tipsy {
+  font-size: 10px;
+  position: absolute;
+  padding: 5px;
+  z-index: 100000;
+}
+.tipsy-inner {
+  background-color: #000;
+  color: #FFF;
+  max-width: 200px;
+  padding: 5px 8px 4px 8px;
+  text-align: center;
+}
+/* Rounded corners */
+.tipsy-inner {
+  border-radius: 3px;
+  -moz-border-radius: 3px;
+  -webkit-border-radius: 3px;
+}
+/* Uncomment for shadow */
+/*.tipsy-inner { box-shadow: 0 0 5px #000000; -webkit-box-shadow: 0 0 5px #000000; -moz-box-shadow: 0 0 5px #000000; }*/
+.tipsy-arrow {
+  position: absolute;
+  width: 0;
+  height: 0;
+  line-height: 0;
+  border: 5px dashed #000;
+}
+/* Rules to colour arrows */
+.tipsy-arrow-n {
+  border-bottom-color: #000;
+}
+.tipsy-arrow-s {
+  border-top-color: #000;
+}
+.tipsy-arrow-e {
+  border-left-color: #000;
+}
+.tipsy-arrow-w {
+  border-right-color: #000;
+}
+.tipsy-n .tipsy-arrow {
+  top: 0px;
+  left: 50%;
+  margin-left: -5px;
+  border-bottom-style: solid;
+  border-top: none;
+  border-left-color: transparent;
+  border-right-color: transparent;
+}
+.tipsy-nw .tipsy-arrow {
+  top: 0;
+  left: 10px;
+  border-bottom-style: solid;
+  border-top: none;
+  border-left-color: transparent;
+  border-right-color: transparent;
+}
+.tipsy-ne .tipsy-arrow {
+  top: 0;
+  right: 10px;
+  border-bottom-style: solid;
+  border-top: none;
+  border-left-color: transparent;
+  border-right-color: transparent;
+}
+.tipsy-s .tipsy-arrow {
+  bottom: 0;
+  left: 50%;
+  margin-left: -5px;
+  border-top-style: solid;
+  border-bottom: none;
+  border-left-color: transparent;
+  border-right-color: transparent;
+}
+.tipsy-sw .tipsy-arrow {
+  bottom: 0;
+  left: 10px;
+  border-top-style: solid;
+  border-bottom: none;
+  border-left-color: transparent;
+  border-right-color: transparent;
+}
+.tipsy-se .tipsy-arrow {
+  bottom: 0;
+  right: 10px;
+  border-top-style: solid;
+  border-bottom: none;
+  border-left-color: transparent;
+  border-right-color: transparent;
+}
+.tipsy-e .tipsy-arrow {
+  right: 0;
+  top: 50%;
+  margin-top: -5px;
+  border-left-style: solid;
+  border-right: none;
+  border-top-color: transparent;
+  border-bottom-color: transparent;
+}
+.tipsy-w .tipsy-arrow {
+  left: 0;
+  top: 50%;
+  margin-top: -5px;
+  border-right-style: solid;
+  border-left: none;
+  border-top-color: transparent;
+  border-bottom-color: transparent;
+}
 html {
   background: url(../img/graphpaper.png);
   height: 100%;
@@ -6232,8 +6341,12 @@ html {
   outline: none;
   background: rgba(255, 255, 0, 0.25);
 }
+.project-head .zeega-faq,
 .project-head .project-preview {
   float: right;
+}
+.project-head .zeega-faq {
+  margin-right: 10px;
 }
 .project-head .project-share {
   position: relative;
@@ -6745,10 +6858,15 @@ a:active {
   transition: all 0.5s;
   -webkit-transition: all 0.5s;
 }
+.frames .frame-placeholder:hover .frame-menu,
+.frames .ZEEGA-frame:hover .frame-menu {
+  opacity: 1;
+}
 .frames .frame-placeholder .frame-menu,
 .frames .ZEEGA-frame .frame-menu {
   position: absolute;
   right: 5px;
+  opacity: 0.25;
 }
 .frames .frame-placeholder .frame-menu .icon-edit,
 .frames .ZEEGA-frame .frame-menu .icon-edit {
@@ -7191,6 +7309,14 @@ a:active {
   padding: 5px;
   left: 0;
   right: 0;
+}
+.soundtrack .soundtrack-info .title {
+  white-space: nowrap;
+  overflow: hidden;
+  width: 100%;
+  position: absolute;
+  left: 0;
+  text-overflow: ellipsis;
 }
 .soundtrack .soundtrack-controls {
   position: absolute;

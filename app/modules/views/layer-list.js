@@ -1,7 +1,9 @@
 define([
     "app",
     "modules/views/layer-controls",
-    "backbone"
+    "backbone",
+    "tipsy"
+
 ],
 
 function( app, LayerControls ) {
@@ -32,6 +34,14 @@ function( app, LayerControls ) {
             if ( app.status.get("copiedLayer") && app.status.get("copiedLayer").id == this.model.id ) {
                 this.onCopyFocus();
             }
+
+            this.$(".tooltip").tipsy({
+                fade: true,
+                gravity: function() {
+                    return $(this).data("gravity");
+                }
+            });
+
         },
 
         events: {

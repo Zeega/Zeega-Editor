@@ -33,6 +33,13 @@ function( app ) {
         afterRender: function() {
             this.makeDroppable();
             app.trigger("rendered", this );
+
+            this.$("[title]").tipsy({
+                fade: true,
+                gravity: function() {
+                    return $(this).data("gravity");
+                }
+            });
         },
 
         makeDroppable: function() {

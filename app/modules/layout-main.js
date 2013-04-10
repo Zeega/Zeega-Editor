@@ -13,6 +13,7 @@ define([
     "modules/views/media-drawer",
     // "modules/search.model",
     "mousetrap",
+    "tipsy",
 
     "backbone"
 ],
@@ -62,6 +63,8 @@ function( app, ProjectHead, Sequences, Frames, Workspace, Layers, LayerDrawer, S
                 model: app.mediaBrowser,
                 el: this.$(".media-drawer")
             }).render();
+
+            this.initTips();
         },
 
         listenForKeys: function() {
@@ -70,6 +73,19 @@ function( app, ProjectHead, Sequences, Frames, Workspace, Layers, LayerDrawer, S
             Mousetrap.bind(["backspace"], this.deleteLayer );
 
             // window.onbeforeunload = function() { return "Do you really want to navigate away??"; }
+        },
+
+        initTips: function() {
+            // see http://onehackoranother.com/projects/jquery/tipsy/ for docs
+            _.delay(function(){
+                $("[title]").tipsy({
+
+                    fade: true,
+                    gravity: function() {
+                        return $(this).data("gravity") || "s";
+                    }
+                });
+            }, 1000);
         },
 
         copyLayer: function() {

@@ -11,7 +11,7 @@ return __p;
 this["JST"]["app/templates/frame.html"] = function(obj){
 var __p='';var print=function(){__p+=Array.prototype.join.call(arguments, '')};
 with(obj||{}){
-__p+='<div class="frame-menu">\n    <a href="#"><i class="icon-edit icon-white"></i></a>\n    <ul class="submenu">\n        <li class="menu-head">\n            Page Options\n        </li>\n        <li class="divider"></li>\n        <li>\n            <a href="#" class="action" data-action="deleteFrame"><i class="icon-remove"></i> delete</a>\n        </li>\n    </ul>\n</div>\n\n<a href="#" class="frame-thumb"\n    data-id="'+
+__p+='<div class="frame-menu tooltip"\n    title="delete page"\n    data-gravity="n"\n>\n    <a href="#" class="action tooltip" data-action="deleteFrame"\n        \n\n    ><i class="icon-trash icon-white"></i></a>\n</div>\n\n<a href="#" class="frame-thumb"\n    data-id="'+
 ( id )+
 '"\n    style="\n        ';
  if( thumbnail_url !== "" ) { 
@@ -27,7 +27,7 @@ return __p;
 this["JST"]["app/templates/frames.html"] = function(obj){
 var __p='';var print=function(){__p+=Array.prototype.join.call(arguments, '')};
 with(obj||{}){
-__p+='<ul class="frame-list"></ul>\n<div class="add-frame"><a href="#"><i class="icon-plus icon-white"></i></a></div>';
+__p+='<ul class="frame-list"></ul>\n<div class="add-frame"\n    title="add new page"\n    data-gravity="ne"\n><a href="#"><i class="icon-plus icon-white"></i></a></div>';
 }
 return __p;
 };
@@ -139,7 +139,7 @@ return __p;
 this["JST"]["app/templates/layer-drawer.html"] = function(obj){
 var __p='';var print=function(){__p+=Array.prototype.join.call(arguments, '')};
 with(obj||{}){
-__p+='<div class="ZEEGA-layer-drawer ZEEGA-hmenu clear">\n    <ul>\n        <li class="draggable-layer-type">\n            <a href="#" data-layer-type="Link">\n                <div class="item-label">link</div>\n                <i class="icon-arrow-up"></i>\n            </a>\n        </li>\n        <li class="draggable-layer-type">\n            <a href="#" data-layer-type="Text">\n                <div class="item-label">text</div>\n                <i class="icon-font"></i>\n            </a>\n        </li>\n        <li class="draggable-layer-type">\n            <a href="#" data-layer-type="Rectangle">\n                <div class="item-label">color</div>\n                <i class="icon-th-large"></i>\n            </a>\n        </li>\n    </ul>\n</div>';
+__p+='<div class="ZEEGA-layer-drawer ZEEGA-hmenu clear">\n    <ul>\n        <li class="draggable-layer-type">\n            <a href="#" data-layer-type="Link"\n                title="add interactivity"\n                data-gravity="n"\n            >\n                <div class="item-label">link</div>\n                <i class="icon-arrow-up"></i>\n            </a>\n        </li>\n        <li class="draggable-layer-type">\n            <a href="#" data-layer-type="Text"\n                title="add text"\n                data-gravity="n"\n            >\n                <div class="item-label">text</div>\n                <i class="icon-font"></i>\n            </a>\n        </li>\n        <li class="draggable-layer-type">\n            <a href="#" data-layer-type="Rectangle"\n                title="add color box"\n                data-gravity="n"\n            >\n                <div class="item-label">color</div>\n                <i class="icon-th-large"></i>\n            </a>\n        </li>\n    </ul>\n</div>';
 }
 return __p;
 };
@@ -151,7 +151,7 @@ __p+='<div class="layer-marker">\n    <div class="layer-list-top">\n        <spa
 ( attr.title )+
 '</span>\n    </div>\n    <div class="layer-list-bottom clearfix">\n        <a href="#" class="action-bg pull-left"><i class="zicon-'+
 ( type.toLowerCase() )+
-' zicon-white"></i></a>\n        <a href="#" class="action-bg pull-right"><i data-action="deleteLayer" class="action icon-trash icon-white"></i></a>\n    </div>\n</div>';
+' zicon-white"></i></a>\n        <a href="#" class="action-bg pull-right tooltip"\n            title="delete layer"\n            data-gravity="e"\n        ><i data-action="deleteLayer" class="action icon-trash icon-white"></i></a>\n    </div>\n</div>';
 }
 return __p;
 };
@@ -203,7 +203,7 @@ return __p;
 this["JST"]["app/templates/media-drawer.html"] = function(obj){
 var __p='';var print=function(){__p+=Array.prototype.join.call(arguments, '')};
 with(obj||{}){
-__p+='<div class="media-drawer-controls ZEEGA-hmenu light img-tabs">\n    <ul class=\'pull-left\'>\n        \n        <li>\n            <a href="#" data-api = "Zeega" class="active media-toggle"><i class="socialz-zeega socialz-white"></i></a>\n        </li>\n\n      \n\n        <li>\n            <a href="#" data-api = "Tumblr" class="media-toggle"><i class="socialz-tumblr"></i></a>\n        </li>\n\n        <li>\n            <a href="#" data-api = "Soundcloud" class="media-toggle"><i class="socialz-soundcloud"></i></a>\n        </li>\n\n        \n        <li>\n            <a href="#" data-api = "Instagram" class="media-toggle"><i class="socialz-instagram"></i></a>\n        </li>\n\n        <li>\n            <a href="#" data-api = "Flickr" class="media-toggle"><i class="socialz-flickr"></i></a>\n        </li>\n\n        <li>\n            <a href="#" data-api = "Giphy" class="media-toggle"><i class="socialz-giphy"></i></a>\n        </li>\n       \n        <!--\n        <li>\n            <a href="#" data-api = "Youtube" class="media-toggle"><i class="socialz-youtube"></i></a>\n        </li>\n       \n        <li >\n            <a href="#" data-api = "MyZeega" class="media-toggle"><i class="socialz-user"></i></a>\n        </li>\n         -->\n\n    </ul>\n    <ul class="pull-right">\n        <li >\n            <a id="media-upload-tab" href="#" data-api = "MyZeega" class="media-toggle">UPLOAD</a>\n        </li>\n    </ul>\n    \n    \n</div>\n<ul class="ZEEGA-items"></ul>';
+__p+='<div class="media-drawer-controls ZEEGA-hmenu light img-tabs">\n    <ul class=\'pull-left\'>\n        \n        <li>\n            <a href="#" data-api = "Zeega" class="active media-toggle"\n                title="Our faves from Zeega!"\n                data-gravity="sw"\n            ><i class="socialz-zeega socialz-white"></i></a>\n        </li>\n\n      \n\n        <li>\n            <a href="#" data-api="Tumblr" class="media-toggle"\n                title="Media from Tumblr"\n                data-gravity="sw"\n            ><i class="socialz-tumblr"></i></a>\n        </li>\n\n        <li>\n            <a href="#" data-api = "Soundcloud" class="media-toggle"\n                title="Sounds from soundCloud"\n                data-gravity="sw"\n            ><i class="socialz-soundcloud"></i></a>\n        </li>\n\n        \n        <li>\n            <a href="#" data-api = "Instagram" class="media-toggle"\n                title="Images from Instagram"\n                data-gravity="sw"\n            ><i class="socialz-instagram"></i></a>\n        </li>\n\n        <li>\n            <a href="#" data-api = "Flickr" class="media-toggle"\n                title="Images from Flickr"\n                data-gravity="sw"\n            ><i class="socialz-flickr"></i></a>\n        </li>\n\n        <li>\n            <a href="#" data-api = "Giphy" class="media-toggle"\n                title="GIFs from Giph¥"\n                data-gravity="sw"\n            ><i class="socialz-giphy"></i></a>\n        </li>\n       \n        <!--\n        <li>\n            <a href="#" data-api = "Youtube" class="media-toggle"><i class="socialz-youtube"></i></a>\n        </li>\n       \n        <li >\n            <a href="#" data-api = "MyZeega" class="media-toggle"><i class="socialz-user"></i></a>\n        </li>\n         -->\n\n    </ul>\n    <ul class="pull-right">\n        <li >\n            <a id="media-upload-tab" href="#" data-api = "MyZeega" class="media-toggle">UPLOAD</a>\n        </li>\n    </ul>\n    \n    \n</div>\n<ul class="ZEEGA-items"></ul>';
 }
 return __p;
 };
@@ -228,26 +228,6 @@ __p+='<a href="#" class="modal-close">&times;</a>\n<div class="modal-content">\n
 return __p;
 };
 
-this["JST"]["app/templates/navbar.html"] = function(obj){
-var __p='';var print=function(){__p+=Array.prototype.join.call(arguments, '')};
-with(obj||{}){
-__p+='<ul class=\'pull-left\'>\n    <li class=\'logo\'>\n        <a href="#"><img src="assets/img/zeega-logo-header.png"/></a>\n    </li>\n</ul>\n<ul class=\'pull-right\'>\n    <li>\n        <a href="http://www.zeega.org/user/'+
-( userId )+
-'" target="blank"><i class="icon-user"></i></a>\n    </li>\n    <li>\n        <a href="#"><i class="icon-folder-open"></i></a>\n        <ul class="submenu">\n            <li>\n                <a href="/'+
-( root )+
-'project/new" data-bypass="true" ><i class="icon-file"></i> New Zeega</a>\n            </li>\n            <li class="divider"></li>\n\n            ';
- _.each( userProjects, function( project) { 
-;__p+='\n                <li>\n                    <a href="/'+
-( project.id )+
-'"  data-bypass="true" >'+
-( project.title )+
-'</a>\n                </li>\n            ';
- }); 
-;__p+='\n\n        </ul>\n    </li>\n    <li>\n        <a href="http://www.zeega.org/faq/" target="blank"><i class="icon-question-sign"></i></a>\n    </li>\n</ul>';
-}
-return __p;
-};
-
 this["JST"]["app/templates/project-head.html"] = function(obj){
 var __p='';var print=function(){__p+=Array.prototype.join.call(arguments, '')};
 with(obj||{}){
@@ -257,7 +237,7 @@ __p+='<div class="nav col-left navbar ZEEGA-hmenu clear">\n    <ul class=\'pull-
 ( webRoot )+
 'profile/'+
 ( userId )+
-'" ><i class="icon-user"></i></a>\n        </li>\n        <li>\n            <a href="#"><i class="icon-folder-open"></i></a>\n            <ul class="submenu">\n                <li>\n                    <a href="'+
+'"\n                title="user profile"\n                data-gravity="n"\n                ><i class="icon-user"></i></a>\n        </li>\n        <li>\n            <a href="#"><i class="icon-folder-open"></i></a>\n            <ul class="submenu">\n                <li>\n                    <a href="'+
 ( webRoot )+
 'project/new" data-bypass="true" ><i class="icon-file"></i> New Zeega</a>\n                </li>\n                <li class="divider"></li>\n\n                ';
  _.each( userProjects, function( project) { 
@@ -269,9 +249,9 @@ __p+='<div class="nav col-left navbar ZEEGA-hmenu clear">\n    <ul class=\'pull-
 ( project.title )+
 '</a>\n                    </li>\n                ';
  }); 
-;__p+='\n\n            </ul>\n        </li>\n        <li>\n            <a href="#" target="blank"><i class="icon-question-sign"></i></a>\n        </li>\n    </ul>\n</div>\n<div class="project-title col-middle clearfix">\n    <div class="project-info" contenteditable>'+
+;__p+='\n\n            </ul>\n        </li>\n\n        <li>\n            <a href="http://blog.zeega.com/faq" data-bypass="true" target="blank"\n                title="FAQ"\n                data-gravity="n"\n            ><i class="icon-question-sign"></i></a>\n        </li>\n\n        \n    </ul>\n</div>\n<div class="project-title col-middle clearfix">\n    <div class="project-info" contenteditable\n        title="title of your Zeega"\n        data-gravity="n"\n    >'+
 ( title )+
-'</div>\n    <a href="#" class="project-preview btnz"><i class="icon-play icon-white"></i> Preview</a>\n</div>\n<div class="project-share col-right clearfix">\n    <a href="#" class="project-share btnz btnz-blue btnz-fullwidth"><i class="icon-retweet icon-white"></i> Share</a>\n</div>\n\n<div class="share-grave">\n\n    <div class="close-wrapper">\n        <a href="#" class="close-grave">&times;</a>\n    </div>\n\n    <div class="project-share">\n\n\n        < >\n        <input class="text-box" type="text" value=\'<iframe src="'+
+'</div>\n    <a href="#" class="project-preview btnz"><i class="icon-play icon-white"></i> Preview</a>\n</div>\n<div class="project-share col-right clearfix">\n    <a href="#" class="project-share btnz btnz-blue btnz-fullwidth"\n        title="share your Zeega with the world"\n        data-gravity="ne"\n    ><i class="icon-retweet icon-white"></i> Share</a>\n</div>\n\n<div class="share-grave">\n\n    <div class="close-wrapper">\n        <a href="#" class="close-grave">&times;</a>\n    </div>\n\n    <div class="project-share">\n\n        <input class="text-box" type="text" value=\'<iframe src="'+
 ( webRoot )+
 ''+
 ( item_id )+
@@ -297,13 +277,11 @@ __p+='<div class="nav col-left navbar ZEEGA-hmenu clear">\n    <ul class=\'pull-
 ( item_id )+
 '"\n                        class="social-share"\n                        data-itemid="'+
 ( item_id )+
-'"\n                        target="blank">\n            <i class="zitem-facebook zitem-30 color"></i>\n        </a>\n        <a href="mailto:friend@example.com?subject=Check out this Zeega!&body='+
-( webRoot )+
-''+
+'"\n                        target="blank">\n            <i class="zitem-facebook zitem-30 color"></i>\n        </a>\n        <a href="http://www.tumblr.com/share/photo?'+
+( tumblr_share )+
+'" \n                        class="social-share"\n                        data-itemid="'+
 ( item_id )+
-'"\n                        class="social-share"\n                        data-itemid="'+
-( item_id )+
-'">\n            <i class="zitem-tumblr zitem-30 color"></i>\n        </a>\n    </div>\n</div>';
+'"\n                        target="blank">\n            <i class="zitem-tumblr zitem-30 color"></i>\n        </a>\n    </div>\n</div>';
 }
 return __p;
 };
@@ -329,7 +307,7 @@ return __p;
 this["JST"]["app/templates/soundtrack.html"] = function(obj){
 var __p='';var print=function(){__p+=Array.prototype.join.call(arguments, '')};
 with(obj||{}){
-__p+='<div class="elapsed"></div>\n<div class="soundtrack-waveform"\n';
+__p+='<div class="elapsed tooltip"></div>\n<div class="soundtrack-waveform"\n';
  if ( model ) { 
 ;__p+='\n    style=" background: url('+
 ( attr.thumbnail_url )+
@@ -341,7 +319,7 @@ __p+='<div class="elapsed"></div>\n<div class="soundtrack-waveform"\n';
  } else { 
 ;__p+='\n    <div class="soundtrack-info">\n        <span class="title">'+
 ( attr.title )+
-'</span>\n        <span class="time-display"></span>\n    </div>\n    <div class="soundtrack-controls">\n        <a href="#" class="playpause"><i class="icon-play icon-white"></i></a>\n        <a href="#" class="remove"><i class="icon-remove icon-white"></i></a>\n    </div>\n';
+'</span>\n        <span class="time-display"></span>\n    </div>\n    <div class="soundtrack-controls">\n        <a href="#" class="playpause"\n            title="play / pause"\n            data-gravity="n"\n        ><i class="icon-play icon-white"></i></a>\n        <a href="#" class="remove"\n            title="remove soundtrack"\n            data-gravity="n"\n        ><i class="icon-remove icon-white"></i></a>\n    </div>\n';
  } 
 ;__p+='';
 }
@@ -351,7 +329,7 @@ return __p;
 this["JST"]["app/templates/workspace.html"] = function(obj){
 var __p='';var print=function(){__p+=Array.prototype.join.call(arguments, '')};
 with(obj||{}){
-__p+='<div class="ZEEGA-workspace"></div>';
+__p+='<div class="ZEEGA-workspace"\n    title="drag media here to add to your Zeega"\n    data-gravity="n"\n></div>';
 }
 return __p;
 };
