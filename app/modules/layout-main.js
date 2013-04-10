@@ -78,7 +78,7 @@ function( app, ProjectHead, Sequences, Frames, Workspace, Layers, LayerDrawer, S
         initTips: function() {
             // see http://onehackoranother.com/projects/jquery/tipsy/ for docs
             _.delay(function(){
-                $(".tooltip").tipsy({
+                $("[title]").tipsy({
 
                     fade: true,
                     gravity: function() {
