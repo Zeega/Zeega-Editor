@@ -26,7 +26,8 @@ require.config({
     simpleColorPicker: "../vendor/simple-color-picker/src/jquery.simple-color",
     ddslick: "../assets/js/plugins/jquery.ddslick",
     mousetrap: "../vendor/mousetrap/mousetrap",
-    spin: "../assets/js/libs/spin"
+    spin: "../assets/js/libs/spin",
+    tipsy: "../vendor/tipsy/src/javascripts/jquery.tipsy"
 
   },
 
@@ -38,7 +39,9 @@ require.config({
 
     mousetrap: {
         exports: 'Mousetrap'
-    }
+    },
+
+    tipsy: ["jquery"]
   }
 
 });
