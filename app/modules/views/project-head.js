@@ -10,10 +10,24 @@ function( app ) {
         template: "project-head",
 
         serialize: function() {
+
+            var tumblr_share,
+                tumblr_caption;
+
+            tumblr_caption = "<p><a href='" + app.webRoot + app.project.get("item_id") + "'><strong>Play&nbsp;► " +
+                            app.project.get("title") + "</strong></a></p><p>A Zeega by&nbsp;<a href='" +
+                            app.webRoot + app.project.get("user_id") + "'>" + app.project.get("authors") + "</a></p>";
+
+
+            tumblr_share = "source=" + encodeURIComponent( app.project.get("cover_image") ) +
+                            "&caption=" + encodeURIComponent( tumblr_caption ) +
+                            "&click_thru="+ encodeURIComponent( app.webRoot ) + app.project.get("item_id");
+
             return _.extend({
                 userId: app.userId,
                 userProjects: $.parseJSON( window.userProjects ),
-                webRoot: app.webRoot
+                webRoot: app.webRoot,
+                tumblr_share: tumblr_share
 
             }, this.model.project.toJSON() );
         },

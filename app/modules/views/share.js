@@ -11,7 +11,14 @@ function( app ) {
         template: "project-title",
         
         serialize: function() {
-            return _.extend({ drawerClass: this.drawerClass }, this.model.project.toJSON() );
+
+
+           
+
+            return _.extend({
+                drawerClass: this.drawerClass
+
+            }, this.model.project.toJSON() );
         },
 
         afterRender: function() {
@@ -47,7 +54,6 @@ function( app ) {
         projectPreview: function() {
             var projectData = app.project.getProjectJSON();
             
-console.log("preview project", projectData);
             app.zeegaplayer = new Zeega.player({
                 data: projectData,
                 startFrame: app.status.get("currentFrame").id,
