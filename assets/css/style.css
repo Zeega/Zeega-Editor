@@ -7306,6 +7306,14 @@ a:active {
   left: 0;
   right: 0;
 }
+.soundtrack .soundtrack-info .title {
+  white-space: nowrap;
+  overflow: hidden;
+  width: 100%;
+  position: absolute;
+  left: 0;
+  text-overflow: ellipsis;
+}
 .soundtrack .soundtrack-controls {
   position: absolute;
   bottom: 0;
