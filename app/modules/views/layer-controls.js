@@ -15,7 +15,8 @@ function( app ) {
         className: "ZEEGA-control-floater",
 
         initialize: function() {
-            app.status.on("change:currentLayer", this.onLayerFocus, this );
+            // app.status.on("change:currentLayer", this.onLayerFocus, this );
+            this.model.on("focus", this.onLayerFocus, this );
         },
 
         afterRender: function() {
@@ -36,10 +37,22 @@ function( app ) {
                 this.$(".layer-controls-inner").append( control.el );
                 control.render();
             });
+        },
 
+        onLayerFocus: function() {
+            $(window).unbind( "mouseup.layerControl" + this.model.id );
+            $(window).bind("mouseup.layerControl" + this.model.id , function( e ) {
+                var clickedInside = $.contains( this.$el[0], $(e.target)[0] ) || $( e.target ).hasClass("ZEEGA-control-floater");
+                
+                if ( !clickedInside ) {
+                    $(window).unbind( "mouseup.layerControl" + this.model.id );
+                    app.status.setCurrentLayer( null );
+                }
+            }.bind( this ));
         },
 
         cleanup: function() {
+            $(window).unbind( "mouseup.layerControl" + this.model.id );
             this.$el.empty();
         }
 
