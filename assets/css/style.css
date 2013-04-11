@@ -5480,6 +5480,8 @@ html {
 }
 .col-middle {
   width: calc(100% - 180px - 315px);
+  width: -webkit-calc(100% - 180px - 315px);
+  width: -moz-calc(100% - 180px - 315px);
 }
 .col-right {
   width: 150px;
@@ -5487,6 +5489,8 @@ html {
 .left-column,
 .right-column {
   height: calc(100% - 66px);
+  -webkit-height: calc(100% - 66px);
+  -moz-height: calc(100% - 66px);
 }
 .left-column {
   position: absolute;
@@ -5496,7 +5500,11 @@ html {
 }
 .edit-box {
   width: calc(100% - 170px);
+  -webkit-width: calc(100% - 170px);
+  -moz-width: calc(100% - 170px);
   height: calc(100% - 54px);
+  -webkit-height: calc(100% - 54px);
+  -moz-height: calc(100% - 54px);
   float: left;
   position: relative;
   min-width: 450px;
@@ -5516,7 +5524,9 @@ html {
   min-width: 630px;
   position: absolute;
   z-index: 1;
+  width: calc(100% - 327px);
   width: -webkit-calc(100% - 327px);
+  width: -moz-calc(100% - 327px);
 }
 .ZEEGA-player {
   z-index: 100;
@@ -6330,6 +6340,8 @@ html {
 .project-head .project-info {
   float: left;
   width: calc(100% - 175px);
+  width: -webkit-calc(100% - 175px);
+  width: -moz-calc(100% - 175px);
   border-bottom: 2px dotted transparent;
   white-space: nowrap;
   text-overflow: ellipsis;
@@ -6683,6 +6695,17 @@ ul {
   -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.5);
   background: orangered;
 }
+::-moz-scrollbar {
+  width: 5px;
+  height: 5px;
+}
+::-moz-scrollbar-track {
+  -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.5);
+}
+::-moz-scrollbar-thumb {
+  -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.5);
+  background: orangered;
+}
 a:link {
   text-decoration: none;
   color: #ccc;
@@ -6794,6 +6817,8 @@ a:active {
 .frames {
   float: left;
   width: calc(100% - 102px);
+  width: -webkit-calc(100% - 102px);
+  width: -moz-calc(100% - 102px);
   margin-left: 10px;
   font-size: 13px;
   position: relative;
@@ -6819,6 +6844,8 @@ a:active {
   border-radius: 2px;
   float: left;
   width: calc(100% - 58px);
+  width: -webkit-calc(100% - 58px);
+  width: -moz-calc(100% - 58px);
   *zoom: 1;
 }
 .frames .frame-list:before,
@@ -7045,6 +7072,8 @@ a:active {
   min-height: 320px;
   width: 100%;
   height: calc(100% - 88px);
+  height: -webkit-calc(100% - 88px);
+  height: -moz-calc(100% - 88px);
   overflow: hidden;
   *zoom: 1;
 }
@@ -7187,6 +7216,8 @@ a:active {
 }
 .media-drawer .ZEEGA-items {
   height: calc(100% - 30px);
+  height: -webkit-calc(100% - 30px);
+  height: -moz-calc(100% - 30px);
 }
 .media-drawer .item {
   float: left;
