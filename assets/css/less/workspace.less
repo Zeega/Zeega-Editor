@@ -2,7 +2,11 @@
     position: absolute;
     min-height: 320px;
     width: 100%;
-    height: calc(~"100% - 88px");
+
+    height: -webkit-calc( ~"100% - 88px" );
+    height: -moz-calc( ~"100% - 88px" );
+    height: calc( ~"100% - 88px" );
+
     overflow: hidden;
     .clearfix;
 

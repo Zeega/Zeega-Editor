@@ -5478,14 +5478,13 @@ html {
 .col-left {
   width: 305px;
 }
-.col-middle {
-  width: calc(100% - 180px - 315px);
-}
 .col-right {
   width: 150px;
 }
 .left-column,
 .right-column {
+  height: -webkit-calc(100% - 66px);
+  height: -moz-calc(100% - 66px);
   height: calc(100% - 66px);
 }
 .left-column {
@@ -5495,7 +5494,11 @@ html {
   left: 10px;
 }
 .edit-box {
+  width: -webkit-calc(100% - 170px);
+  width: -moz-calc(100% - 170px);
   width: calc(100% - 170px);
+  height: -webkit-calc(100% - 54px);
+  height: -moz-calc(100% - 54px);
   height: calc(100% - 54px);
   float: left;
   position: relative;
@@ -5517,6 +5520,8 @@ html {
   position: absolute;
   z-index: 1;
   width: -webkit-calc(100% - 327px);
+  width: -moz-calc(100% - 327px);
+  width: calc(100% - 327px);
 }
 .ZEEGA-player {
   z-index: 100;
@@ -6329,6 +6334,8 @@ html {
 }
 .project-head .project-info {
   float: left;
+  width: -webkit-calc(100% - 175px);
+  width: -moz-calc(100% - 175px);
   width: calc(100% - 175px);
   border-bottom: 2px dotted transparent;
   white-space: nowrap;
@@ -6793,6 +6800,8 @@ a:active {
 }
 .frames {
   float: left;
+  width: -webkit-calc(100% - 102px);
+  width: -moz-calc(100% - 102px);
   width: calc(100% - 102px);
   margin-left: 10px;
   font-size: 13px;
@@ -6818,6 +6827,8 @@ a:active {
   box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.5);
   border-radius: 2px;
   float: left;
+  width: -webkit-calc(100% - 58px);
+  width: -moz-calc(100% - 58px);
   width: calc(100% - 58px);
   *zoom: 1;
 }
@@ -7044,6 +7055,8 @@ a:active {
   position: absolute;
   min-height: 320px;
   width: 100%;
+  height: -webkit-calc(100% - 88px);
+  height: -moz-calc(100% - 88px);
   height: calc(100% - 88px);
   overflow: hidden;
   *zoom: 1;
@@ -7186,7 +7199,9 @@ a:active {
   font-size: 13px;
 }
 .media-drawer .ZEEGA-items {
-  height: calc(100% - 30px);
+  height: -webkit-calc(100% - 58px);
+  height: -moz-calc(100% - 58px);
+  height: calc(100% - 58px);
 }
 .media-drawer .item {
   float: left;
