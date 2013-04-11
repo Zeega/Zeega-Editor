@@ -13,7 +13,11 @@
 
     .project-info {
         float: left;
-        width: calc(~"100% - 175px");
+
+        width: -webkit-calc( ~"100% - 175px" );
+        width: -moz-calc( ~"100% - 175px" );
+        width: calc( ~"100% - 175px" );
+
         border-bottom: 2px dotted transparent;
         white-space: nowrap;
         text-overflow: ellipsis;
