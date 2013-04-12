@@ -7137,8 +7137,11 @@ a:active {
   transition: outline 0.5s;
   -webkit-transition: outline 0.5s;
 }
+.visual-element.visual-link {
+  outline: 1px dotted orangered;
+}
 .visual-element.active {
-  outline: 2px solid orangered;
+  outline: 2px solid orangered !important;
   transition: outline 0.5s;
   -webkit-transition: outline 0.5s;
 }
