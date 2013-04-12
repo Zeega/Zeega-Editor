@@ -86,7 +86,7 @@ function( app ) {
             var url = this.$(".url-box").val();
             if ( e.which == 13 ) {
                 this.$(".url-box").attr("value", "");
-                this.search( this.$(".url-box").val() );
+                this.search( url );
                 return false;
             }
         },
