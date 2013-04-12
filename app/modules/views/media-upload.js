@@ -83,12 +83,16 @@ function( app ) {
         },
         
         onSearchKeyPress: function( e ) {
+            var url = this.$(".url-box").val();
             if ( e.which == 13 ) {
+                this.$(".url-box").attr("value", "");
                 this.search( this.$(".url-box").val() );
+                return false;
             }
         },
 
         addItem: function( item ) {
+            item.off("sync");
             app.layout.$(".intro").remove();
             item.url = app.api + "items";
             app.status.get('currentFrame').addLayerByItem( item );
