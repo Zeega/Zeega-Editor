@@ -5478,6 +5478,11 @@ html {
 .col-left {
   width: 305px;
 }
+.col-middle {
+  width: -webkit-calc(100% - 180px - 315px);
+  width: -moz-calc(100% - 180px - 315px);
+  width: calc(100% - 180px - 315px);
+}
 .col-right {
   width: 150px;
 }
