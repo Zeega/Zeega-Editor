@@ -48772,12 +48772,17 @@ function( Zeega, _Layer ) {
 
         attr: {
             citation: false,
+            color: "#FFF",
+            content: "text",
+            fontSize: 200,
+            fontFamily: "Archivo Black",
             default_controls: true,
             left: 30,
             opacity: 1,
             title: "Text Layer",
             top: 40,
-            width: 25
+            width: 25,
+            dissolve: true
         }
     });
 
@@ -48800,7 +48805,8 @@ function( Zeega, _Layer ) {
             // using jquery because it provides a few vendor prefix styles
             this.$el.css({
                 color: this.model.get("attr").color,
-                fontSize: this.model.get("attr").fontSize + "%"
+                fontSize: this.model.get("attr").fontSize + "%",
+                fontFamily: this.model.get("attr").fontFamily
             });
         }
   });
@@ -49210,6 +49216,7 @@ function( Zeega, LayerPlugin ) {
         destroy: function() {
             // do not attempt to destroy if the layer is waiting or destroyed
             if ( this.state != "waiting" && this.state != "destroyed" ) {
+                this.exit();
                 this.state = "destroyed";
             }
         }
@@ -49484,6 +49491,7 @@ function( Zeega, SequenceCollection ) {
                     }
 
                     if( nextSequence ) {
+                        console.log(this, nextSequence );
                         preloadTargets.push( this.sequences.get( nextSequence ).get("frames")[0] );
                     }
 
@@ -86539,8 +86547,8 @@ function( app ) {
 
             this.stopListening( this.model );
             this.model.on("change:" + this.propertyName , this.onPropertyUpdate, this );
-            this.model.on("focus", this.onFocus, this );
-            this.model.on("blur", this.onBlur, this );
+            this.model.on("focus", this._onFocus, this );
+            this.model.on("blur", this._onBlur, this );
             this.init();
         },
 
@@ -86550,6 +86558,14 @@ function( app ) {
             this.$workspace = this.model.visual.$el.closest(".ZEEGA-workspace");
 
             this.create();
+        },
+
+        _onFocus: function() {
+            this.onFocus();
+        },
+
+        _onBlur: function() {
+            this.onBlur();
         },
 
         onFocus: function() {},
@@ -88574,13 +88590,6 @@ function( Zeega, _Layer, Visual ){
                 options: { aspectRatio: true }
             },
             "rotate",
-            {
-                type: "checkbox",
-                options: {
-                    title: "fade in",
-                    propertyName: "dissolve"
-                }
-            },
             { type: "slider",
                 options: {
                     title: "<i class='icon-eye-open icon-white'></i>",
@@ -88819,7 +88828,7 @@ function( Zeega, _Layer, Visual, FrameChooser ) {
             blink_on_start: true,
             glow_on_hover: true,
             citation: false,
-            link_type: "arrow_up",
+            link_type: "default",
             linkable: false,
             default_controls: false
         },
@@ -88896,7 +88905,11 @@ function( Zeega, _Layer, Visual, FrameChooser ) {
     },
 
     goClick: function() {
-        this.model.relay.set( "current_frame", this.getAttr("to_frame") );
+        if ( this.model.mode == "editor" ) {
+            Zeega.status.setCurrentLayer( this.model );
+        } else {
+            this.model.relay.set( "current_frame", this.getAttr("to_frame") );
+        }
         return false;
     }
 
@@ -104373,12 +104386,6 @@ function( Zeega, LayerModel, Visual ) {
         controls: [
             "position",
             "resize",
-            { type: "checkbox",
-                options: {
-                    title: "fade in",
-                    propertyName: "dissolve"
-                }
-            },
             "rotate",
             { type: "slider",
                 options: {
@@ -104458,13 +104465,6 @@ function( Zeega, _Layer, Visual ) {
                 }
             },
             "rotate",
-            {
-                type: "checkbox",
-                options: {
-                    title: "fade in",
-                    propertyName: "dissolve"
-                }
-            },
             { type: "slider",
                 options: {
                     title: "<i class='icon-eye-open icon-white'></i>",
