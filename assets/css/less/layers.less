@@ -59,8 +59,12 @@
     outline: 2px solid transparent;
     .transition( outline, 0.5s );
 
+    &.visual-link {
+        outline: 1px dotted orangered;
+    }
+
     &.active {
-        outline: 2px solid orangered;
+        outline: 2px solid orangered !important;
         .transition( outline, 0.5s );
     }
 }
