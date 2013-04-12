@@ -89,7 +89,7 @@ function( app ) {
         },
 
         addItem: function( item ) {
-
+            app.layout.$(".intro").remove();
             item.url = app.api + "items";
             app.status.get('currentFrame').addLayerByItem( item );
             item.on("sync", this.refreshUploads, this );
