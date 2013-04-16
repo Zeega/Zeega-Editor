@@ -119,9 +119,7 @@ __p+='<a href="#">\n    <div class="item-thumb">\n        ';
 ( title )+
 '"\n            title="'+
 ( title )+
-'"\n            height="100%"\n            width="100%"/>\n    </div>\n    <div class="item-title">\n        <i class="zicon-'+
-( layer_type.toLowerCase() )+
-' zicon-white"></i>\n        <span class="item-title-text">'+
+'"\n            height="100%"\n            width="100%"/>\n    </div>\n    <div class="item-title">\n        \n        <span class="item-title-text">'+
 ( title )+
 '</span>\n    </div>\n</a>';
 }
@@ -307,7 +305,7 @@ return __p;
 this["JST"]["app/templates/soundtrack.html"] = function(obj){
 var __p='';var print=function(){__p+=Array.prototype.join.call(arguments, '')};
 with(obj||{}){
-__p+='<div class="elapsed tooltip"></div>\n<div class="soundtrack-waveform"\n';
+__p+='<div class="elapsed tooltip"></div>\n<div class="soundtrack-waveform"\n    \n';
  if ( model ) { 
 ;__p+='\n    style=" background: url('+
 ( attr.thumbnail_url )+
@@ -317,9 +315,9 @@ __p+='<div class="elapsed tooltip"></div>\n<div class="soundtrack-waveform"\n';
  if ( model === false ) { 
 ;__p+='\n    <span class="instructions-1">Drag audio here to add soundtrack</span>\n    <span class="instructions-2">Drop to add soundtrack</span>\n';
  } else { 
-;__p+='\n    <div class="soundtrack-info">\n        <span class="title">'+
+;__p+='\n    \n    <!--\n    <div class="soundtrack-info">\n        <span class="title">'+
 ( attr.title )+
-'</span>\n        <span class="time-display"></span>\n    </div>\n    <div class="soundtrack-controls">\n        <a href="#" class="playpause"\n            title="play / pause"\n            data-gravity="n"\n        ><i class="icon-play icon-white"></i></a>\n        <a href="#" class="remove"\n            title="remove soundtrack"\n            data-gravity="n"\n        ><i class="icon-remove icon-white"></i></a>\n    </div>\n';
+'</span>\n        <span class="time-display"></span>\n    </div>\n    -->\n    <div class="soundtrack-controls">\n        <a href="#" class="playpause"\n            title="play / pause"\n            data-gravity="n"\n        ><i class="icon-play icon-white"></i></a>\n        <a href="#" class="remove"\n            title="remove soundtrack"\n            data-gravity="n"\n        ><i class="icon-remove icon-white"></i></a>\n    </div>\n';
  } 
 ;__p+='';
 }
