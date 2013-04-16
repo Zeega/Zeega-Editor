@@ -8,7 +8,7 @@ function( app, ItemView ) {
     return Backbone.View.extend({
 
         className: function() {
-            return "item item-" + this.id;
+            return "item item-" + this.model.id;
         },
         tagName: "li",
         template: "item",

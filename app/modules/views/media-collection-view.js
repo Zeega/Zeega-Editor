@@ -66,12 +66,8 @@ function( app, UploadView, Spinner ) {
                 $(".media-collection-search").show();
             }
 
-            if( this.model.getQuery() === "" && this.model.api != "MyZeega" ){
-                this.$(".media-collection-headline").show();
-            } else {
-                this.$(".media-collection-headline").hide();
-            }
-
+            
+            
         },
 
         //extend this function
@@ -100,7 +96,11 @@ function( app, UploadView, Spinner ) {
             });
             this.$(".label").css("visibility", "visible");
 
-            
+            if( this.model.getQuery() === "" && this.model.api != "MyZeega" ){
+                this.$(".media-collection-headline").show();
+            } else {
+                this.$(".media-collection-headline").hide();
+            }
 
 
             this.spinner.stop();
@@ -127,7 +127,7 @@ function( app, UploadView, Spinner ) {
         },
 
         search: function( query ) {
-            console.log(this.model, query);
+
 
             this.busy = true;
 
