@@ -119,8 +119,6 @@ function( app ) {
 
             app.zeegaplayer = new Zeega.player({
                 data: projectData,
-                startFrame: app.status.get("currentFrame").id,
-
                 controls: {
                     arrows: true,
                     close: true
