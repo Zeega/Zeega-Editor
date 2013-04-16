@@ -4136,13 +4136,6 @@ body .ui-tooltip {
 .visual-textv2 .drag-handle:hover {
   opacity: 1;
 }
-.text-modal .btnz {
-  background-color: white;
-  border: 1px solid #ccc;
-}
-.text-modal .btnz.active {
-  background-color: #add8e6;
-}
 .text-modal .text-controls {
   margin: 10px 0;
 }
@@ -4172,6 +4165,9 @@ body .ui-tooltip {
   position: relative;
   top: -4px;
   border-radius: 2px;
+}
+.text-modal .submit {
+  float: right;
 }
 
 .control-av {
@@ -6371,6 +6367,21 @@ html {
   background-color: #06C;
 }
 .btnz.btnz-blue:hover {
+  background-color: #6FF;
+}
+.btnz.btnz-light {
+  background-color: white;
+  border: 1px solid #ccc;
+}
+.btnz.btnz-light.active {
+  background-color: #add8e6;
+}
+.btnz.btnz-submit {
+  background-color: rgba(50, 205, 50, 0.75);
+  padding-left: 20px;
+  padding-right: 20px;
+}
+.btnz.btnz-submit:hover {
   background-color: #6FF;
 }
 .project-head {
