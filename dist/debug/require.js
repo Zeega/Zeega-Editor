@@ -523,7 +523,7 @@ return __p;
 this["JST"]["app/templates/layer-drawer.html"] = function(obj){
 var __p='';var print=function(){__p+=Array.prototype.join.call(arguments, '')};
 with(obj||{}){
-__p+='<div class="ZEEGA-layer-drawer ZEEGA-hmenu clear">\n    <ul>\n        <li class="draggable-layer-type">\n            <a href="#" data-layer-type="Link"\n                title="add interactivity"\n                data-gravity="n"\n            >\n                <div class="item-label">link</div>\n                <i class="icon-arrow-up"></i>\n            </a>\n        </li>\n        <li class="draggable-layer-type">\n            <a href="#" data-layer-type="Text"\n                title="add text"\n                data-gravity="n"\n            >\n                <div class="item-label">text</div>\n                <i class="icon-font"></i>\n            </a>\n        </li>\n        <li class="draggable-layer-type">\n            <a href="#" data-layer-type="Rectangle"\n                title="add color box"\n                data-gravity="n"\n            >\n                <div class="item-label">color</div>\n                <i class="icon-th-large"></i>\n            </a>\n        </li>\n    </ul>\n</div>';
+__p+='<div class="ZEEGA-layer-drawer ZEEGA-hmenu clear">\n    <ul>\n        <li class="draggable-layer-type">\n            <a href="#" data-layer-type="Link"\n                title="add interactivity"\n                data-gravity="n"\n            >\n                <div class="item-label">link</div>\n                <i class="icon-arrow-up"></i>\n            </a>\n        </li>\n        <li class="draggable-layer-type">\n            <a href="#" data-layer-type="TextV2"\n                title="add text"\n                data-gravity="n"\n            >\n                <div class="item-label">text</div>\n                <i class="icon-font"></i>\n            </a>\n        </li>\n        <li class="draggable-layer-type">\n            <a href="#" data-layer-type="Rectangle"\n                title="add color box"\n                data-gravity="n"\n            >\n                <div class="item-label">color</div>\n                <i class="icon-th-large"></i>\n            </a>\n        </li>\n    </ul>\n</div>';
 }
 return __p;
 };
@@ -978,6 +978,30 @@ with(obj||{}){
 __p+='<div class="visual-target">'+
 ( attr.content )+
 '</div>\n<div class="controls-inline"></div>';
+}
+return __p;
+};
+
+this["JST"]["app/zeega-parser/plugins/layers/text_v2/text.html"] = function(obj){
+var __p='';var print=function(){__p+=Array.prototype.join.call(arguments, '')};
+with(obj||{}){
+__p+='<div class="visual-target">'+
+( attr.content )+
+'</div>\n<div class="controls-inline"></div>';
+}
+return __p;
+};
+
+this["JST"]["app/zeega-parser/plugins/layers/text_v2/textmodal.html"] = function(obj){
+var __p='';var print=function(){__p+=Array.prototype.join.call(arguments, '')};
+with(obj||{}){
+__p+='<a href="#" class="modal-close">&times;</a>\n<div class="modal-content">\n    <div class="modal-title">Edit your text</div>\n    <div class="modal-body">\n\n        <textarea rows="4" cols="59" maxlength="140" >'+
+( attr.content )+
+'</textarea>\n\n        <div class="text-controls clearfix">\n            <div class="color-selector">\n                <input class="simple-color" value="#'+
+( attr.color )+
+'"/>\n            </div>\n            <a href="#" class="btnz btnz-light text-btn-bold"><i class="icon-bold"></i></a>\n            <a href="#" class="btnz btnz-light text-btn-italic"><i class="icon-italic"></i></a>\n            <a href="#" class="btnz btnz-light text-btn-align-left"><i class="icon-align-left"></i></a>\n            <a href="#" class="btnz btnz-light text-btn-align-center"><i class="icon-align-center"></i></a>\n            <a href="#" class="btnz btnz-light text-btn-align-right"><i class="icon-align-right"></i></a>\n\n            <select class="font-list" style=""></select>\n            <select class="size-list" style="">\n                <option value="100">8</option>\n                <option value="125">10</option>\n                <option value="150">12</option>\n                <option value="175">14</option>\n                <option value="200">18</option>\n                <option value="250">24</option>\n                <option value="375">36</option>\n                <option value="500">48</option>\n                <option value="800">72</option>\n                <option value="1600">144</option>\n                <option value="2400">200</option>\n                <option value="3600">300</option>\n            </select>\n            \n        </div>\n\n        <div class="sample-header">sample</div>\n        <div class="text-sample">'+
+( attr.content )+
+'</div>\n\n        <div class="bottom-chooser clearfix">\n            <a href="#" class="submit btnz btnz-submit">OK</a>\n        </div>\n    </div>\n</div>\n';
 }
 return __p;
 };
@@ -69231,15 +69255,19 @@ function( app ) {
         },
 
         closeGrave: function() {
-            this.$(".share-grave").hide();
+            
+            this.$(".share-grave").slideUp("fast");
         },
 
         toggleShareGrave: function() {
 
-            //should only happen when opened
-            this.model.project.save( "publish_update", 1 );
-            this.$(".share-grave").toggle();
+            if( !this.$(".share-grave").is(":visible") ) {
+                this.model.project.save( "publish_update", 1 );
+            }
+            this.$(".share-grave").slideToggle("fast");
         },
+
+
 
         onTitleKeyup: function( e ) {
             if ( e.which == 13 ) {
@@ -69264,8 +69292,6 @@ function( app ) {
 
             app.zeegaplayer = new Zeega.player({
                 data: projectData,
-                startFrame: app.status.get("currentFrame").id,
-
                 controls: {
                     arrows: true,
                     close: true
@@ -86545,8 +86571,8 @@ function( app ) {
 
             this.stopListening( this.model );
             this.model.on("change:" + this.propertyName , this.onPropertyUpdate, this );
-            this.model.on("focus", this.onFocus, this );
-            this.model.on("blur", this.onBlur, this );
+            this.model.on("focus", this._onFocus, this );
+            this.model.on("blur", this._onBlur, this );
             this.init();
         },
 
@@ -86556,6 +86582,14 @@ function( app ) {
             this.$workspace = this.model.visual.$el.closest(".ZEEGA-workspace");
 
             this.create();
+        },
+
+        _onFocus: function() {
+            this.onFocus();
+        },
+
+        _onBlur: function() {
+            this.onBlur();
         },
 
         onFocus: function() {},
@@ -86645,8 +86679,13 @@ function( Zeega, ControlView ) {
             makeDraggable: function() {
                 if ( this.model.editorProperties.draggable ) {
                     this.$visualContainer.draggable({
+                        start: function( e, ui ) {
+                            this.model.visual.transforming = true;
+                        }.bind( this ),
                         stop: function( e, ui ) {
                             var top, left, workspace;
+
+                            this.model.visual.transforming = false;
 
                             workspace = this.$visualContainer.closest(".ZEEGA-workspace");
                             top = ui.position.top / workspace.height() * 100;
@@ -86827,9 +86866,14 @@ function( Zeega, ControlView ) {
 
             makeResizable: function() {
                 var args = {
+                    start: function( e, ui ) {
+                        this.model.visual.transforming = true;
+                        Zeega.status.setCurrentLayer( this.model );
+                    }.bind( this ),
                     stop: function( e, ui ) {
                         var attr = {}, width, height;
 
+                        this.model.visual.transforming = false;
                         attr.width = this.$visualContainer.width() / this.$workspace.width() * 100;
                         if ( this.options.options != "e" ) {
                             attr.height = this.$visualContainer.height() / this.$workspace.height() * 100;
@@ -88580,13 +88624,6 @@ function( Zeega, _Layer, Visual ){
                 options: { aspectRatio: true }
             },
             "rotate",
-            {
-                type: "checkbox",
-                options: {
-                    title: "fade in",
-                    propertyName: "dissolve"
-                }
-            },
             { type: "slider",
                 options: {
                     title: "<i class='icon-eye-open icon-white'></i>",
@@ -88825,7 +88862,7 @@ function( Zeega, _Layer, Visual, FrameChooser ) {
             blink_on_start: true,
             glow_on_hover: true,
             citation: false,
-            link_type: "arrow_up",
+            link_type: "default",
             linkable: false,
             default_controls: false
         },
@@ -88902,7 +88939,11 @@ function( Zeega, _Layer, Visual, FrameChooser ) {
     },
 
     goClick: function() {
-        this.model.relay.set( "current_frame", this.getAttr("to_frame") );
+        if ( this.model.mode == "editor" ) {
+            Zeega.status.setCurrentLayer( this.model );
+        } else {
+            this.model.relay.set( "current_frame", this.getAttr("to_frame") );
+        }
         return false;
     }
 
@@ -104379,12 +104420,6 @@ function( Zeega, LayerModel, Visual ) {
         controls: [
             "position",
             "resize",
-            { type: "checkbox",
-                options: {
-                    title: "fade in",
-                    propertyName: "dissolve"
-                }
-            },
             "rotate",
             { type: "slider",
                 options: {
@@ -104464,13 +104499,6 @@ function( Zeega, _Layer, Visual ) {
                 }
             },
             "rotate",
-            {
-                type: "checkbox",
-                options: {
-                    title: "fade in",
-                    propertyName: "dissolve"
-                }
-            },
             { type: "slider",
                 options: {
                     title: "<i class='icon-eye-open icon-white'></i>",
@@ -104842,6 +104870,384 @@ function( Zeega, _Layer ){
     return Layer;
 });
 
+define('zeega_parser/plugins/layers/text_v2/textmodal',[
+    "app",
+    "simpleColorPicker"
+],
+
+function( app ) {
+
+    return app.Backbone.View.extend({
+
+        template: "text_v2/textmodal",
+        serialize: function() {
+            return this.model.toJSON();
+        },
+
+        saveContent: null,
+
+        className: "text-modal overlay-dimmer ZEEGA-modal",
+
+        initialize: function() {
+            this.saveContent = _.debounce(function() {
+                this.model.saveAttr({ content: this.$("textarea").val() });
+                this.updateSample();
+            }, 1000);
+        },
+
+        afterRender: function() {
+            var $colorPicker = this.$(".simple-color");
+
+            $colorPicker
+                .simpleColor({
+                    livePreview: true,
+                    onCellEnter: function( hex ) {
+                        this.$(".text-sample")
+                            .css({
+                                color: "#" + hex,
+                            });
+                    }.bind( this ),
+                    // onClose: function() {
+                    //     this.onChange();
+                    // }.bind( this ),
+                    callback: function( hex ) {
+                        this.onChangeColor( hex );
+                    }.bind( this )
+                });
+
+            $("#main").addClass("modal");
+            this.loadFonts();
+            this.loadSize();
+            this.setButtonStates();
+
+            this.updateSample();
+        },
+
+        events: {
+            "click .modal-close": "closeThis",
+            "click .submit": "submit",
+            "click .text-btn-italic": "toggleItalics",
+            "click .text-btn-bold": "toggleBold",
+
+            "keypress textarea": "onKeypress",
+            "change .size-list": "onChangeSize",
+            "change .font-list": "onChangeFont",
+            "click .text-btn-align-left": "toggleAlignLeft",
+            "click .text-btn-align-center": "toggleAlignCenter",
+            "click .text-btn-align-right": "toggleAlignRight"
+        },
+
+        onChangeColor: function( hex ) {
+            this.model.saveAttr({ color: hex });
+            this.updateSample();
+        },
+
+        onChangeSize: function( e ) {
+            console.log("change size:", $( e.target ).val() );
+            this.model.setAttr({ fontSize: $( e.target ).val() });
+
+            this.model.saveAttr({ fontSize: $( e.target ).val() });
+        },
+
+        onChangeFont: function( e ) {
+            this.model.saveAttr({ fontFamily: $( e.target ).val() });
+            this.updateSample();
+        },
+
+        toggleItalics: function() {
+            var italic = this.model.getAttr("italic");
+
+            this.model.saveAttr({ italic: !italic });
+            this.updateSample();
+            this.setButtonStates();
+        },
+
+        toggleAlignLeft: function() {
+            this.model.saveAttr({ textAlign: "left" });
+            this.updateSample();
+            this.setButtonStates();
+        },
+
+        toggleAlignCenter: function() {
+            this.model.saveAttr({ textAlign: "center" });
+            this.updateSample();
+            this.setButtonStates();
+        },
+
+        toggleAlignRight: function() {
+            this.model.saveAttr({ textAlign: "right" });
+            this.updateSample();
+            this.setButtonStates();
+        },
+
+        toggleBold: function() {
+            var bold = this.model.getAttr("bold");
+
+            this.model.saveAttr({ bold: !bold })
+            this.updateSample();
+            this.setButtonStates();
+        },
+
+        onKeypress: function( e ) {
+            console.log(e.which)
+
+            this.saveContent();
+        },
+
+        closeThis: function() {
+            $("#main").removeClass("modal");
+            this.$el.fadeOut(function() {
+                this.$el.attr("style", "");
+                this.remove();
+            }.bind( this ));
+        },
+
+        submit: function() {
+            if ( this.selectedFrame !== null ) {
+                this.model.saveAttr({ to_frame: this.selectedFrame });
+                this.model.trigger("change:to_frame", this.model, this.selectedFrame );
+            }
+            this.closeThis();
+            this.updateVisualElement();
+        },
+
+        loadFonts: function() {
+            this.$(".font-list").empty();
+            _.each( this.model.fontList, function( fontName ) {
+                this.$(".font-list").append("<option value='" + fontName + "'>" + fontName + "</option>");
+            }, this );
+            this.$(".size-list").val( this.model.getAttr("fontFamily") );
+        },
+
+        loadSize: function() {
+            this.$(".size-list").val( this.model.getAttr("fontSize") );
+        },
+
+        setButtonStates: function() {
+            this.$(".active").removeClass("active");
+
+            this.$(".text-btn-bold").addClass( this.model.getAttr("bold") ? "active" : "" )
+            this.$(".text-btn-italic").addClass( this.model.getAttr("italic") ? "active" : "" )
+            this.$(".text-btn-align-left").addClass( this.model.getAttr("textAlign") == "left" ? "active" : "" )
+            this.$(".text-btn-align-center").addClass( this.model.getAttr("textAlign") == "center" ? "active" : "" )
+            this.$(".text-btn-align-right").addClass( this.model.getAttr("textAlign") == "right" ? "active" : "" )
+        },
+
+        updateSample: function() {
+            this.$(".text-sample")
+                .css({
+                    color: "#" + this.model.getAttr("color"),
+                    fontWeight: this.model.getAttr("bold") ? "bold" : "normal",
+                    fontStyle: this.model.getAttr("italic") ? "italic" : "normal",
+                    fontFamily: this.model.getAttr("fontFamily"),
+                    textAlign: this.model.getAttr("textAlign"),
+                    // fontSize: this.model.getAttr("fontSize") + "%"
+                })
+                .text( this.model.getAttr("content") );
+            this.updateVisualElement();
+        },
+
+        updateVisualElement: function() {
+            this.model.visual.updateStyle();
+        },
+
+        fetch: function( path ) {
+            // Initialize done for use in async-mode
+            var done;
+            // Concatenate the file extension.
+            path = app.parserPath + "plugins/layers/" + path + ".html";
+            // remove app/templates/ via regexp // hacky? yes. probably.
+            path = path.replace("app/templates/","");
+
+            // If cached, use the compiled template.
+            if ( JST[ path ] ) {
+                return JST[ path ];
+            } else {
+                // Put fetch into `async-mode`.
+                done = this.async();
+                // Seek out the template asynchronously.
+                return app.$.ajax({ url: app.root + path }).then(function( contents ) {
+                    done(
+                      JST[ path ] = _.template( contents )
+                    );
+                });
+            }
+        }
+    });
+
+});
+define('zeega_parser/plugins/layers/text_v2/text',[
+    "app",
+    "zeega_parser/modules/layer.model",
+    "zeega_parser/modules/layer.visual.view",
+    "zeega_parser/plugins/layers/text_v2/textmodal"
+],
+function( Zeega, _Layer, Visual, TextModal ) {
+
+    var Layer = Zeega.module();
+
+    Layer.TextV2 = _Layer.extend({
+        // TODO: is the redundant naming necessary? If this program knows
+        // this is a Layer, wouldn't "type" be sufficient?
+        layerType: "TextV2",
+
+        attr: {
+            citation: false,
+            color: "#FFF",
+            content: "text",
+            fontSize: 200,
+            fontFamily: "Archivo Black",
+            default_controls: true,
+            left: 30,
+            opacity: 1,
+            title: "Text Layer",
+            top: 40,
+            width: 25,
+            dissolve: true,
+
+            bold: false,
+            italic: false,
+            textAlign: "left"
+        },
+
+        controls: [
+            "position",
+            {
+                type: "resize",
+                options: {
+                    aspectRatio: false,
+                    handles: "se"
+                }
+            },
+            { type: "slider",
+                options: {
+                    title: "<i class='icon-eye-open icon-white'></i>",
+                    propertyName: "opacity",
+                    min: 0,
+                    max: 1,
+                    step: 0.001,
+                    css: true
+                }
+            }
+        ],
+
+        fontList: [
+            "Allerta Stencil",
+            "Antic",
+            "Archivo Black",
+            "Arial",
+            "Bilbo Swash Caps",
+            "Cabin Sketch",
+            "Codystar",
+            "Cutive Mono",
+            "Dosis",
+            "Ewert",
+            "Fascinate",
+            "Faster One",
+            "Finger Paint",
+            "Georgia",
+            "Great Vibes",
+            "Londrina Outline",
+            "Londrina Sketch",
+            "Monofett",
+            "Montserrat",
+            "New Rocker",
+            "Nobile",
+            "Nova Mono",
+            "Orbitron",
+            "Sorts Mill Goudy",
+            "Poiret One",
+            "Pontano Sans",
+            "Trocchi",
+            "Ultra",
+            "Verdana",
+            "Wendy One",
+            "Yellowtail"
+        ],
+    });
+
+    Layer.TextV2.Visual = Visual.extend({
+
+        textModal: null,
+        transforming: false,
+
+        template: "text_v2/text",
+
+        visualProperties: [
+            "top",
+            "left",
+            "width",
+            "opacity"
+        ],
+
+        serialize: function() {
+            return this.model.toJSON();
+        },
+
+        saveContent: null,
+
+        updateStyle: function() {
+            console.log("update style", this.model.getAttr("content"), this.model.toJSON() )
+            this.$(".visual-target").text( this.model.getAttr("content") );
+            
+            this.$el.css({
+                    color: "#" + this.model.get("attr").color,
+                    fontWeight: this.model.getAttr("bold") ? "bold" : "normal",
+                    fontStyle: this.model.getAttr("italic") ? "italic" : "normal",
+                    fontFamily: this.model.getAttr("fontFamily"),
+                    fontSize: this.model.getAttr("fontSize") + "%",
+                    textAlign: this.model.getAttr("textAlign")
+                });
+                
+        },
+
+        afterEditorRender: function() {
+
+            if ( this.textModal === null ) {
+                this.textModal = new TextModal({ model: this.model });
+            }
+
+            this.$el.css({
+                color: "#" + this.model.get("attr").color,
+                fontSize: this.model.get("attr").fontSize + "%",
+                fontFamily: this.model.get("attr").fontFamily
+            });
+
+            this.$el.unbind("mouseup");
+
+            this.$el.bind("mouseup", function() {
+
+                if ( !this.transforming ) {
+                    console.log("launch text modal");
+                    $("body").append( this.textModal.el );
+                    this.textModal.render();
+                }
+
+            }.bind( this ));
+
+            this.on("sync", function() {
+                this.updateStyle();
+            });
+        },
+
+        convertToPercents: function( top, left ) {
+            this.$el.css({
+                top: top + "%",
+                left: left + "%"
+            });
+        },
+
+        lazyUpdate: _.debounce(function( value ) {
+            var attr = {};
+            
+            attr[ this.propertyName ] = value;
+            this.model.saveAttr( attr );
+        }, 500 )
+  });
+
+  return Layer;
+});
+
 /*
 
 plugin/layer manifest file
@@ -104859,7 +105265,8 @@ define('zeega_parser/plugins/layers/_all',[
     "zeega_parser/plugins/layers/rectangle/rectangle",
     "zeega_parser/plugins/layers/text/text",
     "zeega_parser/plugins/layers/popup/popup",
-    "zeega_parser/plugins/layers/geo/geo"
+    "zeega_parser/plugins/layers/geo/geo",
+    "zeega_parser/plugins/layers/text_v2/text"
 ],
 function(
     image,
@@ -104870,7 +105277,8 @@ function(
     rectangle,
     text,
     popup,
-    geo
+    geo,
+    textV2
 ) {
     var Plugins = {};
     // extend the plugin object with all the layers
@@ -104884,7 +105292,8 @@ function(
         rectangle,
         text,
         popup,
-        geo
+        geo,
+        textV2
     );
 });
 
@@ -105129,9 +105538,11 @@ function( app, Backbone, Layers, ThumbWorker ) {
 
         addLayerType: function( type ) {
             var newLayer = new Layers[ type ]({ type: type });
-
             newLayer.order[ this.id ] = this.layers.length;
             newLayer.save().success(function( response ) {
+                if( type == "Link" ){
+                    this.set( "attr", { "advance" : 10000 } ); //needs update in player – adding a link layer removes default advance
+                }
                 this.layers.add( newLayer );
                 app.status.setCurrentLayer( newLayer );
             }.bind( this ));
@@ -106455,7 +106866,7 @@ function( app, ItemView ) {
     return Backbone.View.extend({
 
         className: function() {
-            return "item item-" + this.id;
+            return "item item-" + this.model.id;
         },
         tagName: "li",
         template: "item",
@@ -106945,12 +107356,8 @@ function( app, UploadView, Spinner ) {
                 $(".media-collection-search").show();
             }
 
-            if( this.model.getQuery() === "" && this.model.api != "MyZeega" ){
-                this.$(".media-collection-headline").show();
-            } else {
-                this.$(".media-collection-headline").hide();
-            }
-
+            
+            
         },
 
         //extend this function
@@ -106979,7 +107386,11 @@ function( app, UploadView, Spinner ) {
             });
             this.$(".label").css("visibility", "visible");
 
-            
+            if( this.model.getQuery() === "" && this.model.api != "MyZeega" ){
+                this.$(".media-collection-headline").show();
+            } else {
+                this.$(".media-collection-headline").hide();
+            }
 
 
             this.spinner.stop();
@@ -107006,7 +107417,7 @@ function( app, UploadView, Spinner ) {
         },
 
         search: function( query ) {
-            console.log(this.model, query);
+
 
             this.busy = true;
 
@@ -108174,7 +108585,7 @@ require.config({
    deps: [ "../vendor/tipsy/src/javascripts/jquery.tipsy", "../vendor/simple-color-picker/src/jquery.simple-color", "zeegaplayer", "../vendor/jam/require.config", "main", "spin"],
 
 
-//  deps: ["zeegaplayer", "../vendor/jam/require.config", "main", "spin"],
+//   deps: ["zeegaplayer", "../vendor/jam/require.config", "main", "spin"],
 
 
   paths: {
