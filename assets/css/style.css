@@ -7262,7 +7262,8 @@ a:active {
 .item-dragging {
   height: 75px;
   width: 75px;
-  opacity: 0.75;
+  opacity: 0.85;
+  border: solid 1px white;
 }
 .media-drawer {
   background: white;
@@ -7345,8 +7346,8 @@ a:active {
 }
 .media-drawer.list .item .item-thumb {
   float: left;
-  height: 24px;
-  width: 24px;
+  height: 48px;
+  width: 48px;
   margin-right: 10px;
 }
 .media-drawer.list .item .item-thumb .thumb-title {
@@ -7359,7 +7360,7 @@ a:active {
   font-size: 12px;
 }
 .media-drawer.list .item .item-title .item-title-text {
-  width: 225px;
+  width: 210px;
   position: relative;
   top: 5px;
   display: inline-block;

@@ -505,9 +505,7 @@ __p+='<a href="#">\n    <div class="item-thumb">\n        ';
 ( title )+
 '"\n            title="'+
 ( title )+
-'"\n            height="100%"\n            width="100%"/>\n    </div>\n    <div class="item-title">\n        <i class="zicon-'+
-( layer_type.toLowerCase() )+
-' zicon-white"></i>\n        <span class="item-title-text">'+
+'"\n            height="100%"\n            width="100%"/>\n    </div>\n    <div class="item-title">\n        \n        <span class="item-title-text">'+
 ( title )+
 '</span>\n    </div>\n</a>';
 }
@@ -693,7 +691,7 @@ return __p;
 this["JST"]["app/templates/soundtrack.html"] = function(obj){
 var __p='';var print=function(){__p+=Array.prototype.join.call(arguments, '')};
 with(obj||{}){
-__p+='<div class="elapsed tooltip"></div>\n<div class="soundtrack-waveform"\n';
+__p+='<div class="elapsed tooltip"></div>\n<div class="soundtrack-waveform"\n    \n';
  if ( model ) { 
 ;__p+='\n    style=" background: url('+
 ( attr.thumbnail_url )+
@@ -703,9 +701,9 @@ __p+='<div class="elapsed tooltip"></div>\n<div class="soundtrack-waveform"\n';
  if ( model === false ) { 
 ;__p+='\n    <span class="instructions-1">Drag audio here to add soundtrack</span>\n    <span class="instructions-2">Drop to add soundtrack</span>\n';
  } else { 
-;__p+='\n    <div class="soundtrack-info">\n        <span class="title">'+
+;__p+='\n    \n    <!--\n    <div class="soundtrack-info">\n        <span class="title">'+
 ( attr.title )+
-'</span>\n        <span class="time-display"></span>\n    </div>\n    <div class="soundtrack-controls">\n        <a href="#" class="playpause"\n            title="play / pause"\n            data-gravity="n"\n        ><i class="icon-play icon-white"></i></a>\n        <a href="#" class="remove"\n            title="remove soundtrack"\n            data-gravity="n"\n        ><i class="icon-remove icon-white"></i></a>\n    </div>\n';
+'</span>\n        <span class="time-display"></span>\n    </div>\n    -->\n    <div class="soundtrack-controls">\n        <a href="#" class="playpause"\n            title="play / pause"\n            data-gravity="n"\n        ><i class="icon-play icon-white"></i></a>\n        <a href="#" class="remove"\n            title="remove soundtrack"\n            data-gravity="n"\n        ><i class="icon-remove icon-white"></i></a>\n    </div>\n';
  } 
 ;__p+='';
 }
@@ -86547,8 +86545,8 @@ function( app ) {
 
             this.stopListening( this.model );
             this.model.on("change:" + this.propertyName , this.onPropertyUpdate, this );
-            this.model.on("focus", this._onFocus, this );
-            this.model.on("blur", this._onBlur, this );
+            this.model.on("focus", this.onFocus, this );
+            this.model.on("blur", this.onBlur, this );
             this.init();
         },
 
@@ -86558,14 +86556,6 @@ function( app ) {
             this.$workspace = this.model.visual.$el.closest(".ZEEGA-workspace");
 
             this.create();
-        },
-
-        _onFocus: function() {
-            this.onFocus();
-        },
-
-        _onBlur: function() {
-            this.onBlur();
         },
 
         onFocus: function() {},
@@ -88590,6 +88580,13 @@ function( Zeega, _Layer, Visual ){
                 options: { aspectRatio: true }
             },
             "rotate",
+            {
+                type: "checkbox",
+                options: {
+                    title: "fade in",
+                    propertyName: "dissolve"
+                }
+            },
             { type: "slider",
                 options: {
                     title: "<i class='icon-eye-open icon-white'></i>",
@@ -88828,7 +88825,7 @@ function( Zeega, _Layer, Visual, FrameChooser ) {
             blink_on_start: true,
             glow_on_hover: true,
             citation: false,
-            link_type: "default",
+            link_type: "arrow_up",
             linkable: false,
             default_controls: false
         },
@@ -88905,11 +88902,7 @@ function( Zeega, _Layer, Visual, FrameChooser ) {
     },
 
     goClick: function() {
-        if ( this.model.mode == "editor" ) {
-            Zeega.status.setCurrentLayer( this.model );
-        } else {
-            this.model.relay.set( "current_frame", this.getAttr("to_frame") );
-        }
+        this.model.relay.set( "current_frame", this.getAttr("to_frame") );
         return false;
     }
 
@@ -104386,6 +104379,12 @@ function( Zeega, LayerModel, Visual ) {
         controls: [
             "position",
             "resize",
+            { type: "checkbox",
+                options: {
+                    title: "fade in",
+                    propertyName: "dissolve"
+                }
+            },
             "rotate",
             { type: "slider",
                 options: {
@@ -104465,6 +104464,13 @@ function( Zeega, _Layer, Visual ) {
                 }
             },
             "rotate",
+            {
+                type: "checkbox",
+                options: {
+                    title: "fade in",
+                    propertyName: "dissolve"
+                }
+            },
             { type: "slider",
                 options: {
                     title: "<i class='icon-eye-open icon-white'></i>",
@@ -106465,11 +106471,13 @@ function( app, ItemView ) {
                 appendTo: $("body"),
                 zIndex: 10000,
                 cursorAt: {
-                    left: 0,
-                    top: 0
+                    left: 20,
+                    top: 20
                 },
                 helper: function( e ) {
-                    return $(this).find(".item-thumb").clone().addClass("item-dragging");
+
+                    
+                    return $(this).find(".item-thumb img").clone().addClass("item-dragging");
                 },
                 start: function() {
                     app.dragging = this.model;
@@ -107565,7 +107573,16 @@ function( app, ItemModel, MediaView, ItemCollectionViewer ) {
                     item.media_type = "Audio";
                     item.archive = "SoundCloud";
                     item.title = track.title;
-                    item.thumbnail_url = track.waveform_url;
+
+                    if( !_.isNull( track.artwork_url )){
+                        item.thumbnail_url = track.artwork_url;
+                    } else if( !_.isNull( track.user.avatar_url )){
+                        item.thumbnail_url = track.user.avatar_url;
+                    } else {
+                        item.thumbnail_url = track.waveform_url;
+                    }
+
+                    
                     item.uri = track.stream_url + "?consumer_key=lyCI2ejeGofrnVyfMI18VQ";
                     item.attribution_uri =  track.permalink_url;
                     item.media_user_realname = track.user.username;

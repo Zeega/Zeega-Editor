@@ -24,11 +24,13 @@ function( app, ItemView ) {
                 appendTo: $("body"),
                 zIndex: 10000,
                 cursorAt: {
-                    left: 0,
-                    top: 0
+                    left: 20,
+                    top: 20
                 },
                 helper: function( e ) {
-                    return $(this).find(".item-thumb").clone().addClass("item-dragging");
+
+                    
+                    return $(this).find(".item-thumb img").clone().addClass("item-dragging");
                 },
                 start: function() {
                     app.dragging = this.model;

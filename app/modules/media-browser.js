@@ -222,7 +222,16 @@ function( app, ItemModel, MediaView, ItemCollectionViewer ) {
                     item.media_type = "Audio";
                     item.archive = "SoundCloud";
                     item.title = track.title;
-                    item.thumbnail_url = track.waveform_url;
+
+                    if( !_.isNull( track.artwork_url )){
+                        item.thumbnail_url = track.artwork_url;
+                    } else if( !_.isNull( track.user.avatar_url )){
+                        item.thumbnail_url = track.user.avatar_url;
+                    } else {
+                        item.thumbnail_url = track.waveform_url;
+                    }
+
+                    
                     item.uri = track.stream_url + "?consumer_key=lyCI2ejeGofrnVyfMI18VQ";
                     item.attribution_uri =  track.permalink_url;
                     item.media_user_realname = track.user.username;
