@@ -82,15 +82,19 @@ function( app ) {
         },
 
         closeGrave: function() {
-            this.$(".share-grave").hide();
+            
+            this.$(".share-grave").slideUp("fast");
         },
 
         toggleShareGrave: function() {
 
-            //should only happen when opened
-            this.model.project.save( "publish_update", 1 );
-            this.$(".share-grave").toggle();
+            if( !this.$(".share-grave").is(":visible") ) {
+                this.model.project.save( "publish_update", 1 );
+            }
+            this.$(".share-grave").slideToggle("fast");
         },
+
+
 
         onTitleKeyup: function( e ) {
             if ( e.which == 13 ) {
