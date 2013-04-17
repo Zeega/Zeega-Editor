@@ -1,9 +1,11 @@
 define([
     "app",
+    "modules/views/soundtrack-viewer",
     "backbone"
+
 ],
 
-function( app ) {
+function( app, Viewer ) {
 
     return Backbone.View.extend({
 
@@ -100,7 +102,13 @@ function( app ) {
         },
 
         playpause: function() {
-            this.model.visual.playPause();
+            //this.model.visual.playPause();
+
+            // temp use souncloud player in modal
+            this.view = new Viewer({ model: this.model });
+            $("body").append( this.view.el );
+            this.view.render();
+
         },
 
         onRemoveSoundtrack: function() {
