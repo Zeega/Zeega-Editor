@@ -52,7 +52,7 @@ function( app ) {
 
         deleteFrame: function() {
             if ( confirm("Delete Frame? This cannot be undone!") ) { 
-                console.log('delete frame', this.model );
+                $(".tipsy").remove();
                 this.model.collection.remove( this.model );
             }
         },

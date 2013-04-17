@@ -7504,6 +7504,9 @@ a:active {
   height: calc(100% - 58px);
 }
 .media-drawer .item {
+  width: -webkit-calc(100% / 4);
+  width: -moz-calc(100% / 4);
+  width: calc(100% / 4);
   float: left;
 }
 .media-drawer .item > a {
