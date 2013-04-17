@@ -995,9 +995,9 @@ return __p;
 this["JST"]["app/zeega-parser/plugins/layers/text_v2/textmodal.html"] = function(obj){
 var __p='';var print=function(){__p+=Array.prototype.join.call(arguments, '')};
 with(obj||{}){
-__p+='<a href="#" class="modal-close">&times;</a>\n<div class="modal-content">\n    <div class="modal-title">Edit your text</div>\n    <div class="modal-body">\n\n        <textarea rows="4" cols="59" maxlength="140" >'+
+__p+='<div class="modal-content">\n    <div class="modal-title">Edit your text</div>\n    <div class="modal-body">\n\n        <textarea rows="4" cols="59" maxlength="140" >'+
 ( attr.content )+
-'</textarea>\n\n        <div class="text-controls clearfix">\n            <div class="color-selector">\n                <input class="simple-color" value="#'+
+'</textarea>\n\n        <div class="text-controls clearfix">\n            <div class="color-selector">\n                <input class="simple-color" value="'+
 ( attr.color )+
 '"/>\n            </div>\n            <a href="#" class="btnz btnz-light text-btn-bold"><i class="icon-bold"></i></a>\n            <a href="#" class="btnz btnz-light text-btn-italic"><i class="icon-italic"></i></a>\n            <a href="#" class="btnz btnz-light text-btn-align-left"><i class="icon-align-left"></i></a>\n            <a href="#" class="btnz btnz-light text-btn-align-center"><i class="icon-align-center"></i></a>\n            <a href="#" class="btnz btnz-light text-btn-align-right"><i class="icon-align-right"></i></a>\n\n            <select class="font-list" style=""></select>\n            <select class="size-list" style="">\n                <option value="100">8</option>\n                <option value="125">10</option>\n                <option value="150">12</option>\n                <option value="175">14</option>\n                <option value="200">18</option>\n                <option value="250">24</option>\n                <option value="375">36</option>\n                <option value="500">48</option>\n                <option value="800">72</option>\n                <option value="1600">144</option>\n                <option value="2400">200</option>\n                <option value="3600">300</option>\n            </select>\n            \n        </div>\n\n        <div class="sample-header">sample</div>\n        <div class="text-sample">'+
 ( attr.content )+
@@ -69968,7 +69968,11 @@ function( app ) {
                 app.project.sequences.at( 0 ).frames.at( 0 ).layers.length === 0;
 
             if ( isEmpty ) {
-                this.$el.append("<img class='intro' src='assets/img/workspace-instructions.png' width='100%' />");
+                $("body")
+                    .prepend("<img class='intro intro-00' src='assets/img/intro-00.png' width='100%' />")
+                    .prepend("<img class='intro intro-01' src='assets/img/intro-01.png' width='100%' />")
+                    .prepend("<img class='intro intro-02' src='assets/img/intro-02.png' width='100%' />")
+                    .prepend("<img class='intro intro-03' src='assets/img/intro-03.png' width='100%' />")
             }
 
         },
@@ -69978,7 +69982,7 @@ function( app ) {
                 accept: ".item, .draggable-layer-type",
                 tolerance: "pointer",
                 drop: function( e, ui ) {
-                    this.$(".intro").remove();
+                    $(".intro").remove();
                     if ( _.isString( app.dragging ) ) {
                         app.status.get('currentFrame').addLayerType( app.dragging );
                     } else if ( app.dragging.get("layer_type") ) {
@@ -85557,7 +85561,7 @@ function( app ) {
 
         clickedLayerType: function( e ) {
             app.status.get('currentFrame').addLayerType( $(e.target).closest("a").data("layerType") );
-            app.layout.$(".intro").remove();
+            $(".intro").remove();
 
         }
         
@@ -85678,7 +85682,7 @@ function( app ) {
 
         removeSoundtrack: function( save ) {
             this.stopListening( this.model );
-
+            $(".tipsy").remove();
             if ( save ) {
                 app.status.get('currentSequence').removeSoundtrack( this.model );
                 app.status.get('currentSequence').lazySave();
@@ -105290,13 +105294,14 @@ function( app ) {
                                 color: "#" + hex,
                             });
                     }.bind( this ),
-                    // onClose: function() {
-                    //     this.onChange();
-                    // }.bind( this ),
                     callback: function( hex ) {
                         this.onChangeColor( hex );
                     }.bind( this )
                 });
+
+            this.$("textarea").bind("input propertychange", function() {
+                this.$(".text-sample").text( this.$("textarea").val() );
+            }.bind( this )),
 
             $("#main").addClass("modal");
             this.loadFonts();
@@ -105321,12 +105326,11 @@ function( app ) {
         },
 
         onChangeColor: function( hex ) {
-            this.model.saveAttr({ color: hex });
+            this.model.saveAttr({ color: "#" + hex });
             this.updateSample();
         },
 
         onChangeSize: function( e ) {
-            console.log("change size:", $( e.target ).val() );
             this.model.setAttr({ fontSize: $( e.target ).val() });
 
             this.model.saveAttr({ fontSize: $( e.target ).val() });
@@ -105372,8 +105376,6 @@ function( app ) {
         },
 
         onKeypress: function( e ) {
-            console.log(e.which)
-
             this.saveContent();
         },
 
@@ -105383,13 +105385,11 @@ function( app ) {
                 this.$el.attr("style", "");
                 this.remove();
             }.bind( this ));
+            this.$("input").unbind("input propertychange");
         },
 
         submit: function() {
-            if ( this.selectedFrame !== null ) {
-                this.model.saveAttr({ to_frame: this.selectedFrame });
-                this.model.trigger("change:to_frame", this.model, this.selectedFrame );
-            }
+            this.model.saveAttr({ content: this.$("textarea").val() });
             this.closeThis();
             this.updateVisualElement();
         },
@@ -105399,7 +105399,8 @@ function( app ) {
             _.each( this.model.fontList, function( fontName ) {
                 this.$(".font-list").append("<option value='" + fontName + "'>" + fontName + "</option>");
             }, this );
-            this.$(".size-list").val( this.model.getAttr("fontFamily") );
+
+            this.$(".font-list").val( this.model.getAttr("fontFamily") );
         },
 
         loadSize: function() {
@@ -105570,11 +105571,10 @@ function( Zeega, _Layer, Visual, TextModal ) {
         saveContent: null,
 
         updateStyle: function() {
-            console.log("update style", this.model.getAttr("content"), this.model.toJSON() )
             this.$(".visual-target").text( this.model.getAttr("content") );
             
             this.$el.css({
-                    color: "#" + this.model.get("attr").color,
+                    color: this.model.get("attr").color,
                     fontWeight: this.model.getAttr("bold") ? "bold" : "normal",
                     fontStyle: this.model.getAttr("italic") ? "italic" : "normal",
                     fontFamily: this.model.getAttr("fontFamily"),
@@ -105591,7 +105591,7 @@ function( Zeega, _Layer, Visual, TextModal ) {
             }
 
             this.$el.css({
-                color: "#" + this.model.get("attr").color,
+                color: this.model.get("attr").color,
                 fontSize: this.model.get("attr").fontSize + "%",
                 fontFamily: this.model.get("attr").fontFamily
             });
@@ -105601,7 +105601,6 @@ function( Zeega, _Layer, Visual, TextModal ) {
             this.$el.bind("mouseup", function() {
 
                 if ( !this.transforming ) {
-                    console.log("launch text modal");
                     $("body").append( this.textModal.el );
                     this.textModal.render();
                 }
@@ -108965,10 +108964,10 @@ require.config({
   // generated configuration file.
 
   // Release
- deps: [ "../vendor/tipsy/src/javascripts/jquery.tipsy", "../vendor/simple-color-picker/src/jquery.simple-color", "zeegaplayer", "../vendor/jam/require.config", "main", "spin"],
+  deps: [ "../vendor/tipsy/src/javascripts/jquery.tipsy", "../vendor/simple-color-picker/src/jquery.simple-color", "zeegaplayer", "../vendor/jam/require.config", "main", "spin"],
 
 
- //  deps: ["zeegaplayer", "../vendor/jam/require.config", "main", "spin"],
+//  deps: ["zeegaplayer", "../vendor/jam/require.config", "main", "spin"],
 
 
   paths: {

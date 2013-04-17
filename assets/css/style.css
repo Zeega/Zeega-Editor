@@ -4299,6 +4299,7 @@ body .ui-tooltip {
 .visual-textv2 .visual-target {
   overflow: hidden;
   text-overflow: ellipsis;
+  white-space: pre;
 }
 .visual-textv2 .ui-resizable-e {
   background: yellow;
@@ -4336,6 +4337,7 @@ body .ui-tooltip {
   padding: 10px;
   margin-bottom: 10px;
   background: #222;
+  white-space: pre;
 }
 .text-modal .color-selector {
   float: left;
@@ -6524,6 +6526,31 @@ html {
 }
 .zsocial-email {
   background-position: 0px -51px;
+}
+.intro {
+  pointer-events: none;
+  position: fixed;
+  z-index: 9999;
+}
+.intro-00 {
+  width: 347px;
+  top: 189px;
+  left: 212px;
+}
+.intro-01 {
+  width: 188px;
+  top: 254px;
+  left: 400px;
+}
+.intro-02 {
+  width: 500px;
+  right: 10px;
+  top: 145px;
+}
+.intro-03 {
+  width: 300px;
+  right: 100px;
+  top: 41px;
 }
 .btnz {
   background: url(../img/tiny-stripes-dark.png);

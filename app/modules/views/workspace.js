@@ -32,7 +32,11 @@ function( app ) {
                 app.project.sequences.at( 0 ).frames.at( 0 ).layers.length === 0;
 
             if ( isEmpty ) {
-                this.$el.append("<img class='intro' src='assets/img/workspace-instructions.png' width='100%' />");
+                $("body")
+                    .prepend("<img class='intro intro-00' src='assets/img/intro-00.png' width='100%' />")
+                    .prepend("<img class='intro intro-01' src='assets/img/intro-01.png' width='100%' />")
+                    .prepend("<img class='intro intro-02' src='assets/img/intro-02.png' width='100%' />")
+                    .prepend("<img class='intro intro-03' src='assets/img/intro-03.png' width='100%' />")
             }
 
         },
@@ -42,7 +46,7 @@ function( app ) {
                 accept: ".item, .draggable-layer-type",
                 tolerance: "pointer",
                 drop: function( e, ui ) {
-                    this.$(".intro").remove();
+                    $(".intro").remove();
                     if ( _.isString( app.dragging ) ) {
                         app.status.get('currentFrame').addLayerType( app.dragging );
                     } else if ( app.dragging.get("layer_type") ) {

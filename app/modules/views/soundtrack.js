@@ -111,7 +111,7 @@ function( app ) {
 
         removeSoundtrack: function( save ) {
             this.stopListening( this.model );
-
+            $(".tipsy").remove();
             if ( save ) {
                 app.status.get('currentSequence').removeSoundtrack( this.model );
                 app.status.get('currentSequence').lazySave();
