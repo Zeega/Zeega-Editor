@@ -46,7 +46,7 @@ function( app ) {
                 accept: ".item, .draggable-layer-type",
                 tolerance: "pointer",
                 drop: function( e, ui ) {
-                    this.$(".intro").remove();
+                    $(".intro").remove();
                     if ( _.isString( app.dragging ) ) {
                         app.status.get('currentFrame').addLayerType( app.dragging );
                     } else if ( app.dragging.get("layer_type") ) {
