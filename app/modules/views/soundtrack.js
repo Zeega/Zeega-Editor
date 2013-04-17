@@ -51,6 +51,7 @@ function( app ) {
                     if ( _.contains( ["Audio"], app.dragging.get("layer_type") )) {
                         this.updateWaveform( app.dragging.get("thumbnail_url") );
 
+                        $(".intro").remove();
                         app.status.get('currentSequence').setSoundtrack( app.dragging, this );
                     }
                 }.bind( this )
