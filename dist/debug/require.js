@@ -105290,13 +105290,14 @@ function( app ) {
                                 color: "#" + hex,
                             });
                     }.bind( this ),
-                    // onClose: function() {
-                    //     this.onChange();
-                    // }.bind( this ),
                     callback: function( hex ) {
                         this.onChangeColor( hex );
                     }.bind( this )
                 });
+
+            this.$("textarea").bind("input propertychange", function() {
+                this.$(".text-sample").text( this.$("textarea").val() );
+            }.bind( this )),
 
             $("#main").addClass("modal");
             this.loadFonts();
@@ -105326,7 +105327,6 @@ function( app ) {
         },
 
         onChangeSize: function( e ) {
-            console.log("change size:", $( e.target ).val() );
             this.model.setAttr({ fontSize: $( e.target ).val() });
 
             this.model.saveAttr({ fontSize: $( e.target ).val() });
@@ -105372,8 +105372,6 @@ function( app ) {
         },
 
         onKeypress: function( e ) {
-            console.log(e.which)
-
             this.saveContent();
         },
 
@@ -105383,13 +105381,11 @@ function( app ) {
                 this.$el.attr("style", "");
                 this.remove();
             }.bind( this ));
+            this.$("input").unbind("input propertychange");
         },
 
         submit: function() {
-            if ( this.selectedFrame !== null ) {
-                this.model.saveAttr({ to_frame: this.selectedFrame });
-                this.model.trigger("change:to_frame", this.model, this.selectedFrame );
-            }
+            this.model.saveAttr({ content: this.$("textarea").val() });
             this.closeThis();
             this.updateVisualElement();
         },
@@ -105399,7 +105395,8 @@ function( app ) {
             _.each( this.model.fontList, function( fontName ) {
                 this.$(".font-list").append("<option value='" + fontName + "'>" + fontName + "</option>");
             }, this );
-            this.$(".size-list").val( this.model.getAttr("fontFamily") );
+
+            this.$(".font-list").val( this.model.getAttr("fontFamily") );
         },
 
         loadSize: function() {
@@ -105570,7 +105567,6 @@ function( Zeega, _Layer, Visual, TextModal ) {
         saveContent: null,
 
         updateStyle: function() {
-            console.log("update style", this.model.getAttr("content"), this.model.toJSON() )
             this.$(".visual-target").text( this.model.getAttr("content") );
             
             this.$el.css({
@@ -105601,7 +105597,6 @@ function( Zeega, _Layer, Visual, TextModal ) {
             this.$el.bind("mouseup", function() {
 
                 if ( !this.transforming ) {
-                    console.log("launch text modal");
                     $("body").append( this.textModal.el );
                     this.textModal.render();
                 }
@@ -108965,10 +108960,10 @@ require.config({
   // generated configuration file.
 
   // Release
- deps: [ "../vendor/tipsy/src/javascripts/jquery.tipsy", "../vendor/simple-color-picker/src/jquery.simple-color", "zeegaplayer", "../vendor/jam/require.config", "main", "spin"],
+  deps: [ "../vendor/tipsy/src/javascripts/jquery.tipsy", "../vendor/simple-color-picker/src/jquery.simple-color", "zeegaplayer", "../vendor/jam/require.config", "main", "spin"],
 
 
- //  deps: ["zeegaplayer", "../vendor/jam/require.config", "main", "spin"],
+//  deps: ["zeegaplayer", "../vendor/jam/require.config", "main", "spin"],
 
 
   paths: {
