@@ -587,7 +587,7 @@ return __p;
 this["JST"]["app/templates/media-drawer.html"] = function(obj){
 var __p='';var print=function(){__p+=Array.prototype.join.call(arguments, '')};
 with(obj||{}){
-__p+='<div class="media-drawer-controls ZEEGA-hmenu light img-tabs">\n    <ul class=\'pull-left\'>\n        \n        <li>\n            <a href="#" data-api = "Zeega" class="active media-toggle"\n                title="Our faves from Zeega!"\n                data-gravity="sw"\n            ><i class="socialz-zeega socialz-white"></i></a>\n        </li>\n\n      \n\n        <li>\n            <a href="#" data-api="Tumblr" class="media-toggle"\n                title="Media from Tumblr"\n                data-gravity="sw"\n            ><i class="socialz-tumblr"></i></a>\n        </li>\n\n        <li>\n            <a href="#" data-api = "Soundcloud" class="media-toggle"\n                title="Sounds from soundCloud"\n                data-gravity="sw"\n            ><i class="socialz-soundcloud"></i></a>\n        </li>\n\n        \n        <li>\n            <a href="#" data-api = "Instagram" class="media-toggle"\n                title="Images from Instagram"\n                data-gravity="sw"\n            ><i class="socialz-instagram"></i></a>\n        </li>\n\n        <li>\n            <a href="#" data-api = "Flickr" class="media-toggle"\n                title="Images from Flickr"\n                data-gravity="sw"\n            ><i class="socialz-flickr"></i></a>\n        </li>\n\n        <li>\n            <a href="#" data-api = "Giphy" class="media-toggle"\n                title="GIFs from Giph¥"\n                data-gravity="sw"\n            ><i class="socialz-giphy"></i></a>\n        </li>\n       \n        <!--\n        <li>\n            <a href="#" data-api = "Youtube" class="media-toggle"><i class="socialz-youtube"></i></a>\n        </li>\n       \n        <li >\n            <a href="#" data-api = "MyZeega" class="media-toggle"><i class="socialz-user"></i></a>\n        </li>\n         -->\n\n    </ul>\n    <ul class="pull-right">\n        <li >\n            <a id="media-upload-tab" href="#" data-api = "MyZeega" class="media-toggle">UPLOAD</a>\n        </li>\n    </ul>\n    \n    \n</div>\n<ul class="ZEEGA-items"></ul>';
+__p+='<div class="media-drawer-controls ZEEGA-hmenu light img-tabs">\n    <ul class=\'pull-left\'>\n        \n        <li>\n            <a href="#" data-api = "Zeega" class="active media-toggle"\n                title="our faves from across the web"\n                data-gravity="sw"\n            ><i class="socialz-zeega socialz-white"></i></a>\n        </li>\n\n      \n\n        <li>\n            <a href="#" data-api="Tumblr" class="media-toggle"\n                title="GIFs and images from Tumblr"\n                data-gravity="sw"\n            ><i class="socialz-tumblr"></i></a>\n        </li>\n\n        <li>\n            <a href="#" data-api = "Soundcloud" class="media-toggle"\n                title="sounds from SoundCloud"\n                data-gravity="sw"\n            ><i class="socialz-soundcloud"></i></a>\n        </li>\n\n        \n        <li>\n            <a href="#" data-api = "Instagram" class="media-toggle"\n                title="images from Instagram"\n                data-gravity="sw"\n            ><i class="socialz-instagram"></i></a>\n        </li>\n\n        <li>\n            <a href="#" data-api = "Flickr" class="media-toggle"\n                title="images from Flickr"\n                data-gravity="sw"\n            ><i class="socialz-flickr"></i></a>\n        </li>\n\n        <li>\n            <a href="#" data-api = "Giphy" class="media-toggle"\n                title="GIFs from Giphy"\n                data-gravity="sw"\n            ><i class="socialz-giphy"></i></a>\n        </li>\n       \n        <!--\n        <li>\n            <a href="#" data-api = "Youtube" class="media-toggle"><i class="socialz-youtube"></i></a>\n        </li>\n       \n        <li >\n            <a href="#" data-api = "MyZeega" class="media-toggle"><i class="socialz-user"></i></a>\n        </li>\n         -->\n\n    </ul>\n    <ul class="pull-right">\n        <li >\n            <a id="media-upload-tab" href="#" data-api = "MyZeega" class="media-toggle">UPLOAD</a>\n        </li>\n    </ul>\n    \n    \n</div>\n<ul class="ZEEGA-items"></ul>';
 }
 return __p;
 };
@@ -635,7 +635,7 @@ __p+='<div class="nav col-left navbar ZEEGA-hmenu clear">\n    <ul class=\'pull-
  }); 
 ;__p+='\n\n            </ul>\n        </li>\n\n        <li>\n            <a href="http://blog.zeega.com/faq" data-bypass="true" target="blank"\n                title="FAQ"\n                data-gravity="n"\n            ><i class="icon-question-sign"></i></a>\n        </li>\n\n        \n    </ul>\n</div>\n<div class="project-title col-middle clearfix">\n    <div class="project-info" contenteditable\n        title="title of your Zeega"\n        data-gravity="n"\n    >'+
 ( title )+
-'</div>\n    <a href="#" class="project-preview btnz"><i class="icon-play icon-white"></i> Preview</a>\n</div>\n<div class="project-share col-right clearfix">\n    <a href="#" class="project-share btnz btnz-blue btnz-fullwidth"\n        title="share your Zeega with the world"\n        data-gravity="ne"\n    ><i class="icon-retweet icon-white"></i> Share</a>\n</div>\n\n<div class="share-grave">\n\n    <div class="close-wrapper">\n        <a href="#" class="close-grave">&times;</a>\n    </div>\n\n    <div class="project-share">\n\n        <input class="text-box" type="text" value=\'<iframe src="'+
+'</div>\n    <a href="#" class="project-preview btnz"\n        title="see what you\'re making"\n        data-gravity="n"\n    ><i class="icon-play icon-white"></i> Preview</a>\n</div>\n<div class="project-share col-right clearfix">\n    <a href="#" class="project-share btnz btnz-blue btnz-fullwidth"\n        title="share your Zeega with the world"\n        data-gravity="ne"\n    ><i class="icon-retweet icon-white"></i> Share</a>\n</div>\n\n<div class="share-grave">\n\n    <div class="close-wrapper">\n        <a href="#" class="close-grave">&times;</a>\n    </div>\n\n    <div class="project-share">\n\n        <input class="text-box" type="text" value=\'<iframe src="'+
 ( webRoot )+
 ''+
 ( item_id )+
@@ -69502,7 +69502,6 @@ function( app ) {
                 frameModel.trigger("focus");
 
                 this.setCurrentLayer( null );
-//                this.set("currentLayer", null );
             }
         },
 
@@ -69825,7 +69824,7 @@ function( app ) {
 
         deleteFrame: function() {
             if ( confirm("Delete Frame? This cannot be undone!") ) { 
-                console.log('delete frame', this.model );
+                $(".tipsy").remove();
                 this.model.collection.remove( this.model );
             }
         },
@@ -69884,12 +69883,20 @@ function( app, FrameView ) {
                 return parseInt( $( frame ).data("id"), 10 );
             });
 
-            this.model.status.get("currentSequence").save("frames", _.compact( frameOrder ) );
+            frameOrder = _.compact( frameOrder );
+
+            _.each( frameOrder, function( frameID, i ) {
+                this.model.status.get("currentSequence").frames.get( frameID ).set("_order", i )
+            }, this );
+
+            this.model.status.get("currentSequence").frames.sort();
+            this.model.status.get("currentSequence").save("frames", frameOrder );
         },
 
         onFrameAdd: function( frameModel, collection ) {
             this.model.status.setCurrentFrame( frameModel );
             this.renderSequenceFrames( this.model.status.get("currentSequence") );
+            this.updateFrameOrder();
         },
 
         onFrameRemove: function( frameModel, collection ) {
@@ -69924,10 +69931,9 @@ function( app, FrameView ) {
         },
 
         addFrame: function() {
-            
             var frameIndex = 1 + this.model.status.get("currentSequence").frames.indexOf( this.model.status.get("currentFrame") );
-            this.model.status.get("currentSequence").frames.addFrame( frameIndex );
 
+            this.model.status.get("currentSequence").frames.addFrame( frameIndex );
         }
         
     });
@@ -85622,6 +85628,7 @@ function( app ) {
                     if ( _.contains( ["Audio"], app.dragging.get("layer_type") )) {
                         this.updateWaveform( app.dragging.get("thumbnail_url") );
 
+                        $(".intro").remove();
                         app.status.get('currentSequence').setSoundtrack( app.dragging, this );
                     }
                 }.bind( this )
@@ -87064,7 +87071,10 @@ function( Zeega, ControlView ) {
             },
 
             makeDraggable: function() {
+                
+
                 if ( this.model.editorProperties.draggable ) {
+
                     this.$visualContainer.draggable({
                         start: function( e, ui ) {
                             this.model.visual.transforming = true;
@@ -88644,15 +88654,13 @@ function( app, Controls ) {
         enterEditorMode: function() {
             this.mode = "editor",
             this.loadControls();
-            this.visual.render();
             this.visual.enterEditorMode();
             this.visual.moveOnStage();
         },
 
         loadControls: function() {
-            if ( !this._controls ) {
 
-            
+            if ( !this._controls ) {
 
                 this._controls = _.map( this.controls, function( controlType ) {
                     var control = false;
@@ -88766,7 +88774,7 @@ function( app, Controls ) {
         enterEditorMode: function() {
             this.listenToFrame();
 
-            this.loadControls();
+            // this.loadControls();
             this.delegateEvents( _.extend( this.events, this.editorEvents ));
         },
 
@@ -88783,7 +88791,9 @@ function( app, Controls ) {
         loadControls: function() {
             _.each( this.model._controls, function( control ) {
                 if ( _.contains( this._allowedControls, control.type ) ) {
-                    this.insertView( ".controls-inline", control );
+                    this.$(".controls-inline").append( control.el );
+                    control.render();
+                    // this.insertView( ".controls-inline", control );
                 }
             }, this );
         },
@@ -88805,6 +88815,7 @@ function( app, Controls ) {
                 this.verifyReady();
             } else if ( this.model.mode == "editor") {
                 this.afterEditorRender();
+                this.loadControls();
             }
             this.applyVisualProperties();
             this.visualAfterRender();
@@ -106229,7 +106240,6 @@ function( app, FrameModel, LayerCollection ) {
                         frame.put("layers", _.without( frame.get("layers"), layer.id ) );
                         return false;
                     } else if ( index > -1 ) {
-                        //console.log( layer, frame, index )
                         layer.order[ frame.id ] = index;
                         return true;
                     }
@@ -106255,12 +106265,14 @@ function( app, FrameModel, LayerCollection ) {
             // if the sequence has persistent layers then add them to new frames!
             if ( this.sequence.get("persistent_layers").length ) {
                 _.each( this.sequence.get("persistent_layers"), function( layerID ) {
-                    console.log( app.project.getLayer( layerID ) );
                     continuingLayers.push( app.project.getLayer( layerID ) );
                 });
             }
 
-            newFrame = new FrameModel({ layers: this.sequence.get("persistent_layers").reverse() });
+            newFrame = new FrameModel({
+                layers: this.sequence.get("persistent_layers").reverse(),
+                _order: index
+            });
 
             newFrame.status = app.status;
             newFrame.layers = new LayerCollection( _.compact( continuingLayers ) );
@@ -106269,11 +106281,16 @@ function( app, FrameModel, LayerCollection ) {
 
             newFrame.save().success(function() {
                 app.project.addFrameToKey( newFrame.id, this.sequence.id );
+
                 if ( _.isUndefined( index ) ) {
                     this.push( newFrame );
                 } else {
                     this.add( newFrame, { at: index });
                 }
+
+                this.each(function( frame, i ) {
+                    frame.set("_order", i );
+                });
 
                 app.trigger("frame_add", newFrame );
             }.bind( this ));
@@ -106338,6 +106355,7 @@ function( app, SequenceModel, FrameCollection, LayerCollection, LayerModels ) {
                         frame._order = index;
                         return true;
                     }
+
                     return false;
                 });
 
