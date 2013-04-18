@@ -159,6 +159,7 @@ function( app ) {
                         "thumbnail_url": data.image_url_4
                     });
 
+                    $(".intro").remove();
                     this.addItem( item );
                     this.render();
                 }.bind(this)

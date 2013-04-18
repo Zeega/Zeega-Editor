@@ -103,7 +103,6 @@ function( app, Modal, FrameView, ImageView, AudioView, VideoView, YoutubeView ) 
         },
 
         addToFrame: function() {
-            console.log("add to frame:", this.collection.at( this.index ), app );
             if ( this.collection.at( this.index ). get("layer_type") == "Audio" ) {
                 app.layout.soundtrack.updateWaveform( this.collection.at( this.index ).get("thumbnail_url") );
                 $(".intro").remove();
