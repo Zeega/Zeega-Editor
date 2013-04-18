@@ -19,12 +19,12 @@ function( app, LayerControls ) {
             return this.model.toJSON();
         },
 
+        openControls: null,
+
         initialize: function() {
             this.controls = new LayerControls({ model: this.model, target: this });
 
             this.stopListening( this.model );
-
-            this.model.on("all", function( e ) { console.log("E:",e)});
 
             this.model.on("focus", this.onFocus, this );
             this.model.on("blur", this.onBlur, this );
@@ -32,6 +32,12 @@ function( app, LayerControls ) {
             this.model.on("sync", this.onSync, this );
             this.model.on("copy_focus", this.onCopyFocus, this );
             this.model.on("copy_blur", this.onCopyBlur, this );
+
+            this.openControls = _.debounce(function() {
+                this.closeControls();
+                $("#main").append( this.controls.el );
+                this.controls.render();
+            }.bind( this ), 750, true );
         },
 
         afterRender: function() {
@@ -93,7 +99,6 @@ function( app, LayerControls ) {
         },
 
         onFocus: function() {
-            console.log("ON FOCUS", this.model.id, this.model.cid )
             this.$el.addClass("active");
             this.openControls();
         },
@@ -115,14 +120,7 @@ function( app, LayerControls ) {
             this.$(".layer-title").text( this.model.getAttr("title"));
         },
 
-        openControls: function() {
-            console.log("open controls", this.model.id)
-            $("#main").append( this.controls.el );
-            this.controls.render();
-        },
-
         closeControls: function() {
-            console.log("close controls");
             this.controls.remove();
         }
         

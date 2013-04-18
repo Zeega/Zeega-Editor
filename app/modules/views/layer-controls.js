@@ -22,14 +22,17 @@ function( app ) {
         afterRender: function() {
             var $target = this.options.target.$el;
 
-            app.trigger("rendered", this );
-            this.loadControls();
-
-            this.$el.css({
-                top: $target.offset().top + "px",
-                right: "160px",
-                height: ( $target.height() - 2 )+ "px"
-            });
+            if ( $target.is(":visible") ) {
+                app.trigger("rendered", this );
+                this.loadControls();
+                this.$el.css({
+                    top: $target.offset().top + "px",
+                    right: "160px",
+                    height: ( $target.height() - 2 )+ "px"
+                });
+            } else {
+                this.remove();
+            }
         },
 
         loadControls: function() {

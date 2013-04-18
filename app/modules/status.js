@@ -39,7 +39,6 @@ function( app ) {
 
         setCurrentLayer: function( layerModel ) {
             var previousLayer = this.get("currentLayer");
-console.log("SET CURRENT LAYER", layerModel )
 
             if ( previousLayer && layerModel === null ) {
                 previousLayer.trigger("blur");
