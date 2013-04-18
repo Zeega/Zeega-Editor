@@ -22,6 +22,10 @@ function( app, LayerControls ) {
         initialize: function() {
             this.controls = new LayerControls({ model: this.model, target: this });
 
+            this.stopListening( this.model );
+
+            this.model.on("all", function( e ) { console.log("E:",e)});
+
             this.model.on("focus", this.onFocus, this );
             this.model.on("blur", this.onBlur, this );
             this.model.on("remove", this.onRemove, this );
@@ -31,6 +35,7 @@ function( app, LayerControls ) {
         },
 
         afterRender: function() {
+
             if ( app.status.get("copiedLayer") && app.status.get("copiedLayer").id == this.model.id ) {
                 this.onCopyFocus();
             }
@@ -88,6 +93,7 @@ function( app, LayerControls ) {
         },
 
         onFocus: function() {
+            console.log("ON FOCUS", this.model.id, this.model.cid )
             this.$el.addClass("active");
             this.openControls();
         },
@@ -110,6 +116,7 @@ function( app, LayerControls ) {
         },
 
         openControls: function() {
+            console.log("open controls", this.model.id)
             $("#main").append( this.controls.el );
             this.controls.render();
         },
