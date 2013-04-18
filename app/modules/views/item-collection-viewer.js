@@ -103,7 +103,14 @@ function( app, Modal, FrameView, ImageView, AudioView, VideoView, YoutubeView ) 
         },
 
         addToFrame: function() {
-            app.status.get('currentFrame').addLayerByItem( this.collection.at( this.index ) );
+            console.log("add to frame:", this.collection.at( this.index ), app );
+            if ( this.collection.at( this.index ). get("layer_type") == "Audio" ) {
+                app.layout.soundtrack.updateWaveform( this.collection.at( this.index ).get("thumbnail_url") );
+                $(".intro").remove();
+                app.status.get('currentSequence').setSoundtrack( this.collection.at( this.index ), app.layout.soundtrack );
+            } else {
+                app.status.get('currentFrame').addLayerByItem( this.collection.at( this.index ) );
+            }
             this.close();
         },
 

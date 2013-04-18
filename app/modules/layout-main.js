@@ -47,7 +47,9 @@ function( app, ProjectHead, Sequences, Frames, Workspace, Layers, LayerDrawer, S
 
             this.soundtrack = new Soundtrack({
                 el: this.$(".soundtrack")
-            }).render();
+            });
+
+            this.soundtrack.render();
 
             new LayerDrawer({
                 model: app,
