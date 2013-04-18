@@ -34,7 +34,6 @@ function( app ) {
                 frameModel.trigger("focus");
 
                 this.setCurrentLayer( null );
-//                this.set("currentLayer", null );
             }
         },
 
