@@ -843,7 +843,7 @@ return __p;
 this["JST"]["app/zeega-parser/plugins/layers/link/frame-chooser.html"] = function(obj){
 var __p='';var print=function(){__p+=Array.prototype.join.call(arguments, '')};
 with(obj||{}){
-__p+='<a href="#" class="modal-close">&times;</a>\n<div class="modal-content">\n    <div class="modal-title">Where do you want your link to go?</div>\n    <div class="modal-body">\n        <ul class="frame-chooser-list clearfix">\n        </ul>\n        <div class="bottom-chooser">\n            <div class="new-frame">\n                <a href="#" class="link-new-frame"><i class="icon-plus"></i> New Page</a>\n            </div>\n            <a href="#" class="submit">OK</a>\n        </div>\n    </div>\n</div>\n';
+__p+='<a href="#" class="modal-close">&times;</a>\n<div class="modal-content">\n    <div class="modal-title">Where do you want your link to go?</div>\n    <div class="modal-body">\n        <ul class="frame-chooser-list clearfix">\n        </ul>\n        <div class="bottom-chooser">\n            <div class="new-frame">\n                <a href="#" class="link-new-frame"><i class="icon-plus"></i> New Page</a>\n            </div>\n            <a href="#" class="submit btnz btnz-submit">OK</a>\n        </div>\n    </div>\n</div>\n';
 }
 return __p;
 };
@@ -70100,14 +70100,17 @@ function( app ) {
         afterRender: function() {
             var $target = this.options.target.$el;
 
-            app.trigger("rendered", this );
-            this.loadControls();
-
-            this.$el.css({
-                top: $target.offset().top + "px",
-                right: "160px",
-                height: ( $target.height() - 2 )+ "px"
-            });
+            if ( $target.is(":visible") ) {
+                app.trigger("rendered", this );
+                this.loadControls();
+                this.$el.css({
+                    top: $target.offset().top + "px",
+                    right: "160px",
+                    height: ( $target.height() - 2 )+ "px"
+                });
+            } else {
+                this.remove();
+            }
         },
 
         loadControls: function() {
@@ -70420,8 +70423,12 @@ function( app, LayerControls ) {
             return this.model.toJSON();
         },
 
+        openControls: null,
+
         initialize: function() {
             this.controls = new LayerControls({ model: this.model, target: this });
+
+            this.stopListening( this.model );
 
             this.model.on("focus", this.onFocus, this );
             this.model.on("blur", this.onBlur, this );
@@ -70429,9 +70436,16 @@ function( app, LayerControls ) {
             this.model.on("sync", this.onSync, this );
             this.model.on("copy_focus", this.onCopyFocus, this );
             this.model.on("copy_blur", this.onCopyBlur, this );
+
+            this.openControls = _.debounce(function() {
+                this.closeControls();
+                $("#main").append( this.controls.el );
+                this.controls.render();
+            }.bind( this ), 750, true );
         },
 
         afterRender: function() {
+
             if ( app.status.get("copiedLayer") && app.status.get("copiedLayer").id == this.model.id ) {
                 this.onCopyFocus();
             }
@@ -70510,13 +70524,7 @@ function( app, LayerControls ) {
             this.$(".layer-title").text( this.model.getAttr("title"));
         },
 
-        openControls: function() {
-            $("#main").append( this.controls.el );
-            this.controls.render();
-        },
-
         closeControls: function() {
-            console.log("close controls");
             this.controls.remove();
         }
         
@@ -85941,6 +85949,7 @@ function( app ) {
                         "thumbnail_url": data.image_url_4
                     });
 
+                    $(".intro").remove();
                     this.addItem( item );
                     this.render();
                 }.bind(this)
@@ -86910,7 +86919,9 @@ function( app, ProjectHead, Sequences, Frames, Workspace, Layers, LayerDrawer, S
 
             this.soundtrack = new Soundtrack({
                 el: this.$(".soundtrack")
-            }).render();
+            });
+
+            this.soundtrack.render();
 
             new LayerDrawer({
                 model: app,
@@ -108205,7 +108216,13 @@ function( app, Modal, FrameView, ImageView, AudioView, VideoView, YoutubeView ) 
         },
 
         addToFrame: function() {
-            app.status.get('currentFrame').addLayerByItem( this.collection.at( this.index ) );
+            if ( this.collection.at( this.index ). get("layer_type") == "Audio" ) {
+                app.layout.soundtrack.updateWaveform( this.collection.at( this.index ).get("thumbnail_url") );
+                $(".intro").remove();
+                app.status.get('currentSequence').setSoundtrack( this.collection.at( this.index ), app.layout.soundtrack );
+            } else {
+                app.status.get('currentFrame').addLayerByItem( this.collection.at( this.index ) );
+            }
             this.close();
         },
 
