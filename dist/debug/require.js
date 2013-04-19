@@ -89222,10 +89222,9 @@ function( app ) {
 
         closeThis: function() {
 
-            if ( this.model.getAttr("to_frame") === null ) {
+            if ( this.model.getAttr("to_frame") === null && this.selectedFrame != "NEW_FRAME" ) {
                 this.model.collection.remove( this.model );
             }
-
 
             $("#main").removeClass("modal");
             this.$el.fadeOut(function() {
@@ -89274,6 +89273,7 @@ function( app ) {
         onNewFrameSave: function( newFrame ) {
             this.model.saveAttr({ to_frame: newFrame.id });
             this.model.trigger("change:to_frame", this.model, newFrame.id );
+            console.log('on new frame save', newFrame, this.model );
         },
 
         afterRender: function() {
@@ -106028,9 +106028,9 @@ function( app, Backbone, Layers, ThumbWorker ) {
             var newLayer = new Layers[ type ]({ type: type });
             newLayer.order[ this.id ] = this.layers.length;
             newLayer.save().success(function( response ) {
-                if( type == "Link" ){
-                    this.set( "attr", { "advance" : 10000 } ); //needs update in player – adding a link layer removes default advance
-                }
+                // if( type == "Link" ){
+                //     this.set( "attr", { "advance" : 10000 } ); //needs update in player – adding a link layer removes default advance
+                // }
                 this.layers.add( newLayer );
                 app.status.setCurrentLayer( newLayer );
             }.bind( this ));
@@ -106398,9 +106398,23 @@ function( app, FrameModel, LayerCollection ) {
         },
 
         onFrameRemove: function( frameModel ) {
+            var frameID = frameModel.id;
+
             app.trigger("frame_remove", frameModel );
             frameModel.destroy();
             this.sort();
+
+            // remove link layers targeting the deleted frame
+            app.project.sequences.each(function( sequence ) {
+                sequence.frames.each(function( frame ) {
+                    frame.layers.each( function( layer ) {
+                        if ( layer.get("type") == "Link" && layer.get("attr").to_frame == frameID ) {
+                            layer.collection.remove( layer );
+                        }
+                    });
+                });
+            });
+
             if ( this.length === 0 ) {
                 this.addFrame();
             } else {
