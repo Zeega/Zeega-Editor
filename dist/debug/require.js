@@ -843,7 +843,7 @@ return __p;
 this["JST"]["app/zeega-parser/plugins/layers/link/frame-chooser.html"] = function(obj){
 var __p='';var print=function(){__p+=Array.prototype.join.call(arguments, '')};
 with(obj||{}){
-__p+='<a href="#" class="modal-close">&times;</a>\n<div class="modal-content">\n    <div class="modal-title">Where do you want your link to go?</div>\n    <div class="modal-body">\n        <ul class="frame-chooser-list clearfix">\n        </ul>\n        <div class="bottom-chooser">\n            <div class="new-frame">\n                <a href="#" class="link-new-frame"><i class="icon-plus"></i> New Page</a>\n            </div>\n            <a href="#" class="submit btnz btnz-submit">OK</a>\n        </div>\n    </div>\n</div>\n';
+__p+='<a href="#" class="modal-close">&times;</a>\n<div class="modal-content">\n    <div class="modal-title">Where do you want your link to go?</div>\n    <div class="modal-body">\n        <a href="#" class="link-new-page"><i class="icon-plus icon-white"></i></br>New Page</a>\n        <div class="divider">or</div>\n        <ul class="page-chooser-list clearfix"></ul>\n        <div class="bottom-chooser">\n            <a href="#" class="submit btnz btnz-submit btnz-inactive">OK</a>\n        </div>\n    </div>\n</div>\n';
 }
 return __p;
 };
@@ -89211,16 +89211,22 @@ function( app ) {
         serialize: function() {
             return this.model.toJSON();
         },
-        className: "frame-chooser overlay-dimmer ZEEGA-modal",
+        className: "page-chooser overlay-dimmer ZEEGA-modal",
 
         events: {
             "click .modal-close": "closeThis",
             "click .submit": "submit",
-            "click .frame" : "selectFrame",
-            "click .link-new-frame": "linkToNewFrame"
+            "click .page" : "selectPage",
+            "click .link-new-page": "selectNewPage"
         },
 
         closeThis: function() {
+
+            if ( this.model.getAttr("to_frame") === null ) {
+                this.model.collection.remove( this.model );
+            }
+
+
             $("#main").removeClass("modal");
             this.$el.fadeOut(function() {
                 this.$el.attr("style", "");
@@ -89229,24 +89235,36 @@ function( app ) {
         },
 
         submit: function() {
-            if ( this.selectedFrame !== null ) {
+            if ( this.selectedFrame !== null && this.selectedFrame == "NEW_FRAME" ) {
+                this.linkToNewPage();
+                this.closeThis();
+            } else if ( this.selectedFrame !== null ) {
                 this.model.saveAttr({ to_frame: this.selectedFrame });
                 this.model.trigger("change:to_frame", this.model, this.selectedFrame );
+                this.closeThis();
             }
-            this.closeThis();
         },
 
-        selectFrame: function( e ) {
+        selectPage: function( e ) {
             var $frameLI = $(e.target).closest("li");
 
             if ( !$frameLI.hasClass("inactive") ) {
-                this.$(".frame-chooser-list li.active").removeClass("active");
+                this.$(".page-chooser-list li.active, .link-new-page").removeClass("active");
                 $frameLI.addClass("active");
                 this.selectedFrame = $frameLI.data("id");
             }
+
+            this.$(".submit").removeClass("btnz-inactive");
         },
 
-        linkToNewFrame: function() {
+        selectNewPage: function() {
+            this.$(".page-chooser-list li.active").removeClass("active");
+            this.$(".link-new-page").addClass("active");
+            this.selectedFrame = "NEW_FRAME";
+            this.$(".submit").removeClass("btnz-inactive");
+        },
+
+        linkToNewPage: function() {
             var newFrame = app.status.get("currentSequence").frames.addFrame();
 
             newFrame.once("sync", this.onNewFrameSave, this );
@@ -89260,14 +89278,13 @@ function( app ) {
 
         afterRender: function() {
             $("#main").addClass("modal");
-            this.$(".frame-chooser-list").empty();
+            this.$(".page-chooser-list").empty();
             app.status.get("currentSequence").frames.each(function( frame ) {
                 var fv = $("<li>"),
                     bg = frame.get("thumbnail_url") === "" ? "black" :
                         "url(" + frame.get("thumbnail_url") +") no-repeat center center";
 
-
-                fv.addClass("frame")
+                fv.addClass("page")
                     .data("id", frame.id )
                     .css({
                         background: bg,
@@ -89282,7 +89299,7 @@ function( app ) {
                     fv.addClass("active");
                 }
 
-                this.$('.frame-chooser-list').append( fv );
+                this.$('.page-chooser-list').append( fv );
             }, this );
         },
 
@@ -89346,8 +89363,8 @@ function( Zeega, _Layer, Visual, FrameChooser ) {
         controls: [
             "position",
             "resize",
-            "linkto",
-            "linkimage"
+            "linkto"
+            //"linkimage"
         ]
     });
 

@@ -3842,15 +3842,37 @@ body .ui-tooltip {
   background-repeat: no-repeat;
   background-position: center;
 }
-.frame-chooser .frame-chooser-list {
-  width: 100%;
+.page-chooser .link-new-page {
+  background: url(../img/tiny-stripes-dark.png);
+  height: 40px;
+  padding: 10px 0;
+  background-color: rgba(50, 205, 50, 0.75);
+  display: inline-block;
+  width: 80px;
+  float: left;
+  font-size: 13px;
+  text-align: center;
+  color: white;
+  margin-top: 10px;
+  line-height: 1.5em;
+}
+.page-chooser .link-new-page.active {
+  outline: 3px solid orangered;
+}
+.page-chooser .divider {
+  float: left;
+  width: 50px;
+  text-align: center;
+  padding-top: 30px;
+}
+.page-chooser .page-chooser-list {
+  width: 420px;
   background: white;
-  border-radius: 5px;
-  padding: 10px;
   overflow: auto;
   white-space: nowrap;
+  padding: 10px 5px 0 5px;
 }
-.frame-chooser .frame-chooser-list .frame {
+.page-chooser .page-chooser-list .page {
   background: black;
   height: 60px;
   width: 80px;
@@ -3858,7 +3880,7 @@ body .ui-tooltip {
   white-space: nowrap;
   display: inline-block;
 }
-.frame-chooser .frame-chooser-list .frame a {
+.page-chooser .page-chooser-list .page a {
   display: block;
   position: absolute;
   left: 0;
@@ -3866,19 +3888,20 @@ body .ui-tooltip {
   height: 100%;
   width: 100%;
 }
-.frame-chooser .frame-chooser-list .frame.inactive {
+.page-chooser .page-chooser-list .page.inactive {
   opacity: 0.5;
 }
-.frame-chooser .frame-chooser-list .frame.active {
+.page-chooser .page-chooser-list .page.active {
   outline: 3px solid orangered;
 }
-.frame-chooser .bottom-chooser {
+.page-chooser .bottom-chooser {
   text-align: right;
+  margin-top: 15px;
 }
-.frame-chooser .bottom-chooser .new-frame {
+.page-chooser .bottom-chooser .new-page {
   margin: 20px 0;
 }
-.frame-chooser .submit {
+.page-chooser .submit {
   font-weight: bold;
   color: limegreen;
   font-size: 20px;
@@ -6597,6 +6620,13 @@ html {
   padding-left: 20px;
   padding-right: 20px;
 }
+.btnz.btnz-submit.btnz-inactive {
+  background-color: #DDD;
+}
+.btnz.btnz-submit.btnz-inactive:hover {
+  background-color: #DDD;
+  box-shadow: none;
+}
 .btnz.btnz-submit:hover {
   background-color: #6FF;
 }
@@ -6731,7 +6761,7 @@ html {
 }
 .ZEEGA-modal .modal-content .modal-body {
   background: white;
-  min-height: 55px;
+  min-height: 120px;
   border-radius: 5px;
   margin-top: 10px;
   padding: 20px;
@@ -7551,6 +7581,7 @@ a:active {
 }
 .media-drawer.list .item {
   float: none;
+  width: 100%;
   border-bottom: 1px solid rgba(0, 0, 0, 0.25);
   *zoom: 1;
 }
