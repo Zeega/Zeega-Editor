@@ -4364,6 +4364,15 @@ body .ui-tooltip {
   background: #222;
   white-space: pre;
 }
+.text-modal textarea {
+  resize: none;
+  width: 553px;
+}
+.text-modal .textarea-info {
+  font-size: 12px;
+  color: #999;
+  float: right;
+}
 .text-modal .color-selector {
   float: left;
   margin-right: 4px;
