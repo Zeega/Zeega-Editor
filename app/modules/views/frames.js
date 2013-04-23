@@ -51,6 +51,7 @@ function( app, FrameView ) {
             this.model.status.setCurrentFrame( frameModel );
             this.renderSequenceFrames( this.model.status.get("currentSequence") );
             this.updateFrameOrder();
+            app.trigger("page_added");
         },
 
         onFrameRemove: function( frameModel, collection ) {

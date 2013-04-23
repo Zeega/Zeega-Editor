@@ -15,9 +15,10 @@ function( app ) {
         },
 
         clickedLayerType: function( e ) {
-            app.status.get('currentFrame').addLayerType( $(e.target).closest("a").data("layerType") );
-            $(".intro").remove();
+            var layerType = $(e.target).closest("a").data("layerType");
 
+            app.status.get('currentFrame').addLayerType( layerType );
+            app.trigger("layer_type_added", layerType );
         }
         
     });

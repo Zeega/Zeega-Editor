@@ -23,7 +23,7 @@ function( app ) {
             this.renderFrame( this.model.status.get("currentFrame") );
             this.makeDroppable();
 
-            this.instructions();
+            // this.instructions();
         },
 
         instructions: function() {
@@ -31,7 +31,7 @@ function( app ) {
                 app.project.sequences.at( 0 ).frames.length == 1 &&
                 app.project.sequences.at( 0 ).frames.at( 0 ).layers.length === 0;
 
-            if ( isEmpty ) {
+            if ( true ) {
                 $("body")
                     .prepend("<img class='intro intro-00' src='assets/img/intro-00.png' width='100%' />")
                     .prepend("<img class='intro intro-01' src='assets/img/intro-01.png' width='100%' />")
@@ -46,7 +46,6 @@ function( app ) {
                 accept: ".item, .draggable-layer-type",
                 tolerance: "pointer",
                 drop: function( e, ui ) {
-                    $(".intro").remove();
                     if ( _.isString( app.dragging ) ) {
                         app.status.get('currentFrame').addLayerType( app.dragging );
                     } else if ( app.dragging.get("layer_type") ) {
@@ -55,6 +54,7 @@ function( app ) {
 
                             app.status.get('currentSequence').setSoundtrack( app.dragging, app.layout.soundtrack );
                         } else {
+                            app.trigger("item_dropped", app.dragging );
                             this.model.status.get('currentFrame').addLayerByItem( app.dragging );
                         }
 

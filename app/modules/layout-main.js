@@ -9,8 +9,8 @@ define([
     "modules/views/layers",
     "modules/views/layer-drawer",
     "modules/views/soundtrack",
-
     "modules/views/media-drawer",
+    "modules/views/instructions",
     // "modules/search.model",
     "mousetrap",
     "tipsy",
@@ -18,7 +18,7 @@ define([
     "backbone"
 ],
 
-function( app, ProjectHead, Sequences, Frames, Workspace, Layers, LayerDrawer, Soundtrack, MediaDrawer ) {
+function( app, ProjectHead, Sequences, Frames, Workspace, Layers, LayerDrawer, Soundtrack, MediaDrawer, Instructions ) {
 
     return Backbone.Layout.extend({
 
@@ -65,6 +65,8 @@ function( app, ProjectHead, Sequences, Frames, Workspace, Layers, LayerDrawer, S
                 model: app.mediaBrowser,
                 el: this.$(".media-drawer")
             }).render();
+
+            this.instructions = new Instructions();
 
             this.initTips();
         },

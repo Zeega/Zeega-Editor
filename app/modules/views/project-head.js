@@ -112,11 +112,12 @@ function( app ) {
         },
 
         projectPreview: function() {
-
-            this.model.project.save( "publish_update", 1 );
-            
             var projectData = app.project.getProjectJSON();
 
+            app.trigger("project_preview");
+            
+            this.model.project.save( "publish_update", 1 );
+            
             app.zeegaplayer = new Zeega.player({
                 data: projectData,
                 controls: {
