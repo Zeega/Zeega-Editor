@@ -114,6 +114,8 @@ function( app ) {
         projectPreview: function() {
             var projectData = app.project.getProjectJSON();
 
+            app.zeegaplayer = null;
+
             app.trigger("project_preview");
             
             this.model.project.save( "publish_update", 1 );
