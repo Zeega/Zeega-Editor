@@ -119,6 +119,7 @@ function( app ) {
             this.model.project.save( "publish_update", 1 );
             
             app.zeegaplayer = new Zeega.player({
+                // debugEvents: true,
                 data: projectData,
                 controls: {
                     arrows: true,
