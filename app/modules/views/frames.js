@@ -40,7 +40,7 @@ function( app, FrameView ) {
             frameOrder = _.compact( frameOrder );
 
             _.each( frameOrder, function( frameID, i ) {
-                this.model.status.get("currentSequence").frames.get( frameID ).set("_order", i )
+                this.model.status.get("currentSequence").frames.get( frameID ).set("_order", i );
             }, this );
 
             this.model.status.get("currentSequence").frames.sort();

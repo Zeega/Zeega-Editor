@@ -42,7 +42,6 @@ function( app ) {
 
         // create a new page
         step2: function() {
-            console.log("STEP 2")
             $("body").prepend("<img class='intro-sequence intro-02' src='assets/img/intro-02.png' width='100%' />");
 
             app.once("page_added", function( e ) {
@@ -75,7 +74,7 @@ function( app ) {
             $("body").prepend("<img class='intro-sequence intro-04' src='assets/img/intro-04.png' width='100%' />");
 
             app.once("layer_type_added", function( type ) {
-                console.log("CREATED NEW LAYER", type )
+
                 if ( type == "Link" ) {
                     $(".intro-04").fadeOut(function() {
                         $(".intro-04").remove();
@@ -116,7 +115,7 @@ function( app ) {
 
         // switch to soundcloud
         step7: function() {
-            $("body").prepend("<img class='intro-sequence intro-06' src='assets/img/intro-06.png' width='100%' />")
+            $("body").prepend("<img class='intro-sequence intro-06' src='assets/img/intro-06.png' width='100%' />");
 
             app.once("media_drawer_toggle", function( api ) {
 
@@ -132,7 +131,7 @@ function( app ) {
 
         // add a soundtrack
         step8 : function() {
-            $("body").prepend("<img class='intro-sequence intro-07' src='assets/img/intro-07.png' width='100%' />")
+            $("body").prepend("<img class='intro-sequence intro-07' src='assets/img/intro-07.png' width='100%' />");
 
             app.once("soundtrack_added", function( e ) {
                 $(".intro-07").fadeOut(function() {
@@ -143,7 +142,7 @@ function( app ) {
         },
 
         step9 : function() {
-            $("body").prepend("<img class='intro-sequence intro-08' src='assets/img/intro-08.png' width='100%' />")
+            $("body").prepend("<img class='intro-sequence intro-08' src='assets/img/intro-08.png' width='100%' />");
 
             app.once("project_preview", function( e ) {
                 $(".intro-08").fadeOut(function() {
