@@ -36127,6 +36127,7 @@ function( app, Backbone, Layers, ThumbWorker ) {
 
             } else {
                 this.renderOnReady = oldID;
+                app.spinner.spin( app.$(".ZEEGA-player")[0] );
             }
             /* determines the z-index of the layer in relation to other layers on the frame */
             _.each( this.get("layers"), function( layerID, i ) {
@@ -36151,6 +36152,7 @@ function( app, Backbone, Layers, ThumbWorker ) {
             this.status.emit( "frame_ready", data );
             if ( !_.isNull( this.renderOnReady ) ) {
 
+                app.spinner.stop();
                 this.status.emit( "can_play", data );
                 this.render( this.renderOnReady );
                 this.renderOnReady = null;
@@ -38284,6 +38286,21 @@ function( app, ZeegaParser, Relay, Status, PlayerLayout ) {
             }
         },
 
+        // mobile only hack
+        mobileLoadAudioLayers: function() {
+            this.project.sequences.each(function( sequence ) {
+                sequence.frames.each(function( frame ) {
+                    frame.layers.each(function( layer ) {
+                        if ( layer.get("type") == "Audio") {
+                            var audio = document.getElementById("audio-el-" + layer.id );
+                            
+                            audio.load();
+                        }
+                    });
+                });
+            });
+        },
+
         // should this live in the cueFrame method so it"s not exposed?
         _goToFrame:function( id ) {
             var oldID ;
@@ -38347,22 +38364,36 @@ function( app, ZeegaParser, Relay, Status, PlayerLayout ) {
         // TODO: update this
         // returns project metadata
         getProjectData: function() {
-            var frames = [];
+            var frames = [],
+                layers = [];
 
             this.project.sequences.each(function( sequence ) {
                 sequence.frames.each(function( frame ) {
-                    var f = _.extend({},
+                    var l, f;
+
+                    l = frame.layers.toJSON();
+                    f = _.extend({},
                         frame.toJSON(),
-                        { layers: frame.layers.toJSON() }
+                        { layers: l }
                     );
 
+                    layers.push( l );
                     frames.push( f );
                 });
             });
 
+            layers = _.flatten( layers );
+            layers = _.uniq( layers, function( lay) {
+                return lay.id;
+            });
+
             return _.extend({},
                 this.toJSON(),
-                { frames: frames }
+                {
+                    sequences: this.project.sequences.toJSON(),
+                    frames: frames,
+                    layers: layers
+                }
             );
         },
 
@@ -77247,6 +77278,7 @@ function( app, Backbone, Layers, ThumbWorker ) {
 
             } else {
                 this.renderOnReady = oldID;
+                app.spinner.spin( app.$(".ZEEGA-player")[0] );
             }
             /* determines the z-index of the layer in relation to other layers on the frame */
             _.each( this.get("layers"), function( layerID, i ) {
@@ -77271,6 +77303,7 @@ function( app, Backbone, Layers, ThumbWorker ) {
             this.status.emit( "frame_ready", data );
             if ( !_.isNull( this.renderOnReady ) ) {
 
+                app.spinner.stop();
                 this.status.emit( "can_play", data );
                 this.render( this.renderOnReady );
                 this.renderOnReady = null;
@@ -80147,7 +80180,6 @@ require.config({
 
   // Release
   deps: [ "../vendor/tipsy/src/javascripts/jquery.tipsy", "../vendor/simple-color-picker/src/jquery.simple-color", "zeegaplayer", "../vendor/jam/require.config", "main", "spin"],
-
 
 //  deps: ["zeegaplayer", "../vendor/jam/require.config", "main", "spin"],
 
