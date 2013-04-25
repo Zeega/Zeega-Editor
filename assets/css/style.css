@@ -6889,6 +6889,16 @@ html {
 .project-head .nav:after {
   clear: both;
 }
+.project-head .new-zeega {
+  margin-right: 2px;
+  padding: 5px 10px 0px;
+  vertical-align: middle;
+  margin-top: 6px;
+  background-color: orangered;
+}
+.project-head .new-zeega:hover {
+  background-color: orange;
+}
 .project-head .project-info {
   float: left;
   width: -webkit-calc(100% - 175px);
@@ -7168,7 +7178,7 @@ html {
 .ZEEGA-hmenu > ul > li > a:hover {
   transition: all 0.25s;
   -webkit-transition: all 0.25s;
-  background: rgba(255, 255, 255, 0.1);
+  background-color: rgba(255, 255, 255, 0.1);
   box-shadow: inset 0px 0px 10px black;
 }
 .ZEEGA-hmenu li:hover > ul.submenu {
