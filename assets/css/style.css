@@ -6943,11 +6943,55 @@ html {
 .share-grave:after {
   clear: both;
 }
-.share-grave .text-box {
-  font-size: 80%;
+.share-grave .grave-inner {
+  margin: 0 40px;
+  font-size: 13px;
+}
+.share-grave .grave-inner .share-tabs {
+  float: right;
+  text-align: right;
+}
+.share-grave .grave-inner .share-tabs a {
+  color: #222;
+  padding: 3px 10px;
+  display: block;
+  font-weight: bold;
+}
+.share-grave .grave-inner .share-tabs a:hover {
+  text-decoration: underline;
+}
+.share-grave .grave-inner .share-tabs a.active {
+  background-color: white;
+}
+.share-grave .grave-inner .share-tab-content {
+  border-radius: 2px;
+  background: white;
+  width: 400px;
+  height: 100px;
+  float: right;
+  padding: 10px;
+}
+.share-grave .grave-inner .share-tab-content .share-window {
+  display: none;
+}
+.share-grave .grave-inner .share-tab-content .share-window.active {
+  display: block;
+}
+.share-grave .grave-inner .share-tab-content .share-window p {
+  margin: 0;
+}
+.share-grave .grave-inner .share-tab-content .share-window > div {
+  margin-bottom: 20px;
+}
+.share-grave .grave-inner .share-tab-content .share-window > div:last-child {
+  margin-bottom: 0;
+}
+.share-grave .grave-inner input {
+  width: 90%;
+  display: block;
 }
 .share-grave .close-wrapper {
-  text-align: right;
+  float: right;
 }
 .share-grave .close-wrapper a {
   color: #555;

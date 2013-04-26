@@ -66,11 +66,66 @@
     padding: 10px;
     .clearfix;
 
-    .text-box {
-        font-size: 80%;
+    .grave-inner {
+        margin: 0 40px;
+        font-size: 13px;
+
+        .share-tabs {
+            float: right;
+            text-align: right;
+
+            a {
+                color: #222;
+                padding: 3px 10px;
+                display: block;
+                font-weight: bold;
+
+                &:hover {
+                    text-decoration: underline;
+                }
+
+                &.active {
+                    background-color: white;
+                }
+            }
+        }
+
+        .share-tab-content {
+            border-radius: 2px;
+            background: white;
+            width: 400px;
+            height: 100px;
+            float: right;
+            padding: 10px;
+
+            .share-window {
+                display: none;
+                &.active {
+                    display: block;
+                }
+
+                p {
+                    margin: 0;
+                }
+            }
+
+            .share-window>div {
+                margin-bottom: 20px
+            }
+            .share-window>div:last-child {
+                margin-bottom: 0;
+            }
+        }
+
+        input {
+            width: 90%;
+            display: block;
+        }
+
     }
+
     .close-wrapper {
-        text-align: right;
+        float: right;
 
         a {
             color: #555;

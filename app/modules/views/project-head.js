@@ -72,8 +72,21 @@ function( app ) {
             "click .project-preview": "projectPreview",
 
             "click .close-grave": "closeGrave",
-            "mousedown .text-box": "onBoxFocus"
+            "mousedown .text-box": "onBoxFocus",
+            "click .share-zeega": "showShare",
+            "click .embed-zeega": "showEmbed"
+
             // "click .project-share-toggle": "toggleShare",
+        },
+
+        showEmbed: function() {
+            this.$(".share-zeega, .share-network").removeClass("active");
+            this.$(".embed-zeega, .share-embed").addClass("active");
+        },
+
+        showShare: function() {
+            this.$(".embed-zeega, .share-embed").removeClass("active");
+            this.$(".share-zeega, .share-network").addClass("active");
         },
 
         onBoxFocus: function( e ) {

@@ -68,28 +68,58 @@
         <a href="#" class="close-grave">&times;</a>
     </div>
 
-    <div class="project-share">
+    <div class="grave-inner">
 
-        <input class="text-box" type="text" value='<iframe src="<%= webRoot %><%= item_id %>/embed" width="100%" height="100%" webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe>'></input>
-        ∞
-        <input class="text-box" type="text" value="<%= webRoot %><%= item_id %>"></input>
-        <a href="https://twitter.com/intent/tweet?original_referer=<%= webRoot %><%= item_id %>&text=Zeega%20Project%3A%20<%= title %> &url=<%= webRoot %><%= item_id %>"
-                        class="social-share"
-                        data-itemid="<%= item_id %>"
-                        target="blank">
-            <i class="zitem-twitter zitem-30 color"></i>
-        </a>
-        <a href="http://www.facebook.com/sharer.php?u=<%= webRoot %><%= item_id %>"
-                        class="social-share"
-                        data-itemid="<%= item_id %>"
-                        target="blank">
-            <i class="zitem-facebook zitem-30 color"></i>
-        </a>
-        <a id ="tumblr-share" href="http://www.tumblr.com/share/photo?<%= tumblr_share %>" 
-                        class="social-share"
-                        data-itemid="<%= item_id %>"
-                        target="blank">
-            <i class="zitem-tumblr zitem-30 color"></i>
-        </a>
+        <div class="share-tab-content">
+            <div class="share-network share-window active">
+
+                <div>
+                    <input class="text-box" type="text" value="<%= webRoot %><%= item_id %>" readonly></input>
+                </div>
+                <div>
+                    <a href="https://twitter.com/intent/tweet?original_referer=<%= webRoot %><%= item_id %>&text=Zeega%20Project%3A%20<%= title %> &url=<%= webRoot %><%= item_id %>"
+                            class="social-share"
+                            data-itemid="<%= item_id %>"
+                            target="blank">
+                        <i class="zitem-twitter zitem-30 color"></i>
+                    </a>
+                    <a href="http://www.facebook.com/sharer.php?u=<%= webRoot %><%= item_id %>"
+                                    class="social-share"
+                                    data-itemid="<%= item_id %>"
+                                    target="blank">
+                        <i class="zitem-facebook zitem-30 color"></i>
+                    </a>
+                    <a id ="tumblr-share" href="http://www.tumblr.com/share/photo?<%= tumblr_share %>" 
+                                    class="social-share"
+                                    data-itemid="<%= item_id %>"
+                                    target="blank">
+                        <i class="zitem-tumblr zitem-30 color"></i>
+                    </a>
+                </div>
+            </div>
+            <div class="share-embed share-window">
+                <div>
+                    <input class="text-box" type="text" value='<iframe src="<%= webRoot %><%= item_id %>/embed" width="100%" height="100%" webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe>'></input>
+                </div>
+                <div>
+                    <p>
+                        <i class="icon-info-sign"></i> Use this snippet of code to showcase your Zeega on your own site.
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <div class="share-tabs">
+            <ul>
+                <li>
+                    <a href="#" class="share-zeega active">Share your Zeega</a>
+                </li>
+                <li>
+                    <a href="#" class="embed-zeega">Embed</a>
+                </li>
+            </ul>
+        </div>
+
     </div>
+
 </div>
