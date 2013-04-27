@@ -8,7 +8,7 @@ define([
 function( app, UploadView, Spinner ) {
 
     var Media = {
-        Zeega:{},
+        Zeega: {},
         Instagram: {},
         Flickr: {},
         Soundcloud: {},
@@ -66,14 +66,11 @@ function( app, UploadView, Spinner ) {
                 $(".media-collection-search").show();
             }
 
-            
-            
         },
 
         //extend this function
         _afterRender: function(){
-            
-           
+
         },
 
         renderItems: function() {
@@ -102,7 +99,6 @@ function( app, UploadView, Spinner ) {
                 this.$(".media-collection-headline").hide();
             }
 
-
             this.spinner.stop();
             this.busy = false;
         },
@@ -127,8 +123,6 @@ function( app, UploadView, Spinner ) {
         },
 
         search: function( query ) {
-
-
             this.busy = true;
 
             this.model.search( query );
