@@ -523,7 +523,7 @@ return __p;
 this["JST"]["app/templates/layer-drawer.html"] = function(obj){
 var __p='';var print=function(){__p+=Array.prototype.join.call(arguments, '')};
 with(obj||{}){
-__p+='<div class="ZEEGA-layer-drawer ZEEGA-hmenu clear">\n    <ul>\n        <li class="draggable-layer-type">\n            <a href="#" data-layer-type="Link"\n                title="add interactivity"\n                data-gravity="n"\n            >\n                <div class="item-label">link</div>\n                <i class="icon-arrow-up"></i>\n            </a>\n        </li>\n        <li class="draggable-layer-type">\n            <a href="#" data-layer-type="TextV2"\n                title="add text"\n                data-gravity="n"\n            >\n                <div class="item-label">text</div>\n                <i class="icon-font"></i>\n            </a>\n        </li>\n        <li class="draggable-layer-type">\n            <a href="#" data-layer-type="Rectangle"\n                title="add color box"\n                data-gravity="n"\n            >\n                <div class="item-label">color</div>\n                <i class="icon-th-large"></i>\n            </a>\n        </li>\n    </ul>\n</div>';
+__p+='<div class="ZEEGA-layer-drawer ZEEGA-hmenu clear">\n    <ul>\n        <li class="draggable-layer-type">\n            <a href="#" data-layer-type="TextV2"\n                title="add text"\n                data-gravity="n"\n            >\n                <div class="item-label">text</div>\n                <i class="icon-font"></i>\n            </a>\n        </li>\n        <li class="draggable-layer-type">\n            <a href="#" data-layer-type="Rectangle"\n                title="add color box"\n                data-gravity="n"\n            >\n                <div class="item-label">color</div>\n                <i class="icon-th-large"></i>\n            </a>\n        </li>\n        <li class="draggable-layer-type">\n            <a href="#" data-layer-type="Link"\n                title="add interactivity"\n                data-gravity="n"\n            >\n                <div class="item-label">link</div>\n                <i class="icon-arrow-up"></i>\n            </a>\n        </li>\n    </ul>\n</div>';
 }
 return __p;
 };
@@ -587,7 +587,7 @@ return __p;
 this["JST"]["app/templates/media-drawer.html"] = function(obj){
 var __p='';var print=function(){__p+=Array.prototype.join.call(arguments, '')};
 with(obj||{}){
-__p+='<div class="media-drawer-controls ZEEGA-hmenu light img-tabs">\n    <ul class=\'pull-left\'>\n        \n        <li>\n            <a href="#" data-api = "Zeega" class="active media-toggle"\n                title="our faves from across the web"\n                data-gravity="sw"\n            ><i class="socialz-zeega socialz-white"></i></a>\n        </li>\n\n      \n\n        <li>\n            <a href="#" data-api="Tumblr" class="media-toggle"\n                title="GIFs and images from Tumblr"\n                data-gravity="sw"\n            ><i class="socialz-tumblr"></i></a>\n        </li>\n\n        <li>\n            <a href="#" data-api = "Soundcloud" class="media-toggle"\n                title="sounds from SoundCloud"\n                data-gravity="sw"\n            ><i class="socialz-soundcloud"></i></a>\n        </li>\n\n        \n        <li>\n            <a href="#" data-api = "Instagram" class="media-toggle"\n                title="images from Instagram"\n                data-gravity="sw"\n            ><i class="socialz-instagram"></i></a>\n        </li>\n\n        <li>\n            <a href="#" data-api = "Flickr" class="media-toggle"\n                title="images from Flickr"\n                data-gravity="sw"\n            ><i class="socialz-flickr"></i></a>\n        </li>\n\n        <li>\n            <a href="#" data-api = "Giphy" class="media-toggle"\n                title="GIFs from Giphy"\n                data-gravity="sw"\n            ><i class="socialz-giphy"></i></a>\n        </li>\n       \n        <!--\n        <li>\n            <a href="#" data-api = "Youtube" class="media-toggle"><i class="socialz-youtube"></i></a>\n        </li>\n       \n        <li >\n            <a href="#" data-api = "MyZeega" class="media-toggle"><i class="socialz-user"></i></a>\n        </li>\n         -->\n\n    </ul>\n    <ul class="pull-right">\n        <li >\n            <a id="media-upload-tab" href="#" data-api = "MyZeega" class="media-toggle">UPLOAD</a>\n        </li>\n    </ul>\n    \n    \n</div>\n<ul class="ZEEGA-items"></ul>';
+__p+='<div class="media-drawer-controls ZEEGA-hmenu light img-tabs">\n    <ul class=\'pull-left\'>\n        \n        <li>\n            <a href="#" data-api = "Zeega" class="active media-toggle"\n                title="our faves from across the web"\n                data-gravity="sw"\n            ><i class="socialz-zeega socialz-white"></i></a>\n        </li>\n\n      \n\n        <li>\n            <a href="#" data-api="Tumblr" class="media-toggle"\n                title="GIFs and images from Tumblr"\n                data-gravity="sw"\n            ><i class="socialz-tumblr"></i></a>\n        </li>\n\n        <li>\n            <a href="#" data-api = "Soundcloud" class="media-toggle"\n                title="sounds from SoundCloud"\n                data-gravity="sw"\n            ><i class="socialz-soundcloud"></i></a>\n        </li>\n\n        \n        <li>\n            <a href="#" data-api = "Instagram" class="media-toggle"\n                title="images from Instagram"\n                data-gravity="sw"\n            ><i class="socialz-instagram"></i></a>\n        </li>\n\n        <li>\n            <a href="#" data-api = "Flickr" class="media-toggle"\n                title="images from Flickr"\n                data-gravity="sw"\n            ><i class="socialz-flickr"></i></a>\n        </li>\n\n        <li>\n            <a href="#" data-api = "Giphy" class="media-toggle"\n                title="GIFs from Giphy"\n                data-gravity="sw"\n            ><i class="socialz-giphy"></i></a>\n        </li>\n       \n        <!--\n        <li>\n            <a href="#" data-api = "Youtube" class="media-toggle"><i class="socialz-youtube"></i></a>\n        </li>\n       \n        <li >\n            <a href="#" data-api = "MyZeega" class="media-toggle"><i class="socialz-user"></i></a>\n        </li>\n         -->\n\n    </ul>\n    <ul class="pull-right">\n        <li >\n            <a id="media-upload-tab" href="#" data-api = "MyZeega" class="media-toggle">UPLOAD</a>\n        </li>\n    </ul>\n    \n    \n</div>\n<div class="ZEEGA-items"></div>';
 }
 return __p;
 };
@@ -619,6 +619,8 @@ __p+='<div class="nav col-left navbar ZEEGA-hmenu clear">\n    <ul class=\'pull-
 ( webRoot )+
 '"><img src="assets/img/zeega-logo-header.png"/></a>\n        </li>\n    </ul>\n    <ul class=\'pull-right\'>\n        <li>\n            <a href="'+
 ( webRoot )+
+'project/new"\n                class="btnz new-zeega"\n                title="make a new Zeega"\n                data-gravity="n"\n                >new zeega</a>\n        </li>\n        <li>\n            <a href="'+
+( webRoot )+
 'profile/'+
 ( userId )+
 '"\n                title="user profile"\n                data-gravity="n"\n                ><i class="icon-user"></i></a>\n        </li>\n        <li>\n            <a href="#"><i class="icon-folder-open"></i></a>\n            <ul class="submenu">\n                <li>\n                    <a href="'+
@@ -635,15 +637,11 @@ __p+='<div class="nav col-left navbar ZEEGA-hmenu clear">\n    <ul class=\'pull-
  }); 
 ;__p+='\n\n            </ul>\n        </li>\n\n        <li>\n            <a href="http://blog.zeega.com/faq" data-bypass="true" target="blank"\n                title="FAQ"\n                data-gravity="n"\n            ><i class="icon-question-sign"></i></a>\n        </li>\n\n        \n    </ul>\n</div>\n<div class="project-title col-middle clearfix">\n    <div class="project-info" contenteditable\n        title="title of your Zeega"\n        data-gravity="n"\n    >'+
 ( title )+
-'</div>\n    <a href="#" class="project-preview btnz"\n        title="see what you\'re making"\n        data-gravity="n"\n    ><i class="icon-play icon-white"></i> Preview</a>\n</div>\n<div class="project-share col-right clearfix">\n    <a href="#" class="project-share btnz btnz-blue btnz-fullwidth"\n        title="share your Zeega with the world"\n        data-gravity="ne"\n    ><i class="icon-retweet icon-white"></i> Share</a>\n</div>\n\n<div class="share-grave">\n\n    <div class="close-wrapper">\n        <a href="#" class="close-grave">&times;</a>\n    </div>\n\n    <div class="project-share">\n\n        <input class="text-box" type="text" value=\'<iframe src="'+
+'</div>\n    <a href="#" class="project-preview btnz"\n        title="see what you\'re making"\n        data-gravity="n"\n    ><i class="icon-play icon-white"></i> Preview</a>\n</div>\n<div class="project-share col-right clearfix">\n    <a href="#" class="project-share btnz btnz-blue btnz-fullwidth"\n        title="share your Zeega with the world"\n        data-gravity="ne"\n    ><i class="icon-retweet icon-white"></i> Share</a>\n</div>\n\n<div class="share-grave">\n\n    <div class="close-wrapper">\n        <a href="#" class="close-grave">&times;</a>\n    </div>\n\n    <div class="grave-inner">\n\n        <div class="share-tab-content">\n            <div class="share-network share-window active">\n\n                <div>\n                    <input class="text-box" type="text" value="'+
 ( webRoot )+
 ''+
 ( item_id )+
-'/embed" width="100%" height="100%" webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe>\'></input>\n        ∞\n        <input class="text-box" type="text" value="'+
-( webRoot )+
-''+
-( item_id )+
-'"></input>\n        <a href="https://twitter.com/intent/tweet?original_referer='+
+'" readonly></input>\n                </div>\n                <div>\n                    <a href="https://twitter.com/intent/tweet?original_referer='+
 ( webRoot )+
 ''+
 ( item_id )+
@@ -653,19 +651,23 @@ __p+='<div class="nav col-left navbar ZEEGA-hmenu clear">\n    <ul class=\'pull-
 ( webRoot )+
 ''+
 ( item_id )+
-'"\n                        class="social-share"\n                        data-itemid="'+
+'"\n                            class="social-share"\n                            data-itemid="'+
 ( item_id )+
-'"\n                        target="blank">\n            <i class="zitem-twitter zitem-30 color"></i>\n        </a>\n        <a href="http://www.facebook.com/sharer.php?u='+
+'"\n                            target="blank">\n                        <i class="zitem-twitter zitem-30 color"></i>\n                    </a>\n                    <a href="http://www.facebook.com/sharer.php?u='+
 ( webRoot )+
 ''+
 ( item_id )+
-'"\n                        class="social-share"\n                        data-itemid="'+
+'"\n                                    class="social-share"\n                                    data-itemid="'+
 ( item_id )+
-'"\n                        target="blank">\n            <i class="zitem-facebook zitem-30 color"></i>\n        </a>\n        <a id ="tumblr-share" href="http://www.tumblr.com/share/photo?'+
+'"\n                                    target="blank">\n                        <i class="zitem-facebook zitem-30 color"></i>\n                    </a>\n                    <a id ="tumblr-share" href="http://www.tumblr.com/share/photo?'+
 ( tumblr_share )+
-'" \n                        class="social-share"\n                        data-itemid="'+
+'" \n                                    class="social-share"\n                                    data-itemid="'+
 ( item_id )+
-'"\n                        target="blank">\n            <i class="zitem-tumblr zitem-30 color"></i>\n        </a>\n    </div>\n</div>';
+'"\n                                    target="blank">\n                        <i class="zitem-tumblr zitem-30 color"></i>\n                    </a>\n                </div>\n            </div>\n            <div class="share-embed share-window">\n                <div>\n                    <input class="text-box" type="text" value=\'<iframe src="'+
+( webRoot )+
+''+
+( item_id )+
+'/embed" width="100%" height="100%" webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe>\'></input>\n                </div>\n                <div>\n                    <p>\n                        <i class="icon-info-sign"></i> Use this snippet of code to showcase your Zeega on your own site.\n                    </p>\n                </div>\n            </div>\n        </div>\n\n        <div class="share-tabs">\n            <ul>\n                <li>\n                    <a href="#" class="share-zeega active">Share your Zeega</a>\n                </li>\n                <li>\n                    <a href="#" class="embed-zeega">Embed</a>\n                </li>\n            </ul>\n        </div>\n\n    </div>\n\n</div>';
 }
 return __p;
 };
@@ -56657,8 +56659,21 @@ function( app ) {
             "click .project-preview": "projectPreview",
 
             "click .close-grave": "closeGrave",
-            "mousedown .text-box": "onBoxFocus"
+            "mousedown .text-box": "onBoxFocus",
+            "click .share-zeega": "showShare",
+            "click .embed-zeega": "showEmbed"
+
             // "click .project-share-toggle": "toggleShare",
+        },
+
+        showEmbed: function() {
+            this.$(".share-zeega, .share-network").removeClass("active");
+            this.$(".embed-zeega, .share-embed").addClass("active");
+        },
+
+        showShare: function() {
+            this.$(".embed-zeega, .share-embed").removeClass("active");
+            this.$(".share-zeega, .share-network").addClass("active");
         },
 
         onBoxFocus: function( e ) {
@@ -56675,6 +56690,9 @@ function( app ) {
 
             if( !this.$(".share-grave").is(":visible") ) {
                 this.model.project.save( "publish_update", 1 );
+                app.trigger("grave_open");
+            } else {
+                app.trigger("grave_closed")
             }
             this.$(".share-grave").slideToggle("fast");
         },
@@ -56730,6 +56748,7 @@ function( app ) {
 
         stopListeningToPlayer: function() {
             $("body").unbind("keyup.player");
+            app.trigger("project_preview_ended");
         },
 
         onBlur: function() {
@@ -73087,146 +73106,358 @@ function( app ) {
         el: $("body"),
 
         step: 0,
-        //template: "instructions",
-        //className: "ZEEGA-instructions",
+        ended: false,
 
         initialize: function() {
             var isEmpty =  app.project.sequences.length == 1 &&
                 app.project.sequences.at( 0 ).frames.length == 1 &&
                 app.project.sequences.at( 0 ).frames.at( 0 ).layers.length === 0;
 
-            if ( isEmpty ) {
+            if ( true ) {
                 this.startIntroSequence();
             }
         },
 
-        // drag from here to here
+        events: {
+            "click .close-ins": "cancelInstructions"
+        },
+
+        cancelInstructions: function() {
+            $(".instruction").remove();
+            this.ended = true;
+        },
+
+
         startIntroSequence: function() {
-            $("body")
-                .prepend("<img class='intro-sequence intro-00' src='assets/img/intro-00.png' width='100%' />")
-                .prepend("<img class='intro-sequence intro-01' src='assets/img/intro-01.png' width='100%' />");
+            if ( !this.ended ) {
+                var $first, $second;
 
-            app.once("item_dropped", function( e ) {
-                $(".intro-01").fadeOut(function() {
-                    $(".intro-00, .intro-01").remove();
-                    this.step2();
-                }.bind( this ));
-                $(".intro-00").fadeOut(function() {
-                    $(".intro-00, .intro-01").remove();
-                }.bind( this ));
-            }, this );
+                $first = this.insertInstructions({
+                    target: $(".ZEEGA-items"),
+                    direction: "l",
+                    content: "Drag stuff from here…",
+                    close: false,
+                    progress: null
+                });
+                $second = this.insertInstructions({
+                    target: $(".ZEEGA-workspace"),
+                    direction: "r",
+                    color: "red",
+                    content: "…to here",
+                    close: true,
+                    progress: "1/4",
+                    avoid: $first
+                });
+
+                app.once("item_dropped", function( e ) {
+                    $first.fadeOut(function() {
+                        $first.remove();
+                        this.step2();
+                    }.bind( this ));
+                    $second.fadeOut(function() {
+                        $second.remove();
+                    });
+                }, this );
+            }
+            
         },
 
-        // create a new page
+        // Now pick a soundtrack for your Zeega. Click here to explore soundcloud.
         step2: function() {
-            $("body").prepend("<img class='intro-sequence intro-02' src='assets/img/intro-02.png' width='100%' />");
+            if ( !this.ended ) {
+                var $first = this.insertInstructions({
+                    target: $(".socialz-soundcloud"),
+                    direction: "l",
+                    content: "Now pick a soundtrack for your Zeega. Click here to explore soundcloud.",
+                    close: true,
+                    progress: "2/4"
+                });
 
-            app.once("page_added", function( e ) {
-                $(".intro-02").fadeOut(function() {
-                    $(".intro-02").remove();
-                    this.step3();
-                }.bind( this ));
-            }, this );
+                app.once("media_drawer_toggle", function( api ) {
+                    if ( api == "Soundcloud" ) {
+                        $first.fadeOut(function() {
+                            $first.remove();
+                            this.step3();
+                        }.bind( this ));
+                    }
+
+                }, this );
+            }
         },
 
-        // drag from here to here
+        // Drag a sound from here to here (Pro-tip: You can also search for sounds on Soundcloud here (w an arrow)
         step3: function() {
-            $("body")
-                .prepend("<img class='intro-sequence intro-03' src='assets/img/intro-03.png' width='100%' />")
-                .prepend("<img class='intro-sequence intro-01' src='assets/img/intro-01.png' width='100%' />");
+            if ( !this.ended ) {
+                var $first, $second;
 
-            app.once("item_dropped", function( e ) {
-                $(".intro-01").fadeOut(function() {
-                    $(".intro-00, .intro-01").remove();
-                    this.step4();
-                }.bind( this ));
-                $(".intro-03").fadeOut(function() {
-                    $(".intro-03").remove();
-                }.bind( this ));
-            }, this );
+                $first = this.insertInstructions({
+                    target: $(".ZEEGA-items"),
+                    direction: "l",
+                    content: "Drag stuff from here…",
+                    close: false,
+                    progress: null
+                });
+                $second = this.insertInstructions({
+                    target: $(".soundtrack"),
+                    direction: "l",
+                    color: "red",
+                    content: "…to here",
+                    close: true,
+                    progress: "3/4",
+                    avoid: $first
+                });
+
+                app.once("soundtrack_added", function( e ) {
+                    $first.fadeOut(function() {
+                        $first.remove();
+                        this.step4();
+                    }.bind( this ));
+                    $second.fadeOut(function() {
+                        $second.remove();
+                    });
+                }, this );
+            }
         },
 
-        // create a new hotspot
         step4: function() {
-            $("body").prepend("<img class='intro-sequence intro-04' src='assets/img/intro-04.png' width='100%' />");
+            if ( !this.ended ) {
+                var $first = this.insertInstructions({
+                    target: $(".project-preview"),
+                    direction: "r",
+                    content: "Click here to see what you’ve made so far!",
+                    close: true,
+                    progress: "4/4"
+                });
 
-            app.once("layer_type_added", function( type ) {
-
-                if ( type == "Link" ) {
-                    $(".intro-04").fadeOut(function() {
-                        $(".intro-04").remove();
+                app.once("project_preview", function( e ) {
+                    $first.fadeOut(function() {
+                        $first.remove();
                         this.step5();
                     }.bind( this ));
-                }
-            }, this );
+                }, this );
+            }
         },
 
-        // link to a new page
         step5: function() {
-            $("body").prepend("<img class='intro-sequence intro-05' src='assets/img/intro-05.png' width='100%' />");
+            if ( !this.ended ) {
+                var $first = this.insertInstructions({
+                    target: $(".ZEEGA-close"),
+                    parent: "body",
+                    direction: "r",
+                    content: "Hit “Esc” or x (w an arrow) to return to the editor",
+                    close: false
+                });
 
-            app.once("page_added", function( e ) {
-                $(".intro-05").fadeOut(function() {
-                    $(".intro-05").remove();
-                    this.step6();
-                }.bind( this ));
-            }, this );
-        },
-
-        // drag from here to here
-        step6: function() {
-            $("body")
-                .prepend("<img class='intro-sequence intro-03' src='assets/img/intro-03.png' width='100%' />")
-                .prepend("<img class='intro-sequence intro-01' src='assets/img/intro-01.png' width='100%' />");
-
-            app.once("item_dropped", function( e ) {
-                $(".intro-03").fadeOut(function() {
-                    $(".intro-03").remove();
-                }.bind( this ));
-                $(".intro-01").fadeOut(function() {
-                    $(".intro-00, .intro-01").remove();
-                    this.step7();
-                }.bind( this ));
-            }, this );
-        },
-
-        // switch to soundcloud
-        step7: function() {
-            $("body").prepend("<img class='intro-sequence intro-06' src='assets/img/intro-06.png' width='100%' />");
-
-            app.once("media_drawer_toggle", function( api ) {
-
-                if ( api == "Soundcloud" ) {
-                    $(".intro-06").fadeOut(function() {
-                        $(".intro-06").remove();
-                        this.step8();
+                app.once("project_preview_ended", function( e ) {
+                    $first.fadeOut(function() {
+                        $first.remove();
+                        this.step6();
                     }.bind( this ));
+                }, this );
+            }
+        },
+
+        // Now “share” what you’ve made!
+        step6: function() {
+            if ( !this.ended ) {
+                var $first = this.insertInstructions({
+                    target: $(".project-share"),
+                    direction: "r",
+                    content: "Now “share” what you’ve made!",
+                    close: true
+                });
+
+                app.once("grave_open", function( e ) {
+                    $first.fadeOut(function() {
+                        $first.remove();
+                    }.bind( this ));
+                }, this );
+            }
+        },
+
+        insertInstructions: function( opts ) {
+            var $instruction, $small, css;
+
+            $instruction = $("<div>")
+                .addClass("instruction")
+                .addClass( opts.direction ? "ins-" + opts.direction : "ins-l")
+                .text( opts.content );
+
+            $small = $("<small>");
+            if ( opts.progress ) {
+                $small.text(opts.progress);
+            }
+            if ( opts.close ) {
+                $small.append("  [<a href='#' class='close-ins'>end</a>]");
+            }
+            $instruction.append( $small );
+
+            if ( opts.color ) {
+                $instruction.addClass("ins-" + opts.color );
+            }
+
+            $instruction.css({
+                top: ( opts.target.offset().top + ( opts.target.height() / 2 ) - 21 ),
+                left: "-1000%"
+            });
+
+            if ( opts.avoid ) {
+                var avoidTop, potentialTop;
+
+                avoidTop = opts.avoid.offset().top;
+                potentialTop = ( opts.target.height() / 2 ) + opts.target.offset().top - 21;
+
+                if ( potentialTop <= avoidTop + 62 && potentialTop >= avoidTop - 62 ) {
+                    $instruction.css("top", avoidTop + 62 );
                 }
+                
+            }
 
-            }, this );
-        },
+            if ( opts.parent ) {
+                $( opts.parent ).prepend( $instruction );
+            } else {
+                $("#main").prepend( $instruction );
+            }
+            css = {};
+            if ( opts.direction == "r" ) {
+                css.left = opts.target.offset().left - $instruction.width() - 20 - 15 ; 
+            } else {
+                css.left = opts.target.offset().left + opts.target.width() + 15;
+            }
 
-        // add a soundtrack
-        step8 : function() {
-            $("body").prepend("<img class='intro-sequence intro-07' src='assets/img/intro-07.png' width='100%' />");
+            $instruction.css( css );
 
-            app.once("soundtrack_added", function( e ) {
-                $(".intro-07").fadeOut(function() {
-                    $(".intro-07").remove();
-                    this.step9();
-                }.bind( this ));
-            }, this );
-        },
-
-        step9 : function() {
-            $("body").prepend("<img class='intro-sequence intro-08' src='assets/img/intro-08.png' width='100%' />");
-
-            app.once("project_preview", function( e ) {
-                $(".intro-08").fadeOut(function() {
-                    $(".intro-08").remove();
-                }.bind( this ));
-            }, this );
+            return $instruction;
         }
+
+
+        // // drag from here to here
+        // startIntroSequence: function() {
+        //     $("body")
+        //         .prepend("<img class='intro-sequence intro-00' src='assets/img/intro-00.png' width='100%' />")
+        //         .prepend("<img class='intro-sequence intro-01' src='assets/img/intro-01.png' width='100%' />");
+
+        //     app.once("item_dropped", function( e ) {
+        //         $(".intro-01").fadeOut(function() {
+        //             $(".intro-00, .intro-01").remove();
+        //             this.step2();
+        //         }.bind( this ));
+        //         $(".intro-00").fadeOut(function() {
+        //             $(".intro-00, .intro-01").remove();
+        //         }.bind( this ));
+        //     }, this );
+        // },
+
+        // // create a new page
+        // step2: function() {
+        //     $("body").prepend("<img class='intro-sequence intro-02' src='assets/img/intro-02.png' width='100%' />");
+
+        //     app.once("page_added", function( e ) {
+        //         $(".intro-02").fadeOut(function() {
+        //             $(".intro-02").remove();
+        //             this.step3();
+        //         }.bind( this ));
+        //     }, this );
+        // },
+
+        // // drag from here to here
+        // step3: function() {
+        //     $("body")
+        //         .prepend("<img class='intro-sequence intro-03' src='assets/img/intro-03.png' width='100%' />")
+        //         .prepend("<img class='intro-sequence intro-01' src='assets/img/intro-01.png' width='100%' />");
+
+        //     app.once("item_dropped", function( e ) {
+        //         $(".intro-01").fadeOut(function() {
+        //             $(".intro-00, .intro-01").remove();
+        //             this.step4();
+        //         }.bind( this ));
+        //         $(".intro-03").fadeOut(function() {
+        //             $(".intro-03").remove();
+        //         }.bind( this ));
+        //     }, this );
+        // },
+
+        // // create a new hotspot
+        // step4: function() {
+        //     $("body").prepend("<img class='intro-sequence intro-04' src='assets/img/intro-04.png' width='100%' />");
+
+        //     app.once("layer_type_added", function( type ) {
+
+        //         if ( type == "Link" ) {
+        //             $(".intro-04").fadeOut(function() {
+        //                 $(".intro-04").remove();
+        //                 this.step5();
+        //             }.bind( this ));
+        //         }
+        //     }, this );
+        // },
+
+        // // link to a new page
+        // step5: function() {
+        //     $("body").prepend("<img class='intro-sequence intro-05' src='assets/img/intro-05.png' width='100%' />");
+
+        //     app.once("page_added", function( e ) {
+        //         $(".intro-05").fadeOut(function() {
+        //             $(".intro-05").remove();
+        //             this.step6();
+        //         }.bind( this ));
+        //     }, this );
+        // },
+
+        // // drag from here to here
+        // step6: function() {
+        //     $("body")
+        //         .prepend("<img class='intro-sequence intro-03' src='assets/img/intro-03.png' width='100%' />")
+        //         .prepend("<img class='intro-sequence intro-01' src='assets/img/intro-01.png' width='100%' />");
+
+        //     app.once("item_dropped", function( e ) {
+        //         $(".intro-03").fadeOut(function() {
+        //             $(".intro-03").remove();
+        //         }.bind( this ));
+        //         $(".intro-01").fadeOut(function() {
+        //             $(".intro-00, .intro-01").remove();
+        //             this.step7();
+        //         }.bind( this ));
+        //     }, this );
+        // },
+
+        // // switch to soundcloud
+        // step7: function() {
+        //     $("body").prepend("<img class='intro-sequence intro-06' src='assets/img/intro-06.png' width='100%' />");
+
+        //     app.once("media_drawer_toggle", function( api ) {
+
+        //         if ( api == "Soundcloud" ) {
+        //             $(".intro-06").fadeOut(function() {
+        //                 $(".intro-06").remove();
+        //                 this.step8();
+        //             }.bind( this ));
+        //         }
+
+        //     }, this );
+        // },
+
+        // // add a soundtrack
+        // step8 : function() {
+        //     $("body").prepend("<img class='intro-sequence intro-07' src='assets/img/intro-07.png' width='100%' />");
+
+        //     app.once("soundtrack_added", function( e ) {
+        //         $(".intro-07").fadeOut(function() {
+        //             $(".intro-07").remove();
+        //             this.step9();
+        //         }.bind( this ));
+        //     }, this );
+        // },
+
+        // step9 : function() {
+        //     $("body").prepend("<img class='intro-sequence intro-08' src='assets/img/intro-08.png' width='100%' />");
+
+        //     app.once("project_preview", function( e ) {
+        //         $(".intro-08").fadeOut(function() {
+        //             $(".intro-08").remove();
+        //         }.bind( this ));
+        //     }, this );
+        // }
         
     });
 
@@ -74121,9 +74352,7 @@ function( app, ProjectHead, Sequences, Frames, Workspace, Layers, LayerDrawer, S
                 el: this.$(".media-drawer")
             }).render();
 
-            this.instructions = new Instructions();
-
-            this.initTips();
+            this.onLayoutReady();
         },
 
         listenForKeys: function() {
@@ -74134,17 +74363,22 @@ function( app, ProjectHead, Sequences, Frames, Workspace, Layers, LayerDrawer, S
             // window.onbeforeunload = function() { return "Do you really want to navigate away??"; }
         },
 
+        onLayoutReady: function() {
+            _.delay(function(){
+                this.initTips();
+                this.instructions = new Instructions();
+            }.bind( this ), 1000);
+        },
+
         initTips: function() {
             // see http://onehackoranother.com/projects/jquery/tipsy/ for docs
-            _.delay(function(){
-                $("[title]").tipsy({
+            $("[title]").tipsy({
 
-                    fade: true,
-                    gravity: function() {
-                        return $(this).data("gravity") || "s";
-                    }
-                });
-            }, 1000);
+                fade: true,
+                gravity: function() {
+                    return $(this).data("gravity") || "s";
+                }
+            });
         },
 
         copyLayer: function() {
@@ -78696,7 +78930,6 @@ function( app, ItemView ) {
                     top: 20
                 },
                 helper: function( e ) {
-
                     
                     return $(this).find(".item-thumb img").clone().addClass("item-dragging");
                 },
@@ -79108,7 +79341,7 @@ define('modules/views/media-collection-view',[
 function( app, UploadView, Spinner ) {
 
     var Media = {
-        Zeega:{},
+        Zeega: {},
         Instagram: {},
         Flickr: {},
         Soundcloud: {},
@@ -79166,14 +79399,11 @@ function( app, UploadView, Spinner ) {
                 $(".media-collection-search").show();
             }
 
-            
-            
         },
 
         //extend this function
         _afterRender: function(){
-            
-           
+
         },
 
         renderItems: function() {
@@ -79202,7 +79432,6 @@ function( app, UploadView, Spinner ) {
                 this.$(".media-collection-headline").hide();
             }
 
-
             this.spinner.stop();
             this.busy = false;
         },
@@ -79227,8 +79456,6 @@ function( app, UploadView, Spinner ) {
         },
 
         search: function( query ) {
-
-
             this.busy = true;
 
             this.model.search( query );
