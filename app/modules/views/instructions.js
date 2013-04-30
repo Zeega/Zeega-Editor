@@ -99,7 +99,8 @@ function( app ) {
                     direction: "l",
                     content: "Drag stuff from here…",
                     close: false,
-                    progress: null
+                    progress: null,
+                    topDiv: 4
                 });
                 $second = this.insertInstructions({
                     target: $(".soundtrack"),
@@ -148,7 +149,7 @@ function( app ) {
                     target: $(".ZEEGA-close"),
                     parent: "body",
                     direction: "r",
-                    content: "Hit “Esc” or x (w an arrow) to return to the editor",
+                    content: "Hit ESC or click X to return to the editor",
                     close: false
                 });
 
@@ -170,10 +171,22 @@ function( app ) {
                     content: "Now “share” what you’ve made!",
                     close: true
                 });
+                $second = this.insertInstructions({
+                    target: $(".add-frame"),
+                    direction: "r",
+                    color: "red",
+                    content: "…or add a new page and keep creating",
+                    close: true,
+                    progress: "3/4",
+                    avoid: $first
+                });
 
-                app.once("grave_open", function( e ) {
+                app.once("grave_open page_added", function( e ) {
                     $first.fadeOut(function() {
                         $first.remove();
+                    }.bind( this ));
+                    $second.fadeOut(function() {
+                        $second.remove();
                     }.bind( this ));
                 }, this );
             }
@@ -192,7 +205,7 @@ function( app ) {
                 $small.text(opts.progress);
             }
             if ( opts.close ) {
-                $small.append("  [<a href='#' class='close-ins'>end</a>]");
+                $small.append("  [<a href='#' class='close-ins'>close</a>]");
             }
             $instruction.append( $small );
 
@@ -201,7 +214,7 @@ function( app ) {
             }
 
             $instruction.css({
-                top: ( opts.target.offset().top + ( opts.target.height() / 2 ) - 21 ),
+                top: ( opts.target.offset().top + ( opts.target.height() / (opts.topDiv || 2) ) - 21 ),
                 left: "-1000%"
             });
 

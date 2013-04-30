@@ -6763,6 +6763,9 @@ html {
   opacity: 0.75;
   white-space: pre;
 }
+.instruction small a {
+  color: white;
+}
 .instruction.ins-l {
   padding: 10px 15px 10px 5px;
   border-radius: 0 2px 2px 0;
@@ -7569,6 +7572,8 @@ a:active {
   clear: both;
 }
 .frames .add-frame a {
+  height: 70px;
+  width: 13px;
   background: rgba(50, 205, 50, 0.75);
   padding: 6px 7px 7px;
   border-radius: 2px;
