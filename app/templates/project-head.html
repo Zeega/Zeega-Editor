@@ -14,7 +14,7 @@
         </li>
         <li>
             <a href="<%= webRoot %>profile/<%= userId %>"
-                title="user profile"
+                title="my profile"
                 data-gravity="n"
                 ><i class="icon-user"></i></a>
         </li>
@@ -71,8 +71,16 @@
     <div class="grave-inner">
 
         <div class="share-meta">
-
-
+            <div class="project-cover" style="
+                background: url(<%= cover_image %>);
+                background-size: cover;
+            "></div>
+            <div class="caption-side">
+                <textarea id="project-caption" placeholder="Caption your Zeega" maxlength="80"><%= description %></textarea>
+                <div class="caption-info">
+                    80 character limit
+                </div>
+            </div>
         </div>
 
 

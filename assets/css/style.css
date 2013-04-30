@@ -6927,6 +6927,7 @@ html {
   display: none;
   box-shadow: inset 0px 5px 5px rgba(0, 0, 0, 0.25);
   padding: 10px;
+  min-width: 960px;
   *zoom: 1;
 }
 .share-grave:before,
@@ -6941,12 +6942,60 @@ html {
 .share-grave .grave-inner {
   margin: 0 40px;
   font-size: 13px;
+  width: 960px;
+  margin: 0 auto;
+  *zoom: 1;
+}
+.share-grave .grave-inner:before,
+.share-grave .grave-inner:after {
+  display: table;
+  content: "";
+  line-height: 0;
+}
+.share-grave .grave-inner:after {
+  clear: both;
+}
+.share-grave .grave-inner .share-meta {
+  width: 380px;
+  height: 100px;
+  background: white;
+  border-radius: 2px;
+  float: left;
+  padding: 10px;
+}
+.share-grave .grave-inner .share-meta .project-cover {
+  background-color: black;
+  height: 100px;
+  width: 150px;
+  position: absolute;
+}
+.share-grave .grave-inner .share-meta .caption-side {
+  position: relative;
+  width: 218px;
+  float: right;
+  height: 100px;
+}
+.share-grave .grave-inner .share-meta .caption-side textarea {
+  float: right;
+  margin: 0px;
+  width: 208px;
+  height: 68px;
+  border: none;
+  outline: 1px dotted #ccc;
+  padding: 5px;
+  resize: none;
+}
+.share-grave .grave-inner .share-meta .caption-side .caption-info {
+  position: absolute;
+  bottom: 0;
+  color: #ccc;
 }
 .share-grave .grave-inner .share-tabs {
   float: right;
   text-align: right;
 }
 .share-grave .grave-inner .share-tabs a {
+  border-radius: 2px 0 0 2px;
   color: #222;
   padding: 3px 10px;
   display: block;
@@ -6959,7 +7008,7 @@ html {
   background-color: white;
 }
 .share-grave .grave-inner .share-tab-content {
-  border-radius: 2px;
+  border-radius: 0 2px 2px 2px;
   background: white;
   width: 400px;
   height: 100px;
@@ -6986,7 +7035,8 @@ html {
   display: block;
 }
 .share-grave .close-wrapper {
-  float: right;
+  position: absolute;
+  right: 10px;
 }
 .share-grave .close-wrapper a {
   color: #555;
