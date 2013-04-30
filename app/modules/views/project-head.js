@@ -103,6 +103,9 @@ function( app ) {
 
             if( !this.$(".share-grave").is(":visible") ) {
                 this.model.project.save( "publish_update", 1 );
+                app.trigger("grave_open");
+            } else {
+                app.trigger("grave_closed")
             }
             this.$(".share-grave").slideToggle("fast");
         },
@@ -158,6 +161,7 @@ function( app ) {
 
         stopListeningToPlayer: function() {
             $("body").unbind("keyup.player");
+            app.trigger("project_preview_ended");
         },
 
         onBlur: function() {

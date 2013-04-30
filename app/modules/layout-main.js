@@ -66,9 +66,7 @@ function( app, ProjectHead, Sequences, Frames, Workspace, Layers, LayerDrawer, S
                 el: this.$(".media-drawer")
             }).render();
 
-            this.instructions = new Instructions();
-
-            this.initTips();
+            this.onLayoutReady();
         },
 
         listenForKeys: function() {
@@ -79,17 +77,22 @@ function( app, ProjectHead, Sequences, Frames, Workspace, Layers, LayerDrawer, S
             // window.onbeforeunload = function() { return "Do you really want to navigate away??"; }
         },
 
+        onLayoutReady: function() {
+            _.delay(function(){
+                this.initTips();
+                this.instructions = new Instructions();
+            }.bind( this ), 1000);
+        },
+
         initTips: function() {
             // see http://onehackoranother.com/projects/jquery/tipsy/ for docs
-            _.delay(function(){
-                $("[title]").tipsy({
+            $("[title]").tipsy({
 
-                    fade: true,
-                    gravity: function() {
-                        return $(this).data("gravity") || "s";
-                    }
-                });
-            }, 1000);
+                fade: true,
+                gravity: function() {
+                    return $(this).data("gravity") || "s";
+                }
+            });
         },
 
         copyLayer: function() {
