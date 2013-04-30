@@ -587,7 +587,7 @@ return __p;
 this["JST"]["app/templates/media-drawer.html"] = function(obj){
 var __p='';var print=function(){__p+=Array.prototype.join.call(arguments, '')};
 with(obj||{}){
-__p+='<div class="media-drawer-controls ZEEGA-hmenu light img-tabs">\n    <ul class=\'pull-left\'>\n        \n        <li>\n            <a href="#" data-api = "Zeega" class="active media-toggle"\n                title="our faves from across the web"\n                data-gravity="sw"\n            ><i class="socialz-zeega socialz-white"></i></a>\n        </li>\n\n      \n\n        <li>\n            <a href="#" data-api="Tumblr" class="media-toggle"\n                title="GIFs and images from Tumblr"\n                data-gravity="sw"\n            ><i class="socialz-tumblr"></i></a>\n        </li>\n\n        <li>\n            <a href="#" data-api = "Soundcloud" class="media-toggle"\n                title="sounds from SoundCloud"\n                data-gravity="sw"\n            ><i class="socialz-soundcloud"></i></a>\n        </li>\n\n        \n        <li>\n            <a href="#" data-api = "Instagram" class="media-toggle"\n                title="images from Instagram"\n                data-gravity="sw"\n            ><i class="socialz-instagram"></i></a>\n        </li>\n\n        <li>\n            <a href="#" data-api = "Flickr" class="media-toggle"\n                title="images from Flickr"\n                data-gravity="sw"\n            ><i class="socialz-flickr"></i></a>\n        </li>\n\n        <li>\n            <a href="#" data-api = "Giphy" class="media-toggle"\n                title="GIFs from Giphy"\n                data-gravity="sw"\n            ><i class="socialz-giphy"></i></a>\n        </li>\n       \n        <!--\n        <li>\n            <a href="#" data-api = "Youtube" class="media-toggle"><i class="socialz-youtube"></i></a>\n        </li>\n       \n        <li >\n            <a href="#" data-api = "MyZeega" class="media-toggle"><i class="socialz-user"></i></a>\n        </li>\n         -->\n\n    </ul>\n    <ul class="pull-right">\n        <li >\n            <a id="media-upload-tab" href="#" data-api = "MyZeega" class="media-toggle">UPLOAD</a>\n        </li>\n    </ul>\n    \n    \n</div>\n<div class="ZEEGA-items"></div>';
+__p+='<div class="media-drawer-controls ZEEGA-hmenu light img-tabs">\n    <ul class=\'pull-left\'>\n        \n        <li>\n            <a href="#" data-api = "Zeega" class="active media-toggle"\n                title="our faves from across the web"\n                data-gravity="sw"\n            ><i class="socialz-zeega socialz-white"></i></a>\n        </li>\n\n        <li>\n            <a href="#" data-api = "Soundcloud" class="media-toggle"\n                title="sounds from SoundCloud"\n                data-gravity="sw"\n            ><i class="socialz-soundcloud"></i></a>\n        </li>\n\n        <li>\n            <a href="#" data-api="Tumblr" class="media-toggle"\n                title="GIFs and images from Tumblr"\n                data-gravity="sw"\n            ><i class="socialz-tumblr"></i></a>\n        </li>\n        \n        <li>\n            <a href="#" data-api = "Instagram" class="media-toggle"\n                title="images from Instagram"\n                data-gravity="sw"\n            ><i class="socialz-instagram"></i></a>\n        </li>\n\n        <li>\n            <a href="#" data-api = "Flickr" class="media-toggle"\n                title="images from Flickr"\n                data-gravity="sw"\n            ><i class="socialz-flickr"></i></a>\n        </li>\n\n        <li>\n            <a href="#" data-api = "Giphy" class="media-toggle"\n                title="GIFs from Giphy"\n                data-gravity="sw"\n            ><i class="socialz-giphy"></i></a>\n        </li>\n       \n        <!--\n        <li>\n            <a href="#" data-api = "Youtube" class="media-toggle"><i class="socialz-youtube"></i></a>\n        </li>\n       \n        <li >\n            <a href="#" data-api = "MyZeega" class="media-toggle"><i class="socialz-user"></i></a>\n        </li>\n         -->\n\n    </ul>\n    <ul class="pull-right">\n        <li >\n            <a id="media-upload-tab" href="#" data-api = "MyZeega" class="media-toggle">UPLOAD</a>\n        </li>\n    </ul>\n    \n    \n</div>\n<div class="ZEEGA-items"></div>';
 }
 return __p;
 };
@@ -623,7 +623,7 @@ __p+='<div class="nav col-left navbar ZEEGA-hmenu clear">\n    <ul class=\'pull-
 ( webRoot )+
 'profile/'+
 ( userId )+
-'"\n                title="user profile"\n                data-gravity="n"\n                ><i class="icon-user"></i></a>\n        </li>\n        <li>\n            <a href="#"><i class="icon-folder-open"></i></a>\n            <ul class="submenu">\n                <li>\n                    <a href="'+
+'"\n                title="my profile"\n                data-gravity="n"\n                ><i class="icon-user"></i></a>\n        </li>\n        <li>\n            <a href="#"><i class="icon-folder-open"></i></a>\n            <ul class="submenu">\n                <li>\n                    <a href="'+
 ( webRoot )+
 'project/new" data-bypass="true" ><i class="icon-file"></i> New Zeega</a>\n                </li>\n                <li class="divider"></li>\n\n                ';
  _.each( userProjects, function( project) { 
@@ -637,11 +637,11 @@ __p+='<div class="nav col-left navbar ZEEGA-hmenu clear">\n    <ul class=\'pull-
  }); 
 ;__p+='\n\n            </ul>\n        </li>\n\n        <li>\n            <a href="http://blog.zeega.com/faq" data-bypass="true" target="blank"\n                title="FAQ"\n                data-gravity="n"\n            ><i class="icon-question-sign"></i></a>\n        </li>\n\n        \n    </ul>\n</div>\n<div class="project-title col-middle clearfix">\n    <div class="project-info" contenteditable\n        title="title of your Zeega"\n        data-gravity="n"\n    >'+
 ( title )+
-'</div>\n    <a href="#" class="project-preview btnz"\n        title="see what you\'re making"\n        data-gravity="n"\n    ><i class="icon-play icon-white"></i> Preview</a>\n</div>\n<div class="project-share col-right clearfix">\n    <a href="#" class="project-share btnz btnz-blue btnz-fullwidth"\n        title="share your Zeega with the world"\n        data-gravity="ne"\n    ><i class="icon-retweet icon-white"></i> Share</a>\n</div>\n\n<div class="share-grave">\n\n    <div class="close-wrapper">\n        <a href="#" class="close-grave">&times;</a>\n    </div>\n\n    <div class="grave-inner">\n\n        <div class="share-tab-content">\n            <div class="share-network share-window active">\n\n                <div>\n                    <input class="text-box" type="text" value="'+
-( webRoot )+
-''+
-( item_id )+
-'" readonly></input>\n                </div>\n                <div>\n                    <a href="https://twitter.com/intent/tweet?original_referer='+
+'</div>\n    <a href="#" class="project-preview btnz"\n        title="see what you\'re making"\n        data-gravity="n"\n    ><i class="icon-play icon-white"></i> Preview</a>\n</div>\n<div class="project-share col-right clearfix">\n    <a href="#" class="project-share btnz btnz-blue btnz-fullwidth"\n        title="share your Zeega with the world"\n        data-gravity="ne"\n    ><i class="icon-retweet icon-white"></i> Share</a>\n</div>\n\n<div class="share-grave">\n\n    <div class="close-wrapper">\n        <a href="#" class="close-grave">&times;</a>\n    </div>\n\n    <div class="grave-inner">\n\n        <div class="share-meta">\n            <div class="project-cover" style="\n                background: url('+
+( cover_image )+
+');\n                background-size: cover;\n            "></div>\n            <div class="caption-side">\n                <textarea id="project-caption" placeholder="Caption your Zeega" maxlength="80">'+
+( description )+
+'</textarea>\n                <div class="caption-info">\n                    80 character limit\n                </div>\n            </div>\n        </div>\n\n\n        <div class="share-tab-content">\n            <div class="share-network share-window active">\n\n                <div>\n                    <a href="https://twitter.com/intent/tweet?original_referer='+
 ( webRoot )+
 ''+
 ( item_id )+
@@ -663,11 +663,15 @@ __p+='<div class="nav col-left navbar ZEEGA-hmenu clear">\n    <ul class=\'pull-
 ( tumblr_share )+
 '" \n                                    class="social-share"\n                                    data-itemid="'+
 ( item_id )+
-'"\n                                    target="blank">\n                        <i class="zitem-tumblr zitem-30 color"></i>\n                    </a>\n                </div>\n            </div>\n            <div class="share-embed share-window">\n                <div>\n                    <input class="text-box" type="text" value=\'<iframe src="'+
+'"\n                                    target="blank">\n                        <i class="zitem-tumblr zitem-30 color"></i>\n                    </a>\n                </div>\n\n                <div>\n                    <input class="text-box" type="text" value="'+
 ( webRoot )+
 ''+
 ( item_id )+
-'/embed" width="100%" height="100%" webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe>\'></input>\n                </div>\n                <div>\n                    <p>\n                        <i class="icon-info-sign"></i> Use this snippet of code to showcase your Zeega on your own site.\n                    </p>\n                </div>\n            </div>\n        </div>\n\n        <div class="share-tabs">\n            <ul>\n                <li>\n                    <a href="#" class="share-zeega active">Share your Zeega</a>\n                </li>\n                <li>\n                    <a href="#" class="embed-zeega">Embed</a>\n                </li>\n            </ul>\n        </div>\n\n    </div>\n\n</div>';
+'" readonly></input>\n                </div>\n\n            </div>\n            <div class="share-embed share-window">\n                <div>\n                    <p>\n                        <i class="icon-info-sign"></i> Use this snippet of code to showcase your Zeega on your own site.\n                    </p>\n                </div>\n                <div>\n                    <input class="text-box" type="text" value=\'<iframe src="'+
+( webRoot )+
+''+
+( item_id )+
+'/embed" width="100%" height="100%" webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe>\'></input>\n                </div>\n                \n            </div>\n        </div>\n\n        <div class="share-tabs">\n            <ul>\n                <li>\n                    <a href="#" class="share-zeega active">Share your Zeega</a>\n                </li>\n                <li>\n                    <a href="#" class="embed-zeega">Embed</a>\n                </li>\n            </ul>\n        </div>\n\n    </div>\n\n</div>';
 }
 return __p;
 };
@@ -808,6 +812,22 @@ __p+='<div class="control-name">text controls</div>\n\n<a data-action="bold" cla
 return __p;
 };
 
+this["JST"]["app/zeega-parser/plugins/layers/audio/audio-flash.html"] = function(obj){
+var __p='';var print=function(){__p+=Array.prototype.join.call(arguments, '')};
+with(obj||{}){
+__p+='<div id="audio-flash-'+
+( id )+
+'" data-src="'+
+( attr.uri )+
+'"  data-cue="'+
+( attr.cue_in )+
+'"  >\n    <div id="flash-'+
+( id )+
+'" %>" > \n    </div>\n</div>';
+}
+return __p;
+};
+
 this["JST"]["app/zeega-parser/plugins/layers/audio/audio.html"] = function(obj){
 var __p='';var print=function(){__p+=Array.prototype.join.call(arguments, '')};
 with(obj||{}){
@@ -845,7 +865,7 @@ return __p;
 this["JST"]["app/zeega-parser/plugins/layers/link/link.html"] = function(obj){
 var __p='';var print=function(){__p+=Array.prototype.join.call(arguments, '')};
 with(obj||{}){
-__p+='<a href=\'#\' class=\'ZEEGA-link-inner\'></a>';
+__p+='<div href=\'#\' class=\'ZEEGA-link-inner\'></div>';
 }
 return __p;
 };
@@ -56597,7 +56617,6 @@ function( app ) {
         template: "project-head",
 
         serialize: function() {
-
             var tumblr_share,
                 tumblr_caption;
 
@@ -56648,8 +56667,6 @@ function( app ) {
                             "&click_thru="+ encodeURIComponent( app.webRoot ) + app.project.get("item_id");
             this.$("#tumblr-share").attr("href", "http://www.tumblr.com/share/photo?" + tumblr_share );
 
-
-
         },
 
         events: {
@@ -56661,8 +56678,8 @@ function( app ) {
             "click .close-grave": "closeGrave",
             "mousedown .text-box": "onBoxFocus",
             "click .share-zeega": "showShare",
-            "click .embed-zeega": "showEmbed"
-
+            "click .embed-zeega": "showEmbed",
+            "keyup #project-caption": "onCaptionKeypress"
             // "click .project-share-toggle": "toggleShare",
         },
 
@@ -56697,14 +56714,21 @@ function( app ) {
             this.$(".share-grave").slideToggle("fast");
         },
 
-
-
         onTitleKeyup: function( e ) {
             if ( e.which == 13 ) {
                 this.$(".project-info").blur();
                 return false;
             }
         },
+
+        onCaptionKeypress: function( e ) {
+            this.captionSave();
+        },
+
+        captionSave: _.debounce(function() {
+            console.log("save!!", this, this.$("#project-caption").val() )
+            this.model.project.save("description", this.$("#project-caption").val() );
+        }, 1000 ),
 
         onMenuClick: function( e ) {
             var $target = $(e.target).closest("a");
@@ -56718,9 +56742,7 @@ function( app ) {
             var projectData = app.project.getProjectJSON();
 
             app.zeegaplayer = null;
-
             app.trigger("project_preview");
-            
             this.model.project.save( "publish_update", 1 );
             
             app.zeegaplayer = new Zeega.player({
@@ -73195,7 +73217,8 @@ function( app ) {
                     direction: "l",
                     content: "Drag stuff from here…",
                     close: false,
-                    progress: null
+                    progress: null,
+                    topDiv: 4
                 });
                 $second = this.insertInstructions({
                     target: $(".soundtrack"),
@@ -73244,7 +73267,7 @@ function( app ) {
                     target: $(".ZEEGA-close"),
                     parent: "body",
                     direction: "r",
-                    content: "Hit “Esc” or x (w an arrow) to return to the editor",
+                    content: "Hit ESC or click X to return to the editor",
                     close: false
                 });
 
@@ -73266,10 +73289,22 @@ function( app ) {
                     content: "Now “share” what you’ve made!",
                     close: true
                 });
+                $second = this.insertInstructions({
+                    target: $(".add-frame"),
+                    direction: "r",
+                    color: "red",
+                    content: "…or add a new page and keep creating",
+                    close: true,
+                    progress: "3/4",
+                    avoid: $first
+                });
 
-                app.once("grave_open", function( e ) {
+                app.once("grave_open page_added", function( e ) {
                     $first.fadeOut(function() {
                         $first.remove();
+                    }.bind( this ));
+                    $second.fadeOut(function() {
+                        $second.remove();
                     }.bind( this ));
                 }, this );
             }
@@ -73288,7 +73323,7 @@ function( app ) {
                 $small.text(opts.progress);
             }
             if ( opts.close ) {
-                $small.append("  [<a href='#' class='close-ins'>end</a>]");
+                $small.append("  [<a href='#' class='close-ins'>close</a>]");
             }
             $instruction.append( $small );
 
@@ -73297,7 +73332,7 @@ function( app ) {
             }
 
             $instruction.css({
-                top: ( opts.target.offset().top + ( opts.target.height() / 2 ) - 21 ),
+                top: ( opts.target.offset().top + ( opts.target.height() / (opts.topDiv || 2) ) - 21 ),
                 left: "-1000%"
             });
 
@@ -76511,7 +76546,7 @@ function( app, _Layer, Visual, FrameChooser ) {
     },
 
     events: {
-        "click a": "goClick",
+        "click": "goClick",
         "mouseover": "onMouseOver",
         "mouseout": "onMouseOut"
     },
@@ -76537,15 +76572,23 @@ function( app, _Layer, Visual, FrameChooser ) {
 
     return Layer;
 });
+/*  SWFObject v2.2 <http://code.google.com/p/swfobject/> 
+    is released under the MIT License <http://www.opensource.org/licenses/mit-license.php> 
+*/
+window.swfobject=function(){var D="undefined",r="object",S="Shockwave Flash",W="ShockwaveFlash.ShockwaveFlash",q="application/x-shockwave-flash",R="SWFObjectExprInst",x="onreadystatechange",O=window,j=document,t=navigator,T=false,U=[h],o=[],N=[],I=[],l,Q,E,B,J=false,a=false,n,G,m=true,M=function(){var aa=typeof j.getElementById!=D&&typeof j.getElementsByTagName!=D&&typeof j.createElement!=D,ah=t.userAgent.toLowerCase(),Y=t.platform.toLowerCase(),ae=Y?/win/.test(Y):/win/.test(ah),ac=Y?/mac/.test(Y):/mac/.test(ah),af=/webkit/.test(ah)?parseFloat(ah.replace(/^.*webkit\/(\d+(\.\d+)?).*$/,"$1")):false,X=!+"\v1",ag=[0,0,0],ab=null;if(typeof t.plugins!=D&&typeof t.plugins[S]==r){ab=t.plugins[S].description;if(ab&&!(typeof t.mimeTypes!=D&&t.mimeTypes[q]&&!t.mimeTypes[q].enabledPlugin)){T=true;X=false;ab=ab.replace(/^.*\s+(\S+\s+\S+$)/,"$1");ag[0]=parseInt(ab.replace(/^(.*)\..*$/,"$1"),10);ag[1]=parseInt(ab.replace(/^.*\.(.*)\s.*$/,"$1"),10);ag[2]=/[a-zA-Z]/.test(ab)?parseInt(ab.replace(/^.*[a-zA-Z]+(.*)$/,"$1"),10):0}}else{if(typeof O.ActiveXObject!=D){try{var ad=new ActiveXObject(W);if(ad){ab=ad.GetVariable("$version");if(ab){X=true;ab=ab.split(" ")[1].split(",");ag=[parseInt(ab[0],10),parseInt(ab[1],10),parseInt(ab[2],10)]}}}catch(Z){}}}return{w3:aa,pv:ag,wk:af,ie:X,win:ae,mac:ac}}(),k=function(){if(!M.w3){return}if((typeof j.readyState!=D&&j.readyState=="complete")||(typeof j.readyState==D&&(j.getElementsByTagName("body")[0]||j.body))){f()}if(!J){if(typeof j.addEventListener!=D){j.addEventListener("DOMContentLoaded",f,false)}if(M.ie&&M.win){j.attachEvent(x,function(){if(j.readyState=="complete"){j.detachEvent(x,arguments.callee);f()}});if(O==top){(function(){if(J){return}try{j.documentElement.doScroll("left")}catch(X){setTimeout(arguments.callee,0);return}f()})()}}if(M.wk){(function(){if(J){return}if(!/loaded|complete/.test(j.readyState)){setTimeout(arguments.callee,0);return}f()})()}s(f)}}();function f(){if(J){return}try{var Z=j.getElementsByTagName("body")[0].appendChild(C("span"));Z.parentNode.removeChild(Z)}catch(aa){return}J=true;var X=U.length;for(var Y=0;Y<X;Y++){U[Y]()}}function K(X){if(J){X()}else{U[U.length]=X}}function s(Y){if(typeof O.addEventListener!=D){O.addEventListener("load",Y,false)}else{if(typeof j.addEventListener!=D){j.addEventListener("load",Y,false)}else{if(typeof O.attachEvent!=D){i(O,"onload",Y)}else{if(typeof O.onload=="function"){var X=O.onload;O.onload=function(){X();Y()}}else{O.onload=Y}}}}}function h(){if(T){V()}else{H()}}function V(){var X=j.getElementsByTagName("body")[0];var aa=C(r);aa.setAttribute("type",q);var Z=X.appendChild(aa);if(Z){var Y=0;(function(){if(typeof Z.GetVariable!=D){var ab=Z.GetVariable("$version");if(ab){ab=ab.split(" ")[1].split(",");M.pv=[parseInt(ab[0],10),parseInt(ab[1],10),parseInt(ab[2],10)]}}else{if(Y<10){Y++;setTimeout(arguments.callee,10);return}}X.removeChild(aa);Z=null;H()})()}else{H()}}function H(){var ag=o.length;if(ag>0){for(var af=0;af<ag;af++){var Y=o[af].id;var ab=o[af].callbackFn;var aa={success:false,id:Y};if(M.pv[0]>0){var ae=c(Y);if(ae){if(F(o[af].swfVersion)&&!(M.wk&&M.wk<312)){w(Y,true);if(ab){aa.success=true;aa.ref=z(Y);ab(aa)}}else{if(o[af].expressInstall&&A()){var ai={};ai.data=o[af].expressInstall;ai.width=ae.getAttribute("width")||"0";ai.height=ae.getAttribute("height")||"0";if(ae.getAttribute("class")){ai.styleclass=ae.getAttribute("class")}if(ae.getAttribute("align")){ai.align=ae.getAttribute("align")}var ah={};var X=ae.getElementsByTagName("param");var ac=X.length;for(var ad=0;ad<ac;ad++){if(X[ad].getAttribute("name").toLowerCase()!="movie"){ah[X[ad].getAttribute("name")]=X[ad].getAttribute("value")}}P(ai,ah,Y,ab)}else{p(ae);if(ab){ab(aa)}}}}}else{w(Y,true);if(ab){var Z=z(Y);if(Z&&typeof Z.SetVariable!=D){aa.success=true;aa.ref=Z}ab(aa)}}}}}function z(aa){var X=null;var Y=c(aa);if(Y&&Y.nodeName=="OBJECT"){if(typeof Y.SetVariable!=D){X=Y}else{var Z=Y.getElementsByTagName(r)[0];if(Z){X=Z}}}return X}function A(){return !a&&F("6.0.65")&&(M.win||M.mac)&&!(M.wk&&M.wk<312)}function P(aa,ab,X,Z){a=true;E=Z||null;B={success:false,id:X};var ae=c(X);if(ae){if(ae.nodeName=="OBJECT"){l=g(ae);Q=null}else{l=ae;Q=X}aa.id=R;if(typeof aa.width==D||(!/%$/.test(aa.width)&&parseInt(aa.width,10)<310)){aa.width="310"}if(typeof aa.height==D||(!/%$/.test(aa.height)&&parseInt(aa.height,10)<137)){aa.height="137"}j.title=j.title.slice(0,47)+" - Flash Player Installation";var ad=M.ie&&M.win?"ActiveX":"PlugIn",ac="MMredirectURL="+O.location.toString().replace(/&/g,"%26")+"&MMplayerType="+ad+"&MMdoctitle="+j.title;if(typeof ab.flashvars!=D){ab.flashvars+="&"+ac}else{ab.flashvars=ac}if(M.ie&&M.win&&ae.readyState!=4){var Y=C("div");X+="SWFObjectNew";Y.setAttribute("id",X);ae.parentNode.insertBefore(Y,ae);ae.style.display="none";(function(){if(ae.readyState==4){ae.parentNode.removeChild(ae)}else{setTimeout(arguments.callee,10)}})()}u(aa,ab,X)}}function p(Y){if(M.ie&&M.win&&Y.readyState!=4){var X=C("div");Y.parentNode.insertBefore(X,Y);X.parentNode.replaceChild(g(Y),X);Y.style.display="none";(function(){if(Y.readyState==4){Y.parentNode.removeChild(Y)}else{setTimeout(arguments.callee,10)}})()}else{Y.parentNode.replaceChild(g(Y),Y)}}function g(ab){var aa=C("div");if(M.win&&M.ie){aa.innerHTML=ab.innerHTML}else{var Y=ab.getElementsByTagName(r)[0];if(Y){var ad=Y.childNodes;if(ad){var X=ad.length;for(var Z=0;Z<X;Z++){if(!(ad[Z].nodeType==1&&ad[Z].nodeName=="PARAM")&&!(ad[Z].nodeType==8)){aa.appendChild(ad[Z].cloneNode(true))}}}}}return aa}function u(ai,ag,Y){var X,aa=c(Y);if(M.wk&&M.wk<312){return X}if(aa){if(typeof ai.id==D){ai.id=Y}if(M.ie&&M.win){var ah="";for(var ae in ai){if(ai[ae]!=Object.prototype[ae]){if(ae.toLowerCase()=="data"){ag.movie=ai[ae]}else{if(ae.toLowerCase()=="styleclass"){ah+=' class="'+ai[ae]+'"'}else{if(ae.toLowerCase()!="classid"){ah+=" "+ae+'="'+ai[ae]+'"'}}}}}var af="";for(var ad in ag){if(ag[ad]!=Object.prototype[ad]){af+='<param name="'+ad+'" value="'+ag[ad]+'" />'}}aa.outerHTML='<object classid="clsid:D27CDB6E-AE6D-11cf-96B8-444553540000"'+ah+">"+af+"</object>";N[N.length]=ai.id;X=c(ai.id)}else{var Z=C(r);Z.setAttribute("type",q);for(var ac in ai){if(ai[ac]!=Object.prototype[ac]){if(ac.toLowerCase()=="styleclass"){Z.setAttribute("class",ai[ac])}else{if(ac.toLowerCase()!="classid"){Z.setAttribute(ac,ai[ac])}}}}for(var ab in ag){if(ag[ab]!=Object.prototype[ab]&&ab.toLowerCase()!="movie"){e(Z,ab,ag[ab])}}aa.parentNode.replaceChild(Z,aa);X=Z}}return X}function e(Z,X,Y){var aa=C("param");aa.setAttribute("name",X);aa.setAttribute("value",Y);Z.appendChild(aa)}function y(Y){var X=c(Y);if(X&&X.nodeName=="OBJECT"){if(M.ie&&M.win){X.style.display="none";(function(){if(X.readyState==4){b(Y)}else{setTimeout(arguments.callee,10)}})()}else{X.parentNode.removeChild(X)}}}function b(Z){var Y=c(Z);if(Y){for(var X in Y){if(typeof Y[X]=="function"){Y[X]=null}}Y.parentNode.removeChild(Y)}}function c(Z){var X=null;try{X=j.getElementById(Z)}catch(Y){}return X}function C(X){return j.createElement(X)}function i(Z,X,Y){Z.attachEvent(X,Y);I[I.length]=[Z,X,Y]}function F(Z){var Y=M.pv,X=Z.split(".");X[0]=parseInt(X[0],10);X[1]=parseInt(X[1],10)||0;X[2]=parseInt(X[2],10)||0;return(Y[0]>X[0]||(Y[0]==X[0]&&Y[1]>X[1])||(Y[0]==X[0]&&Y[1]==X[1]&&Y[2]>=X[2]))?true:false}function v(ac,Y,ad,ab){if(M.ie&&M.mac){return}var aa=j.getElementsByTagName("head")[0];if(!aa){return}var X=(ad&&typeof ad=="string")?ad:"screen";if(ab){n=null;G=null}if(!n||G!=X){var Z=C("style");Z.setAttribute("type","text/css");Z.setAttribute("media",X);n=aa.appendChild(Z);if(M.ie&&M.win&&typeof j.styleSheets!=D&&j.styleSheets.length>0){n=j.styleSheets[j.styleSheets.length-1]}G=X}if(M.ie&&M.win){if(n&&typeof n.addRule==r){n.addRule(ac,Y)}}else{if(n&&typeof j.createTextNode!=D){n.appendChild(j.createTextNode(ac+" {"+Y+"}"))}}}function w(Z,X){if(!m){return}var Y=X?"visible":"hidden";if(J&&c(Z)){c(Z).style.visibility=Y}else{v("#"+Z,"visibility:"+Y)}}function L(Y){var Z=/[\\\"<>\.;]/;var X=Z.exec(Y)!=null;return X&&typeof encodeURIComponent!=D?encodeURIComponent(Y):Y}var d=function(){if(M.ie&&M.win){window.attachEvent("onunload",function(){var ac=I.length;for(var ab=0;ab<ac;ab++){I[ab][0].detachEvent(I[ab][1],I[ab][2])}var Z=N.length;for(var aa=0;aa<Z;aa++){y(N[aa])}for(var Y in M){M[Y]=null}M=null;for(var X in swfobject){swfobject[X]=null}swfobject=null})}}();return{registerObject:function(ab,X,aa,Z){if(M.w3&&ab&&X){var Y={};Y.id=ab;Y.swfVersion=X;Y.expressInstall=aa;Y.callbackFn=Z;o[o.length]=Y;w(ab,false)}else{if(Z){Z({success:false,id:ab})}}},getObjectById:function(X){if(M.w3){return z(X)}},embedSWF:function(ab,ah,ae,ag,Y,aa,Z,ad,af,ac){var X={success:false,id:ah};if(M.w3&&!(M.wk&&M.wk<312)&&ab&&ah&&ae&&ag&&Y){w(ah,false);K(function(){ae+="";ag+="";var aj={};if(af&&typeof af===r){for(var al in af){aj[al]=af[al]}}aj.data=ab;aj.width=ae;aj.height=ag;var am={};if(ad&&typeof ad===r){for(var ak in ad){am[ak]=ad[ak]}}if(Z&&typeof Z===r){for(var ai in Z){if(typeof am.flashvars!=D){am.flashvars+="&"+ai+"="+Z[ai]}else{am.flashvars=ai+"="+Z[ai]}}}if(F(Y)){var an=u(aj,am,ah);if(aj.id==ah){w(ah,true)}X.success=true;X.ref=an}else{if(aa&&A()){aj.data=aa;P(aj,am,ah,ac);return}else{w(ah,true)}}if(ac){ac(X)}})}else{if(ac){ac(X)}}},switchOffAutoHideShow:function(){m=false},ua:M,getFlashPlayerVersion:function(){return{major:M.pv[0],minor:M.pv[1],release:M.pv[2]}},hasFlashPlayerVersion:F,createSWF:function(Z,Y,X){if(M.w3){return u(Z,Y,X)}else{return undefined}},showExpressInstall:function(Z,aa,X,Y){if(M.w3&&A()){P(Z,aa,X,Y)}},removeSWF:function(X){if(M.w3){y(X)}},createCSS:function(aa,Z,Y,X){if(M.w3){v(aa,Z,Y,X)}},addDomLoadEvent:K,addLoadEvent:s,getQueryParamValue:function(aa){var Z=j.location.search||j.location.hash;if(Z){if(/\?/.test(Z)){Z=Z.split("?")[1]}if(aa==null){return L(Z)}var Y=Z.split("&");for(var X=0;X<Y.length;X++){if(Y[X].substring(0,Y[X].indexOf("="))==aa){return L(Y[X].substring((Y[X].indexOf("=")+1)))}}}return""},expressInstallCallback:function(){if(a){var X=c(R);if(X&&l){X.parentNode.replaceChild(l,X);if(Q){w(Q,true);if(M.ie&&M.win){l.style.display="block"}}if(E){E(B)}}a=false}}}}();
+define("swfObject", function(){});
+
 define('zeega_parser/plugins/layers/audio/audio',[
     "app",
     "zeega_parser/modules/layer.model",
-    "zeega_parser/modules/layer.visual.view"
+    "zeega_parser/modules/layer.visual.view",
+    "swfObject"
 ],
 
 function( app, _Layer, Visual ){
 
-    var Layer = app.module();
+    var Layer = app.module(),
+        canPlayMpeg;
 
     Layer.Audio = _Layer.extend({
 
@@ -76584,128 +76627,321 @@ function( app, _Layer, Visual ){
         ]
     });
 
-    Layer.Audio.Visual = Visual.extend({
+    canPlayMpeg = function(){
+        var a = document.createElement('audio');
+        return !!(a.canPlayType && a.canPlayType('audio/mpeg;').replace(/no/, ''));
+    };
 
-        audio: null,
-        ended: false,
-        playbackCount: 0,
+    if( canPlayMpeg() ){
+        Layer.Audio.Visual = Visual.extend({
 
-        template: "audio/audio",
+            audio: null,
+            ended: false,
+            playbackCount: 0,
 
-        serialize: function() {
-            return this.model.toJSON();
-        },
+            template: "audio/audio",
 
-        onPlay: function() {
-            this.setAudio();
-            this.ended = false;
-            this.audio.play();
-        },
+            serialize: function() {
+                return this.model.toJSON();
+            },
 
-        onPause: function() {
-            this.setAudio();
-            this.audio.pause();
-        },
-
-        onExit: function() {
-            this.setAudio();
-            this.audio.pause();
-        },
-
-        destroy: function() {
-            this.$("audio").attr("src", "");
-            this.audio = null;
-        },
-
-        editor_onLayerEnter: function() {
-            // this.render();
-        },
-
-        editor_onLayerExit: function() {
-            this.$("audio").attr("src", "");
-            this.audio = null;
-            this.render();
-        },
-
-        playPause: function() {
-            this.setAudio();
-            if ( this.audio.paused ) {
+            onPlay: function() {
+                this.setAudio();
+                this.ended = false;
                 this.audio.play();
-            } else {
+            },
+
+            onPause: function() {
+                this.setAudio();
                 this.audio.pause();
-            }
-        },
+            },
 
-        setAudio: function() {
-            if ( this.audio === null ) {
-                this.audio = this.$("#audio-el-" + this.model.id )[0];
-                // this.audio = document.getElementById("audio-el-" + this.model.id );
-                this.listen();
-                this.audio.load();
-            }
-        },
-
-        getAudio: function() {
-            this.setAudio();
-            return this.audio;
-        },
-
-        verifyReady: function() {
-
-            this.audio = this.$("#audio-el-" + this.model.id )[0];
-
-            this.audio.load();
-            this.audio.addEventListener("canplaythrough", function() {
-                this.onCanPlay();
-            }.bind( this ));
-        },
-
-        init: function() {
-            this.onCanPlay = _.once(function() {
+            onExit: function() {
+                this.setAudio();
                 this.audio.pause();
-                this.audio.currentTime = this.getAttr("cue_in");
+            },
 
-                if ( this.getAttr("cue_out") || this.getAttr("loop") ) {
-                    this.listen();
-                }
-                this.model.trigger( "visual_ready", this.model.id );
-            });
-        },
+            destroy: function() {
+                this.$("audio").attr("src", "");
+                this.audio = null;
+            },
 
-        onCanPlay: function() {},
+            editor_onLayerEnter: function() {
+                // this.render();
+            },
 
-        listen: _.once(function() {
-            // don't need to listen to audio time if there's no cue out!
-            if ( this.getAttr("cue_out") !== null ) {
-                this.audio.addEventListener("timeupdate", function(){
-                    var currentTime = this.audio.currentTime;
+            editor_onLayerExit: function() {
+                this.$("audio").attr("src", "");
+                this.audio = null;
+                this.render();
+            },
 
-                    if ( currentTime >= this.getAttr("cue_out" ) ) {
-                        if ( this.getAttr("loop") ) {
-                            this.audio.pause();
-                            this.audio.currentTime = this.getAttr("cue_in");
-                            this.audio.play();
-                        } else {
-                            this.audio.pause();
-                            this.audio.currentTime = this.getAttr("cue_in");
-                        }
-                    }
-                }.bind( this ));
-            }
-
-            this.audio.addEventListener("ended", function(){
-                if ( this.getAttr("loop") ) {
-                    this.audio.pause();
-                    this.audio.currentTime = this.getAttr("cue_in");
+            playPause: function() {
+                this.setAudio();
+                if ( this.audio.paused ) {
                     this.audio.play();
                 } else {
                     this.audio.pause();
-                    this.audio.currentTime = this.getAttr("cue_in");
                 }
-            }.bind( this ));
-        })
+            },
 
-    });
+            setAudio: function() {
+                if ( this.audio === null ) {
+                    this.audio = this.$("#audio-el-" + this.model.id )[0];
+                    // this.audio = document.getElementById("audio-el-" + this.model.id );
+                    this.listen();
+                    this.audio.load();
+                }
+            },
+
+            getAudio: function() {
+                this.setAudio();
+                return this.audio;
+            },
+
+            verifyReady: function() {
+
+                this.audio = this.$("#audio-el-" + this.model.id )[0];
+
+                this.audio.load();
+                this.audio.addEventListener("canplaythrough", function() {
+                    this.onCanPlay();
+                }.bind( this ));
+            },
+
+            init: function() {
+                //console.log("initiing this shit", this.model.id)
+                this.onCanPlay = _.once(function() {
+                    this.audio.pause();
+                    this.audio.currentTime = this.getAttr("cue_in");
+
+                    if ( this.getAttr("cue_out") || this.getAttr("loop") ) {
+                        this.listen();
+                    }
+                    this.model.trigger( "visual_ready", this.model.id );
+                });
+            },
+
+            onCanPlay: function() {},
+
+            listen: _.once(function() {
+                // don't need to listen to audio time if there's no cue out!
+                if ( this.getAttr("cue_out") !== null ) {
+                    this.audio.addEventListener("timeupdate", function(){
+                        var currentTime = this.audio.currentTime;
+
+                        if ( currentTime >= this.getAttr("cue_out" ) ) {
+                            if ( this.getAttr("loop") ) {
+                                this.audio.pause();
+                                this.audio.currentTime = this.getAttr("cue_in");
+                                this.audio.play();
+                            } else {
+                                this.audio.pause();
+                                this.audio.currentTime = this.getAttr("cue_in");
+                            }
+                        }
+                    }.bind( this ));
+                }
+
+                this.audio.addEventListener("ended", function(){
+                    if ( this.getAttr("loop") ) {
+                        this.audio.pause();
+                        this.audio.currentTime = this.getAttr("cue_in");
+                        this.audio.play();
+                    } else {
+                        this.audio.pause();
+                        this.audio.currentTime = this.getAttr("cue_in");
+                    }
+                }.bind( this ));
+            })
+
+        });
+    } else {
+
+        
+        window.onPlayerLoaded = function( containerId ) {
+            onPlayerLoaded[ containerId ] && onPlayerLoaded[ containerId ]();
+        };
+
+        window.onLoading= function( containerId, value ) {
+            onLoading[ containerId ] && onLoading[ containerId ](value);
+        };
+
+        window.onStateChange= function( containerId, eventid, eventvalue ) {
+            onStateChange[ containerId ] && onStateChange[ containerId ](eventid, eventvalue);
+        };
+
+        window.onError= function( containerId, value ) {
+          onError[ containerId ] && onError[ containerId ](value);
+        };
+
+        Layer.Audio.Visual = Visual.extend({
+
+            audio: null,
+            ended: false,
+            playbackCount: 0,
+
+            template: "audio/audio-flash",
+
+            serialize: function() {
+                return this.model.toJSON();
+            },
+
+            init: function() {
+                this.paused = true;
+            },
+
+            afterRender: function(){
+                if ( window.swfobject ) {
+                    this.flashVideoInit();
+                }
+            },
+
+
+
+            onPlay: function() {
+                this.audio.sendToFlash('play', this.currentTime );
+                this.paused = false;
+            },
+
+            onPause: function() {
+                flashvideoObject.sendToFlash('pause','');
+                this.paused = true;
+            },
+
+            onExit: function() {
+                this.audio.pause();
+            },
+
+            destroy: function() {
+
+            },
+
+            editor_onLayerEnter: function() {
+
+            },
+
+            editor_onLayerExit: function() {
+
+            },
+
+            playPause: function() {
+                
+                if ( this.paused ) {
+                    this.audio.play();
+                } else {
+                    this.audio.pause();
+                }
+            },
+
+            flashVideoInit: function() {
+                var flashvars,
+                    params,
+                    attributes,
+                    containerId = "flash-" + this.model.id,
+                    _this = this;
+
+
+                jQuery("#audio-"+containerId).on("player-loaded", function(){
+                    _this.onPlayerLoaded();
+                }).on("loading", function( event, value ){
+                    _this.onLoading(value);
+                }).on("state-change", function( event, event_id, value ){
+                    _this.onStateChange(event_id,value);
+                });
+
+                // expose a callback to this scope, that is called from the global callback youtube calls
+                onPlayerLoaded[ containerId ] = function() {
+                    
+                    jQuery("#audio-"+containerId).trigger( "player-loaded" );
+
+                    var src = jQuery("#audio-"+containerId).data("src"),
+                        cue_in = jQuery("#audio-"+containerId).data("cue_in");
+
+                    flashvideoObject = document.getElementById (containerId);
+                    onLoading[ containerId ] = function (value){
+                        jQuery("#audio-"+containerId).trigger( "loading", [ value ] );
+                    };
+
+                    onStateChange[ containerId ] = function (event_id, value){
+                        jQuery("#audio-"+containerId).trigger( "state-change", [ event_id, value ] );
+                    };
+                    
+                    flashvideoObject.sendToFlash("load", src + ',' + cue_in );
+                };
+
+                flashvars = {
+                    vidId: containerId
+                };
+
+                params = {
+                    wmode: "transparent",
+                    allowScriptAccess: "always",
+                    allownetworking : "all",
+                    bgcolor : "#000000"
+                };
+
+                attributes = {
+                    id: containerId
+                };
+
+               
+                swfobject.embedSWF("assets/vendor/popcorn/MediaPlayer.swf", containerId, "100%", "100%", "9.0.0", false, flashvars, params, attributes);
+                    
+            },
+
+            onPlayerLoaded: function(){
+                this.audio = document.getElementById( "flash-" + this.model.id );
+            },
+
+            onLoading: function( value ){
+
+                if( value == 3 ) {
+                    this.model.trigger( "visual_ready", this.model.id );
+                }
+
+            },
+
+            onStateChange: function( event_id, value ){
+
+            },
+
+            onCanPlay: function() {}
+
+            // listen: _.once(function() {
+            //     // don't need to listen to audio time if there's no cue out!
+            //     if ( this.getAttr("cue_out") !== null ) {
+            //         this.audio.addEventListener("timeupdate", function(){
+            //             var currentTime = this.audio.currentTime;
+
+            //             if ( currentTime >= this.getAttr("cue_out" ) ) {
+            //                 if ( this.getAttr("loop") ) {
+            //                     this.audio.pause();
+            //                     this.audio.currentTime = this.getAttr("cue_in");
+            //                     this.audio.play();
+            //                 } else {
+            //                     this.audio.pause();
+            //                     this.audio.currentTime = this.getAttr("cue_in");
+            //                 }
+            //             }
+            //         }.bind( this ));
+            //     }
+
+            //     this.audio.addEventListener("ended", function(){
+            //         if ( this.getAttr("loop") ) {
+            //             this.audio.pause();
+            //             this.audio.currentTime = this.getAttr("cue_in");
+            //             this.audio.play();
+            //         } else {
+            //             this.audio.pause();
+            //             this.audio.currentTime = this.getAttr("cue_in");
+            //         }
+            //     }.bind( this ));
+            // })
+
+        });
+    }
+       
 
     return Layer;
 });
@@ -77856,15 +78092,17 @@ function( app, Layers ) {
         },
 
         onAdd: function( layer ) {
-            if ( layer ) {
-                layer.addCollection( this );
-                layer.initVisual( Layers[ layer.get("type") ]);
-                app.trigger("layer_added", layer );
-            } else {
-                this.each(function( layer ){
+            if( app.mode != "player" ){
+               if ( layer ) {
                     layer.addCollection( this );
                     layer.initVisual( Layers[ layer.get("type") ]);
-                });
+                    app.trigger("layer_added", layer );
+                } else {
+                    this.each(function( layer ){
+                        layer.addCollection( this );
+                        layer.initVisual( Layers[ layer.get("type") ]);
+                    });
+                }
             }
         },
 
@@ -80646,7 +80884,8 @@ require.config({
     ddslick: "../assets/js/plugins/jquery.ddslick",
     mousetrap: "../vendor/mousetrap/mousetrap",
     spin: "../assets/js/libs/spin",
-    tipsy: "../vendor/tipsy/src/javascripts/jquery.tipsy"
+    tipsy: "../vendor/tipsy/src/javascripts/jquery.tipsy",
+    swfObject: "zeega-parser/vendor/swfobject"
 
   },
 
