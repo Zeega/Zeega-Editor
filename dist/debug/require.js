@@ -73113,7 +73113,7 @@ function( app ) {
                 app.project.sequences.at( 0 ).frames.length == 1 &&
                 app.project.sequences.at( 0 ).frames.at( 0 ).layers.length === 0;
 
-            if ( true ) {
+            if ( isEmpty ) {
                 this.startIntroSequence();
             }
         },
