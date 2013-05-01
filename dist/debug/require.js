@@ -640,33 +640,33 @@ __p+='<div class="nav col-left navbar ZEEGA-hmenu clear">\n    <ul class=\'pull-
 '</div>\n    <a href="#" class="project-preview btnz"\n        title="see what you\'re making"\n        data-gravity="n"\n    ><i class="icon-play icon-white"></i> Preview</a>\n</div>\n<div class="project-share col-right clearfix">\n    <a href="#" class="project-share btnz btnz-blue btnz-fullwidth"\n        title="share your Zeega with the world"\n        data-gravity="ne"\n    ><i class="icon-retweet icon-white"></i> Share</a>\n</div>\n\n<div class="share-grave">\n\n    <div class="close-wrapper">\n        <a href="#" class="close-grave">&times;</a>\n    </div>\n\n    <div class="grave-inner">\n\n        <div class="share-tab-content">\n            <div class="share-network share-window active">\n\n                <div>\n                    <input class="text-box" type="text" value="'+
 ( webRoot )+
 ''+
-( item_id )+
+( id )+
 '" readonly></input>\n                </div>\n                <div>\n                    <a href="https://twitter.com/intent/tweet?original_referer='+
 ( webRoot )+
 ''+
-( item_id )+
+( id )+
 '&text=Zeega%20Project%3A%20'+
 ( title )+
 ' &url='+
 ( webRoot )+
 ''+
-( item_id )+
+( id )+
 '"\n                            class="social-share"\n                            data-itemid="'+
-( item_id )+
+( id )+
 '"\n                            target="blank">\n                        <i class="zitem-twitter zitem-30 color"></i>\n                    </a>\n                    <a href="http://www.facebook.com/sharer.php?u='+
 ( webRoot )+
 ''+
-( item_id )+
+( id )+
 '"\n                                    class="social-share"\n                                    data-itemid="'+
-( item_id )+
+( id )+
 '"\n                                    target="blank">\n                        <i class="zitem-facebook zitem-30 color"></i>\n                    </a>\n                    <a id ="tumblr-share" href="http://www.tumblr.com/share/photo?'+
 ( tumblr_share )+
 '" \n                                    class="social-share"\n                                    data-itemid="'+
-( item_id )+
+( id )+
 '"\n                                    target="blank">\n                        <i class="zitem-tumblr zitem-30 color"></i>\n                    </a>\n                </div>\n            </div>\n            <div class="share-embed share-window">\n                <div>\n                    <input class="text-box" type="text" value=\'<iframe src="'+
 ( webRoot )+
 ''+
-( item_id )+
+( id )+
 '/embed" width="100%" height="100%" webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe>\'></input>\n                </div>\n                <div>\n                    <p>\n                        <i class="icon-info-sign"></i> Use this snippet of code to showcase your Zeega on your own site.\n                    </p>\n                </div>\n            </div>\n        </div>\n\n        <div class="share-tabs">\n            <ul>\n                <li>\n                    <a href="#" class="share-zeega active">Share your Zeega</a>\n                </li>\n                <li>\n                    <a href="#" class="embed-zeega">Embed</a>\n                </li>\n            </ul>\n        </div>\n\n    </div>\n\n</div>';
 }
 return __p;
@@ -56601,14 +56601,14 @@ function( app ) {
             var tumblr_share,
                 tumblr_caption;
 
-            tumblr_caption = "<p><a href='" + app.webRoot + app.project.get("item_id") + "'><strong>Play&nbsp;► " +
+            tumblr_caption = "<p><a href='" + app.webRoot + app.project.get("id") + "'><strong>Play&nbsp;► " +
                             app.project.get("title") + "</strong></a></p><p>A Zeega by&nbsp;<a href='" +
                             app.webRoot + "profile/" + app.project.get("user_id") + "'>" + app.project.get("authors") + "</a></p>";
 
 
             tumblr_share = "source=" + encodeURIComponent( app.project.get("cover_image") ) +
                             "&caption=" + encodeURIComponent( tumblr_caption ) +
-                            "&click_thru="+ encodeURIComponent( app.webRoot ) + app.project.get("item_id");
+                            "&click_thru="+ encodeURIComponent( app.webRoot ) + app.project.get("id");
 
             return _.extend({
                 userId: app.userId,
@@ -56638,14 +56638,14 @@ function( app ) {
         updateCoverImage: function( url ) {
             app.project.save("cover_image", url );
 
-            tumblr_caption = "<p><a href='" + app.webRoot + app.project.get("item_id") + "'><strong>Play&nbsp;► " +
+            tumblr_caption = "<p><a href='" + app.webRoot + app.project.get("id") + "'><strong>Play&nbsp;► " +
                             app.project.get("title") + "</strong></a></p><p>A Zeega by&nbsp;<a href='" +
                             app.webRoot + "profile/" + app.project.get("user_id") + "'>" + app.project.get("authors") + "</a></p>";
 
 
             tumblr_share = "source=" + encodeURIComponent( app.project.get("cover_image") ) +
                             "&caption=" + encodeURIComponent( tumblr_caption ) +
-                            "&click_thru="+ encodeURIComponent( app.webRoot ) + app.project.get("item_id");
+                            "&click_thru="+ encodeURIComponent( app.webRoot ) + app.project.get("id");
             this.$("#tumblr-share").attr("href", "http://www.tumblr.com/share/photo?" + tumblr_share );
 
 
