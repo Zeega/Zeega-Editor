@@ -105,7 +105,7 @@ function( app ) {
                 this.model.project.save( "publish_update", 1 );
                 app.trigger("grave_open");
             } else {
-                app.trigger("grave_closed")
+                app.trigger("grave_closed");
             }
             this.$(".share-grave").slideToggle("fast");
         },
