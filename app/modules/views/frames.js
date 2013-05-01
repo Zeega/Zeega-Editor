@@ -34,7 +34,7 @@ function( app, FrameView ) {
 
         updateFrameOrder: function() {
             var frameOrder = _.map( this.$("ul.frame-list li"), function( frame ) {
-                return parseInt( $( frame ).data("id"), 10 );
+                return $( frame ).data("id");
             });
 
             frameOrder = _.compact( frameOrder );

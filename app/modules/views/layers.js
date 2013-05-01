@@ -113,7 +113,7 @@ function( app, LayerList ) {
 
         updateLayerOrder: function( frameModel ) {
             var layerOrder = _.map( this.$("ul.layer-list li"), function( layer ) {
-                return parseInt( $( layer ).data("id"), 10 );
+                return $( layer ).data("id");
             });
 
             layerOrder.reverse();
