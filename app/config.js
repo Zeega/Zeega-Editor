@@ -26,7 +26,8 @@ require.config({
     ddslick: "../assets/js/plugins/jquery.ddslick",
     mousetrap: "../vendor/mousetrap/mousetrap",
     spin: "../assets/js/libs/spin",
-    tipsy: "../vendor/tipsy/src/javascripts/jquery.tipsy"
+    tipsy: "../vendor/tipsy/src/javascripts/jquery.tipsy",
+    swfObject: "../app/zeega-parser/vendor/swfobject"
 
   },
 
