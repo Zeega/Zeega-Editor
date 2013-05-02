@@ -137,7 +137,7 @@ return __p;
 this["JST"]["app/templates/layer-drawer.html"] = function(obj){
 var __p='';var print=function(){__p+=Array.prototype.join.call(arguments, '')};
 with(obj||{}){
-__p+='<div class="ZEEGA-layer-drawer ZEEGA-hmenu clear">\n    <ul>\n        <li class="draggable-layer-type">\n            <a href="#" data-layer-type="Link"\n                title="add interactivity"\n                data-gravity="n"\n            >\n                <div class="item-label">link</div>\n                <i class="icon-arrow-up"></i>\n            </a>\n        </li>\n        <li class="draggable-layer-type">\n            <a href="#" data-layer-type="TextV2"\n                title="add text"\n                data-gravity="n"\n            >\n                <div class="item-label">text</div>\n                <i class="icon-font"></i>\n            </a>\n        </li>\n        <li class="draggable-layer-type">\n            <a href="#" data-layer-type="Rectangle"\n                title="add color box"\n                data-gravity="n"\n            >\n                <div class="item-label">color</div>\n                <i class="icon-th-large"></i>\n            </a>\n        </li>\n    </ul>\n</div>';
+__p+='<div class="ZEEGA-layer-drawer ZEEGA-hmenu clear">\n    <ul>\n        <li class="draggable-layer-type">\n            <a href="#" data-layer-type="TextV2"\n                title="add text"\n                data-gravity="n"\n            >\n                <div class="item-label">text</div>\n                <i class="icon-font"></i>\n            </a>\n        </li>\n        <li class="draggable-layer-type">\n            <a href="#" data-layer-type="Rectangle"\n                title="add color box"\n                data-gravity="n"\n            >\n                <div class="item-label">color</div>\n                <i class="icon-th-large"></i>\n            </a>\n        </li>\n        <li class="draggable-layer-type">\n            <a href="#" data-layer-type="Link"\n                title="add interactivity"\n                data-gravity="n"\n            >\n                <div class="item-label">link</div>\n                <i class="icon-arrow-up"></i>\n            </a>\n        </li>\n    </ul>\n</div>';
 }
 return __p;
 };
@@ -201,7 +201,7 @@ return __p;
 this["JST"]["app/templates/media-drawer.html"] = function(obj){
 var __p='';var print=function(){__p+=Array.prototype.join.call(arguments, '')};
 with(obj||{}){
-__p+='<div class="media-drawer-controls ZEEGA-hmenu light img-tabs">\n    <ul class=\'pull-left\'>\n        \n        <li>\n            <a href="#" data-api = "Zeega" class="active media-toggle"\n                title="our faves from across the web"\n                data-gravity="sw"\n            ><i class="socialz-zeega socialz-white"></i></a>\n        </li>\n\n      \n\n        <li>\n            <a href="#" data-api="Tumblr" class="media-toggle"\n                title="GIFs and images from Tumblr"\n                data-gravity="sw"\n            ><i class="socialz-tumblr"></i></a>\n        </li>\n\n        <li>\n            <a href="#" data-api = "Soundcloud" class="media-toggle"\n                title="sounds from SoundCloud"\n                data-gravity="sw"\n            ><i class="socialz-soundcloud"></i></a>\n        </li>\n\n        \n        <li>\n            <a href="#" data-api = "Instagram" class="media-toggle"\n                title="images from Instagram"\n                data-gravity="sw"\n            ><i class="socialz-instagram"></i></a>\n        </li>\n\n        <li>\n            <a href="#" data-api = "Flickr" class="media-toggle"\n                title="images from Flickr"\n                data-gravity="sw"\n            ><i class="socialz-flickr"></i></a>\n        </li>\n\n        <li>\n            <a href="#" data-api = "Giphy" class="media-toggle"\n                title="GIFs from Giphy"\n                data-gravity="sw"\n            ><i class="socialz-giphy"></i></a>\n        </li>\n       \n        <!--\n        <li>\n            <a href="#" data-api = "Youtube" class="media-toggle"><i class="socialz-youtube"></i></a>\n        </li>\n       \n        <li >\n            <a href="#" data-api = "MyZeega" class="media-toggle"><i class="socialz-user"></i></a>\n        </li>\n         -->\n\n    </ul>\n    <ul class="pull-right">\n        <li >\n            <a id="media-upload-tab" href="#" data-api = "MyZeega" class="media-toggle">UPLOAD</a>\n        </li>\n    </ul>\n    \n    \n</div>\n<ul class="ZEEGA-items"></ul>';
+__p+='<div class="media-drawer-controls ZEEGA-hmenu light img-tabs">\n    <ul class=\'pull-left\'>\n        \n        <li>\n            <a href="#" data-api = "Zeega" class="active media-toggle"\n                title="our faves from across the web"\n                data-gravity="sw"\n            ><i class="socialz-zeega socialz-white"></i></a>\n        </li>\n\n        <li>\n            <a href="#" data-api = "Soundcloud" class="media-toggle"\n                title="sounds from SoundCloud"\n                data-gravity="sw"\n            ><i class="socialz-soundcloud"></i></a>\n        </li>\n\n        <li>\n            <a href="#" data-api="Tumblr" class="media-toggle"\n                title="GIFs and images from Tumblr"\n                data-gravity="sw"\n            ><i class="socialz-tumblr"></i></a>\n        </li>\n        \n        <li>\n            <a href="#" data-api = "Instagram" class="media-toggle"\n                title="images from Instagram"\n                data-gravity="sw"\n            ><i class="socialz-instagram"></i></a>\n        </li>\n\n        <li>\n            <a href="#" data-api = "Flickr" class="media-toggle"\n                title="images from Flickr"\n                data-gravity="sw"\n            ><i class="socialz-flickr"></i></a>\n        </li>\n\n        <li>\n            <a href="#" data-api = "Giphy" class="media-toggle"\n                title="GIFs from Giphy"\n                data-gravity="sw"\n            ><i class="socialz-giphy"></i></a>\n        </li>\n       \n        <!--\n        <li>\n            <a href="#" data-api = "Youtube" class="media-toggle"><i class="socialz-youtube"></i></a>\n        </li>\n       \n        <li >\n            <a href="#" data-api = "MyZeega" class="media-toggle"><i class="socialz-user"></i></a>\n        </li>\n         -->\n\n    </ul>\n    <ul class="pull-right">\n        <li >\n            <a id="media-upload-tab" href="#" data-api = "MyZeega" class="media-toggle">UPLOAD</a>\n        </li>\n    </ul>\n    \n    \n</div>\n<div class="ZEEGA-items"></div>';
 }
 return __p;
 };
@@ -233,9 +233,11 @@ __p+='<div class="nav col-left navbar ZEEGA-hmenu clear">\n    <ul class=\'pull-
 ( webRoot )+
 '"><img src="assets/img/zeega-logo-header.png"/></a>\n        </li>\n    </ul>\n    <ul class=\'pull-right\'>\n        <li>\n            <a href="'+
 ( webRoot )+
+'project/new"\n                class="btnz new-zeega"\n                title="make a new Zeega"\n                data-gravity="n"\n                >new zeega</a>\n        </li>\n        <li>\n            <a href="'+
+( webRoot )+
 'profile/'+
 ( userId )+
-'"\n                title="user profile"\n                data-gravity="n"\n                ><i class="icon-user"></i></a>\n        </li>\n        <li>\n            <a href="#"><i class="icon-folder-open"></i></a>\n            <ul class="submenu">\n                <li>\n                    <a href="'+
+'"\n                title="my profile"\n                data-gravity="n"\n                ><i class="icon-user"></i></a>\n        </li>\n        <li>\n            <a href="#"><i class="icon-folder-open"></i></a>\n            <ul class="submenu">\n                <li>\n                    <a href="'+
 ( webRoot )+
 'project/new" data-bypass="true" ><i class="icon-file"></i> New Zeega</a>\n                </li>\n                <li class="divider"></li>\n\n                ';
  _.each( userProjects, function( project) { 
@@ -249,37 +251,41 @@ __p+='<div class="nav col-left navbar ZEEGA-hmenu clear">\n    <ul class=\'pull-
  }); 
 ;__p+='\n\n            </ul>\n        </li>\n\n        <li>\n            <a href="http://blog.zeega.com/faq" data-bypass="true" target="blank"\n                title="FAQ"\n                data-gravity="n"\n            ><i class="icon-question-sign"></i></a>\n        </li>\n\n        \n    </ul>\n</div>\n<div class="project-title col-middle clearfix">\n    <div class="project-info" contenteditable\n        title="title of your Zeega"\n        data-gravity="n"\n    >'+
 ( title )+
-'</div>\n    <a href="#" class="project-preview btnz"\n        title="see what you\'re making"\n        data-gravity="n"\n    ><i class="icon-play icon-white"></i> Preview</a>\n</div>\n<div class="project-share col-right clearfix">\n    <a href="#" class="project-share btnz btnz-blue btnz-fullwidth"\n        title="share your Zeega with the world"\n        data-gravity="ne"\n    ><i class="icon-retweet icon-white"></i> Share</a>\n</div>\n\n<div class="share-grave">\n\n    <div class="close-wrapper">\n        <a href="#" class="close-grave">&times;</a>\n    </div>\n\n    <div class="project-share">\n\n        <input class="text-box" type="text" value=\'<iframe src="'+
+'</div>\n    <a href="#" class="project-preview btnz"\n        title="see what you\'re making"\n        data-gravity="n"\n    ><i class="icon-play icon-white"></i> Preview</a>\n</div>\n<div class="project-share col-right clearfix">\n    <a href="#" class="project-share btnz btnz-blue btnz-fullwidth"\n        title="share your Zeega with the world"\n        data-gravity="ne"\n    ><i class="icon-retweet icon-white"></i> Share</a>\n</div>\n\n<div class="share-grave">\n\n    <div class="close-wrapper">\n        <a href="#" class="close-grave">&times;</a>\n    </div>\n\n    <div class="grave-inner">\n\n        <div class="share-meta">\n            <div class="project-cover" style="\n                background: url('+
+( cover_image )+
+');\n                background-size: cover;\n            "></div>\n            <div class="caption-side">\n                <textarea id="project-caption" placeholder="Caption your Zeega" maxlength="80">'+
+( description )+
+'</textarea>\n                <div class="caption-info">\n                    80 character limit\n                </div>\n            </div>\n        </div>\n\n\n        <div class="share-tab-content">\n            <div class="share-network share-window active">\n\n                <div>\n                    <a href="https://twitter.com/intent/tweet?original_referer='+
 ( webRoot )+
 ''+
 ( item_id )+
-'/embed" width="100%" height="100%" webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe>\'></input>\n        ∞\n        <input class="text-box" type="text" value="'+
-( webRoot )+
-''+
-( item_id )+
-'"></input>\n        <a href="https://twitter.com/intent/tweet?original_referer='+
-( webRoot )+
-''+
-( item_id )+
-'&text=Zeega%20Project%3A%20'+
-( title )+
+'&text='+
+( description )+
 ' &url='+
 ( webRoot )+
 ''+
 ( item_id )+
-'"\n                        class="social-share"\n                        data-itemid="'+
+'"\n                            class="social-share share-twitter"\n                            data-itemid="'+
 ( item_id )+
-'"\n                        target="blank">\n            <i class="zitem-twitter zitem-30 color"></i>\n        </a>\n        <a href="http://www.facebook.com/sharer.php?u='+
+'"\n                            target="blank">\n                        <i class="zitem-twitter zitem-30 color"></i>\n                    </a>\n                    <a href="http://www.facebook.com/sharer.php?u='+
 ( webRoot )+
 ''+
 ( item_id )+
-'"\n                        class="social-share"\n                        data-itemid="'+
+'"\n                                    class="social-share share-facebook"\n                                    data-itemid="'+
 ( item_id )+
-'"\n                        target="blank">\n            <i class="zitem-facebook zitem-30 color"></i>\n        </a>\n        <a id ="tumblr-share" href="http://www.tumblr.com/share/photo?'+
+'"\n                                    target="blank">\n                        <i class="zitem-facebook zitem-30 color"></i>\n                    </a>\n                    <a id ="tumblr-share" href="http://www.tumblr.com/share/photo?'+
 ( tumblr_share )+
-'" \n                        class="social-share"\n                        data-itemid="'+
+'" \n                                    class="social-share share-tumblr"\n                                    data-itemid="'+
 ( item_id )+
-'"\n                        target="blank">\n            <i class="zitem-tumblr zitem-30 color"></i>\n        </a>\n    </div>\n</div>';
+'"\n                                    target="blank">\n                        <i class="zitem-tumblr zitem-30 color"></i>\n                    </a>\n                </div>\n\n                <div>\n                    <input class="text-box" type="text" value="'+
+( webRoot )+
+''+
+( item_id )+
+'" readonly></input>\n                </div>\n\n            </div>\n            <div class="share-embed share-window">\n                <div>\n                    <p>\n                        <i class="icon-info-sign"></i> Use this snippet of code to showcase your Zeega on your own site.\n                    </p>\n                </div>\n                <div>\n                    <input class="text-box" type="text" value=\'<iframe src="'+
+( webRoot )+
+''+
+( item_id )+
+'/embed" width="100%" height="100%" webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe>\'></input>\n                </div>\n                \n            </div>\n        </div>\n\n        <div class="share-tabs">\n            <ul>\n                <li>\n                    <a href="#" class="share-zeega active">Share your Zeega</a>\n                </li>\n                <li>\n                    <a href="#" class="embed-zeega">Embed</a>\n                </li>\n            </ul>\n        </div>\n\n    </div>\n\n</div>';
 }
 return __p;
 };
@@ -412,10 +418,18 @@ __p+='<div class="hover-icon">\n    <div class="control-name">'+
 return __p;
 };
 
-this["JST"]["app/zeega-parser/plugins/controls/textbar/textbar.html"] = function(obj){
+this["JST"]["app/zeega-parser/plugins/layers/audio/audio-flash.html"] = function(obj){
 var __p='';var print=function(){__p+=Array.prototype.join.call(arguments, '')};
 with(obj||{}){
-__p+='<div class="control-name">text controls</div>\n\n<a data-action="bold" class="textbar-btn" href="#" >\n    <i class="icon-bold"></i>\n</a>\n<a data-action="italic" class="textbar-btn" href="#" >\n    <i class="icon-italic"></i>\n</a>\n<a data-action="clear" class="textbar-btn" href="#" >\n    <i class="icon-ban-circle"></i>\n</a>\n\n<div class="font-chooser control">\n    <select class="font-list" style=""></select>\n    <select class="size-list" style="">\n        <option value="100">8</option>\n        <option value="125">10</option>\n        <option value="150">12</option>\n        <option value="175">14</option>\n        <option value="200">18</option>\n        <option value="250">24</option>\n        <option value="375">36</option>\n        <option value="500">48</option>\n        <option value="800">72</option>\n        <option value="1600">144</option>\n        <option value="2400">200</option>\n        <option value="3600">300</option>\n    </select>\n</div>';
+__p+='<div id="audio-flash-'+
+( id )+
+'" data-src="'+
+( attr.uri )+
+'"  data-cue="'+
+( attr.cue_in )+
+'"  >\n    <div id="flash-'+
+( id )+
+'" %>" > \n    </div>\n</div>';
 }
 return __p;
 };
@@ -457,7 +471,7 @@ return __p;
 this["JST"]["app/zeega-parser/plugins/layers/link/link.html"] = function(obj){
 var __p='';var print=function(){__p+=Array.prototype.join.call(arguments, '')};
 with(obj||{}){
-__p+='<a href=\'#\' class=\'ZEEGA-link-inner\'></a>';
+__p+='<div href=\'#\' class=\'ZEEGA-link-inner\'></div>';
 }
 return __p;
 };
@@ -497,7 +511,7 @@ __p+='<div class="modal-content">\n    <div class="modal-title">Edit your text</
 ( attr.content )+
 '</textarea>\n\n        <div class="textarea-info">max 140 characters</div>\n\n        <div class="text-controls clearfix">\n            <div class="color-selector">\n                <input class="simple-color" value="'+
 ( attr.color )+
-'"/>\n            </div>\n            <a href="#" class="btnz btnz-light text-btn-bold"><i class="icon-bold"></i></a>\n            <a href="#" class="btnz btnz-light text-btn-italic"><i class="icon-italic"></i></a>\n            <a href="#" class="btnz btnz-light text-btn-align-left"><i class="icon-align-left"></i></a>\n            <a href="#" class="btnz btnz-light text-btn-align-center"><i class="icon-align-center"></i></a>\n            <a href="#" class="btnz btnz-light text-btn-align-right"><i class="icon-align-right"></i></a>\n\n            <select class="font-list" style=""></select>\n            <select class="size-list" style="">\n                <option value="100">8</option>\n                <option value="125">10</option>\n                <option value="150">12</option>\n                <option value="175">14</option>\n                <option value="200">18</option>\n                <option value="250">24</option>\n                <option value="375">36</option>\n                <option value="500">48</option>\n                <option value="800">72</option>\n                <option value="1600">144</option>\n                <option value="2400">200</option>\n                <option value="3600">300</option>\n            </select>\n            \n        </div>\n\n        <div class="sample-header">sample</div>\n        <div class="text-sample">'+
+'"/>\n            </div>\n            <a href="#" class="btnz btnz-light text-btn-bold"><i class="icon-bold"></i></a>\n            <a href="#" class="btnz btnz-light text-btn-italic"><i class="icon-italic"></i></a>\n            <a href="#" class="btnz btnz-light text-btn-align-left"><i class="icon-align-left"></i></a>\n            <a href="#" class="btnz btnz-light text-btn-align-center"><i class="icon-align-center"></i></a>\n            <a href="#" class="btnz btnz-light text-btn-align-right"><i class="icon-align-right"></i></a>\n\n            <select class="font-list" style=""></select>\n\n            <div class="control-module">\n                <div class="control-title">font size</div>\n                <select class="size-list" style="">\n                    <option value="100">8</option>\n                    <option value="125">10</option>\n                    <option value="150">12</option>\n                    <option value="175">14</option>\n                    <option value="200">18</option>\n                    <option value="250">24</option>\n                    <option value="375">36</option>\n                    <option value="500">48</option>\n                    <option value="800">72</option>\n                    <option value="1600">144</option>\n                    <option value="2400">200</option>\n                    <option value="3600">300</option>\n                </select>\n            </div>\n\n            <div class="control-module">\n                <div class="control-title">line height</div>\n                <select class="line-height-list">\n                    <option value="1">1</option>\n                    <option value="1.25">1.25</option>\n                    <option value="1.5">1.5</option>\n                    <option value="1.75">1.75</option>\n                    <option value="2">2</option>\n                </select>\n            </div>\n\n            <div class="control-module">\n                <div class="control-title">mobile position</div>\n                <select class="text-position-list">\n                    <option value="top">top</option>\n                    <option value="middle">middle</option>\n                    <option value="bottom">bottom</option>\n                </select>\n            </div>\n            \n        </div>\n\n        <div class="sample-header">sample</div>\n        <div class="text-sample">'+
 ( attr.content )+
 '</div>\n\n        <div class="bottom-chooser clearfix">\n            <a href="#" class="submit btnz btnz-submit">OK</a>\n        </div>\n    </div>\n</div>\n';
 }
