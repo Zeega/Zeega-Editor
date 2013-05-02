@@ -105,11 +105,12 @@ function( app ) {
         },
 
         closeGrave: function() {
-            
             this.$(".share-grave").slideUp("fast");
         },
 
         toggleShareGrave: function() {
+
+            this.model.status.setCurrentLayer( null );
 
             if( !this.$(".share-grave").is(":visible") ) {
                 this.model.project.save( "publish_update", 1 );
