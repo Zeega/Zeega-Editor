@@ -28,7 +28,6 @@ function( app, ItemView ) {
                     top: 20
                 },
                 helper: function( e ) {
-
                     
                     return $(this).find(".item-thumb img").clone().addClass("item-dragging");
                 },

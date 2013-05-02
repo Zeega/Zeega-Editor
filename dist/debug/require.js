@@ -523,7 +523,7 @@ return __p;
 this["JST"]["app/templates/layer-drawer.html"] = function(obj){
 var __p='';var print=function(){__p+=Array.prototype.join.call(arguments, '')};
 with(obj||{}){
-__p+='<div class="ZEEGA-layer-drawer ZEEGA-hmenu clear">\n    <ul>\n        <li class="draggable-layer-type">\n            <a href="#" data-layer-type="Link"\n                title="add interactivity"\n                data-gravity="n"\n            >\n                <div class="item-label">link</div>\n                <i class="icon-arrow-up"></i>\n            </a>\n        </li>\n        <li class="draggable-layer-type">\n            <a href="#" data-layer-type="TextV2"\n                title="add text"\n                data-gravity="n"\n            >\n                <div class="item-label">text</div>\n                <i class="icon-font"></i>\n            </a>\n        </li>\n        <li class="draggable-layer-type">\n            <a href="#" data-layer-type="Rectangle"\n                title="add color box"\n                data-gravity="n"\n            >\n                <div class="item-label">color</div>\n                <i class="icon-th-large"></i>\n            </a>\n        </li>\n    </ul>\n</div>';
+__p+='<div class="ZEEGA-layer-drawer ZEEGA-hmenu clear">\n    <ul>\n        <li class="draggable-layer-type">\n            <a href="#" data-layer-type="TextV2"\n                title="add text"\n                data-gravity="n"\n            >\n                <div class="item-label">text</div>\n                <i class="icon-font"></i>\n            </a>\n        </li>\n        <li class="draggable-layer-type">\n            <a href="#" data-layer-type="Rectangle"\n                title="add color box"\n                data-gravity="n"\n            >\n                <div class="item-label">color</div>\n                <i class="icon-th-large"></i>\n            </a>\n        </li>\n        <li class="draggable-layer-type">\n            <a href="#" data-layer-type="Link"\n                title="add interactivity"\n                data-gravity="n"\n            >\n                <div class="item-label">link</div>\n                <i class="icon-arrow-up"></i>\n            </a>\n        </li>\n    </ul>\n</div>';
 }
 return __p;
 };
@@ -587,7 +587,7 @@ return __p;
 this["JST"]["app/templates/media-drawer.html"] = function(obj){
 var __p='';var print=function(){__p+=Array.prototype.join.call(arguments, '')};
 with(obj||{}){
-__p+='<div class="media-drawer-controls ZEEGA-hmenu light img-tabs">\n    <ul class=\'pull-left\'>\n        \n        <li>\n            <a href="#" data-api = "Zeega" class="active media-toggle"\n                title="our faves from across the web"\n                data-gravity="sw"\n            ><i class="socialz-zeega socialz-white"></i></a>\n        </li>\n\n      \n\n        <li>\n            <a href="#" data-api="Tumblr" class="media-toggle"\n                title="GIFs and images from Tumblr"\n                data-gravity="sw"\n            ><i class="socialz-tumblr"></i></a>\n        </li>\n\n        <li>\n            <a href="#" data-api = "Soundcloud" class="media-toggle"\n                title="sounds from SoundCloud"\n                data-gravity="sw"\n            ><i class="socialz-soundcloud"></i></a>\n        </li>\n           <!--\n        \n        <li>\n            <a href="#" data-api = "Instagram" class="media-toggle"\n                title="images from Instagram"\n                data-gravity="sw"\n            ><i class="socialz-instagram"></i></a>\n        </li>\n            -->\n        <li>\n            <a href="#" data-api = "Flickr" class="media-toggle"\n                title="images from Flickr"\n                data-gravity="sw"\n            ><i class="socialz-flickr"></i></a>\n        </li>\n\n        <li>\n            <a href="#" data-api = "Giphy" class="media-toggle"\n                title="GIFs from Giphy"\n                data-gravity="sw"\n            ><i class="socialz-giphy"></i></a>\n        </li>\n       \n      \n        <li>\n            <a href="#" data-api = "Youtube" class="media-toggle"><i class="socialz-youtube"></i></a>\n        </li>\n         <!--\n        <li >\n            <a href="#" data-api = "MyZeega" class="media-toggle"><i class="socialz-user"></i></a>\n        </li>\n         -->\n\n    </ul>\n    <ul class="pull-right">\n        <li >\n            <a id="media-upload-tab" href="#" data-api = "MyZeega" class="media-toggle">UPLOAD</a>\n        </li>\n    </ul>\n    \n    \n</div>\n<ul class="ZEEGA-items"></ul>';
+__p+='<div class="media-drawer-controls ZEEGA-hmenu light img-tabs">\n    <ul class=\'pull-left\'>\n        \n        <li>\n            <a href="#" data-api = "Zeega" class="active media-toggle"\n                title="our faves from across the web"\n                data-gravity="sw"\n            ><i class="socialz-zeega socialz-white"></i></a>\n        </li>\n\n        <li>\n            <a href="#" data-api = "Soundcloud" class="media-toggle"\n                title="sounds from SoundCloud"\n                data-gravity="sw"\n            ><i class="socialz-soundcloud"></i></a>\n        </li>\n\n           \n\n        <li>\n            <a href="#" data-api="Tumblr" class="media-toggle"\n                title="GIFs and images from Tumblr"\n                data-gravity="sw"\n            ><i class="socialz-tumblr"></i></a>\n        </li>\n        <!--\n        <li>\n            <a href="#" data-api = "Instagram" class="media-toggle"\n                title="images from Instagram"\n                data-gravity="sw"\n            ><i class="socialz-instagram"></i></a>\n        </li>\n    -->\n        <li>\n            <a href="#" data-api = "Flickr" class="media-toggle"\n                title="images from Flickr"\n                data-gravity="sw"\n            ><i class="socialz-flickr"></i></a>\n        </li>\n\n        <li>\n            <a href="#" data-api = "Giphy" class="media-toggle"\n                title="GIFs from Giphy"\n                data-gravity="sw"\n            ><i class="socialz-giphy"></i></a>\n        </li>\n       \n      \n        <li>\n            <a href="#" data-api = "Youtube" class="media-toggle"><i class="socialz-youtube"></i></a>\n        </li>\n         <!--\n        <li >\n            <a href="#" data-api = "MyZeega" class="media-toggle"><i class="socialz-user"></i></a>\n        </li>\n         -->\n\n    </ul>\n    <ul class="pull-right">\n        <li >\n            <a id="media-upload-tab" href="#" data-api = "MyZeega" class="media-toggle">UPLOAD</a>\n        </li>\n    </ul>\n    \n    \n</div>\n<div class="ZEEGA-items"></div>\n';
 }
 return __p;
 };
@@ -619,9 +619,11 @@ __p+='<div class="nav col-left navbar ZEEGA-hmenu clear">\n    <ul class=\'pull-
 ( webRoot )+
 '"><img src="assets/img/zeega-logo-header.png"/></a>\n        </li>\n    </ul>\n    <ul class=\'pull-right\'>\n        <li>\n            <a href="'+
 ( webRoot )+
+'project/new"\n                class="btnz new-zeega"\n                title="make a new Zeega"\n                data-gravity="n"\n                >new zeega</a>\n        </li>\n        <li>\n            <a href="'+
+( webRoot )+
 'profile/'+
 ( userId )+
-'"\n                title="user profile"\n                data-gravity="n"\n                ><i class="icon-user"></i></a>\n        </li>\n        <li>\n            <a href="#"><i class="icon-folder-open"></i></a>\n            <ul class="submenu">\n                <li>\n                    <a href="'+
+'"\n                title="my profile"\n                data-gravity="n"\n                ><i class="icon-user"></i></a>\n        </li>\n        <li>\n            <a href="#"><i class="icon-folder-open"></i></a>\n            <ul class="submenu">\n                <li>\n                    <a href="'+
 ( webRoot )+
 'project/new" data-bypass="true" ><i class="icon-file"></i> New Zeega</a>\n                </li>\n                <li class="divider"></li>\n\n                ';
  _.each( userProjects, function( project) { 
@@ -635,15 +637,11 @@ __p+='<div class="nav col-left navbar ZEEGA-hmenu clear">\n    <ul class=\'pull-
  }); 
 ;__p+='\n\n            </ul>\n        </li>\n\n        <li>\n            <a href="http://blog.zeega.com/faq" data-bypass="true" target="blank"\n                title="FAQ"\n                data-gravity="n"\n            ><i class="icon-question-sign"></i></a>\n        </li>\n\n        \n    </ul>\n</div>\n<div class="project-title col-middle clearfix">\n    <div class="project-info" contenteditable\n        title="title of your Zeega"\n        data-gravity="n"\n    >'+
 ( title )+
-'</div>\n    <a href="#" class="project-preview btnz"\n        title="see what you\'re making"\n        data-gravity="n"\n    ><i class="icon-play icon-white"></i> Preview</a>\n</div>\n<div class="project-share col-right clearfix">\n    <a href="#" class="project-share btnz btnz-blue btnz-fullwidth"\n        title="share your Zeega with the world"\n        data-gravity="ne"\n    ><i class="icon-retweet icon-white"></i> Share</a>\n</div>\n\n<div class="share-grave">\n\n    <div class="close-wrapper">\n        <a href="#" class="close-grave">&times;</a>\n    </div>\n\n    <div class="project-share">\n\n        <input class="text-box" type="text" value=\'<iframe src="'+
-( webRoot )+
-''+
-( item_id )+
-'/embed" width="100%" height="100%" webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe>\'></input>\n        ∞\n        <input class="text-box" type="text" value="'+
-( webRoot )+
-''+
-( item_id )+
-'"></input>\n        <a href="https://twitter.com/intent/tweet?original_referer='+
+'</div>\n    <a href="#" class="project-preview btnz"\n        title="see what you\'re making"\n        data-gravity="n"\n    ><i class="icon-play icon-white"></i> Preview</a>\n</div>\n<div class="project-share col-right clearfix">\n    <a href="#" class="project-share btnz btnz-blue btnz-fullwidth"\n        title="share your Zeega with the world"\n        data-gravity="ne"\n    ><i class="icon-retweet icon-white"></i> Share</a>\n</div>\n\n<div class="share-grave">\n\n    <div class="close-wrapper">\n        <a href="#" class="close-grave">&times;</a>\n    </div>\n\n    <div class="grave-inner">\n\n        <div class="share-meta">\n            <div class="project-cover" style="\n                background: url('+
+( cover_image )+
+');\n                background-size: cover;\n            "></div>\n            <div class="caption-side">\n                <textarea id="project-caption" placeholder="Caption your Zeega" maxlength="80">'+
+( description )+
+'</textarea>\n                <div class="caption-info">\n                    80 character limit\n                </div>\n            </div>\n        </div>\n\n\n        <div class="share-tab-content">\n            <div class="share-network share-window active">\n\n                <div>\n                    <a href="https://twitter.com/intent/tweet?original_referer='+
 ( webRoot )+
 ''+
 ( item_id )+
@@ -653,19 +651,27 @@ __p+='<div class="nav col-left navbar ZEEGA-hmenu clear">\n    <ul class=\'pull-
 ( webRoot )+
 ''+
 ( item_id )+
-'"\n                        class="social-share"\n                        data-itemid="'+
+'"\n                            class="social-share"\n                            data-itemid="'+
 ( item_id )+
-'"\n                        target="blank">\n            <i class="zitem-twitter zitem-30 color"></i>\n        </a>\n        <a href="http://www.facebook.com/sharer.php?u='+
+'"\n                            target="blank">\n                        <i class="zitem-twitter zitem-30 color"></i>\n                    </a>\n                    <a href="http://www.facebook.com/sharer.php?u='+
 ( webRoot )+
 ''+
 ( item_id )+
-'"\n                        class="social-share"\n                        data-itemid="'+
+'"\n                                    class="social-share"\n                                    data-itemid="'+
 ( item_id )+
-'"\n                        target="blank">\n            <i class="zitem-facebook zitem-30 color"></i>\n        </a>\n        <a id ="tumblr-share" href="http://www.tumblr.com/share/photo?'+
+'"\n                                    target="blank">\n                        <i class="zitem-facebook zitem-30 color"></i>\n                    </a>\n                    <a id ="tumblr-share" href="http://www.tumblr.com/share/photo?'+
 ( tumblr_share )+
-'" \n                        class="social-share"\n                        data-itemid="'+
+'" \n                                    class="social-share"\n                                    data-itemid="'+
 ( item_id )+
-'"\n                        target="blank">\n            <i class="zitem-tumblr zitem-30 color"></i>\n        </a>\n    </div>\n</div>';
+'"\n                                    target="blank">\n                        <i class="zitem-tumblr zitem-30 color"></i>\n                    </a>\n                </div>\n\n                <div>\n                    <input class="text-box" type="text" value="'+
+( webRoot )+
+''+
+( item_id )+
+'" readonly></input>\n                </div>\n\n            </div>\n            <div class="share-embed share-window">\n                <div>\n                    <p>\n                        <i class="icon-info-sign"></i> Use this snippet of code to showcase your Zeega on your own site.\n                    </p>\n                </div>\n                <div>\n                    <input class="text-box" type="text" value=\'<iframe src="'+
+( webRoot )+
+''+
+( item_id )+
+'/embed" width="100%" height="100%" webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe>\'></input>\n                </div>\n                \n            </div>\n        </div>\n\n        <div class="share-tabs">\n            <ul>\n                <li>\n                    <a href="#" class="share-zeega active">Share your Zeega</a>\n                </li>\n                <li>\n                    <a href="#" class="embed-zeega">Embed</a>\n                </li>\n            </ul>\n        </div>\n\n    </div>\n\n</div>';
 }
 return __p;
 };
@@ -38766,585 +38772,6 @@ zeega.define("main", function(){});
 }());
 define("zeegaplayer", function(){});
 
-// tipsy, facebook style tooltips for jquery
-// version 1.0.0a
-// (c) 2008-2010 jason frame [jason@onehackoranother.com]
-// released under the MIT license
-
-(function($) {
-    
-    function maybeCall(thing, ctx) {
-        return (typeof thing == 'function') ? (thing.call(ctx)) : thing;
-    };
-    
-    function isElementInDOM(ele) {
-      while (ele = ele.parentNode) {
-        if (ele == document) return true;
-      }
-      return false;
-    };
-    
-    function Tipsy(element, options) {
-        this.$element = $(element);
-        this.options = options;
-        this.enabled = true;
-        this.fixTitle();
-    };
-    
-    Tipsy.prototype = {
-        show: function() {
-            var title = this.getTitle();
-            if (title && this.enabled) {
-                var $tip = this.tip();
-                
-                $tip.find('.tipsy-inner')[this.options.html ? 'html' : 'text'](title);
-                $tip[0].className = 'tipsy'; // reset classname in case of dynamic gravity
-                $tip.remove().css({top: 0, left: 0, visibility: 'hidden', display: 'block'}).prependTo(document.body);
-                
-                var pos = $.extend({}, this.$element.offset(), {
-                    width: this.$element[0].offsetWidth,
-                    height: this.$element[0].offsetHeight
-                });
-                
-                var actualWidth = $tip[0].offsetWidth,
-                    actualHeight = $tip[0].offsetHeight,
-                    gravity = maybeCall(this.options.gravity, this.$element[0]);
-                
-                var tp;
-                switch (gravity.charAt(0)) {
-                    case 'n':
-                        tp = {top: pos.top + pos.height + this.options.offset, left: pos.left + pos.width / 2 - actualWidth / 2};
-                        break;
-                    case 's':
-                        tp = {top: pos.top - actualHeight - this.options.offset, left: pos.left + pos.width / 2 - actualWidth / 2};
-                        break;
-                    case 'e':
-                        tp = {top: pos.top + pos.height / 2 - actualHeight / 2, left: pos.left - actualWidth - this.options.offset};
-                        break;
-                    case 'w':
-                        tp = {top: pos.top + pos.height / 2 - actualHeight / 2, left: pos.left + pos.width + this.options.offset};
-                        break;
-                }
-                
-                if (gravity.length == 2) {
-                    if (gravity.charAt(1) == 'w') {
-                        tp.left = pos.left + pos.width / 2 - 15;
-                    } else {
-                        tp.left = pos.left + pos.width / 2 - actualWidth + 15;
-                    }
-                }
-                
-                $tip.css(tp).addClass('tipsy-' + gravity);
-                $tip.find('.tipsy-arrow')[0].className = 'tipsy-arrow tipsy-arrow-' + gravity.charAt(0);
-                if (this.options.className) {
-                    $tip.addClass(maybeCall(this.options.className, this.$element[0]));
-                }
-                
-                if (this.options.fade) {
-                    $tip.stop().css({opacity: 0, display: 'block', visibility: 'visible'}).animate({opacity: this.options.opacity});
-                } else {
-                    $tip.css({visibility: 'visible', opacity: this.options.opacity});
-                }
-            }
-        },
-        
-        hide: function() {
-            if (this.options.fade) {
-                this.tip().stop().fadeOut(function() { $(this).remove(); });
-            } else {
-                this.tip().remove();
-            }
-        },
-        
-        fixTitle: function() {
-            var $e = this.$element;
-            if ($e.attr('title') || typeof($e.attr('original-title')) != 'string') {
-                $e.attr('original-title', $e.attr('title') || '').removeAttr('title');
-            }
-        },
-        
-        getTitle: function() {
-            var title, $e = this.$element, o = this.options;
-            this.fixTitle();
-            var title, o = this.options;
-            if (typeof o.title == 'string') {
-                title = $e.attr(o.title == 'title' ? 'original-title' : o.title);
-            } else if (typeof o.title == 'function') {
-                title = o.title.call($e[0]);
-            }
-            title = ('' + title).replace(/(^\s*|\s*$)/, "");
-            return title || o.fallback;
-        },
-        
-        tip: function() {
-            if (!this.$tip) {
-                this.$tip = $('<div class="tipsy"></div>').html('<div class="tipsy-arrow"></div><div class="tipsy-inner"></div>');
-                this.$tip.data('tipsy-pointee', this.$element[0]);
-            }
-            return this.$tip;
-        },
-        
-        validate: function() {
-            if (!this.$element[0].parentNode) {
-                this.hide();
-                this.$element = null;
-                this.options = null;
-            }
-        },
-        
-        enable: function() { this.enabled = true; },
-        disable: function() { this.enabled = false; },
-        toggleEnabled: function() { this.enabled = !this.enabled; }
-    };
-    
-    $.fn.tipsy = function(options) {
-        
-        if (options === true) {
-            return this.data('tipsy');
-        } else if (typeof options == 'string') {
-            var tipsy = this.data('tipsy');
-            if (tipsy) tipsy[options]();
-            return this;
-        }
-        
-        options = $.extend({}, $.fn.tipsy.defaults, options);
-        
-        function get(ele) {
-            var tipsy = $.data(ele, 'tipsy');
-            if (!tipsy) {
-                tipsy = new Tipsy(ele, $.fn.tipsy.elementOptions(ele, options));
-                $.data(ele, 'tipsy', tipsy);
-            }
-            return tipsy;
-        }
-        
-        function enter() {
-            var tipsy = get(this);
-            tipsy.hoverState = 'in';
-            if (options.delayIn == 0) {
-                tipsy.show();
-            } else {
-                tipsy.fixTitle();
-                setTimeout(function() { if (tipsy.hoverState == 'in') tipsy.show(); }, options.delayIn);
-            }
-        };
-        
-        function leave() {
-            var tipsy = get(this);
-            tipsy.hoverState = 'out';
-            if (options.delayOut == 0) {
-                tipsy.hide();
-            } else {
-                setTimeout(function() { if (tipsy.hoverState == 'out') tipsy.hide(); }, options.delayOut);
-            }
-        };
-        
-        if (!options.live) this.each(function() { get(this); });
-        
-        if (options.trigger != 'manual') {
-            var binder   = options.live ? 'live' : 'bind',
-                eventIn  = options.trigger == 'hover' ? 'mouseenter' : 'focus',
-                eventOut = options.trigger == 'hover' ? 'mouseleave' : 'blur';
-            this[binder](eventIn, enter)[binder](eventOut, leave);
-        }
-        
-        return this;
-        
-    };
-    
-    $.fn.tipsy.defaults = {
-        className: null,
-        delayIn: 0,
-        delayOut: 0,
-        fade: false,
-        fallback: '',
-        gravity: 'n',
-        html: false,
-        live: false,
-        offset: 0,
-        opacity: 0.8,
-        title: 'title',
-        trigger: 'hover'
-    };
-    
-    $.fn.tipsy.revalidate = function() {
-      $('.tipsy').each(function() {
-        var pointee = $.data(this, 'tipsy-pointee');
-        if (!pointee || !isElementInDOM(pointee)) {
-          $(this).remove();
-        }
-      });
-    };
-    
-    // Overwrite this method to provide options on a per-element basis.
-    // For example, you could store the gravity in a 'tipsy-gravity' attribute:
-    // return $.extend({}, options, {gravity: $(ele).attr('tipsy-gravity') || 'n' });
-    // (remember - do not modify 'options' in place!)
-    $.fn.tipsy.elementOptions = function(ele, options) {
-        return $.metadata ? $.extend({}, options, $(ele).metadata()) : options;
-    };
-    
-    $.fn.tipsy.autoNS = function() {
-        return $(this).offset().top > ($(document).scrollTop() + $(window).height() / 2) ? 's' : 'n';
-    };
-    
-    $.fn.tipsy.autoWE = function() {
-        return $(this).offset().left > ($(document).scrollLeft() + $(window).width() / 2) ? 'e' : 'w';
-    };
-    
-    /**
-     * yields a closure of the supplied parameters, producing a function that takes
-     * no arguments and is suitable for use as an autogravity function like so:
-     *
-     * @param margin (int) - distance from the viewable region edge that an
-     *        element should be before setting its tooltip's gravity to be away
-     *        from that edge.
-     * @param prefer (string, e.g. 'n', 'sw', 'w') - the direction to prefer
-     *        if there are no viewable region edges effecting the tooltip's
-     *        gravity. It will try to vary from this minimally, for example,
-     *        if 'sw' is preferred and an element is near the right viewable 
-     *        region edge, but not the top edge, it will set the gravity for
-     *        that element's tooltip to be 'se', preserving the southern
-     *        component.
-     */
-     $.fn.tipsy.autoBounds = function(margin, prefer) {
-		return function() {
-			var dir = {ns: prefer[0], ew: (prefer.length > 1 ? prefer[1] : false)},
-			    boundTop = $(document).scrollTop() + margin,
-			    boundLeft = $(document).scrollLeft() + margin,
-			    $this = $(this);
-
-			if ($this.offset().top < boundTop) dir.ns = 'n';
-			if ($this.offset().left < boundLeft) dir.ew = 'w';
-			if ($(window).width() + $(document).scrollLeft() - $this.offset().left < margin) dir.ew = 'e';
-			if ($(window).height() + $(document).scrollTop() - $this.offset().top < margin) dir.ns = 's';
-
-			return dir.ns + (dir.ew ? dir.ew : '');
-		}
-	};
-    
-})(jQuery);
-
-define("../vendor/tipsy/src/javascripts/jquery.tipsy", function(){});
-
-/*
- * jQuery simple-color plugin
- * @requires jQuery v1.4.2 or later
- *
- * See http://recursive-design.com/projects/jquery-simple-color/
- *
- * Licensed under the MIT license:
- *   http://www.opensource.org/licenses/mit-license.php
- *
- * Version: @VERSION (@DATE)
- */
- (function($) {
-/**
- * simpleColor() provides a mechanism for displaying simple color-pickers.
- *
- * If an options Object is provided, the following attributes are supported:
- *
- *  defaultColor:       Default (initially selected) color.
- *                      Default value: '#FFF'
- *
- *  border:             CSS border properties.
- *                      Default value: '1px solid #000'
- *
- *  cellWidth:          Width of each individual color cell.
- *                      Default value: 10
- *
- *  cellHeight:         Height of each individual color cell.
- *                      Default value: 10
- *
- *  cellMargin:         Margin of each individual color cell.
- *                      Default value: 1
- *
- *  boxWidth:           Width of the color display box.
- *                      Default value: 115px
- *
- *  boxHeight:          Height of the color display box.
- *                      Default value: 20px
- *
- *  columns:            Number of columns to display. Color order may look strange if this is altered.
- *                      Default value: 16
- *
- *  insert:             The position to insert the color picker. 'before' or 'after'.
- *                      Default value: 'after'
- *
- *  colors:             An array of colors to display, if you want to customize the default color set.
- *                      Default value: default color set - see 'default_colors' below.
- *
- *  displayColorCode:   Display the color code (eg #333333) as text inside the button. true or false.
- *                      Default value: false
- *
- *  colorCodeAlign:     Text alignment used to display the color code inside the button. Only used if 'displayColorCode' is true. 'left', 'center' or 'right'
- *                      Default value: 'center'
- *
- *  colorCodeColor:     Text color of the color code inside the button. Only used if 'displayColorCode' is true.
- *                      Default value: '#FFF'
- *
- *  callback:           Callback function to call after a color has been chosen.
- *                      Default value: null
- *                      Returns: Hex Value
- *
- *  onCellEnter:        Callback function that excecutes when a cell is entered by the user's mouse
- *                      Default value: null
- *                      Returns: Hex Value
- *
- *  onClose:            Callback function that executes whenever the chooser is closed
- *                      Default value: null
- *
- *  livePreview:        The color display will change to show the color of the hovered color cell.
- *                      The display will revert if no color is selected.
- *                      Default value: false
- */
-  $.fn.simpleColor = function(options) {
-
-    var default_colors = [
-      '990033', 'ff3366', 'cc0033', 'ff0033', 'ff9999', 'cc3366', 'ffccff', 'cc6699',
-      '993366', '660033', 'cc3399', 'ff99cc', 'ff66cc', 'ff99ff', 'ff6699', 'cc0066',
-      'ff0066', 'ff3399', 'ff0099', 'ff33cc', 'ff00cc', 'ff66ff', 'ff33ff', 'ff00ff',
-      'cc0099', '990066', 'cc66cc', 'cc33cc', 'cc99ff', 'cc66ff', 'cc33ff', '993399',
-      'cc00cc', 'cc00ff', '9900cc', '990099', 'cc99cc', '996699', '663366', '660099',
-      '9933cc', '660066', '9900ff', '9933ff', '9966cc', '330033', '663399', '6633cc',
-      '6600cc', '9966ff', '330066', '6600ff', '6633ff', 'ccccff', '9999ff', '9999cc',
-      '6666cc', '6666ff', '666699', '333366', '333399', '330099', '3300cc', '3300ff',
-      '3333ff', '3333cc', '0066ff', '0033ff', '3366ff', '3366cc', '000066', '000033',
-      '0000ff', '000099', '0033cc', '0000cc', '336699', '0066cc', '99ccff', '6699ff',
-      '003366', '6699cc', '006699', '3399cc', '0099cc', '66ccff', '3399ff', '003399',
-      '0099ff', '33ccff', '00ccff', '99ffff', '66ffff', '33ffff', '00ffff', '00cccc',
-      '009999', '669999', '99cccc', 'ccffff', '33cccc', '66cccc', '339999', '336666',
-      '006666', '003333', '00ffcc', '33ffcc', '33cc99', '00cc99', '66ffcc', '99ffcc',
-      '00ff99', '339966', '006633', '336633', '669966', '66cc66', '99ff99', '66ff66',
-      '339933', '99cc99', '66ff99', '33ff99', '33cc66', '00cc66', '66cc99', '009966',
-      '009933', '33ff66', '00ff66', 'ccffcc', 'ccff99', '99ff66', '99ff33', '00ff33',
-      '33ff33', '00cc33', '33cc33', '66ff33', '00ff00', '66cc33', '006600', '003300',
-      '009900', '33ff00', '66ff00', '99ff00', '66cc00', '00cc00', '33cc00', '339900',
-      '99cc66', '669933', '99cc33', '336600', '669900', '99cc00', 'ccff66', 'ccff33',
-      'ccff00', '999900', 'cccc00', 'cccc33', '333300', '666600', '999933', 'cccc66',
-      '666633', '999966', 'cccc99', 'ffffcc', 'ffff99', 'ffff66', 'ffff33', 'ffff00',
-      'ffcc00', 'ffcc66', 'ffcc33', 'cc9933', '996600', 'cc9900', 'ff9900', 'cc6600',
-      '993300', 'cc6633', '663300', 'ff9966', 'ff6633', 'ff9933', 'ff6600', 'cc3300',
-      '996633', '330000', '663333', '996666', 'cc9999', '993333', 'cc6666', 'ffcccc',
-      'ff3333', 'cc3333', 'ff6666', '660000', '990000', 'cc0000', 'ff0000', 'ff3300',
-      'cc9966', 'ffcc99', 'ffffff', 'cccccc', '999999', '666666', '333333', '000000',
-      '000000', '000000', '000000', '000000', '000000', '000000', '000000', '000000'
-    ];
-
-    // Option defaults
-    options = $.extend({
-      defaultColor:     this.attr('defaultColor') || '#FFF',
-      border:           this.attr('border') || '1px solid #000',
-      cellWidth:        this.attr('cellWidth') || 10,
-      cellHeight:       this.attr('cellHeight') || 10,
-      cellMargin:       this.attr('cellMargin') || 1,
-      boxWidth:         this.attr('boxWidth') || '115px',
-      boxHeight:        this.attr('boxHeight') || '20px',
-      columns:          this.attr('columns') || 16,
-      insert:           this.attr('insert') || 'after',
-      buttonClass:      this.attr('buttonClass') || '',
-      colors:           this.attr('colors') || default_colors,
-      displayColorCode: this.attr('displayColorCode') || false,
-      colorCodeAlign:   this.attr('colorCodeAlign') || 'center',
-      colorCodeColor:   this.attr('colorCodeColor') || '#FFF',
-      callback: null,
-      onCellEnter: null,
-      onClose: null,
-      livePreview: false
-    }, options || {});
-
-    // Hide the input
-    this.hide();
-
-    // Figure out the cell dimensions
-    options.totalWidth = options.columns * (options.cellWidth + (2 * options.cellMargin));
-    if ($.browser.msie) {
-      options.totalWidth += 2;
-    }
-
-    options.totalHeight = Math.ceil(options.colors.length / options.columns) * (options.cellHeight + (2 * options.cellMargin));
-
-    // Store these options so they'll be available to the other functions
-    // TODO - must be a better way to do this, not sure what the 'official'
-    // jQuery method is. Ideally i want to pass these as a parameter to the 
-    // each() function but i'm not sure how
-    $.simpleColorOptions = options;
-
-    function buildSelector(index) {
-      options = $.simpleColorOptions;
-
-      // Create a container to hold everything
-      var container = $("<div class='simpleColorContainer' />");
-      
-      // Absolutely positioned child elements now 'work'.
-      container.css('position', 'relative');
-
-      // Create the color display box
-      var default_color = (this.value && this.value != '') ? this.value : options.defaultColor;
-
-      var display_box = $("<div class='simpleColorDisplay' />");
-      display_box.css({
-        'backgroundColor': default_color,
-        'border': options.border,
-        'width':           options.boxWidth,
-        'height':          options.boxHeight,
-        // Make sure that the code is vertically centered.
-        'line-height':     options.boxHeight,
-        'cursor':          'pointer'
-      });
-      container.append(display_box);
-      
-      // If 'displayColorCode' is turned on, display the currently selected color code as text inside the button.
-      if (options.displayColorCode) {
-        display_box.text(this.value);
-        display_box.css({
-          'color':     options.colorCodeColor,
-            'textAlign': options.colorCodeAlign
-        });
-      }
-      
-      var select_callback = function (event) {
-
-        // bind and namespace the click listener only when the chooser is displayed
-        // unbind when the chooser is closed
-        $('html').bind("click.simpleColorDisplay", function(e) {
-
-          $('html').unbind("click.simpleColorDisplay");
-          $('.simpleColorChooser').hide();
-
-          // if the user has not selected a new color, then revert the display
-          // makes sure the selected cell is within the current color selector
-          if (!$(e.target).hasClass("simpleColorCell")||!$.contains( $(event.target).closest(".simpleColorContainer")[0], $(e.target)[0] )) {
-            display_box.css('backgroundColor', default_color);
-            if (options.displayColorCode) {
-              display_box.text(default_color);
-            }
-          }
-          // execute onClose callback whenever the color chooser is closed
-          if (options.onClose) {
-            options.onClose();
-          }
-        });
-
-        // Use an existing chooser if there is one
-        if (event.data.container.chooser) {
-          event.data.container.chooser.toggle();
-      
-        // Build the chooser.
-        } else {
-
-          // Make a chooser div to hold the cells
-          var chooser = $("<div class='simpleColorChooser'/>");
-          chooser.css({
-            'border':   options.border,
-            'margin':   '0 0 0 5px',
-            'width':    options.totalWidth,
-            'height':   options.totalHeight,
-            'top':      0,
-            'left':     options.boxWidth,
-            'position': 'absolute'
-          });
-      
-          event.data.container.chooser = chooser;
-          event.data.container.append(chooser);
-      
-          // Create the cells
-          for (var i=0; i<options.colors.length; i++) {
-            var cell = $("<div class='simpleColorCell' id='" + options.colors[i] + "'/>");
-            cell.css({
-              'width':           options.cellWidth + 'px',
-              'height':          options.cellHeight + 'px',
-              'margin':          options.cellMargin + 'px',
-              'cursor':          'pointer',
-              'lineHeight':      options.cellHeight + 'px',
-              'fontSize':        '1px',
-              'float':           'left',
-              'backgroundColor': '#'+options.colors[i]
-            });
-            chooser.append(cell);
-
-            if (options.onCellEnter||options.livePreview) {
-              cell.bind('mouseenter', function(event) {
-                if (options.onCellEnter) {
-                  options.onCellEnter(this.id)
-                }
-                if (options.livePreview) {
-                  display_box.css('backgroundColor', '#' + this.id);
-                  if (options.displayColorCode) {
-                    display_box.text('#' + this.id);
-                  }
-                }
-              });
-            }
-
-            cell.bind('click', {
-              input: event.data.input, 
-              chooser: chooser, 
-              display_box: display_box
-            }, 
-            function(event) {
-              event.data.input.value = '#' + this.id;
-              $(event.data.input).change();
-              event.data.display_box.css('backgroundColor', '#' + this.id);
-              event.data.chooser.hide();
-              event.data.display_box.show();
-
-              // If 'displayColorCode' is turned on, display the currently selected color code as text inside the button.
-              if (options.displayColorCode) {
-                event.data.display_box.text('#' + this.id);
-              }
-
-              // If a callback function is defined then excecute it.
-              if (options.callback) {
-                options.callback(this.id);
-              }
-
-            });
-          }
-        }
-      };
-      
-      var callback_params = {
-        container: container, 
-        input: this, 
-        display_box: display_box
-      };
-
-      // Also bind the display box button to display the chooser.
-      display_box.bind('click', callback_params, select_callback);
-
-      $(this).after(container);
-
-    };
-
-    this.each(buildSelector);
-
-        $('.simpleColorDisplay').each(function() {
-            $(this).click(function(e){
-                e.stopPropagation();
-            });
-        });
-
-    return this;
-  };
-
-  /*
-   * Close the given color selectors
-   */
-  $.fn.closeSelector = function() {
-    this.each( function(index) {
-      var container = $(this).parent().find('div.simpleColorContainer');
-      container.find('.simpleColorChooser').hide();
-      container.find('.simpleColorDisplay').show();
-    });
-
-    return this;
-  };
-
-})(jQuery);
-
-define("../vendor/simple-color-picker/src/jquery.simple-color", function(){});
-
 var jam = {
     "packages": [
         {
@@ -56476,6 +55903,7 @@ define('app',[
     // creation.
     var app = {
         // The root path to run the application.
+        attributes: { mobile: false },
 
         parserPath: "app/zeega-parser/",
         dragging: null,
@@ -56659,7 +56087,6 @@ function( app ) {
         template: "project-head",
 
         serialize: function() {
-
             var tumblr_share,
                 tumblr_caption;
 
@@ -56710,8 +56137,6 @@ function( app ) {
                             "&click_thru="+ encodeURIComponent( app.webRoot ) + app.project.get("item_id");
             this.$("#tumblr-share").attr("href", "http://www.tumblr.com/share/photo?" + tumblr_share );
 
-
-
         },
 
         events: {
@@ -56721,8 +56146,21 @@ function( app ) {
             "click .project-preview": "projectPreview",
 
             "click .close-grave": "closeGrave",
-            "mousedown .text-box": "onBoxFocus"
+            "mousedown .text-box": "onBoxFocus",
+            "click .share-zeega": "showShare",
+            "click .embed-zeega": "showEmbed",
+            "keyup #project-caption": "onCaptionKeypress"
             // "click .project-share-toggle": "toggleShare",
+        },
+
+        showEmbed: function() {
+            this.$(".share-zeega, .share-network").removeClass("active");
+            this.$(".embed-zeega, .share-embed").addClass("active");
+        },
+
+        showShare: function() {
+            this.$(".embed-zeega, .share-embed").removeClass("active");
+            this.$(".share-zeega, .share-network").addClass("active");
         },
 
         onBoxFocus: function( e ) {
@@ -56739,11 +56177,12 @@ function( app ) {
 
             if( !this.$(".share-grave").is(":visible") ) {
                 this.model.project.save( "publish_update", 1 );
+                app.trigger("grave_open");
+            } else {
+                app.trigger("grave_closed")
             }
             this.$(".share-grave").slideToggle("fast");
         },
-
-
 
         onTitleKeyup: function( e ) {
             if ( e.which == 13 ) {
@@ -56751,6 +56190,15 @@ function( app ) {
                 return false;
             }
         },
+
+        onCaptionKeypress: function( e ) {
+            this.captionSave();
+        },
+
+        captionSave: _.debounce(function() {
+            console.log("save!!", this, this.$("#project-caption").val() )
+            this.model.project.save("description", this.$("#project-caption").val() );
+        }, 1000 ),
 
         onMenuClick: function( e ) {
             var $target = $(e.target).closest("a");
@@ -56764,9 +56212,7 @@ function( app ) {
             var projectData = app.project.getProjectJSON();
 
             app.zeegaplayer = null;
-
             app.trigger("project_preview");
-            
             this.model.project.save( "publish_update", 1 );
             
             app.zeegaplayer = new Zeega.player({
@@ -56794,6 +56240,7 @@ function( app ) {
 
         stopListeningToPlayer: function() {
             $("body").unbind("keyup.player");
+            app.trigger("project_preview_ended");
         },
 
         onBlur: function() {
@@ -73151,8 +72598,7 @@ function( app ) {
         el: $("body"),
 
         step: 0,
-        //template: "instructions",
-        //className: "ZEEGA-instructions",
+        ended: false,
 
         initialize: function() {
             var isEmpty =  app.project.sequences.length == 1 &&
@@ -73164,133 +72610,359 @@ function( app ) {
             }
         },
 
-        // drag from here to here
+        events: {
+            "click .close-ins": "cancelInstructions"
+        },
+
+        cancelInstructions: function() {
+            $(".instruction").remove();
+            this.ended = true;
+        },
+
+
         startIntroSequence: function() {
-            $("body")
-                .prepend("<img class='intro-sequence intro-00' src='assets/img/intro-00.png' width='100%' />")
-                .prepend("<img class='intro-sequence intro-01' src='assets/img/intro-01.png' width='100%' />");
+            if ( !this.ended ) {
+                var $first, $second;
 
-            app.once("item_dropped", function( e ) {
-                $(".intro-01").fadeOut(function() {
-                    $(".intro-00, .intro-01").remove();
-                    this.step2();
-                }.bind( this ));
-                $(".intro-00").fadeOut(function() {
-                    $(".intro-00, .intro-01").remove();
-                }.bind( this ));
-            }, this );
+                $first = this.insertInstructions({
+                    target: $(".ZEEGA-items"),
+                    direction: "l",
+                    content: "Drag stuff from here…",
+                    close: false,
+                    progress: null
+                });
+                $second = this.insertInstructions({
+                    target: $(".ZEEGA-workspace"),
+                    direction: "r",
+                    color: "red",
+                    content: "…to here",
+                    close: true,
+                    progress: "1/4",
+                    avoid: $first
+                });
+
+                app.once("item_dropped", function( e ) {
+                    $first.fadeOut(function() {
+                        $first.remove();
+                        this.step2();
+                    }.bind( this ));
+                    $second.fadeOut(function() {
+                        $second.remove();
+                    });
+                }, this );
+            }
+            
         },
 
-        // create a new page
+        // Now pick a soundtrack for your Zeega. Click here to explore soundcloud.
         step2: function() {
-            $("body").prepend("<img class='intro-sequence intro-02' src='assets/img/intro-02.png' width='100%' />");
+            if ( !this.ended ) {
+                var $first = this.insertInstructions({
+                    target: $(".socialz-soundcloud"),
+                    direction: "l",
+                    content: "Now pick a soundtrack for your Zeega. Click here to explore soundcloud.",
+                    close: true,
+                    progress: "2/4"
+                });
 
-            app.once("page_added", function( e ) {
-                $(".intro-02").fadeOut(function() {
-                    $(".intro-02").remove();
-                    this.step3();
-                }.bind( this ));
-            }, this );
+                app.once("media_drawer_toggle", function( api ) {
+                    if ( api == "Soundcloud" ) {
+                        $first.fadeOut(function() {
+                            $first.remove();
+                            this.step3();
+                        }.bind( this ));
+                    }
+
+                }, this );
+            }
         },
 
-        // drag from here to here
+        // Drag a sound from here to here (Pro-tip: You can also search for sounds on Soundcloud here (w an arrow)
         step3: function() {
-            $("body")
-                .prepend("<img class='intro-sequence intro-03' src='assets/img/intro-03.png' width='100%' />")
-                .prepend("<img class='intro-sequence intro-01' src='assets/img/intro-01.png' width='100%' />");
+            if ( !this.ended ) {
+                var $first, $second;
 
-            app.once("item_dropped", function( e ) {
-                $(".intro-01").fadeOut(function() {
-                    $(".intro-00, .intro-01").remove();
-                    this.step4();
-                }.bind( this ));
-                $(".intro-03").fadeOut(function() {
-                    $(".intro-03").remove();
-                }.bind( this ));
-            }, this );
+                $first = this.insertInstructions({
+                    target: $(".ZEEGA-items"),
+                    direction: "l",
+                    content: "Drag stuff from here…",
+                    close: false,
+                    progress: null,
+                    topDiv: 4
+                });
+                $second = this.insertInstructions({
+                    target: $(".soundtrack"),
+                    direction: "l",
+                    color: "red",
+                    content: "…to here",
+                    close: true,
+                    progress: "3/4",
+                    avoid: $first
+                });
+
+                app.once("soundtrack_added", function( e ) {
+                    $first.fadeOut(function() {
+                        $first.remove();
+                        this.step4();
+                    }.bind( this ));
+                    $second.fadeOut(function() {
+                        $second.remove();
+                    });
+                }, this );
+            }
         },
 
-        // create a new hotspot
         step4: function() {
-            $("body").prepend("<img class='intro-sequence intro-04' src='assets/img/intro-04.png' width='100%' />");
+            if ( !this.ended ) {
+                var $first = this.insertInstructions({
+                    target: $(".project-preview"),
+                    direction: "r",
+                    content: "Click here to see what you’ve made so far!",
+                    close: true,
+                    progress: "4/4"
+                });
 
-            app.once("layer_type_added", function( type ) {
-
-                if ( type == "Link" ) {
-                    $(".intro-04").fadeOut(function() {
-                        $(".intro-04").remove();
+                app.once("project_preview", function( e ) {
+                    $first.fadeOut(function() {
+                        $first.remove();
                         this.step5();
                     }.bind( this ));
-                }
-            }, this );
+                }, this );
+            }
         },
 
-        // link to a new page
         step5: function() {
-            $("body").prepend("<img class='intro-sequence intro-05' src='assets/img/intro-05.png' width='100%' />");
+            if ( !this.ended ) {
+                var $first = this.insertInstructions({
+                    target: $(".ZEEGA-close"),
+                    parent: "body",
+                    direction: "r",
+                    content: "Hit ESC or click X to return to the editor",
+                    close: false
+                });
 
-            app.once("page_added", function( e ) {
-                $(".intro-05").fadeOut(function() {
-                    $(".intro-05").remove();
-                    this.step6();
-                }.bind( this ));
-            }, this );
-        },
-
-        // drag from here to here
-        step6: function() {
-            $("body")
-                .prepend("<img class='intro-sequence intro-03' src='assets/img/intro-03.png' width='100%' />")
-                .prepend("<img class='intro-sequence intro-01' src='assets/img/intro-01.png' width='100%' />");
-
-            app.once("item_dropped", function( e ) {
-                $(".intro-03").fadeOut(function() {
-                    $(".intro-03").remove();
-                }.bind( this ));
-                $(".intro-01").fadeOut(function() {
-                    $(".intro-00, .intro-01").remove();
-                    this.step7();
-                }.bind( this ));
-            }, this );
-        },
-
-        // switch to soundcloud
-        step7: function() {
-            $("body").prepend("<img class='intro-sequence intro-06' src='assets/img/intro-06.png' width='100%' />");
-
-            app.once("media_drawer_toggle", function( api ) {
-
-                if ( api == "Soundcloud" ) {
-                    $(".intro-06").fadeOut(function() {
-                        $(".intro-06").remove();
-                        this.step8();
+                app.once("project_preview_ended", function( e ) {
+                    $first.fadeOut(function() {
+                        $first.remove();
+                        this.step6();
                     }.bind( this ));
+                }, this );
+            }
+        },
+
+        // Now “share” what you’ve made!
+        step6: function() {
+            if ( !this.ended ) {
+                var $first = this.insertInstructions({
+                    target: $(".project-share"),
+                    direction: "r",
+                    content: "Now “share” what you’ve made!",
+                    close: true
+                });
+                $second = this.insertInstructions({
+                    target: $(".add-frame"),
+                    direction: "r",
+                    color: "red",
+                    content: "…or add a new page and keep creating",
+                    close: true,
+                    progress: "3/4",
+                    avoid: $first
+                });
+
+                app.once("grave_open page_added", function( e ) {
+                    $first.fadeOut(function() {
+                        $first.remove();
+                    }.bind( this ));
+                    $second.fadeOut(function() {
+                        $second.remove();
+                    }.bind( this ));
+                }, this );
+            }
+        },
+
+        insertInstructions: function( opts ) {
+            var $instruction, $small, css;
+
+            $instruction = $("<div>")
+                .addClass("instruction")
+                .addClass( opts.direction ? "ins-" + opts.direction : "ins-l")
+                .text( opts.content );
+
+            $small = $("<small>");
+            if ( opts.progress ) {
+                $small.text(opts.progress);
+            }
+            if ( opts.close ) {
+                $small.append("  [<a href='#' class='close-ins'>close</a>]");
+            }
+            $instruction.append( $small );
+
+            if ( opts.color ) {
+                $instruction.addClass("ins-" + opts.color );
+            }
+
+            $instruction.css({
+                top: ( opts.target.offset().top + ( opts.target.height() / (opts.topDiv || 2) ) - 21 ),
+                left: "-1000%"
+            });
+
+            if ( opts.avoid ) {
+                var avoidTop, potentialTop;
+
+                avoidTop = opts.avoid.offset().top;
+                potentialTop = ( opts.target.height() / 2 ) + opts.target.offset().top - 21;
+
+                if ( potentialTop <= avoidTop + 62 && potentialTop >= avoidTop - 62 ) {
+                    $instruction.css("top", avoidTop + 62 );
                 }
+                
+            }
 
-            }, this );
-        },
+            if ( opts.parent ) {
+                $( opts.parent ).prepend( $instruction );
+            } else {
+                $("#main").prepend( $instruction );
+            }
+            css = {};
+            if ( opts.direction == "r" ) {
+                css.left = opts.target.offset().left - $instruction.width() - 20 - 15 ; 
+            } else {
+                css.left = opts.target.offset().left + opts.target.width() + 15;
+            }
 
-        // add a soundtrack
-        step8 : function() {
-            $("body").prepend("<img class='intro-sequence intro-07' src='assets/img/intro-07.png' width='100%' />");
+            $instruction.css( css );
 
-            app.once("soundtrack_added", function( e ) {
-                $(".intro-07").fadeOut(function() {
-                    $(".intro-07").remove();
-                    this.step9();
-                }.bind( this ));
-            }, this );
-        },
-
-        step9 : function() {
-            $("body").prepend("<img class='intro-sequence intro-08' src='assets/img/intro-08.png' width='100%' />");
-
-            app.once("project_preview", function( e ) {
-                $(".intro-08").fadeOut(function() {
-                    $(".intro-08").remove();
-                }.bind( this ));
-            }, this );
+            return $instruction;
         }
+
+
+        // // drag from here to here
+        // startIntroSequence: function() {
+        //     $("body")
+        //         .prepend("<img class='intro-sequence intro-00' src='assets/img/intro-00.png' width='100%' />")
+        //         .prepend("<img class='intro-sequence intro-01' src='assets/img/intro-01.png' width='100%' />");
+
+        //     app.once("item_dropped", function( e ) {
+        //         $(".intro-01").fadeOut(function() {
+        //             $(".intro-00, .intro-01").remove();
+        //             this.step2();
+        //         }.bind( this ));
+        //         $(".intro-00").fadeOut(function() {
+        //             $(".intro-00, .intro-01").remove();
+        //         }.bind( this ));
+        //     }, this );
+        // },
+
+        // // create a new page
+        // step2: function() {
+        //     $("body").prepend("<img class='intro-sequence intro-02' src='assets/img/intro-02.png' width='100%' />");
+
+        //     app.once("page_added", function( e ) {
+        //         $(".intro-02").fadeOut(function() {
+        //             $(".intro-02").remove();
+        //             this.step3();
+        //         }.bind( this ));
+        //     }, this );
+        // },
+
+        // // drag from here to here
+        // step3: function() {
+        //     $("body")
+        //         .prepend("<img class='intro-sequence intro-03' src='assets/img/intro-03.png' width='100%' />")
+        //         .prepend("<img class='intro-sequence intro-01' src='assets/img/intro-01.png' width='100%' />");
+
+        //     app.once("item_dropped", function( e ) {
+        //         $(".intro-01").fadeOut(function() {
+        //             $(".intro-00, .intro-01").remove();
+        //             this.step4();
+        //         }.bind( this ));
+        //         $(".intro-03").fadeOut(function() {
+        //             $(".intro-03").remove();
+        //         }.bind( this ));
+        //     }, this );
+        // },
+
+        // // create a new hotspot
+        // step4: function() {
+        //     $("body").prepend("<img class='intro-sequence intro-04' src='assets/img/intro-04.png' width='100%' />");
+
+        //     app.once("layer_type_added", function( type ) {
+
+        //         if ( type == "Link" ) {
+        //             $(".intro-04").fadeOut(function() {
+        //                 $(".intro-04").remove();
+        //                 this.step5();
+        //             }.bind( this ));
+        //         }
+        //     }, this );
+        // },
+
+        // // link to a new page
+        // step5: function() {
+        //     $("body").prepend("<img class='intro-sequence intro-05' src='assets/img/intro-05.png' width='100%' />");
+
+        //     app.once("page_added", function( e ) {
+        //         $(".intro-05").fadeOut(function() {
+        //             $(".intro-05").remove();
+        //             this.step6();
+        //         }.bind( this ));
+        //     }, this );
+        // },
+
+        // // drag from here to here
+        // step6: function() {
+        //     $("body")
+        //         .prepend("<img class='intro-sequence intro-03' src='assets/img/intro-03.png' width='100%' />")
+        //         .prepend("<img class='intro-sequence intro-01' src='assets/img/intro-01.png' width='100%' />");
+
+        //     app.once("item_dropped", function( e ) {
+        //         $(".intro-03").fadeOut(function() {
+        //             $(".intro-03").remove();
+        //         }.bind( this ));
+        //         $(".intro-01").fadeOut(function() {
+        //             $(".intro-00, .intro-01").remove();
+        //             this.step7();
+        //         }.bind( this ));
+        //     }, this );
+        // },
+
+        // // switch to soundcloud
+        // step7: function() {
+        //     $("body").prepend("<img class='intro-sequence intro-06' src='assets/img/intro-06.png' width='100%' />");
+
+        //     app.once("media_drawer_toggle", function( api ) {
+
+        //         if ( api == "Soundcloud" ) {
+        //             $(".intro-06").fadeOut(function() {
+        //                 $(".intro-06").remove();
+        //                 this.step8();
+        //             }.bind( this ));
+        //         }
+
+        //     }, this );
+        // },
+
+        // // add a soundtrack
+        // step8 : function() {
+        //     $("body").prepend("<img class='intro-sequence intro-07' src='assets/img/intro-07.png' width='100%' />");
+
+        //     app.once("soundtrack_added", function( e ) {
+        //         $(".intro-07").fadeOut(function() {
+        //             $(".intro-07").remove();
+        //             this.step9();
+        //         }.bind( this ));
+        //     }, this );
+        // },
+
+        // step9 : function() {
+        //     $("body").prepend("<img class='intro-sequence intro-08' src='assets/img/intro-08.png' width='100%' />");
+
+        //     app.once("project_preview", function( e ) {
+        //         $(".intro-08").fadeOut(function() {
+        //             $(".intro-08").remove();
+        //         }.bind( this ));
+        //     }, this );
+        // }
         
     });
 
@@ -74185,9 +73857,7 @@ function( app, ProjectHead, Sequences, Frames, Workspace, Layers, LayerDrawer, S
                 el: this.$(".media-drawer")
             }).render();
 
-            this.instructions = new Instructions();
-
-            this.initTips();
+            this.onLayoutReady();
         },
 
         listenForKeys: function() {
@@ -74198,17 +73868,22 @@ function( app, ProjectHead, Sequences, Frames, Workspace, Layers, LayerDrawer, S
             // window.onbeforeunload = function() { return "Do you really want to navigate away??"; }
         },
 
+        onLayoutReady: function() {
+            _.delay(function(){
+                this.initTips();
+                this.instructions = new Instructions();
+            }.bind( this ), 1000);
+        },
+
         initTips: function() {
             // see http://onehackoranother.com/projects/jquery/tipsy/ for docs
-            _.delay(function(){
-                $("[title]").tipsy({
+            $("[title]").tipsy({
 
-                    fade: true,
-                    gravity: function() {
-                        return $(this).data("gravity") || "s";
-                    }
-                });
-            }, 1000);
+                fade: true,
+                gravity: function() {
+                    return $(this).data("gravity") || "s";
+                }
+            });
         },
 
         copyLayer: function() {
@@ -79052,7 +78727,6 @@ function( app, ItemView ) {
                     top: 20
                 },
                 helper: function( e ) {
-
                     
                     return $(this).find(".item-thumb img").clone().addClass("item-dragging");
                 },
@@ -79464,7 +79138,7 @@ define('modules/views/media-collection-view',[
 function( app, UploadView, Spinner ) {
 
     var Media = {
-        Zeega:{},
+        Zeega: {},
         Instagram: {},
         Flickr: {},
         Soundcloud: {},
@@ -79522,14 +79196,11 @@ function( app, UploadView, Spinner ) {
                 $(".media-collection-search").show();
             }
 
-            
-            
         },
 
         //extend this function
         _afterRender: function(){
-            
-           
+
         },
 
         renderItems: function() {
@@ -79558,7 +79229,6 @@ function( app, UploadView, Spinner ) {
                 this.$(".media-collection-headline").hide();
             }
 
-
             this.spinner.stop();
             this.busy = false;
         },
@@ -79583,8 +79253,6 @@ function( app, UploadView, Spinner ) {
         },
 
         search: function( query ) {
-
-
             this.busy = true;
 
             this.model.search( query );
@@ -80754,9 +80422,9 @@ require.config({
   // generated configuration file.
 
   // Release
- deps: [ "../vendor/tipsy/src/javascripts/jquery.tipsy", "../vendor/simple-color-picker/src/jquery.simple-color", "zeegaplayer", "../vendor/jam/require.config", "main", "spin"],
+//  deps: [ "../vendor/tipsy/src/javascripts/jquery.tipsy", "../vendor/simple-color-picker/src/jquery.simple-color", "zeegaplayer", "../vendor/jam/require.config", "main", "spin"],
 
- // deps: ["zeegaplayer", "../vendor/jam/require.config", "main", "spin"],
+  deps: ["zeegaplayer", "../vendor/jam/require.config", "main", "spin"],
 
 
   paths: {
@@ -80777,7 +80445,6 @@ require.config({
     spin: "../assets/js/libs/spin",
     tipsy: "../vendor/tipsy/src/javascripts/jquery.tipsy",
     swfObject: "../app/zeega-parser/vendor/swfobject"
-
   },
 
   shim: {

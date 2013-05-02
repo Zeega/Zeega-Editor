@@ -10,6 +10,7 @@ define([
     // creation.
     var app = {
         // The root path to run the application.
+        attributes: { mobile: false },
 
         parserPath: "app/zeega-parser/",
         dragging: null,

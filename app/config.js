@@ -28,7 +28,6 @@ require.config({
     spin: "../assets/js/libs/spin",
     tipsy: "../vendor/tipsy/src/javascripts/jquery.tipsy",
     swfObject: "../app/zeega-parser/vendor/swfobject"
-
   },
 
   shim: {

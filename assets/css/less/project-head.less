@@ -11,6 +11,18 @@
         .clearfix();
     }
 
+    .new-zeega {
+        margin-right: 2px;
+        padding: 5px 10px 0px;
+        vertical-align: middle;
+        margin-top: 6px;
+        background-color: orangered;
+
+        &:hover {
+            background-color: orange;
+        }
+    }
+
     .project-info {
         float: left;
 
@@ -52,13 +64,113 @@
     display: none;
     box-shadow: inset 0px 5px 5px rgba(0,0,0,0.25);
     padding: 10px;
+    min-width: 960px;
     .clearfix;
 
-    .text-box {
-        font-size: 80%;
+    .grave-inner {
+        margin: 0 40px;
+        font-size: 13px;
+        width: 960px;
+        margin: 0 auto;
+        .clearfix;
+
+        .share-meta {
+            width: 380px;
+            height: 100px;
+            background: white;
+            border-radius: 2px;
+            float: left;
+            padding: 10px;
+
+            .project-cover {
+                background-color: black;
+                height: 100px;
+                width: 150px;
+                position: absolute;
+            }
+
+            .caption-side {
+                position: relative;
+                width: 218px;
+                float: right;
+                height: 100px;
+                
+                textarea {
+                    float: right;
+                    margin: 0px;
+                    width: 208px;
+                    height: 68px;
+                    border: none;
+                    outline: 1px dotted #ccc;
+                    padding: 5px;
+                    resize:none;
+                }
+                .caption-info {
+                    position: absolute;
+                    bottom: 0;
+                    color: #ccc;
+                }
+            }
+        }
+
+        .share-tabs {
+            float: right;
+            text-align: right;
+
+            a {
+                border-radius: 2px 0 0 2px;
+                color: #222;
+                padding: 3px 10px;
+                display: block;
+                font-weight: bold;
+
+                &:hover {
+                    text-decoration: underline;
+                }
+
+                &.active {
+                    background-color: white;
+                }
+            }
+        }
+
+        .share-tab-content {
+            border-radius: 0 2px 2px 2px;
+            background: white;
+            width: 400px;
+            height: 100px;
+            float: right;
+            padding: 10px;
+
+            .share-window {
+                display: none;
+                &.active {
+                    display: block;
+                }
+
+                p {
+                    margin: 0;
+                }
+            }
+
+            .share-window>div {
+                margin-bottom: 20px
+            }
+            .share-window>div:last-child {
+                margin-bottom: 0;
+            }
+        }
+
+        input {
+            width: 90%;
+            display: block;
+        }
+
     }
+
     .close-wrapper {
-        text-align: right;
+        position: absolute;
+        right: 10px;
 
         a {
             color: #555;
