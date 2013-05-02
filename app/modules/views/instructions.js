@@ -202,9 +202,6 @@ function( app ) {
                 .text( opts.content );
 
             $small = $("<small>");
-            if ( opts.progress ) {
-                $small.text(opts.progress);
-            }
             if ( opts.close ) {
                 $small.append("  [<a href='#' class='close-ins'>close</a>]");
             }
