@@ -10,25 +10,38 @@ function( app ) {
         template: "project-head",
 
         serialize: function() {
-            var tumblr_share,
-                tumblr_caption;
-
-            tumblr_caption = "<p><a href='" + app.webRoot + app.project.get("item_id") + "'><strong>Play&nbsp;► " +
-                            app.project.get("title") + "</strong></a></p><p>A Zeega by&nbsp;<a href='" +
-                            app.webRoot + "profile/" + app.project.get("user_id") + "'>" + app.project.get("authors") + "</a></p>";
-
-
-            tumblr_share = "source=" + encodeURIComponent( app.project.get("cover_image") ) +
-                            "&caption=" + encodeURIComponent( tumblr_caption ) +
-                            "&click_thru="+ encodeURIComponent( app.webRoot ) + app.project.get("item_id");
-
             return _.extend({
                 userId: app.userId,
                 userProjects: $.parseJSON( window.userProjects ),
                 webRoot: app.webRoot,
-                tumblr_share: tumblr_share
+                tumblr_share: this.getTumblrShareUrl()
 
             }, this.model.project.toJSON() );
+        },
+
+        getTumblrShareUrl: function() {
+            var html = "<p>" + app.project.get("description") + "</p>" + 
+                "<p><a href='" + app.webRoot + app.project.get("item_id") + "'>" +
+                "<strong>►&nbsp;Play&nbsp;Zeega&nbsp;►</strong></a>" +
+                "</p><p>by&nbsp;<a href='" + app.webRoot + "profile/" + app.project.get("user_id") + "'>" + app.project.get("authors") + "</a></p>";
+
+            return "source=" + encodeURIComponent( app.project.get("cover_image") ) +
+                    "&caption=" + encodeURIComponent( html ) +
+                    "&click_thru="+ encodeURIComponent( app.webRoot ) + app.project.get("item_id");
+        },
+
+        initialize: function() {
+            this.model.project.on("sync", this.onSync, this );
+        },
+
+        onSync: function() {
+            this.$(".share-twitter").attr("href", "https://twitter.com/intent/tweet?original_referer=" + app.webRoot + this.model.project.get("item_id") + "&text=" + this.model.project.get("description") + "&url=" + app.webRoot + this.model.project.get("item_id") );
+            this.$(".share-tumblr").attr("href", "http://www.tumblr.com/share/photo?" + this.getTumblrShareUrl() );
+
+            this.$(".project-cover").css({
+                background: "url(" + this.model.project.get("cover_image") + ")",
+                backgroundSize: "cover"
+            });
         },
 
         afterRender: function() {
