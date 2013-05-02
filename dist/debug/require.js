@@ -434,7 +434,7 @@ __p+='<div class="viewer-preview" style="">\n    <iframe width="100%" height="16
 '?sharing=false&liking=false&download=false&show_comments=false&show_playcount=false&buying=false"></iframe>\n</div>\n<div class="viewer-controls">\n    <a class="add-to-frame" href="#"><i class="icon-download"></i> add to page</a>\n    <a href="'+
 ( attribution_uri )+
 '" target="blank"><i class="icon-share-alt"></i> view original</a>\n   \n     ';
- if( editable == 1  ) { 
+ if( allowDelete == 1  ) { 
 ;__p+='\n            <a class="delete-item" href="#"><i class="icon-remove"></i> delete</a>\n    ';
  } 
 ;__p+='\n\n</div>';
@@ -450,7 +450,7 @@ __p+='<div class="viewer-preview" style="\n    background: url('+
 ');\n    background-size: contain;\n    background-position: 50% 50%;\n    background-repeat: no-repeat;\n"></div>\n<div class="viewer-controls">\n    <a class="add-to-frame" href="#"><i class="icon-download"></i> add to page</a>\n    <a href="'+
 ( attribution_uri )+
 '" target="blank"><i class="icon-share-alt"></i> view original</a>\n    ';
- if( editable == 1  ) { 
+ if( allowDelete == 1  ) { 
 ;__p+='\n        <a class="delete-item" href="#"><i class="icon-remove"></i> delete</a>\n    ';
  } 
 ;__p+='\n</div>';
@@ -466,7 +466,7 @@ __p+='<div class="viewer-preview" style="">\n    <video class="preview-video" sr
 '" controls="true" /></audio>\n</div>\n<div class="viewer-controls">\n    <a class="add-to-frame" href="#"><i class="icon-download"></i> add to page</a>\n    <a href="'+
 ( attribution_uri )+
 '" target="blank"><i class="icon-share-alt"></i> view original</a>\n   \n     ';
- if( editable == 1  ) { 
+ if( allowDelete == 1  ) { 
 ;__p+='\n            <a class="delete-item" href="#"><i class="icon-remove"></i> delete</a>\n    ';
  } 
 ;__p+='\n\n</div>';
@@ -482,7 +482,7 @@ __p+='<div class="viewer-preview" style="">\n    <iframe width="560" height="315
 '" frameborder="0" allowfullscreen></iframe>\n</div>\n<div class="viewer-controls">\n    <a class="add-to-frame" href="#"><i class="icon-download"></i> add to page</a>\n    <a href="'+
 ( attribution_uri )+
 '" target="blank"><i class="icon-share-alt"></i> view original</a>\n   \n     ';
- if( editable == 1  ) { 
+ if( allowDelete == 1  ) { 
 ;__p+='\n            <a class="delete-item" href="#"><i class="icon-remove"></i> delete</a>\n    ';
  } 
 ;__p+='\n\n</div>';
@@ -72616,9 +72616,23 @@ function( app, LayerList ) {
 
         updateListeners: function() {
             if ( app.status.get("previousFrame") ) {
-                app.status.get("previousFrame").layers.off("add", this.onLayerAdd, this );
+                app.status.get("previousFrame").layers.off("add", this.refresh, this );
             }
-            app.status.get("currentFrame").layers.on("add", this.onLayerAdd, this );
+            app.status.get("currentFrame").layers.on("add", this.refresh, this );
+        },
+
+        refresh: function( layerModel ){
+            var layerView = new LayerList({
+                        model: layerModel,
+                        attributes: {
+                            "data-id": layerModel.id || 0
+                        }
+                    });
+
+            this.layerViews.push( layerView );
+            this.renderFrameLayers( this.model.status.get("currentFrame") );
+                            layerView.render();
+
         },
 
         onLayerAdd: function( layerModel, collection ) {
@@ -75966,7 +75980,6 @@ function( app, Controls ) {
         applyVisualProperties: function() {
             var mediaTargetCSS = {},
                 containerCSS = {};
-console.log("vp", this.model.get("type"), this.visualProperties)
             _.each( this.visualProperties, function( prop ) {
                 if ( _.contains( this.containerAttributes, prop ) ) {
                     containerCSS[ prop ] = this.getAttr( prop ) + ( this.units[ prop ] ? this.units[ prop ] : "" );
@@ -77610,13 +77623,14 @@ function( Zeega, LayerModel, Visual ) {
             citation: true
         },
         controls: [
+        
         ]
     });
 
     Layer.Youtube.Visual = Visual.extend({
 
         template: "youtube/youtube",
-        ignoreFirst: true,
+        //ignoreFirst: true,
         afterRender: function(){
             if( /Android|webOS|iPhone|iPod|BlackBerry/i.test(navigator.userAgent) ) {
                 this.$(".youtube-player").addClass( "mobile" );
@@ -77643,8 +77657,7 @@ function( Zeega, LayerModel, Visual ) {
             } else {
                 this.onApiReady();
             }
-
-            
+ 
         },
 
         onPlayerReady: function(e){
@@ -77652,11 +77665,13 @@ function( Zeega, LayerModel, Visual ) {
         },
 
         onStateChange: function(e){
-            if( /iPad/i.test(navigator.userAgent) && e.data ==2 && this.ignoreFirst ) {
-                this.ignoreFirst = false;
-                this.ytPlayer.playVideo();
-            }
-            else if(e.data == 2 || e.data == 5){
+            // if( /iPad/i.test(navigator.userAgent) && e.data ==2 && this.ignoreFirst ) {
+            //     this.ignoreFirst = false;
+            //     this.ytPlayer.playVideo();
+            // }
+            // else
+
+            if (e.data == 2 || e.data == 5){
                 if( /iPad/i.test(navigator.userAgent) ) {
                     this.$(".ipad-cover").removeClass("visible");
                 }
@@ -78014,11 +78029,24 @@ function( app, Backbone, Layers, ThumbWorker ) {
                 attr: _.extend({}, item.toJSON() )
             });
 
-            newLayer.order[ this.id ] = this.layers.length;
+            if ( newLayer.get("type") == "Youtube" ){
+
+                var oldYoutube = this.layers.find(function(layer){ return layer.get("type") == "Youtube"; });
+                
+                if( oldYoutube ){
+                    this.layers.remove( oldYoutube );
+                }
+                newLayer.order [ this.id ] = 100;
+                newLayer.status = this.status;
+            } else{
+                newLayer.order[ this.id ] = this.layers.length;
+            }
+            
             newLayer.save().success(function( response ) {
-                this.layers.add( newLayer );
-                app.status.setCurrentLayer( newLayer );
-            }.bind( this ));
+                    this.layers.add( newLayer );
+                    app.status.setCurrentLayer( newLayer );
+                }.bind( this ));
+            
         },
 
         pasteLayer: function( layer ) {
@@ -80273,7 +80301,7 @@ function( app, ItemModel, MediaView, ItemCollectionViewer ) {
             
             _.each( photos, function( photo ){
                 photo.id = count;
-                photo.editable = 1;
+                photo.allowDelete = 1;
                 count++;
             });
 

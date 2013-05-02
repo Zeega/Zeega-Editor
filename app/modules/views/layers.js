@@ -48,9 +48,23 @@ function( app, LayerList ) {
 
         updateListeners: function() {
             if ( app.status.get("previousFrame") ) {
-                app.status.get("previousFrame").layers.off("add", this.onLayerAdd, this );
+                app.status.get("previousFrame").layers.off("add", this.refresh, this );
             }
-            app.status.get("currentFrame").layers.on("add", this.onLayerAdd, this );
+            app.status.get("currentFrame").layers.on("add", this.refresh, this );
+        },
+
+        refresh: function( layerModel ){
+            var layerView = new LayerList({
+                        model: layerModel,
+                        attributes: {
+                            "data-id": layerModel.id || 0
+                        }
+                    });
+
+            this.layerViews.push( layerView );
+            this.renderFrameLayers( this.model.status.get("currentFrame") );
+                            layerView.render();
+
         },
 
         onLayerAdd: function( layerModel, collection ) {
