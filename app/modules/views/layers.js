@@ -55,18 +55,16 @@ function( app, LayerList ) {
 
         onLayerAdd: function( layerModel, collection ) {
 
-            if ( !layerModel.getAttr("soundtrack") ) {
-                var layerView = new LayerList({
-                        model: layerModel,
-                        attributes: {
-                            "data-id": layerModel.id || 0
-                        }
-                    });
+            var layerView = new LayerList({
+                    model: layerModel,
+                    attributes: {
+                        "data-id": layerModel.id || 0
+                    }
+                });
 
-                this.layerViews.push( layerView );
-                this.$("ul.layer-list").prepend( layerView.el );
-                layerView.render();
-            }
+            this.layerViews.push( layerView );
+            this.$("ul.layer-list").prepend( layerView.el );
+            layerView.render();
         },
 
         renderFrameLayers: function( frameModel ) {
@@ -74,25 +72,22 @@ function( app, LayerList ) {
             this.updateListeners();
 
             frameModel.layers.each(function( layer, i ) {
+                // only generate layer list views if not cached!
+                if ( !layer._layerListView ) {
+                    var layerView = new LayerList({
+                        model: layer,
+                        attributes: {
+                            "data-id": layer.id
+                        }
+                    });
 
-                if ( !layer.getAttr("soundtrack") ) {
-                    // only generate layer list views if not cached!
-                    if ( !layer._layerListView ) {
-                        var layerView = new LayerList({
-                            model: layer,
-                            attributes: {
-                                "data-id": layer.id
-                            }
-                        });
-
-                        layer._layerListView = layerView;
-                        this.layerViews.push( layerView );
-                    }
-
-                    // prepend because layers come in z-index order
-                    this.$("ul.layer-list").prepend( layer._layerListView.el );
-                    layer._layerListView.render();
+                    layer._layerListView = layerView;
+                    this.layerViews.push( layerView );
                 }
+
+                // prepend because layers come in z-index order
+                this.$("ul.layer-list").prepend( layer._layerListView.el );
+                layer._layerListView.render();
             }, this );
 
             this.makeSortable( frameModel );
