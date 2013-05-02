@@ -4508,7 +4508,7 @@ html {
   color: white;
   position: fixed;
   height: 22px;
-  z-index: 1000;
+  z-index: 50;
   white-space: nowrap;
   font-size: 21px;
 }
@@ -4623,7 +4623,7 @@ html {
   padding: 10px 0;
   font-size: 1.75em;
   color: #555;
-  z-index: 100;
+  z-index: 10;
   position: relative;
   *zoom: 1;
 }

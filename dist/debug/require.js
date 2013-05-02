@@ -667,7 +667,7 @@ __p+='<div class="nav col-left navbar ZEEGA-hmenu clear">\n    <ul class=\'pull-
 ( webRoot )+
 ''+
 ( item_id )+
-'" readonly></input>\n                </div>\n\n            </div>\n            <div class="share-embed share-window">\n                <div>\n                    <p>\n                        <i class="icon-info-sign"></i> Use this snippet of code to showcase your Zeega on your own site.\n                    </p>\n                </div>\n                <div>\n                    <input class="text-box" type="text" value=\'<iframe src="'+
+'" readonly></input>\n                </div>\n\n            </div>\n            <div class="share-embed share-window">\n                <div>\n                    <p>Use this snippet of code to showcase your Zeega on your own site</p>\n                </div>\n                <div>\n                    <input class="text-box" type="text" value=\'<iframe src="'+
 ( webRoot )+
 ''+
 ( item_id )+
@@ -897,7 +897,7 @@ __p+='<div class="modal-content">\n    <div class="modal-title">Edit your text</
 ( attr.content )+
 '</textarea>\n\n        <div class="textarea-info">max 140 characters</div>\n\n        <div class="text-controls clearfix">\n            <div class="color-selector">\n                <input class="simple-color" value="'+
 ( attr.color )+
-'"/>\n            </div>\n            <a href="#" class="btnz btnz-light text-btn-bold"><i class="icon-bold"></i></a>\n            <a href="#" class="btnz btnz-light text-btn-italic"><i class="icon-italic"></i></a>\n            <a href="#" class="btnz btnz-light text-btn-align-left"><i class="icon-align-left"></i></a>\n            <a href="#" class="btnz btnz-light text-btn-align-center"><i class="icon-align-center"></i></a>\n            <a href="#" class="btnz btnz-light text-btn-align-right"><i class="icon-align-right"></i></a>\n\n            <select class="font-list" style=""></select>\n\n            <div class="control-module">\n                <div class="control-title">font size</div>\n                <select class="size-list" style="">\n                    <option value="100">8</option>\n                    <option value="125">10</option>\n                    <option value="150">12</option>\n                    <option value="175">14</option>\n                    <option value="200">18</option>\n                    <option value="250">24</option>\n                    <option value="375">36</option>\n                    <option value="500">48</option>\n                    <option value="800">72</option>\n                    <option value="1600">144</option>\n                    <option value="2400">200</option>\n                    <option value="3600">300</option>\n                </select>\n            </div>\n\n            <div class="control-module">\n                <div class="control-title">line height</div>\n                <select class="line-height-list">\n                    <option value="1">1</option>\n                    <option value="1.25">1.25</option>\n                    <option value="1.5">1.5</option>\n                    <option value="1.75">1.75</option>\n                    <option value="2">2</option>\n                </select>\n            </div>\n\n            <div class="control-module">\n                <div class="control-title">text-position</div>\n                <select class="text-position-list">\n                    <option value="top">top</option>\n                    <option value="middle">middle</option>\n                    <option value="bottom">bottom</option>\n                </select>\n            </div>\n            \n        </div>\n\n        <div class="sample-header">sample</div>\n        <div class="text-sample">'+
+'"/>\n            </div>\n            <a href="#" class="btnz btnz-light text-btn-bold"><i class="icon-bold"></i></a>\n            <a href="#" class="btnz btnz-light text-btn-italic"><i class="icon-italic"></i></a>\n            <a href="#" class="btnz btnz-light text-btn-align-left"><i class="icon-align-left"></i></a>\n            <a href="#" class="btnz btnz-light text-btn-align-center"><i class="icon-align-center"></i></a>\n            <a href="#" class="btnz btnz-light text-btn-align-right"><i class="icon-align-right"></i></a>\n\n            <select class="font-list" style=""></select>\n\n            <div class="control-module">\n                <div class="control-title">font size</div>\n                <select class="size-list" style="">\n                    <option value="100">8</option>\n                    <option value="125">10</option>\n                    <option value="150">12</option>\n                    <option value="175">14</option>\n                    <option value="200">18</option>\n                    <option value="250">24</option>\n                    <option value="375">36</option>\n                    <option value="500">48</option>\n                    <option value="800">72</option>\n                    <option value="1600">144</option>\n                    <option value="2400">200</option>\n                    <option value="3600">300</option>\n                </select>\n            </div>\n\n            <div class="control-module">\n                <div class="control-title">line height</div>\n                <select class="line-height-list">\n                    <option value="1">1</option>\n                    <option value="1.25">1.25</option>\n                    <option value="1.5">1.5</option>\n                    <option value="1.75">1.75</option>\n                    <option value="2">2</option>\n                </select>\n            </div>\n\n            <div class="control-module">\n                <div class="control-title">mobile position</div>\n                <select class="text-position-list">\n                    <option value="top">top</option>\n                    <option value="middle">middle</option>\n                    <option value="bottom">bottom</option>\n                </select>\n            </div>\n            \n        </div>\n\n        <div class="sample-header">sample</div>\n        <div class="text-sample">'+
 ( attr.content )+
 '</div>\n\n        <div class="bottom-chooser clearfix">\n            <a href="#" class="submit btnz btnz-submit">OK</a>\n        </div>\n    </div>\n</div>\n';
 }
@@ -34250,7 +34250,6 @@ function( app, Controls ) {
         applyVisualProperties: function() {
             var mediaTargetCSS = {},
                 containerCSS = {};
-console.log("vp", this.model.get("type"), this.visualProperties)
             _.each( this.visualProperties, function( prop ) {
                 if ( _.contains( this.containerAttributes, prop ) ) {
                     containerCSS[ prop ] = this.getAttr( prop ) + ( this.units[ prop ] ? this.units[ prop ] : "" );
@@ -35894,15 +35893,16 @@ function( Zeega, LayerModel, Visual ) {
             citation: true
         },
         controls: [
+        
         ]
     });
 
     Layer.Youtube.Visual = Visual.extend({
 
         template: "youtube/youtube",
-        ignoreFirst: true,
+        //ignoreFirst: true,
         afterRender: function(){
-            if( /Android|webOS|iPhone|iPod|BlackBerry/i.test(navigator.userAgent) ) {
+            if( /iPhone|iPod/i.test(navigator.userAgent) ) {
                 this.$(".youtube-player").addClass( "mobile" );
             } else if( /iPad/i.test(navigator.userAgent) ) {
                 this.$(".youtube-player").addClass( "ipad" );
@@ -35927,8 +35927,7 @@ function( Zeega, LayerModel, Visual ) {
             } else {
                 this.onApiReady();
             }
-
-            
+ 
         },
 
         onPlayerReady: function(e){
@@ -35936,11 +35935,13 @@ function( Zeega, LayerModel, Visual ) {
         },
 
         onStateChange: function(e){
-            if( /iPad/i.test(navigator.userAgent) && e.data ==2 && this.ignoreFirst ) {
-                this.ignoreFirst = false;
-                this.ytPlayer.playVideo();
-            }
-            else if(e.data == 2 || e.data == 5){
+            // if( /iPad/i.test(navigator.userAgent) && e.data ==2 && this.ignoreFirst ) {
+            //     this.ignoreFirst = false;
+            //     this.ytPlayer.playVideo();
+            // }
+            // else
+
+            if (e.data == 2 || e.data == 5){
                 if( /iPad/i.test(navigator.userAgent) ) {
                     this.$(".ipad-cover").removeClass("visible");
                 }
@@ -36297,12 +36298,28 @@ function( app, Backbone, Layers, ThumbWorker ) {
                 type: item.get("layer_type"),
                 attr: _.extend({}, item.toJSON() )
             });
+            var oldYoutube = this.layers.find(function(layer){ return layer.get("type") == "Youtube"; });
+                
 
-            newLayer.order[ this.id ] = this.layers.length;
+            if ( newLayer.get("type") == "Youtube" ){
+                if( oldYoutube ){
+                    oldYoutube.trigger("remove");
+                    this.layers.remove( oldYoutube, { silent: true } );
+                }
+                newLayer.order [ this.id ] = 100;
+                newLayer.status = this.status;
+            } else{
+                if( oldYoutube ){
+                    oldYoutube.order[ this.id ] = 100;
+                }
+                newLayer.order[ this.id ] = this.layers.length;
+            }
+            
             newLayer.save().success(function( response ) {
-                this.layers.add( newLayer );
-                app.status.setCurrentLayer( newLayer );
-            }.bind( this ));
+                    this.layers.add( newLayer );
+                    app.status.setCurrentLayer( newLayer );
+                }.bind( this ));
+            
         },
 
         pasteLayer: function( layer ) {
@@ -38771,585 +38788,6 @@ function( Zeega ) {
 zeega.define("main", function(){});
 }());
 define("zeegaplayer", function(){});
-
-// tipsy, facebook style tooltips for jquery
-// version 1.0.0a
-// (c) 2008-2010 jason frame [jason@onehackoranother.com]
-// released under the MIT license
-
-(function($) {
-    
-    function maybeCall(thing, ctx) {
-        return (typeof thing == 'function') ? (thing.call(ctx)) : thing;
-    };
-    
-    function isElementInDOM(ele) {
-      while (ele = ele.parentNode) {
-        if (ele == document) return true;
-      }
-      return false;
-    };
-    
-    function Tipsy(element, options) {
-        this.$element = $(element);
-        this.options = options;
-        this.enabled = true;
-        this.fixTitle();
-    };
-    
-    Tipsy.prototype = {
-        show: function() {
-            var title = this.getTitle();
-            if (title && this.enabled) {
-                var $tip = this.tip();
-                
-                $tip.find('.tipsy-inner')[this.options.html ? 'html' : 'text'](title);
-                $tip[0].className = 'tipsy'; // reset classname in case of dynamic gravity
-                $tip.remove().css({top: 0, left: 0, visibility: 'hidden', display: 'block'}).prependTo(document.body);
-                
-                var pos = $.extend({}, this.$element.offset(), {
-                    width: this.$element[0].offsetWidth,
-                    height: this.$element[0].offsetHeight
-                });
-                
-                var actualWidth = $tip[0].offsetWidth,
-                    actualHeight = $tip[0].offsetHeight,
-                    gravity = maybeCall(this.options.gravity, this.$element[0]);
-                
-                var tp;
-                switch (gravity.charAt(0)) {
-                    case 'n':
-                        tp = {top: pos.top + pos.height + this.options.offset, left: pos.left + pos.width / 2 - actualWidth / 2};
-                        break;
-                    case 's':
-                        tp = {top: pos.top - actualHeight - this.options.offset, left: pos.left + pos.width / 2 - actualWidth / 2};
-                        break;
-                    case 'e':
-                        tp = {top: pos.top + pos.height / 2 - actualHeight / 2, left: pos.left - actualWidth - this.options.offset};
-                        break;
-                    case 'w':
-                        tp = {top: pos.top + pos.height / 2 - actualHeight / 2, left: pos.left + pos.width + this.options.offset};
-                        break;
-                }
-                
-                if (gravity.length == 2) {
-                    if (gravity.charAt(1) == 'w') {
-                        tp.left = pos.left + pos.width / 2 - 15;
-                    } else {
-                        tp.left = pos.left + pos.width / 2 - actualWidth + 15;
-                    }
-                }
-                
-                $tip.css(tp).addClass('tipsy-' + gravity);
-                $tip.find('.tipsy-arrow')[0].className = 'tipsy-arrow tipsy-arrow-' + gravity.charAt(0);
-                if (this.options.className) {
-                    $tip.addClass(maybeCall(this.options.className, this.$element[0]));
-                }
-                
-                if (this.options.fade) {
-                    $tip.stop().css({opacity: 0, display: 'block', visibility: 'visible'}).animate({opacity: this.options.opacity});
-                } else {
-                    $tip.css({visibility: 'visible', opacity: this.options.opacity});
-                }
-            }
-        },
-        
-        hide: function() {
-            if (this.options.fade) {
-                this.tip().stop().fadeOut(function() { $(this).remove(); });
-            } else {
-                this.tip().remove();
-            }
-        },
-        
-        fixTitle: function() {
-            var $e = this.$element;
-            if ($e.attr('title') || typeof($e.attr('original-title')) != 'string') {
-                $e.attr('original-title', $e.attr('title') || '').removeAttr('title');
-            }
-        },
-        
-        getTitle: function() {
-            var title, $e = this.$element, o = this.options;
-            this.fixTitle();
-            var title, o = this.options;
-            if (typeof o.title == 'string') {
-                title = $e.attr(o.title == 'title' ? 'original-title' : o.title);
-            } else if (typeof o.title == 'function') {
-                title = o.title.call($e[0]);
-            }
-            title = ('' + title).replace(/(^\s*|\s*$)/, "");
-            return title || o.fallback;
-        },
-        
-        tip: function() {
-            if (!this.$tip) {
-                this.$tip = $('<div class="tipsy"></div>').html('<div class="tipsy-arrow"></div><div class="tipsy-inner"></div>');
-                this.$tip.data('tipsy-pointee', this.$element[0]);
-            }
-            return this.$tip;
-        },
-        
-        validate: function() {
-            if (!this.$element[0].parentNode) {
-                this.hide();
-                this.$element = null;
-                this.options = null;
-            }
-        },
-        
-        enable: function() { this.enabled = true; },
-        disable: function() { this.enabled = false; },
-        toggleEnabled: function() { this.enabled = !this.enabled; }
-    };
-    
-    $.fn.tipsy = function(options) {
-        
-        if (options === true) {
-            return this.data('tipsy');
-        } else if (typeof options == 'string') {
-            var tipsy = this.data('tipsy');
-            if (tipsy) tipsy[options]();
-            return this;
-        }
-        
-        options = $.extend({}, $.fn.tipsy.defaults, options);
-        
-        function get(ele) {
-            var tipsy = $.data(ele, 'tipsy');
-            if (!tipsy) {
-                tipsy = new Tipsy(ele, $.fn.tipsy.elementOptions(ele, options));
-                $.data(ele, 'tipsy', tipsy);
-            }
-            return tipsy;
-        }
-        
-        function enter() {
-            var tipsy = get(this);
-            tipsy.hoverState = 'in';
-            if (options.delayIn == 0) {
-                tipsy.show();
-            } else {
-                tipsy.fixTitle();
-                setTimeout(function() { if (tipsy.hoverState == 'in') tipsy.show(); }, options.delayIn);
-            }
-        };
-        
-        function leave() {
-            var tipsy = get(this);
-            tipsy.hoverState = 'out';
-            if (options.delayOut == 0) {
-                tipsy.hide();
-            } else {
-                setTimeout(function() { if (tipsy.hoverState == 'out') tipsy.hide(); }, options.delayOut);
-            }
-        };
-        
-        if (!options.live) this.each(function() { get(this); });
-        
-        if (options.trigger != 'manual') {
-            var binder   = options.live ? 'live' : 'bind',
-                eventIn  = options.trigger == 'hover' ? 'mouseenter' : 'focus',
-                eventOut = options.trigger == 'hover' ? 'mouseleave' : 'blur';
-            this[binder](eventIn, enter)[binder](eventOut, leave);
-        }
-        
-        return this;
-        
-    };
-    
-    $.fn.tipsy.defaults = {
-        className: null,
-        delayIn: 0,
-        delayOut: 0,
-        fade: false,
-        fallback: '',
-        gravity: 'n',
-        html: false,
-        live: false,
-        offset: 0,
-        opacity: 0.8,
-        title: 'title',
-        trigger: 'hover'
-    };
-    
-    $.fn.tipsy.revalidate = function() {
-      $('.tipsy').each(function() {
-        var pointee = $.data(this, 'tipsy-pointee');
-        if (!pointee || !isElementInDOM(pointee)) {
-          $(this).remove();
-        }
-      });
-    };
-    
-    // Overwrite this method to provide options on a per-element basis.
-    // For example, you could store the gravity in a 'tipsy-gravity' attribute:
-    // return $.extend({}, options, {gravity: $(ele).attr('tipsy-gravity') || 'n' });
-    // (remember - do not modify 'options' in place!)
-    $.fn.tipsy.elementOptions = function(ele, options) {
-        return $.metadata ? $.extend({}, options, $(ele).metadata()) : options;
-    };
-    
-    $.fn.tipsy.autoNS = function() {
-        return $(this).offset().top > ($(document).scrollTop() + $(window).height() / 2) ? 's' : 'n';
-    };
-    
-    $.fn.tipsy.autoWE = function() {
-        return $(this).offset().left > ($(document).scrollLeft() + $(window).width() / 2) ? 'e' : 'w';
-    };
-    
-    /**
-     * yields a closure of the supplied parameters, producing a function that takes
-     * no arguments and is suitable for use as an autogravity function like so:
-     *
-     * @param margin (int) - distance from the viewable region edge that an
-     *        element should be before setting its tooltip's gravity to be away
-     *        from that edge.
-     * @param prefer (string, e.g. 'n', 'sw', 'w') - the direction to prefer
-     *        if there are no viewable region edges effecting the tooltip's
-     *        gravity. It will try to vary from this minimally, for example,
-     *        if 'sw' is preferred and an element is near the right viewable 
-     *        region edge, but not the top edge, it will set the gravity for
-     *        that element's tooltip to be 'se', preserving the southern
-     *        component.
-     */
-     $.fn.tipsy.autoBounds = function(margin, prefer) {
-		return function() {
-			var dir = {ns: prefer[0], ew: (prefer.length > 1 ? prefer[1] : false)},
-			    boundTop = $(document).scrollTop() + margin,
-			    boundLeft = $(document).scrollLeft() + margin,
-			    $this = $(this);
-
-			if ($this.offset().top < boundTop) dir.ns = 'n';
-			if ($this.offset().left < boundLeft) dir.ew = 'w';
-			if ($(window).width() + $(document).scrollLeft() - $this.offset().left < margin) dir.ew = 'e';
-			if ($(window).height() + $(document).scrollTop() - $this.offset().top < margin) dir.ns = 's';
-
-			return dir.ns + (dir.ew ? dir.ew : '');
-		}
-	};
-    
-})(jQuery);
-
-define("../vendor/tipsy/src/javascripts/jquery.tipsy", function(){});
-
-/*
- * jQuery simple-color plugin
- * @requires jQuery v1.4.2 or later
- *
- * See http://recursive-design.com/projects/jquery-simple-color/
- *
- * Licensed under the MIT license:
- *   http://www.opensource.org/licenses/mit-license.php
- *
- * Version: @VERSION (@DATE)
- */
- (function($) {
-/**
- * simpleColor() provides a mechanism for displaying simple color-pickers.
- *
- * If an options Object is provided, the following attributes are supported:
- *
- *  defaultColor:       Default (initially selected) color.
- *                      Default value: '#FFF'
- *
- *  border:             CSS border properties.
- *                      Default value: '1px solid #000'
- *
- *  cellWidth:          Width of each individual color cell.
- *                      Default value: 10
- *
- *  cellHeight:         Height of each individual color cell.
- *                      Default value: 10
- *
- *  cellMargin:         Margin of each individual color cell.
- *                      Default value: 1
- *
- *  boxWidth:           Width of the color display box.
- *                      Default value: 115px
- *
- *  boxHeight:          Height of the color display box.
- *                      Default value: 20px
- *
- *  columns:            Number of columns to display. Color order may look strange if this is altered.
- *                      Default value: 16
- *
- *  insert:             The position to insert the color picker. 'before' or 'after'.
- *                      Default value: 'after'
- *
- *  colors:             An array of colors to display, if you want to customize the default color set.
- *                      Default value: default color set - see 'default_colors' below.
- *
- *  displayColorCode:   Display the color code (eg #333333) as text inside the button. true or false.
- *                      Default value: false
- *
- *  colorCodeAlign:     Text alignment used to display the color code inside the button. Only used if 'displayColorCode' is true. 'left', 'center' or 'right'
- *                      Default value: 'center'
- *
- *  colorCodeColor:     Text color of the color code inside the button. Only used if 'displayColorCode' is true.
- *                      Default value: '#FFF'
- *
- *  callback:           Callback function to call after a color has been chosen.
- *                      Default value: null
- *                      Returns: Hex Value
- *
- *  onCellEnter:        Callback function that excecutes when a cell is entered by the user's mouse
- *                      Default value: null
- *                      Returns: Hex Value
- *
- *  onClose:            Callback function that executes whenever the chooser is closed
- *                      Default value: null
- *
- *  livePreview:        The color display will change to show the color of the hovered color cell.
- *                      The display will revert if no color is selected.
- *                      Default value: false
- */
-  $.fn.simpleColor = function(options) {
-
-    var default_colors = [
-      '990033', 'ff3366', 'cc0033', 'ff0033', 'ff9999', 'cc3366', 'ffccff', 'cc6699',
-      '993366', '660033', 'cc3399', 'ff99cc', 'ff66cc', 'ff99ff', 'ff6699', 'cc0066',
-      'ff0066', 'ff3399', 'ff0099', 'ff33cc', 'ff00cc', 'ff66ff', 'ff33ff', 'ff00ff',
-      'cc0099', '990066', 'cc66cc', 'cc33cc', 'cc99ff', 'cc66ff', 'cc33ff', '993399',
-      'cc00cc', 'cc00ff', '9900cc', '990099', 'cc99cc', '996699', '663366', '660099',
-      '9933cc', '660066', '9900ff', '9933ff', '9966cc', '330033', '663399', '6633cc',
-      '6600cc', '9966ff', '330066', '6600ff', '6633ff', 'ccccff', '9999ff', '9999cc',
-      '6666cc', '6666ff', '666699', '333366', '333399', '330099', '3300cc', '3300ff',
-      '3333ff', '3333cc', '0066ff', '0033ff', '3366ff', '3366cc', '000066', '000033',
-      '0000ff', '000099', '0033cc', '0000cc', '336699', '0066cc', '99ccff', '6699ff',
-      '003366', '6699cc', '006699', '3399cc', '0099cc', '66ccff', '3399ff', '003399',
-      '0099ff', '33ccff', '00ccff', '99ffff', '66ffff', '33ffff', '00ffff', '00cccc',
-      '009999', '669999', '99cccc', 'ccffff', '33cccc', '66cccc', '339999', '336666',
-      '006666', '003333', '00ffcc', '33ffcc', '33cc99', '00cc99', '66ffcc', '99ffcc',
-      '00ff99', '339966', '006633', '336633', '669966', '66cc66', '99ff99', '66ff66',
-      '339933', '99cc99', '66ff99', '33ff99', '33cc66', '00cc66', '66cc99', '009966',
-      '009933', '33ff66', '00ff66', 'ccffcc', 'ccff99', '99ff66', '99ff33', '00ff33',
-      '33ff33', '00cc33', '33cc33', '66ff33', '00ff00', '66cc33', '006600', '003300',
-      '009900', '33ff00', '66ff00', '99ff00', '66cc00', '00cc00', '33cc00', '339900',
-      '99cc66', '669933', '99cc33', '336600', '669900', '99cc00', 'ccff66', 'ccff33',
-      'ccff00', '999900', 'cccc00', 'cccc33', '333300', '666600', '999933', 'cccc66',
-      '666633', '999966', 'cccc99', 'ffffcc', 'ffff99', 'ffff66', 'ffff33', 'ffff00',
-      'ffcc00', 'ffcc66', 'ffcc33', 'cc9933', '996600', 'cc9900', 'ff9900', 'cc6600',
-      '993300', 'cc6633', '663300', 'ff9966', 'ff6633', 'ff9933', 'ff6600', 'cc3300',
-      '996633', '330000', '663333', '996666', 'cc9999', '993333', 'cc6666', 'ffcccc',
-      'ff3333', 'cc3333', 'ff6666', '660000', '990000', 'cc0000', 'ff0000', 'ff3300',
-      'cc9966', 'ffcc99', 'ffffff', 'cccccc', '999999', '666666', '333333', '000000',
-      '000000', '000000', '000000', '000000', '000000', '000000', '000000', '000000'
-    ];
-
-    // Option defaults
-    options = $.extend({
-      defaultColor:     this.attr('defaultColor') || '#FFF',
-      border:           this.attr('border') || '1px solid #000',
-      cellWidth:        this.attr('cellWidth') || 10,
-      cellHeight:       this.attr('cellHeight') || 10,
-      cellMargin:       this.attr('cellMargin') || 1,
-      boxWidth:         this.attr('boxWidth') || '115px',
-      boxHeight:        this.attr('boxHeight') || '20px',
-      columns:          this.attr('columns') || 16,
-      insert:           this.attr('insert') || 'after',
-      buttonClass:      this.attr('buttonClass') || '',
-      colors:           this.attr('colors') || default_colors,
-      displayColorCode: this.attr('displayColorCode') || false,
-      colorCodeAlign:   this.attr('colorCodeAlign') || 'center',
-      colorCodeColor:   this.attr('colorCodeColor') || '#FFF',
-      callback: null,
-      onCellEnter: null,
-      onClose: null,
-      livePreview: false
-    }, options || {});
-
-    // Hide the input
-    this.hide();
-
-    // Figure out the cell dimensions
-    options.totalWidth = options.columns * (options.cellWidth + (2 * options.cellMargin));
-    if ($.browser.msie) {
-      options.totalWidth += 2;
-    }
-
-    options.totalHeight = Math.ceil(options.colors.length / options.columns) * (options.cellHeight + (2 * options.cellMargin));
-
-    // Store these options so they'll be available to the other functions
-    // TODO - must be a better way to do this, not sure what the 'official'
-    // jQuery method is. Ideally i want to pass these as a parameter to the 
-    // each() function but i'm not sure how
-    $.simpleColorOptions = options;
-
-    function buildSelector(index) {
-      options = $.simpleColorOptions;
-
-      // Create a container to hold everything
-      var container = $("<div class='simpleColorContainer' />");
-      
-      // Absolutely positioned child elements now 'work'.
-      container.css('position', 'relative');
-
-      // Create the color display box
-      var default_color = (this.value && this.value != '') ? this.value : options.defaultColor;
-
-      var display_box = $("<div class='simpleColorDisplay' />");
-      display_box.css({
-        'backgroundColor': default_color,
-        'border': options.border,
-        'width':           options.boxWidth,
-        'height':          options.boxHeight,
-        // Make sure that the code is vertically centered.
-        'line-height':     options.boxHeight,
-        'cursor':          'pointer'
-      });
-      container.append(display_box);
-      
-      // If 'displayColorCode' is turned on, display the currently selected color code as text inside the button.
-      if (options.displayColorCode) {
-        display_box.text(this.value);
-        display_box.css({
-          'color':     options.colorCodeColor,
-            'textAlign': options.colorCodeAlign
-        });
-      }
-      
-      var select_callback = function (event) {
-
-        // bind and namespace the click listener only when the chooser is displayed
-        // unbind when the chooser is closed
-        $('html').bind("click.simpleColorDisplay", function(e) {
-
-          $('html').unbind("click.simpleColorDisplay");
-          $('.simpleColorChooser').hide();
-
-          // if the user has not selected a new color, then revert the display
-          // makes sure the selected cell is within the current color selector
-          if (!$(e.target).hasClass("simpleColorCell")||!$.contains( $(event.target).closest(".simpleColorContainer")[0], $(e.target)[0] )) {
-            display_box.css('backgroundColor', default_color);
-            if (options.displayColorCode) {
-              display_box.text(default_color);
-            }
-          }
-          // execute onClose callback whenever the color chooser is closed
-          if (options.onClose) {
-            options.onClose();
-          }
-        });
-
-        // Use an existing chooser if there is one
-        if (event.data.container.chooser) {
-          event.data.container.chooser.toggle();
-      
-        // Build the chooser.
-        } else {
-
-          // Make a chooser div to hold the cells
-          var chooser = $("<div class='simpleColorChooser'/>");
-          chooser.css({
-            'border':   options.border,
-            'margin':   '0 0 0 5px',
-            'width':    options.totalWidth,
-            'height':   options.totalHeight,
-            'top':      0,
-            'left':     options.boxWidth,
-            'position': 'absolute'
-          });
-      
-          event.data.container.chooser = chooser;
-          event.data.container.append(chooser);
-      
-          // Create the cells
-          for (var i=0; i<options.colors.length; i++) {
-            var cell = $("<div class='simpleColorCell' id='" + options.colors[i] + "'/>");
-            cell.css({
-              'width':           options.cellWidth + 'px',
-              'height':          options.cellHeight + 'px',
-              'margin':          options.cellMargin + 'px',
-              'cursor':          'pointer',
-              'lineHeight':      options.cellHeight + 'px',
-              'fontSize':        '1px',
-              'float':           'left',
-              'backgroundColor': '#'+options.colors[i]
-            });
-            chooser.append(cell);
-
-            if (options.onCellEnter||options.livePreview) {
-              cell.bind('mouseenter', function(event) {
-                if (options.onCellEnter) {
-                  options.onCellEnter(this.id)
-                }
-                if (options.livePreview) {
-                  display_box.css('backgroundColor', '#' + this.id);
-                  if (options.displayColorCode) {
-                    display_box.text('#' + this.id);
-                  }
-                }
-              });
-            }
-
-            cell.bind('click', {
-              input: event.data.input, 
-              chooser: chooser, 
-              display_box: display_box
-            }, 
-            function(event) {
-              event.data.input.value = '#' + this.id;
-              $(event.data.input).change();
-              event.data.display_box.css('backgroundColor', '#' + this.id);
-              event.data.chooser.hide();
-              event.data.display_box.show();
-
-              // If 'displayColorCode' is turned on, display the currently selected color code as text inside the button.
-              if (options.displayColorCode) {
-                event.data.display_box.text('#' + this.id);
-              }
-
-              // If a callback function is defined then excecute it.
-              if (options.callback) {
-                options.callback(this.id);
-              }
-
-            });
-          }
-        }
-      };
-      
-      var callback_params = {
-        container: container, 
-        input: this, 
-        display_box: display_box
-      };
-
-      // Also bind the display box button to display the chooser.
-      display_box.bind('click', callback_params, select_callback);
-
-      $(this).after(container);
-
-    };
-
-    this.each(buildSelector);
-
-        $('.simpleColorDisplay').each(function() {
-            $(this).click(function(e){
-                e.stopPropagation();
-            });
-        });
-
-    return this;
-  };
-
-  /*
-   * Close the given color selectors
-   */
-  $.fn.closeSelector = function() {
-    this.each( function(index) {
-      var container = $(this).parent().find('div.simpleColorContainer');
-      container.find('.simpleColorChooser').hide();
-      container.find('.simpleColorDisplay').show();
-    });
-
-    return this;
-  };
-
-})(jQuery);
-
-define("../vendor/simple-color-picker/src/jquery.simple-color", function(){});
 
 var jam = {
     "packages": [
@@ -56761,11 +56199,12 @@ function( app ) {
         },
 
         closeGrave: function() {
-            
             this.$(".share-grave").slideUp("fast");
         },
 
         toggleShareGrave: function() {
+
+            this.model.status.setCurrentLayer( null );
 
             if( !this.$(".share-grave").is(":visible") ) {
                 this.model.project.save( "publish_update", 1 );
@@ -73211,7 +72650,7 @@ function( app ) {
                 app.project.sequences.at( 0 ).frames.length == 1 &&
                 app.project.sequences.at( 0 ).frames.at( 0 ).layers.length === 0;
 
-            if ( isEmpty ) {
+            if ( isEmpty && $.parseJSON( window.userProjects ).length === 0 ) {
                 this.startIntroSequence();
             }
         },
@@ -73344,7 +72783,8 @@ function( app ) {
                     parent: "body",
                     direction: "r",
                     content: "Hit ESC or click X to return to the editor",
-                    close: false
+                    close: false,
+                    zIndex: 200
                 });
 
                 app.once("project_preview_ended", function( e ) {
@@ -73430,6 +72870,11 @@ function( app ) {
                 $("#main").prepend( $instruction );
             }
             css = {};
+            
+            if ( opts.zIndex ) {
+                css.zIndex = opts.zIndex;
+            }
+
             if ( opts.direction == "r" ) {
                 css.left = opts.target.offset().left - $instruction.width() - 20 - 15 ; 
             } else {
@@ -73440,135 +72885,6 @@ function( app ) {
 
             return $instruction;
         }
-
-
-        // // drag from here to here
-        // startIntroSequence: function() {
-        //     $("body")
-        //         .prepend("<img class='intro-sequence intro-00' src='assets/img/intro-00.png' width='100%' />")
-        //         .prepend("<img class='intro-sequence intro-01' src='assets/img/intro-01.png' width='100%' />");
-
-        //     app.once("item_dropped", function( e ) {
-        //         $(".intro-01").fadeOut(function() {
-        //             $(".intro-00, .intro-01").remove();
-        //             this.step2();
-        //         }.bind( this ));
-        //         $(".intro-00").fadeOut(function() {
-        //             $(".intro-00, .intro-01").remove();
-        //         }.bind( this ));
-        //     }, this );
-        // },
-
-        // // create a new page
-        // step2: function() {
-        //     $("body").prepend("<img class='intro-sequence intro-02' src='assets/img/intro-02.png' width='100%' />");
-
-        //     app.once("page_added", function( e ) {
-        //         $(".intro-02").fadeOut(function() {
-        //             $(".intro-02").remove();
-        //             this.step3();
-        //         }.bind( this ));
-        //     }, this );
-        // },
-
-        // // drag from here to here
-        // step3: function() {
-        //     $("body")
-        //         .prepend("<img class='intro-sequence intro-03' src='assets/img/intro-03.png' width='100%' />")
-        //         .prepend("<img class='intro-sequence intro-01' src='assets/img/intro-01.png' width='100%' />");
-
-        //     app.once("item_dropped", function( e ) {
-        //         $(".intro-01").fadeOut(function() {
-        //             $(".intro-00, .intro-01").remove();
-        //             this.step4();
-        //         }.bind( this ));
-        //         $(".intro-03").fadeOut(function() {
-        //             $(".intro-03").remove();
-        //         }.bind( this ));
-        //     }, this );
-        // },
-
-        // // create a new hotspot
-        // step4: function() {
-        //     $("body").prepend("<img class='intro-sequence intro-04' src='assets/img/intro-04.png' width='100%' />");
-
-        //     app.once("layer_type_added", function( type ) {
-
-        //         if ( type == "Link" ) {
-        //             $(".intro-04").fadeOut(function() {
-        //                 $(".intro-04").remove();
-        //                 this.step5();
-        //             }.bind( this ));
-        //         }
-        //     }, this );
-        // },
-
-        // // link to a new page
-        // step5: function() {
-        //     $("body").prepend("<img class='intro-sequence intro-05' src='assets/img/intro-05.png' width='100%' />");
-
-        //     app.once("page_added", function( e ) {
-        //         $(".intro-05").fadeOut(function() {
-        //             $(".intro-05").remove();
-        //             this.step6();
-        //         }.bind( this ));
-        //     }, this );
-        // },
-
-        // // drag from here to here
-        // step6: function() {
-        //     $("body")
-        //         .prepend("<img class='intro-sequence intro-03' src='assets/img/intro-03.png' width='100%' />")
-        //         .prepend("<img class='intro-sequence intro-01' src='assets/img/intro-01.png' width='100%' />");
-
-        //     app.once("item_dropped", function( e ) {
-        //         $(".intro-03").fadeOut(function() {
-        //             $(".intro-03").remove();
-        //         }.bind( this ));
-        //         $(".intro-01").fadeOut(function() {
-        //             $(".intro-00, .intro-01").remove();
-        //             this.step7();
-        //         }.bind( this ));
-        //     }, this );
-        // },
-
-        // // switch to soundcloud
-        // step7: function() {
-        //     $("body").prepend("<img class='intro-sequence intro-06' src='assets/img/intro-06.png' width='100%' />");
-
-        //     app.once("media_drawer_toggle", function( api ) {
-
-        //         if ( api == "Soundcloud" ) {
-        //             $(".intro-06").fadeOut(function() {
-        //                 $(".intro-06").remove();
-        //                 this.step8();
-        //             }.bind( this ));
-        //         }
-
-        //     }, this );
-        // },
-
-        // // add a soundtrack
-        // step8 : function() {
-        //     $("body").prepend("<img class='intro-sequence intro-07' src='assets/img/intro-07.png' width='100%' />");
-
-        //     app.once("soundtrack_added", function( e ) {
-        //         $(".intro-07").fadeOut(function() {
-        //             $(".intro-07").remove();
-        //             this.step9();
-        //         }.bind( this ));
-        //     }, this );
-        // },
-
-        // step9 : function() {
-        //     $("body").prepend("<img class='intro-sequence intro-08' src='assets/img/intro-08.png' width='100%' />");
-
-        //     app.once("project_preview", function( e ) {
-        //         $(".intro-08").fadeOut(function() {
-        //             $(".intro-08").remove();
-        //         }.bind( this ));
-        //     }, this );
-        // }
         
     });
 
@@ -75980,6 +75296,7 @@ function( app, Controls ) {
         applyVisualProperties: function() {
             var mediaTargetCSS = {},
                 containerCSS = {};
+
             _.each( this.visualProperties, function( prop ) {
                 if ( _.contains( this.containerAttributes, prop ) ) {
                     containerCSS[ prop ] = this.getAttr( prop ) + ( this.units[ prop ] ? this.units[ prop ] : "" );
@@ -77448,11 +76765,8 @@ function( app, _Layer, Visual, TextModal ) {
         template: "text_v2/text-v2",
 
         init: function() {
-            console.log("text", app.attributes)
             // if ( app.attributes.mobile ) {
-            //     this.visualProperties = [
-            //         "opacity"
-            //     ]
+            //     window.onorientationchange = function(){ this.moveOnStage(); }.bind(this);
             // }
         },
 
@@ -77490,23 +76804,28 @@ function( app, _Layer, Visual, TextModal ) {
             var css = {};
 
             if ( app.attributes.mobile ) {
+                var zHeight = $(".ZEEGA-player-window").height(),
+                    zWidth = $(".ZEEGA-player-window").width();
 
-                css.position = "fixed";
                 if ( this.getAttr("mobileTextPosition") == "middle" ) {
                    var heightPercent = this.$el.height() / window.innerHeight; // middle
                    
                    css.top = (50 - heightPercent * 100 / 2) + "%";
-
+                    
                 } else if ( this.getAttr("mobileTextPosition") == "top" ) {
-                    css.top = "30px"; // top
+                    var marginTop = (zHeight - window.innerHeight) / 2;
+
+                    css.top = (marginTop + 30) + "px";
                 } else {
                     // bottom
+                    var marginBottom = (zHeight - window.innerHeight) / 2;
+
                     css.top = "auto";
-                    css.bottom = "30px";
+                    css.bottom = (marginBottom + 30) + "px";
                 }
 
                 _.extend( css, {
-                    width: "90%",
+                    width: window.innerWidth - 30 + "px",
                     left: 0,
                     right: 0,
                     margin: "auto",
@@ -77521,7 +76840,6 @@ function( app, _Layer, Visual, TextModal ) {
 
                 this.$el.css(css );
             } else {
-                console.log("APPLY WRONG")
                 this.$el.css({
                     top: this.getAttr("top") + "%",
                     left: this.getAttr("left") + "%"
@@ -77630,7 +76948,7 @@ function( Zeega, LayerModel, Visual ) {
     Layer.Youtube.Visual = Visual.extend({
 
         template: "youtube/youtube",
-        //ignoreFirst: true,
+        ignoreFirst: true,
         afterRender: function(){
             if( /iPhone|iPod/i.test(navigator.userAgent) ) {
                 this.$(".youtube-player").addClass( "mobile" );
@@ -77665,13 +76983,10 @@ function( Zeega, LayerModel, Visual ) {
         },
 
         onStateChange: function(e){
-            // if( /iPad/i.test(navigator.userAgent) && e.data ==2 && this.ignoreFirst ) {
-            //     this.ignoreFirst = false;
-            //     this.ytPlayer.playVideo();
-            // }
-            // else
-
-            if (e.data == 2 || e.data == 5){
+            if( this.model.status.get("current_sequence_model").get("attr").soundtrack && /iPad/i.test(navigator.userAgent) && e.data ==2 && this.ignoreFirst ) {
+                this.ignoreFirst = false;
+                this.ytPlayer.playVideo();
+            } else if (e.data == 2 || e.data == 5){
                 if( /iPad/i.test(navigator.userAgent) ) {
                     this.$(".ipad-cover").removeClass("visible");
                 }
@@ -77682,7 +76997,9 @@ function( Zeega, LayerModel, Visual ) {
                 this.$(".play-button").fadeIn("fast");
                 
             } else if (e.data == 1 ){
-                
+                if( Zeega.mode == "player"){
+                    this.model.status.get("project").suspend();
+                }
                 this.$(".play-button").fadeOut("fast");
                 this.$(".youtube-player").addClass("active");
                
@@ -77725,6 +77042,9 @@ function( Zeega, LayerModel, Visual ) {
 
         onExit: function(){
             this.ytPlayer.pauseVideo();
+            if( Zeega.mode == "player"){
+                this.model.status.get("project").play();
+            }
         }
 
     });
@@ -77780,6 +77100,8 @@ function( app, Layers ) {
 
     return app.Backbone.Model.extend({
 
+        soundtrackModel: null,
+
         defaults: {
             advance_to: null,
             attr: {
@@ -77803,10 +77125,16 @@ function( app, Layers ) {
         lazySave: null,
 
         initialize: function() {
-
             this.lazySave = _.debounce(function() {
                 this.save();
             }.bind( this ), 1000 );
+        },
+
+        initSoundtrackModel: function( layers ) {
+            if ( this.get("attr").soundtrack ) {
+                this.soundtrackModel = app.soundtrack = layers.get( this.get("attr").soundtrack );
+                this.soundtrackModel.status = app.status;
+            }
         },
 
         onFrameSort: function() {
@@ -77847,7 +77175,6 @@ function( app, Layers ) {
 
                 attr.soundtrack = newLayer.id;
                 this.set("attr", attr );
-                this.persistLayer( newLayer );
                 view.setSoundtrackLayer( newLayer );
 
                 this.lazySave();
@@ -77857,7 +77184,6 @@ function( app, Layers ) {
         removeSoundtrack: function( layer ) {
             var attr = this.get("attr");
 
-            this.unpersistLayer( layer );
             attr.soundtrack = false;
             this.set("attr", attr );
         },
@@ -78480,6 +77806,8 @@ function( app, SequenceModel, FrameCollection, LayerCollection, LayerModels ) {
                 sequence.frames.sequence = sequence;
                 sequence.frames.initLayers( layerCollection, options );
             });
+
+            this.at(0).initSoundtrackModel( layerCollection );
             // at this point, all frames should be loaded with layers and layer classes
         }
     });
@@ -78498,7 +77826,7 @@ function( app, SequenceCollection ) {
 
         defaults: {
             authors: null,
-            cover_image: null,
+            cover_image: "",
             date_created: null,
             date_published: null,
             date_updated: null,
@@ -78517,6 +77845,23 @@ function( app, SequenceCollection ) {
             user_id: null
         },
 
+        defaultCoverImages: [
+            "http://giphy.com/gifs/VxbP9tLeKzazm",
+            "http://giphy.com/gifs/4lLVnnMbawnss",
+            "http://giphy.com/gifs/bq6gi8shRqgyA",
+            "http://giphy.com/gifs/BDqInV6xYl1Ju",
+            "http://giphy.com/gifs/k0ywWCPu4IlEs",
+            "http://giphy.com/gifs/Mi6gE0Qjw2dWM",
+            "http://www.musicobsessed.com/wp-content/gallery/sfmo/tv-set-funky-cuteo.gif",
+            "http://24.media.tumblr.com/tumblr_m8582nac7y1r0k830o1_500.gif",
+            "http://24.media.tumblr.com/tumblr_lnxkb8K8u61qjvkx9o1_500.gif",
+            "http://25.media.tumblr.com/tumblr_mbjwlvwO5R1reeolao1_500.gif",
+            "http://reignandpour.com/home_files/tv.gif",
+            "http://s8.favim.com/orig/72/gif-animated-gif-tv-static-glitch-Favim.com-687367.gif",
+            "http://alaingiffard.files.wordpress.com/2007/12/applaudissements-001_1173713587.gif",
+            "http://www.poly.edu/sites/polyproto.poly.edu/files/cinemaNOISE.gif"
+        ],
+
         defaultOptions: {
             preloadRadius: 2,
             attach: {}
@@ -78527,6 +77872,9 @@ function( app, SequenceCollection ) {
         },
 
         initialize: function( data, options ) {
+            // if ( this.get("cover_image") == "" ) {
+            //     this.set("cover_image", this.defaultCoverImages[ Math.floor( Math.random() * this.defaultCoverImages.length ) ])
+            // }
             this.options = _.defaults( options, this.defaultOptions );
             this.parser = options.parser;
             this.parseSequences();
@@ -78768,7 +78116,6 @@ function( app, SequenceCollection ) {
         publishProject: function() {
 
             if ( this.get("date_updated") != this.get("date_published") || this.updated ) {
-                var mobile = this.validateMobile();
                 
                 this.updated = false;
                 this.once("sync", this.onProjectPublish, this);
@@ -78778,7 +78125,7 @@ function( app, SequenceCollection ) {
                 }
                 this.save({
                     publish_update: 1,
-                    mobile: mobile
+                    mobile: true
                 });
                 console.log("already published. published again");
             } else {
@@ -78788,48 +78135,6 @@ function( app, SequenceCollection ) {
 
         onProjectPublish: function( model, response ) {
             this.set({ publish_update: 0 });
-        },
-
-        validateMobile: function() {
-            var layers, validLayerTypes, maxAudioLayers, valid;
-            
-            layers = [];
-            validLayerTypes = ["Image", "Audio", "Text", "Link", "Rectangle"];
-            maxAudioLayers = 1;
-            maxFrames = null;
-            valid = true;
-
-
-            this.sequences.each(function( sequence ) {
-
-                if ( maxFrames !== null && ( maxFrames -= sequence.frames.length ) < 0 ) {
-                    valid = false;
-                    return false;
-                }
-
-                sequence.frames.each(function( frame ) {
-                    frame.layers.each(function( layer ) {
-
-                        var layerTypeValid = _.contains( validLayerTypes, layer.get("type") );
-
-                        if ( !layerTypeValid ) {
-                            valid = false;
-                            return false;
-                        }
-
-                        // dupe layer. ignore
-                        if ( !_.contains( layers, layer.id ) && layer.get("type") == "Audio" && maxFrames-- < 0 ) {
-                            layers.push( layer.id );
-                            valid = false;
-                            return false;
-                        } else if ( !_.contains( layers, layer.id ) && layer.get("type") == "Audio" ) {
-                            layers.push( layer.id );
-                        }
-                    });
-                });
-            });
-
-            return valid;
         }
 
     });
@@ -81045,9 +80350,9 @@ require.config({
   // generated configuration file.
 
   // Release
- deps: [ "../vendor/tipsy/src/javascripts/jquery.tipsy", "../vendor/simple-color-picker/src/jquery.simple-color", "zeegaplayer", "../vendor/jam/require.config", "main", "spin"],
+//  deps: [ "../vendor/tipsy/src/javascripts/jquery.tipsy", "../vendor/simple-color-picker/src/jquery.simple-color", "zeegaplayer", "../vendor/jam/require.config", "main", "spin"],
 
- //  deps: ["zeegaplayer", "../vendor/jam/require.config", "main", "spin"],
+  deps: ["zeegaplayer", "../vendor/jam/require.config", "main", "spin"],
 
 
   paths: {
