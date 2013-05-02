@@ -645,23 +645,23 @@ __p+='<div class="nav col-left navbar ZEEGA-hmenu clear">\n    <ul class=\'pull-
 ( webRoot )+
 ''+
 ( item_id )+
-'&text=Zeega%20Project%3A%20'+
-( title )+
+'&text='+
+( description )+
 ' &url='+
 ( webRoot )+
 ''+
 ( item_id )+
-'"\n                            class="social-share"\n                            data-itemid="'+
+'"\n                            class="social-share share-twitter"\n                            data-itemid="'+
 ( item_id )+
 '"\n                            target="blank">\n                        <i class="zitem-twitter zitem-30 color"></i>\n                    </a>\n                    <a href="http://www.facebook.com/sharer.php?u='+
 ( webRoot )+
 ''+
 ( item_id )+
-'"\n                                    class="social-share"\n                                    data-itemid="'+
+'"\n                                    class="social-share share-facebook"\n                                    data-itemid="'+
 ( item_id )+
 '"\n                                    target="blank">\n                        <i class="zitem-facebook zitem-30 color"></i>\n                    </a>\n                    <a id ="tumblr-share" href="http://www.tumblr.com/share/photo?'+
 ( tumblr_share )+
-'" \n                                    class="social-share"\n                                    data-itemid="'+
+'" \n                                    class="social-share share-tumblr"\n                                    data-itemid="'+
 ( item_id )+
 '"\n                                    target="blank">\n                        <i class="zitem-tumblr zitem-30 color"></i>\n                    </a>\n                </div>\n\n                <div>\n                    <input class="text-box" type="text" value="'+
 ( webRoot )+
@@ -56087,25 +56087,38 @@ function( app ) {
         template: "project-head",
 
         serialize: function() {
-            var tumblr_share,
-                tumblr_caption;
-
-            tumblr_caption = "<p><a href='" + app.webRoot + app.project.get("item_id") + "'><strong>Play&nbsp;► " +
-                            app.project.get("title") + "</strong></a></p><p>A Zeega by&nbsp;<a href='" +
-                            app.webRoot + "profile/" + app.project.get("user_id") + "'>" + app.project.get("authors") + "</a></p>";
-
-
-            tumblr_share = "source=" + encodeURIComponent( app.project.get("cover_image") ) +
-                            "&caption=" + encodeURIComponent( tumblr_caption ) +
-                            "&click_thru="+ encodeURIComponent( app.webRoot ) + app.project.get("item_id");
-
             return _.extend({
                 userId: app.userId,
                 userProjects: $.parseJSON( window.userProjects ),
                 webRoot: app.webRoot,
-                tumblr_share: tumblr_share
+                tumblr_share: this.getTumblrShareUrl()
 
             }, this.model.project.toJSON() );
+        },
+
+        getTumblrShareUrl: function() {
+            var html = "<p>" + app.project.get("description") + "</p>" + 
+                "<p><a href='" + app.webRoot + app.project.get("item_id") + "'>" +
+                "<strong>►&nbsp;Play&nbsp;Zeega&nbsp;►</strong></a>" +
+                "</p><p>by&nbsp;<a href='" + app.webRoot + "profile/" + app.project.get("user_id") + "'>" + app.project.get("authors") + "</a></p>";
+
+            return "source=" + encodeURIComponent( app.project.get("cover_image") ) +
+                    "&caption=" + encodeURIComponent( html ) +
+                    "&click_thru="+ encodeURIComponent( app.webRoot ) + app.project.get("item_id");
+        },
+
+        initialize: function() {
+            this.model.project.on("sync", this.onSync, this );
+        },
+
+        onSync: function() {
+            this.$(".share-twitter").attr("href", "https://twitter.com/intent/tweet?original_referer=" + app.webRoot + this.model.project.get("item_id") + "&text=" + this.model.project.get("description") + "&url=" + app.webRoot + this.model.project.get("item_id") );
+            this.$(".share-tumblr").attr("href", "http://www.tumblr.com/share/photo?" + this.getTumblrShareUrl() );
+
+            this.$(".project-cover").css({
+                background: "url(" + this.model.project.get("cover_image") + ")",
+                backgroundSize: "cover"
+            });
         },
 
         afterRender: function() {

@@ -259,23 +259,23 @@ __p+='<div class="nav col-left navbar ZEEGA-hmenu clear">\n    <ul class=\'pull-
 ( webRoot )+
 ''+
 ( item_id )+
-'&text=Zeega%20Project%3A%20'+
-( title )+
+'&text='+
+( description )+
 ' &url='+
 ( webRoot )+
 ''+
 ( item_id )+
-'"\n                            class="social-share"\n                            data-itemid="'+
+'"\n                            class="social-share share-twitter"\n                            data-itemid="'+
 ( item_id )+
 '"\n                            target="blank">\n                        <i class="zitem-twitter zitem-30 color"></i>\n                    </a>\n                    <a href="http://www.facebook.com/sharer.php?u='+
 ( webRoot )+
 ''+
 ( item_id )+
-'"\n                                    class="social-share"\n                                    data-itemid="'+
+'"\n                                    class="social-share share-facebook"\n                                    data-itemid="'+
 ( item_id )+
 '"\n                                    target="blank">\n                        <i class="zitem-facebook zitem-30 color"></i>\n                    </a>\n                    <a id ="tumblr-share" href="http://www.tumblr.com/share/photo?'+
 ( tumblr_share )+
-'" \n                                    class="social-share"\n                                    data-itemid="'+
+'" \n                                    class="social-share share-tumblr"\n                                    data-itemid="'+
 ( item_id )+
 '"\n                                    target="blank">\n                        <i class="zitem-tumblr zitem-30 color"></i>\n                    </a>\n                </div>\n\n                <div>\n                    <input class="text-box" type="text" value="'+
 ( webRoot )+
