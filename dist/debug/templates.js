@@ -237,19 +237,7 @@ __p+='<div class="nav col-left navbar ZEEGA-hmenu clear">\n    <ul class=\'pull-
 ( webRoot )+
 'profile/'+
 ( userId )+
-'"\n                title="my profile"\n                data-gravity="n"\n                ><i class="icon-user"></i></a>\n        </li>\n        <li>\n            <a href="#"><i class="icon-folder-open"></i></a>\n            <ul class="submenu">\n                <li>\n                    <a href="'+
-( webRoot )+
-'project/new" data-bypass="true" ><i class="icon-file"></i> New Zeega</a>\n                </li>\n                <li class="divider"></li>\n\n                ';
- _.each( userProjects, function( project) { 
-;__p+='\n                    <li>\n                        <a href="'+
-( webRoot )+
-'editor/'+
-( project.id )+
-'"  data-bypass="true" >'+
-( project.title )+
-'</a>\n                    </li>\n                ';
- }); 
-;__p+='\n\n            </ul>\n        </li>\n\n        <li>\n            <a href="http://blog.zeega.com/faq" data-bypass="true" target="blank"\n                title="FAQ"\n                data-gravity="n"\n            ><i class="icon-question-sign"></i></a>\n        </li>\n\n        \n    </ul>\n</div>\n<div class="project-title col-middle clearfix">\n    <div class="project-info" contenteditable\n        title="title of your Zeega"\n        data-gravity="n"\n    >'+
+'"\n                title="my profile"\n                data-gravity="n"\n                ><i class="icon-user"></i></a>\n        </li>\n        <li>\n            <a href="http://blog.zeega.com/faq" data-bypass="true" target="blank"\n                title="FAQ"\n                data-gravity="n"\n            ><i class="icon-question-sign"></i></a>\n        </li>\n\n        \n    </ul>\n</div>\n<div class="project-title col-middle clearfix">\n    <div class="project-info" contenteditable\n        title="title of your Zeega"\n        data-gravity="n"\n    >'+
 ( title )+
 '</div>\n    <a href="#" class="project-preview btnz"\n        title="see what you\'re making"\n        data-gravity="n"\n    ><i class="icon-play icon-white"></i> Preview</a>\n</div>\n<div class="project-share col-right clearfix">\n    <a href="#" class="project-share btnz btnz-blue btnz-fullwidth"\n        title="share your Zeega with the world"\n        data-gravity="ne"\n    ><i class="icon-retweet icon-white"></i> Share</a>\n</div>\n\n<div class="share-grave">\n\n    <div class="close-wrapper">\n        <a href="#" class="close-grave">&times;</a>\n    </div>\n\n    <div class="grave-inner">\n\n        <div class="share-meta">\n            <div class="project-cover" style="\n                background: url('+
 ( cover_image )+

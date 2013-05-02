@@ -19,23 +19,6 @@
                 ><i class="icon-user"></i></a>
         </li>
         <li>
-            <a href="#"><i class="icon-folder-open"></i></a>
-            <ul class="submenu">
-                <li>
-                    <a href="<%= webRoot %>project/new" data-bypass="true" ><i class="icon-file"></i> New Zeega</a>
-                </li>
-                <li class="divider"></li>
-
-                <% _.each( userProjects, function( project) { %>
-                    <li>
-                        <a href="<%= webRoot %>editor/<%= project.id %>"  data-bypass="true" ><%= project.title %></a>
-                    </li>
-                <% }); %>
-
-            </ul>
-        </li>
-
-        <li>
             <a href="http://blog.zeega.com/faq" data-bypass="true" target="blank"
                 title="FAQ"
                 data-gravity="n"
