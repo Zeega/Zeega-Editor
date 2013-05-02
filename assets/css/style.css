@@ -1712,7 +1712,7 @@ body .ui-tooltip {
   background-size: cover;
 }
 .play-button {
-  curoser: pointer;
+  cursor: pointer;
   position: absolute;
   width: 16%;
   height: 16%;
@@ -1729,7 +1729,7 @@ body .ui-tooltip {
   opacity: 1;
 }
 .ipad-cover {
-  position: absolute;
+  position: fixed;
   background-color: rgba(0, 0, 0, 0.3);
   color: white;
   width: 100%;
@@ -1737,7 +1737,7 @@ body .ui-tooltip {
   opacity: 0.01;
   left: 0;
   z-index: 5;
-  top: 0;
+  bottom: 5px;
   transition: opacity .5s;
   -webkit-transition: opacity .5s;
 }
@@ -2278,7 +2278,8 @@ body .ui-tooltip {
   font-size: 12px;
 }
 .text-modal .sample-header {
-  color: #aaa;
+  font-size: 12px;
+  color: #999;
 }
 .text-modal .text-sample {
   height: 1em;
@@ -2312,7 +2313,7 @@ body .ui-tooltip {
   height: 25px !important;
   cursor: pointer;
   position: relative;
-  top: -4px;
+  top: 6px;
   border-radius: 2px;
 }
 .text-modal .submit {
