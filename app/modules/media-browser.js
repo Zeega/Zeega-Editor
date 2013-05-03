@@ -32,7 +32,7 @@ function( app, ItemModel, MediaView, ItemCollectionViewer ) {
         url: function() {
             var url;
 
-            console.log("home",  this.mediaModel.getQuery() , this.mediaModel.api );
+
             if( this.mediaModel.getQuery() === "" && this.mediaModel.api != "MyZeega" ){
                 
                 url = this.mediaModel.favUrl;
