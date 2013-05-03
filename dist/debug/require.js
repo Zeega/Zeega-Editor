@@ -38332,6 +38332,14 @@ function( app, ZeegaParser, Relay, Status, PlayerLayout ) {
         */
 
         initialize: function( attributes ) {
+            this.loadSoundtrack = _.once(function() {
+                console.log("loadSoundtrack")
+                app.soundtrack.on("layer_ready", function() {
+                    app.soundtrack.play();
+                });
+                app.soundtrack.render();
+            });
+
             this._mergeAttributes( attributes );
             this.relay = new Relay.Model();
             this.status = new Status.Model({ project: this });
@@ -38526,12 +38534,7 @@ function( app, ZeegaParser, Relay, Status, PlayerLayout ) {
             }
         },
 
-        loadSoundtrack: _.once(function() {
-            app.soundtrack.on("layer_ready", function() {
-                app.soundtrack.play();
-            });
-            app.soundtrack.render();
-        }),
+        loadSoundtrack: null,
 
         // if the player is playing, pause the project
         pause: function() {
@@ -77756,6 +77759,7 @@ function( app, Layers ) {
                     attr = {};
                 }
 
+                this.soundtrackModel = newLayer;
                 attr.soundtrack = newLayer.id;
                 this.set("attr", attr );
                 view.setSoundtrackLayer( newLayer );
@@ -77767,6 +77771,7 @@ function( app, Layers ) {
         removeSoundtrack: function( layer ) {
             var attr = this.get("attr");
 
+            layer.destroy();
             attr.soundtrack = false;
             this.set("attr", attr );
         },
@@ -78663,7 +78668,7 @@ function( app, SequenceCollection ) {
                     layers = layers.concat( [ sequence.soundtrackModel.toJSON() ] );
                 }
             });
-
+console.log("layers", layers, this.sequences.toJSON())
             return _.extend({}, this.toJSON(), {
                 sequences: this.sequences.toJSON(),
                 frames: frames,
@@ -80938,9 +80943,9 @@ require.config({
   // generated configuration file.
 
   // Release
- deps: [ "../vendor/tipsy/src/javascripts/jquery.tipsy", "../vendor/simple-color-picker/src/jquery.simple-color", "zeegaplayer", "../vendor/jam/require.config", "main", "spin"],
+  deps: [ "../vendor/tipsy/src/javascripts/jquery.tipsy", "../vendor/simple-color-picker/src/jquery.simple-color", "zeegaplayer", "../vendor/jam/require.config", "main", "spin"],
 
-//   deps: ["zeegaplayer", "../vendor/jam/require.config", "main", "spin"],
+//  deps: ["zeegaplayer", "../vendor/jam/require.config", "main", "spin"],
 
 
   paths: {
