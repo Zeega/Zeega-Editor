@@ -56537,7 +56537,7 @@ define('app',[
     var app = {
         // The root path to run the application.
         attributes: { mobile: false },
-
+        mode: "editor",
         parserPath: "app/zeega-parser/",
         dragging: null,
         mediaCollection: null,
@@ -80192,7 +80192,7 @@ function( app, ItemModel, MediaView, ItemCollectionViewer ) {
         url: function() {
             var url;
 
-
+            console.log("home",  this.mediaModel.getQuery() , this.mediaModel.api );
             if( this.mediaModel.getQuery() === "" && this.mediaModel.api != "MyZeega" ){
                 
                 url = this.mediaModel.favUrl;
@@ -80780,11 +80780,11 @@ function( app, ItemModel, MediaView, ItemCollectionViewer ) {
 
             
             
-            if( query !== "" && query !== args.q ){
-                args.q = query;
-                this.set("urlArguments", args );
-                this.mediaCollection.fetch();
-            }
+            
+            args.q = query;
+            this.set("urlArguments", args );
+            this.mediaCollection.fetch();
+            
 
 
             
