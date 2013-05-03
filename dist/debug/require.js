@@ -77455,10 +77455,9 @@ function( app, _Layer, Visual, TextModal ) {
 
         },
 
+        // ## TODO Simplify this - 5/3/2013
         updateStyle: function() {
-            this.$(".visual-target").text( this.model.getAttr("content") );
-
-            this.$el.css({
+            var css = {
                 color: this.model.get("attr").color,
                 fontWeight: this.model.getAttr("bold") ? "bold" : "normal",
                 fontStyle: this.model.getAttr("italic") ? "italic" : "normal",
@@ -77466,7 +77465,13 @@ function( app, _Layer, Visual, TextModal ) {
                 fontSize: this.model.getAttr("fontSize") + "%",
                 textAlign: this.model.getAttr("textAlign"),
                 lineHeight: this.model.getAttr("lineHeight") + "em"
-            });
+            };
+
+            this.$(".visual-target")
+                .css( css )
+                .text( this.model.getAttr("content") );
+
+            this.$el.css( css );
         },
 
         afterEditorRender: function() {
@@ -77566,7 +77571,7 @@ function( Zeega, LayerModel, Visual ) {
 
             if (Zeega.mode == "editor" ){
                 this.$el.addClass("editor");
-                this.$el.css({"top": "46%", "left": "46%", "width": "16%", "height": "16%"});
+                this.$el.css({"top": "42%", "left": "42%", "width": "16%", "height": "16%"});
             }
 
             this.ytInit();
@@ -77615,7 +77620,7 @@ function( Zeega, LayerModel, Visual ) {
                     this.model.status.get("project").play();
                 } else if (Zeega.mode == "editor" ){
                     this.$el.addClass("editor");
-                    this.$el.css({"top": "46%", "left": "46%", "width": "16%", "height": "16%"});
+                    this.$el.css({"top": "42%", "left": "42%", "width": "16%", "height": "16%"});
                 }
 
                 this.$(".youtube-player").removeClass("active");
@@ -80457,6 +80462,12 @@ function( app, ItemModel, MediaView, ItemCollectionViewer ) {
             var items = [],
                 count = 1;
 
+            //check if is favorites
+            if(!_.isUndefined( res.items_count )){
+                    this.itemsCount = res.items_count;
+
+                    return res.items;
+            }
             
             _.each( res.data.items, function( video ){
                 var item = {};
@@ -80994,7 +81005,7 @@ require.config({
   // generated configuration file.
 
   // Release
-deps: [ "../vendor/tipsy/src/javascripts/jquery.tipsy", "../vendor/simple-color-picker/src/jquery.simple-color", "zeegaplayer", "../vendor/jam/require.config", "main", "spin"],
+ deps: [ "../vendor/tipsy/src/javascripts/jquery.tipsy", "../vendor/simple-color-picker/src/jquery.simple-color", "zeegaplayer", "../vendor/jam/require.config", "main", "spin"],
 
  //  deps: ["zeegaplayer", "../vendor/jam/require.config", "main", "spin"],
 
