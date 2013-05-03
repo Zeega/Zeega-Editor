@@ -35893,10 +35893,16 @@ function( Zeega, LayerModel, Visual ) {
         template: "youtube/youtube",
         ignoreFirst: true,
         afterRender: function(){
+            
             if( /iPhone|iPod/i.test(navigator.userAgent) ) {
                 this.$(".youtube-player").addClass( "mobile" );
             } else if( /iPad/i.test(navigator.userAgent) ) {
                 this.$(".youtube-player").addClass( "ipad" );
+            }
+
+            if (Zeega.mode == "editor" ){
+                this.$el.addClass("editor");
+                this.$el.css({"top": "46%", "left": "46%", "width": "16%", "height": "16%"});
             }
 
             this.ytInit();
@@ -35943,7 +35949,11 @@ function( Zeega, LayerModel, Visual ) {
                 }
                 if( Zeega.mode == "player"){
                     this.model.status.get("project").play();
+                } else if (Zeega.mode == "editor" ){
+                    this.$el.addClass("editor");
+                    this.$el.css({"top": "46%", "left": "46%", "width": "16%", "height": "16%"});
                 }
+
                 this.$(".youtube-player").removeClass("active");
                 this.$(".play-button").fadeIn("fast");
                 
@@ -35981,14 +35991,18 @@ function( Zeega, LayerModel, Visual ) {
         },
 
         playVideo: function(){
+
             if( Zeega.mode == "player"){
                 this.model.status.get("project").suspend();
+            } else if (Zeega.mode == "editor" ){
+                this.$el.removeClass("editor");
+                this.$el.css({"top": "0", "left": "0", "width": "100%", "height": "100%"}, 1000);
             }
+
 
             this.$(".play-button").fadeOut("fast");
             this.$(".youtube-player").addClass("active");
             this.ytPlayer.playVideo();
-            window.ytPlayer = this.ytPlayer;
         },
 
         onExit: function(){
@@ -38748,6 +38762,9 @@ function( app, ZeegaParser, Relay, Status, PlayerLayout ) {
                     sequence.frames.each(function( frame ) {
                         if ( frame ) {
                             // frame.destroy();
+                            if ( app.soundtrack ) {
+                                app.soundtrack.destroy();
+                            }
                             frame.layers.each(function( layer ) {
                                 layer.destroy();
                             });
