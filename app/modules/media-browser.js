@@ -283,6 +283,12 @@ function( app, ItemModel, MediaView, ItemCollectionViewer ) {
             var items = [],
                 count = 1;
 
+            //check if is favorites
+            if(!_.isUndefined( res.items_count )){
+                    this.itemsCount = res.items_count;
+
+                    return res.items;
+            }
             
             _.each( res.data.items, function( video ){
                 var item = {};
