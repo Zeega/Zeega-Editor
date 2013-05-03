@@ -77557,10 +77557,16 @@ function( Zeega, LayerModel, Visual ) {
         template: "youtube/youtube",
         ignoreFirst: true,
         afterRender: function(){
+            
             if( /iPhone|iPod/i.test(navigator.userAgent) ) {
                 this.$(".youtube-player").addClass( "mobile" );
             } else if( /iPad/i.test(navigator.userAgent) ) {
                 this.$(".youtube-player").addClass( "ipad" );
+            }
+
+            if (Zeega.mode == "editor" ){
+                this.$el.addClass("editor");
+                this.$el.css({"top": "46%", "left": "46%", "width": "16%", "height": "16%"});
             }
 
             this.ytInit();
@@ -77607,7 +77613,11 @@ function( Zeega, LayerModel, Visual ) {
                 }
                 if( Zeega.mode == "player"){
                     this.model.status.get("project").play();
+                } else if (Zeega.mode == "editor" ){
+                    this.$el.addClass("editor");
+                    this.$el.css({"top": "46%", "left": "46%", "width": "16%", "height": "16%"});
                 }
+
                 this.$(".youtube-player").removeClass("active");
                 this.$(".play-button").fadeIn("fast");
                 
@@ -77645,14 +77655,18 @@ function( Zeega, LayerModel, Visual ) {
         },
 
         playVideo: function(){
+
             if( Zeega.mode == "player"){
                 this.model.status.get("project").suspend();
+            } else if (Zeega.mode == "editor" ){
+                this.$el.removeClass("editor");
+                this.$el.css({"top": "0", "left": "0", "width": "100%", "height": "100%"}, 1000);
             }
+
 
             this.$(".play-button").fadeOut("fast");
             this.$(".youtube-player").addClass("active");
             this.ytPlayer.playVideo();
-            window.ytPlayer = this.ytPlayer;
         },
 
         onExit: function(){
@@ -77788,7 +77802,6 @@ function( app, Layers ) {
                     attr = {};
                 }
 
-                this.soundtrackModel = newLayer;
                 attr.soundtrack = newLayer.id;
                 this.set("attr", attr );
                 view.setSoundtrackLayer( newLayer );
@@ -77800,7 +77813,6 @@ function( app, Layers ) {
         removeSoundtrack: function( layer ) {
             var attr = this.get("attr");
 
-            layer.destroy();
             attr.soundtrack = false;
             this.set("attr", attr );
         },
@@ -78697,7 +78709,7 @@ function( app, SequenceCollection ) {
                     layers = layers.concat( [ sequence.soundtrackModel.toJSON() ] );
                 }
             });
-console.log("layers", layers, this.sequences.toJSON())
+
             return _.extend({}, this.toJSON(), {
                 sequences: this.sequences.toJSON(),
                 frames: frames,
@@ -80980,9 +80992,9 @@ require.config({
   // generated configuration file.
 
   // Release
-  deps: [ "../vendor/tipsy/src/javascripts/jquery.tipsy", "../vendor/simple-color-picker/src/jquery.simple-color", "zeegaplayer", "../vendor/jam/require.config", "main", "spin"],
+ deps: [ "../vendor/tipsy/src/javascripts/jquery.tipsy", "../vendor/simple-color-picker/src/jquery.simple-color", "zeegaplayer", "../vendor/jam/require.config", "main", "spin"],
 
-//  deps: ["zeegaplayer", "../vendor/jam/require.config", "main", "spin"],
+ //  deps: ["zeegaplayer", "../vendor/jam/require.config", "main", "spin"],
 
 
   paths: {
