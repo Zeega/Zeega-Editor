@@ -17,7 +17,7 @@ function( app ) {
                 app.project.sequences.at( 0 ).frames.length == 1 &&
                 app.project.sequences.at( 0 ).frames.at( 0 ).layers.length === 0;
 
-            if ( isEmpty && $.parseJSON( window.userProjects ).length === 0 ) {
+            if ( isEmpty && $.parseJSON( window.userProjects ).length === 1 ) {
                 this.startIntroSequence();
             }
         },
