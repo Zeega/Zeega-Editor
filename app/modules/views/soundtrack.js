@@ -14,6 +14,7 @@ function( app, Viewer ) {
         className: "ZEEGA-soundtrack",
 
         serialize: function() {
+            console.log("sondtrackajlsdf", this.model, this )
             if ( this.model === null || this.model.get("type") != "Audio" ) {
                 return { model: false };
             } else if ( this.model.get("type") == "Audio" ) {
@@ -28,7 +29,7 @@ function( app, Viewer ) {
 
         onEnterSequence: function( sequence ) {
             if ( sequence.get("attr").soundtrack ) {
-                this.setSoundtrackLayer( app.project.getLayer( sequence.get("attr").soundtrack ) );
+                this.setSoundtrackLayer( app.soundtrack );
             }
         },
 
