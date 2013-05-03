@@ -14,7 +14,6 @@ function( app, Viewer ) {
         className: "ZEEGA-soundtrack",
 
         serialize: function() {
-            console.log("sondtrackajlsdf", this.model, this )
             if ( this.model === null || this.model.get("type") != "Audio" ) {
                 return { model: false };
             } else if ( this.model.get("type") == "Audio" ) {
