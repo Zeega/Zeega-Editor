@@ -38334,10 +38334,12 @@ function( app, ZeegaParser, Relay, Status, PlayerLayout ) {
         initialize: function( attributes ) {
             this.loadSoundtrack = _.once(function() {
                 console.log("loadSoundtrack")
-                app.soundtrack.on("layer_ready", function() {
-                    app.soundtrack.play();
-                });
-                app.soundtrack.render();
+                if ( app.soundtrack ) {
+                    app.soundtrack.on("layer_ready", function() {
+                        app.soundtrack.play();
+                    });
+                    app.soundtrack.render();
+                }
             });
 
             this._mergeAttributes( attributes );
@@ -80723,7 +80725,7 @@ function( app, ItemModel, MediaView, ItemCollectionViewer ) {
         
         api: "Youtube",
         apiUrl: "https://gdata.youtube.com/feeds/api/videos?",
-        favUrl: app.searchAPI + "archive=Youtube&type=Image&user=1&limit=48&sort=date-desc",
+        favUrl: app.searchAPI + "archive=Youtube&user=1&limit=48&sort=date-desc",
 
         allowSearch: true,
 
