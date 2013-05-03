@@ -77802,6 +77802,7 @@ function( app, Layers ) {
                     attr = {};
                 }
 
+                this.soundtrackModel = newLayer;
                 attr.soundtrack = newLayer.id;
                 this.set("attr", attr );
                 view.setSoundtrackLayer( newLayer );
@@ -77813,6 +77814,7 @@ function( app, Layers ) {
         removeSoundtrack: function( layer ) {
             var attr = this.get("attr");
 
+            layer.destroy();
             attr.soundtrack = false;
             this.set("attr", attr );
         },
@@ -78709,7 +78711,7 @@ function( app, SequenceCollection ) {
                     layers = layers.concat( [ sequence.soundtrackModel.toJSON() ] );
                 }
             });
-
+console.log("layers", layers, this.sequences.toJSON())
             return _.extend({}, this.toJSON(), {
                 sequences: this.sequences.toJSON(),
                 frames: frames,
@@ -80992,7 +80994,7 @@ require.config({
   // generated configuration file.
 
   // Release
- deps: [ "../vendor/tipsy/src/javascripts/jquery.tipsy", "../vendor/simple-color-picker/src/jquery.simple-color", "zeegaplayer", "../vendor/jam/require.config", "main", "spin"],
+deps: [ "../vendor/tipsy/src/javascripts/jquery.tipsy", "../vendor/simple-color-picker/src/jquery.simple-color", "zeegaplayer", "../vendor/jam/require.config", "main", "spin"],
 
  //  deps: ["zeegaplayer", "../vendor/jam/require.config", "main", "spin"],
 
