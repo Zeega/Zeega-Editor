@@ -43234,7 +43234,7 @@ require.config({
   // Release
   deps: [ "../vendor/tipsy/src/javascripts/jquery.tipsy", "../vendor/simple-color-picker/src/jquery.simple-color", "zeegaplayer", "../vendor/jam/require.config", "main", "spin"],
 
-// deps: ["zeegaplayer", "../vendor/jam/require.config", "main", "spin"],
+  //deps: ["zeegaplayer", "../vendor/jam/require.config", "main", "spin"],
 
 
   paths: {
