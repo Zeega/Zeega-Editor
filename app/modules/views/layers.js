@@ -48,25 +48,37 @@ function( app, LayerList ) {
 
         updateListeners: function() {
             if ( app.status.get("previousFrame") ) {
-                app.status.get("previousFrame").layers.off("add", this.onLayerAdd, this );
+                app.status.get("previousFrame").layers.off("add", this.refresh, this );
             }
-            app.status.get("currentFrame").layers.on("add", this.onLayerAdd, this );
+            app.status.get("currentFrame").layers.on("add", this.refresh, this );
         },
 
-        onLayerAdd: function( layerModel, collection ) {
-
-            if ( !layerModel.getAttr("soundtrack") ) {
-                var layerView = new LayerList({
+        refresh: function( layerModel ){
+            var layerView = new LayerList({
                         model: layerModel,
                         attributes: {
                             "data-id": layerModel.id || 0
                         }
                     });
 
-                this.layerViews.push( layerView );
-                this.$("ul.layer-list").prepend( layerView.el );
-                layerView.render();
-            }
+            this.layerViews.push( layerView );
+            this.renderFrameLayers( this.model.status.get("currentFrame") );
+                            layerView.render();
+
+        },
+
+        onLayerAdd: function( layerModel, collection ) {
+
+            var layerView = new LayerList({
+                    model: layerModel,
+                    attributes: {
+                        "data-id": layerModel.id || 0
+                    }
+                });
+
+            this.layerViews.push( layerView );
+            this.$("ul.layer-list").prepend( layerView.el );
+            layerView.render();
         },
 
         renderFrameLayers: function( frameModel ) {
@@ -74,25 +86,22 @@ function( app, LayerList ) {
             this.updateListeners();
 
             frameModel.layers.each(function( layer, i ) {
+                // only generate layer list views if not cached!
+                if ( !layer._layerListView ) {
+                    var layerView = new LayerList({
+                        model: layer,
+                        attributes: {
+                            "data-id": layer.id
+                        }
+                    });
 
-                if ( !layer.getAttr("soundtrack") ) {
-                    // only generate layer list views if not cached!
-                    if ( !layer._layerListView ) {
-                        var layerView = new LayerList({
-                            model: layer,
-                            attributes: {
-                                "data-id": layer.id
-                            }
-                        });
-
-                        layer._layerListView = layerView;
-                        this.layerViews.push( layerView );
-                    }
-
-                    // prepend because layers come in z-index order
-                    this.$("ul.layer-list").prepend( layer._layerListView.el );
-                    layer._layerListView.render();
+                    layer._layerListView = layerView;
+                    this.layerViews.push( layerView );
                 }
+
+                // prepend because layers come in z-index order
+                this.$("ul.layer-list").prepend( layer._layerListView.el );
+                layer._layerListView.render();
             }, this );
 
             this.makeSortable( frameModel );

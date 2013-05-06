@@ -79,7 +79,7 @@ function( app, ItemModel, MediaView, ItemCollectionViewer ) {
             
             _.each( photos, function( photo ){
                 photo.id = count;
-                photo.editable = 1;
+                photo.allowDelete = 1;
                 count++;
             });
 
@@ -283,6 +283,12 @@ function( app, ItemModel, MediaView, ItemCollectionViewer ) {
             var items = [],
                 count = 1;
 
+            //check if is favorites
+            if(!_.isUndefined( res.items_count )){
+                    this.itemsCount = res.items_count;
+
+                    return res.items;
+            }
             
             _.each( res.data.items, function( video ){
                 var item = {};
@@ -593,7 +599,7 @@ function( app, ItemModel, MediaView, ItemCollectionViewer ) {
         
         api: "Youtube",
         apiUrl: "https://gdata.youtube.com/feeds/api/videos?",
-        favUrl: app.searchAPI + "archive=Youtube&type=Image&user=1&limit=48&sort=date-desc",
+        favUrl: app.searchAPI + "archive=Youtube&user=1&limit=48&sort=date-desc",
 
         allowSearch: true,
 
@@ -620,11 +626,11 @@ function( app, ItemModel, MediaView, ItemCollectionViewer ) {
 
             
             
-            if( query !== "" && query !== args.q ){
-                args.q = query;
-                this.set("urlArguments", args );
-                this.mediaCollection.fetch();
-            }
+            
+            args.q = query;
+            this.set("urlArguments", args );
+            this.mediaCollection.fetch();
+            
 
 
             

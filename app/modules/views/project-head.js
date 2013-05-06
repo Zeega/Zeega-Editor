@@ -10,26 +10,38 @@ function( app ) {
         template: "project-head",
 
         serialize: function() {
-
-            var tumblr_share,
-                tumblr_caption;
-
-            tumblr_caption = "<p><a href='" + app.webRoot + app.project.get("id") + "'><strong>Play&nbsp;► " +
-                            app.project.get("title") + "</strong></a></p><p>A Zeega by&nbsp;<a href='" +
-                            app.webRoot + "profile/" + app.project.get("user_id") + "'>" + app.project.get("authors") + "</a></p>";
-
-
-            tumblr_share = "source=" + encodeURIComponent( app.project.get("cover_image") ) +
-                            "&caption=" + encodeURIComponent( tumblr_caption ) +
-                            "&click_thru="+ encodeURIComponent( app.webRoot ) + app.project.get("id");
-
             return _.extend({
                 userId: app.userId,
                 userProjects: $.parseJSON( window.userProjects ),
                 webRoot: app.webRoot,
-                tumblr_share: tumblr_share
+                tumblr_share: this.getTumblrShareUrl()
 
             }, this.model.project.toJSON() );
+        },
+
+        getTumblrShareUrl: function() {
+            var html = "<p>" + app.project.get("description") + "</p>" + 
+                "<p><a href='" + app.webRoot + app.project.get("id") + "'>" +
+                "<strong>►&nbsp;Play&nbsp;Zeega&nbsp;►</strong></a>" +
+                "</p><p>by&nbsp;<a href='" + app.webRoot + "profile/" + app.project.get("user_id") + "'>" + app.project.get("authors") + "</a></p>";
+
+            return "source=" + encodeURIComponent( app.project.get("cover_image") ) +
+                    "&caption=" + encodeURIComponent( html ) +
+                    "&click_thru="+ encodeURIComponent( app.webRoot ) + app.project.get("id");
+        },
+
+        initialize: function() {
+            this.model.project.on("sync", this.onSync, this );
+        },
+
+        onSync: function() {
+            this.$(".share-twitter").attr("href", "https://twitter.com/intent/tweet?original_referer=" + app.webRoot + this.model.project.get("id") + "&text=" + this.model.project.get("description") + "&url=" + app.webRoot + this.model.project.get("id") );
+            this.$(".share-tumblr").attr("href", "http://www.tumblr.com/share/photo?" + this.getTumblrShareUrl() );
+
+            this.$(".project-cover").css({
+                background: "url(" + this.model.project.get("cover_image") + ")",
+                backgroundSize: "cover"
+            });
         },
 
         afterRender: function() {
@@ -61,8 +73,6 @@ function( app ) {
                             "&click_thru="+ encodeURIComponent( app.webRoot ) + app.project.get("id");
             this.$("#tumblr-share").attr("href", "http://www.tumblr.com/share/photo?" + tumblr_share );
 
-
-
         },
 
         events: {
@@ -74,8 +84,8 @@ function( app ) {
             "click .close-grave": "closeGrave",
             "mousedown .text-box": "onBoxFocus",
             "click .share-zeega": "showShare",
-            "click .embed-zeega": "showEmbed"
-
+            "click .embed-zeega": "showEmbed",
+            "keyup #project-caption": "onCaptionKeypress"
             // "click .project-share-toggle": "toggleShare",
         },
 
@@ -95,11 +105,12 @@ function( app ) {
         },
 
         closeGrave: function() {
-            
             this.$(".share-grave").slideUp("fast");
         },
 
         toggleShareGrave: function() {
+
+            this.model.status.setCurrentLayer( null );
 
             if( !this.$(".share-grave").is(":visible") ) {
                 this.model.project.save( "publish_update", 1 );
@@ -110,14 +121,20 @@ function( app ) {
             this.$(".share-grave").slideToggle("fast");
         },
 
-
-
         onTitleKeyup: function( e ) {
             if ( e.which == 13 ) {
                 this.$(".project-info").blur();
                 return false;
             }
         },
+
+        onCaptionKeypress: function( e ) {
+            this.captionSave();
+        },
+
+        captionSave: _.debounce(function() {
+            this.model.project.save("description", this.$("#project-caption").val() );
+        }, 1000 ),
 
         onMenuClick: function( e ) {
             var $target = $(e.target).closest("a");
@@ -131,9 +148,7 @@ function( app ) {
             var projectData = app.project.getProjectJSON();
 
             app.zeegaplayer = null;
-
             app.trigger("project_preview");
-            
             this.model.project.save( "publish_update", 1 );
             
             app.zeegaplayer = new Zeega.player({

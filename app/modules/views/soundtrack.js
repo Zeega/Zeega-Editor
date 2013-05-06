@@ -28,7 +28,7 @@ function( app, Viewer ) {
 
         onEnterSequence: function( sequence ) {
             if ( sequence.get("attr").soundtrack ) {
-                this.setSoundtrackLayer( app.project.getLayer( sequence.get("attr").soundtrack ) );
+                this.setSoundtrackLayer( app.soundtrack );
             }
         },
 

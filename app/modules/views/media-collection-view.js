@@ -146,7 +146,7 @@ function( app, UploadView, Spinner ) {
 
 
         _afterRender: function(){
-            console.log("beforerender");
+
             this.$el.find(".collection-options").append("<select class = 'query-type' >" +
               "<option value='user'>username</option>" +
               "<option value='tag'>tag</option>" +

@@ -73,11 +73,19 @@ function( app, Modal, FrameView, ImageView, AudioView, VideoView, YoutubeView ) 
         },
 
         events: {
+
             "click .modal-close": "close",
             "click .prev": "prev",
             "click .next": "next",
             "click .add-to-frame": "addToFrame",
-            "click .delete-item": "deleteItem"
+            "click .delete-item": "deleteItem",
+            "click": "onClick"
+        },
+
+        onClick: function( e ){
+            if( e.toElement.className == "ZEEGA-modal ZEEGA-item-collection-viewer" ){
+                this.close();
+            }
         },
 
         keyup: function( e ) {

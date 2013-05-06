@@ -10,7 +10,8 @@ define([
     // creation.
     var app = {
         // The root path to run the application.
-
+        attributes: { mobile: false },
+        mode: "editor",
         parserPath: "app/zeega-parser/",
         dragging: null,
         mediaCollection: null,

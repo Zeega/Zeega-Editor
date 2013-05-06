@@ -10,7 +10,7 @@ function( app, ItemView ) {
         
         view: null,
         defaults: {
-            editable: -1
+            allowDelete: 0
         },
         url: function(){
             var url = app.api + "items/" + this.id;
