@@ -77588,7 +77588,7 @@ function( app, Backbone, Layers, ThumbWorker ) {
 
                 worker.postMessage({
                     cmd: 'capture',
-                    msg: app.api + "frames/" + this.id + "/thumbnail"
+                    msg: app.api + "projects/" + app.project.id + "/frames/" + this.id + "/thumbnail"
                 });
 
             }, 1000);
@@ -80629,9 +80629,9 @@ require.config({
   // generated configuration file.
 
   // Release
-  deps: [ "../vendor/tipsy/src/javascripts/jquery.tipsy", "../vendor/simple-color-picker/src/jquery.simple-color", "zeegaplayer", "../vendor/jam/require.config", "main", "spin"],
+deps: [ "../vendor/tipsy/src/javascripts/jquery.tipsy", "../vendor/simple-color-picker/src/jquery.simple-color", "zeegaplayer", "../vendor/jam/require.config", "main", "spin"],
 
-  //deps: ["zeegaplayer", "../vendor/jam/require.config", "main", "spin"],
+//  deps: ["zeegaplayer", "../vendor/jam/require.config", "main", "spin"],
 
 
   paths: {
