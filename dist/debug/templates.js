@@ -253,7 +253,7 @@ __p+='<div class="nav col-left navbar ZEEGA-hmenu clear">\n    <ul class=\'pull-
 ( webRoot )+
 ''+
 ( item_id )+
-' @zeega"\n                            class="social-share share-twitter"\n                            data-itemid="'+
+' Made with @zeega"\n                            class="social-share share-twitter"\n                            data-itemid="'+
 ( item_id )+
 '"\n                            target="blank">\n                        <i class="zitem-twitter zitem-30 color"></i>\n                    </a>\n                    <a href="http://www.facebook.com/sharer.php?u='+
 ( webRoot )+
