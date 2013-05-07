@@ -1,9 +1,6 @@
 [submodule "app/zeega-parser"]
 	path = app/zeega-parser
 	url = https://github.com/Zeega/Zeega-Parser.git
-[submodule "vendor/popcorn"]
-	path = vendor/popcorn
-	url = https://github.com/Zeega/popcorn-js.git
 [submodule "vendor/zeegaplayer"]
 	path = vendor/zeegaplayer
 	url = https://github.com/Zeega/Zeega-Player.git
