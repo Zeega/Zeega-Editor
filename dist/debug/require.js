@@ -595,7 +595,7 @@ return __p;
 this["JST"]["app/templates/media-upload.html"] = function(obj){
 var __p='';var print=function(){__p+=Array.prototype.join.call(arguments, '')};
 with(obj||{}){
-__p+='<div class="upload-chooser">\n    <a href="#" class="upload-image-action active">upload image file</a> | <a href="#" class="paste-url-action">paste an image url</a>\n</div>\n\n<div class="upload-toggle">\n    <div class="upload-file">\n        <div class = "upload-progress" ></div>\n        <span class="upload-instructions">click or drag an image here to upload</span>\n        <input id="imagefile"  name="imagefile"  type="file" href="#"></input>\n    </div>\n    <div class="paste-url">\n        <input class="url-box" type="text" placeholder="enter url here" value="" />\n    </div>\n</div>\n\n\n\n<!-- \n<div class = "image-uploads" >\n    <span class="add-photo" href="#">\n        <input id="imagefile"  name="imagefile"  type="file" href="#"></input>\n    </span>\n</div>\n<ul class=\'pull-left search-bar\'>\n    <li>\n        <input class="url-box" type="text" placeholder="enter url here" value="" />\n    </li>\n</ul>\n -->';
+__p+='<div class="upload-chooser">\n    <a href="#" class="upload-image-action active">upload an image file</a> | <a href="#" class="paste-url-action">paste a url</a>\n</div>\n\n<div class="upload-toggle">\n    <div class="upload-file">\n        <div class = "upload-progress" ></div>\n        <span class="upload-instructions">click or drag an image here to upload</span>\n        <input id="imagefile"  name="imagefile"  type="file" href="#"></input>\n    </div>\n    <div class="paste-url">\n        <input class="url-box" type="text" placeholder="enter url here" value="" />\n    </div>\n</div>\n\n\n\n<!-- \n<div class = "image-uploads" >\n    <span class="add-photo" href="#">\n        <input id="imagefile"  name="imagefile"  type="file" href="#"></input>\n    </span>\n</div>\n<ul class=\'pull-left search-bar\'>\n    <li>\n        <input class="url-box" type="text" placeholder="enter url here" value="" />\n    </li>\n</ul>\n -->';
 }
 return __p;
 };
@@ -660,24 +660,6 @@ __p+='<div class="nav col-left navbar ZEEGA-hmenu clear">\n    <ul class=\'pull-
 ''+
 ( id )+
 '/embed" width="100%" height="100%" webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe>\'></input>\n                </div>\n                \n            </div>\n        </div>\n\n        <div class="share-tabs">\n            <ul>\n                <li>\n                    <a href="#" class="share-zeega active">Share your Zeega</a>\n                </li>\n                <li>\n                    <a href="#" class="embed-zeega">Embed</a>\n                </li>\n            </ul>\n        </div>\n\n    </div>\n\n</div>\n';
-}
-return __p;
-};
-
-this["JST"]["app/templates/sequence.html"] = function(obj){
-var __p='';var print=function(){__p+=Array.prototype.join.call(arguments, '')};
-with(obj||{}){
-__p+='<a href="#" class="sequence-title">'+
-( title )+
-'</a>\n<a href="#" class="dropdown"><i class="icon-edit icon-white"></i></a>';
-}
-return __p;
-};
-
-this["JST"]["app/templates/sequences.html"] = function(obj){
-var __p='';var print=function(){__p+=Array.prototype.join.call(arguments, '')};
-with(obj||{}){
-__p+='<ul class="sequence-list"></ul>\n<div class="add-sequence"><a href="#"><i class="icon-plus icon-white"></i> add sequence</a></div>';
 }
 return __p;
 };
@@ -34594,7 +34576,7 @@ function( app ) {
         onNewFrameSave: function( newFrame ) {
             this.model.saveAttr({ to_frame: newFrame.id });
             this.model.trigger("change:to_frame", this.model, newFrame.id );
-            // console.log('on new frame save', newFrame, this.model );
+            console.log('on new frame save', newFrame, this.model );
         },
 
         afterRender: function() {
@@ -36220,7 +36202,7 @@ function( app, Backbone, Layers, ThumbWorker ) {
 
         defaults: {
             _order: 0,
-            attr: { advance: 0 },
+            attr: {},
             // ids of frames and their common layers for loading
             common_layers: {},
             _connections: "none",
@@ -36305,9 +36287,6 @@ function( app, Backbone, Layers, ThumbWorker ) {
             var newLayer = new Layers[ type ]({ type: type });
             newLayer.order[ this.id ] = this.layers.length;
             newLayer.save().success(function( response ) {
-                // if( type == "Link" ){
-                //     this.set( "attr", { "advance" : 10000 } ); //needs update in player – adding a link layer removes default advance
-                // }
                 this.layers.add( newLayer );
                 app.status.setCurrentLayer( newLayer );
             }.bind( this ));
@@ -36388,7 +36367,6 @@ function( app, Backbone, Layers, ThumbWorker ) {
                 next = this.get("_next");
 
             this.set( "connections",
-                this.get('attr').advance ? "none" :
                 prev & next ? "lr" :
                 prev ? "l" :
                 next ? "r" : "none"
@@ -36428,12 +36406,6 @@ function( app, Backbone, Layers, ThumbWorker ) {
 
                 // update status
                 this.status.set( "current_frame",this.id );
-                // set frame timer
-                advance = this.get("attr").advance;
-
-                if ( advance ) {
-                    this.startTimer( advance );
-                }
 
                 if ( !this.get("_next") && this.get("linksTo").length === 0 ) {
                     this.status.emit("deadend_frame", _.extend({}, this.toJSON() ) );
@@ -36488,7 +36460,6 @@ function( app, Backbone, Layers, ThumbWorker ) {
 
             // cancel the timer
             // record the current elapsed time on the frame
-            // the elapsed time will be subtracted from the total advance time when the timer is restarted in play()
             if( this.timer ) {
                 clearTimeout( this.timer );
                 this.elapsed += ( new Date().getTime() - this.status.playTimestamp );
@@ -36500,17 +36471,9 @@ function( app, Backbone, Layers, ThumbWorker ) {
         },
 
         play: function() {
-            var advance;
-
             this.layers.each(function( layer ) {
                 layer.play();
             });
-
-            // set frame timer
-            advance = this.get("attr").advance;
-            if ( advance ) {
-                this.startTimer( advance - this.elapsed );
-            }
         },
 
         startTimer: function( ms ) {
@@ -36750,6 +36713,7 @@ function( app, SequenceModel, FrameCollection, LayerCollection, LayerModels ) {
                 var layerModel = new LayerModels[ layer.type ]( layer );
 
                 layerModel.initVisual( LayerModels[ layer.type ] );
+                
                 return layerModel;
             });
 
@@ -36790,6 +36754,7 @@ function( app, SequenceCollection ) {
     return app.Backbone.Model.extend({
 
         updated: false,
+        frameKey: {},
 
         defaults: {
             authors: null,
@@ -36849,19 +36814,19 @@ function( app, SequenceCollection ) {
 
         parseSequences: function() {
             this.sequences = new SequenceCollection( this.get("sequences") );
+
             this.sequences.initFrames( this.get("frames"), this.get("layers"), this.options );
 
             this._generateFrameSequenceKey();
             this._setInnerSequenceConnections();
-            this._setSequenceToSequenceConnections();
             this._setLinkConnections();
             this._setFramePreloadArrays();
             this._setFrameCommonLayers();
             this._attach();
         },
 
+        // potentially not needed if there is only one sequence
         _generateFrameSequenceKey: function() {
-            this.frameKey = {};
             this.sequences.each(function( sequence ) {
                 sequence.frames.each(function( frame ) {
                     this.frameKey[ frame.id ] = sequence.id;
@@ -36873,52 +36838,20 @@ function( app, SequenceCollection ) {
             this.frameKey[ frameId ] = sequenceId;
         },
 
+        // [ _last ] [ current ] [ _next ]
         _setInnerSequenceConnections: function() {
             this.sequences.each(function( sequence, i ) {
                 var frames = sequence.frames;
 
                 if ( frames.length > 1 ) {
-                    var animationStart = null;
-
                     frames.each(function( frame, j ) {
-                        var lastStart = animationStart;
-
-                        // return to the start of an animation sequence
-                        animationStart = frame.get("attr").advance && animationStart === null ? frame.id :
-                            frame.get("attr").advance && animationStart !== null ? animationStart : null;
-
                         frame.put({
                             _next: frames.at( j + 1 ) ? frames.at( j + 1 ).id : null,
-                            _last: frames.at( j - 1 ) ? frames.at( j - 1 ).id : null,
-                            _prev: animationStart && lastStart === null && frames.at( j - 1 ) ? frames.at( j - 1 ).id :
-                                animationStart ? animationStart :
-                                animationStart === null && lastStart !== null ? lastStart :
-                                frames.at( j - 1 ) ? frames.at( j - 1 ).id : null
+                            _last: frames.at( j - 1 ) ? frames.at( j - 1 ).id : null
                         });
                     });
                 }
             });
-        },
-
-        _setSequenceToSequenceConnections: function() {
-            this.sequences.each(function( sequence, i ) {
-                var a,b,
-                    advanceTo = sequence.get("advance_to"),
-                    followingSequence = this.sequences.get( advanceTo );
-
-                if ( advanceTo && followingSequence ) {
-                    a = sequence.frames.last();
-                    b = followingSequence.frames.at( 0 );
-
-                    a.put({ _next: b.id });
-                    b.put({ _prev: a.id });
-                } else if( !advanceTo && sequence.frames.last().get('attr').advance ) {
-                    a = sequence.frames.last();
-                    b = sequence.frames.first();
-                    a.put({ _next: b.id });
-                    b.put({ _prev: a.id });
-                }
-            }, this );
         },
 
         _setLinkConnections: function() {
@@ -36994,7 +36927,6 @@ function( app, SequenceCollection ) {
             next = frame.get("_next");
 
             frame.put( "_connections",
-                frame.get('attr').advance ? "none" :
                 prev & next ? "lr" :
                 prev ? "l" :
                 next ? "r" : "none"
@@ -37063,6 +36995,7 @@ function( app, SequenceCollection ) {
             }
         },
 
+        // TODO keep a central repo of layers!
         // this is not the best. cache these somewhere in a big collection?
         getLayer: function( layerID ) {
             var layerModel;
@@ -37086,7 +37019,6 @@ function( app, SequenceCollection ) {
         publishProject: function() {
 
             if ( this.get("date_updated") != this.get("date_published") || this.updated ) {
-                
                 this.updated = false;
                 this.once("sync", this.onProjectPublish, this);
 
@@ -37279,48 +37211,6 @@ function( _ ) {
             });
     }
 
-    // function parseSlideshowCollection( response, opts ) {
-    //     var sequence, frames, layers, slideshowLayer, timebasedLayers;
-
-    //     timebasedLayers = _.filter( response.items, function( item ) {
-    //         return item.layer_type == "Audio" || item.media_type == "Video";
-    //     });
-
-    //     slideshowLayer = Slideshow.parse( response.items, opts.layerOptions );
-    //     // layers from timebased items
-    //     layers = generateLayerArrayFromItems( timebasedLayers );
-        
-    //     if ( slideshowLayer ) {
-    //         layers.push( slideshowLayer );
-    //     }
-    //     // frames from timebased items
-    //     if ( timebasedLayers.length ) {
-    //         frames = generateFrameArrayFromItems( timebasedLayers, slideshowLayer ? [ slideshowLayer.id ] : [] );
-    //     } else {
-    //         // create single frame if no timebased layers exist
-    //         frames = [{
-    //             id: 1,
-    //             layers: [1],
-    //             attr: { advance : 0 }
-    //         }];
-    //     }
-
-    //     sequence = {
-    //         id: 0,
-    //         title: "collection",
-    //         persistent_layers: slideshowLayer ? [ slideshowLayer.id ] : [],
-    //         frames: _.pluck( frames, "id")
-    //     };
-
-    //     return _.extend(
-    //         response.items[0],
-    //         {
-    //             sequences: [ sequence ],
-    //             frames: frames,
-    //             layers: layers
-    //         });
-    // }
-
     function generateLayerArrayFromItems( itemsArray ) {
         var layerDefaults = {
             width: 100,
@@ -37346,8 +37236,7 @@ function( _ ) {
 
             return {
                 id: item.id,
-                layers: layers,
-                attr: { advance : 0 }
+                layers: layers
             };
         });
     }
@@ -37417,8 +37306,7 @@ function() {
         return _.map( itemsArray, function( item ) {
             return {
                 id: item.link,
-                layers: _.compact( [item.link].concat(persistentLayers) ),
-                attr: { advance: 0 }
+                layers: _.compact( [item.link].concat(persistentLayers) )
             };
         });
     }
@@ -37505,8 +37393,7 @@ function() {
             var id = item.media$group.yt$videoid.$t;
             return {
                 id: id,
-                layers: _.compact( [id].concat( persistentLayers ) ),
-                attr: { advance: 0 }
+                layers: _.compact( [id].concat( persistentLayers ) )
             };
         });
     }
@@ -38492,11 +38379,7 @@ function( app, ZeegaParser, Relay, Status, PlayerLayout ) {
                             _this.cuePrev();
                             break;
                         case 39: // right arrow
-                            var adv = this.status.get("current_frame_model").get("attr").advance;
-                            
-                            if ( adv === 0 || adv === undefined ) {
-                                _this.cueNext();
-                            }
+                            _this.cueNext();
                             break;
                         case 32: // spacebar
                             _this.playPause();
@@ -38557,6 +38440,14 @@ function( app, ZeegaParser, Relay, Status, PlayerLayout ) {
         },
 
         loadSoundtrack: null,
+
+        mute: function() {
+            // TODO
+        },
+
+        unMute: function() {
+            // TODO
+        },
 
         // if the player is playing, pause the project
         pause: function() {
@@ -38627,6 +38518,7 @@ function( app, ZeegaParser, Relay, Status, PlayerLayout ) {
         },
 
         // mobile only hack
+        // TODO -- this blows -j
         mobileLoadAudioLayers: function() {
             this.project.sequences.each(function( sequence ) {
                 sequence.frames.each(function( frame ) {
@@ -38669,6 +38561,8 @@ function( app, ZeegaParser, Relay, Status, PlayerLayout ) {
             }
         },
 
+
+        //*******  DEPRECATED  ********//
         // if a next sequence exists, then cue and play it
         cueNextSequence: function() {
             var nextSequenceID = this.status.get("current_sequence_model").get("advance_to");
@@ -38678,6 +38572,7 @@ function( app, ZeegaParser, Relay, Status, PlayerLayout ) {
             }
         },
 
+        //*******  DEPRECATED  ********//
         // if a prev sequence exists, then cue and play it
         cuePrevSequence: function() {
             var seqHist = this.status.get("sequenceHistory"),
@@ -38701,40 +38596,9 @@ function( app, ZeegaParser, Relay, Status, PlayerLayout ) {
             }
         },
 
-        // TODO: update this
-        // returns project metadata
+        // returns project data
         getProjectData: function() {
-            var frames = [],
-                layers = [];
-
-            this.project.sequences.each(function( sequence ) {
-                sequence.frames.each(function( frame ) {
-                    var l, f;
-
-                    l = frame.layers.toJSON();
-                    f = _.extend({},
-                        frame.toJSON(),
-                        { layers: l }
-                    );
-
-                    layers.push( l );
-                    frames.push( f );
-                });
-            });
-
-            layers = _.flatten( layers );
-            layers = _.uniq( layers, function( lay) {
-                return lay.id;
-            });
-
-            return _.extend({},
-                this.toJSON(),
-                {
-                    sequences: this.project.sequences.toJSON(),
-                    frames: frames,
-                    layers: layers
-                }
-            );
+            return this.project.getProjectJSON();
         },
 
         getFrameData: function() {
@@ -38748,7 +38612,8 @@ function( app, ZeegaParser, Relay, Status, PlayerLayout ) {
             return false;
         },
 
-        // returns the frame structure for the project // not implemented
+        // TODO
+        // returns the frame structure for the project
         getProjectTree: function() {
             return false;
         },
@@ -56899,68 +56764,6 @@ function( app ) {
 
 });
 
-define('modules/views/sequence',[
-    "app",
-    "backbone"
-],
-
-function( app ) {
-
-    return Backbone.View.extend({
-
-        tagName: "li",
-        template: "sequence",
-        className: "ZEEGA-sequence",
-
-        serialize: function() {
-            return this.model.toJSON();
-        },
-
-        events: {
-            //"click .controls-toggle": "toggleControls"
-        }
-        
-    });
-
-});
-
-define('modules/views/sequences',[
-    "app",
-    "modules/views/sequence",
-    "backbone"
-],
-
-function( app, SequenceView ) {
-
-
-    return Backbone.View.extend({
-
-        template: "sequences",
-        className: "ZEEGA-sequences",
-
-        initialize: function() {
-            this.model.project.sequences.each(function( sequence ) {
-                this.insertView(".sequence-list", new SequenceView({
-                    model: sequence,
-                    attributes: {
-                        "data-id": sequence.id
-                    }
-                }) );
-            }.bind( this ));
-        },
-
-        events: {
-            "click .add-sequence a": "addSequence"
-        },
-
-        addSequence: function() {
-            
-        }
-        
-    });
-
-});
-
 define('modules/views/frame',[
     "app",
     "backbone"
@@ -73077,9 +72880,13 @@ function( app ) {
             item.off("sync");
             app.layout.$(".intro").remove();
             item.url = app.api + "items";
-            app.status.get('currentFrame').addLayerByItem( item );
             item.on("sync", this.refreshUploads, this );
             item.save();
+            if ( item.get("layer_type")  && _.contains( ["Audio"], item.get("layer_type") )) {
+                app.status.get('currentSequence').setSoundtrack( item, app.layout.soundtrack );
+            } else {
+                app.status.get('currentFrame').addLayerByItem( item );
+            }
         },
 
         search: function( url ){
@@ -74323,7 +74130,6 @@ define('modules/layout-main',[
 
     "modules/views/project-head",
 
-    "modules/views/sequences",
     "modules/views/frames",
     "modules/views/workspace",
     "modules/views/layers",
@@ -74338,7 +74144,7 @@ define('modules/layout-main',[
     "backbone"
 ],
 
-function( app, ProjectHead, Sequences, Frames, Workspace, Layers, LayerDrawer, Soundtrack, MediaDrawer, Instructions ) {
+function( app, ProjectHead, Frames, Workspace, Layers, LayerDrawer, Soundtrack, MediaDrawer, Instructions ) {
 
     return Backbone.Layout.extend({
 
@@ -74353,7 +74159,6 @@ function( app, ProjectHead, Sequences, Frames, Workspace, Layers, LayerDrawer, S
         },
 
         beforeRender: function() {
-            this.insertView( ".sequences", new Sequences({ model: app }) );
             this.insertView( ".workspace", new Workspace({ model: app }) );
             this.insertView( ".layers", new Layers({ model: app }) );
         },
@@ -77471,7 +77276,7 @@ function( app, _Layer, Visual, TextModal ) {
                 .css( css )
                 .text( this.model.getAttr("content") );
 
-            this.$el.css( css );
+            // this.$el.css( css );
         },
 
         afterEditorRender: function() {
@@ -77895,7 +77700,7 @@ function( app, Backbone, Layers, ThumbWorker ) {
 
         defaults: {
             _order: 0,
-            attr: { advance: 0 },
+            attr: {},
             // ids of frames and their common layers for loading
             common_layers: {},
             _connections: "none",
@@ -77980,9 +77785,6 @@ function( app, Backbone, Layers, ThumbWorker ) {
             var newLayer = new Layers[ type ]({ type: type });
             newLayer.order[ this.id ] = this.layers.length;
             newLayer.save().success(function( response ) {
-                // if( type == "Link" ){
-                //     this.set( "attr", { "advance" : 10000 } ); //needs update in player – adding a link layer removes default advance
-                // }
                 this.layers.add( newLayer );
                 app.status.setCurrentLayer( newLayer );
             }.bind( this ));
@@ -78063,7 +77865,6 @@ function( app, Backbone, Layers, ThumbWorker ) {
                 next = this.get("_next");
 
             this.set( "connections",
-                this.get('attr').advance ? "none" :
                 prev & next ? "lr" :
                 prev ? "l" :
                 next ? "r" : "none"
@@ -78103,12 +77904,6 @@ function( app, Backbone, Layers, ThumbWorker ) {
 
                 // update status
                 this.status.set( "current_frame",this.id );
-                // set frame timer
-                advance = this.get("attr").advance;
-
-                if ( advance ) {
-                    this.startTimer( advance );
-                }
 
                 if ( !this.get("_next") && this.get("linksTo").length === 0 ) {
                     this.status.emit("deadend_frame", _.extend({}, this.toJSON() ) );
@@ -78163,7 +77958,6 @@ function( app, Backbone, Layers, ThumbWorker ) {
 
             // cancel the timer
             // record the current elapsed time on the frame
-            // the elapsed time will be subtracted from the total advance time when the timer is restarted in play()
             if( this.timer ) {
                 clearTimeout( this.timer );
                 this.elapsed += ( new Date().getTime() - this.status.playTimestamp );
@@ -78175,17 +77969,9 @@ function( app, Backbone, Layers, ThumbWorker ) {
         },
 
         play: function() {
-            var advance;
-
             this.layers.each(function( layer ) {
                 layer.play();
             });
-
-            // set frame timer
-            advance = this.get("attr").advance;
-            if ( advance ) {
-                this.startTimer( advance - this.elapsed );
-            }
         },
 
         startTimer: function( ms ) {
@@ -78425,6 +78211,7 @@ function( app, SequenceModel, FrameCollection, LayerCollection, LayerModels ) {
                 var layerModel = new LayerModels[ layer.type ]( layer );
 
                 layerModel.initVisual( LayerModels[ layer.type ] );
+                
                 return layerModel;
             });
 
@@ -78465,6 +78252,7 @@ function( app, SequenceCollection ) {
     return app.Backbone.Model.extend({
 
         updated: false,
+        frameKey: {},
 
         defaults: {
             authors: null,
@@ -78524,19 +78312,19 @@ function( app, SequenceCollection ) {
 
         parseSequences: function() {
             this.sequences = new SequenceCollection( this.get("sequences") );
+
             this.sequences.initFrames( this.get("frames"), this.get("layers"), this.options );
 
             this._generateFrameSequenceKey();
             this._setInnerSequenceConnections();
-            this._setSequenceToSequenceConnections();
             this._setLinkConnections();
             this._setFramePreloadArrays();
             this._setFrameCommonLayers();
             this._attach();
         },
 
+        // potentially not needed if there is only one sequence
         _generateFrameSequenceKey: function() {
-            this.frameKey = {};
             this.sequences.each(function( sequence ) {
                 sequence.frames.each(function( frame ) {
                     this.frameKey[ frame.id ] = sequence.id;
@@ -78548,52 +78336,20 @@ function( app, SequenceCollection ) {
             this.frameKey[ frameId ] = sequenceId;
         },
 
+        // [ _last ] [ current ] [ _next ]
         _setInnerSequenceConnections: function() {
             this.sequences.each(function( sequence, i ) {
                 var frames = sequence.frames;
 
                 if ( frames.length > 1 ) {
-                    var animationStart = null;
-
                     frames.each(function( frame, j ) {
-                        var lastStart = animationStart;
-
-                        // return to the start of an animation sequence
-                        animationStart = frame.get("attr").advance && animationStart === null ? frame.id :
-                            frame.get("attr").advance && animationStart !== null ? animationStart : null;
-
                         frame.put({
                             _next: frames.at( j + 1 ) ? frames.at( j + 1 ).id : null,
-                            _last: frames.at( j - 1 ) ? frames.at( j - 1 ).id : null,
-                            _prev: animationStart && lastStart === null && frames.at( j - 1 ) ? frames.at( j - 1 ).id :
-                                animationStart ? animationStart :
-                                animationStart === null && lastStart !== null ? lastStart :
-                                frames.at( j - 1 ) ? frames.at( j - 1 ).id : null
+                            _last: frames.at( j - 1 ) ? frames.at( j - 1 ).id : null
                         });
                     });
                 }
             });
-        },
-
-        _setSequenceToSequenceConnections: function() {
-            this.sequences.each(function( sequence, i ) {
-                var a,b,
-                    advanceTo = sequence.get("advance_to"),
-                    followingSequence = this.sequences.get( advanceTo );
-
-                if ( advanceTo && followingSequence ) {
-                    a = sequence.frames.last();
-                    b = followingSequence.frames.at( 0 );
-
-                    a.put({ _next: b.id });
-                    b.put({ _prev: a.id });
-                } else if( !advanceTo && sequence.frames.last().get('attr').advance ) {
-                    a = sequence.frames.last();
-                    b = sequence.frames.first();
-                    a.put({ _next: b.id });
-                    b.put({ _prev: a.id });
-                }
-            }, this );
         },
 
         _setLinkConnections: function() {
@@ -78669,7 +78425,6 @@ function( app, SequenceCollection ) {
             next = frame.get("_next");
 
             frame.put( "_connections",
-                frame.get('attr').advance ? "none" :
                 prev & next ? "lr" :
                 prev ? "l" :
                 next ? "r" : "none"
@@ -78738,6 +78493,7 @@ console.log("layers", layers, this.sequences.toJSON())
             }
         },
 
+        // TODO keep a central repo of layers!
         // this is not the best. cache these somewhere in a big collection?
         getLayer: function( layerID ) {
             var layerModel;
@@ -78761,7 +78517,6 @@ console.log("layers", layers, this.sequences.toJSON())
         publishProject: function() {
 
             if ( this.get("date_updated") != this.get("date_published") || this.updated ) {
-                
                 this.updated = false;
                 this.once("sync", this.onProjectPublish, this);
 
@@ -78954,48 +78709,6 @@ function( _ ) {
             });
     }
 
-    // function parseSlideshowCollection( response, opts ) {
-    //     var sequence, frames, layers, slideshowLayer, timebasedLayers;
-
-    //     timebasedLayers = _.filter( response.items, function( item ) {
-    //         return item.layer_type == "Audio" || item.media_type == "Video";
-    //     });
-
-    //     slideshowLayer = Slideshow.parse( response.items, opts.layerOptions );
-    //     // layers from timebased items
-    //     layers = generateLayerArrayFromItems( timebasedLayers );
-        
-    //     if ( slideshowLayer ) {
-    //         layers.push( slideshowLayer );
-    //     }
-    //     // frames from timebased items
-    //     if ( timebasedLayers.length ) {
-    //         frames = generateFrameArrayFromItems( timebasedLayers, slideshowLayer ? [ slideshowLayer.id ] : [] );
-    //     } else {
-    //         // create single frame if no timebased layers exist
-    //         frames = [{
-    //             id: 1,
-    //             layers: [1],
-    //             attr: { advance : 0 }
-    //         }];
-    //     }
-
-    //     sequence = {
-    //         id: 0,
-    //         title: "collection",
-    //         persistent_layers: slideshowLayer ? [ slideshowLayer.id ] : [],
-    //         frames: _.pluck( frames, "id")
-    //     };
-
-    //     return _.extend(
-    //         response.items[0],
-    //         {
-    //             sequences: [ sequence ],
-    //             frames: frames,
-    //             layers: layers
-    //         });
-    // }
-
     function generateLayerArrayFromItems( itemsArray ) {
         var layerDefaults = {
             width: 100,
@@ -79021,8 +78734,7 @@ function( _ ) {
 
             return {
                 id: item.id,
-                layers: layers,
-                attr: { advance : 0 }
+                layers: layers
             };
         });
     }
@@ -79092,8 +78804,7 @@ function() {
         return _.map( itemsArray, function( item ) {
             return {
                 id: item.link,
-                layers: _.compact( [item.link].concat(persistentLayers) ),
-                attr: { advance: 0 }
+                layers: _.compact( [item.link].concat(persistentLayers) )
             };
         });
     }
@@ -79180,8 +78891,7 @@ function() {
             var id = item.media$group.yt$videoid.$t;
             return {
                 id: id,
-                layers: _.compact( [id].concat( persistentLayers ) ),
-                attr: { advance: 0 }
+                layers: _.compact( [id].concat( persistentLayers ) )
             };
         });
     }

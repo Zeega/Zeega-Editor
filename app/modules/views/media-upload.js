@@ -95,9 +95,13 @@ function( app ) {
             item.off("sync");
             app.layout.$(".intro").remove();
             item.url = app.api + "items";
-            app.status.get('currentFrame').addLayerByItem( item );
             item.on("sync", this.refreshUploads, this );
             item.save();
+            if ( item.get("layer_type")  && _.contains( ["Audio"], item.get("layer_type") )) {
+                app.status.get('currentSequence').setSoundtrack( item, app.layout.soundtrack );
+            } else {
+                app.status.get('currentFrame').addLayerByItem( item );
+            }
         },
 
         search: function( url ){
