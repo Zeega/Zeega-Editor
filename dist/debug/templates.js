@@ -268,7 +268,7 @@ __p+='<div class="nav col-left navbar ZEEGA-hmenu clear">\n    <ul class=\'pull-
 '"\n                                    target="blank">\n                        <i class="zitem-tumblr zitem-30 color"></i>\n                    </a>\n                </div>\n\n                <div>\n                    <input class="text-box" type="text" value="'+
 ( webRoot )+
 ''+
-( item_id )+
+( id )+
 '" readonly></input>\n                </div>\n\n            </div>\n            <div class="share-embed share-window">\n                <div>\n                    <p>Use this snippet of code to showcase your Zeega on your own site</p>\n                </div>\n                <div>\n                    <input class="text-box" type="text" value=\'<iframe src="'+
 ( webRoot )+
 ''+
