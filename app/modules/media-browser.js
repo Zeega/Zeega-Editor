@@ -327,7 +327,7 @@ function( app, ItemModel, MediaView, ItemCollectionViewer ) {
         api: "Zeega",
         mediaCollection: null,
         apiUrl: app.searchAPI,
-        favUrl: app.searchAPI + "type=-project AND -Collection AND -Video AND -Audio&user=1&limit=48&sort=date-desc",
+        favUrl: app.searchAPI + "type=-project AND -Collection AND -Audio&user=1&limit=48&sort=date-desc",
         allowSearch: false,
 
         defaults: {
