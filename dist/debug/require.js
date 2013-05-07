@@ -806,6 +806,20 @@ __p+='<audio id="audio-el-'+
 return __p;
 };
 
+this["JST"]["app/zeega-parser/plugins/layers/end_page/endpage.html"] = function(obj){
+var __p='';var print=function(){__p+=Array.prototype.join.call(arguments, '')};
+with(obj||{}){
+__p+='<!-- <div class="endpage-inner">\n    <img class="end-logo" src="assets/img/zeega-red-white-250.png">\n\n    <div class="user-block user-block-large">\n        <a href="http://zeega.com/user/'+
+( user_id )+
+'" target="blank">\n            <div class="profile-token"\n                style="\n                    background: url('+
+( userThumbnail )+
+');\n                    background-size: cover;\n                "\n            ></div>\n            <div class="profile-name">by '+
+( authors )+
+'</div>\n        </a>\n    </div>\n\n    <div class="share-block">\n        <ul class="share-sites">\n            <li><a href="#"><i class="endpage-social endpage-social-twitter"></i></a></li>\n            <li><a href="#"><i class="endpage-social endpage-social-facebook"></i></a></li>\n            <li><a href="#"><i class="endpage-social endpage-social-tumblr"></i></a></li>\n        </ul>\n    </div>\n\n</div> -->';
+}
+return __p;
+};
+
 this["JST"]["app/zeega-parser/plugins/layers/image/image.html"] = function(obj){
 var __p='';var print=function(){__p+=Array.prototype.join.call(arguments, '')};
 with(obj||{}){
@@ -77490,6 +77504,65 @@ function( Zeega, LayerModel, Visual ) {
 
     return Layer;
 });
+define('zeega_parser/plugins/layers/end_page/endpage',[
+    "app",
+    "zeega_parser/modules/layer.model",
+    "zeega_parser/modules/layer.visual.view"
+],
+
+function( app, Layer, Visual ){
+
+    var L = {};
+
+    L.EndPageLayer = Layer.extend({
+
+        layerType: "EndPage",
+
+        attr: {
+            title: "End Page Layer",
+            left: 0,
+            top: 0,
+            height: 100,
+            width: 100,
+            width: null,
+            opacity: 1,
+            aspectRatio: null,
+            dissolve: true
+        }
+
+    });
+
+    L.EndPageLayer.Visual = Visual.extend({
+
+        template: "end_page/endpage",
+
+        visualProperties: [
+            "height",
+            "width",
+            "opacity"
+        ],
+
+        // serialize: function() {
+
+        //     return _.extend({},
+        //         this.model.toJSON(),
+        //         app.status.get("project").project.toJSON(),
+        //         app.metadata
+        //     );
+        // },
+
+        onPlay: function() {
+            app.status.emit("endpage_enter");
+        },
+
+        onExit: function() {
+            app.status.emit("endpage_exit");
+        }
+    });
+
+    return L;
+});
+
 /*
 
 plugin/layer manifest file
@@ -77505,7 +77578,8 @@ define('zeega_parser/plugins/layers/_all',[
     "zeega_parser/plugins/layers/rectangle/rectangle",
     "zeega_parser/plugins/layers/text/text",
     "zeega_parser/plugins/layers/text_v2/text",
-    "zeega_parser/plugins/layers/youtube/youtube"
+    "zeega_parser/plugins/layers/youtube/youtube",
+    "zeega_parser/plugins/layers/end_page/endpage"
 ],
 function(
     image,
@@ -77514,7 +77588,8 @@ function(
     rectangle,
     text,
     textV2,
-    youtube
+    youtube,
+    endpage
 ) {
     var Plugins = {};
     // extend the plugin object with all the layers
@@ -77526,7 +77601,8 @@ function(
         rectangle,
         text,
         textV2,
-        youtube
+        youtube,
+        endpage
     );
 });
 
@@ -77767,18 +77843,23 @@ function( app, Backbone, Layers, ThumbWorker ) {
         },
 
         onLayerAddRemove: function() {
-            this.updateThumb();
             this.onLayerSort();
+            this.once("sync", function() {
+                this.updateThumb();
+            }.bind( this ));
         },
 
         onLayerSort: function() {
             this.set("layers", this.layers.pluck("id") );
             this.lazySave();
-            this.updateThumb();
+            this.once("sync", function() {
+                this.updateThumb();
+            }.bind( this ));
         },
 
         addLayerType: function( type ) {
             var newLayer = new Layers[ type ]({ type: type });
+
             newLayer.order[ this.id ] = this.layers.length;
             newLayer.save().success(function( response ) {
                 this.layers.add( newLayer );
@@ -78562,7 +78643,10 @@ function( ProjectModel ) {
     return Parser;
 });
 
-define('zeega_parser/data-parsers/zeega-project',["lodash"],
+define('zeega_parser/data-parsers/zeega-project',[
+
+
+    ],
 
 function() {
     var type = "zeega-project",
@@ -78571,15 +78655,56 @@ function() {
     Parser[ type ] = { name: type };
 
     Parser[ type ].validate = function( response ) {
-
         if ( response.sequences && response.frames && response.layers ) {
             return true;
         }
         return false;
     };
 
+    var removeDupeSoundtrack = function( response ) {
+        
+        if ( response.sequences[0].attr.soundtrack ) {
+            _.each( response.frames, function( frame ) {
+                frame.layers = _.without( frame.layers, response.sequences[0].attr.soundtrack );
+            });
+        }
+    }
+
     // no op. projects are already formatted
     Parser[type].parse = function( response, opts ) {
+
+        removeDupeSoundtrack( response );
+
+        if ( opts.endPage ) {
+            var endId, lastPageId, lastPage, endPage, endLayers;
+
+            endId = -1;
+            lastPageId = response.sequences[0].frames[ response.sequences[0].frames.length - 1 ];
+            lastPage = _.find( response.frames, function( frame ) {
+                return frame.id == lastPageId;
+            });
+            endPage = _.extend({}, lastPage );
+
+            // only allow images, color layers
+            endLayers = _.filter(response.layers, function( layer ) {
+                return _.include(["Image", "Rectangle"], layer.type ) && _.include( endPage.layers, layer.id );
+            });
+
+            endPage.layers = _.pluck( endLayers, "id");
+            endPage.layers.push( endId );
+
+            // add layer to layer array
+            response.layers.push({
+                id: endId,
+                type: "EndPageLayer"
+            });
+            
+            endPage.id = endId;
+            response.frames.push( endPage );
+            response.sequences[0].frames.push( endId )
+            console.log( endPage );
+        }
+
         return response;
     };
 
@@ -78602,9 +78727,52 @@ function() {
         return false;
     };
 
-    // no op. projects are already formatted
+
+    // cleanses bad data from legacy projects
+    var removeDupeSoundtrack = function( response ) {
+        
+        if ( response.sequences[0].attr.soundtrack ) {
+            _.each( response.frames, function( frame ) {
+                frame.layers = _.without( frame.layers, response.sequences[0].attr.soundtrack );
+            });
+        }
+    }
+
     Parser[type].parse = function( response, opts ) {
-        return response.items[0].text;
+        var response = response.items[0].text;
+
+        removeDupeSoundtrack( response );
+
+        if ( opts.endPage ) {
+            var endId, lastPageId, lastPage, endPage, endLayers;
+
+            endId = -1;
+            lastPageId = response.sequences[0].frames[ response.sequences[0].frames.length - 1 ];
+            lastPage = _.find( response.frames, function( frame ) {
+                return frame.id == lastPageId;
+            });
+            endPage = _.extend({}, lastPage );
+
+            // only allow images, color layers
+            endLayers = _.filter(response.layers, function( layer ) {
+                return _.include(["Image", "Rectangle"], layer.type ) && _.include( endPage.layers, layer.id );
+            });
+
+            endPage.layers = _.pluck( endLayers, "id");
+            endPage.layers.push( endId );
+
+            // add layer to layer array
+            response.layers.push({
+                id: endId,
+                type: "EndPageLayer"
+            });
+            
+            endPage.id = endId;
+            response.frames.push( endPage );
+            response.sequences[0].frames.push( endId )
+        }
+
+        return response;
     };
 
     return Parser;
@@ -80715,9 +80883,9 @@ require.config({
   // generated configuration file.
 
   // Release
- deps: [ "../vendor/tipsy/src/javascripts/jquery.tipsy", "../vendor/simple-color-picker/src/jquery.simple-color", "zeegaplayer", "../vendor/jam/require.config", "main", "spin"],
+  deps: [ "../vendor/tipsy/src/javascripts/jquery.tipsy", "../vendor/simple-color-picker/src/jquery.simple-color", "zeegaplayer", "../vendor/jam/require.config", "main", "spin"],
 
- //  deps: ["zeegaplayer", "../vendor/jam/require.config", "main", "spin"],
+//  deps: ["zeegaplayer", "../vendor/jam/require.config", "main", "spin"],
 
 
   paths: {
