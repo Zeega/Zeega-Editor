@@ -3,7 +3,6 @@ define([
 
     "modules/views/project-head",
 
-    "modules/views/sequences",
     "modules/views/frames",
     "modules/views/workspace",
     "modules/views/layers",
@@ -18,7 +17,7 @@ define([
     "backbone"
 ],
 
-function( app, ProjectHead, Sequences, Frames, Workspace, Layers, LayerDrawer, Soundtrack, MediaDrawer, Instructions ) {
+function( app, ProjectHead, Frames, Workspace, Layers, LayerDrawer, Soundtrack, MediaDrawer, Instructions ) {
 
     return Backbone.Layout.extend({
 
@@ -33,7 +32,6 @@ function( app, ProjectHead, Sequences, Frames, Workspace, Layers, LayerDrawer, S
         },
 
         beforeRender: function() {
-            this.insertView( ".sequences", new Sequences({ model: app }) );
             this.insertView( ".workspace", new Workspace({ model: app }) );
             this.insertView( ".layers", new Layers({ model: app }) );
         },
