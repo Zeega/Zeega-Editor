@@ -278,24 +278,6 @@ __p+='<div class="nav col-left navbar ZEEGA-hmenu clear">\n    <ul class=\'pull-
 return __p;
 };
 
-this["JST"]["app/templates/sequence.html"] = function(obj){
-var __p='';var print=function(){__p+=Array.prototype.join.call(arguments, '')};
-with(obj||{}){
-__p+='<a href="#" class="sequence-title">'+
-( title )+
-'</a>\n<a href="#" class="dropdown"><i class="icon-edit icon-white"></i></a>';
-}
-return __p;
-};
-
-this["JST"]["app/templates/sequences.html"] = function(obj){
-var __p='';var print=function(){__p+=Array.prototype.join.call(arguments, '')};
-with(obj||{}){
-__p+='<ul class="sequence-list"></ul>\n<div class="add-sequence"><a href="#"><i class="icon-plus icon-white"></i> add sequence</a></div>';
-}
-return __p;
-};
-
 this["JST"]["app/templates/soundtrack-viewer.html"] = function(obj){
 var __p='';var print=function(){__p+=Array.prototype.join.call(arguments, '')};
 with(obj||{}){
