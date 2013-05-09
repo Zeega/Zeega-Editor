@@ -133,7 +133,7 @@ function( app ) {
         },
 
         captionSave: _.debounce(function() {
-            this.model.project.save("description", this.$("#project-caption").val() );
+            this.model.project.save("title", this.$("#project-caption").val() );
         }, 1000 ),
 
         onMenuClick: function( e ) {
