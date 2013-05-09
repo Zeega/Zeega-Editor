@@ -253,7 +253,7 @@ __p+='<div class="nav col-left navbar ZEEGA-hmenu clear">\n    <ul class=\'pull-
 ( webRoot )+
 ''+
 ( item_id )+
-'"\n                            class="social-share share-twitter"\n                            data-itemid="'+
+' Made w/ @zeega"\n                            class="social-share share-twitter"\n                            data-itemid="'+
 ( item_id )+
 '"\n                            target="blank">\n                        <i class="zitem-twitter zitem-30 color"></i>\n                    </a>\n                    <a href="http://www.facebook.com/sharer.php?u='+
 ( webRoot )+
@@ -416,6 +416,20 @@ __p+='<audio id="audio-el-'+
 ;__p+='\n        loop\n    ';
  } 
 ;__p+='\n    preload\n></audio>';
+}
+return __p;
+};
+
+this["JST"]["app/zeega-parser/plugins/layers/end_page/endpage.html"] = function(obj){
+var __p='';var print=function(){__p+=Array.prototype.join.call(arguments, '')};
+with(obj||{}){
+__p+='<!-- <div class="endpage-inner">\n    <img class="end-logo" src="assets/img/zeega-red-white-250.png">\n\n    <div class="user-block user-block-large">\n        <a href="http://zeega.com/user/'+
+( user_id )+
+'" target="blank">\n            <div class="profile-token"\n                style="\n                    background: url('+
+( userThumbnail )+
+');\n                    background-size: cover;\n                "\n            ></div>\n            <div class="profile-name">by '+
+( authors )+
+'</div>\n        </a>\n    </div>\n\n    <div class="share-block">\n        <ul class="share-sites">\n            <li><a href="#"><i class="endpage-social endpage-social-twitter"></i></a></li>\n            <li><a href="#"><i class="endpage-social endpage-social-facebook"></i></a></li>\n            <li><a href="#"><i class="endpage-social endpage-social-tumblr"></i></a></li>\n        </ul>\n    </div>\n\n</div> -->';
 }
 return __p;
 };
