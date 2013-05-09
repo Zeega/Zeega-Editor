@@ -2340,6 +2340,32 @@ body .ui-tooltip {
   height: 0px !important;
   opacity: 0 !important;
 }
+.user-block {
+  display: block;
+  font-size: 15px;
+  font-weight: bold;
+  width: 250px;
+}
+.user-block .profile-token {
+  border: 2px solid orangered;
+  height: 40px;
+  width: 40px;
+  border-radius: 22px;
+  display: inline-block;
+}
+.user-block .profile-name {
+  display: inline-block;
+  color: orangered;
+  position: relative;
+  top: -15px;
+  text-decoration: none;
+}
+.visual-element-endpagelayer {
+  height: 100%;
+  width: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  color: white;
+}
 .visual-link {
   border-radius: 3px;
 }
@@ -6122,24 +6148,20 @@ a:active {
 .soundtrack .soundtrack-controls i {
   vertical-align: middle;
 }
-.soundtrack .instructions-1,
-.soundtrack .instructions-2 {
-  padding: 10px;
-}
-.soundtrack .instructions-1 {
-  display: block;
-}
-.soundtrack .instructions-2 {
-  display: none;
+.soundtrack .soundtrack-drop-icon {
+  height: 100%;
+  width: 100%;
+  background-image: url(../img/soundtrack-sprite.png );
+  position: absolute;
+  background-size: 100% 200%;
+  left: 0;
+  top: 0;
 }
 .soundtrack.can-drop {
   border: 1px solid limegreen;
 }
-.soundtrack.can-drop .instructions-1 {
-  display: none;
-}
-.soundtrack.can-drop .instructions-2 {
-  display: block;
+.soundtrack.can-drop .soundtrack-drop-icon {
+  background-position: 0px -100%;
 }
 .section-head {
   float: left;

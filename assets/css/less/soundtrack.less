@@ -70,26 +70,22 @@
         }
     }
 
-    .instructions-1,
-    .instructions-2 {
-        padding: 10px;
+    .soundtrack-drop-icon {
+        height: 100%;
+        width: 100%;
+        background-image: url( ../img/soundtrack-sprite.png );
+        position: absolute;
+        background-size: 100% 200%;
+        left: 0;
+        top: 0; 
     }
 
-    .instructions-1 {
-        display: block;
-    }
-    .instructions-2 {
-        display: none;
-    }
 
     &.can-drop {
         border: 1px solid limegreen;
 
-        .instructions-1 {
-            display: none;
-        }
-        .instructions-2 {
-            display: block;
+        .soundtrack-drop-icon {
+            background-position: 0px -100%;
         }
     }
 }
