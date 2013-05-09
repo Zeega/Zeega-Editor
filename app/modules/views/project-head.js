@@ -35,7 +35,7 @@ function( app ) {
         },
 
         onSync: function() {
-            this.$(".share-twitter").attr("href", "https://twitter.com/intent/tweet?original_referer=" + app.webRoot + this.model.project.get("item_id") + "&text=" + this.model.project.get("description") + "&url=" + app.webRoot + this.model.project.get("item_id") );
+            this.$(".share-twitter").attr("href", "https://twitter.com/intent/tweet?original_referer=" + app.webRoot + this.model.project.get("item_id") + "&text=" + this.model.project.get("description") + app.webRoot + this.model.project.get("item_id") + " made w/ @zeega" );
             this.$(".share-tumblr").attr("href", "http://www.tumblr.com/share/photo?" + this.getTumblrShareUrl() );
 
             this.$(".project-cover").css({
