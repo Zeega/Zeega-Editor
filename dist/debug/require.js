@@ -573,7 +573,9 @@ __p+='<div class="media-collection-header">\n    <div class="media-collection-se
 ( searchQuery )+
 '" />\n        <a class="submit btnz"><span class="label">search</span></a>\n\n    </div>\n    <div class="media-collection-headline">\n        \n\n        ';
  if( title == "Zeega"  ) { 
-;__p+='\n            <p> Some of our favorites </p>\n        ';
+;__p+='\n            <p>Zeega\'s favorites for '+
+( day )+
+'</p>\n        ';
  } else { 
 ;__p+='\n\n        <p> Favorites from '+
 ( title )+
@@ -615,15 +617,17 @@ return __p;
 this["JST"]["app/templates/project-head.html"] = function(obj){
 var __p='';var print=function(){__p+=Array.prototype.join.call(arguments, '')};
 with(obj||{}){
-__p+='<div class="nav col-left navbar ZEEGA-hmenu clear">\n    <ul class=\'pull-left\'>\n        <li class=\'logo\'>\n            <a href="'+
+__p+='<div class="nav col-left navbar">\n    <ul class=\'pull-left\'>\n        <li class=\'logo\'>\n            <a href="'+
 ( webRoot )+
-'"><img src="assets/img/zeega-logo-header.png"/></a>\n        </li>\n    </ul>\n    <ul class=\'pull-right\'>\n        <li>\n            <a href="'+
-( webRoot )+
-'project/new"\n                class="btnz new-zeega"\n                title="make a new Zeega"\n                data-gravity="n"\n                >new zeega</a>\n        </li>\n        <li>\n            <a href="'+
+'"><img src="assets/img/zeega-logo-header.png"/></a>\n        </li>\n        <li>\n            <a href="http://blog.zeega.com/faq" data-bypass="true" target="blank"\n                title="FAQ"\n                data-gravity="n"\n            ><i class="icon-question-sign"></i></a>\n        </li>\n    </ul>\n    <ul class=\'pull-right\'>\n        <li>\n            <a href="'+
 ( webRoot )+
 'profile/'+
 ( userId )+
-'"\n                title="my profile"\n                data-gravity="n"\n                ><i class="icon-user"></i></a>\n        </li>\n        <li>\n            <a href="http://blog.zeega.com/faq" data-bypass="true" target="blank"\n                title="FAQ"\n                data-gravity="n"\n            ><i class="icon-question-sign"></i></a>\n        </li>\n\n        \n    </ul>\n</div>\n<div class="project-title col-middle clearfix">\n    <a href="#" class="project-preview btnz"\n        title="see what you\'re making"\n        data-gravity="n"\n    ><i class="icon-play icon-white"></i> Preview</a>\n</div>\n<div class="project-share col-right clearfix">\n    <a href="#" class="project-share btnz btnz-blue btnz-fullwidth"\n        title="share your Zeega with the world"\n        data-gravity="ne"\n    ><i class="icon-retweet icon-white"></i> Share</a>\n</div>\n\n<div class="share-grave">\n\n    <div class="close-wrapper">\n        <a href="#" class="close-grave">&times;</a>\n    </div>\n\n    <div class="grave-inner">\n\n        <div class="share-meta">\n            <div class="cover-image-wrapper">\n                <div class="project-cover" style="\n                    background: url('+
+'"\n                title="my profile"\n                data-gravity="n"\n                ><span class="user-token"\n                    style="\n                        background-image:url('+
+( userThumbnail )+
+');\n                        background-size: cover;\n                    "\n                ></span></a>\n        </li>\n        <li>\n            <a href="'+
+( webRoot )+
+'project/new"\n                class="btnz new-zeega"\n                title="make a new Zeega"\n                data-gravity="n"\n                >new zeega</a>\n        </li>\n        \n    </ul>\n</div>\n<div class="project-title col-middle clearfix">\n    <a href="#" class="project-preview btnz"\n        title="see what you\'re making"\n        data-gravity="n"\n    ><i class="icon-play icon-white"></i> Preview</a>\n</div>\n<div class="project-share col-right clearfix">\n    <a href="#" class="project-share btnz btnz-blue btnz-fullwidth"\n        title="share your Zeega with the world"\n        data-gravity="ne"\n    ><i class="icon-retweet icon-white"></i> Share</a>\n</div>\n\n<div class="share-grave">\n\n    <div class="close-wrapper">\n        <a href="#" class="close-grave">&times;</a>\n    </div>\n\n    <div class="grave-inner">\n\n        <div class="share-meta">\n            <div class="cover-image-wrapper">\n                <div class="project-cover" style="\n                    background: url('+
 ( cover_image )+
 ');\n                    background-size: cover;\n                "></div>\n                <div class="caption-info">drag image here</div>\n            </div>\n            <div class="caption-side">\n                <textarea id="project-caption" placeholder="Caption your Zeega" maxlength="80">'+
 ( title )+
@@ -56417,6 +56421,8 @@ define('app',[
         dragging: null,
         mediaCollection: null,
 
+        metadata: $("meta[name=zeega]").data(),
+
         userId: meta.data("userId") || null,
         userName: meta.data("userName") || null,
         projectId: meta.data("projectId")|| null,
@@ -56599,9 +56605,10 @@ function( app ) {
                 userId: app.userId,
                 userProjects: $.parseJSON( window.userProjects ),
                 webRoot: app.webRoot,
-                tumblr_share: this.getTumblrShareUrl()
-
-            }, this.model.project.toJSON() );
+                tumblr_share: this.getTumblrShareUrl(),
+            }, 
+            app.metadata,
+            this.model.project.toJSON() );
         },
 
         getTumblrShareUrl: function() {
@@ -79627,7 +79634,21 @@ function( app, UploadView, Spinner ) {
         template: "media-collection",
 
         serialize: function() {
-            return _.defaults( this.model.toJSON(), this.defaults );
+            var d=new Date();
+            var weekday=new Array(7);
+
+            weekday[0]="Sunday";
+            weekday[1]="Monday";
+            weekday[2]="Tuesday";
+            weekday[3]="Wednesday";
+            weekday[4]="Thursday";
+            weekday[5]="Friday";
+            weekday[6]="Saturday";
+
+            return _.extend({},
+                _.defaults( this.model.toJSON(), this.defaults ),
+                { day: weekday[d.getDay()] }
+            );
         },
 
         listen: null,
