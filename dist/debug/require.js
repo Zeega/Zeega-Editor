@@ -421,7 +421,7 @@ return __p;
 this["JST"]["app/templates/item-collection-viewer.html"] = function(obj){
 var __p='';var print=function(){__p+=Array.prototype.join.call(arguments, '')};
 with(obj||{}){
-__p+='<a href="#" class="modal-close">&times;</a>\n<a href="#" class="prev arrow arrow-left"></a>\n<a href="#" class="next arrow arrow-right"></a>\n\n<div class="modal-content">\n\n    <div class="modal-title"></div>\n    <div class="modal-body"></div>\n    <div class="modal-footer"></div>\n</div>\n';
+__p+='<a href="#" class="prev arrow arrow-left"></a>\n<a href="#" class="next arrow arrow-right"></a>\n\n<div class="modal-content">\n\n    <div class="modal-title"></div>\n    <a href="#" class="modal-close">&times;</a>\n    <div class="modal-body"></div>\n    <div class="modal-footer"></div>\n</div>\n';
 }
 return __p;
 };
@@ -623,21 +623,21 @@ __p+='<div class="nav col-left navbar ZEEGA-hmenu clear">\n    <ul class=\'pull-
 ( webRoot )+
 'profile/'+
 ( userId )+
-'"\n                title="my profile"\n                data-gravity="n"\n                ><i class="icon-user"></i></a>\n        </li>\n        <li>\n            <a href="http://blog.zeega.com/faq" data-bypass="true" target="blank"\n                title="FAQ"\n                data-gravity="n"\n            ><i class="icon-question-sign"></i></a>\n        </li>\n\n        \n    </ul>\n</div>\n<div class="project-title col-middle clearfix">\n    <a href="#" class="project-preview btnz"\n        title="see what you\'re making"\n        data-gravity="n"\n    ><i class="icon-play icon-white"></i> Preview</a>\n</div>\n<div class="project-share col-right clearfix">\n    <a href="#" class="project-share btnz btnz-blue btnz-fullwidth"\n        title="share your Zeega with the world"\n        data-gravity="ne"\n    ><i class="icon-retweet icon-white"></i> Share</a>\n</div>\n\n<div class="share-grave">\n\n    <div class="close-wrapper">\n        <a href="#" class="close-grave">&times;</a>\n    </div>\n\n    <div class="grave-inner">\n\n        <div class="share-meta">\n            <div class="project-cover" style="\n                background: url('+
+'"\n                title="my profile"\n                data-gravity="n"\n                ><i class="icon-user"></i></a>\n        </li>\n        <li>\n            <a href="http://blog.zeega.com/faq" data-bypass="true" target="blank"\n                title="FAQ"\n                data-gravity="n"\n            ><i class="icon-question-sign"></i></a>\n        </li>\n\n        \n    </ul>\n</div>\n<div class="project-title col-middle clearfix">\n    <a href="#" class="project-preview btnz"\n        title="see what you\'re making"\n        data-gravity="n"\n    ><i class="icon-play icon-white"></i> Preview</a>\n</div>\n<div class="project-share col-right clearfix">\n    <a href="#" class="project-share btnz btnz-blue btnz-fullwidth"\n        title="share your Zeega with the world"\n        data-gravity="ne"\n    ><i class="icon-retweet icon-white"></i> Share</a>\n</div>\n\n<div class="share-grave">\n\n    <div class="close-wrapper">\n        <a href="#" class="close-grave">&times;</a>\n    </div>\n\n    <div class="grave-inner">\n\n        <div class="share-meta">\n            <div class="cover-image-wrapper">\n                <div class="project-cover" style="\n                    background: url('+
 ( cover_image )+
-');\n                background-size: cover;\n            "></div>\n            <div class="caption-side">\n                <textarea id="project-caption" placeholder="Caption your Zeega" maxlength="80">'+
+');\n                    background-size: cover;\n                "></div>\n                <div class="caption-info">drag image here</div>\n            </div>\n            <div class="caption-side">\n                <textarea id="project-caption" placeholder="Caption your Zeega" maxlength="80">'+
 ( title )+
-'</textarea>\n                <div class="caption-info">\n                    80 character limit\n                </div>\n            </div>\n        </div>\n\n\n        <div class="share-tab-content">\n            <div class="share-network share-window active">\n\n                <div>\n                    <a href="https://twitter.com/intent/tweet?original_referer='+
+'</textarea>\n                <div class="caption-info">80 character limit</div>\n            </div>\n        </div>\n\n\n        <div class="share-tab-content">\n            <div class="share-network share-window active">\n\n                <div>\n                    <a href="https://twitter.com/intent/tweet?original_referer='+
 ( webRoot )+
 ''+
 ( item_id )+
 '&text='+
-( description )+
-' &url='+
+( title )+
+' made w/ @zeega&url='+
 ( webRoot )+
 ''+
 ( item_id )+
-' Made w/ @zeega"\n                            class="social-share share-twitter"\n                            data-itemid="'+
+'"\n                            class="social-share share-twitter"\n                            data-itemid="'+
 ( item_id )+
 '"\n                            target="blank">\n                        <i class="zitem-twitter zitem-30 color"></i>\n                    </a>\n                    <a href="http://www.facebook.com/sharer.php?u='+
 ( webRoot )+
@@ -683,11 +683,9 @@ __p+='<div class="elapsed tooltip"></div>\n<div class="soundtrack-waveform"\n   
  } 
 ;__p+='\n></div>\n\n';
  if ( model === false ) { 
-;__p+='\n    <span class="instructions-1">Drag audio here to add soundtrack</span>\n    <span class="instructions-2">Drop to add soundtrack</span>\n';
+;__p+='\n    <span class="soundtrack-drop-icon"></span>\n';
  } else { 
-;__p+='\n    \n    <!--\n    <div class="soundtrack-info">\n        <span class="title">'+
-( attr.title )+
-'</span>\n        <span class="time-display"></span>\n    </div>\n    -->\n    <div class="soundtrack-controls">\n        <a href="#" class="playpause"\n            title="listen"\n            data-gravity="n"\n        ><i class="icon-play icon-white"></i></a>\n        <a href="#" class="remove"\n            title="remove soundtrack"\n            data-gravity="n"\n        ><i class="icon-remove icon-white"></i></a>\n    </div>\n';
+;__p+='\n    <div class="soundtrack-controls">\n        <a href="#" class="playpause"\n            title="listen"\n            data-gravity="n"\n        ><i class="icon-play icon-white"></i></a>\n        <a href="#" class="remove"\n            title="remove soundtrack"\n            data-gravity="n"\n        ><i class="icon-remove icon-white"></i></a>\n    </div>\n';
  } 
 ;__p+='';
 }
@@ -56607,14 +56605,14 @@ function( app ) {
         },
 
         getTumblrShareUrl: function() {
-            var html = "<p>" + app.project.get("description") + "</p>" + 
+            var html = "<p>" + app.project.get("title") + "</p>" + 
                 "<p><a href='" + app.webRoot + app.project.get("item_id") + "'>" +
                 "<strong>►&nbsp;Play&nbsp;Zeega&nbsp;►</strong></a>" +
                 "</p><p>by&nbsp;<a href='" + app.webRoot + "profile/" + app.project.get("user_id") + "'>" + app.project.get("authors") + "</a></p>";
 
             return "source=" + encodeURIComponent( app.project.get("cover_image") ) +
-                    "&caption=" + encodeURIComponent( html ) +
-                    "&click_thru="+ encodeURIComponent( app.webRoot ) + app.project.get("item_id");
+                "&caption=" + encodeURIComponent( html ) +
+                "&click_thru="+ encodeURIComponent( app.webRoot ) + app.project.get("item_id");
         },
 
         initialize: function() {
@@ -56622,7 +56620,7 @@ function( app ) {
         },
 
         onSync: function() {
-            this.$(".share-twitter").attr("href", "https://twitter.com/intent/tweet?original_referer=" + app.webRoot + this.model.project.get("item_id") + "&text=" + this.model.project.get("description") + "&url=" + app.webRoot + this.model.project.get("item_id") );
+            this.$(".share-twitter").attr("href", "https://twitter.com/intent/tweet?original_referer=" + app.webRoot + this.model.project.get("item_id") + "&text=" + this.model.project.get("title") +" "+ app.webRoot + this.model.project.get("item_id") + " made w/ @zeega" );
             this.$(".share-tumblr").attr("href", "http://www.tumblr.com/share/photo?" + this.getTumblrShareUrl() );
 
             this.$(".project-cover").css({
@@ -56635,6 +56633,28 @@ function( app ) {
             if ( app.project.get("cover_image") === "" ) {
                 this.model.on("layer_added", this.onLayerAdded, this );
             }
+
+            this.makeCoverDroppable();
+        },
+
+        makeCoverDroppable: function() {
+            this.$(".project-cover").droppable({
+                accept: ".item",
+                tolerance: "pointer",
+                hoverClass: "can-drop",
+                drop: function( e, ui ) {
+                    if ( _.contains( ["Image"], app.dragging.get("layer_type") )) {
+
+                        console.log("update cover", app.dragging );
+
+                        this.updateCoverImage( app.dragging.get("uri") );
+                        // this.updateWaveform( app.dragging.get("thumbnail_url") );
+
+                        // app.trigger("soundtrack_added", app.dragging );
+                        // app.status.get('currentSequence').setSoundtrack( app.dragging, this );
+                    }
+                }.bind( this )
+            });
         },
 
         onLayerAdded: function( layer ) {
@@ -56673,7 +56693,6 @@ function( app ) {
             "click .share-zeega": "showShare",
             "click .embed-zeega": "showEmbed",
             "keyup #project-caption": "onCaptionKeypress"
-            // "click .project-share-toggle": "toggleShare",
         },
 
         showEmbed: function() {
@@ -77162,6 +77181,7 @@ function( app, _Layer, Visual, TextModal ) {
             "Finger Paint",
             "Georgia",
             "Great Vibes",
+            "Impact",
             "Londrina Outline",
             "Londrina Sketch",
             "Monofett",
@@ -79997,7 +80017,7 @@ function( app, Modal, FrameView, ImageView, AudioView, VideoView, YoutubeView ) 
         },
 
         onClick: function( e ){
-            if( e.toElement.className == "ZEEGA-modal ZEEGA-item-collection-viewer" ){
+            if( $( e.target ).attr("class") == "ZEEGA-modal ZEEGA-item-collection-viewer" ){
                 this.close();
             }
         },
@@ -80883,7 +80903,7 @@ require.config({
   // Release
   deps: [ "../vendor/tipsy/src/javascripts/jquery.tipsy", "../vendor/simple-color-picker/src/jquery.simple-color", "zeegaplayer", "../vendor/jam/require.config", "main", "spin"],
 
- // deps: ["zeegaplayer", "../vendor/jam/require.config", "main", "spin"],
+//  deps: ["zeegaplayer", "../vendor/jam/require.config", "main", "spin"],
 
 
   paths: {
