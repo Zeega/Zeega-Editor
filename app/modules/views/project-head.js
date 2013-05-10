@@ -14,9 +14,10 @@ function( app ) {
                 userId: app.userId,
                 userProjects: $.parseJSON( window.userProjects ),
                 webRoot: app.webRoot,
-                tumblr_share: this.getTumblrShareUrl()
-
-            }, this.model.project.toJSON() );
+                tumblr_share: this.getTumblrShareUrl(),
+            }, 
+            app.metadata,
+            this.model.project.toJSON() );
         },
 
         getTumblrShareUrl: function() {

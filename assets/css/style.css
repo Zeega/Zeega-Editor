@@ -4940,12 +4940,13 @@ html {
   background: url(../img/tiny-stripes-dark.png);
   background-color: #666;
   border-radius: 2px;
-  padding: 5px;
+  padding: 5px 10px;
   font-size: 15px;
   top: 0;
   height: 20px;
   color: white;
   text-align: center;
+  font-family: "futura", sans-serif;
   transition: all 0.5s;
   -webkit-transition: all 0.5s;
 }
@@ -4989,6 +4990,25 @@ html {
 .btnz.btnz-submit:hover {
   background-color: #6FF;
 }
+.navbar {
+  height: 30px;
+}
+.navbar .btnz {
+  display: block;
+}
+.navbar li {
+  float: left;
+  margin-right: 10px;
+}
+.navbar li:last-child {
+  margin-right: 0;
+}
+.navbar li.logo {
+  padding: 0;
+}
+.navbar li.logo img {
+  height: 100%;
+}
 .project-head {
   padding: 10px 0;
   font-size: 1.75em;
@@ -5020,14 +5040,17 @@ html {
   clear: both;
 }
 .project-head .new-zeega {
-  margin-right: 2px;
-  padding: 5px 10px 0px;
-  vertical-align: middle;
-  margin-top: 6px;
   background-color: orangered;
 }
 .project-head .new-zeega:hover {
   background-color: orange;
+}
+.project-head .user-token {
+  height: 28px;
+  width: 28px;
+  display: inline-block;
+  border-radius: 20px;
+  border: 2px solid orangered;
 }
 .project-head .project-info {
   float: left;

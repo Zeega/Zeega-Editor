@@ -1,3 +1,27 @@
+.navbar {
+    height: 30px;
+
+    .btnz {
+        display: block;
+    }
+
+    li {
+        float: left;
+        margin-right: 10px;
+
+        &:last-child {
+            margin-right: 0;
+        }
+        &.logo {
+            padding: 0;
+            img {
+                height: 100%;
+            }
+        }
+    }
+
+}
+
 .project-head {
     padding: 10px 0;
     font-size: 1.75em;
@@ -12,15 +36,19 @@
     }
 
     .new-zeega {
-        margin-right: 2px;
-        padding: 5px 10px 0px;
-        vertical-align: middle;
-        margin-top: 6px;
         background-color: orangered;
 
         &:hover {
             background-color: orange;
         }
+    }
+
+    .user-token {
+        height: 28px;
+        width: 28px;
+        display: inline-block;
+        border-radius: 20px;
+        border: 2px solid orangered;
     }
 
     .project-info {
