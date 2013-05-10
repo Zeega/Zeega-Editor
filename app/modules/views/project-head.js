@@ -26,8 +26,8 @@ function( app ) {
                 "</p><p>by&nbsp;<a href='" + app.webRoot + "profile/" + app.project.get("user_id") + "'>" + app.project.get("authors") + "</a></p>";
 
             return "source=" + encodeURIComponent( app.project.get("cover_image") ) +
-                    "&caption=" + encodeURIComponent( html ) +
-                    "&click_thru="+ encodeURIComponent( app.webRoot ) + app.project.get("item_id");
+                "&caption=" + encodeURIComponent( html ) +
+                "&click_thru="+ encodeURIComponent( app.webRoot ) + app.project.get("item_id");
         },
 
         initialize: function() {
@@ -48,6 +48,28 @@ function( app ) {
             if ( app.project.get("cover_image") === "" ) {
                 this.model.on("layer_added", this.onLayerAdded, this );
             }
+
+            this.makeCoverDroppable();
+        },
+
+        makeCoverDroppable: function() {
+            this.$(".project-cover").droppable({
+                accept: ".item",
+                tolerance: "pointer",
+                hoverClass: "can-drop",
+                drop: function( e, ui ) {
+                    if ( _.contains( ["Image"], app.dragging.get("layer_type") )) {
+
+                        console.log("update cover", app.dragging );
+
+                        this.updateCoverImage( app.dragging.get("uri") );
+                        // this.updateWaveform( app.dragging.get("thumbnail_url") );
+
+                        // app.trigger("soundtrack_added", app.dragging );
+                        // app.status.get('currentSequence').setSoundtrack( app.dragging, this );
+                    }
+                }.bind( this )
+            });
         },
 
         onLayerAdded: function( layer ) {
@@ -86,7 +108,6 @@ function( app ) {
             "click .share-zeega": "showShare",
             "click .embed-zeega": "showEmbed",
             "keyup #project-caption": "onCaptionKeypress"
-            // "click .project-share-toggle": "toggleShare",
         },
 
         showEmbed: function() {

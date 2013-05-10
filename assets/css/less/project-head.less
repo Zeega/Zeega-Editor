@@ -82,11 +82,28 @@
             float: left;
             padding: 10px;
 
+
+            .caption-info {
+                color: #ccc;
+            }
+
+            .cover-image-wrapper {
+                float: left;
+                width: 150px;
+
+                .caption-info {
+                    margin-top: 5px;
+                }
+            }
+
             .project-cover {
                 background-color: black;
-                height: 100px;
+                height: 79px;
                 width: 150px;
-                position: absolute;
+
+                &.can-drop {
+                    outline: 1px solid orangered;
+                }
             }
 
             .caption-side {
@@ -108,7 +125,6 @@
                 .caption-info {
                     position: absolute;
                     bottom: 0;
-                    color: #ccc;
                 }
             }
         }

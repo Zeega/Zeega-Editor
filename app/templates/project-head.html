@@ -50,15 +50,16 @@
     <div class="grave-inner">
 
         <div class="share-meta">
-            <div class="project-cover" style="
-                background: url(<%= cover_image %>);
-                background-size: cover;
-            "></div>
+            <div class="cover-image-wrapper">
+                <div class="project-cover" style="
+                    background: url(<%= cover_image %>);
+                    background-size: cover;
+                "></div>
+                <div class="caption-info">drag image here</div>
+            </div>
             <div class="caption-side">
                 <textarea id="project-caption" placeholder="Caption your Zeega" maxlength="80"><%= title %></textarea>
-                <div class="caption-info">
-                    80 character limit
-                </div>
+                <div class="caption-info">80 character limit</div>
             </div>
         </div>
 

@@ -5098,11 +5098,23 @@ html {
   float: left;
   padding: 10px;
 }
+.share-grave .grave-inner .share-meta .caption-info {
+  color: #ccc;
+}
+.share-grave .grave-inner .share-meta .cover-image-wrapper {
+  float: left;
+  width: 150px;
+}
+.share-grave .grave-inner .share-meta .cover-image-wrapper .caption-info {
+  margin-top: 5px;
+}
 .share-grave .grave-inner .share-meta .project-cover {
   background-color: black;
-  height: 100px;
+  height: 79px;
   width: 150px;
-  position: absolute;
+}
+.share-grave .grave-inner .share-meta .project-cover.can-drop {
+  outline: 1px solid orangered;
 }
 .share-grave .grave-inner .share-meta .caption-side {
   position: relative;
@@ -5123,7 +5135,6 @@ html {
 .share-grave .grave-inner .share-meta .caption-side .caption-info {
   position: absolute;
   bottom: 0;
-  color: #ccc;
 }
 .share-grave .grave-inner .share-tabs {
   float: right;
