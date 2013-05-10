@@ -140,7 +140,9 @@ function( app ) {
             } else {
                 app.trigger("grave_closed");
             }
-            this.$(".share-grave").slideToggle("fast");
+            this.$(".share-grave")
+                .toggleClass("active")
+                .slideToggle("fast");
         },
 
         onTitleKeyup: function( e ) {

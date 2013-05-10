@@ -5011,7 +5011,6 @@ html {
   height: 100%;
 }
 .project-head {
-  padding: 10px 0;
   font-size: 1.75em;
   color: #555;
   z-index: 10;
@@ -5025,6 +5024,19 @@ html {
   line-height: 0;
 }
 .project-head:after {
+  clear: both;
+}
+.project-head .nav-wrapper {
+  *zoom: 1;
+  padding: 10px 0;
+}
+.project-head .nav-wrapper:before,
+.project-head .nav-wrapper:after {
+  display: table;
+  content: "";
+  line-height: 0;
+}
+.project-head .nav-wrapper:after {
   clear: both;
 }
 .project-head .nav {
@@ -5097,6 +5109,9 @@ html {
 }
 .share-grave:after {
   clear: both;
+}
+.share-grave.active {
+  margin-bottom: 10px;
 }
 .share-grave .grave-inner {
   margin: 0 40px;

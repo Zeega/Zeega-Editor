@@ -1,6 +1,5 @@
 .navbar {
     height: 30px;
-
     .btnz {
         display: block;
     }
@@ -23,12 +22,16 @@
 }
 
 .project-head {
-    padding: 10px 0;
     font-size: 1.75em;
     color: #555;
     z-index: 10;
     position: relative;
     .clearfix;
+
+    .nav-wrapper {
+        .clearfix;
+        padding: 10px 0;
+    }
 
     .nav {
         float: left;
@@ -94,6 +97,10 @@
     padding: 10px;
     min-width: 960px;
     .clearfix;
+
+    &.active {
+        margin-bottom: 10px;
+    }
 
     .grave-inner {
         margin: 0 40px;
