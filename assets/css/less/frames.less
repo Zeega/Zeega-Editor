@@ -22,9 +22,9 @@
         border-radius: 2px;
         float:left;
 
-        width: -webkit-calc( ~"100% - 58px" );
-        width: -moz-calc( ~"100% - 58px" );
-        width: calc( ~"100% - 58px" );
+        width: -webkit-calc( ~"100% - 114px" );
+        width: -moz-calc( ~"100% - 114px" );
+        width: calc( ~"100% - 114px" );
 
         .clearfix;
     }
@@ -109,17 +109,33 @@
     }
 
     .add-frame {
-        float: right;
+        float: left;
+        margin-right: 10px;
         .clearfix;
 
+        .frame-ghost {
+            border: 2px solid rgba(255,255,255,0.75);
+            padding: 5px;
+            color: white;
+            height: 39px;
+            margin-top: 9px;
+            font-size: 12px;
+            background: rgba(50, 205, 50, 0.75);
+            &:hover {
+                border: 2px solid orangered;
+            }
+        }
+
         a {
-            height: 70px;
-            width: 13px;
+            height: 69px;
+            width: 69px;
             background: rgba(50, 205, 50, 0.75);
             padding: 6px 7px 7px;
             border-radius: 2px;
             display: inline-block;
             .transition( all, 0.5s );
+            background-image: url(../img/tiny-stripes.png);
+            box-shadow: 2px 2px 2px rgba(0,0,0,0.25);
 
             &:hover {
 
