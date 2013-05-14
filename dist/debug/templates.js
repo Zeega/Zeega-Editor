@@ -11,7 +11,7 @@ return __p;
 this["JST"]["app/templates/frame.html"] = function(obj){
 var __p='';var print=function(){__p+=Array.prototype.join.call(arguments, '')};
 with(obj||{}){
-__p+='<div class="frame-menu tooltip"\n    title="delete page"\n    data-gravity="n"\n>\n    <a href="#" class="action tooltip" data-action="deleteFrame"\n        \n\n    ><i class="icon-trash icon-white"></i></a>\n</div>\n\n<a href="#" class="frame-thumb"\n    data-id="'+
+__p+='<div class="frame-menu tooltip"\n    title="delete page"\n    data-gravity="n"\n>\n    <a href="#" class="action tooltip" data-action="deleteFrame">\n        <i class="icon-trash icon-white"></i>\n    </a>\n</div>\n\n<a href="#" class="frame-thumb"\n    data-id="'+
 ( id )+
 '"\n    style="\n        ';
  if( thumbnail_url !== "" ) { 
@@ -19,7 +19,11 @@ __p+='<div class="frame-menu tooltip"\n    title="delete page"\n    data-gravity
 ( thumbnail_url )+
 ') no-repeat center center; \n            -webkit-background-size: cover;\n            -moz-background-size: cover;\n            -o-background-size: cover;\n            background-size: cover;\n        ';
  } 
-;__p+='\n"></a>';
+;__p+='\n"></a>\n\n<a href="#" class="advance-toggle';
+ if ( attr.advance ) { 
+;__p+=' active';
+ } 
+;__p+='">\n    <i class="icon-chevron-right"></i>\n</a>';
 }
 return __p;
 };
@@ -27,7 +31,7 @@ return __p;
 this["JST"]["app/templates/frames.html"] = function(obj){
 var __p='';var print=function(){__p+=Array.prototype.join.call(arguments, '')};
 with(obj||{}){
-__p+='<ul class="frame-list"></ul>\n<div class="add-frame"\n    title="add new page"\n    data-gravity="ne"\n><a href="#"><i class="icon-plus icon-white"></i></a></div>';
+__p+='<div class="add-frame"\n    title="add new page"\n    data-gravity="ne"\n>\n    <a href="#">\n        <div class="frame-ghost">\n            <i class="icon-plus icon-white"></i>\n            <br/>\n            add page\n        </div>\n    </a>\n</div>\n<ul class="frame-list"></ul>';
 }
 return __p;
 };
@@ -423,13 +427,7 @@ return __p;
 this["JST"]["app/zeega-parser/plugins/layers/end_page/endpage.html"] = function(obj){
 var __p='';var print=function(){__p+=Array.prototype.join.call(arguments, '')};
 with(obj||{}){
-__p+='<!-- <div class="endpage-inner">\n    <img class="end-logo" src="assets/img/zeega-red-white-250.png">\n\n    <div class="user-block user-block-large">\n        <a href="http://zeega.com/user/'+
-( user_id )+
-'" target="blank">\n            <div class="profile-token"\n                style="\n                    background: url('+
-( userThumbnail )+
-');\n                    background-size: cover;\n                "\n            ></div>\n            <div class="profile-name">by '+
-( authors )+
-'</div>\n        </a>\n    </div>\n\n    <div class="share-block">\n        <ul class="share-sites">\n            <li><a href="#"><i class="endpage-social endpage-social-twitter"></i></a></li>\n            <li><a href="#"><i class="endpage-social endpage-social-facebook"></i></a></li>\n            <li><a href="#"><i class="endpage-social endpage-social-tumblr"></i></a></li>\n        </ul>\n    </div>\n\n</div> -->';
+__p+='';
 }
 return __p;
 };

@@ -44,7 +44,11 @@
     .ZEEGA-frame {
         display: inline-block;
         position: relative;
-        padding: 5px;
+        padding: 5px 2px;
+
+        &:child-first {
+            padding-left: 5px;
+        }
 
         &:last-child {
             // margin-right: 111px;
@@ -57,8 +61,6 @@
             }
         }
 
-
-
         .frame-thumb {
             background: black;
             height: 60px;
@@ -68,10 +70,15 @@
             .transition( all, 0.5s );
         }
 
-        // .options {
-        //     position: absolute;
-        //     right: 5px;
-        // }
+        .advance-toggle {
+            position: relative;
+            top: -25px;
+            opacity: 0.35;
+
+            &.active {
+                opacity: 0.9
+            }
+        }
 
         &:hover .frame-menu {
             opacity: 1;
@@ -79,7 +86,8 @@
 
         .frame-menu {
             position: absolute;
-            right: 5px;
+            left: 2px;
+            top: 6px;
             opacity: 0.25;
 
             .icon-edit {

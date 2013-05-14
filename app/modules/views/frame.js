@@ -20,6 +20,7 @@ function( app ) {
             this.model.on("blur", this.onBlur, this );
             this.model.on("thumbUpdateStart", this.onThumbUpdateStart, this );
             this.model.on("change:thumbnail_url", this.onThumbUpdateComplete, this );
+            this.model.on("no_advance", this.turnOffAdvance, this );
         },
 
         onThumbUpdateStart: function() {
@@ -43,7 +44,22 @@ function( app ) {
 
         events: {
             "click .frame-thumb": "viewFrame",
-            "click .action": "doAction"
+            "click .action": "doAction",
+            "click .advance-toggle": "toggleAdvance"
+        },
+
+        toggleAdvance: function() {
+            console.log("toggle advance", this.model.get("attr"), this.model.get("attr").advance );
+
+            this.$(".advance-toggle").toggleClass("active");
+            this.model.saveAttr({
+                advance: !this.model.get("attr").advance
+            });
+        },
+
+        turnOffAdvance: function() {
+            console.log("TURN OFF ADVANCE")
+            this.$(".advance-toggle").removeClass("active");
         },
 
         doAction: function( e ) {

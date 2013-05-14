@@ -5718,7 +5718,11 @@ a:active {
 .frames .ZEEGA-frame {
   display: inline-block;
   position: relative;
-  padding: 5px;
+  padding: 5px 2px;
+}
+.frames .frame-placeholder:child-first,
+.frames .ZEEGA-frame:child-first {
+  padding-left: 5px;
 }
 .frames .frame-placeholder.active .frame-thumb,
 .frames .ZEEGA-frame.active .frame-thumb {
@@ -5736,6 +5740,16 @@ a:active {
   transition: all 0.5s;
   -webkit-transition: all 0.5s;
 }
+.frames .frame-placeholder .advance-toggle,
+.frames .ZEEGA-frame .advance-toggle {
+  position: relative;
+  top: -25px;
+  opacity: 0.35;
+}
+.frames .frame-placeholder .advance-toggle.active,
+.frames .ZEEGA-frame .advance-toggle.active {
+  opacity: 0.9;
+}
 .frames .frame-placeholder:hover .frame-menu,
 .frames .ZEEGA-frame:hover .frame-menu {
   opacity: 1;
@@ -5743,7 +5757,8 @@ a:active {
 .frames .frame-placeholder .frame-menu,
 .frames .ZEEGA-frame .frame-menu {
   position: absolute;
-  right: 5px;
+  left: 2px;
+  top: 6px;
   opacity: 0.25;
 }
 .frames .frame-placeholder .frame-menu .icon-edit,
@@ -5793,8 +5808,8 @@ a:active {
   border: 2px solid orangered;
 }
 .frames .add-frame a {
-  height: 70px;
-  width: 70px;
+  height: 69px;
+  width: 69px;
   background: rgba(50, 205, 50, 0.75);
   padding: 6px 7px 7px;
   border-radius: 2px;
