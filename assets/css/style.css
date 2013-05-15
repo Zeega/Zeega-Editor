@@ -5010,8 +5010,8 @@ html {
   background-color: #6FF;
 }
 .btnz.btnz-light {
+  color: #666;
   background-color: white;
-  border: 1px solid #ccc;
 }
 .btnz.btnz-light.active {
   background-color: #add8e6;
@@ -5125,6 +5125,16 @@ html {
 }
 .project-head .nav:after {
   clear: both;
+}
+.project-head .nav-buttons-right {
+  float: right;
+}
+.project-head .nav-buttons-right li {
+  float: left;
+  margin-right: 10px;
+}
+.project-head .nav-buttons-right li a {
+  display: block;
 }
 .project-head .new-zeega {
   background-color: orangered;
@@ -6158,11 +6168,6 @@ a:active {
   width: -moz-calc(100% / 4);
   width: calc(100% / 4);
   float: left;
-}
-.media-drawer .item.grayscale img {
-  -webkit-filter: grayscale(0);
-  -moz-filter: grayscale(0);
-  filter: grayscale(0);
 }
 .media-drawer .item > a {
   cursor: move;
