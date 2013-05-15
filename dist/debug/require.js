@@ -405,11 +405,11 @@ __p+='<div class="frame-menu tooltip"\n    title="delete page"\n    data-gravity
 ( thumbnail_url )+
 ') no-repeat center center; \n            -webkit-background-size: cover;\n            -moz-background-size: cover;\n            -o-background-size: cover;\n            background-size: cover;\n        ';
  } 
-;__p+='\n"></a>\n\n<a href="#" class="advance-toggle';
+;__p+='\n"></a>\n\n<!--\n<a href="#" class="advance-toggle';
  if ( attr.advance ) { 
 ;__p+=' active';
  } 
-;__p+='">\n    <i class="icon-chevron-right"></i>\n</a>';
+;__p+='">\n    <i class="icon-chevron-right"></i>\n</a>\n-->';
 }
 return __p;
 };
@@ -563,7 +563,7 @@ return __p;
 this["JST"]["app/templates/layout-main.html"] = function(obj){
 var __p='';var print=function(){__p+=Array.prototype.join.call(arguments, '')};
 with(obj||{}){
-__p+='<div class="project-head"></div>\n\n<div class=\'left-column\'>\n    <div class="media-drawer"></div>\n</div>\n\n<div class=\'right-column\'>\n\n    <div class="project-navs">\n        <div class="soundtrack"></div>\n        <div class="frames"></div>\n    </div>\n    <div class="edit-box">\n        <div class="workspace"></div>\n    </div>\n\n    <div class="section-head">Layers</div>\n    <div class="layer-picker"></div>\n    <div class="layers"></div>\n</div>';
+__p+='<div class="project-head"></div>\n\n<div class=\'left-column\'>\n    <div class="media-drawer"></div>\n</div>\n\n<div class=\'right-column\'>\n\n    <div class="project-navs">\n        <div class="frames"></div>\n        <div class="soundtrack"></div>\n    </div>\n    <div class="edit-box">\n        <div class="workspace"></div>\n    </div>\n\n    <div class="section-head">Layers</div>\n    <div class="layer-picker"></div>\n    <div class="layers"></div>\n</div>';
 }
 return __p;
 };
@@ -621,9 +621,9 @@ return __p;
 this["JST"]["app/templates/project-head.html"] = function(obj){
 var __p='';var print=function(){__p+=Array.prototype.join.call(arguments, '')};
 with(obj||{}){
-__p+='<div class="nav-wrapper">\n    <div class="nav col-left navbar">\n        <ul class=\'pull-left\'>\n            <li class=\'logo\'>\n                <a href="'+
+__p+='<a href="http://www.zeega.com" class="ZEEGA-tab">\n    <span class="ZTab-logo"></span>\n</a>\n\n<div class="nav-wrapper">\n    <div class="nav col-left navbar">\n        <ul class=\'pull-left\'>\n\n            <!--\n            <li class=\'logo\'>\n                <a href="'+
 ( webRoot )+
-'"><img src="assets/img/zeega-logo-header.png"/></a>\n            </li>\n            <li>\n                <a href="http://blog.zeega.com/faq" data-bypass="true" target="blank"\n                    title="FAQ"\n                    data-gravity="n"\n                ><i class="icon-question-sign"></i></a>\n            </li>\n        </ul>\n        <ul class=\'pull-right\'>\n            <li>\n                <a href="'+
+'"><img src="assets/img/zeega-logo-header.png"/></a>\n            </li>\n        -->\n            <li>\n                <a href="http://blog.zeega.com/faq" data-bypass="true" target="blank"\n                    title="FAQ"\n                    data-gravity="n"\n                ><i class="icon-question-sign"></i></a>\n            </li>\n        </ul>\n        <ul class=\'pull-right\'>\n            <li>\n                <a href="'+
 ( webRoot )+
 'profile/'+
 ( userId )+
@@ -631,7 +631,7 @@ __p+='<div class="nav-wrapper">\n    <div class="nav col-left navbar">\n        
 ( userThumbnail )+
 ');\n                            background-size: cover;\n                        "\n                    ></span></a>\n            </li>\n            <li>\n                <a href="'+
 ( webRoot )+
-'project/new"\n                    class="btnz new-zeega"\n                    title="make a new Zeega"\n                    data-gravity="n"\n                    >new zeega</a>\n            </li>\n            \n        </ul>\n    </div>\n    <div class="project-title col-middle clearfix">\n        <a href="#" class="project-preview btnz"\n            title="see what you\'re making"\n            data-gravity="n"\n        ><i class="icon-play icon-white"></i> Preview</a>\n    </div>\n    <div class="project-share col-right clearfix">\n        <a href="#" class="project-share btnz btnz-blue btnz-fullwidth"\n            title="share your Zeega with the world"\n            data-gravity="ne"\n        ><i class="icon-retweet icon-white"></i> Share</a>\n    </div>\n</div>\n\n<div class="share-grave">\n\n    <div class="close-wrapper">\n        <a href="#" class="close-grave">&times;</a>\n    </div>\n\n    <div class="grave-inner">\n\n        <div class="share-meta">\n            <div class="cover-image-wrapper">\n                <div class="project-cover" style="\n                    background: url('+
+'project/new"\n                    class="btnz new-zeega"\n                    title="make a new Zeega"\n                    data-gravity="n"\n                    >New Zeega</a>\n            </li>\n            \n        </ul>\n    </div>\n    <div class="project-title col-middle clearfix">\n        <a href="#" class="project-preview btnz"\n            title="see what you\'re making"\n            data-gravity="n"\n        ><i class="icon-play icon-white"></i> Preview</a>\n    </div>\n    <div class="project-share col-right clearfix">\n        <a href="#" class="project-share btnz btnz-blue btnz-fullwidth"\n            title="share your Zeega with the world"\n            data-gravity="ne"\n        ><i class="icon-retweet icon-white"></i> Share</a>\n    </div>\n</div>\n\n<div class="share-grave">\n\n    <div class="close-wrapper">\n        <a href="#" class="close-grave">&times;</a>\n    </div>\n\n    <div class="grave-inner">\n\n        <div class="share-meta">\n            <div class="cover-image-wrapper">\n                <div class="project-cover" style="\n                    background: url('+
 ( cover_image )+
 ');\n                    background-size: cover;\n                "></div>\n                <div class="caption-info">drag image here</div>\n            </div>\n            <div class="caption-side">\n                <textarea id="project-caption" placeholder="Caption your Zeega" maxlength="80">'+
 ( title )+
@@ -74841,6 +74841,7 @@ function( Zeega, ControlView ) {
 
             makeResizable: function() {
                 var args = {
+                    handles: "ne, nw, se, sw",
                     start: function( e, ui ) {
                         this.model.visual.transforming = true;
                         Zeega.status.setCurrentLayer( this.model );
@@ -74853,6 +74854,9 @@ function( Zeega, ControlView ) {
                         if ( this.options.options != "e" ) {
                             attr.height = this.$visualContainer.height() / this.$workspace.height() * 100;
                         }
+
+                        attr.top = ui.position.top / this.$workspace.height() * 100;
+                        attr.left = ui.position.left / this.$workspace.width() * 100;
                        
                         this.update( attr );
                         this.updateCSS( attr );
@@ -76865,7 +76869,7 @@ function( app, LayerModel, Visual ) {
         layerType: "Rectangle",
 
         attr: {
-            backgroundColor: "#FF00FF",
+            backgroundColor: "#FFFFFF",
             citation: false,
             height: 100,
             left: 0,
@@ -77999,9 +78003,7 @@ function( app, Backbone, Layers, ThumbWorker ) {
 
         defaults: {
             _order: 0,
-            attr: {
-                advance: true
-            },
+            attr: {},
             // ids of frames and their common layers for loading
             common_layers: {},
             _connections: "none",
@@ -78041,10 +78043,6 @@ function( app, Backbone, Layers, ThumbWorker ) {
             this.lazySave = _.debounce(function() {
                 this.save();
             }.bind( this ), 1000 );
-
-            if ( _.isArray( this.get("attr") ) ) {
-                this.set("attr", this.defaults.attr );
-            }
 
             this.startThumbWorker = _.debounce(function() {
                 var worker = new Worker( app.webRoot + "js/helpers/thumbworker.js" );
@@ -78093,20 +78091,12 @@ function( app, Backbone, Layers, ThumbWorker ) {
         addLayerType: function( type ) {
             var newLayer = new Layers[ type ]({ type: type });
 
-            // turn off advance if the type is a link
-            if ( type == "Link") {
-                var attr = this.get("attr");
-
-                attr.advance = false;
-                this.set("attr", attr );
-                this.trigger("no_advance")
-            }
-
             newLayer.order[ this.id ] = this.layers.length;
             newLayer.save().success(function( response ) {
                 this.layers.add( newLayer );
                 app.status.setCurrentLayer( newLayer );
             }.bind( this ));
+            
         },
 
         addLayerByItem: function( item ) {
@@ -78662,7 +78652,7 @@ function( app, SequenceCollection ) {
                 if ( frames.length > 1 ) {
                     frames.each(function( frame, j ) {
                         frame.put({
-                            _next: frame.get("attr").advance && frames.at( j + 1 ) ? frames.at( j + 1 ).id : null,
+                            _next: frames.at( j + 1 ) ? frames.at( j + 1 ).id : null,
                             _last: frames.at( j - 1 ) ? frames.at( j - 1 ).id : null
                         });
                     });
@@ -78743,12 +78733,9 @@ function( app, SequenceCollection ) {
             next = frame.get("_next");
 
             frame.put( "_connections",
-                frame.get("attr").advance && prev && next ? "lr" :
-                frame.get("attr").advance && !prev && next ? "r" :
-                !frame.get("attr").advance && prev && next ? "l" :
-                !frame.get("attr").advance && !prev && next ? "none" :
-                !frame.get("attr").advance && prev && !next ? "l" :
-                "none"
+                prev & next ? "lr" :
+                prev ? "l" :
+                next ? "r" : "none"
             );
         },
 
@@ -78946,6 +78933,7 @@ function() {
             endPage.id = endId;
             response.frames.push( endPage );
             response.sequences[0].frames.push( endId )
+            console.log( endPage );
         }
 
         return response;
@@ -79397,7 +79385,7 @@ function( app, ItemView ) {
     return Backbone.View.extend({
 
         className: function() {
-            return "item item-" + this.model.id;
+            return "item item-" + this.model.id; 
         },
         tagName: "li",
         template: "item",
@@ -79430,7 +79418,21 @@ function( app, ItemView ) {
         },
 
         events: {
-            "click": "viewItem"
+            "click": "viewItem",
+            "mouseover img": "onMouseOver",
+            "mouseout img": "onMouseOut"
+        },
+
+        onMouseOver: function(){
+            if( this.model.get("archive") == "Giphy" ){
+                this.$("img").attr("src", this.model.get("thumbnail_url").replace("_s.gif", ".gif"));
+            }
+        },
+
+        onMouseOut: function(){
+            if( this.model.get("archive") == "Giphy" ){
+                this.$("img").attr("src", this.model.get("thumbnail_url"));
+            }
         },
 
         viewItem: function() {
