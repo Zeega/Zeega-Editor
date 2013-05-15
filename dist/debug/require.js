@@ -397,7 +397,7 @@ return __p;
 this["JST"]["app/templates/frame.html"] = function(obj){
 var __p='';var print=function(){__p+=Array.prototype.join.call(arguments, '')};
 with(obj||{}){
-__p+='<div class="frame-menu tooltip"\n    title="delete page"\n    data-gravity="n"\n>\n    <a href="#" class="action tooltip" data-action="deleteFrame"\n        \n\n    ><i class="icon-trash icon-white"></i></a>\n</div>\n\n<a href="#" class="frame-thumb"\n    data-id="'+
+__p+='<div class="frame-menu tooltip"\n    title="delete page"\n    data-gravity="n"\n>\n    <a href="#" class="action tooltip" data-action="deleteFrame">\n        <i class="icon-trash icon-white"></i>\n    </a>\n</div>\n\n<a href="#" class="frame-thumb"\n    data-id="'+
 ( id )+
 '"\n    style="\n        ';
  if( thumbnail_url !== "" ) { 
@@ -405,7 +405,11 @@ __p+='<div class="frame-menu tooltip"\n    title="delete page"\n    data-gravity
 ( thumbnail_url )+
 ') no-repeat center center; \n            -webkit-background-size: cover;\n            -moz-background-size: cover;\n            -o-background-size: cover;\n            background-size: cover;\n        ';
  } 
-;__p+='\n"></a>';
+;__p+='\n"></a>\n\n<a href="#" class="advance-toggle';
+ if ( attr.advance ) { 
+;__p+=' active';
+ } 
+;__p+='">\n    <i class="icon-chevron-right"></i>\n</a>';
 }
 return __p;
 };
@@ -413,7 +417,7 @@ return __p;
 this["JST"]["app/templates/frames.html"] = function(obj){
 var __p='';var print=function(){__p+=Array.prototype.join.call(arguments, '')};
 with(obj||{}){
-__p+='<ul class="frame-list"></ul>\n<div class="add-frame"\n    title="add new page"\n    data-gravity="ne"\n><a href="#"><i class="icon-plus icon-white"></i></a></div>';
+__p+='<div class="add-frame"\n    title="add new page"\n    data-gravity="ne"\n>\n    <a href="#">\n        <div class="frame-ghost">\n            <i class="icon-plus icon-white"></i>\n            <br/>\n            add page\n        </div>\n    </a>\n</div>\n<ul class="frame-list"></ul>';
 }
 return __p;
 };
@@ -809,13 +813,7 @@ return __p;
 this["JST"]["app/zeega-parser/plugins/layers/end_page/endpage.html"] = function(obj){
 var __p='';var print=function(){__p+=Array.prototype.join.call(arguments, '')};
 with(obj||{}){
-__p+='<!-- <div class="endpage-inner">\n    <img class="end-logo" src="assets/img/zeega-red-white-250.png">\n\n    <div class="user-block user-block-large">\n        <a href="http://zeega.com/user/'+
-( user_id )+
-'" target="blank">\n            <div class="profile-token"\n                style="\n                    background: url('+
-( userThumbnail )+
-');\n                    background-size: cover;\n                "\n            ></div>\n            <div class="profile-name">by '+
-( authors )+
-'</div>\n        </a>\n    </div>\n\n    <div class="share-block">\n        <ul class="share-sites">\n            <li><a href="#"><i class="endpage-social endpage-social-twitter"></i></a></li>\n            <li><a href="#"><i class="endpage-social endpage-social-facebook"></i></a></li>\n            <li><a href="#"><i class="endpage-social endpage-social-tumblr"></i></a></li>\n        </ul>\n    </div>\n\n</div> -->';
+__p+='';
 }
 return __p;
 };
@@ -973,6 +971,14 @@ __p+='<audio id="audio-el-'+
 ;__p+='\n        loop\n    ';
  } 
 ;__p+='\n    preload\n></audio>';
+}
+return __p;
+};
+
+this["JST"]["app/zeega-parser/plugins/layers/end_page/endpage.html"] = function(obj){
+var __p='';var print=function(){__p+=Array.prototype.join.call(arguments, '')};
+with(obj||{}){
+__p+='';
 }
 return __p;
 };
@@ -32711,10 +32717,13 @@ zeega.define('app',[
 function( Backbone, jquery, Spinner ) {
     // Provide a global location to place configuration settings and module
     // creation.
+
     var app = {
         mode: "player",
         // The root path to run the application.
         root: "/",
+
+        metadata: $("meta[name=zeega]").data(),
 
         attributes: {},
         parserPath: "app/zeega-parser/",
@@ -34590,7 +34599,7 @@ function( app ) {
         onNewFrameSave: function( newFrame ) {
             this.model.saveAttr({ to_frame: newFrame.id });
             this.model.trigger("change:to_frame", this.model, newFrame.id );
-            console.log('on new frame save', newFrame, this.model );
+            // console.log('on new frame save', newFrame, this.model );
         },
 
         afterRender: function() {
@@ -35787,10 +35796,9 @@ function( app, _Layer, Visual, TextModal ) {
 
         },
 
+        // ## TODO Simplify this - 5/3/2013
         updateStyle: function() {
-            this.$(".visual-target").text( this.model.getAttr("content") );
-
-            this.$el.css({
+            var css = {
                 color: this.model.get("attr").color,
                 fontWeight: this.model.getAttr("bold") ? "bold" : "normal",
                 fontStyle: this.model.getAttr("italic") ? "italic" : "normal",
@@ -35798,7 +35806,11 @@ function( app, _Layer, Visual, TextModal ) {
                 fontSize: this.model.getAttr("fontSize") + "%",
                 textAlign: this.model.getAttr("textAlign"),
                 lineHeight: this.model.getAttr("lineHeight") + "em"
-            });
+            };
+
+            this.$(".visual-target")
+                .css( css )
+                .text( this.model.getAttr("content") );
         },
 
         afterEditorRender: function() {
@@ -35844,7 +35856,17 @@ function( app, _Layer, Visual, TextModal ) {
         }, 500 ),
 
         beforePlayerRender: function() {
-            this.updateStyle();
+            var css = {
+                color: this.model.get("attr").color,
+                fontWeight: this.model.getAttr("bold") ? "bold" : "normal",
+                fontStyle: this.model.getAttr("italic") ? "italic" : "normal",
+                fontFamily: this.model.getAttr("fontFamily"),
+                fontSize: this.model.getAttr("fontSize") + "%",
+                textAlign: this.model.getAttr("textAlign"),
+                lineHeight: this.model.getAttr("lineHeight") + "em"
+            };
+
+            this.$el.css( css );
         }
   });
 
@@ -36012,6 +36034,56 @@ function( Zeega, LayerModel, Visual ) {
 
     return Layer;
 });
+zeega.define('zeega_parser/plugins/layers/end_page/endpage',[
+    "app",
+    "zeega_parser/modules/layer.model",
+    "zeega_parser/modules/layer.visual.view"
+],
+
+function( app, Layer, Visual ){
+
+    var L = {};
+
+    L.EndPageLayer = Layer.extend({
+
+        layerType: "EndPage",
+
+        attr: {
+            title: "End Page Layer",
+            left: 0,
+            top: 0,
+            height: 100,
+            width: 100,
+            width: null,
+            opacity: 1,
+            aspectRatio: null,
+            dissolve: true
+        }
+
+    });
+
+    L.EndPageLayer.Visual = Visual.extend({
+
+        template: "end_page/endpage",
+
+        visualProperties: [
+            "height",
+            "width",
+            "opacity"
+        ],
+
+        onPlay: function() {
+            app.status.emit("endpage_enter");
+        },
+
+        onExit: function() {
+            app.status.emit("endpage_exit");
+        }
+    });
+
+    return L;
+});
+
 /*
 
 plugin/layer manifest file
@@ -36027,7 +36099,8 @@ zeega.define('zeega_parser/plugins/layers/_all',[
     "zeega_parser/plugins/layers/rectangle/rectangle",
     "zeega_parser/plugins/layers/text/text",
     "zeega_parser/plugins/layers/text_v2/text",
-    "zeega_parser/plugins/layers/youtube/youtube"
+    "zeega_parser/plugins/layers/youtube/youtube",
+    "zeega_parser/plugins/layers/end_page/endpage"
 ],
 function(
     image,
@@ -36036,7 +36109,8 @@ function(
     rectangle,
     text,
     textV2,
-    youtube
+    youtube,
+    endpage
 ) {
     var Plugins = {};
     // extend the plugin object with all the layers
@@ -36048,7 +36122,8 @@ function(
         rectangle,
         text,
         textV2,
-        youtube
+        youtube,
+        endpage
     );
 });
 
@@ -36134,6 +36209,7 @@ function( app, Layers ) {
                     attr = {};
                 }
 
+                this.soundtrackModel = newLayer;
                 attr.soundtrack = newLayer.id;
                 this.set("attr", attr );
                 view.setSoundtrackLayer( newLayer );
@@ -36145,6 +36221,7 @@ function( app, Layers ) {
         removeSoundtrack: function( layer ) {
             var attr = this.get("attr");
 
+            layer.destroy();
             attr.soundtrack = false;
             this.set("attr", attr );
         },
@@ -36287,18 +36364,23 @@ function( app, Backbone, Layers, ThumbWorker ) {
         },
 
         onLayerAddRemove: function() {
-            this.updateThumb();
             this.onLayerSort();
+            this.once("sync", function() {
+                this.updateThumb();
+            }.bind( this ));
         },
 
         onLayerSort: function() {
             this.set("layers", this.layers.pluck("id") );
             this.lazySave();
-            this.updateThumb();
+            this.once("sync", function() {
+                this.updateThumb();
+            }.bind( this ));
         },
 
         addLayerType: function( type ) {
             var newLayer = new Layers[ type ]({ type: type });
+
             newLayer.order[ this.id ] = this.layers.length;
             newLayer.save().success(function( response ) {
                 this.layers.add( newLayer );
@@ -36860,7 +36942,7 @@ function( app, SequenceCollection ) {
                 if ( frames.length > 1 ) {
                     frames.each(function( frame, j ) {
                         frame.put({
-                            _next: frames.at( j + 1 ) ? frames.at( j + 1 ).id : null,
+                            _next: frame.get("attr").advance && frames.at( j + 1 ) ? frames.at( j + 1 ).id : null,
                             _last: frames.at( j - 1 ) ? frames.at( j - 1 ).id : null
                         });
                     });
@@ -36941,9 +37023,12 @@ function( app, SequenceCollection ) {
             next = frame.get("_next");
 
             frame.put( "_connections",
-                prev & next ? "lr" :
-                prev ? "l" :
-                next ? "r" : "none"
+                frame.get("attr").advance && prev && next ? "lr" :
+                frame.get("attr").advance && !prev && next ? "r" :
+                !frame.get("attr").advance && prev && next ? "l" :
+                !frame.get("attr").advance && !prev && next ? "none" :
+                !frame.get("attr").advance && prev && !next ? "l" :
+                "none"
             );
         },
 
@@ -37082,7 +37167,10 @@ function( ProjectModel ) {
     return Parser;
 });
 
-zeega.define('zeega_parser/data-parsers/zeega-project',["lodash"],
+zeega.define('zeega_parser/data-parsers/zeega-project',[
+
+
+    ],
 
 function() {
     var type = "zeega-project",
@@ -37091,15 +37179,55 @@ function() {
     Parser[ type ] = { name: type };
 
     Parser[ type ].validate = function( response ) {
-
         if ( response.sequences && response.frames && response.layers ) {
             return true;
         }
         return false;
     };
 
+    var removeDupeSoundtrack = function( response ) {
+        
+        if ( response.sequences[0].attr.soundtrack ) {
+            _.each( response.frames, function( frame ) {
+                frame.layers = _.without( frame.layers, response.sequences[0].attr.soundtrack );
+            });
+        }
+    }
+
     // no op. projects are already formatted
     Parser[type].parse = function( response, opts ) {
+
+        removeDupeSoundtrack( response );
+
+        if ( opts.endPage ) {
+            var endId, lastPageId, lastPage, endPage, endLayers;
+
+            endId = -1;
+            lastPageId = response.sequences[0].frames[ response.sequences[0].frames.length - 1 ];
+            lastPage = _.find( response.frames, function( frame ) {
+                return frame.id == lastPageId;
+            });
+            endPage = _.extend({}, lastPage );
+
+            // only allow images, color layers
+            endLayers = _.filter(response.layers, function( layer ) {
+                return _.include(["Image", "Rectangle"], layer.type ) && _.include( endPage.layers, layer.id );
+            });
+
+            endPage.layers = _.pluck( endLayers, "id");
+            endPage.layers.push( endId );
+
+            // add layer to layer array
+            response.layers.push({
+                id: endId,
+                type: "EndPageLayer"
+            });
+            
+            endPage.id = endId;
+            response.frames.push( endPage );
+            response.sequences[0].frames.push( endId )
+        }
+
         return response;
     };
 
@@ -37122,9 +37250,52 @@ function() {
         return false;
     };
 
-    // no op. projects are already formatted
+
+    // cleanses bad data from legacy projects
+    var removeDupeSoundtrack = function( response ) {
+        
+        if ( response.sequences[0].attr.soundtrack ) {
+            _.each( response.frames, function( frame ) {
+                frame.layers = _.without( frame.layers, response.sequences[0].attr.soundtrack );
+            });
+        }
+    }
+
     Parser[type].parse = function( response, opts ) {
-        return response.items[0].text;
+        var response = response.items[0].text;
+
+        removeDupeSoundtrack( response );
+
+        if ( opts.endPage ) {
+            var endId, lastPageId, lastPage, endPage, endLayers;
+
+            endId = -1;
+            lastPageId = response.sequences[0].frames[ response.sequences[0].frames.length - 1 ];
+            lastPage = _.find( response.frames, function( frame ) {
+                return frame.id == lastPageId;
+            });
+            endPage = _.extend({}, lastPage );
+
+            // only allow images, color layers
+            endLayers = _.filter(response.layers, function( layer ) {
+                return _.include(["Image", "Rectangle"], layer.type ) && _.include( endPage.layers, layer.id );
+            });
+
+            endPage.layers = _.pluck( endLayers, "id");
+            endPage.layers.push( endId );
+
+            // add layer to layer array
+            response.layers.push({
+                id: endId,
+                type: "EndPageLayer"
+            });
+            
+            endPage.id = endId;
+            response.frames.push( endPage );
+            response.sequences[0].frames.push( endId )
+        }
+
+        return response;
     };
 
     return Parser;
@@ -38068,6 +38239,16 @@ function( app, ZeegaParser, Relay, Status, PlayerLayout ) {
             debugEvents: false,
 
             /**
+            Turns on the end/credit frame at the end of the project
+
+            @property endPage
+            @type Boolean
+            @default false
+            **/
+
+            endPage: false,
+
+            /**
             Instance of a Frame.Collection
 
             @property frames
@@ -38248,6 +38429,7 @@ function( app, ZeegaParser, Relay, Status, PlayerLayout ) {
 
         initialize: function( attributes ) {
             this.loadSoundtrack = _.once(function() {
+
                 if ( app.soundtrack ) {
                     if ( app.soundtrack.state == "ready" ) {
                         app.soundtrack.play();
@@ -38264,7 +38446,6 @@ function( app, ZeegaParser, Relay, Status, PlayerLayout ) {
             this.relay = new Relay.Model();
             this.status = new Status.Model({ project: this });
             app.status = this.status; // booooo
-
             this._setTarget();
             this._load( attributes );
         },
@@ -38615,6 +38796,10 @@ function( app, ZeegaParser, Relay, Status, PlayerLayout ) {
             return this.project.getProjectJSON();
         },
 
+        getSoundtrack: function() {
+            return app.soundtrack;
+        },
+
         getFrameData: function() {
             if ( this.status.get("current_frame") ) {
                 return _.extend({},
@@ -38623,12 +38808,6 @@ function( app, ZeegaParser, Relay, Status, PlayerLayout ) {
                 );
             }
 
-            return false;
-        },
-
-        // TODO
-        // returns the frame structure for the project
-        getProjectTree: function() {
             return false;
         },
 
@@ -56826,6 +57005,7 @@ function( app ) {
             this.model.on("blur", this.onBlur, this );
             this.model.on("thumbUpdateStart", this.onThumbUpdateStart, this );
             this.model.on("change:thumbnail_url", this.onThumbUpdateComplete, this );
+            this.model.on("no_advance", this.turnOffAdvance, this );
         },
 
         onThumbUpdateStart: function() {
@@ -56849,7 +57029,22 @@ function( app ) {
 
         events: {
             "click .frame-thumb": "viewFrame",
-            "click .action": "doAction"
+            "click .action": "doAction",
+            "click .advance-toggle": "toggleAdvance"
+        },
+
+        toggleAdvance: function() {
+            console.log("toggle advance", this.model.get("attr"), this.model.get("attr").advance );
+
+            this.$(".advance-toggle").toggleClass("active");
+            this.model.saveAttr({
+                advance: !this.model.get("attr").advance
+            });
+        },
+
+        turnOffAdvance: function() {
+            console.log("TURN OFF ADVANCE")
+            this.$(".advance-toggle").removeClass("active");
         },
 
         doAction: function( e ) {
@@ -77197,7 +77392,6 @@ function( app, _Layer, Visual, TextModal ) {
             "Finger Paint",
             "Georgia",
             "Great Vibes",
-            "Impact",
             "Londrina Outline",
             "Londrina Sketch",
             "Monofett",
@@ -77323,8 +77517,6 @@ function( app, _Layer, Visual, TextModal ) {
             this.$(".visual-target")
                 .css( css )
                 .text( this.model.getAttr("content") );
-
-            // this.$el.css( css );
         },
 
         afterEditorRender: function() {
@@ -77370,7 +77562,17 @@ function( app, _Layer, Visual, TextModal ) {
         }, 500 ),
 
         beforePlayerRender: function() {
-            this.updateStyle();
+            var css = {
+                color: this.model.get("attr").color,
+                fontWeight: this.model.getAttr("bold") ? "bold" : "normal",
+                fontStyle: this.model.getAttr("italic") ? "italic" : "normal",
+                fontFamily: this.model.getAttr("fontFamily"),
+                fontSize: this.model.getAttr("fontSize") + "%",
+                textAlign: this.model.getAttr("textAlign"),
+                lineHeight: this.model.getAttr("lineHeight") + "em"
+            };
+
+            this.$el.css( css );
         }
   });
 
@@ -77575,15 +77777,6 @@ function( app, Layer, Visual ){
             "width",
             "opacity"
         ],
-
-        // serialize: function() {
-
-        //     return _.extend({},
-        //         this.model.toJSON(),
-        //         app.status.get("project").project.toJSON(),
-        //         app.metadata
-        //     );
-        // },
 
         onPlay: function() {
             app.status.emit("endpage_enter");
@@ -77806,7 +77999,9 @@ function( app, Backbone, Layers, ThumbWorker ) {
 
         defaults: {
             _order: 0,
-            attr: {},
+            attr: {
+                advance: true
+            },
             // ids of frames and their common layers for loading
             common_layers: {},
             _connections: "none",
@@ -77846,6 +78041,10 @@ function( app, Backbone, Layers, ThumbWorker ) {
             this.lazySave = _.debounce(function() {
                 this.save();
             }.bind( this ), 1000 );
+
+            if ( _.isArray( this.get("attr") ) ) {
+                this.set("attr", this.defaults.attr );
+            }
 
             this.startThumbWorker = _.debounce(function() {
                 var worker = new Worker( app.webRoot + "js/helpers/thumbworker.js" );
@@ -77894,12 +78093,20 @@ function( app, Backbone, Layers, ThumbWorker ) {
         addLayerType: function( type ) {
             var newLayer = new Layers[ type ]({ type: type });
 
+            // turn off advance if the type is a link
+            if ( type == "Link") {
+                var attr = this.get("attr");
+
+                attr.advance = false;
+                this.set("attr", attr );
+                this.trigger("no_advance")
+            }
+
             newLayer.order[ this.id ] = this.layers.length;
             newLayer.save().success(function( response ) {
                 this.layers.add( newLayer );
                 app.status.setCurrentLayer( newLayer );
             }.bind( this ));
-            
         },
 
         addLayerByItem: function( item ) {
@@ -78455,7 +78662,7 @@ function( app, SequenceCollection ) {
                 if ( frames.length > 1 ) {
                     frames.each(function( frame, j ) {
                         frame.put({
-                            _next: frames.at( j + 1 ) ? frames.at( j + 1 ).id : null,
+                            _next: frame.get("attr").advance && frames.at( j + 1 ) ? frames.at( j + 1 ).id : null,
                             _last: frames.at( j - 1 ) ? frames.at( j - 1 ).id : null
                         });
                     });
@@ -78536,9 +78743,12 @@ function( app, SequenceCollection ) {
             next = frame.get("_next");
 
             frame.put( "_connections",
-                prev & next ? "lr" :
-                prev ? "l" :
-                next ? "r" : "none"
+                frame.get("attr").advance && prev && next ? "lr" :
+                frame.get("attr").advance && !prev && next ? "r" :
+                !frame.get("attr").advance && prev && next ? "l" :
+                !frame.get("attr").advance && !prev && next ? "none" :
+                !frame.get("attr").advance && prev && !next ? "l" :
+                "none"
             );
         },
 
@@ -78586,7 +78796,7 @@ function( app, SequenceCollection ) {
                     layers = layers.concat( [ sequence.soundtrackModel.toJSON() ] );
                 }
             });
-console.log("layers", layers, this.sequences.toJSON())
+
             return _.extend({}, this.toJSON(), {
                 sequences: this.sequences.toJSON(),
                 frames: frames,
@@ -78736,7 +78946,6 @@ function() {
             endPage.id = endId;
             response.frames.push( endPage );
             response.sequences[0].frames.push( endId )
-            console.log( endPage );
         }
 
         return response;
