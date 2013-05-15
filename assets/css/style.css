@@ -6055,6 +6055,11 @@ a:active {
   width: calc(100% / 4);
   float: left;
 }
+.media-drawer .item.grayscale img {
+  -webkit-filter: grayscale(0);
+  -moz-filter: grayscale(0);
+  filter: grayscale(0);
+}
 .media-drawer .item > a {
   cursor: move;
 }
