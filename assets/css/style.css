@@ -1703,6 +1703,32 @@ body .ui-tooltip {
   height: 0px !important;
   opacity: 0 !important;
 }
+.user-block {
+  display: block;
+  font-size: 15px;
+  font-weight: bold;
+  width: 250px;
+}
+.user-block .profile-token {
+  border: 2px solid orangered;
+  height: 40px;
+  width: 40px;
+  border-radius: 22px;
+  display: inline-block;
+}
+.user-block .profile-name {
+  display: inline-block;
+  color: orangered;
+  position: relative;
+  top: -15px;
+  text-decoration: none;
+}
+.visual-element-endpagelayer {
+  height: 100%;
+  width: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  color: white;
+}
 .visual-link {
   border-radius: 3px;
 }
@@ -4991,11 +5017,45 @@ html {
 .btnz.btnz-submit:hover {
   background-color: #6FF;
 }
+.ZEEGA-tab {
+  background: orangered;
+  display: block;
+  padding: 5px;
+  width: 30px;
+  height: 35px;
+  border-radius: 0 0 2px 2px;
+  position: fixed;
+  z-index: 2;
+  top: 0;
+  left: 10px;
+  transition: all 0.5s;
+  -webkit-transition: all 0.5s;
+}
+.ZEEGA-tab .ZTab-logo {
+  display: block;
+  height: 30px;
+  width: 30px;
+  background-image: url(../img/zeega-logo-white.png);
+  background-size: 30px 30px;
+  margin-top: 2px;
+}
+.ZEEGA-tab:hover {
+  transition: all 0.5s;
+  -webkit-transition: all 0.5s;
+  padding-top: 7px;
+}
 .navbar {
   height: 30px;
 }
 .navbar .btnz {
   display: block;
+}
+.navbar .icon-question-sign {
+  position: relative;
+  top: 20px;
+}
+.navbar .pull-left {
+  margin-left: 50px;
 }
 .navbar li {
   float: left;
