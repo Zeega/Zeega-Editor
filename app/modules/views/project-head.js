@@ -99,16 +99,20 @@ function( app ) {
         },
 
         events: {
-            "click .project-share a": "toggleShareGrave",
+            "click .project-share": "toggleShareGrave",
+            "click .editor-help": "initHelpSequence",
             "keypress .project-info": "onTitleKeyup",
             "blur .project-info": "onBlur",
             "click .project-preview": "projectPreview",
 
             "click .close-grave": "closeGrave",
             "mousedown .text-box": "onBoxFocus",
-            "click .share-zeega": "showShare",
             "click .embed-zeega": "showEmbed",
             "keyup #project-caption": "onCaptionKeypress"
+        },
+
+        initHelpSequence: function() {
+            app.layout.instructions.startIntroSequence();
         },
 
         showEmbed: function() {

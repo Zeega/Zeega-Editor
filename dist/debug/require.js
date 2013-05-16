@@ -405,7 +405,7 @@ __p+='<div class="frame-menu tooltip"\n    title="delete page"\n    data-gravity
 ( thumbnail_url )+
 ') no-repeat center center; \n            -webkit-background-size: cover;\n            -moz-background-size: cover;\n            -o-background-size: cover;\n            background-size: cover;\n        ';
  } 
-;__p+='\n"></a>\n\n<!--\n<a href="#" class="advance-toggle';
+;__p+='\n"></a>\n<!--\n<a href="#" class="advance-toggle';
  if ( attr.advance ) { 
 ;__p+=' active';
  } 
@@ -417,7 +417,7 @@ return __p;
 this["JST"]["app/templates/frames.html"] = function(obj){
 var __p='';var print=function(){__p+=Array.prototype.join.call(arguments, '')};
 with(obj||{}){
-__p+='<div class="add-frame"\n    title="add new page"\n    data-gravity="ne"\n>\n    <a href="#">\n        <div class="frame-ghost">\n            <i class="icon-plus icon-white"></i>\n            <br/>\n            add page\n        </div>\n    </a>\n</div>\n<ul class="frame-list"></ul>';
+__p+='<div class="add-frame"\n    title="add new page"\n    data-gravity="n"\n>\n    <a href="#">\n        <div class="frame-ghost">\n            <i class="icon-plus icon-white"></i>\n            <br/>\n            Add Page\n        </div>\n    </a>\n</div>\n<ul class="frame-list"></ul>';
 }
 return __p;
 };
@@ -563,7 +563,7 @@ return __p;
 this["JST"]["app/templates/layout-main.html"] = function(obj){
 var __p='';var print=function(){__p+=Array.prototype.join.call(arguments, '')};
 with(obj||{}){
-__p+='<div class="project-head"></div>\n\n<div class=\'left-column\'>\n    <div class="media-drawer"></div>\n</div>\n\n<div class=\'right-column\'>\n\n    <div class="project-navs">\n        <div class="frames"></div>\n        <div class="soundtrack"></div>\n    </div>\n    <div class="edit-box">\n        <div class="workspace"></div>\n    </div>\n\n    <div class="section-head">Layers</div>\n    <div class="layer-picker"></div>\n    <div class="layers"></div>\n</div>';
+__p+='<div class="project-head"></div>\n\n<div class=\'left-column\'>\n    <div class="media-drawer"></div>\n</div>\n\n<div class=\'right-column\'>\n\n    <div class="project-navs">\n        <div class="frames"></div>\n        <div class="soundtrack"></div>\n    </div>\n    <div class="edit-box">\n        <div class="workspace"></div>\n    </div>\n\n    <div class="layer-picker"></div>\n    <div class="layers"></div>\n</div>';
 }
 return __p;
 };
@@ -593,7 +593,7 @@ return __p;
 this["JST"]["app/templates/media-drawer.html"] = function(obj){
 var __p='';var print=function(){__p+=Array.prototype.join.call(arguments, '')};
 with(obj||{}){
-__p+='<div class="media-drawer-controls ZEEGA-hmenu light img-tabs">\n    <ul class=\'pull-left\'>\n        \n        <li>\n            <a href="#" data-api = "Zeega" class="active media-toggle"\n                title="our faves from across the web"\n                data-gravity="sw"\n            ><i class="socialz-zeega socialz-white"></i></a>\n        </li>\n\n        <li>\n            <a href="#" data-api = "Soundcloud" class="media-toggle"\n                title="sounds from SoundCloud"\n                data-gravity="sw"\n            ><i class="socialz-soundcloud"></i></a>\n        </li>\n\n           \n\n        <li>\n            <a href="#" data-api="Tumblr" class="media-toggle"\n                title="GIFs and images from Tumblr"\n                data-gravity="sw"\n            ><i class="socialz-tumblr"></i></a>\n        </li>\n        <!--\n        <li>\n            <a href="#" data-api = "Instagram" class="media-toggle"\n                title="images from Instagram"\n                data-gravity="sw"\n            ><i class="socialz-instagram"></i></a>\n        </li>\n    -->\n        <li>\n            <a href="#" data-api = "Flickr" class="media-toggle"\n                title="images from Flickr"\n                data-gravity="sw"\n            ><i class="socialz-flickr"></i></a>\n        </li>\n\n        <li>\n            <a href="#" data-api = "Giphy" class="media-toggle"\n                title="GIFs from Giphy"\n                data-gravity="sw"\n            ><i class="socialz-giphy"></i></a>\n        </li>\n       \n      \n        <li>\n            <a href="#" data-api = "Youtube" class="media-toggle"\n                title="Videos from Youtube"\n                data-gravity="sw"\n            ><i class="socialz-youtube"></i></a>\n        </li>\n         <!--\n        <li >\n            <a href="#" data-api = "MyZeega" class="media-toggle"><i class="socialz-user"></i></a>\n        </li>\n         -->\n\n    </ul>\n    <ul class="pull-right">\n        <li >\n            <a id="media-upload-tab" href="#" data-api = "MyZeega" class="media-toggle">UPLOAD</a>\n        </li>\n    </ul>\n    \n    \n</div>\n<div class="ZEEGA-items"></div>\n';
+__p+='<div class="media-drawer-controls ZEEGA-hmenu light img-tabs">\n    <ul class=\'pull-left\'>\n        \n        <li>\n            <a href="#" data-api = "Zeega" class="active media-toggle"\n                title="our faves from across the web"\n                data-gravity="sw"\n            ><i class="socialz-zeega socialz-white"></i></a>\n        </li>\n\n        <li>\n            <a href="#" data-api = "Soundcloud" class="media-toggle"\n                title="sounds from SoundCloud"\n                data-gravity="sw"\n            ><i class="socialz-soundcloud"></i></a>\n        </li>\n\n<!--\n        <li>\n            <a href="#" data-api="Tumblr" class="media-toggle"\n                title="GIFs and images from Tumblr"\n                data-gravity="sw"\n            ><i class="socialz-tumblr"></i></a>\n        </li>\n    -->\n        <!--\n        <li>\n            <a href="#" data-api = "Instagram" class="media-toggle"\n                title="images from Instagram"\n                data-gravity="sw"\n            ><i class="socialz-instagram"></i></a>\n        </li>\n    -->\n        <li>\n            <a href="#" data-api = "Flickr" class="media-toggle"\n                title="images from Flickr"\n                data-gravity="sw"\n            ><i class="socialz-flickr"></i></a>\n        </li>\n\n        <li>\n            <a href="#" data-api = "Giphy" class="media-toggle"\n                title="GIFs from Giphy"\n                data-gravity="sw"\n            ><i class="socialz-giphy"></i></a>\n        </li>\n       \n      \n        <li>\n            <a href="#" data-api = "Youtube" class="media-toggle"\n                title="Videos from Youtube"\n                data-gravity="sw"\n            ><i class="socialz-youtube"></i></a>\n        </li>\n         <!--\n        <li >\n            <a href="#" data-api = "MyZeega" class="media-toggle"><i class="socialz-user"></i></a>\n        </li>\n         -->\n\n    </ul>\n    <ul class="pull-right">\n        <li >\n            <a id="media-upload-tab" href="#" data-api = "MyZeega" class="media-toggle">UPLOAD</a>\n        </li>\n    </ul>\n    \n    \n</div>\n<div class="ZEEGA-items"></div>\n';
 }
 return __p;
 };
@@ -621,9 +621,7 @@ return __p;
 this["JST"]["app/templates/project-head.html"] = function(obj){
 var __p='';var print=function(){__p+=Array.prototype.join.call(arguments, '')};
 with(obj||{}){
-__p+='<a href="http://www.zeega.com" class="ZEEGA-tab">\n    <span class="ZTab-logo"></span>\n</a>\n\n<div class="nav-wrapper">\n    <div class="nav col-left navbar">\n        <ul class=\'pull-left\'>\n\n            <!--\n            <li class=\'logo\'>\n                <a href="'+
-( webRoot )+
-'"><img src="assets/img/zeega-logo-header.png"/></a>\n            </li>\n        -->\n            <li>\n                <a href="http://blog.zeega.com/faq" data-bypass="true" target="blank"\n                    title="FAQ"\n                    data-gravity="n"\n                ><i class="icon-question-sign"></i></a>\n            </li>\n        </ul>\n        <ul class=\'pull-right\'>\n            <li>\n                <a href="'+
+__p+='<a href="http://www.zeega.com" class="ZEEGA-tab">\n    <span class="ZTab-logo"></span>\n</a>\n\n<div class="nav-wrapper">\n    <div class="nav col-left navbar">\n        <ul class=\'pull-left\'>\n            <li>\n                <a href="'+
 ( webRoot )+
 'profile/'+
 ( userId )+
@@ -631,9 +629,9 @@ __p+='<a href="http://www.zeega.com" class="ZEEGA-tab">\n    <span class="ZTab-l
 ( userThumbnail )+
 ');\n                            background-size: cover;\n                        "\n                    ></span></a>\n            </li>\n            <li>\n                <a href="'+
 ( webRoot )+
-'project/new"\n                    class="btnz new-zeega"\n                    title="make a new Zeega"\n                    data-gravity="n"\n                    >New Zeega</a>\n            </li>\n            \n        </ul>\n    </div>\n    <div class="project-title col-middle clearfix">\n        <a href="#" class="project-preview btnz"\n            title="see what you\'re making"\n            data-gravity="n"\n        ><i class="icon-play icon-white"></i> Preview</a>\n    </div>\n    <div class="project-share col-right clearfix">\n        <a href="#" class="project-share btnz btnz-blue btnz-fullwidth"\n            title="share your Zeega with the world"\n            data-gravity="ne"\n        ><i class="icon-retweet icon-white"></i> Share</a>\n    </div>\n</div>\n\n<div class="share-grave">\n\n    <div class="close-wrapper">\n        <a href="#" class="close-grave">&times;</a>\n    </div>\n\n    <div class="grave-inner">\n\n        <div class="share-meta">\n            <div class="cover-image-wrapper">\n                <div class="project-cover" style="\n                    background: url('+
+'project/new"\n                    class="btnz new-zeega"\n                    title="make a new Zeega"\n                    data-gravity="n"\n                    >New Zeega</a>\n            </li>\n        </ul>\n    </div>\n\n    <ul class="nav-buttons-right">\n        <li>\n            <a href="#" class="editor-help btnz btnz-light"\n                title="view instructions"\n                data-gravity="n"\n            >Help</a>\n        </li>\n        <li>\n            <a href="#" class="project-preview btnz"\n                title="see what you\'re making"\n                data-gravity="n"\n            ><i class="icon-play icon-white"></i> Preview</a>\n        </li>\n        <li>\n            <a href="#" class="project-share btnz btnz-blue btnz-fullwidth"\n                title="share your Zeega with the world"\n                data-gravity="ne"\n            ><i class="icon-retweet icon-white"></i> Share</a>\n        </li>\n\n    </ul>\n\n</div>\n\n<div class="share-grave">\n\n    <div class="close-wrapper">\n        <a href="#" class="close-grave">&times;</a>\n    </div>\n\n    <div class="grave-inner">\n\n        <div class="share-meta">\n            <div class="cover-image-wrapper">\n                <div class="project-cover" style="\n                    background: url('+
 ( cover_image )+
-');\n                    background-size: cover;\n                "></div>\n                <div class="caption-info">drag image here</div>\n            </div>\n            <div class="caption-side">\n                <textarea id="project-caption" placeholder="Caption your Zeega" maxlength="80">'+
+');\n                    background-size: cover;\n                "></div>\n                <div class="caption-info">Drag cover image here</div>\n            </div>\n            <div class="caption-side">\n                <textarea id="project-caption" placeholder="Caption your Zeega before sharing" maxlength="80">'+
 ( title )+
 '</textarea>\n                <div class="caption-info">80 character limit</div>\n            </div>\n        </div>\n\n\n        <div class="share-tab-content">\n            <div class="share-network share-window active">\n\n                <div>\n                    <a href="https://twitter.com/intent/tweet?original_referer='+
 ( webRoot )+
@@ -691,7 +689,7 @@ __p+='<div class="elapsed tooltip"></div>\n<div class="soundtrack-waveform"\n   
  } 
 ;__p+='\n></div>\n\n';
  if ( model === false ) { 
-;__p+='\n    <span class="soundtrack-drop-icon"></span>\n';
+;__p+='\n    <span class="soundtrack-drop-icon"\n        title="drag audio to add soundtrack"\n        data-gravity="ne"\n    ></span>\n    <span class="soundtrack-sub">soundtrack</span>\n';
  } else { 
 ;__p+='\n    <div class="soundtrack-controls">\n        <a href="#" class="playpause"\n            title="listen"\n            data-gravity="n"\n        ><i class="icon-play icon-white"></i></a>\n        <a href="#" class="remove"\n            title="remove soundtrack"\n            data-gravity="n"\n        ><i class="icon-remove icon-white"></i></a>\n    </div>\n';
  } 
@@ -56869,16 +56867,20 @@ function( app ) {
         },
 
         events: {
-            "click .project-share a": "toggleShareGrave",
+            "click .project-share": "toggleShareGrave",
+            "click .editor-help": "initHelpSequence",
             "keypress .project-info": "onTitleKeyup",
             "blur .project-info": "onBlur",
             "click .project-preview": "projectPreview",
 
             "click .close-grave": "closeGrave",
             "mousedown .text-box": "onBoxFocus",
-            "click .share-zeega": "showShare",
             "click .embed-zeega": "showEmbed",
             "keyup #project-caption": "onCaptionKeypress"
+        },
+
+        initHelpSequence: function() {
+            app.layout.instructions.startIntroSequence();
         },
 
         showEmbed: function() {
@@ -73301,7 +73303,6 @@ function( app ) {
 
         el: $("body"),
 
-        step: 0,
         ended: false,
 
         initialize: function() {
@@ -73323,39 +73324,36 @@ function( app ) {
             this.ended = true;
         },
 
-
         startIntroSequence: function() {
-            if ( !this.ended ) {
-                var $first, $second;
+            var $first, $second;
 
-                $first = this.insertInstructions({
-                    target: $(".ZEEGA-items"),
-                    direction: "l",
-                    content: "Drag stuff from here…",
-                    close: false,
-                    progress: null
-                });
-                $second = this.insertInstructions({
-                    target: $(".ZEEGA-workspace"),
-                    direction: "r",
-                    color: "red",
-                    content: "…to here",
-                    close: true,
-                    progress: "1/4",
-                    avoid: $first
-                });
+            this.ended = false;
+            $first = this.insertInstructions({
+                target: $(".ZEEGA-items"),
+                direction: "l",
+                content: "Drag stuff from here…",
+                close: false,
+                progress: null
+            });
+            $second = this.insertInstructions({
+                target: $(".ZEEGA-workspace"),
+                direction: "r",
+                color: "red",
+                content: "…to here",
+                close: true,
+                progress: "1/4",
+                avoid: $first
+            });
 
-                app.once("item_dropped", function( e ) {
-                    $first.fadeOut(function() {
-                        $first.remove();
-                        this.step2();
-                    }.bind( this ));
-                    $second.fadeOut(function() {
-                        $second.remove();
-                    });
-                }, this );
-            }
-            
+            app.once("item_dropped", function( e ) {
+                $first.fadeOut(function() {
+                    $first.remove();
+                    this.step2();
+                }.bind( this ));
+                $second.fadeOut(function() {
+                    $second.remove();
+                });
+            }, this );
         },
 
         // Now pick a soundtrack for your Zeega. Click here to explore soundcloud.
@@ -73396,7 +73394,7 @@ function( app ) {
                 });
                 $second = this.insertInstructions({
                     target: $(".soundtrack"),
-                    direction: "l",
+                    direction: "r",
                     color: "red",
                     content: "…to here",
                     close: true,
@@ -73466,7 +73464,7 @@ function( app ) {
                 });
                 $second = this.insertInstructions({
                     target: $(".add-frame"),
-                    direction: "r",
+                    direction: "l",
                     color: "red",
                     content: "…or add a new page and keep creating",
                     close: true,
@@ -73483,6 +73481,10 @@ function( app ) {
                     }.bind( this ));
                 }, this );
             }
+        },
+
+        reset: function() {
+            this.ended = false;
         },
 
         insertInstructions: function( opts ) {
@@ -74650,7 +74652,6 @@ function( Zeega, ControlView ) {
 
             makeDraggable: function() {
                 
-
                 if ( this.model.editorProperties.draggable ) {
 
                     this.$visualContainer.draggable({
@@ -78007,7 +78008,9 @@ function( app, Backbone, Layers, ThumbWorker ) {
 
         defaults: {
             _order: 0,
-            attr: {},
+            attr: {
+                advance: true
+            },
             // ids of frames and their common layers for loading
             common_layers: {},
             _connections: "none",
@@ -78047,6 +78050,10 @@ function( app, Backbone, Layers, ThumbWorker ) {
             this.lazySave = _.debounce(function() {
                 this.save();
             }.bind( this ), 1000 );
+
+            if ( _.isArray( this.get("attr") ) ) {
+                this.set("attr", this.defaults.attr );
+            }
 
             this.startThumbWorker = _.debounce(function() {
                 var worker = new Worker( app.webRoot + "js/helpers/thumbworker.js" );
@@ -78095,12 +78102,22 @@ function( app, Backbone, Layers, ThumbWorker ) {
         addLayerType: function( type ) {
             var newLayer = new Layers[ type ]({ type: type });
 
+            // turn off advance if the type is a link
+            /*
+            if ( type == "Link") {
+                var attr = this.get("attr");
+
+                attr.advance = false;
+                this.set("attr", attr );
+                this.trigger("no_advance")
+            }
+            */
+
             newLayer.order[ this.id ] = this.layers.length;
             newLayer.save().success(function( response ) {
                 this.layers.add( newLayer );
                 app.status.setCurrentLayer( newLayer );
             }.bind( this ));
-            
         },
 
         addLayerByItem: function( item ) {
@@ -78656,6 +78673,8 @@ function( app, SequenceCollection ) {
                 if ( frames.length > 1 ) {
                     frames.each(function( frame, j ) {
                         frame.put({
+                            // for the new advance logic
+                            // _next: frame.get("attr").advance && frames.at( j + 1 ) ? frames.at( j + 1 ).id : null,
                             _next: frames.at( j + 1 ) ? frames.at( j + 1 ).id : null,
                             _last: frames.at( j - 1 ) ? frames.at( j - 1 ).id : null
                         });
@@ -78737,9 +78756,12 @@ function( app, SequenceCollection ) {
             next = frame.get("_next");
 
             frame.put( "_connections",
-                prev & next ? "lr" :
-                prev ? "l" :
-                next ? "r" : "none"
+                frame.get("attr").advance && prev && next ? "lr" :
+                frame.get("attr").advance && !prev && next ? "r" :
+                !frame.get("attr").advance && prev && next ? "l" :
+                !frame.get("attr").advance && !prev && next ? "none" :
+                !frame.get("attr").advance && prev && !next ? "l" :
+                "none"
             );
         },
 
@@ -78937,7 +78959,6 @@ function() {
             endPage.id = endId;
             response.frames.push( endPage );
             response.sequences[0].frames.push( endId )
-            console.log( endPage );
         }
 
         return response;

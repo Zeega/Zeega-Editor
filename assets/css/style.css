@@ -5010,8 +5010,9 @@ html {
   background-color: #6FF;
 }
 .btnz.btnz-light {
+  color: #666;
   background-color: white;
-  border: 1px solid #ccc;
+  text-shadow: 0 1px #ffffff, 0 -1px #ffffff, 1px 0px #ffffff, 1px 0px #ffffff;
 }
 .btnz.btnz-light.active {
   background-color: #add8e6;
@@ -5126,6 +5127,16 @@ html {
 .project-head .nav:after {
   clear: both;
 }
+.project-head .nav-buttons-right {
+  float: right;
+}
+.project-head .nav-buttons-right li {
+  float: left;
+  margin-right: 10px;
+}
+.project-head .nav-buttons-right li a {
+  display: block;
+}
 .project-head .new-zeega {
   background-color: orangered;
 }
@@ -5163,7 +5174,7 @@ html {
   margin-right: 10px;
 }
 .project-head .project-share {
-  position: relative;
+  width: 150px;
 }
 .share-grave {
   background: url(../img/tiny-stripes-dark.png);
@@ -5625,7 +5636,6 @@ a:active {
 }
 .ZEEGA-sequences {
   display: none;
-  font-size: 13px;
   position: relative;
   width: 100%;
   *zoom: 1;
@@ -5851,6 +5861,8 @@ a:active {
   margin-top: 9px;
   font-size: 12px;
   background: rgba(50, 205, 50, 0.75);
+  text-align: center;
+  line-height: 1.5em;
 }
 .frames .add-frame .frame-ghost:hover {
   border: 2px solid orangered;
@@ -6159,11 +6171,6 @@ a:active {
   width: calc(100% / 4);
   float: left;
 }
-.media-drawer .item.grayscale img {
-  -webkit-filter: grayscale(0);
-  -moz-filter: grayscale(0);
-  filter: grayscale(0);
-}
 .media-drawer .item > a {
   cursor: move;
 }
@@ -6250,12 +6257,12 @@ a:active {
   background-color: rgba(0, 0, 0, 0.1);
   border: 1px solid orangered;
   background: url(../img/tiny-stripes-dark.png);
-  font-size: 12px;
+  font-size: 11px;
+  font-weight: bold;
   text-align: center;
   color: orangered;
   position: relative;
   text-shadow: 2px 2px white;
-  font-weight: bold;
 }
 .soundtrack .elapsed {
   background: orangered;
@@ -6275,22 +6282,10 @@ a:active {
   left: 0;
   pointer-events: none;
 }
-.soundtrack .soundtrack-info {
-  font-size: 14px;
-  position: absolute;
-  pointer-events: none;
-  background: rgba(255, 255, 255, 0.5);
-  padding: 5px;
-  left: 0;
-  right: 0;
-}
-.soundtrack .soundtrack-info .title {
-  white-space: nowrap;
-  overflow: hidden;
-  width: 100%;
-  position: absolute;
-  left: 0;
-  text-overflow: ellipsis;
+.soundtrack .soundtrack-sub {
+  position: relative;
+  top: 63px;
+  color: #333;
 }
 .soundtrack .soundtrack-controls {
   position: absolute;
@@ -6314,7 +6309,7 @@ a:active {
   position: absolute;
   background-size: 100% 200%;
   left: 0;
-  top: 0;
+  top: -8px;
 }
 .soundtrack.can-drop {
   border: 1px solid limegreen;

@@ -8,7 +8,11 @@
 ></div>
 
 <% if ( model === false ) { %>
-    <span class="soundtrack-drop-icon"></span>
+    <span class="soundtrack-drop-icon"
+        title="drag audio to add soundtrack"
+        data-gravity="ne"
+    ></span>
+    <span class="soundtrack-sub">soundtrack</span>
 <% } else { %>
     <div class="soundtrack-controls">
         <a href="#" class="playpause"
