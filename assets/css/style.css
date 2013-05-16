@@ -5636,7 +5636,6 @@ a:active {
 }
 .ZEEGA-sequences {
   display: none;
-  font-size: 13px;
   position: relative;
   width: 100%;
   *zoom: 1;
@@ -6258,7 +6257,8 @@ a:active {
   background-color: rgba(0, 0, 0, 0.1);
   border: 1px solid orangered;
   background: url(../img/tiny-stripes-dark.png);
-  font-size: 12px;
+  font-size: 11px;
+  font-weight: bold;
   text-align: center;
   color: orangered;
   position: relative;
@@ -6284,7 +6284,7 @@ a:active {
 }
 .soundtrack .soundtrack-sub {
   position: relative;
-  top: 60px;
+  top: 63px;
   color: #333;
 }
 .soundtrack .soundtrack-controls {
