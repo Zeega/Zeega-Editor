@@ -5861,6 +5861,8 @@ a:active {
   margin-top: 9px;
   font-size: 12px;
   background: rgba(50, 205, 50, 0.75);
+  text-align: center;
+  line-height: 1.5em;
 }
 .frames .add-frame .frame-ghost:hover {
   border: 2px solid orangered;
@@ -6280,22 +6282,10 @@ a:active {
   left: 0;
   pointer-events: none;
 }
-.soundtrack .soundtrack-info {
-  font-size: 14px;
-  position: absolute;
-  pointer-events: none;
-  background: rgba(255, 255, 255, 0.5);
-  padding: 5px;
-  left: 0;
-  right: 0;
-}
-.soundtrack .soundtrack-info .title {
-  white-space: nowrap;
-  overflow: hidden;
-  width: 100%;
-  position: absolute;
-  left: 0;
-  text-overflow: ellipsis;
+.soundtrack .soundtrack-sub {
+  position: relative;
+  top: 60px;
+  color: #333;
 }
 .soundtrack .soundtrack-controls {
   position: absolute;
@@ -6319,7 +6309,7 @@ a:active {
   position: absolute;
   background-size: 100% 200%;
   left: 0;
-  top: 0;
+  top: -8px;
 }
 .soundtrack.can-drop {
   border: 1px solid limegreen;
