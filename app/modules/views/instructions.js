@@ -9,7 +9,6 @@ function( app ) {
 
         el: $("body"),
 
-        step: 0,
         ended: false,
 
         initialize: function() {
@@ -32,37 +31,35 @@ function( app ) {
         },
 
         startIntroSequence: function() {
-            if ( !this.ended ) {
-                var $first, $second;
+            var $first, $second;
 
-                $first = this.insertInstructions({
-                    target: $(".ZEEGA-items"),
-                    direction: "l",
-                    content: "Drag stuff from here…",
-                    close: false,
-                    progress: null
-                });
-                $second = this.insertInstructions({
-                    target: $(".ZEEGA-workspace"),
-                    direction: "r",
-                    color: "red",
-                    content: "…to here",
-                    close: true,
-                    progress: "1/4",
-                    avoid: $first
-                });
+            this.ended = false;
+            $first = this.insertInstructions({
+                target: $(".ZEEGA-items"),
+                direction: "l",
+                content: "Drag stuff from here…",
+                close: false,
+                progress: null
+            });
+            $second = this.insertInstructions({
+                target: $(".ZEEGA-workspace"),
+                direction: "r",
+                color: "red",
+                content: "…to here",
+                close: true,
+                progress: "1/4",
+                avoid: $first
+            });
 
-                app.once("item_dropped", function( e ) {
-                    $first.fadeOut(function() {
-                        $first.remove();
-                        this.step2();
-                    }.bind( this ));
-                    $second.fadeOut(function() {
-                        $second.remove();
-                    });
-                }, this );
-            }
-            
+            app.once("item_dropped", function( e ) {
+                $first.fadeOut(function() {
+                    $first.remove();
+                    this.step2();
+                }.bind( this ));
+                $second.fadeOut(function() {
+                    $second.remove();
+                });
+            }, this );
         },
 
         // Now pick a soundtrack for your Zeega. Click here to explore soundcloud.
@@ -190,6 +187,10 @@ function( app ) {
                     }.bind( this ));
                 }, this );
             }
+        },
+
+        reset: function() {
+            this.ended = false;
         },
 
         insertInstructions: function( opts ) {
