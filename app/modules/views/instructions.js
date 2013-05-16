@@ -31,7 +31,6 @@ function( app ) {
             this.ended = true;
         },
 
-
         startIntroSequence: function() {
             if ( !this.ended ) {
                 var $first, $second;
@@ -104,7 +103,7 @@ function( app ) {
                 });
                 $second = this.insertInstructions({
                     target: $(".soundtrack"),
-                    direction: "l",
+                    direction: "r",
                     color: "red",
                     content: "…to here",
                     close: true,
@@ -174,7 +173,7 @@ function( app ) {
                 });
                 $second = this.insertInstructions({
                     target: $(".add-frame"),
-                    direction: "r",
+                    direction: "l",
                     color: "red",
                     content: "…or add a new page and keep creating",
                     close: true,

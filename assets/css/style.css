@@ -5012,6 +5012,7 @@ html {
 .btnz.btnz-light {
   color: #666;
   background-color: white;
+  text-shadow: 0 1px #ffffff, 0 -1px #ffffff, 1px 0px #ffffff, 1px 0px #ffffff;
 }
 .btnz.btnz-light.active {
   background-color: #add8e6;
@@ -6262,7 +6263,6 @@ a:active {
   color: orangered;
   position: relative;
   text-shadow: 2px 2px white;
-  font-weight: bold;
 }
 .soundtrack .elapsed {
   background: orangered;
