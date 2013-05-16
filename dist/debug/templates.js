@@ -31,7 +31,7 @@ return __p;
 this["JST"]["app/templates/frames.html"] = function(obj){
 var __p='';var print=function(){__p+=Array.prototype.join.call(arguments, '')};
 with(obj||{}){
-__p+='<div class="add-frame"\n    title="add new page"\n    data-gravity="ne"\n>\n    <a href="#">\n        <div class="frame-ghost">\n            <i class="icon-plus icon-white"></i>\n            <br/>\n            Add Page\n        </div>\n    </a>\n</div>\n<ul class="frame-list"></ul>';
+__p+='<div class="add-frame"\n    title="add new page"\n    data-gravity="n"\n>\n    <a href="#">\n        <div class="frame-ghost">\n            <i class="icon-plus icon-white"></i>\n            <br/>\n            Add Page\n        </div>\n    </a>\n</div>\n<ul class="frame-list"></ul>';
 }
 return __p;
 };
