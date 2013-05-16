@@ -8,7 +8,7 @@ function( app, ItemView ) {
     return Backbone.View.extend({
 
         className: function() {
-            return "item item-" + this.model.id;
+            return "item item-" + this.model.id; 
         },
         tagName: "li",
         template: "item",
@@ -41,7 +41,21 @@ function( app, ItemView ) {
         },
 
         events: {
-            "click": "viewItem"
+            "click": "viewItem",
+            "mouseover img": "onMouseOver",
+            "mouseout img": "onMouseOut"
+        },
+
+        onMouseOver: function(){
+            if( this.model.get("archive") == "Giphy" ){
+                this.$("img").attr("src", this.model.get("thumbnail_url").replace("_s.gif", ".gif"));
+            }
+        },
+
+        onMouseOut: function(){
+            if( this.model.get("archive") == "Giphy" ){
+                this.$("img").attr("src", this.model.get("thumbnail_url"));
+            }
         },
 
         viewItem: function() {

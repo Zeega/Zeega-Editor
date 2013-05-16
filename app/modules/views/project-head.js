@@ -14,20 +14,21 @@ function( app ) {
                 userId: app.userId,
                 userProjects: $.parseJSON( window.userProjects ),
                 webRoot: app.webRoot,
-                tumblr_share: this.getTumblrShareUrl()
-
-            }, this.model.project.toJSON() );
+                tumblr_share: this.getTumblrShareUrl(),
+            }, 
+            app.metadata,
+            this.model.project.toJSON() );
         },
 
         getTumblrShareUrl: function() {
-            var html = "<p>" + app.project.get("description") + "</p>" + 
+            var html = "<p>" + app.project.get("title") + "</p>" + 
                 "<p><a href='" + app.webRoot + app.project.get("id") + "'>" +
                 "<strong>►&nbsp;Play&nbsp;Zeega&nbsp;►</strong></a>" +
                 "</p><p>by&nbsp;<a href='" + app.webRoot + "profile/" + app.project.get("user_id") + "'>" + app.project.get("authors") + "</a></p>";
 
             return "source=" + encodeURIComponent( app.project.get("cover_image") ) +
-                    "&caption=" + encodeURIComponent( html ) +
-                    "&click_thru="+ encodeURIComponent( app.webRoot ) + app.project.get("id");
+                "&caption=" + encodeURIComponent( html ) +
+                "&click_thru="+ encodeURIComponent( app.webRoot ) + app.project.get("id");
         },
 
         initialize: function() {
@@ -35,7 +36,7 @@ function( app ) {
         },
 
         onSync: function() {
-            this.$(".share-twitter").attr("href", "https://twitter.com/intent/tweet?original_referer=" + app.webRoot + this.model.project.get("id") + "&text=" + this.model.project.get("description") + "&url=" + app.webRoot + this.model.project.get("id") );
+            this.$(".share-twitter").attr("href", "https://twitter.com/intent/tweet?original_referer=" + app.webRoot + this.model.project.get("id") + "&text=" + this.model.project.get("title") +" "+ app.webRoot + this.model.project.get("id") + " made w/ @zeega" );
             this.$(".share-tumblr").attr("href", "http://www.tumblr.com/share/photo?" + this.getTumblrShareUrl() );
 
             this.$(".project-cover").css({
@@ -48,6 +49,28 @@ function( app ) {
             if ( app.project.get("cover_image") === "" ) {
                 this.model.on("layer_added", this.onLayerAdded, this );
             }
+
+            this.makeCoverDroppable();
+        },
+
+        makeCoverDroppable: function() {
+            this.$(".project-cover").droppable({
+                accept: ".item",
+                tolerance: "pointer",
+                hoverClass: "can-drop",
+                drop: function( e, ui ) {
+                    if ( _.contains( ["Image"], app.dragging.get("layer_type") )) {
+
+                        console.log("update cover", app.dragging );
+
+                        this.updateCoverImage( app.dragging.get("uri") );
+                        // this.updateWaveform( app.dragging.get("thumbnail_url") );
+
+                        // app.trigger("soundtrack_added", app.dragging );
+                        // app.status.get('currentSequence').setSoundtrack( app.dragging, this );
+                    }
+                }.bind( this )
+            });
         },
 
         onLayerAdded: function( layer ) {
@@ -86,7 +109,6 @@ function( app ) {
             "click .share-zeega": "showShare",
             "click .embed-zeega": "showEmbed",
             "keyup #project-caption": "onCaptionKeypress"
-            // "click .project-share-toggle": "toggleShare",
         },
 
         showEmbed: function() {
@@ -118,7 +140,9 @@ function( app ) {
             } else {
                 app.trigger("grave_closed");
             }
-            this.$(".share-grave").slideToggle("fast");
+            this.$(".share-grave")
+                .toggleClass("active")
+                .slideToggle("fast");
         },
 
         onTitleKeyup: function( e ) {
@@ -133,7 +157,7 @@ function( app ) {
         },
 
         captionSave: _.debounce(function() {
-            this.model.project.save("description", this.$("#project-caption").val() );
+            this.model.project.save("title", this.$("#project-caption").val() );
         }, 1000 ),
 
         onMenuClick: function( e ) {

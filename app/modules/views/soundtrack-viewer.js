@@ -18,7 +18,14 @@ function( app ) {
             return this.model.get("attr");
         },
         events: {
-            "click .modal-close": "close"
+            "click .modal-close": "close",
+            "click": "onClick"
+        },
+
+        onClick: function( e ){
+            if( $( e.target ).attr("class") == "ZEEGA-modal ZEEGA-item-collection-viewer" ){
+                this.close();
+            }
         },
 
         listen: function() {

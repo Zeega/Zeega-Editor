@@ -1703,6 +1703,32 @@ body .ui-tooltip {
   height: 0px !important;
   opacity: 0 !important;
 }
+.user-block {
+  display: block;
+  font-size: 15px;
+  font-weight: bold;
+  width: 250px;
+}
+.user-block .profile-token {
+  border: 2px solid orangered;
+  height: 40px;
+  width: 40px;
+  border-radius: 22px;
+  display: inline-block;
+}
+.user-block .profile-name {
+  display: inline-block;
+  color: orangered;
+  position: relative;
+  top: -15px;
+  text-decoration: none;
+}
+.visual-element-endpagelayer {
+  height: 100%;
+  width: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  color: white;
+}
 .visual-link {
   border-radius: 3px;
 }
@@ -2340,6 +2366,32 @@ body .ui-tooltip {
   height: 0px !important;
   opacity: 0 !important;
 }
+.user-block {
+  display: block;
+  font-size: 15px;
+  font-weight: bold;
+  width: 250px;
+}
+.user-block .profile-token {
+  border: 2px solid orangered;
+  height: 40px;
+  width: 40px;
+  border-radius: 22px;
+  display: inline-block;
+}
+.user-block .profile-name {
+  display: inline-block;
+  color: orangered;
+  position: relative;
+  top: -15px;
+  text-decoration: none;
+}
+.visual-element-endpagelayer {
+  height: 100%;
+  width: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  color: white;
+}
 .visual-link {
   border-radius: 3px;
 }
@@ -2951,21 +3003,35 @@ body .ui-tooltip {
   padding: 2px;
   text-align: center;
 }
-.ui-resizable-handle.ui-resizable-se {
-  display: inline-block;
-  width: 14px;
-  height: 14px;
-  line-height: 14px;
-  vertical-align: text-top;
-  background-image: url("../img/glyphicons-halflings.png");
+.ui-resizable-handle {
+  height: 15px;
+  width: 15px;
+  border: 2px solid orangered;
+  background-color: orangered;
+  border-radius: 20px;
   background-position: 14px 14px;
   background-repeat: no-repeat;
-  margin-top: 1px;
   background-position: -360px -96px;
-  background-color: orange;
-  right: -2px;
-  bottom: -2px;
-  -webkit-transform: rotate(90deg);
+}
+.ui-resizable-handle:hover {
+  border: 2px solid transparent;
+  background-color: orangered;
+}
+.ui-resizable-handle.ui-resizable-ne {
+  top: -10px;
+  right: -10px;
+}
+.ui-resizable-handle.ui-resizable-nw {
+  top: -10px;
+  left: -10px;
+}
+.ui-resizable-handle.ui-resizable-se {
+  bottom: -10px;
+  right: -10px;
+}
+.ui-resizable-handle.ui-resizable-sw {
+  bottom: -10px;
+  left: -10px;
 }
 .control-slider {
   position: relative;
@@ -4914,12 +4980,14 @@ html {
   background: url(../img/tiny-stripes-dark.png);
   background-color: #666;
   border-radius: 2px;
-  padding: 5px;
+  padding: 5px 10px;
   font-size: 15px;
   top: 0;
   height: 20px;
   color: white;
   text-align: center;
+  font-family: "futura", sans-serif;
+  box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.25);
   transition: all 0.5s;
   -webkit-transition: all 0.5s;
 }
@@ -4963,8 +5031,60 @@ html {
 .btnz.btnz-submit:hover {
   background-color: #6FF;
 }
+.ZEEGA-tab {
+  background: orangered;
+  display: block;
+  padding: 5px;
+  width: 30px;
+  height: 35px;
+  border-radius: 0 0 2px 2px;
+  position: fixed;
+  z-index: 2;
+  top: 0;
+  left: 10px;
+  transition: all 0.5s;
+  -webkit-transition: all 0.5s;
+}
+.ZEEGA-tab .ZTab-logo {
+  display: block;
+  height: 30px;
+  width: 30px;
+  background-image: url(../img/zeega-logo-white.png);
+  background-size: 30px 30px;
+  margin-top: 2px;
+}
+.ZEEGA-tab:hover {
+  transition: all 0.5s;
+  -webkit-transition: all 0.5s;
+  padding-top: 7px;
+}
+.navbar {
+  height: 30px;
+}
+.navbar .btnz {
+  display: block;
+}
+.navbar .icon-question-sign {
+  position: relative;
+  top: 20px;
+}
+.navbar .pull-left {
+  margin-left: 50px;
+}
+.navbar li {
+  float: left;
+  margin-right: 10px;
+}
+.navbar li:last-child {
+  margin-right: 0;
+}
+.navbar li.logo {
+  padding: 0;
+}
+.navbar li.logo img {
+  height: 100%;
+}
 .project-head {
-  padding: 10px 0;
   font-size: 1.75em;
   color: #555;
   z-index: 10;
@@ -4978,6 +5098,19 @@ html {
   line-height: 0;
 }
 .project-head:after {
+  clear: both;
+}
+.project-head .nav-wrapper {
+  *zoom: 1;
+  padding: 10px 0;
+}
+.project-head .nav-wrapper:before,
+.project-head .nav-wrapper:after {
+  display: table;
+  content: "";
+  line-height: 0;
+}
+.project-head .nav-wrapper:after {
   clear: both;
 }
 .project-head .nav {
@@ -4994,14 +5127,17 @@ html {
   clear: both;
 }
 .project-head .new-zeega {
-  margin-right: 2px;
-  padding: 5px 10px 0px;
-  vertical-align: middle;
-  margin-top: 6px;
   background-color: orangered;
 }
 .project-head .new-zeega:hover {
   background-color: orange;
+}
+.project-head .user-token {
+  height: 28px;
+  width: 28px;
+  display: inline-block;
+  border-radius: 20px;
+  border: 2px solid orangered;
 }
 .project-head .project-info {
   float: left;
@@ -5048,6 +5184,9 @@ html {
 .share-grave:after {
   clear: both;
 }
+.share-grave.active {
+  margin-bottom: 10px;
+}
 .share-grave .grave-inner {
   margin: 0 40px;
   font-size: 13px;
@@ -5072,11 +5211,23 @@ html {
   float: left;
   padding: 10px;
 }
+.share-grave .grave-inner .share-meta .caption-info {
+  color: #ccc;
+}
+.share-grave .grave-inner .share-meta .cover-image-wrapper {
+  float: left;
+  width: 150px;
+}
+.share-grave .grave-inner .share-meta .cover-image-wrapper .caption-info {
+  margin-top: 5px;
+}
 .share-grave .grave-inner .share-meta .project-cover {
   background-color: black;
-  height: 100px;
+  height: 79px;
   width: 150px;
-  position: absolute;
+}
+.share-grave .grave-inner .share-meta .project-cover.can-drop {
+  outline: 1px solid orangered;
 }
 .share-grave .grave-inner .share-meta .caption-side {
   position: relative;
@@ -5097,7 +5248,6 @@ html {
 .share-grave .grave-inner .share-meta .caption-side .caption-info {
   position: absolute;
   bottom: 0;
-  color: #ccc;
 }
 .share-grave .grave-inner .share-tabs {
   float: right;
@@ -5568,7 +5718,7 @@ a:active {
   width: -webkit-calc(100% - 102px);
   width: -moz-calc(100% - 102px);
   width: calc(100% - 102px);
-  margin-left: 10px;
+  margin-right: 10px;
   font-size: 13px;
   position: relative;
   height: 88px;
@@ -5592,9 +5742,9 @@ a:active {
   box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.5);
   border-radius: 2px;
   float: left;
-  width: -webkit-calc(100% - 58px);
-  width: -moz-calc(100% - 58px);
-  width: calc(100% - 58px);
+  width: -webkit-calc(100% - 114px);
+  width: -moz-calc(100% - 114px);
+  width: calc(100% - 114px);
   *zoom: 1;
 }
 .frames .frame-list:before,
@@ -5618,6 +5768,10 @@ a:active {
   position: relative;
   padding: 5px;
 }
+.frames .frame-placeholder:child-first,
+.frames .ZEEGA-frame:child-first {
+  padding-left: 5px;
+}
 .frames .frame-placeholder.active .frame-thumb,
 .frames .ZEEGA-frame.active .frame-thumb {
   outline: 4px solid orangered;
@@ -5634,6 +5788,16 @@ a:active {
   transition: all 0.5s;
   -webkit-transition: all 0.5s;
 }
+.frames .frame-placeholder .advance-toggle,
+.frames .ZEEGA-frame .advance-toggle {
+  position: relative;
+  top: -25px;
+  opacity: 0.35;
+}
+.frames .frame-placeholder .advance-toggle.active,
+.frames .ZEEGA-frame .advance-toggle.active {
+  opacity: 0.9;
+}
 .frames .frame-placeholder:hover .frame-menu,
 .frames .ZEEGA-frame:hover .frame-menu {
   opacity: 1;
@@ -5641,7 +5805,8 @@ a:active {
 .frames .frame-placeholder .frame-menu,
 .frames .ZEEGA-frame .frame-menu {
   position: absolute;
-  right: 5px;
+  left: 6px;
+  top: 6px;
   opacity: 0.25;
 }
 .frames .frame-placeholder .frame-menu .icon-edit,
@@ -5665,7 +5830,8 @@ a:active {
   display: block;
 }
 .frames .add-frame {
-  float: right;
+  float: left;
+  margin-right: 10px;
   *zoom: 1;
 }
 .frames .add-frame:before,
@@ -5677,15 +5843,29 @@ a:active {
 .frames .add-frame:after {
   clear: both;
 }
+.frames .add-frame .frame-ghost {
+  border: 2px solid rgba(255, 255, 255, 0.75);
+  padding: 5px;
+  color: white;
+  height: 39px;
+  margin-top: 9px;
+  font-size: 12px;
+  background: rgba(50, 205, 50, 0.75);
+}
+.frames .add-frame .frame-ghost:hover {
+  border: 2px solid orangered;
+}
 .frames .add-frame a {
-  height: 70px;
-  width: 13px;
+  height: 69px;
+  width: 69px;
   background: rgba(50, 205, 50, 0.75);
   padding: 6px 7px 7px;
   border-radius: 2px;
   display: inline-block;
   transition: all 0.5s;
   -webkit-transition: all 0.5s;
+  background-image: url(../img/tiny-stripes.png);
+  box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.25);
 }
 .frames .add-frame a:hover {
   transition: all 0.25s;
@@ -5822,9 +6002,9 @@ a:active {
   position: absolute;
   min-height: 320px;
   width: 100%;
-  height: -webkit-calc(100% - 88px);
-  height: -moz-calc(100% - 88px);
-  height: calc(100% - 88px);
+  height: -webkit-calc(100% - 33px);
+  height: -moz-calc(100% - 33px);
+  height: calc(100% - 33px);
   overflow: hidden;
   *zoom: 1;
 }
@@ -5979,6 +6159,11 @@ a:active {
   width: calc(100% / 4);
   float: left;
 }
+.media-drawer .item.grayscale img {
+  -webkit-filter: grayscale(0);
+  -moz-filter: grayscale(0);
+  filter: grayscale(0);
+}
 .media-drawer .item > a {
   cursor: move;
 }
@@ -6122,24 +6307,20 @@ a:active {
 .soundtrack .soundtrack-controls i {
   vertical-align: middle;
 }
-.soundtrack .instructions-1,
-.soundtrack .instructions-2 {
-  padding: 10px;
-}
-.soundtrack .instructions-1 {
-  display: block;
-}
-.soundtrack .instructions-2 {
-  display: none;
+.soundtrack .soundtrack-drop-icon {
+  height: 100%;
+  width: 100%;
+  background-image: url(../img/soundtrack-sprite.png );
+  position: absolute;
+  background-size: 100% 200%;
+  left: 0;
+  top: 0;
 }
 .soundtrack.can-drop {
   border: 1px solid limegreen;
 }
-.soundtrack.can-drop .instructions-1 {
-  display: none;
-}
-.soundtrack.can-drop .instructions-2 {
-  display: block;
+.soundtrack.can-drop .soundtrack-drop-icon {
+  background-position: 0px -100%;
 }
 .section-head {
   float: left;
@@ -6213,6 +6394,8 @@ a:active {
   display: none;
 }
 .media-collection .media-collection-header .media-collection-headline p {
+  font-family: "Futura", sans-serif;
+  font-size: 15px;
   margin: 0;
   padding-top: 5px;
 }

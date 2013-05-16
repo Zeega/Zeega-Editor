@@ -11,7 +11,7 @@ return __p;
 this["JST"]["app/templates/frame.html"] = function(obj){
 var __p='';var print=function(){__p+=Array.prototype.join.call(arguments, '')};
 with(obj||{}){
-__p+='<div class="frame-menu tooltip"\n    title="delete page"\n    data-gravity="n"\n>\n    <a href="#" class="action tooltip" data-action="deleteFrame"\n        \n\n    ><i class="icon-trash icon-white"></i></a>\n</div>\n\n<a href="#" class="frame-thumb"\n    data-id="'+
+__p+='<div class="frame-menu tooltip"\n    title="delete page"\n    data-gravity="n"\n>\n    <a href="#" class="action tooltip" data-action="deleteFrame">\n        <i class="icon-trash icon-white"></i>\n    </a>\n</div>\n\n<a href="#" class="frame-thumb"\n    data-id="'+
 ( id )+
 '"\n    style="\n        ';
  if( thumbnail_url !== "" ) { 
@@ -19,7 +19,11 @@ __p+='<div class="frame-menu tooltip"\n    title="delete page"\n    data-gravity
 ( thumbnail_url )+
 ') no-repeat center center; \n            -webkit-background-size: cover;\n            -moz-background-size: cover;\n            -o-background-size: cover;\n            background-size: cover;\n        ';
  } 
-;__p+='\n"></a>';
+;__p+='\n"></a>\n\n<!--\n<a href="#" class="advance-toggle';
+ if ( attr.advance ) { 
+;__p+=' active';
+ } 
+;__p+='">\n    <i class="icon-chevron-right"></i>\n</a>\n-->';
 }
 return __p;
 };
@@ -27,7 +31,7 @@ return __p;
 this["JST"]["app/templates/frames.html"] = function(obj){
 var __p='';var print=function(){__p+=Array.prototype.join.call(arguments, '')};
 with(obj||{}){
-__p+='<ul class="frame-list"></ul>\n<div class="add-frame"\n    title="add new page"\n    data-gravity="ne"\n><a href="#"><i class="icon-plus icon-white"></i></a></div>';
+__p+='<div class="add-frame"\n    title="add new page"\n    data-gravity="ne"\n>\n    <a href="#">\n        <div class="frame-ghost">\n            <i class="icon-plus icon-white"></i>\n            <br/>\n            add page\n        </div>\n    </a>\n</div>\n<ul class="frame-list"></ul>';
 }
 return __p;
 };
@@ -35,7 +39,7 @@ return __p;
 this["JST"]["app/templates/item-collection-viewer.html"] = function(obj){
 var __p='';var print=function(){__p+=Array.prototype.join.call(arguments, '')};
 with(obj||{}){
-__p+='<a href="#" class="modal-close">&times;</a>\n<a href="#" class="prev arrow arrow-left"></a>\n<a href="#" class="next arrow arrow-right"></a>\n\n<div class="modal-content">\n\n    <div class="modal-title"></div>\n    <div class="modal-body"></div>\n    <div class="modal-footer"></div>\n</div>\n';
+__p+='<a href="#" class="prev arrow arrow-left"></a>\n<a href="#" class="next arrow arrow-right"></a>\n\n<div class="modal-content">\n\n    <div class="modal-title"></div>\n    <a href="#" class="modal-close">&times;</a>\n    <div class="modal-body"></div>\n    <div class="modal-footer"></div>\n</div>\n';
 }
 return __p;
 };
@@ -173,7 +177,7 @@ return __p;
 this["JST"]["app/templates/layout-main.html"] = function(obj){
 var __p='';var print=function(){__p+=Array.prototype.join.call(arguments, '')};
 with(obj||{}){
-__p+='<div class="project-head"></div>\n\n<div class=\'left-column\'>\n    <div class="media-drawer"></div>\n</div>\n\n<div class=\'right-column\'>\n\n    <div class="project-navs">\n        <div class="soundtrack"></div>\n        <div class="frames"></div>\n    </div>\n    <div class="edit-box">\n        <div class="workspace"></div>\n    </div>\n\n    <div class="section-head">Layers</div>\n    <div class="layer-picker"></div>\n    <div class="layers"></div>\n</div>';
+__p+='<div class="project-head"></div>\n\n<div class=\'left-column\'>\n    <div class="media-drawer"></div>\n</div>\n\n<div class=\'right-column\'>\n\n    <div class="project-navs">\n        <div class="frames"></div>\n        <div class="soundtrack"></div>\n    </div>\n    <div class="edit-box">\n        <div class="workspace"></div>\n    </div>\n\n    <div class="section-head">Layers</div>\n    <div class="layer-picker"></div>\n    <div class="layers"></div>\n</div>';
 }
 return __p;
 };
@@ -187,7 +191,9 @@ __p+='<div class="media-collection-header">\n    <div class="media-collection-se
 ( searchQuery )+
 '" />\n        <a class="submit btnz"><span class="label">search</span></a>\n\n    </div>\n    <div class="media-collection-headline">\n        \n\n        ';
  if( title == "Zeega"  ) { 
-;__p+='\n            <p> Some of our favorites </p>\n        ';
+;__p+='\n            <p>Zeega\'s favorites for '+
+( day )+
+'</p>\n        ';
  } else { 
 ;__p+='\n\n        <p> Favorites from '+
 ( title )+
@@ -229,30 +235,30 @@ return __p;
 this["JST"]["app/templates/project-head.html"] = function(obj){
 var __p='';var print=function(){__p+=Array.prototype.join.call(arguments, '')};
 with(obj||{}){
-__p+='<div class="nav col-left navbar ZEEGA-hmenu clear">\n    <ul class=\'pull-left\'>\n        <li class=\'logo\'>\n            <a href="'+
+__p+='<a href="http://www.zeega.com" class="ZEEGA-tab">\n    <span class="ZTab-logo"></span>\n</a>\n\n<div class="nav-wrapper">\n    <div class="nav col-left navbar">\n        <ul class=\'pull-left\'>\n\n            <!--\n            <li class=\'logo\'>\n                <a href="'+
 ( webRoot )+
-'"><img src="assets/img/zeega-logo-header.png"/></a>\n        </li>\n    </ul>\n    <ul class=\'pull-right\'>\n        <li>\n            <a href="'+
-( webRoot )+
-'project/new"\n                class="btnz new-zeega"\n                title="make a new Zeega"\n                data-gravity="n"\n                >new zeega</a>\n        </li>\n        <li>\n            <a href="'+
+'"><img src="assets/img/zeega-logo-header.png"/></a>\n            </li>\n        -->\n            <li>\n                <a href="http://blog.zeega.com/faq" data-bypass="true" target="blank"\n                    title="FAQ"\n                    data-gravity="n"\n                ><i class="icon-question-sign"></i></a>\n            </li>\n        </ul>\n        <ul class=\'pull-right\'>\n            <li>\n                <a href="'+
 ( webRoot )+
 'profile/'+
 ( userId )+
-'"\n                title="my profile"\n                data-gravity="n"\n                ><i class="icon-user"></i></a>\n        </li>\n        <li>\n            <a href="http://blog.zeega.com/faq" data-bypass="true" target="blank"\n                title="FAQ"\n                data-gravity="n"\n            ><i class="icon-question-sign"></i></a>\n        </li>\n\n        \n    </ul>\n</div>\n<div class="project-title col-middle clearfix">\n    <div class="project-info" contenteditable\n        title="title of your Zeega"\n        data-gravity="n"\n    >'+
-( title )+
-'</div>\n    <a href="#" class="project-preview btnz"\n        title="see what you\'re making"\n        data-gravity="n"\n    ><i class="icon-play icon-white"></i> Preview</a>\n</div>\n<div class="project-share col-right clearfix">\n    <a href="#" class="project-share btnz btnz-blue btnz-fullwidth"\n        title="share your Zeega with the world"\n        data-gravity="ne"\n    ><i class="icon-retweet icon-white"></i> Share</a>\n</div>\n\n<div class="share-grave">\n\n    <div class="close-wrapper">\n        <a href="#" class="close-grave">&times;</a>\n    </div>\n\n    <div class="grave-inner">\n\n        <div class="share-meta">\n            <div class="project-cover" style="\n                background: url('+
+'"\n                    title="my profile"\n                    data-gravity="n"\n                    ><span class="user-token"\n                        style="\n                            background-image:url('+
+( userThumbnail )+
+');\n                            background-size: cover;\n                        "\n                    ></span></a>\n            </li>\n            <li>\n                <a href="'+
+( webRoot )+
+'project/new"\n                    class="btnz new-zeega"\n                    title="make a new Zeega"\n                    data-gravity="n"\n                    >New Zeega</a>\n            </li>\n            \n        </ul>\n    </div>\n    <div class="project-title col-middle clearfix">\n        <a href="#" class="project-preview btnz"\n            title="see what you\'re making"\n            data-gravity="n"\n        ><i class="icon-play icon-white"></i> Preview</a>\n    </div>\n    <div class="project-share col-right clearfix">\n        <a href="#" class="project-share btnz btnz-blue btnz-fullwidth"\n            title="share your Zeega with the world"\n            data-gravity="ne"\n        ><i class="icon-retweet icon-white"></i> Share</a>\n    </div>\n</div>\n\n<div class="share-grave">\n\n    <div class="close-wrapper">\n        <a href="#" class="close-grave">&times;</a>\n    </div>\n\n    <div class="grave-inner">\n\n        <div class="share-meta">\n            <div class="cover-image-wrapper">\n                <div class="project-cover" style="\n                    background: url('+
 ( cover_image )+
-');\n                background-size: cover;\n            "></div>\n            <div class="caption-side">\n                <textarea id="project-caption" placeholder="Caption your Zeega" maxlength="80">'+
-( description )+
-'</textarea>\n                <div class="caption-info">\n                    80 character limit\n                </div>\n            </div>\n        </div>\n\n\n        <div class="share-tab-content">\n            <div class="share-network share-window active">\n\n                <div>\n                    <a href="https://twitter.com/intent/tweet?original_referer='+
+');\n                    background-size: cover;\n                "></div>\n                <div class="caption-info">drag image here</div>\n            </div>\n            <div class="caption-side">\n                <textarea id="project-caption" placeholder="Caption your Zeega" maxlength="80">'+
+( title )+
+'</textarea>\n                <div class="caption-info">80 character limit</div>\n            </div>\n        </div>\n\n\n        <div class="share-tab-content">\n            <div class="share-network share-window active">\n\n                <div>\n                    <a href="https://twitter.com/intent/tweet?original_referer='+
 ( webRoot )+
 ''+
-( id )+
+( item_id )+
 '&text='+
-( description )+
-' &url='+
+( title )+
+' made w/ @zeega&url='+
 ( webRoot )+
 ''+
-( id )+
+( item_id )+
 '"\n                            class="social-share share-twitter"\n                            data-itemid="'+
 ( id )+
 '"\n                            target="blank">\n                        <i class="zitem-twitter zitem-30 color"></i>\n                    </a>\n                    <a href="http://www.facebook.com/sharer.php?u='+
@@ -281,7 +287,7 @@ return __p;
 this["JST"]["app/templates/soundtrack-viewer.html"] = function(obj){
 var __p='';var print=function(){__p+=Array.prototype.join.call(arguments, '')};
 with(obj||{}){
-__p+='<a href="#" class="modal-close">&times;</a>\n\n<div class="modal-content">\n\n    <div class="modal-title"></div>\n    <div class="modal-body">\n        <div class="viewer-preview" style="">\n            <iframe ="sc" width="100%" height="166" autoplay="true" scrolling="no" frameborder="no" src="https://w.soundcloud.com/player/?url='+
+__p+='<div class="modal-content">\n\n    <div class="modal-title"></div>\n    <a href="#" class="modal-close">&times;</a>\n    <div class="modal-body">\n        <div class="viewer-preview" style="">\n            <iframe ="sc" width="100%" height="166" autoplay="true" scrolling="no" frameborder="no" src="https://w.soundcloud.com/player/?url='+
 ( attribution_uri )+
 '?auto_play=true&sharing=false&liking=false&download=false&show_comments=false&show_playcount=false&buying=false"></iframe>\n        </div>\n    </div>\n    <div class="modal-footer"></div>\n</div>\n\n\n';
 }
@@ -299,11 +305,9 @@ __p+='<div class="elapsed tooltip"></div>\n<div class="soundtrack-waveform"\n   
  } 
 ;__p+='\n></div>\n\n';
  if ( model === false ) { 
-;__p+='\n    <span class="instructions-1">Drag audio here to add soundtrack</span>\n    <span class="instructions-2">Drop to add soundtrack</span>\n';
+;__p+='\n    <span class="soundtrack-drop-icon"></span>\n';
  } else { 
-;__p+='\n    \n    <!--\n    <div class="soundtrack-info">\n        <span class="title">'+
-( attr.title )+
-'</span>\n        <span class="time-display"></span>\n    </div>\n    -->\n    <div class="soundtrack-controls">\n        <a href="#" class="playpause"\n            title="listen"\n            data-gravity="n"\n        ><i class="icon-play icon-white"></i></a>\n        <a href="#" class="remove"\n            title="remove soundtrack"\n            data-gravity="n"\n        ><i class="icon-remove icon-white"></i></a>\n    </div>\n';
+;__p+='\n    <div class="soundtrack-controls">\n        <a href="#" class="playpause"\n            title="listen"\n            data-gravity="n"\n        ><i class="icon-play icon-white"></i></a>\n        <a href="#" class="remove"\n            title="remove soundtrack"\n            data-gravity="n"\n        ><i class="icon-remove icon-white"></i></a>\n    </div>\n';
  } 
 ;__p+='';
 }
@@ -416,6 +420,14 @@ __p+='<audio id="audio-el-'+
 ;__p+='\n        loop\n    ';
  } 
 ;__p+='\n    preload\n></audio>';
+}
+return __p;
+};
+
+this["JST"]["app/zeega-parser/plugins/layers/end_page/endpage.html"] = function(obj){
+var __p='';var print=function(){__p+=Array.prototype.join.call(arguments, '')};
+with(obj||{}){
+__p+='';
 }
 return __p;
 };

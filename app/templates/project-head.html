@@ -1,48 +1,57 @@
-<div class="nav col-left navbar ZEEGA-hmenu clear">
-    <ul class='pull-left'>
-        <li class='logo'>
-            <a href="<%= webRoot %>"><img src="assets/img/zeega-logo-header.png"/></a>
-        </li>
-    </ul>
-    <ul class='pull-right'>
-        <li>
-            <a href="<%= webRoot %>project/new"
-                class="btnz new-zeega"
-                title="make a new Zeega"
-                data-gravity="n"
-                >new zeega</a>
-        </li>
-        <li>
-            <a href="<%= webRoot %>profile/<%= userId %>"
-                title="my profile"
-                data-gravity="n"
-                ><i class="icon-user"></i></a>
-        </li>
-        <li>
-            <a href="http://blog.zeega.com/faq" data-bypass="true" target="blank"
-                title="FAQ"
-                data-gravity="n"
-            ><i class="icon-question-sign"></i></a>
-        </li>
+<a href="http://www.zeega.com" class="ZEEGA-tab">
+    <span class="ZTab-logo"></span>
+</a>
 
-        
-    </ul>
-</div>
-<div class="project-title col-middle clearfix">
-    <div class="project-info" contenteditable
-        title="title of your Zeega"
-        data-gravity="n"
-    ><%= title %></div>
-    <a href="#" class="project-preview btnz"
-        title="see what you're making"
-        data-gravity="n"
-    ><i class="icon-play icon-white"></i> Preview</a>
-</div>
-<div class="project-share col-right clearfix">
-    <a href="#" class="project-share btnz btnz-blue btnz-fullwidth"
-        title="share your Zeega with the world"
-        data-gravity="ne"
-    ><i class="icon-retweet icon-white"></i> Share</a>
+<div class="nav-wrapper">
+    <div class="nav col-left navbar">
+        <ul class='pull-left'>
+
+            <!--
+            <li class='logo'>
+                <a href="<%= webRoot %>"><img src="assets/img/zeega-logo-header.png"/></a>
+            </li>
+        -->
+            <li>
+                <a href="http://blog.zeega.com/faq" data-bypass="true" target="blank"
+                    title="FAQ"
+                    data-gravity="n"
+                ><i class="icon-question-sign"></i></a>
+            </li>
+        </ul>
+        <ul class='pull-right'>
+            <li>
+                <a href="<%= webRoot %>profile/<%= userId %>"
+                    title="my profile"
+                    data-gravity="n"
+                    ><span class="user-token"
+                        style="
+                            background-image:url(<%= userThumbnail %>);
+                            background-size: cover;
+                        "
+                    ></span></a>
+            </li>
+            <li>
+                <a href="<%= webRoot %>project/new"
+                    class="btnz new-zeega"
+                    title="make a new Zeega"
+                    data-gravity="n"
+                    >New Zeega</a>
+            </li>
+            
+        </ul>
+    </div>
+    <div class="project-title col-middle clearfix">
+        <a href="#" class="project-preview btnz"
+            title="see what you're making"
+            data-gravity="n"
+        ><i class="icon-play icon-white"></i> Preview</a>
+    </div>
+    <div class="project-share col-right clearfix">
+        <a href="#" class="project-share btnz btnz-blue btnz-fullwidth"
+            title="share your Zeega with the world"
+            data-gravity="ne"
+        ><i class="icon-retweet icon-white"></i> Share</a>
+    </div>
 </div>
 
 <div class="share-grave">
@@ -54,15 +63,16 @@
     <div class="grave-inner">
 
         <div class="share-meta">
-            <div class="project-cover" style="
-                background: url(<%= cover_image %>);
-                background-size: cover;
-            "></div>
+            <div class="cover-image-wrapper">
+                <div class="project-cover" style="
+                    background: url(<%= cover_image %>);
+                    background-size: cover;
+                "></div>
+                <div class="caption-info">drag image here</div>
+            </div>
             <div class="caption-side">
-                <textarea id="project-caption" placeholder="Caption your Zeega" maxlength="80"><%= description %></textarea>
-                <div class="caption-info">
-                    80 character limit
-                </div>
+                <textarea id="project-caption" placeholder="Caption your Zeega" maxlength="80"><%= title %></textarea>
+                <div class="caption-info">80 character limit</div>
             </div>
         </div>
 
@@ -71,7 +81,7 @@
             <div class="share-network share-window active">
 
                 <div>
-                    <a href="https://twitter.com/intent/tweet?original_referer=<%= webRoot %><%= id %>&text=<%= description %> &url=<%= webRoot %><%= id %>"
+                    <a href="https://twitter.com/intent/tweet?original_referer=<%= webRoot %><%= item_id %>&text=<%= title %> made w/ @zeega&url=<%= webRoot %><%= item_id %>"
                             class="social-share share-twitter"
                             data-itemid="<%= id %>"
                             target="blank">

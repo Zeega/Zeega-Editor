@@ -83,7 +83,7 @@ function( app, Modal, FrameView, ImageView, AudioView, VideoView, YoutubeView ) 
         },
 
         onClick: function( e ){
-            if( e.toElement.className == "ZEEGA-modal ZEEGA-item-collection-viewer" ){
+            if( $( e.target ).attr("class") == "ZEEGA-modal ZEEGA-item-collection-viewer" ){
                 this.close();
             }
         },

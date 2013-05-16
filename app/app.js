@@ -16,6 +16,8 @@ define([
         dragging: null,
         mediaCollection: null,
 
+        metadata: $("meta[name=zeega]").data(),
+
         userId: meta.data("userId") || null,
         userName: meta.data("userName") || null,
         projectId: meta.data("projectId")|| null,
