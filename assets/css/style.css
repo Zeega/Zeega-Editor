@@ -5173,7 +5173,7 @@ html {
   margin-right: 10px;
 }
 .project-head .project-share {
-  position: relative;
+  width: 150px;
 }
 .share-grave {
   background: url(../img/tiny-stripes-dark.png);
