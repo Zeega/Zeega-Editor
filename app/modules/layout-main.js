@@ -9,15 +9,15 @@ define([
     "modules/views/layer-drawer",
     "modules/views/soundtrack",
     "modules/views/media-drawer",
-    "modules/views/instructions",
-    // "modules/search.model",
+    "modules/pointers",
+//    "modules/views/instructions",
     "mousetrap",
     "tipsy",
 
     "backbone"
 ],
 
-function( app, ProjectHead, Frames, Workspace, Layers, LayerDrawer, Soundtrack, MediaDrawer, Instructions ) {
+function( app, ProjectHead, Frames, Workspace, Layers, LayerDrawer, Soundtrack, MediaDrawer, Pointers ) {
 
     return Backbone.Layout.extend({
 
@@ -78,8 +78,52 @@ function( app, ProjectHead, Frames, Workspace, Layers, LayerDrawer, Soundtrack, 
         onLayoutReady: function() {
             _.delay(function(){
                 this.initTips();
-                this.instructions = new Instructions();
+                this.initialInstructions();
             }.bind( this ), 1000);
+        },
+
+        initialInstructions: function() {
+            // test here if instructions are to be given!
+            var initial = new Pointers([
+                {
+                    listenFor: "item_dropped",
+                    
+                    start: null, // function
+                    end: null, // function
+
+                    pointers: [{
+                        target: ".ZEEGA-items",
+                        content: "Drag stuff from here…",
+                        color: "red",
+                        canCancel: false,
+                        pointDirection: "left",
+                        verticalDivision: 4
+                    },{
+                        target: ".ZEEGA-workspace",
+                        content: "…to here",
+                        color: "blue",
+                        canCancel: true,
+                        pointDirection: "right"
+                    }]
+                },{
+                    listenFor: "media_drawer_toggle",
+                    
+                    start: null, // function
+                    end: null, // function
+
+                    pointers: [{
+                        target: ".socialz-soundcloud",
+                        content: "Now pick a soundtrack for your Zeega. Click here to explore soundcloud.",
+                        color: "red",
+                        canCancel: true,
+                        position: "left"
+                    }]
+                }
+            ]);
+
+            initial.startPointing();
+
+            // console.log("pointers:", initial)
         },
 
         initTips: function() {
