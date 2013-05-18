@@ -618,6 +618,20 @@ __p+='<a href="#" class="modal-close">&times;</a>\n<div class="modal-content">\n
 return __p;
 };
 
+this["JST"]["app/templates/pointer.html"] = function(obj){
+var __p='';var print=function(){__p+=Array.prototype.join.call(arguments, '')};
+with(obj||{}){
+__p+=''+
+( content )+
+'\n';
+ if ( canCancel ) { 
+;__p+='\n    <small>[<a href="#" class="stop-pointing">close</a>]</small>\n';
+ } 
+;__p+='';
+}
+return __p;
+};
+
 this["JST"]["app/templates/project-head.html"] = function(obj){
 var __p='';var print=function(){__p+=Array.prototype.join.call(arguments, '')};
 with(obj||{}){
@@ -875,9 +889,9 @@ var __p='';var print=function(){__p+=Array.prototype.join.call(arguments, '')};
 with(obj||{}){
 __p+='<div class="modal-content">\n    <div class="modal-title">Edit your text</div>\n    <div class="modal-body">\n\n        <textarea rows="4" cols="59" maxlength="140">'+
 ( attr.content )+
-'</textarea>\n\n        <div class="textarea-info">max 140 characters</div>\n\n        <div class="text-controls clearfix">\n            <div class="color-selector">\n                <input class="simple-color" value="'+
+'</textarea>\n\n        <div class="textarea-info">max 140 characters</div>\n\n        <div class="text-controls clearfix">\n            <div class="control-module">\n                <div class="control-title">color</div>\n                <div class="color-selector">\n                    <input class="simple-color" value="'+
 ( attr.color )+
-'"/>\n            </div>\n            <a href="#" class="btnz btnz-light text-btn-bold"><i class="icon-bold"></i></a>\n            <a href="#" class="btnz btnz-light text-btn-italic"><i class="icon-italic"></i></a>\n            <a href="#" class="btnz btnz-light text-btn-align-left"><i class="icon-align-left"></i></a>\n            <a href="#" class="btnz btnz-light text-btn-align-center"><i class="icon-align-center"></i></a>\n            <a href="#" class="btnz btnz-light text-btn-align-right"><i class="icon-align-right"></i></a>\n\n            <select class="font-list" style=""></select>\n\n            <div class="control-module">\n                <div class="control-title">font size</div>\n                <select class="size-list" style="">\n                    <option value="100">8</option>\n                    <option value="125">10</option>\n                    <option value="150">12</option>\n                    <option value="175">14</option>\n                    <option value="200">18</option>\n                    <option value="250">24</option>\n                    <option value="375">36</option>\n                    <option value="500">48</option>\n                    <option value="800">72</option>\n                    <option value="1600">144</option>\n                    <option value="2400">200</option>\n                    <option value="3600">300</option>\n                </select>\n            </div>\n\n            <div class="control-module">\n                <div class="control-title">line height</div>\n                <select class="line-height-list">\n                    <option value="1">1</option>\n                    <option value="1.25">1.25</option>\n                    <option value="1.5">1.5</option>\n                    <option value="1.75">1.75</option>\n                    <option value="2">2</option>\n                </select>\n            </div>\n\n            <div class="control-module">\n                <div class="control-title">mobile position</div>\n                <select class="text-position-list">\n                    <option value="top">top</option>\n                    <option value="middle">middle</option>\n                    <option value="bottom">bottom</option>\n                </select>\n            </div>\n            \n        </div>\n\n        <div class="sample-header">sample</div>\n        <div class="text-sample">'+
+'"/>\n                </div>\n            </div>\n            <a href="#" class="btnz btnz-light text-btn-bold"><i class="icon-bold"></i></a>\n            <a href="#" class="btnz btnz-light text-btn-italic"><i class="icon-italic"></i></a>\n            <a href="#" class="btnz btnz-light text-btn-align-left"><i class="icon-align-left"></i></a>\n            <a href="#" class="btnz btnz-light text-btn-align-center"><i class="icon-align-center"></i></a>\n            <a href="#" class="btnz btnz-light text-btn-align-right"><i class="icon-align-right"></i></a>\n\n            <select class="font-list" style=""></select>\n\n            <div class="control-module">\n                <div class="control-title">font size</div>\n                <select class="size-list" style="">\n                    <option value="100">8</option>\n                    <option value="125">10</option>\n                    <option value="150">12</option>\n                    <option value="175">14</option>\n                    <option value="200">18</option>\n                    <option value="250">24</option>\n                    <option value="375">36</option>\n                    <option value="500">48</option>\n                    <option value="800">72</option>\n                    <option value="1600">144</option>\n                    <option value="2400">200</option>\n                    <option value="3600">300</option>\n                </select>\n            </div>\n<!--\n            <div class="control-module">\n                <div class="control-title">line height</div>\n                <select class="line-height-list">\n                    <option value="1">1</option>\n                    <option value="1.25">1.25</option>\n                    <option value="1.5">1.5</option>\n                    <option value="1.75">1.75</option>\n                    <option value="2">2</option>\n                </select>\n            </div>\n\n            <div class="control-module">\n                <div class="control-title">mobile position</div>\n                <select class="text-position-list">\n                    <option value="top">top</option>\n                    <option value="middle">middle</option>\n                    <option value="bottom">bottom</option>\n                </select>\n            </div>\n            \n        </div>\n-->\n        <div class="sample-header">sample</div>\n        <div class="text-sample">'+
 ( attr.content )+
 '</div>\n\n        <div class="bottom-chooser clearfix">\n            <a href="#" class="submit btnz btnz-submit">OK</a>\n        </div>\n    </div>\n</div>\n';
 }
@@ -1040,9 +1054,9 @@ var __p='';var print=function(){__p+=Array.prototype.join.call(arguments, '')};
 with(obj||{}){
 __p+='<div class="modal-content">\n    <div class="modal-title">Edit your text</div>\n    <div class="modal-body">\n\n        <textarea rows="4" cols="59" maxlength="140">'+
 ( attr.content )+
-'</textarea>\n\n        <div class="textarea-info">max 140 characters</div>\n\n        <div class="text-controls clearfix">\n            <div class="color-selector">\n                <input class="simple-color" value="'+
+'</textarea>\n\n        <div class="textarea-info">max 140 characters</div>\n\n        <div class="text-controls clearfix">\n            <div class="control-module">\n                <div class="control-title">color</div>\n                <div class="color-selector">\n                    <input class="simple-color" value="'+
 ( attr.color )+
-'"/>\n            </div>\n            <a href="#" class="btnz btnz-light text-btn-bold"><i class="icon-bold"></i></a>\n            <a href="#" class="btnz btnz-light text-btn-italic"><i class="icon-italic"></i></a>\n            <a href="#" class="btnz btnz-light text-btn-align-left"><i class="icon-align-left"></i></a>\n            <a href="#" class="btnz btnz-light text-btn-align-center"><i class="icon-align-center"></i></a>\n            <a href="#" class="btnz btnz-light text-btn-align-right"><i class="icon-align-right"></i></a>\n\n            <select class="font-list" style=""></select>\n\n            <div class="control-module">\n                <div class="control-title">font size</div>\n                <select class="size-list" style="">\n                    <option value="100">8</option>\n                    <option value="125">10</option>\n                    <option value="150">12</option>\n                    <option value="175">14</option>\n                    <option value="200">18</option>\n                    <option value="250">24</option>\n                    <option value="375">36</option>\n                    <option value="500">48</option>\n                    <option value="800">72</option>\n                    <option value="1600">144</option>\n                    <option value="2400">200</option>\n                    <option value="3600">300</option>\n                </select>\n            </div>\n\n            <div class="control-module">\n                <div class="control-title">line height</div>\n                <select class="line-height-list">\n                    <option value="1">1</option>\n                    <option value="1.25">1.25</option>\n                    <option value="1.5">1.5</option>\n                    <option value="1.75">1.75</option>\n                    <option value="2">2</option>\n                </select>\n            </div>\n\n            <div class="control-module">\n                <div class="control-title">mobile position</div>\n                <select class="text-position-list">\n                    <option value="top">top</option>\n                    <option value="middle">middle</option>\n                    <option value="bottom">bottom</option>\n                </select>\n            </div>\n            \n        </div>\n\n        <div class="sample-header">sample</div>\n        <div class="text-sample">'+
+'"/>\n                </div>\n            </div>\n            <a href="#" class="btnz btnz-light text-btn-bold"><i class="icon-bold"></i></a>\n            <a href="#" class="btnz btnz-light text-btn-italic"><i class="icon-italic"></i></a>\n            <a href="#" class="btnz btnz-light text-btn-align-left"><i class="icon-align-left"></i></a>\n            <a href="#" class="btnz btnz-light text-btn-align-center"><i class="icon-align-center"></i></a>\n            <a href="#" class="btnz btnz-light text-btn-align-right"><i class="icon-align-right"></i></a>\n\n            <select class="font-list" style=""></select>\n\n            <div class="control-module">\n                <div class="control-title">font size</div>\n                <select class="size-list" style="">\n                    <option value="100">8</option>\n                    <option value="125">10</option>\n                    <option value="150">12</option>\n                    <option value="175">14</option>\n                    <option value="200">18</option>\n                    <option value="250">24</option>\n                    <option value="375">36</option>\n                    <option value="500">48</option>\n                    <option value="800">72</option>\n                    <option value="1600">144</option>\n                    <option value="2400">200</option>\n                    <option value="3600">300</option>\n                </select>\n            </div>\n<!--\n            <div class="control-module">\n                <div class="control-title">line height</div>\n                <select class="line-height-list">\n                    <option value="1">1</option>\n                    <option value="1.25">1.25</option>\n                    <option value="1.5">1.5</option>\n                    <option value="1.75">1.75</option>\n                    <option value="2">2</option>\n                </select>\n            </div>\n\n            <div class="control-module">\n                <div class="control-title">mobile position</div>\n                <select class="text-position-list">\n                    <option value="top">top</option>\n                    <option value="middle">middle</option>\n                    <option value="bottom">bottom</option>\n                </select>\n            </div>\n            \n        </div>\n-->\n        <div class="sample-header">sample</div>\n        <div class="text-sample">'+
 ( attr.content )+
 '</div>\n\n        <div class="bottom-chooser clearfix">\n            <a href="#" class="submit btnz btnz-submit">OK</a>\n        </div>\n    </div>\n</div>\n';
 }
@@ -34918,6 +34932,7 @@ function( app, _Layer, Visual ){
                         this.listen();
                     }
                     this.model.trigger( "visual_ready", this.model.id );
+                    this.model.status.emit("audio_play", this.model );
                 });
             },
 
@@ -35445,6 +35460,8 @@ function( app ) {
             this.setButtonStates();
 
             this.updateSample();
+            
+            this.$("textarea").focus().select();
         },
 
         events: {
@@ -35687,6 +35704,7 @@ function( app, _Layer, Visual, TextModal ) {
             "Finger Paint",
             "Georgia",
             "Great Vibes",
+            "Impact",
             "Londrina Outline",
             "Londrina Sketch",
             "Monofett",
@@ -35818,6 +35836,9 @@ function( app, _Layer, Visual, TextModal ) {
 
             if ( this.textModal === null ) {
                 this.textModal = new TextModal({ model: this.model });
+                if ( this.model.get("attr").content == "text" ) {
+                    this.launchTextModal();
+                }
             }
 
             this.$(".visual-target").css({
@@ -35829,17 +35850,19 @@ function( app, _Layer, Visual, TextModal ) {
             this.$el.unbind("mouseup");
 
             this.$el.bind("mouseup", function() {
-
-                if ( !this.transforming ) {
-                    $("body").append( this.textModal.el );
-                    this.textModal.render();
-                }
-
+                this.launchTextModal();
             }.bind( this ));
 
             this.on("sync", function() {
                 this.updateStyle();
             });
+        },
+
+        launchTextModal: function() {
+            if ( !this.transforming ) {
+                $("body").append( this.textModal.el );
+                this.textModal.render();
+            }
         },
 
         convertToPercents: function( top, left ) {
@@ -36959,7 +36982,9 @@ function( app, SequenceCollection ) {
                 if ( frames.length > 1 ) {
                     frames.each(function( frame, j ) {
                         frame.put({
-                            _next: frame.get("attr").advance && frames.at( j + 1 ) ? frames.at( j + 1 ).id : null,
+                            // for the new advance logic
+                            // _next: frame.get("attr").advance && frames.at( j + 1 ) ? frames.at( j + 1 ).id : null,
+                            _next: frames.at( j + 1 ) ? frames.at( j + 1 ).id : null,
                             _last: frames.at( j - 1 ) ? frames.at( j - 1 ).id : null
                         });
                     });
@@ -38739,6 +38764,8 @@ function( app, ZeegaParser, Relay, Status, PlayerLayout ) {
                             var audio = document.getElementById("audio-el-" + layer.id );
                             
                             audio.load();
+                            
+                            return audio;
                         }
                     });
                 });
@@ -56894,12 +56921,13 @@ function( app ) {
 
             "click .close-grave": "closeGrave",
             "mousedown .text-box": "onBoxFocus",
+            "click .share-zeega": "showShare",
             "click .embed-zeega": "showEmbed",
             "keyup #project-caption": "onCaptionKeypress"
         },
 
         initHelpSequence: function() {
-            app.layout.instructions.startIntroSequence();
+            app.layout.initialInstructions.startPointing();
         },
 
         showEmbed: function() {
@@ -73311,7 +73339,7 @@ function( app, MediaUpload ) {
 
 });
 
-define('modules/views/instructions',[
+define('modules/pointers/pointer.view',[
     "app",
     "backbone"
 ],
@@ -73320,251 +73348,159 @@ function( app ) {
 
     return Backbone.View.extend({
 
-        el: $("body"),
+        $target: null,
 
-        ended: false,
+        className: function() {
+            return "pointer point-" + this.model.get("pointDirection")
+        },
 
-        initialize: function() {
-            var isEmpty =  app.project.sequences.length == 1 &&
-                app.project.sequences.at( 0 ).frames.length == 1 &&
-                app.project.sequences.at( 0 ).frames.at( 0 ).layers.length === 0;
+        template: "pointer",
 
-            if ( isEmpty && $.parseJSON( window.userProjects ).length === 1 ) {
-                this.startIntroSequence();
+        serialize: function() {
+            return this.model.toJSON();
+        },
+
+        show: function() {
+            this.$target = $( this.model.get("target") );
+
+            $("#main").prepend( this.el );
+
+            this.$el.css(_.extend({
+                top: ( this.$target.offset().top + ( this.$target.height() / ( this.model.get("verticalDivision") || 2 ) ) - 21 ),
+                left: "-1000%"
+            }, this.model.get("css") ));
+
+            this.render();
+        },
+
+        afterRender: function() {
+            var css = {};
+
+            if ( this.model.get("pointDirection") == "right" ) {
+                css.left = this.$target.offset().left - this.$el.width() - 20 - 15 ; 
+            } else {
+                css.left = this.$target.offset().left + this.$target.width() + 15;
             }
+
+            this.$el.css( css ).show();
+        },
+
+        hide: function() {
+            this.$el.fadeOut(function() {
+                this.remove();
+                this.options.parent.trigger("end");
+            }.bind( this ));
+        },
+
+        cancel: function() {
+            this.$el.fadeOut(function() {
+                this.remove();
+            }.bind( this ));
         },
 
         events: {
-            "click .close-ins": "cancelInstructions"
+            "click .stop-pointing": "stopPointing"
         },
 
-        cancelInstructions: function() {
-            $(".instruction").remove();
-            this.ended = true;
+        stopPointing: function() {
+            this.options.parent.collection.cancel();
+        }
+    });
+});
+
+define('modules/pointers/pointer.model',[
+    "app",
+    "modules/pointers/pointer.view",
+    "backbone"
+],
+
+function( app, PointerView ) {
+
+    return Backbone.Model.extend({
+
+        defaults: {
+            listenFor: null,
+            start: null, // function
+            end: null, // function
+            pointers: []
         },
 
-        startIntroSequence: function() {
-            var $first, $second;
+        views: null,
 
-            this.ended = false;
-            $first = this.insertInstructions({
-                target: $(".ZEEGA-items"),
-                direction: "l",
-                content: "Drag stuff from here…",
-                close: false,
-                progress: null
-            });
-            $second = this.insertInstructions({
-                target: $(".ZEEGA-workspace"),
-                direction: "r",
-                color: "red",
-                content: "…to here",
-                close: true,
-                progress: "1/4",
-                avoid: $first
-            });
-
-            app.once("item_dropped", function( e ) {
-                $first.fadeOut(function() {
-                    $first.remove();
-                    this.step2();
-                }.bind( this ));
-                $second.fadeOut(function() {
-                    $second.remove();
+        initialize: function() {
+            this.collection.on("cancel", this.cancel, this );
+            this.views = _.map( this.get("pointers"), function( pointer ) {
+                return new PointerView({
+                    parent: this,
+                    model: new Backbone.Model( pointer )
                 });
             }, this );
         },
 
-        // Now pick a soundtrack for your Zeega. Click here to explore soundcloud.
-        step2: function() {
-            if ( !this.ended ) {
-                var $first = this.insertInstructions({
-                    target: $(".socialz-soundcloud"),
-                    direction: "l",
-                    content: "Now pick a soundtrack for your Zeega. Click here to explore soundcloud.",
-                    close: true,
-                    progress: "2/4"
-                });
-
-                app.once("media_drawer_toggle", function( api ) {
-                    if ( api == "Soundcloud" ) {
-                        $first.fadeOut(function() {
-                            $first.remove();
-                            this.step3();
-                        }.bind( this ));
-                    }
-
-                }, this );
-            }
-        },
-
-        // Drag a sound from here to here (Pro-tip: You can also search for sounds on Soundcloud here (w an arrow)
-        step3: function() {
-            if ( !this.ended ) {
-                var $first, $second;
-
-                $first = this.insertInstructions({
-                    target: $(".ZEEGA-items"),
-                    direction: "l",
-                    content: "Drag stuff from here…",
-                    close: false,
-                    progress: null,
-                    topDiv: 4
-                });
-                $second = this.insertInstructions({
-                    target: $(".soundtrack"),
-                    direction: "r",
-                    color: "red",
-                    content: "…to here",
-                    close: true,
-                    progress: "3/4",
-                    avoid: $first
-                });
-
-                app.once("soundtrack_added", function( e ) {
-                    $first.fadeOut(function() {
-                        $first.remove();
-                        this.step4();
-                    }.bind( this ));
-                    $second.fadeOut(function() {
-                        $second.remove();
-                    });
-                }, this );
-            }
-        },
-
-        step4: function() {
-            if ( !this.ended ) {
-                var $first = this.insertInstructions({
-                    target: $(".project-preview"),
-                    direction: "r",
-                    content: "Click here to see what you’ve made so far!",
-                    close: true,
-                    progress: "4/4"
-                });
-
-                app.once("project_preview", function( e ) {
-                    $first.fadeOut(function() {
-                        $first.remove();
-                        this.step5();
-                    }.bind( this ));
-                }, this );
-            }
-        },
-
-        step5: function() {
-            if ( !this.ended ) {
-                var $first = this.insertInstructions({
-                    target: $(".ZEEGA-close"),
-                    parent: "body",
-                    direction: "r",
-                    content: "Hit ESC or click X to return to the editor",
-                    close: false,
-                    zIndex: 200
-                });
-
-                app.once("project_preview_ended", function( e ) {
-                    $first.fadeOut(function() {
-                        $first.remove();
-                        this.step6();
-                    }.bind( this ));
-                }, this );
-            }
-        },
-
-        // Now “share” what you’ve made!
-        step6: function() {
-            if ( !this.ended ) {
-                var $first = this.insertInstructions({
-                    target: $(".project-share"),
-                    direction: "r",
-                    content: "Now “share” what you’ve made!",
-                    close: true
-                });
-                $second = this.insertInstructions({
-                    target: $(".add-frame"),
-                    direction: "l",
-                    color: "red",
-                    content: "…or add a new page and keep creating",
-                    close: true,
-                    progress: "3/4",
-                    avoid: $first
-                });
-
-                app.once("grave_open page_added", function( e ) {
-                    $first.fadeOut(function() {
-                        $first.remove();
-                    }.bind( this ));
-                    $second.fadeOut(function() {
-                        $second.remove();
-                    }.bind( this ));
-                }, this );
-            }
-        },
-
-        reset: function() {
-            this.ended = false;
-        },
-
-        insertInstructions: function( opts ) {
-            var $instruction, $small, css;
-
-            $instruction = $("<div>")
-                .addClass("instruction")
-                .addClass( opts.direction ? "ins-" + opts.direction : "ins-l")
-                .text( opts.content );
-
-            $small = $("<small>");
-            if ( opts.close ) {
-                $small.append("  [<a href='#' class='close-ins'>close</a>]");
-            }
-            $instruction.append( $small );
-
-            if ( opts.color ) {
-                $instruction.addClass("ins-" + opts.color );
-            }
-
-            $instruction.css({
-                top: ( opts.target.offset().top + ( opts.target.height() / (opts.topDiv || 2) ) - 21 ),
-                left: "-1000%"
+        point: function() {
+            app.once( this.get("listenFor"), this.stopPointing, this );
+            _.each( this.views, function( view ) {
+                view.show();
             });
+        },
 
-            if ( opts.avoid ) {
-                var avoidTop, potentialTop;
+        stopPointing: function() {
+            _.each( this.views, function( view ) {
+                view.hide();
+            });
+        },
 
-                avoidTop = opts.avoid.offset().top;
-                potentialTop = ( opts.target.height() / 2 ) + opts.target.offset().top - 21;
-
-                if ( potentialTop <= avoidTop + 62 && potentialTop >= avoidTop - 62 ) {
-                    $instruction.css("top", avoidTop + 62 );
-                }
-                
-            }
-
-            if ( opts.parent ) {
-                $( opts.parent ).prepend( $instruction );
-            } else {
-                $("#main").prepend( $instruction );
-            }
-            css = {};
-            
-            if ( opts.zIndex ) {
-                css.zIndex = opts.zIndex;
-            }
-
-            if ( opts.direction == "r" ) {
-                css.left = opts.target.offset().left - $instruction.width() - 20 - 15 ; 
-            } else {
-                css.left = opts.target.offset().left + opts.target.width() + 15;
-            }
-
-            $instruction.css( css );
-
-            return $instruction;
+        cancel: function() {
+            _.each( this.views, function( view ) {
+                view.cancel();
+            });
         }
-        
     });
+});
 
+define('modules/pointers/pointers',[
+    "app",
+    "modules/pointers/pointer.model",
+    "backbone"
+],
+
+function( app, PointerModel ) {
+
+    return Backbone.Collection.extend({
+
+        model: PointerModel,
+        index: 0,
+
+        startPointing: function() {
+            this.index = 0;
+            this.point( this.at( this.index ));
+        },
+
+        point: function( pointer ) {
+            pointer.once("end", this.pointNext, this );
+            pointer.point()
+        },
+
+        pointNext: function() {
+            var next;
+
+            this.index++;
+            next = this.at( this.index );
+
+            if ( next ) {
+                this.point( next );
+            }
+        },
+
+        stopPointing: function() {
+
+        },
+
+        cancel: function() {
+            this.trigger("cancel")
+        }
+
+    });
 });
 
 /*global define:false */
@@ -74399,15 +74335,14 @@ define('modules/layout-main',[
     "modules/views/layer-drawer",
     "modules/views/soundtrack",
     "modules/views/media-drawer",
-    "modules/views/instructions",
-    // "modules/search.model",
+    "modules/pointers/pointers",
     "mousetrap",
     "tipsy",
 
     "backbone"
 ],
 
-function( app, ProjectHead, Frames, Workspace, Layers, LayerDrawer, Soundtrack, MediaDrawer, Instructions ) {
+function( app, ProjectHead, Frames, Workspace, Layers, LayerDrawer, Soundtrack, MediaDrawer, Pointers ) {
 
     return Backbone.Layout.extend({
 
@@ -74468,9 +74403,22 @@ function( app, ProjectHead, Frames, Workspace, Layers, LayerDrawer, Soundtrack, 
         onLayoutReady: function() {
             _.delay(function(){
                 this.initTips();
-                this.instructions = new Instructions();
+                this.initialInstructions();
             }.bind( this ), 1000);
         },
+
+        initialInstructions: function() {
+            var isEmpty =  app.project.sequences.length == 1 &&
+                app.project.sequences.at( 0 ).frames.length == 1 &&
+                app.project.sequences.at( 0 ).frames.at( 0 ).layers.length === 0;
+
+            this.initialInstructions = new Pointers( this.initialSequence );
+
+            if ( isEmpty && $.parseJSON( window.userProjects ).length === 1 ) {
+                this.initialInstructions.startPointing();
+            }
+        },
+
 
         initTips: function() {
             // see http://onehackoranother.com/projects/jquery/tipsy/ for docs
@@ -74516,7 +74464,96 @@ function( app, ProjectHead, Frames, Workspace, Layers, LayerDrawer, Soundtrack, 
 
         lazyResize: _.debounce(function() {
             app.trigger("window-resize");
-        }, 500 )
+        }, 500 ),
+
+
+        initialSequence: [
+                {
+                    listenFor: "item_dropped",
+
+                    pointers: [{
+                        target: ".ZEEGA-items",
+                        content: "Drag stuff from here…",
+                        color: "red",
+                        canCancel: false,
+                        pointDirection: "left",
+                        verticalDivision: 4
+                    },{
+                        target: ".ZEEGA-workspace",
+                        content: "…to here",
+                        color: "blue",
+                        canCancel: true,
+                        pointDirection: "right"
+                    }]
+                },{
+                    listenFor: "media_drawer_toggle",
+                    
+                    pointers: [{
+                        target: ".socialz-soundcloud",
+                        content: "Now pick a soundtrack for your Zeega. Click here to explore soundcloud.",
+                        color: "red",
+                        canCancel: true,
+                        pointDirection: "left"
+                    }]
+                },{
+                    listenFor: "soundtrack_added",
+
+                    pointers: [{
+                        target: ".ZEEGA-items",
+                        content: "Drag stuff from here…",
+                        color: "red",
+                        canCancel: false,
+                        pointDirection: "left",
+                        verticalDivision: 4
+                    },{
+                        target: ".soundtrack",
+                        content: "…to here",
+                        color: "blue",
+                        canCancel: true,
+                        pointDirection: "right"
+                    }]
+                },{
+                    listenFor: "project_preview",
+                    
+                    pointers: [{
+                        target: ".project-preview",
+                        content: "Click here to see what you’ve made so far!",
+                        color: "red",
+                        canCancel: true,
+                        pointDirection: "right"
+                    }]
+                },{
+                    listenFor: "project_preview_ended",
+                    
+                    pointers: [{
+                        target: ".ZEEGA-close",
+                        content: "Hit ESC or click X to return to the editor",
+                        color: "red",
+                        canCancel: true,
+                        pointDirection: "right",
+                        css: {
+                            zIndex: 200
+                        }
+                    }]
+                },{
+                    listenFor: "grave_open page_added",
+
+                    pointers: [{
+                        target: ".project-share",
+                        content: "Now “share” what you’ve made!",
+                        color: "red",
+                        canCancel: true,
+                        pointDirection: "right"
+                    },{
+                        target: ".add-frame",
+                        content: "…or add a new page and keep creating",
+                        color: "blue",
+                        canCancel: true,
+                        pointDirection: "left"
+                    }]
+                }
+
+            ]
 
     });
 
@@ -76647,6 +76684,7 @@ function( app, _Layer, Visual ){
                         this.listen();
                     }
                     this.model.trigger( "visual_ready", this.model.id );
+                    this.model.status.emit("audio_play", this.model );
                 });
             },
 
@@ -77174,6 +77212,8 @@ function( app ) {
             this.setButtonStates();
 
             this.updateSample();
+            
+            this.$("textarea").focus().select();
         },
 
         events: {
@@ -77416,6 +77456,7 @@ function( app, _Layer, Visual, TextModal ) {
             "Finger Paint",
             "Georgia",
             "Great Vibes",
+            "Impact",
             "Londrina Outline",
             "Londrina Sketch",
             "Monofett",
@@ -77547,6 +77588,9 @@ function( app, _Layer, Visual, TextModal ) {
 
             if ( this.textModal === null ) {
                 this.textModal = new TextModal({ model: this.model });
+                if ( this.model.get("attr").content == "text" ) {
+                    this.launchTextModal();
+                }
             }
 
             this.$(".visual-target").css({
@@ -77558,17 +77602,19 @@ function( app, _Layer, Visual, TextModal ) {
             this.$el.unbind("mouseup");
 
             this.$el.bind("mouseup", function() {
-
-                if ( !this.transforming ) {
-                    $("body").append( this.textModal.el );
-                    this.textModal.render();
-                }
-
+                this.launchTextModal();
             }.bind( this ));
 
             this.on("sync", function() {
                 this.updateStyle();
             });
+        },
+
+        launchTextModal: function() {
+            if ( !this.transforming ) {
+                $("body").append( this.textModal.el );
+                this.textModal.render();
+            }
         },
 
         convertToPercents: function( top, left ) {
@@ -78688,7 +78734,9 @@ function( app, SequenceCollection ) {
                 if ( frames.length > 1 ) {
                     frames.each(function( frame, j ) {
                         frame.put({
-                            _next: frame.get("attr").advance && frames.at( j + 1 ) ? frames.at( j + 1 ).id : null,
+                            // for the new advance logic
+                            // _next: frame.get("attr").advance && frames.at( j + 1 ) ? frames.at( j + 1 ).id : null,
+                            _next: frames.at( j + 1 ) ? frames.at( j + 1 ).id : null,
                             _last: frames.at( j - 1 ) ? frames.at( j - 1 ).id : null
                         });
                     });
@@ -81097,7 +81145,6 @@ function( app, Status, Layout, ZeegaParser, MediaBrowser ) {
     });
 
 });
-
 define('router',[
     // Application.
     "app",
