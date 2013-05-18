@@ -80638,7 +80638,11 @@ function( app, ItemModel, MediaView, ItemCollectionViewer ) {
                     item.attribution_uri =  track.permalink_url;
                     item.media_user_realname = track.user.username;
                     item.archive = "SoundCloud";
-                    items.push( item );
+
+                    if( track.streamable ){
+                        items.push( item );
+                    }
+                    
                 });
 
                 return items;
@@ -81227,9 +81231,9 @@ require.config({
   // generated configuration file.
 
   // Release
-  deps: [ "../vendor/tipsy/src/javascripts/jquery.tipsy", "../vendor/simple-color-picker/src/jquery.simple-color", "zeegaplayer", "../vendor/jam/require.config", "main", "spin"],
+ deps: [ "../vendor/tipsy/src/javascripts/jquery.tipsy", "../vendor/simple-color-picker/src/jquery.simple-color", "zeegaplayer", "../vendor/jam/require.config", "main", "spin"],
 
-//  deps: ["zeegaplayer", "../vendor/jam/require.config", "main", "spin"],
+ //  deps: ["zeegaplayer", "../vendor/jam/require.config", "main", "spin"],
 
 
   paths: {

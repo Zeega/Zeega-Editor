@@ -236,7 +236,11 @@ function( app, ItemModel, MediaView, ItemCollectionViewer ) {
                     item.attribution_uri =  track.permalink_url;
                     item.media_user_realname = track.user.username;
                     item.archive = "SoundCloud";
-                    items.push( item );
+
+                    if( track.streamable ){
+                        items.push( item );
+                    }
+                    
                 });
 
                 return items;
