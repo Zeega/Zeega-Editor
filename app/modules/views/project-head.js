@@ -112,7 +112,7 @@ function( app ) {
         },
 
         initHelpSequence: function() {
-            app.layout.instructions.startIntroSequence();
+            app.layout.initialInstructions.startPointing();
         },
 
         showEmbed: function() {

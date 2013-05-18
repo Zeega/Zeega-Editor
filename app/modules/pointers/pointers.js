@@ -1,6 +1,6 @@
 define([
     "app",
-    "modules/pointer.model",
+    "modules/pointers/pointer.model",
     "backbone"
 ],
 
@@ -25,7 +25,7 @@ function( app, PointerModel ) {
             var next;
 
             this.index++;
-            next = this.at( index );
+            next = this.at( this.index );
 
             if ( next ) {
                 this.point( next );
@@ -34,35 +34,11 @@ function( app, PointerModel ) {
 
         stopPointing: function() {
 
+        },
+
+        cancel: function() {
+            this.trigger("cancel")
         }
 
     });
 });
-
-
-/*
-// data structure
-[{
-        listenFor: "thing_done",
-        
-        start: null, // function
-        end: null, // function
-
-        pointers: [{
-            el: ".foo",
-            content: "do this",
-            color: "red",
-            canCancel: false,
-            position: "left"
-        },{
-            el: "#bar",
-            content: "then that",
-            color: "blue"
-            canCancel: true,
-            position: "right"
-        }]
-    },
-    // second
-    {}
-]
-*/

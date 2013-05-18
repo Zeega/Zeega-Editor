@@ -24,10 +24,10 @@ function( app ) {
 
             $("#main").prepend( this.el );
 
-            this.$el.css({
+            this.$el.css(_.extend({
                 top: ( this.$target.offset().top + ( this.$target.height() / ( this.model.get("verticalDivision") || 2 ) ) - 21 ),
                 left: "-1000%"
-            });
+            }, this.model.get("css") ));
 
             this.render();
         },
@@ -41,14 +41,28 @@ function( app ) {
                 css.left = this.$target.offset().left + this.$target.width() + 15;
             }
 
-            this.$el.css( css );
+            this.$el.css( css ).show();
         },
 
         hide: function() {
             this.$el.fadeOut(function() {
                 this.remove();
-                this.model.trigger("end");
+                this.options.parent.trigger("end");
             }.bind( this ));
+        },
+
+        cancel: function() {
+            this.$el.fadeOut(function() {
+                this.remove();
+            }.bind( this ));
+        },
+
+        events: {
+            "click .stop-pointing": "stopPointing"
+        },
+
+        stopPointing: function() {
+            this.options.parent.collection.cancel();
         }
     });
 });

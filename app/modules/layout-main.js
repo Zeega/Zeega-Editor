@@ -9,8 +9,7 @@ define([
     "modules/views/layer-drawer",
     "modules/views/soundtrack",
     "modules/views/media-drawer",
-    "modules/pointers",
-//    "modules/views/instructions",
+    "modules/pointers/pointers",
     "mousetrap",
     "tipsy",
 
@@ -84,47 +83,10 @@ function( app, ProjectHead, Frames, Workspace, Layers, LayerDrawer, Soundtrack, 
 
         initialInstructions: function() {
             // test here if instructions are to be given!
-            var initial = new Pointers([
-                {
-                    listenFor: "item_dropped",
-                    
-                    start: null, // function
-                    end: null, // function
-
-                    pointers: [{
-                        target: ".ZEEGA-items",
-                        content: "Drag stuff from here…",
-                        color: "red",
-                        canCancel: false,
-                        pointDirection: "left",
-                        verticalDivision: 4
-                    },{
-                        target: ".ZEEGA-workspace",
-                        content: "…to here",
-                        color: "blue",
-                        canCancel: true,
-                        pointDirection: "right"
-                    }]
-                },{
-                    listenFor: "media_drawer_toggle",
-                    
-                    start: null, // function
-                    end: null, // function
-
-                    pointers: [{
-                        target: ".socialz-soundcloud",
-                        content: "Now pick a soundtrack for your Zeega. Click here to explore soundcloud.",
-                        color: "red",
-                        canCancel: true,
-                        position: "left"
-                    }]
-                }
-            ]);
-
-            initial.startPointing();
-
-            // console.log("pointers:", initial)
+            this.initialInstructions = new Pointers( this.initialSequence );
+            this.initialInstructions.startPointing();
         },
+
 
         initTips: function() {
             // see http://onehackoranother.com/projects/jquery/tipsy/ for docs
@@ -170,7 +132,96 @@ function( app, ProjectHead, Frames, Workspace, Layers, LayerDrawer, Soundtrack, 
 
         lazyResize: _.debounce(function() {
             app.trigger("window-resize");
-        }, 500 )
+        }, 500 ),
+
+
+        initialSequence: [
+                {
+                    listenFor: "item_dropped",
+
+                    pointers: [{
+                        target: ".ZEEGA-items",
+                        content: "Drag stuff from here…",
+                        color: "red",
+                        canCancel: false,
+                        pointDirection: "left",
+                        verticalDivision: 4
+                    },{
+                        target: ".ZEEGA-workspace",
+                        content: "…to here",
+                        color: "blue",
+                        canCancel: true,
+                        pointDirection: "right"
+                    }]
+                },{
+                    listenFor: "media_drawer_toggle",
+                    
+                    pointers: [{
+                        target: ".socialz-soundcloud",
+                        content: "Now pick a soundtrack for your Zeega. Click here to explore soundcloud.",
+                        color: "red",
+                        canCancel: true,
+                        pointDirection: "left"
+                    }]
+                },{
+                    listenFor: "soundtrack_added",
+
+                    pointers: [{
+                        target: ".ZEEGA-items",
+                        content: "Drag stuff from here…",
+                        color: "red",
+                        canCancel: false,
+                        pointDirection: "left",
+                        verticalDivision: 4
+                    },{
+                        target: ".soundtrack",
+                        content: "…to here",
+                        color: "blue",
+                        canCancel: true,
+                        pointDirection: "right"
+                    }]
+                },{
+                    listenFor: "project_preview",
+                    
+                    pointers: [{
+                        target: ".project-preview",
+                        content: "Click here to see what you’ve made so far!",
+                        color: "red",
+                        canCancel: true,
+                        pointDirection: "right"
+                    }]
+                },{
+                    listenFor: "project_preview_ended",
+                    
+                    pointers: [{
+                        target: ".ZEEGA-close",
+                        content: "Hit ESC or click X to return to the editor",
+                        color: "red",
+                        canCancel: true,
+                        pointDirection: "right",
+                        css: {
+                            zIndex: 200
+                        }
+                    }]
+                },{
+                    listenFor: "grave_open page_added",
+
+                    pointers: [{
+                        target: ".project-share",
+                        content: "Now “share” what you’ve made!",
+                        color: "red",
+                        canCancel: true,
+                        pointDirection: "right"
+                    },{
+                        target: ".add-frame",
+                        content: "…or add a new page and keep creating",
+                        color: "blue",
+                        canCancel: true,
+                        pointDirection: "left"
+                    }]
+                }
+
+            ]
 
     });
 
