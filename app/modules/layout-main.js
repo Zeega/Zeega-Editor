@@ -10,13 +10,14 @@ define([
     "modules/views/soundtrack",
     "modules/views/media-drawer",
     "modules/pointers/pointers",
+    "modules/intro-modal/intro-modal.view",
     "mousetrap",
     "tipsy",
 
     "backbone"
 ],
 
-function( app, ProjectHead, Frames, Workspace, Layers, LayerDrawer, Soundtrack, MediaDrawer, Pointers ) {
+function( app, ProjectHead, Frames, Workspace, Layers, LayerDrawer, Soundtrack, MediaDrawer, Pointers, IntroModalView ) {
 
     return Backbone.Layout.extend({
 
@@ -75,22 +76,26 @@ function( app, ProjectHead, Frames, Workspace, Layers, LayerDrawer, Soundtrack, 
         },
 
         onLayoutReady: function() {
-            _.delay(function(){
-                this.initTips();
-                this.initialInstructions();
-            }.bind( this ), 1000);
-        },
-
-        initialInstructions: function() {
             var isEmpty =  app.project.sequences.length == 1 &&
                 app.project.sequences.at( 0 ).frames.length == 1 &&
                 app.project.sequences.at( 0 ).frames.at( 0 ).layers.length === 0;
 
             this.initialInstructions = new Pointers( this.initialSequence );
 
-            if ( isEmpty && $.parseJSON( window.userProjects ).length === 1 ) {
-                this.initialInstructions.startPointing();
-            }
+            _.delay(function(){
+                this.initTips();
+
+                // if ( isEmpty && $.parseJSON( window.userProjects ).length === 1 ) {
+                    this.onFirstVisit();
+                // }
+            }.bind( this ), 1000);
+        },
+
+        onFirstVisit: function() {
+            var introModalView = new IntroModalView();
+
+            introModalView.start();
+            this.initialInstructions.startPointing();
         },
 
 
