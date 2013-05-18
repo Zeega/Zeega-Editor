@@ -82,9 +82,15 @@ function( app, ProjectHead, Frames, Workspace, Layers, LayerDrawer, Soundtrack, 
         },
 
         initialInstructions: function() {
-            // test here if instructions are to be given!
+            var isEmpty =  app.project.sequences.length == 1 &&
+                app.project.sequences.at( 0 ).frames.length == 1 &&
+                app.project.sequences.at( 0 ).frames.at( 0 ).layers.length === 0;
+
             this.initialInstructions = new Pointers( this.initialSequence );
-            this.initialInstructions.startPointing();
+
+            if ( isEmpty && $.parseJSON( window.userProjects ).length === 1 ) {
+                this.initialInstructions.startPointing();
+            }
         },
 
 
