@@ -30,7 +30,6 @@ function( app, PointerView ) {
         point: function() {
             app.once( this.get("listenFor"), this.stopPointing, this );
             _.each( this.views, function( view ) {
-                console.log("Point", this)
                 view.show();
             });
         },
