@@ -107,6 +107,7 @@ function( app ) {
 
             "click .close-grave": "closeGrave",
             "mousedown .text-box": "onBoxFocus",
+            "click .share-zeega": "showShare",
             "click .embed-zeega": "showEmbed",
             "keyup #project-caption": "onCaptionKeypress"
         },
