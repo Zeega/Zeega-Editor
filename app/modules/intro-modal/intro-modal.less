@@ -1,9 +1,32 @@
 .ZEEGA-intro-modal{
 
+    display: none;
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    background: url(../img/tiny-stripes-dark.png);
+    background-color: rgba(0,0,0,0.65);
+
+    .zeega-logo-head {
+        width: 250px;
+        margin: 0 auto;
+        height: 78px;
+    }
+
+    .intro-graphic {
+        height: 167px;
+        width: 343px;
+        margin: 0 auto;
+        margin-bottom: 10px
+    }
+
     .modal-wrapper {
-        height: 400px;
-        width: 600px;
-        background: white;
+        height: 250px;
+        width: 500px;
+        background: rgba(255,255,255,0.8);
+        background-image: url(../img/tiny-stripes.png);
         position: absolute;
         top: 0;
         bottom: 0;
@@ -11,9 +34,15 @@
         left: 0;
         right: 0;
         margin: auto;
-        border-radius: 5px;
+        padding: 20px;
+        border-radius: 2px;
         box-shadow: 2px 2px 10px rgba(0,0,0,0.5);
-        border: 11px solid orangered;
+        p {
+            color: #444;
+        }
+        .btnz {
+            float: right;
+        }
     }
 
 
