@@ -114,6 +114,7 @@ function( app, Modal, FrameView, ImageView, AudioView, VideoView, YoutubeView ) 
             if ( this.collection.at( this.index ). get("layer_type") == "Audio" ) {
                 app.layout.soundtrack.updateWaveform( this.collection.at( this.index ).get("thumbnail_url") );
                 $(".intro").remove();
+                app.trigger("soundtrack_added", this.collection.at( this.index ) );
                 app.status.get('currentSequence').setSoundtrack( this.collection.at( this.index ), app.layout.soundtrack );
             } else {
                 app.status.get('currentFrame').addLayerByItem( this.collection.at( this.index ) );

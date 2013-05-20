@@ -52,6 +52,7 @@ function( app ) {
                         if ( _.contains( ["Audio"], app.dragging.get("layer_type") )) {
                             //app.layout.soundtrack.updateWaveform( app.dragging.get("thumbnail_url") );
 
+                            app.trigger("soundtrack_added", app.dragging );
                             app.status.get('currentSequence').setSoundtrack( app.dragging, app.layout.soundtrack );
                         } else {
                             app.trigger("item_dropped", app.dragging );

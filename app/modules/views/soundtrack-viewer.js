@@ -36,7 +36,6 @@ function( app ) {
             $("body").unbind("keyup.modal");
         },
 
-
         keyup: function( e ) {
             if ( e.which == 27 ) { // esc
                 this.close();
