@@ -1,7 +1,7 @@
 .layers {
-    float: left;
-    width: 150px;
-    margin-left: 10px;
+    float: right;
+    width: 72px;
+    margin-right: 10px;
     position: relative;
     
     .ZEEGA-layer-list {
@@ -12,6 +12,8 @@
         padding: 10px;
         margin-bottom: 2px;
         cursor: move;
+        position: relative;
+        height: 40px;
 
         border-left: 5px solid black;
 
@@ -20,9 +22,8 @@
         }
 
         &.active {
-            background: orangered;
-            // background: rgba(255,69,0,0.75);
-            .transition( background, .5s);
+            background: rgba(255,69,0,0.75);
+            .transition( background, 0.5s);
         }
 
         &[data-continued="true"] .continued,
@@ -30,6 +31,15 @@
             background: orangered;
         }
 
+    }
+
+    .layer-list-bg {
+        height: 100%;
+        position: absolute;
+        top: 0;
+        right: 0;
+        width: 100%;
+        z-index: -1;
     }
 
     .layer-title {
@@ -51,6 +61,8 @@
 
     .layer-list-bottom {
         margin-top: 5px;
+        position: absolute;
+        bottom: 5px;
     }
 }
 

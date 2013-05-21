@@ -6204,9 +6204,9 @@ a:active {
   box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
 }
 .layers {
-  float: left;
-  width: 150px;
-  margin-left: 10px;
+  float: right;
+  width: 72px;
+  margin-right: 10px;
   position: relative;
 }
 .layers .ZEEGA-layer-list {
@@ -6218,19 +6218,29 @@ a:active {
   padding: 10px;
   margin-bottom: 2px;
   cursor: move;
+  position: relative;
+  height: 40px;
   border-left: 5px solid black;
 }
 .layers .ZEEGA-layer-list.copied {
   border-left: 5px solid limegreen;
 }
 .layers .ZEEGA-layer-list.active {
-  background: orangered;
+  background: rgba(255, 69, 0, 0.75);
   transition: background 0.5s;
   -webkit-transition: background 0.5s;
 }
 .layers .ZEEGA-layer-list[data-continued="true"] .continued,
 .layers .ZEEGA-layer-list[data-persists="true"] .persists {
   background: orangered;
+}
+.layers .layer-list-bg {
+  height: 100%;
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 100%;
+  z-index: -1;
 }
 .layers .layer-title {
   width: 100%;
@@ -6249,6 +6259,8 @@ a:active {
 }
 .layers .layer-list-bottom {
   margin-top: 5px;
+  position: absolute;
+  bottom: 5px;
 }
 .visual-element {
   position: absolute;
