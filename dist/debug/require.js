@@ -425,7 +425,7 @@ return __p;
 this["JST"]["app/templates/intro-modal.html"] = function(obj){
 var __p='';var print=function(){__p+=Array.prototype.join.call(arguments, '')};
 with(obj||{}){
-__p+='<div class="modal-wrapper">\n\n    <div class="modal-content">\n\n        <div class="step-1">\n            <div class="zeega-logo-head">\n                <img src="assets/img/zeega-logo-500.png" width="100%"/>\n            </div>\n            <h1>Heya. Welcome!</h1>\n\n            <p>Zeega is a community creating everything from stories to memes to interactive music experiences.</p>\n\n            <a href="#" class="next btnz btnz-submit">Ready to go?</a>\n        </div>\n\n        <div class="step-2" style="display:none">\n            <p>To get started, we’ve got a few fun prompts for you.</p>\n\n\n            <div class="intro-graphic">\n                <img src="assets/img/intro-graphic.png" width="100%"/>\n            </div>\n            <!--\n            <div class="pointer point-left" style="">Drag stuff from here…</div>\n            <div class="pointer point-right" style="">…to here</div>\n    -->\n            <a href="#" class="finish btnz btnz-submit">Make the web you want <i class="icon-play icon-white"></i></a>\n        </div>\n\n\n    </div>\n</div>';
+__p+='<div class="modal-wrapper">\n\n    <div class="modal-content">\n\n        <div class="step-1">\n\n            <h1>Heya! Welcome to <img class="zeega-intro-logo" src="assets/img/zeega-logo-500.png" width="190px"/></h1>\n\n            <p>\n                Zeega is a community creating everything from stories to interactive music to memes.\n            </p>\n            <p>\n                We’ve got a few fun prompts to get you started.\n            </p>\n\n            <div class="intro-graphic">\n                <img src="assets/img/intro-graphic.png" width="100%"/>\n            </div>\n            <a href="#" class="finish btnz btnz-submit">Start Making <i class="icon-chevron-right icon-white"></i></a>\n        </div>\n\n\n    </div>\n</div>';
 }
 return __p;
 };
@@ -57281,6 +57281,7 @@ function( app ) {
                         if ( _.contains( ["Audio"], app.dragging.get("layer_type") )) {
                             //app.layout.soundtrack.updateWaveform( app.dragging.get("thumbnail_url") );
 
+                            app.trigger("soundtrack_added", app.dragging );
                             app.status.get('currentSequence').setSoundtrack( app.dragging, app.layout.soundtrack );
                         } else {
                             app.trigger("item_dropped", app.dragging );
@@ -72918,7 +72919,6 @@ function( app ) {
             $("body").unbind("keyup.modal");
         },
 
-
         keyup: function( e ) {
             if ( e.which == 27 ) { // esc
                 this.close();
@@ -80435,6 +80435,7 @@ function( app, Modal, FrameView, ImageView, AudioView, VideoView, YoutubeView ) 
             if ( this.collection.at( this.index ). get("layer_type") == "Audio" ) {
                 app.layout.soundtrack.updateWaveform( this.collection.at( this.index ).get("thumbnail_url") );
                 $(".intro").remove();
+                app.trigger("soundtrack_added", this.collection.at( this.index ) );
                 app.status.get('currentSequence').setSoundtrack( this.collection.at( this.index ), app.layout.soundtrack );
             } else {
                 app.status.get('currentFrame').addLayerByItem( this.collection.at( this.index ) );
