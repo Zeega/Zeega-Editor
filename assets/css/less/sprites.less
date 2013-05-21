@@ -186,9 +186,10 @@
 
 [class^="socialz-"] {
   
-  background-image: url('@{image-folder}/sprites-social-search-30.png');
+  background-image: url('@{image-folder}/sprites-social-search.png');
   background-position: 0px 0px;
   background-repeat: no-repeat;
+  background-size: 90px;
   display: inline-block;
   height: 30px;
   vertical-align: text-top;
@@ -196,9 +197,12 @@
 }
 
 .socialz-mixin(@position) {
-  background-position: (0px)  (@position*-30px);
+  background-position: (-60px)  (@position*-30px);
   &.socialz-white {
     background-position: (-30px)  (@position*-30px);
+  }
+  &:hover {
+    background-position: (0px)  (@position*-30px);
   }
 }
 

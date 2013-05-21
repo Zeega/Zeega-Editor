@@ -7,32 +7,6 @@
 
 .media-drawer {
 
-    background: white;
-    border: 1px solid orangered;
-    bottom: 0;
-    top: 0;
-    position: absolute;
-    width: 100%;
-    border-radius: 2px;
-    box-shadow: 2px 2px 5px rgba(0,0,0,0.25);
-
-    .empty-collection {
-        background: rgba(0, 0, 0, 0.85);
-        color: orangered;
-        padding: 20px;
-        text-align: center;
-        font-family: futura;
-        font-size: 13px;
-    }
-
-    .ZEEGA-items {
-
-        height: -webkit-calc( ~"100% - 30px" );
-        height: -moz-calc( ~"100% - 30px" );
-        height: calc( ~"100% - 30px" );
-
-    }
-
     .item {
 
         width: -webkit-calc( ~"100% / 4" );
@@ -69,55 +43,4 @@
             display: none;
         }
     }
-
-    .grid {
-        box-shadow: inset 0 0 24px orangered;
-    }
-    .list {
-        box-shadow: none;
-    }
-
-    &.list {
-        .grid {
-            box-shadow: none;
-        }
-        .list {
-            box-shadow: inset 0 0 24px orangered;
-        }
-        .item {
-            float: none;
-            width: 100%;
-            border-bottom: 1px solid rgba(0,0,0,0.25);
-            .clearfix;
-
-            .item-thumb {
-                float: left;
-                height: 48px;
-                width: 48px;
-                margin-right: 10px;
-
-                .thumb-title {
-                    display: none;
-                }
-            }
-
-            .item-title {
-                display: inline-block;
-                float: left;
-                color: #ddd;
-                font-size: 12px;
-               
-                .item-title-text {
-                    width: 210px;
-                    position: relative;
-                    top: 5px;
-                    display: inline-block;
-                    text-overflow: ellipsis;
-                    overflow: hidden;
-                    white-space: nowrap;
-                }
-            }
-        }
-    }
-
 }
