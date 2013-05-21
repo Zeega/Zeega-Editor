@@ -31,7 +31,6 @@ define([
         featuredAPI: "http:" + meta.data("hostname") +  ( meta.data("apiRoot") ? meta.data("apiRoot") : meta.data("root") ) + "api/items/featured" || null,
         thumbnailServer: meta.data("thumbnailServer"),
 
-
         // function that editor events should call so they can be routed, inspected and modified
         emit: function( event, args ) {
             console.log( event, args );

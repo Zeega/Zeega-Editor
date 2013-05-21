@@ -82,12 +82,14 @@ function( app, ProjectHead, Frames, Workspace, Layers, LayerDrawer, Soundtrack, 
 
             this.initialInstructions = new Pointers( this.initialSequence );
 
+            this.pointerListen();
+
             _.delay(function(){
                 this.initTips();
 
-                //if ( isEmpty && $.parseJSON( window.userProjects ).length === 1 ) {
+                if ( isEmpty && $.parseJSON( window.userProjects ).length === 1 ) {
                     this.onFirstVisit();
-                //}
+                }
             }.bind( this ), 1000);
         },
 
@@ -98,6 +100,16 @@ function( app, ProjectHead, Frames, Workspace, Layers, LayerDrawer, Soundtrack, 
             this.initialInstructions.startPointing();
         },
 
+        pointerListen: function() {
+            app.on("layer_added_success",function( layer ) {
+                if ( layer.get("type") == "Youtube" ) {
+                    // do pointers
+                    this.YTInstructions = new Pointers( this.YTSequence );
+                    console.log("do pointers",this.YTSequence, this.YTInstructions)
+                    this.YTInstructions.startPointing()
+                }
+            }, this );
+        },
 
         initTips: function() {
             // see http://onehackoranother.com/projects/jquery/tipsy/ for docs
@@ -232,7 +244,26 @@ function( app, ProjectHead, Frames, Workspace, Layers, LayerDrawer, Soundtrack, 
                     }]
                 }
 
-            ]
+            ],
+
+        YTSequence: [{
+            listenFor: "item_dropped",
+
+            pointers: [{
+                target: ".ZEEGA-workspace",
+                content: "Now add a cover image to your video",
+                color: "red",
+                canCancel: true,
+                pointDirection: "right"
+            },{
+                target: ".socialz-giphy",
+                content: "Drag a GIF or photo",
+                color: "blue",
+                canCancel: false,
+                pointDirection: "left",
+                verticalDivision: 4
+            }]
+        }]
 
     });
 
