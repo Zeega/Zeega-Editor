@@ -32,9 +32,11 @@ function( app, ItemView ) {
                     return $(this).find(".item-thumb img").clone().addClass("item-dragging");
                 },
                 start: function() {
+                    app.emit("item_drag_start", this.model );
                     app.dragging = this.model;
                 }.bind( this ),
                 stop: function() {
+                    app.emit("item_drag_stop", this.model );
                     app.dragging = null;
                 }
             });

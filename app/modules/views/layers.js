@@ -28,7 +28,7 @@ function( app, LayerList ) {
 
         afterRender: function() {
             this.renderFrameLayers( this.model.status.get("currentFrame") );
-            app.trigger("rendered", this );
+            app.emit("layers_rendered", this );
         },
 
         onResize: function() {

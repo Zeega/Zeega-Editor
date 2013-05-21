@@ -43,7 +43,7 @@ function( app, MediaUpload ) {
         onMediaToggle: function(event){
             var api = $(event.target).closest("a").data("api");
 
-            app.trigger("media_drawer_toggle", api );
+            app.emit("media_drawer_toggle", api );
             this.$(".media-toggle").removeClass("active");
             this.$(".media-toggle i").removeClass("socialz-white");
             $(event.target).closest("a").addClass("active");

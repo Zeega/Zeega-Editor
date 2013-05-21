@@ -23,7 +23,7 @@ function( app ) {
             var $target = this.options.target.$el;
 
             if ( $target.is(":visible") ) {
-                app.trigger("rendered", this );
+                app.emit("layer_rendered", this );
                 this.loadControls();
                 this.$el.css({
                     top: $target.offset().top + "px",

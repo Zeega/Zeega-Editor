@@ -141,9 +141,9 @@ function( app ) {
 
             if( !this.$(".share-grave").is(":visible") ) {
                 this.model.project.save( "publish_update", 1 );
-                app.trigger("grave_open");
+                app.emit("grave_open", null );
             } else {
-                app.trigger("grave_closed");
+                app.emit("grave_closed", null );
             }
             this.$(".share-grave")
                 .toggleClass("active")
@@ -177,8 +177,8 @@ function( app ) {
             var projectData = app.project.getProjectJSON();
 
             app.zeegaplayer = null;
-            app.trigger("project_preview");
-            this.model.project.save( "publish_update", 1 );
+            app.emit("project_preview", null );
+            this.model.project.save("publish_update", 1 );
             
             app.zeegaplayer = new Zeega.player({
                 // debugEvents: true,
@@ -205,7 +205,7 @@ function( app ) {
 
         stopListeningToPlayer: function() {
             $("body").unbind("keyup.player");
-            app.trigger("project_preview_ended");
+            app.emit("project_preview_ended", null );
         },
 
         onBlur: function() {

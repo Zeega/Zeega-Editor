@@ -69,6 +69,7 @@ function( app ) {
         deleteFrame: function() {
             if ( confirm("Delete Frame? This cannot be undone!") ) { 
                 $(".tipsy").remove();
+                app.emit("layer_delete", this.model );
                 this.model.collection.remove( this.model );
             }
         },
