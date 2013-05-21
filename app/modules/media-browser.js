@@ -78,7 +78,7 @@ function( app, ItemModel, MediaView, ItemCollectionViewer ) {
                 count = 1;
             
             _.each( photos, function( photo ){
-                photo.id = count;
+                //photo.id = count;
                 photo.allowDelete = 1;
                 count++;
             });
