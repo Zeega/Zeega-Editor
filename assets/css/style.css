@@ -2386,7 +2386,7 @@ body .ui-tooltip {
 }
 .ZEEGA-intro-modal .modal-wrapper {
   height: 365px;
-  width: 700px;
+  width: 650px;
   background: rgba(255, 255, 255, 0.8);
   background-image: url(../img/tiny-stripes.png);
   position: absolute;
@@ -2395,7 +2395,7 @@ body .ui-tooltip {
   left: 0;
   right: 0;
   margin: auto;
-  padding: 20px;
+  padding: 20px 40px;
   border-radius: 2px;
   box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.5);
 }
@@ -4885,7 +4885,7 @@ html {
   width: 30px;
 }
 .socialz-zeega {
-  background-position: -60px -30px;
+  background-position: 0 -30px;
 }
 .socialz-zeega.socialz-white {
   background-position: -30px -30px;
@@ -4894,7 +4894,7 @@ html {
   background-position: 0px -30px;
 }
 .socialz-soundcloud {
-  background-position: -60px -60px;
+  background-position: 0 -60px;
 }
 .socialz-soundcloud.socialz-white {
   background-position: -30px -60px;
@@ -4903,7 +4903,7 @@ html {
   background-position: 0px -60px;
 }
 .socialz-giphy {
-  background-position: -60px -90px;
+  background-position: 0 -90px;
 }
 .socialz-giphy.socialz-white {
   background-position: -30px -90px;
@@ -4912,7 +4912,7 @@ html {
   background-position: 0px -90px;
 }
 .socialz-flickr {
-  background-position: -60px -120px;
+  background-position: 0 -120px;
 }
 .socialz-flickr.socialz-white {
   background-position: -30px -120px;
@@ -4921,7 +4921,7 @@ html {
   background-position: 0px -120px;
 }
 .socialz-instagram {
-  background-position: -60px -150px;
+  background-position: 0 -150px;
 }
 .socialz-instagram.socialz-white {
   background-position: -30px -150px;
@@ -4930,7 +4930,7 @@ html {
   background-position: 0px -150px;
 }
 .socialz-youtube {
-  background-position: -60px -180px;
+  background-position: 0 -180px;
 }
 .socialz-youtube.socialz-white {
   background-position: -30px -180px;
@@ -4939,7 +4939,7 @@ html {
   background-position: 0px -180px;
 }
 .socialz-user {
-  background-position: -60px -210px;
+  background-position: 0 -210px;
 }
 .socialz-user.socialz-white {
   background-position: -30px -210px;
@@ -4948,7 +4948,7 @@ html {
   background-position: 0px -210px;
 }
 .socialz-tumblr {
-  background-position: -60px -240px;
+  background-position: 0 -240px;
 }
 .socialz-tumblr.socialz-white {
   background-position: -30px -240px;
