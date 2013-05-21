@@ -3,7 +3,7 @@
         <% if ( layer_type == "Audio" ) { %>
             <div class="thumb-title"><%= title %></div>
         <% } %>
-        <img src="<%= thumbnail_url %>"
+        <img class="browser-thumb <%= media_type %>" src="<%= thumbnail_url %>"
             alt="<%= title %>"
             title="<%= title %>"
             height="100%"
