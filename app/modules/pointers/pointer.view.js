@@ -19,29 +19,42 @@ function( app ) {
             return this.model.toJSON();
         },
 
-        show: function() {
+        initialize: function() {
+            app.on("window-resize", this.positionPointer, this );
+        },
+
+        afterRender: function() {
+            this.positionPointer();
+        },
+
+        positionPointer: function() {
+            var css = {};
+
             this.$target = $( this.model.get("target") );
 
+            if ( this.$target.length ) {
+                css.top = ( this.$target.offset().top + ( this.$target.height() / ( this.model.get("verticalDivision") || 2 ) ) - 21 );
+                if ( this.model.get("pointDirection") == "right" ) {
+                    css.left = this.$target.offset().left - this.$el.width() - 20 - 15 ; 
+                } else {
+                    css.left = this.$target.offset().left + this.$target.width() + 15;
+                }
+                if ( css.left < 0 ) css.left = 5;
+
+                this.$el.css( css ).show();
+            }
+        },
+
+        show: function() {
             $("#main").prepend( this.el );
 
+
             this.$el.css(_.extend({
-                top: ( this.$target.offset().top + ( this.$target.height() / ( this.model.get("verticalDivision") || 2 ) ) - 21 ),
+                top: "-1000%",
                 left: "-1000%"
             }, this.model.get("css") ));
 
             this.render();
-        },
-
-        afterRender: function() {
-            var css = {};
-
-            if ( this.model.get("pointDirection") == "right" ) {
-                css.left = this.$target.offset().left - this.$el.width() - 20 - 15 ; 
-            } else {
-                css.left = this.$target.offset().left + this.$target.width() + 15;
-            }
-
-            this.$el.css( css ).show();
         },
 
         hide: function() {

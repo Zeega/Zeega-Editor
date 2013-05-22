@@ -443,7 +443,7 @@ var __p='';var print=function(){__p+=Array.prototype.join.call(arguments, '')};
 with(obj||{}){
 __p+='<div class="viewer-preview" style="">\n    <iframe width="100%" height="166" autoplay="true" scrolling="no" frameborder="no" src="https://w.soundcloud.com/player/?url='+
 ( attribution_uri )+
-'?sharing=false&liking=false&download=false&show_comments=false&show_playcount=false&buying=false"></iframe>\n</div>\n<div class="viewer-controls">\n    <a class="add-to-frame" href="#"><i class="icon-download"></i> add to page</a>\n    <a href="'+
+'?sharing=false&liking=false&download=false&show_comments=false&show_playcount=false&buying=false"></iframe>\n</div>\n<div class="viewer-controls">\n    <a class="add-to-frame audio" href="#"><i class="icon-download"></i> make soundtrack</a>\n    <a href="'+
 ( attribution_uri )+
 '" target="blank"><i class="icon-share-alt"></i> view original</a>\n   \n     ';
  if( allowDelete == 1  ) { 
@@ -459,7 +459,7 @@ var __p='';var print=function(){__p+=Array.prototype.join.call(arguments, '')};
 with(obj||{}){
 __p+='<div class="viewer-preview" style="\n    background: url('+
 ( uri )+
-');\n    background-size: contain;\n    background-position: 50% 50%;\n    background-repeat: no-repeat;\n"></div>\n<div class="viewer-controls">\n    <a class="add-to-frame" href="#"><i class="icon-download"></i> add to page</a>\n    <a href="'+
+');\n    background-size: contain;\n    background-position: 50% 50%;\n    background-repeat: no-repeat;\n"></div>\n<div class="viewer-controls">\n    <a class="add-to-frame image" href="#"><i class="icon-download"></i> add to page</a>\n    <a href="'+
 ( attribution_uri )+
 '" target="blank"><i class="icon-share-alt"></i> view original</a>\n    ';
  if( allowDelete == 1  ) { 
@@ -491,7 +491,7 @@ var __p='';var print=function(){__p+=Array.prototype.join.call(arguments, '')};
 with(obj||{}){
 __p+='<div class="viewer-preview" style="">\n    <iframe width="560" height="315" src="http://www.youtube.com/embed/'+
 ( uri )+
-'" frameborder="0" allowfullscreen></iframe>\n</div>\n<div class="viewer-controls">\n    <a class="add-to-frame" href="#"><i class="icon-download"></i> add to page</a>\n    <a href="'+
+'" frameborder="0" allowfullscreen></iframe>\n</div>\n<div class="viewer-controls">\n    <a class="add-to-frame youtube" href="#"><i class="icon-download"></i> add to page</a>\n    <a href="'+
 ( attribution_uri )+
 '" target="blank"><i class="icon-share-alt"></i> view original</a>\n   \n     ';
  if( allowDelete == 1  ) { 
@@ -511,7 +511,9 @@ __p+='<a href="#">\n    <div class="item-thumb">\n        ';
 ( title )+
 '</div>\n        ';
  } 
-;__p+='\n        <img src="'+
+;__p+='\n        <img class="browser-thumb '+
+( media_type )+
+'" src="'+
 ( thumbnail_url )+
 '"\n            alt="'+
 ( title )+
@@ -73376,29 +73378,42 @@ function( app ) {
             return this.model.toJSON();
         },
 
-        show: function() {
+        initialize: function() {
+            app.on("window-resize", this.positionPointer, this );
+        },
+
+        afterRender: function() {
+            this.positionPointer();
+        },
+
+        positionPointer: function() {
+            var css = {};
+
             this.$target = $( this.model.get("target") );
 
+            if ( this.$target.length ) {
+                css.top = ( this.$target.offset().top + ( this.$target.height() / ( this.model.get("verticalDivision") || 2 ) ) - 21 );
+                if ( this.model.get("pointDirection") == "right" ) {
+                    css.left = this.$target.offset().left - this.$el.width() - 20 - 15 ; 
+                } else {
+                    css.left = this.$target.offset().left + this.$target.width() + 15;
+                }
+                if ( css.left < 0 ) css.left = 5;
+
+                this.$el.css( css ).show();
+            }
+        },
+
+        show: function() {
             $("#main").prepend( this.el );
 
+
             this.$el.css(_.extend({
-                top: ( this.$target.offset().top + ( this.$target.height() / ( this.model.get("verticalDivision") || 2 ) ) - 21 ),
+                top: "-1000%",
                 left: "-1000%"
             }, this.model.get("css") ));
 
             this.render();
-        },
-
-        afterRender: function() {
-            var css = {};
-
-            if ( this.model.get("pointDirection") == "right" ) {
-                css.left = this.$target.offset().left - this.$el.width() - 20 - 15 ; 
-            } else {
-                css.left = this.$target.offset().left + this.$target.width() + 15;
-            }
-
-            this.$el.css( css ).show();
         },
 
         hide: function() {
@@ -80582,7 +80597,7 @@ function( app, ItemModel, MediaView, ItemCollectionViewer ) {
                 count = 1;
             
             _.each( photos, function( photo ){
-                photo.id = count;
+                //photo.id = count;
                 photo.allowDelete = 1;
                 count++;
             });
