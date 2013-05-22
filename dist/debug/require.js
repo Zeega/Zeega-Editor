@@ -443,7 +443,7 @@ var __p='';var print=function(){__p+=Array.prototype.join.call(arguments, '')};
 with(obj||{}){
 __p+='<div class="viewer-preview" style="">\n    <iframe width="100%" height="166" autoplay="true" scrolling="no" frameborder="no" src="https://w.soundcloud.com/player/?url='+
 ( attribution_uri )+
-'?sharing=false&liking=false&download=false&show_comments=false&show_playcount=false&buying=false"></iframe>\n</div>\n<div class="viewer-controls">\n    <a class="add-to-frame" href="#"><i class="icon-download"></i> add to page</a>\n    <a href="'+
+'?sharing=false&liking=false&download=false&show_comments=false&show_playcount=false&buying=false"></iframe>\n</div>\n<div class="viewer-controls">\n    <a class="add-to-frame audio" href="#"><i class="icon-download"></i> make soundtrack</a>\n    <a href="'+
 ( attribution_uri )+
 '" target="blank"><i class="icon-share-alt"></i> view original</a>\n   \n     ';
  if( allowDelete == 1  ) { 
@@ -459,7 +459,7 @@ var __p='';var print=function(){__p+=Array.prototype.join.call(arguments, '')};
 with(obj||{}){
 __p+='<div class="viewer-preview" style="\n    background: url('+
 ( uri )+
-');\n    background-size: contain;\n    background-position: 50% 50%;\n    background-repeat: no-repeat;\n"></div>\n<div class="viewer-controls">\n    <a class="add-to-frame" href="#"><i class="icon-download"></i> add to page</a>\n    <a href="'+
+');\n    background-size: contain;\n    background-position: 50% 50%;\n    background-repeat: no-repeat;\n"></div>\n<div class="viewer-controls">\n    <a class="add-to-frame image" href="#"><i class="icon-download"></i> add to page</a>\n    <a href="'+
 ( attribution_uri )+
 '" target="blank"><i class="icon-share-alt"></i> view original</a>\n    ';
  if( allowDelete == 1  ) { 
@@ -491,7 +491,7 @@ var __p='';var print=function(){__p+=Array.prototype.join.call(arguments, '')};
 with(obj||{}){
 __p+='<div class="viewer-preview" style="">\n    <iframe width="560" height="315" src="http://www.youtube.com/embed/'+
 ( uri )+
-'" frameborder="0" allowfullscreen></iframe>\n</div>\n<div class="viewer-controls">\n    <a class="add-to-frame" href="#"><i class="icon-download"></i> add to page</a>\n    <a href="'+
+'" frameborder="0" allowfullscreen></iframe>\n</div>\n<div class="viewer-controls">\n    <a class="add-to-frame youtube" href="#"><i class="icon-download"></i> add to page</a>\n    <a href="'+
 ( attribution_uri )+
 '" target="blank"><i class="icon-share-alt"></i> view original</a>\n   \n     ';
  if( allowDelete == 1  ) { 
@@ -511,7 +511,9 @@ __p+='<a href="#">\n    <div class="item-thumb">\n        ';
 ( title )+
 '</div>\n        ';
  } 
-;__p+='\n        <img src="'+
+;__p+='\n        <img class="browser-thumb '+
+( media_type )+
+'" src="'+
 ( thumbnail_url )+
 '"\n            alt="'+
 ( title )+
@@ -77787,7 +77789,6 @@ function( Zeega, LayerModel, Visual ) {
 
         template: "youtube/youtube",
         ignoreFirst: true,
-
         afterRender: function(){
             
             if( /iPhone|iPod/i.test(navigator.userAgent) ) {
@@ -77806,11 +77807,12 @@ function( Zeega, LayerModel, Visual ) {
         events: {
             "click .play-button": "playVideo",
             "tap .play-button": "playVideo"
+
         },
 
         ytInit: function(){
+            
             window.jQuery(this.$(".youtube-player" )).on("api-ready", jQuery.proxy( this.onApiReady, this) );
-
             if ( _.isUndefined( window.YT ) ){
                 var tag = document.createElement('script');
                 tag.src = "//www.youtube.com/iframe_api";
@@ -77819,6 +77821,7 @@ function( Zeega, LayerModel, Visual ) {
             } else {
                 this.onApiReady();
             }
+ 
         },
 
         onPlayerReady: function(e){
@@ -77827,12 +77830,12 @@ function( Zeega, LayerModel, Visual ) {
 
         onStateChange: function(e){
             var currentSequence;
-
-            if( this.model.status.get("current_sequence_model")){
+            if(this.model.status.get("current_sequence_model")){
                 currentSequence = this.model.status.get("current_sequence_model");
             } else {
                 currentSequence = this.model.status.get("currentSequence");
             }
+
 
             if( currentSequence.get("attr").soundtrack && /iPad/i.test(navigator.userAgent) && e.data ==2 && this.ignoreFirst ) {
                 this.ignoreFirst = false;
@@ -77851,7 +77854,7 @@ function( Zeega, LayerModel, Visual ) {
                 this.$(".youtube-player").removeClass("active");
                 this.$(".play-button").fadeIn("fast");
                 
-            } else if ( e.data == 1 ){
+            } else if (e.data == 1 ){
                 if( Zeega.mode == "player"){
                     this.model.status.get("project").suspend();
                 }
@@ -77865,8 +77868,12 @@ function( Zeega, LayerModel, Visual ) {
         },
 
         onApiReady: function(){
+
+
+
             var onPlayerReady = jQuery.proxy( this.onPlayerReady, this),
                 onStateChange = jQuery.proxy( this.onStateChange, this);
+
 
             this.$("#yt-player-" + this.model.id).attr("id", "yt-player-" + this.model.id + "-" + this.model.cid );
 
@@ -77876,16 +77883,19 @@ function( Zeega, LayerModel, Visual ) {
                         'onStateChange': onStateChange
                     }
                 });
+            
+            
         },
 
         playVideo: function(){
 
             if( Zeega.mode == "player"){
                 this.model.status.get("project").suspend();
-            } else if ( Zeega.mode == "editor" ){
+            } else if (Zeega.mode == "editor" ){
                 this.$el.removeClass("editor");
                 this.$el.css({"top": "0", "left": "0", "width": "100%", "height": "100%"}, 1000);
             }
+
 
             this.$(".play-button").fadeOut("fast");
             this.$(".youtube-player").addClass("active");
@@ -78268,12 +78278,9 @@ function( app, Backbone, Layers, ThumbWorker ) {
             */
 
             newLayer.order[ this.id ] = this.layers.length;
-
-            app.emit("layer_added_start", newLayer );
             newLayer.save().success(function( response ) {
                 this.layers.add( newLayer );
                 app.status.setCurrentLayer( newLayer );
-                app.emit("layer_added_success", newLayer );
             }.bind( this ));
         },
 
@@ -78299,12 +78306,9 @@ function( app, Backbone, Layers, ThumbWorker ) {
                 newLayer.order[ this.id ] = this.layers.length;
             }
             
-            app.emit("layer_added_start", newLayer );
-
             newLayer.save().success(function( response ) {
                     this.layers.add( newLayer );
                     app.status.setCurrentLayer( newLayer );
-                    app.emit("layer_added_success", newLayer );
                 }.bind( this ));
             
         },
@@ -78517,7 +78521,7 @@ function( app, Layers ) {
 
         onAdd: function( layer ) {
             if( app.mode != "player" ){
-                if ( layer ) {
+               if ( layer ) {
                     layer.addCollection( this );
                     layer.initVisual( Layers[ layer.get("type") ]);
                     app.trigger("layer_added", layer );
@@ -80582,7 +80586,7 @@ function( app, ItemModel, MediaView, ItemCollectionViewer ) {
                 count = 1;
             
             _.each( photos, function( photo ){
-                photo.id = count;
+                //photo.id = count;
                 photo.allowDelete = 1;
                 count++;
             });
@@ -81333,9 +81337,9 @@ require.config({
   // generated configuration file.
 
   // Release
-  deps: [ "../vendor/tipsy/src/javascripts/jquery.tipsy", "../vendor/simple-color-picker/src/jquery.simple-color", "zeegaplayer", "../vendor/jam/require.config", "main", "spin"],
+ deps: [ "../vendor/tipsy/src/javascripts/jquery.tipsy", "../vendor/simple-color-picker/src/jquery.simple-color", "zeegaplayer", "../vendor/jam/require.config", "main", "spin"],
 
-//  deps: ["zeegaplayer", "../vendor/jam/require.config", "main", "spin"],
+//   deps: ["zeegaplayer", "../vendor/jam/require.config", "main", "spin"],
 
 
   paths: {
