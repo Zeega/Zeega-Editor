@@ -41,6 +41,8 @@ function( app ) {
                 css.left = this.$target.offset().left + this.$target.width() + 15;
             }
 
+            if ( css.left < 0 ) css.left = 5;
+
             this.$el.css( css ).show();
         },
 
