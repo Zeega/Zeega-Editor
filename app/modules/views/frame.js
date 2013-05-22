@@ -67,8 +67,9 @@ function( app ) {
         },
 
         deleteFrame: function() {
-            if ( confirm("Delete Frame? This cannot be undone!") ) { 
+            if ( confirm("Delete Page? This cannot be undone!") ) { 
                 $(".tipsy").remove();
+                app.emit("page_delete", this.model );
                 this.model.collection.remove( this.model );
             }
         },

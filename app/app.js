@@ -29,7 +29,14 @@ define([
         mediaServer: "http:" + meta.data("hostname") + meta.data("mediaRoot") || null,
         searchAPI: "http:" + meta.data("hostname") +  ( meta.data("apiRoot") ? meta.data("apiRoot") : meta.data("root") ) + "api/items/search?"|| null,
         featuredAPI: "http:" + meta.data("hostname") +  ( meta.data("apiRoot") ? meta.data("apiRoot") : meta.data("root") ) + "api/items/featured" || null,
-        thumbnailServer: meta.data("thumbnailServer")
+        thumbnailServer: meta.data("thumbnailServer"),
+
+        // function that editor events should call so they can be routed, inspected and modified
+        emit: function( event, args ) {
+            console.log( event, args );
+            // other things can be done here as well
+            this.trigger( event, args );
+        }
     
     };
 
