@@ -93,7 +93,7 @@
     }
 
     .new-zeega {
-        background-color: orangered;
+        background-color: @grey;
 
         &:hover {
             background-color: orange;
@@ -105,7 +105,11 @@
         width: 28px;
         display: inline-block;
         border-radius: 20px;
-        border: 2px solid orangered;
+        border: 2px solid @interfacePrimary;
+
+        &:hover {
+            border: 2px solid @red;
+        }
     }
 
     .project-info {

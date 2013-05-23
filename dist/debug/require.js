@@ -422,6 +422,14 @@ __p+='<div class="add-frame"\n    title="add new page"\n    data-gravity="n"\n>\
 return __p;
 };
 
+this["JST"]["app/templates/intro-modal.html"] = function(obj){
+var __p='';var print=function(){__p+=Array.prototype.join.call(arguments, '')};
+with(obj||{}){
+__p+='<div class="modal-wrapper">\n\n    <div class="modal-content">\n\n        <div class="step-1">\n\n            <h1>Heya! Welcome to <img class="zeega-intro-logo" src="assets/img/zeega-logo-500.png" width="190px"/></h1>\n\n            <p>\n                Zeega is a community creating everything from stories to interactive music to memes.\n            </p>\n            <p>\n                We’ve got a few fun prompts to get you started.\n            </p>\n\n            <div class="intro-graphic">\n                <img src="assets/img/intro-graphic.png" width="100%"/>\n            </div>\n            <a href="#" class="finish btnz btnz-submit">Start Making <i class="icon-chevron-right icon-white"></i></a>\n        </div>\n\n\n    </div>\n</div>';
+}
+return __p;
+};
+
 this["JST"]["app/templates/item-collection-viewer.html"] = function(obj){
 var __p='';var print=function(){__p+=Array.prototype.join.call(arguments, '')};
 with(obj||{}){
@@ -435,7 +443,7 @@ var __p='';var print=function(){__p+=Array.prototype.join.call(arguments, '')};
 with(obj||{}){
 __p+='<div class="viewer-preview" style="">\n    <iframe width="100%" height="166" autoplay="true" scrolling="no" frameborder="no" src="https://w.soundcloud.com/player/?url='+
 ( attribution_uri )+
-'?sharing=false&liking=false&download=false&show_comments=false&show_playcount=false&buying=false"></iframe>\n</div>\n<div class="viewer-controls">\n    <a class="add-to-frame" href="#"><i class="icon-download"></i> add to page</a>\n    <a href="'+
+'?sharing=false&liking=false&download=false&show_comments=false&show_playcount=false&buying=false"></iframe>\n</div>\n<div class="viewer-controls">\n    <a class="add-to-frame audio" href="#"><i class="icon-download"></i> make soundtrack</a>\n    <a href="'+
 ( attribution_uri )+
 '" target="blank"><i class="icon-share-alt"></i> view original</a>\n   \n     ';
  if( allowDelete == 1  ) { 
@@ -451,7 +459,7 @@ var __p='';var print=function(){__p+=Array.prototype.join.call(arguments, '')};
 with(obj||{}){
 __p+='<div class="viewer-preview" style="\n    background: url('+
 ( uri )+
-');\n    background-size: contain;\n    background-position: 50% 50%;\n    background-repeat: no-repeat;\n"></div>\n<div class="viewer-controls">\n    <a class="add-to-frame" href="#"><i class="icon-download"></i> add to page</a>\n    <a href="'+
+');\n    background-size: contain;\n    background-position: 50% 50%;\n    background-repeat: no-repeat;\n"></div>\n<div class="viewer-controls">\n    <a class="add-to-frame image" href="#"><i class="icon-download"></i> add to page</a>\n    <a href="'+
 ( attribution_uri )+
 '" target="blank"><i class="icon-share-alt"></i> view original</a>\n    ';
  if( allowDelete == 1  ) { 
@@ -483,7 +491,7 @@ var __p='';var print=function(){__p+=Array.prototype.join.call(arguments, '')};
 with(obj||{}){
 __p+='<div class="viewer-preview" style="">\n    <iframe width="560" height="315" src="http://www.youtube.com/embed/'+
 ( uri )+
-'" frameborder="0" allowfullscreen></iframe>\n</div>\n<div class="viewer-controls">\n    <a class="add-to-frame" href="#"><i class="icon-download"></i> add to page</a>\n    <a href="'+
+'" frameborder="0" allowfullscreen></iframe>\n</div>\n<div class="viewer-controls">\n    <a class="add-to-frame youtube" href="#"><i class="icon-download"></i> add to page</a>\n    <a href="'+
 ( attribution_uri )+
 '" target="blank"><i class="icon-share-alt"></i> view original</a>\n   \n     ';
  if( allowDelete == 1  ) { 
@@ -503,7 +511,9 @@ __p+='<a href="#">\n    <div class="item-thumb">\n        ';
 ( title )+
 '</div>\n        ';
  } 
-;__p+='\n        <img src="'+
+;__p+='\n        <img class="browser-thumb '+
+( media_type )+
+'" src="'+
 ( thumbnail_url )+
 '"\n            alt="'+
 ( title )+
@@ -614,6 +624,20 @@ __p+='<a href="#" class="modal-close">&times;</a>\n<div class="modal-content">\n
 '</div>\n    <div class="modal-body">'+
 ( modal.content )+
 '</div>\n    <div class="modal-footer"></div>\n</div>\n';
+}
+return __p;
+};
+
+this["JST"]["app/templates/pointer.html"] = function(obj){
+var __p='';var print=function(){__p+=Array.prototype.join.call(arguments, '')};
+with(obj||{}){
+__p+=''+
+( content )+
+'\n';
+ if ( canCancel ) { 
+;__p+='\n    <small>[<a href="#" class="stop-pointing">close</a>]</small>\n';
+ } 
+;__p+='';
 }
 return __p;
 };
@@ -875,9 +899,9 @@ var __p='';var print=function(){__p+=Array.prototype.join.call(arguments, '')};
 with(obj||{}){
 __p+='<div class="modal-content">\n    <div class="modal-title">Edit your text</div>\n    <div class="modal-body">\n\n        <textarea rows="4" cols="59" maxlength="140">'+
 ( attr.content )+
-'</textarea>\n\n        <div class="textarea-info">max 140 characters</div>\n\n        <div class="text-controls clearfix">\n            <div class="color-selector">\n                <input class="simple-color" value="'+
+'</textarea>\n\n        <div class="textarea-info">max 140 characters</div>\n\n        <div class="text-controls clearfix">\n            <div class="control-module">\n                <div class="control-title">color</div>\n                <div class="color-selector">\n                    <input class="simple-color" value="'+
 ( attr.color )+
-'"/>\n            </div>\n            <a href="#" class="btnz btnz-light text-btn-bold"><i class="icon-bold"></i></a>\n            <a href="#" class="btnz btnz-light text-btn-italic"><i class="icon-italic"></i></a>\n            <a href="#" class="btnz btnz-light text-btn-align-left"><i class="icon-align-left"></i></a>\n            <a href="#" class="btnz btnz-light text-btn-align-center"><i class="icon-align-center"></i></a>\n            <a href="#" class="btnz btnz-light text-btn-align-right"><i class="icon-align-right"></i></a>\n\n            <select class="font-list" style=""></select>\n\n            <div class="control-module">\n                <div class="control-title">font size</div>\n                <select class="size-list" style="">\n                    <option value="100">8</option>\n                    <option value="125">10</option>\n                    <option value="150">12</option>\n                    <option value="175">14</option>\n                    <option value="200">18</option>\n                    <option value="250">24</option>\n                    <option value="375">36</option>\n                    <option value="500">48</option>\n                    <option value="800">72</option>\n                    <option value="1600">144</option>\n                    <option value="2400">200</option>\n                    <option value="3600">300</option>\n                </select>\n            </div>\n\n            <div class="control-module">\n                <div class="control-title">line height</div>\n                <select class="line-height-list">\n                    <option value="1">1</option>\n                    <option value="1.25">1.25</option>\n                    <option value="1.5">1.5</option>\n                    <option value="1.75">1.75</option>\n                    <option value="2">2</option>\n                </select>\n            </div>\n\n            <div class="control-module">\n                <div class="control-title">mobile position</div>\n                <select class="text-position-list">\n                    <option value="top">top</option>\n                    <option value="middle">middle</option>\n                    <option value="bottom">bottom</option>\n                </select>\n            </div>\n            \n        </div>\n\n        <div class="sample-header">sample</div>\n        <div class="text-sample">'+
+'"/>\n                </div>\n            </div>\n            <a href="#" class="btnz btnz-light text-btn-bold"><i class="icon-bold"></i></a>\n            <a href="#" class="btnz btnz-light text-btn-italic"><i class="icon-italic"></i></a>\n            <a href="#" class="btnz btnz-light text-btn-align-left"><i class="icon-align-left"></i></a>\n            <a href="#" class="btnz btnz-light text-btn-align-center"><i class="icon-align-center"></i></a>\n            <a href="#" class="btnz btnz-light text-btn-align-right"><i class="icon-align-right"></i></a>\n\n            <select class="font-list" style=""></select>\n\n            <div class="control-module">\n                <div class="control-title">font size</div>\n                <select class="size-list" style="">\n                    <option value="100">8</option>\n                    <option value="125">10</option>\n                    <option value="150">12</option>\n                    <option value="175">14</option>\n                    <option value="200">18</option>\n                    <option value="250">24</option>\n                    <option value="375">36</option>\n                    <option value="500">48</option>\n                    <option value="800">72</option>\n                    <option value="1600">144</option>\n                    <option value="2400">200</option>\n                    <option value="3600">300</option>\n                </select>\n            </div>\n<!--\n            <div class="control-module">\n                <div class="control-title">line height</div>\n                <select class="line-height-list">\n                    <option value="1">1</option>\n                    <option value="1.25">1.25</option>\n                    <option value="1.5">1.5</option>\n                    <option value="1.75">1.75</option>\n                    <option value="2">2</option>\n                </select>\n            </div>\n\n            <div class="control-module">\n                <div class="control-title">mobile position</div>\n                <select class="text-position-list">\n                    <option value="top">top</option>\n                    <option value="middle">middle</option>\n                    <option value="bottom">bottom</option>\n                </select>\n            </div>\n            \n        </div>\n-->\n        <div class="sample-header">sample</div>\n        <div class="text-sample">'+
 ( attr.content )+
 '</div>\n\n        <div class="bottom-chooser clearfix">\n            <a href="#" class="submit btnz btnz-submit">OK</a>\n        </div>\n    </div>\n</div>\n';
 }
@@ -1040,9 +1064,9 @@ var __p='';var print=function(){__p+=Array.prototype.join.call(arguments, '')};
 with(obj||{}){
 __p+='<div class="modal-content">\n    <div class="modal-title">Edit your text</div>\n    <div class="modal-body">\n\n        <textarea rows="4" cols="59" maxlength="140">'+
 ( attr.content )+
-'</textarea>\n\n        <div class="textarea-info">max 140 characters</div>\n\n        <div class="text-controls clearfix">\n            <div class="color-selector">\n                <input class="simple-color" value="'+
+'</textarea>\n\n        <div class="textarea-info">max 140 characters</div>\n\n        <div class="text-controls clearfix">\n            <div class="control-module">\n                <div class="control-title">color</div>\n                <div class="color-selector">\n                    <input class="simple-color" value="'+
 ( attr.color )+
-'"/>\n            </div>\n            <a href="#" class="btnz btnz-light text-btn-bold"><i class="icon-bold"></i></a>\n            <a href="#" class="btnz btnz-light text-btn-italic"><i class="icon-italic"></i></a>\n            <a href="#" class="btnz btnz-light text-btn-align-left"><i class="icon-align-left"></i></a>\n            <a href="#" class="btnz btnz-light text-btn-align-center"><i class="icon-align-center"></i></a>\n            <a href="#" class="btnz btnz-light text-btn-align-right"><i class="icon-align-right"></i></a>\n\n            <select class="font-list" style=""></select>\n\n            <div class="control-module">\n                <div class="control-title">font size</div>\n                <select class="size-list" style="">\n                    <option value="100">8</option>\n                    <option value="125">10</option>\n                    <option value="150">12</option>\n                    <option value="175">14</option>\n                    <option value="200">18</option>\n                    <option value="250">24</option>\n                    <option value="375">36</option>\n                    <option value="500">48</option>\n                    <option value="800">72</option>\n                    <option value="1600">144</option>\n                    <option value="2400">200</option>\n                    <option value="3600">300</option>\n                </select>\n            </div>\n\n            <div class="control-module">\n                <div class="control-title">line height</div>\n                <select class="line-height-list">\n                    <option value="1">1</option>\n                    <option value="1.25">1.25</option>\n                    <option value="1.5">1.5</option>\n                    <option value="1.75">1.75</option>\n                    <option value="2">2</option>\n                </select>\n            </div>\n\n            <div class="control-module">\n                <div class="control-title">mobile position</div>\n                <select class="text-position-list">\n                    <option value="top">top</option>\n                    <option value="middle">middle</option>\n                    <option value="bottom">bottom</option>\n                </select>\n            </div>\n            \n        </div>\n\n        <div class="sample-header">sample</div>\n        <div class="text-sample">'+
+'"/>\n                </div>\n            </div>\n            <a href="#" class="btnz btnz-light text-btn-bold"><i class="icon-bold"></i></a>\n            <a href="#" class="btnz btnz-light text-btn-italic"><i class="icon-italic"></i></a>\n            <a href="#" class="btnz btnz-light text-btn-align-left"><i class="icon-align-left"></i></a>\n            <a href="#" class="btnz btnz-light text-btn-align-center"><i class="icon-align-center"></i></a>\n            <a href="#" class="btnz btnz-light text-btn-align-right"><i class="icon-align-right"></i></a>\n\n            <select class="font-list" style=""></select>\n\n            <div class="control-module">\n                <div class="control-title">font size</div>\n                <select class="size-list" style="">\n                    <option value="100">8</option>\n                    <option value="125">10</option>\n                    <option value="150">12</option>\n                    <option value="175">14</option>\n                    <option value="200">18</option>\n                    <option value="250">24</option>\n                    <option value="375">36</option>\n                    <option value="500">48</option>\n                    <option value="800">72</option>\n                    <option value="1600">144</option>\n                    <option value="2400">200</option>\n                    <option value="3600">300</option>\n                </select>\n            </div>\n<!--\n            <div class="control-module">\n                <div class="control-title">line height</div>\n                <select class="line-height-list">\n                    <option value="1">1</option>\n                    <option value="1.25">1.25</option>\n                    <option value="1.5">1.5</option>\n                    <option value="1.75">1.75</option>\n                    <option value="2">2</option>\n                </select>\n            </div>\n\n            <div class="control-module">\n                <div class="control-title">mobile position</div>\n                <select class="text-position-list">\n                    <option value="top">top</option>\n                    <option value="middle">middle</option>\n                    <option value="bottom">bottom</option>\n                </select>\n            </div>\n            \n        </div>\n-->\n        <div class="sample-header">sample</div>\n        <div class="text-sample">'+
 ( attr.content )+
 '</div>\n\n        <div class="bottom-chooser clearfix">\n            <a href="#" class="submit btnz btnz-submit">OK</a>\n        </div>\n    </div>\n</div>\n';
 }
@@ -32945,7 +32969,6 @@ function( Zeega, ControlView ) {
 
             makeDraggable: function() {
                 
-
                 if ( this.model.editorProperties.draggable ) {
 
                     this.$visualContainer.draggable({
@@ -33136,6 +33159,7 @@ function( Zeega, ControlView ) {
 
             makeResizable: function() {
                 var args = {
+                    handles: "ne, nw, se, sw",
                     start: function( e, ui ) {
                         this.model.visual.transforming = true;
                         Zeega.status.setCurrentLayer( this.model );
@@ -33148,6 +33172,9 @@ function( Zeega, ControlView ) {
                         if ( this.options.options != "e" ) {
                             attr.height = this.$visualContainer.height() / this.$workspace.height() * 100;
                         }
+
+                        attr.top = ui.position.top / this.$workspace.height() * 100;
+                        attr.left = ui.position.left / this.$workspace.width() * 100;
                        
                         this.update( attr );
                         this.updateCSS( attr );
@@ -34915,6 +34942,7 @@ function( app, _Layer, Visual ){
                         this.listen();
                     }
                     this.model.trigger( "visual_ready", this.model.id );
+                    this.model.status.emit("audio_play", this.model );
                 });
             },
 
@@ -35157,7 +35185,7 @@ function( app, LayerModel, Visual ) {
         layerType: "Rectangle",
 
         attr: {
-            backgroundColor: "#FF00FF",
+            backgroundColor: "#FFFFFF",
             citation: false,
             height: 100,
             left: 0,
@@ -35442,6 +35470,8 @@ function( app ) {
             this.setButtonStates();
 
             this.updateSample();
+            
+            this.$("textarea").focus().select();
         },
 
         events: {
@@ -35684,6 +35714,7 @@ function( app, _Layer, Visual, TextModal ) {
             "Finger Paint",
             "Georgia",
             "Great Vibes",
+            "Impact",
             "Londrina Outline",
             "Londrina Sketch",
             "Monofett",
@@ -35815,6 +35846,9 @@ function( app, _Layer, Visual, TextModal ) {
 
             if ( this.textModal === null ) {
                 this.textModal = new TextModal({ model: this.model });
+                if ( this.model.get("attr").content == "text" ) {
+                    this.launchTextModal();
+                }
             }
 
             this.$(".visual-target").css({
@@ -35826,17 +35860,19 @@ function( app, _Layer, Visual, TextModal ) {
             this.$el.unbind("mouseup");
 
             this.$el.bind("mouseup", function() {
-
-                if ( !this.transforming ) {
-                    $("body").append( this.textModal.el );
-                    this.textModal.render();
-                }
-
+                this.launchTextModal();
             }.bind( this ));
 
             this.on("sync", function() {
                 this.updateStyle();
             });
+        },
+
+        launchTextModal: function() {
+            if ( !this.transforming ) {
+                $("body").append( this.textModal.el );
+                this.textModal.render();
+            }
         },
 
         convertToPercents: function( top, left ) {
@@ -36291,7 +36327,9 @@ function( app, Backbone, Layers, ThumbWorker ) {
 
         defaults: {
             _order: 0,
-            attr: {},
+            attr: {
+                advance: true
+            },
             // ids of frames and their common layers for loading
             common_layers: {},
             _connections: "none",
@@ -36331,6 +36369,10 @@ function( app, Backbone, Layers, ThumbWorker ) {
             this.lazySave = _.debounce(function() {
                 this.save();
             }.bind( this ), 1000 );
+
+            if ( _.isArray( this.get("attr") ) ) {
+                this.set("attr", this.defaults.attr );
+            }
 
             this.startThumbWorker = _.debounce(function() {
                 var worker = new Worker( app.webRoot + "js/helpers/thumbworker.js" );
@@ -36379,12 +36421,22 @@ function( app, Backbone, Layers, ThumbWorker ) {
         addLayerType: function( type ) {
             var newLayer = new Layers[ type ]({ type: type });
 
+            // turn off advance if the type is a link
+            /*
+            if ( type == "Link") {
+                var attr = this.get("attr");
+
+                attr.advance = false;
+                this.set("attr", attr );
+                this.trigger("no_advance")
+            }
+            */
+
             newLayer.order[ this.id ] = this.layers.length;
             newLayer.save().success(function( response ) {
                 this.layers.add( newLayer );
                 app.status.setCurrentLayer( newLayer );
             }.bind( this ));
-            
         },
 
         addLayerByItem: function( item ) {
@@ -36940,7 +36992,9 @@ function( app, SequenceCollection ) {
                 if ( frames.length > 1 ) {
                     frames.each(function( frame, j ) {
                         frame.put({
-                            _next: frame.get("attr").advance && frames.at( j + 1 ) ? frames.at( j + 1 ).id : null,
+                            // for the new advance logic
+                            // _next: frame.get("attr").advance && frames.at( j + 1 ) ? frames.at( j + 1 ).id : null,
+                            _next: frames.at( j + 1 ) ? frames.at( j + 1 ).id : null,
                             _last: frames.at( j - 1 ) ? frames.at( j - 1 ).id : null
                         });
                     });
@@ -38720,6 +38774,8 @@ function( app, ZeegaParser, Relay, Status, PlayerLayout ) {
                             var audio = document.getElementById("audio-el-" + layer.id );
                             
                             audio.load();
+                            
+                            return audio;
                         }
                     });
                 });
@@ -56611,7 +56667,14 @@ define('app',[
         mediaServer: "http:" + meta.data("hostname") + meta.data("mediaRoot") || null,
         searchAPI: "http:" + meta.data("hostname") +  ( meta.data("apiRoot") ? meta.data("apiRoot") : meta.data("root") ) + "api/items/search?"|| null,
         featuredAPI: "http:" + meta.data("hostname") +  ( meta.data("apiRoot") ? meta.data("apiRoot") : meta.data("root") ) + "api/items/featured" || null,
-        thumbnailServer: meta.data("thumbnailServer")
+        thumbnailServer: meta.data("thumbnailServer"),
+
+        // function that editor events should call so they can be routed, inspected and modified
+        emit: function( event, args ) {
+            console.log( event, args );
+            // other things can be done here as well
+            this.trigger( event, args );
+        }
     
     };
 
@@ -56875,12 +56938,13 @@ function( app ) {
 
             "click .close-grave": "closeGrave",
             "mousedown .text-box": "onBoxFocus",
+            "click .share-zeega": "showShare",
             "click .embed-zeega": "showEmbed",
             "keyup #project-caption": "onCaptionKeypress"
         },
 
         initHelpSequence: function() {
-            app.layout.instructions.startIntroSequence();
+            app.layout.initialInstructions.startPointing();
         },
 
         showEmbed: function() {
@@ -56908,9 +56972,9 @@ function( app ) {
 
             if( !this.$(".share-grave").is(":visible") ) {
                 this.model.project.save( "publish_update", 1 );
-                app.trigger("grave_open");
+                app.emit("grave_open", null );
             } else {
-                app.trigger("grave_closed");
+                app.emit("grave_closed", null );
             }
             this.$(".share-grave")
                 .toggleClass("active")
@@ -56944,8 +57008,8 @@ function( app ) {
             var projectData = app.project.getProjectJSON();
 
             app.zeegaplayer = null;
-            app.trigger("project_preview");
-            this.model.project.save( "publish_update", 1 );
+            app.emit("project_preview", null );
+            this.model.project.save("publish_update", 1 );
             
             app.zeegaplayer = new Zeega.player({
                 // debugEvents: true,
@@ -56972,7 +57036,7 @@ function( app ) {
 
         stopListeningToPlayer: function() {
             $("body").unbind("keyup.player");
-            app.trigger("project_preview_ended");
+            app.emit("project_preview_ended", null );
         },
 
         onBlur: function() {
@@ -57054,8 +57118,9 @@ function( app ) {
         },
 
         deleteFrame: function() {
-            if ( confirm("Delete Frame? This cannot be undone!") ) { 
+            if ( confirm("Delete Page? This cannot be undone!") ) { 
                 $(".tipsy").remove();
+                app.emit("page_delete", this.model );
                 this.model.collection.remove( this.model );
             }
         },
@@ -57128,7 +57193,7 @@ function( app, FrameView ) {
             this.model.status.setCurrentFrame( frameModel );
             this.renderSequenceFrames( this.model.status.get("currentSequence") );
             this.updateFrameOrder();
-            app.trigger("page_added");
+            app.emit("page_added", null);
         },
 
         onFrameRemove: function( frameModel, collection ) {
@@ -57226,9 +57291,10 @@ function( app ) {
                         if ( _.contains( ["Audio"], app.dragging.get("layer_type") )) {
                             //app.layout.soundtrack.updateWaveform( app.dragging.get("thumbnail_url") );
 
+                            app.emit("soundtrack_added", app.dragging );
                             app.status.get('currentSequence').setSoundtrack( app.dragging, app.layout.soundtrack );
                         } else {
-                            app.trigger("item_dropped", app.dragging );
+                            app.emit("item_dropped", app.dragging );
                             this.model.status.get('currentFrame').addLayerByItem( app.dragging );
                         }
 
@@ -57323,7 +57389,7 @@ function( app ) {
             var $target = this.options.target.$el;
 
             if ( $target.is(":visible") ) {
-                app.trigger("rendered", this );
+                app.emit("layer_rendered", this );
                 this.loadControls();
                 this.$el.css({
                     top: $target.offset().top + "px",
@@ -72690,7 +72756,7 @@ function( app, LayerList ) {
 
         afterRender: function() {
             this.renderFrameLayers( this.model.status.get("currentFrame") );
-            app.trigger("rendered", this );
+            app.emit("layers_rendered", this );
         },
 
         onResize: function() {
@@ -72863,7 +72929,6 @@ function( app ) {
             $("body").unbind("keyup.modal");
         },
 
-
         keyup: function( e ) {
             if ( e.which == 27 ) { // esc
                 this.close();
@@ -72936,7 +73001,7 @@ function( app, Viewer ) {
                     if ( _.contains( ["Audio"], app.dragging.get("layer_type") )) {
                         this.updateWaveform( app.dragging.get("thumbnail_url") );
 
-                        app.trigger("soundtrack_added", app.dragging );
+                        app.emit("soundtrack_added", app.dragging );
                         app.status.get('currentSequence').setSoundtrack( app.dragging, this );
                     }
                 }.bind( this )
@@ -73250,7 +73315,7 @@ function( app, MediaUpload ) {
         onMediaToggle: function(event){
             var api = $(event.target).closest("a").data("api");
 
-            app.trigger("media_drawer_toggle", api );
+            app.emit("media_drawer_toggle", api );
             this.$(".media-toggle").removeClass("active");
             this.$(".media-toggle i").removeClass("socialz-white");
             $(event.target).closest("a").addClass("active");
@@ -73292,7 +73357,7 @@ function( app, MediaUpload ) {
 
 });
 
-define('modules/views/instructions',[
+define('modules/pointers/pointer.view',[
     "app",
     "backbone"
 ],
@@ -73301,249 +73366,219 @@ function( app ) {
 
     return Backbone.View.extend({
 
-        el: $("body"),
+        $target: null,
 
-        ended: false,
+        className: function() {
+            return "pointer point-" + this.model.get("pointDirection")
+        },
+
+        template: "pointer",
+
+        serialize: function() {
+            return this.model.toJSON();
+        },
 
         initialize: function() {
-            var isEmpty =  app.project.sequences.length == 1 &&
-                app.project.sequences.at( 0 ).frames.length == 1 &&
-                app.project.sequences.at( 0 ).frames.at( 0 ).layers.length === 0;
+            app.on("window-resize", this.positionPointer, this );
+        },
 
-            if ( isEmpty && $.parseJSON( window.userProjects ).length === 1 ) {
-                this.startIntroSequence();
+        afterRender: function() {
+            this.positionPointer();
+        },
+
+        positionPointer: function() {
+            var css = {};
+
+            this.$target = $( this.model.get("target") );
+
+            if ( this.$target.length ) {
+                css.top = ( this.$target.offset().top + ( this.$target.height() / ( this.model.get("verticalDivision") || 2 ) ) - 21 );
+                if ( this.model.get("pointDirection") == "right" ) {
+                    css.left = this.$target.offset().left - this.$el.width() - 20 - 15 ; 
+                } else {
+                    css.left = this.$target.offset().left + this.$target.width() + 15;
+                }
+                if ( css.left < 0 ) css.left = 5;
+
+                this.$el.css( css ).show();
             }
         },
 
+        show: function() {
+            $("#main").prepend( this.el );
+
+
+            this.$el.css(_.extend({
+                top: "-1000%",
+                left: "-1000%"
+            }, this.model.get("css") ));
+
+            this.render();
+        },
+
+        hide: function() {
+            this.$el.fadeOut(function() {
+                this.remove();
+                this.options.parent.trigger("end");
+            }.bind( this ));
+        },
+
+        cancel: function() {
+            this.$el.fadeOut(function() {
+                this.remove();
+            }.bind( this ));
+        },
+
         events: {
-            "click .close-ins": "cancelInstructions"
+            "click .stop-pointing": "stopPointing"
         },
 
-        cancelInstructions: function() {
-            $(".instruction").remove();
-            this.ended = true;
+        stopPointing: function() {
+            this.options.parent.collection.cancel();
+        }
+    });
+});
+
+define('modules/pointers/pointer.model',[
+    "app",
+    "modules/pointers/pointer.view",
+    "backbone"
+],
+
+function( app, PointerView ) {
+
+    return Backbone.Model.extend({
+
+        defaults: {
+            listenFor: null,
+            start: null, // function
+            end: null, // function
+            pointers: []
         },
 
-        startIntroSequence: function() {
-            var $first, $second;
+        views: null,
 
-            this.ended = false;
-            $first = this.insertInstructions({
-                target: $(".ZEEGA-items"),
-                direction: "l",
-                content: "Drag stuff from here…",
-                close: false,
-                progress: null
-            });
-            $second = this.insertInstructions({
-                target: $(".ZEEGA-workspace"),
-                direction: "r",
-                color: "red",
-                content: "…to here",
-                close: true,
-                progress: "1/4",
-                avoid: $first
-            });
-
-            app.once("item_dropped", function( e ) {
-                $first.fadeOut(function() {
-                    $first.remove();
-                    this.step2();
-                }.bind( this ));
-                $second.fadeOut(function() {
-                    $second.remove();
+        initialize: function() {
+            this.collection.on("cancel", this.cancel, this );
+            this.views = _.map( this.get("pointers"), function( pointer ) {
+                return new PointerView({
+                    parent: this,
+                    model: new Backbone.Model( pointer )
                 });
             }, this );
         },
 
-        // Now pick a soundtrack for your Zeega. Click here to explore soundcloud.
-        step2: function() {
-            if ( !this.ended ) {
-                var $first = this.insertInstructions({
-                    target: $(".socialz-soundcloud"),
-                    direction: "l",
-                    content: "Now pick a soundtrack for your Zeega. Click here to explore soundcloud.",
-                    close: true,
-                    progress: "2/4"
-                });
-
-                app.once("media_drawer_toggle", function( api ) {
-                    if ( api == "Soundcloud" ) {
-                        $first.fadeOut(function() {
-                            $first.remove();
-                            this.step3();
-                        }.bind( this ));
-                    }
-
-                }, this );
-            }
-        },
-
-        // Drag a sound from here to here (Pro-tip: You can also search for sounds on Soundcloud here (w an arrow)
-        step3: function() {
-            if ( !this.ended ) {
-                var $first, $second;
-
-                $first = this.insertInstructions({
-                    target: $(".ZEEGA-items"),
-                    direction: "l",
-                    content: "Drag stuff from here…",
-                    close: false,
-                    progress: null,
-                    topDiv: 4
-                });
-                $second = this.insertInstructions({
-                    target: $(".soundtrack"),
-                    direction: "r",
-                    color: "red",
-                    content: "…to here",
-                    close: true,
-                    progress: "3/4",
-                    avoid: $first
-                });
-
-                app.once("soundtrack_added", function( e ) {
-                    $first.fadeOut(function() {
-                        $first.remove();
-                        this.step4();
-                    }.bind( this ));
-                    $second.fadeOut(function() {
-                        $second.remove();
-                    });
-                }, this );
-            }
-        },
-
-        step4: function() {
-            if ( !this.ended ) {
-                var $first = this.insertInstructions({
-                    target: $(".project-preview"),
-                    direction: "r",
-                    content: "Click here to see what you’ve made so far!",
-                    close: true,
-                    progress: "4/4"
-                });
-
-                app.once("project_preview", function( e ) {
-                    $first.fadeOut(function() {
-                        $first.remove();
-                        this.step5();
-                    }.bind( this ));
-                }, this );
-            }
-        },
-
-        step5: function() {
-            if ( !this.ended ) {
-                var $first = this.insertInstructions({
-                    target: $(".ZEEGA-close"),
-                    parent: "body",
-                    direction: "r",
-                    content: "Hit ESC or click X to return to the editor",
-                    close: false,
-                    zIndex: 200
-                });
-
-                app.once("project_preview_ended", function( e ) {
-                    $first.fadeOut(function() {
-                        $first.remove();
-                        this.step6();
-                    }.bind( this ));
-                }, this );
-            }
-        },
-
-        // Now “share” what you’ve made!
-        step6: function() {
-            if ( !this.ended ) {
-                var $first = this.insertInstructions({
-                    target: $(".project-share"),
-                    direction: "r",
-                    content: "Now “share” what you’ve made!",
-                    close: true
-                });
-                $second = this.insertInstructions({
-                    target: $(".add-frame"),
-                    direction: "l",
-                    color: "red",
-                    content: "…or add a new page and keep creating",
-                    close: true,
-                    progress: "3/4",
-                    avoid: $first
-                });
-
-                app.once("grave_open page_added", function( e ) {
-                    $first.fadeOut(function() {
-                        $first.remove();
-                    }.bind( this ));
-                    $second.fadeOut(function() {
-                        $second.remove();
-                    }.bind( this ));
-                }, this );
-            }
-        },
-
-        reset: function() {
-            this.ended = false;
-        },
-
-        insertInstructions: function( opts ) {
-            var $instruction, $small, css;
-
-            $instruction = $("<div>")
-                .addClass("instruction")
-                .addClass( opts.direction ? "ins-" + opts.direction : "ins-l")
-                .text( opts.content );
-
-            $small = $("<small>");
-            if ( opts.close ) {
-                $small.append("  [<a href='#' class='close-ins'>close</a>]");
-            }
-            $instruction.append( $small );
-
-            if ( opts.color ) {
-                $instruction.addClass("ins-" + opts.color );
-            }
-
-            $instruction.css({
-                top: ( opts.target.offset().top + ( opts.target.height() / (opts.topDiv || 2) ) - 21 ),
-                left: "-1000%"
+        point: function() {
+            app.once( this.get("listenFor"), this.stopPointing, this );
+            _.each( this.views, function( view ) {
+                view.show();
             });
+        },
 
-            if ( opts.avoid ) {
-                var avoidTop, potentialTop;
+        stopPointing: function() {
+            _.each( this.views, function( view ) {
+                view.hide();
+            });
+        },
 
-                avoidTop = opts.avoid.offset().top;
-                potentialTop = ( opts.target.height() / 2 ) + opts.target.offset().top - 21;
-
-                if ( potentialTop <= avoidTop + 62 && potentialTop >= avoidTop - 62 ) {
-                    $instruction.css("top", avoidTop + 62 );
-                }
-                
-            }
-
-            if ( opts.parent ) {
-                $( opts.parent ).prepend( $instruction );
-            } else {
-                $("#main").prepend( $instruction );
-            }
-            css = {};
-            
-            if ( opts.zIndex ) {
-                css.zIndex = opts.zIndex;
-            }
-
-            if ( opts.direction == "r" ) {
-                css.left = opts.target.offset().left - $instruction.width() - 20 - 15 ; 
-            } else {
-                css.left = opts.target.offset().left + opts.target.width() + 15;
-            }
-
-            $instruction.css( css );
-
-            return $instruction;
+        cancel: function() {
+            _.each( this.views, function( view ) {
+                view.cancel();
+            });
         }
+    });
+});
+
+define('modules/pointers/pointers',[
+    "app",
+    "modules/pointers/pointer.model",
+    "backbone"
+],
+
+function( app, PointerModel ) {
+
+    return Backbone.Collection.extend({
+
+        model: PointerModel,
+        index: 0,
+
+        startPointing: function() {
+            this.index = 0;
+            this.point( this.at( this.index ));
+        },
+
+        point: function( pointer ) {
+            console.log("Pointer", pointer, this)
+            pointer.once("end", this.pointNext, this );
+            pointer.point()
+        },
+
+        pointNext: function() {
+            var next;
+
+            this.index++;
+            next = this.at( this.index );
+console.log("point next", next, this.index)
+
+            if ( next ) {
+                this.point( next );
+            }
+        },
+
+        stopPointing: function() {
+
+        },
+
+        cancel: function() {
+            this.trigger("cancel")
+        }
+
+    });
+});
+
+define('modules/intro-modal/intro-modal.view',[
+    "app",
+    "backbone"
+],
+
+function( app ) {
+
+
+    return Backbone.View.extend({
+
+        template: "intro-modal",
         
+        className: "ZEEGA-intro-modal modal-overlay",
+
+        start: function() {
+            $("body").append( this.el );
+            $("#main").addClass("modal");
+            this.render();
+            this.$el.fadeIn("fast");
+        },
+
+        events: {
+            "click .next": "next",
+            "click .finish": "finish"
+        },
+
+        next: function() {
+            this.$(".step-1").fadeOut(function() {
+                this.$(".step-2").fadeIn();
+            }.bind( this ));
+        },
+
+        finish: function() {
+            this.hide();
+        },
+
+        hide: function() {
+            $("#main").removeClass("modal");
+            this.$el.fadeOut(function() {
+                this.remove();
+            }.bind( this ));
+        }
+
     });
 
 });
@@ -74380,15 +74415,15 @@ define('modules/layout-main',[
     "modules/views/layer-drawer",
     "modules/views/soundtrack",
     "modules/views/media-drawer",
-    "modules/views/instructions",
-    // "modules/search.model",
+    "modules/pointers/pointers",
+    "modules/intro-modal/intro-modal.view",
     "mousetrap",
     "tipsy",
 
     "backbone"
 ],
 
-function( app, ProjectHead, Frames, Workspace, Layers, LayerDrawer, Soundtrack, MediaDrawer, Instructions ) {
+function( app, ProjectHead, Frames, Workspace, Layers, LayerDrawer, Soundtrack, MediaDrawer, Pointers, IntroModalView ) {
 
     return Backbone.Layout.extend({
 
@@ -74447,10 +74482,39 @@ function( app, ProjectHead, Frames, Workspace, Layers, LayerDrawer, Soundtrack, 
         },
 
         onLayoutReady: function() {
+            var isEmpty =  app.project.sequences.length == 1 &&
+                app.project.sequences.at( 0 ).frames.length == 1 &&
+                app.project.sequences.at( 0 ).frames.at( 0 ).layers.length === 0;
+
+            this.initialInstructions = new Pointers( this.initialSequence );
+
+            this.pointerListen();
+
             _.delay(function(){
                 this.initTips();
-                this.instructions = new Instructions();
+
+                if ( isEmpty && $.parseJSON( window.userProjects ).length === 1 ) {
+                    this.onFirstVisit();
+                }
             }.bind( this ), 1000);
+        },
+
+        onFirstVisit: function() {
+            var introModalView = new IntroModalView();
+
+            introModalView.start();
+            this.initialInstructions.startPointing();
+        },
+
+        pointerListen: function() {
+            app.on("layer_added_success",function( layer ) {
+                if ( layer.get("type") == "Youtube" ) {
+                    // do pointers
+                    this.YTInstructions = new Pointers( this.YTSequence );
+                    console.log("do pointers",this.YTSequence, this.YTInstructions)
+                    this.YTInstructions.startPointing()
+                }
+            }, this );
         },
 
         initTips: function() {
@@ -74497,7 +74561,115 @@ function( app, ProjectHead, Frames, Workspace, Layers, LayerDrawer, Soundtrack, 
 
         lazyResize: _.debounce(function() {
             app.trigger("window-resize");
-        }, 500 )
+        }, 500 ),
+
+
+        initialSequence: [
+                {
+                    listenFor: "item_dropped",
+
+                    pointers: [{
+                        target: ".ZEEGA-items",
+                        content: "Drag stuff from here…",
+                        color: "red",
+                        canCancel: false,
+                        pointDirection: "left",
+                        verticalDivision: 4
+                    },{
+                        target: ".ZEEGA-workspace",
+                        content: "…to here",
+                        color: "blue",
+                        canCancel: true,
+                        pointDirection: "right"
+                    }]
+                },{
+                    listenFor: "media_drawer_toggle",
+                    
+                    pointers: [{
+                        target: ".socialz-soundcloud",
+                        content: "Now pick a soundtrack for your Zeega. Click here to explore soundcloud.",
+                        color: "red",
+                        canCancel: true,
+                        pointDirection: "left"
+                    }]
+                },{
+                    listenFor: "soundtrack_added",
+
+                    pointers: [{
+                        target: ".ZEEGA-items",
+                        content: "Drag stuff from here…",
+                        color: "red",
+                        canCancel: false,
+                        pointDirection: "left",
+                        verticalDivision: 4
+                    },{
+                        target: ".soundtrack",
+                        content: "…to here",
+                        color: "blue",
+                        canCancel: true,
+                        pointDirection: "right"
+                    }]
+                },{
+                    listenFor: "project_preview",
+                    
+                    pointers: [{
+                        target: ".project-preview",
+                        content: "Click here to see what you’ve made so far!",
+                        color: "red",
+                        canCancel: true,
+                        pointDirection: "right"
+                    }]
+                },{
+                    listenFor: "project_preview_ended",
+                    
+                    pointers: [{
+                        target: ".ZEEGA-close",
+                        content: "Hit ESC or click X to return to the editor",
+                        color: "red",
+                        canCancel: true,
+                        pointDirection: "right",
+                        css: {
+                            zIndex: 200
+                        }
+                    }]
+                },{
+                    listenFor: "grave_open page_added",
+
+                    pointers: [{
+                        target: ".project-share",
+                        content: "Now “share” what you’ve made!",
+                        color: "red",
+                        canCancel: true,
+                        pointDirection: "right"
+                    },{
+                        target: ".add-frame",
+                        content: "…or add a new page and keep creating",
+                        color: "blue",
+                        canCancel: true,
+                        pointDirection: "left"
+                    }]
+                }
+
+            ],
+
+        YTSequence: [{
+            listenFor: "item_dropped",
+
+            pointers: [{
+                target: ".ZEEGA-workspace",
+                content: "Now add a cover image to your video",
+                color: "red",
+                canCancel: true,
+                pointDirection: "right"
+            },{
+                target: ".socialz-giphy",
+                content: "Drag a GIF or photo",
+                color: "blue",
+                canCancel: false,
+                pointDirection: "left",
+                verticalDivision: 4
+            }]
+        }]
 
     });
 
@@ -76628,6 +76800,7 @@ function( app, _Layer, Visual ){
                         this.listen();
                     }
                     this.model.trigger( "visual_ready", this.model.id );
+                    this.model.status.emit("audio_play", this.model );
                 });
             },
 
@@ -77155,6 +77328,8 @@ function( app ) {
             this.setButtonStates();
 
             this.updateSample();
+            
+            this.$("textarea").focus().select();
         },
 
         events: {
@@ -77397,6 +77572,7 @@ function( app, _Layer, Visual, TextModal ) {
             "Finger Paint",
             "Georgia",
             "Great Vibes",
+            "Impact",
             "Londrina Outline",
             "Londrina Sketch",
             "Monofett",
@@ -77528,6 +77704,9 @@ function( app, _Layer, Visual, TextModal ) {
 
             if ( this.textModal === null ) {
                 this.textModal = new TextModal({ model: this.model });
+                if ( this.model.get("attr").content == "text" ) {
+                    this.launchTextModal();
+                }
             }
 
             this.$(".visual-target").css({
@@ -77539,17 +77718,19 @@ function( app, _Layer, Visual, TextModal ) {
             this.$el.unbind("mouseup");
 
             this.$el.bind("mouseup", function() {
-
-                if ( !this.transforming ) {
-                    $("body").append( this.textModal.el );
-                    this.textModal.render();
-                }
-
+                this.launchTextModal();
             }.bind( this ));
 
             this.on("sync", function() {
                 this.updateStyle();
             });
+        },
+
+        launchTextModal: function() {
+            if ( !this.transforming ) {
+                $("body").append( this.textModal.el );
+                this.textModal.render();
+            }
         },
 
         convertToPercents: function( top, left ) {
@@ -77621,6 +77802,7 @@ function( Zeega, LayerModel, Visual ) {
 
         template: "youtube/youtube",
         ignoreFirst: true,
+
         afterRender: function(){
             
             if( /iPhone|iPod/i.test(navigator.userAgent) ) {
@@ -77639,12 +77821,11 @@ function( Zeega, LayerModel, Visual ) {
         events: {
             "click .play-button": "playVideo",
             "tap .play-button": "playVideo"
-
         },
 
         ytInit: function(){
-            
             window.jQuery(this.$(".youtube-player" )).on("api-ready", jQuery.proxy( this.onApiReady, this) );
+
             if ( _.isUndefined( window.YT ) ){
                 var tag = document.createElement('script');
                 tag.src = "//www.youtube.com/iframe_api";
@@ -77653,7 +77834,6 @@ function( Zeega, LayerModel, Visual ) {
             } else {
                 this.onApiReady();
             }
- 
         },
 
         onPlayerReady: function(e){
@@ -77662,12 +77842,12 @@ function( Zeega, LayerModel, Visual ) {
 
         onStateChange: function(e){
             var currentSequence;
-            if(this.model.status.get("current_sequence_model")){
+
+            if( this.model.status.get("current_sequence_model")){
                 currentSequence = this.model.status.get("current_sequence_model");
             } else {
                 currentSequence = this.model.status.get("currentSequence");
             }
-
 
             if( currentSequence.get("attr").soundtrack && /iPad/i.test(navigator.userAgent) && e.data ==2 && this.ignoreFirst ) {
                 this.ignoreFirst = false;
@@ -77686,7 +77866,7 @@ function( Zeega, LayerModel, Visual ) {
                 this.$(".youtube-player").removeClass("active");
                 this.$(".play-button").fadeIn("fast");
                 
-            } else if (e.data == 1 ){
+            } else if ( e.data == 1 ){
                 if( Zeega.mode == "player"){
                     this.model.status.get("project").suspend();
                 }
@@ -77700,12 +77880,8 @@ function( Zeega, LayerModel, Visual ) {
         },
 
         onApiReady: function(){
-
-
-
             var onPlayerReady = jQuery.proxy( this.onPlayerReady, this),
                 onStateChange = jQuery.proxy( this.onStateChange, this);
-
 
             this.$("#yt-player-" + this.model.id).attr("id", "yt-player-" + this.model.id + "-" + this.model.cid );
 
@@ -77715,19 +77891,16 @@ function( Zeega, LayerModel, Visual ) {
                         'onStateChange': onStateChange
                     }
                 });
-            
-            
         },
 
         playVideo: function(){
 
             if( Zeega.mode == "player"){
                 this.model.status.get("project").suspend();
-            } else if (Zeega.mode == "editor" ){
+            } else if ( Zeega.mode == "editor" ){
                 this.$el.removeClass("editor");
                 this.$el.css({"top": "0", "left": "0", "width": "100%", "height": "100%"}, 1000);
             }
-
 
             this.$(".play-button").fadeOut("fast");
             this.$(".youtube-player").addClass("active");
@@ -78114,9 +78287,12 @@ function( app, Backbone, Layers, ThumbWorker ) {
             */
 
             newLayer.order[ this.id ] = this.layers.length;
+
+            app.emit("layer_added_start", newLayer );
             newLayer.save().success(function( response ) {
                 this.layers.add( newLayer );
                 app.status.setCurrentLayer( newLayer );
+                app.emit("layer_added_success", newLayer );
             }.bind( this ));
         },
 
@@ -78142,9 +78318,12 @@ function( app, Backbone, Layers, ThumbWorker ) {
                 newLayer.order[ this.id ] = this.layers.length;
             }
             
+            app.emit("layer_added_start", newLayer );
+
             newLayer.save().success(function( response ) {
                     this.layers.add( newLayer );
                     app.status.setCurrentLayer( newLayer );
+                    app.emit("layer_added_success", newLayer );
                 }.bind( this ));
             
         },
@@ -78357,7 +78536,7 @@ function( app, Layers ) {
 
         onAdd: function( layer ) {
             if( app.mode != "player" ){
-               if ( layer ) {
+                if ( layer ) {
                     layer.addCollection( this );
                     layer.initVisual( Layers[ layer.get("type") ]);
                     app.trigger("layer_added", layer );
@@ -79434,9 +79613,11 @@ function( app, ItemView ) {
                     return $(this).find(".item-thumb img").clone().addClass("item-dragging");
                 },
                 start: function() {
+                    app.emit("item_drag_start", this.model );
                     app.dragging = this.model;
                 }.bind( this ),
                 stop: function() {
+                    app.emit("item_drag_stop", this.model );
                     app.dragging = null;
                 }
             });
@@ -80314,6 +80495,7 @@ function( app, Modal, FrameView, ImageView, AudioView, VideoView, YoutubeView ) 
             if ( this.collection.at( this.index ). get("layer_type") == "Audio" ) {
                 app.layout.soundtrack.updateWaveform( this.collection.at( this.index ).get("thumbnail_url") );
                 $(".intro").remove();
+                app.emit("soundtrack_added", this.collection.at( this.index ) );
                 app.status.get('currentSequence').setSoundtrack( this.collection.at( this.index ), app.layout.soundtrack );
             } else {
                 app.status.get('currentFrame').addLayerByItem( this.collection.at( this.index ) );
@@ -80419,7 +80601,7 @@ function( app, ItemModel, MediaView, ItemCollectionViewer ) {
                 count = 1;
             
             _.each( photos, function( photo ){
-                photo.id = count;
+                //photo.id = count;
                 photo.allowDelete = 1;
                 count++;
             });
@@ -80577,7 +80759,11 @@ function( app, ItemModel, MediaView, ItemCollectionViewer ) {
                     item.attribution_uri =  track.permalink_url;
                     item.media_user_realname = track.user.username;
                     item.archive = "SoundCloud";
-                    items.push( item );
+
+                    if( track.streamable ){
+                        items.push( item );
+                    }
+                    
                 });
 
                 return items;
@@ -81084,7 +81270,6 @@ function( app, Status, Layout, ZeegaParser, MediaBrowser ) {
     });
 
 });
-
 define('router',[
     // Application.
     "app",
@@ -81167,9 +81352,9 @@ require.config({
   // generated configuration file.
 
   // Release
- deps: [ "../vendor/tipsy/src/javascripts/jquery.tipsy", "../vendor/simple-color-picker/src/jquery.simple-color", "zeegaplayer", "../vendor/jam/require.config", "main", "spin"],
+  deps: [ "../vendor/tipsy/src/javascripts/jquery.tipsy", "../vendor/simple-color-picker/src/jquery.simple-color", "zeegaplayer", "../vendor/jam/require.config", "main", "spin"],
 
-//  deps: ["zeegaplayer", "../vendor/jam/require.config", "main", "spin"],
+  //deps: ["zeegaplayer", "../vendor/jam/require.config", "main", "spin"],
 
 
   paths: {

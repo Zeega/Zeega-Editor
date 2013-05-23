@@ -2361,6 +2361,51 @@ body .ui-tooltip {
 
 }
 
+.ZEEGA-intro-modal {
+  display: none;
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  background: url(../img/tiny-stripes-dark.png);
+  background-color: rgba(0, 0, 0, 0.65);
+}
+.ZEEGA-intro-modal h1 {
+  margin-top: 0;
+  text-align: center;
+}
+.ZEEGA-intro-modal .zeega-intro-logo {
+  vertical-align: middle;
+}
+.ZEEGA-intro-modal .intro-graphic {
+  height: 167px;
+  width: 343px;
+  margin: 0 auto;
+  margin-bottom: 10px;
+}
+.ZEEGA-intro-modal .modal-wrapper {
+  height: 365px;
+  width: 650px;
+  background: rgba(255, 255, 255, 0.8);
+  background-image: url(../img/tiny-stripes.png);
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  margin: auto;
+  padding: 20px 40px;
+  border-radius: 2px;
+  box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.5);
+}
+.ZEEGA-intro-modal .modal-wrapper p {
+  color: #444;
+}
+.ZEEGA-intro-modal .modal-wrapper .btnz {
+  float: right;
+}
+
 .visual-element-audio {
   width: 0px !important;
   height: 0px !important;
@@ -2595,7 +2640,11 @@ body .ui-tooltip {
 .text-modal .text-controls .control-module select {
   font-size: 12px;
 }
+.text-modal .text-controls .control-module:first-child {
+  float: left;
+}
 .text-modal .sample-header {
+  margin-top: 15px;
   font-size: 12px;
   color: #999;
 }
@@ -2628,10 +2677,10 @@ body .ui-tooltip {
 .text-modal .simpleColorDisplay {
   background-color: #cc0033;
   border: 1px solid #000000;
-  height: 25px !important;
+  height: 20px !important;
   cursor: pointer;
   position: relative;
-  top: 6px;
+  top: 0px;
   border-radius: 2px;
 }
 .text-modal .submit {
@@ -4826,61 +4875,86 @@ html {
   background-position: -25px 0px;
 }
 [class^="socialz-"] {
-  background-image: url('../img/sprites-social-search-30.png');
+  background-image: url('../img/sprites-social-search.png');
   background-position: 0px 0px;
   background-repeat: no-repeat;
+  background-size: 90px;
   display: inline-block;
   height: 30px;
   vertical-align: text-top;
   width: 30px;
 }
 .socialz-zeega {
-  background-position: 0px -30px;
+  background-position: 0 -30px;
 }
 .socialz-zeega.socialz-white {
   background-position: -30px -30px;
 }
+.socialz-zeega:hover {
+  background-position: 0px -30px;
+}
 .socialz-soundcloud {
-  background-position: 0px -60px;
+  background-position: 0 -60px;
 }
 .socialz-soundcloud.socialz-white {
   background-position: -30px -60px;
 }
+.socialz-soundcloud:hover {
+  background-position: 0px -60px;
+}
 .socialz-giphy {
-  background-position: 0px -90px;
+  background-position: 0 -90px;
 }
 .socialz-giphy.socialz-white {
   background-position: -30px -90px;
 }
+.socialz-giphy:hover {
+  background-position: 0px -90px;
+}
 .socialz-flickr {
-  background-position: 0px -120px;
+  background-position: 0 -120px;
 }
 .socialz-flickr.socialz-white {
   background-position: -30px -120px;
 }
+.socialz-flickr:hover {
+  background-position: 0px -120px;
+}
 .socialz-instagram {
-  background-position: 0px -150px;
+  background-position: 0 -150px;
 }
 .socialz-instagram.socialz-white {
   background-position: -30px -150px;
 }
+.socialz-instagram:hover {
+  background-position: 0px -150px;
+}
 .socialz-youtube {
-  background-position: 0px -180px;
+  background-position: 0 -180px;
 }
 .socialz-youtube.socialz-white {
   background-position: -30px -180px;
 }
+.socialz-youtube:hover {
+  background-position: 0px -180px;
+}
 .socialz-user {
-  background-position: 0px -210px;
+  background-position: 0 -210px;
 }
 .socialz-user.socialz-white {
   background-position: -30px -210px;
 }
+.socialz-user:hover {
+  background-position: 0px -210px;
+}
 .socialz-tumblr {
-  background-position: 0px -240px;
+  background-position: 0 -240px;
 }
 .socialz-tumblr.socialz-white {
   background-position: -30px -240px;
+}
+.socialz-tumblr:hover {
+  background-position: 0px -240px;
 }
 [class^="zsocial-"] {
   background-image: url('../img/social-sprites-20px.png');
@@ -4902,6 +4976,79 @@ html {
 }
 .zsocial-email {
   background-position: 0px -51px;
+}
+@font-face {
+  font-family: 'comic_bookregular';
+  src: url('fonts/comic-book/comic_book-webfont.eot');
+  src: url('fonts/comic-book/comic_book-webfont.eot?#iefix') format('embedded-opentype'), url('fonts/comic-book/comic_book-webfont.woff') format('woff'), url('fonts/comic-book/comic_book-webfont.ttf') format('truetype'), url('fonts/comic-book/comic_book-webfont.svg#comic_bookregular') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+.pointer {
+  font-family: 'comic_bookregular', sans-serif;
+  background: rgba(67, 171, 223, 0.9);
+  display: inline-block;
+  padding: 10px 15px;
+  color: white;
+  position: fixed;
+  height: 22px;
+  z-index: 50;
+  white-space: nowrap;
+  font-size: 21px;
+}
+.pointer.ins-red {
+  background: rgba(239, 65, 54, 0.9);
+}
+.pointer small {
+  font-family: 'Helvetica', sans-serif;
+  font-weight: 100;
+  font-size: 10px;
+  position: absolute;
+  right: 5px;
+  bottom: 0;
+  opacity: 0.75;
+  white-space: pre;
+}
+.pointer small a {
+  color: white;
+}
+.pointer.point-left {
+  padding: 10px 15px 10px 5px;
+  border-radius: 0 2px 2px 0;
+}
+.pointer.point-left:after {
+  content: "";
+  position: absolute;
+  border-style: solid;
+  border-color: transparent rgba(67, 171, 223, 0.9);
+  display: block;
+  width: 0;
+  bottom: auto;
+  top: 0;
+  left: -15px;
+  border-width: 21px 15px 21px 0;
+}
+.pointer.point-left.ins-red:after {
+  border-color: transparent rgba(239, 65, 54, 0.9);
+}
+.pointer.point-right {
+  padding: 10px 5px 10px 15px;
+  border-radius: 2px  0 0 2px;
+}
+.pointer.point-right:after {
+  content: "";
+  position: absolute;
+  border-style: solid;
+  border-color: transparent rgba(67, 171, 223, 0.9);
+  display: block;
+  width: 0;
+  bottom: auto;
+  top: 0;
+  right: -15px;
+  border-width: 21px 0 21px 15px;
+}
+.pointer.point-right.ins-red:after {
+  border-color: transparent rgba(239, 65, 54, 0.9);
 }
 @font-face {
   font-family: 'comic_bookregular';
@@ -4978,7 +5125,7 @@ html {
 }
 .btnz {
   background: url(../img/tiny-stripes-dark.png);
-  background-color: #666;
+  background-color: #666666;
   border-radius: 2px;
   padding: 5px 10px;
   font-size: 15px;
@@ -4990,6 +5137,10 @@ html {
   box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.25);
   transition: all 0.5s;
   -webkit-transition: all 0.5s;
+}
+.btnz i {
+  top: 3px;
+  position: relative;
 }
 .btnz.btnz-fullwidth {
   display: block;
@@ -5004,7 +5155,7 @@ html {
   box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.5);
 }
 .btnz.btnz-blue {
-  background-color: #06C;
+  background-color: #0066cc;
 }
 .btnz.btnz-blue:hover {
   background-color: #6FF;
@@ -5138,7 +5289,7 @@ html {
   display: block;
 }
 .project-head .new-zeega {
-  background-color: orangered;
+  background-color: #666666;
 }
 .project-head .new-zeega:hover {
   background-color: orange;
@@ -5148,7 +5299,10 @@ html {
   width: 28px;
   display: inline-block;
   border-radius: 20px;
-  border: 2px solid orangered;
+  border: 2px solid #444444;
+}
+.project-head .user-token:hover {
+  border: 2px solid #ff4500;
 }
 .project-head .project-info {
   float: left;
@@ -5504,11 +5658,10 @@ html {
   border-radius: 0;
 }
 .ZEEGA-hmenu.img-tabs > ul > li > a:hover {
-  background: yellow;
   box-shadow: none;
 }
 .ZEEGA-hmenu.img-tabs > ul > li > a.active {
-  background: orangered;
+  background: #444444;
 }
 .ZEEGA-hmenu ul {
   margin: 0;
@@ -5589,6 +5742,14 @@ html {
   text-decoration: none;
   color: orangered;
 }
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: "Futura", sans-serif;
+}
 .pull-left {
   float: left;
 }
@@ -5613,8 +5774,7 @@ ul {
   -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.5);
 }
 ::-webkit-scrollbar-thumb {
-  -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.5);
-  background: orangered;
+  background: #2b2b2b;
 }
 a:link {
   text-decoration: none;
@@ -5860,7 +6020,7 @@ a:active {
   height: 39px;
   margin-top: 9px;
   font-size: 12px;
-  background: rgba(50, 205, 50, 0.75);
+  background: #444444;
   text-align: center;
   line-height: 1.5em;
 }
@@ -5870,7 +6030,7 @@ a:active {
 .frames .add-frame a {
   height: 69px;
   width: 69px;
-  background: rgba(50, 205, 50, 0.75);
+  background: #666666;
   padding: 6px 7px 7px;
   border-radius: 2px;
   display: inline-block;
@@ -6142,29 +6302,6 @@ a:active {
   opacity: 0.85;
   border: solid 1px white;
 }
-.media-drawer {
-  background: white;
-  border: 1px solid orangered;
-  bottom: 0;
-  top: 0;
-  position: absolute;
-  width: 100%;
-  border-radius: 2px;
-  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.25);
-}
-.media-drawer .empty-collection {
-  background: rgba(0, 0, 0, 0.5);
-  color: orangered;
-  padding: 20px;
-  text-align: center;
-  font-family: futura;
-  font-size: 13px;
-}
-.media-drawer .ZEEGA-items {
-  height: -webkit-calc(100% - 30px);
-  height: -moz-calc(100% - 30px);
-  height: calc(100% - 30px);
-}
 .media-drawer .item {
   width: -webkit-calc(100% / 4);
   width: -moz-calc(100% / 4);
@@ -6197,57 +6334,6 @@ a:active {
 .media-drawer .item .item-title {
   display: none;
 }
-.media-drawer .grid {
-  box-shadow: inset 0 0 24px orangered;
-}
-.media-drawer .list {
-  box-shadow: none;
-}
-.media-drawer.list .grid {
-  box-shadow: none;
-}
-.media-drawer.list .list {
-  box-shadow: inset 0 0 24px orangered;
-}
-.media-drawer.list .item {
-  float: none;
-  width: 100%;
-  border-bottom: 1px solid rgba(0, 0, 0, 0.25);
-  *zoom: 1;
-}
-.media-drawer.list .item:before,
-.media-drawer.list .item:after {
-  display: table;
-  content: "";
-  line-height: 0;
-}
-.media-drawer.list .item:after {
-  clear: both;
-}
-.media-drawer.list .item .item-thumb {
-  float: left;
-  height: 48px;
-  width: 48px;
-  margin-right: 10px;
-}
-.media-drawer.list .item .item-thumb .thumb-title {
-  display: none;
-}
-.media-drawer.list .item .item-title {
-  display: inline-block;
-  float: left;
-  color: #ddd;
-  font-size: 12px;
-}
-.media-drawer.list .item .item-title .item-title-text {
-  width: 210px;
-  position: relative;
-  top: 5px;
-  display: inline-block;
-  text-overflow: ellipsis;
-  overflow: hidden;
-  white-space: nowrap;
-}
 .soundtrack {
   width: 80px;
   height: 80px;
@@ -6255,7 +6341,7 @@ a:active {
   border-radius: 2px;
   box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.25);
   background-color: rgba(0, 0, 0, 0.1);
-  border: 1px solid orangered;
+  border: 1px solid #444444;
   background: url(../img/tiny-stripes-dark.png);
   font-size: 11px;
   font-weight: bold;
@@ -6263,15 +6349,6 @@ a:active {
   color: orangered;
   position: relative;
   text-shadow: 2px 2px white;
-}
-.soundtrack .elapsed {
-  background: orangered;
-  position: absolute;
-  height: 100%;
-  width: 0;
-  top: 0;
-  left: 0;
-  opacity: 0.75;
 }
 .soundtrack .soundtrack-waveform {
   background: transparent;
@@ -6354,7 +6431,7 @@ a:active {
   position: relative;
   z-index: 1;
   width: 285px;
-  background: orangered;
+  background: #444444;
   padding: 5px 10px;
   color: white;
   font-size: 18px;
@@ -6539,6 +6616,80 @@ a:active {
 }
 #media-upload-tab.active {
   color: white;
+}
+.media-drawer {
+  background: white;
+  border: 1px solid #444444;
+  bottom: 0;
+  top: 0;
+  position: absolute;
+  width: 100%;
+  border-radius: 2px;
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.25);
+}
+.media-drawer .empty-collection {
+  background: rgba(0, 0, 0, 0.85);
+  color: orangered;
+  padding: 20px;
+  text-align: center;
+  font-family: futura;
+  font-size: 13px;
+}
+.media-drawer .ZEEGA-items {
+  height: -webkit-calc(100% - 30px);
+  height: -moz-calc(100% - 30px);
+  height: calc(100% - 30px);
+}
+.media-drawer .grid {
+  box-shadow: inset 0 0 24px orangered;
+}
+.media-drawer .list {
+  box-shadow: none;
+}
+.media-drawer.list .grid {
+  box-shadow: none;
+}
+.media-drawer.list .list {
+  box-shadow: inset 0 0 24px orangered;
+}
+.media-drawer.list .item {
+  float: none;
+  width: 100%;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.25);
+  *zoom: 1;
+}
+.media-drawer.list .item:before,
+.media-drawer.list .item:after {
+  display: table;
+  content: "";
+  line-height: 0;
+}
+.media-drawer.list .item:after {
+  clear: both;
+}
+.media-drawer.list .item .item-thumb {
+  float: left;
+  height: 48px;
+  width: 48px;
+  margin-right: 10px;
+}
+.media-drawer.list .item .item-thumb .thumb-title {
+  display: none;
+}
+.media-drawer.list .item .item-title {
+  display: inline-block;
+  float: left;
+  color: #ddd;
+  font-size: 12px;
+}
+.media-drawer.list .item .item-title .item-title-text {
+  width: 210px;
+  position: relative;
+  top: 5px;
+  display: inline-block;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
 }
 .ZEEGA-player-window .visual-element.visual-link {
   outline: none;

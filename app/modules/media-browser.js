@@ -78,7 +78,7 @@ function( app, ItemModel, MediaView, ItemCollectionViewer ) {
                 count = 1;
             
             _.each( photos, function( photo ){
-                photo.id = count;
+                //photo.id = count;
                 photo.allowDelete = 1;
                 count++;
             });
@@ -236,7 +236,11 @@ function( app, ItemModel, MediaView, ItemCollectionViewer ) {
                     item.attribution_uri =  track.permalink_url;
                     item.media_user_realname = track.user.username;
                     item.archive = "SoundCloud";
-                    items.push( item );
+
+                    if( track.streamable ){
+                        items.push( item );
+                    }
+                    
                 });
 
                 return items;

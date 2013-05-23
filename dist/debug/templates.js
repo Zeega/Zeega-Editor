@@ -36,6 +36,14 @@ __p+='<div class="add-frame"\n    title="add new page"\n    data-gravity="n"\n>\
 return __p;
 };
 
+this["JST"]["app/templates/intro-modal.html"] = function(obj){
+var __p='';var print=function(){__p+=Array.prototype.join.call(arguments, '')};
+with(obj||{}){
+__p+='<div class="modal-wrapper">\n\n    <div class="modal-content">\n\n        <div class="step-1">\n\n            <h1>Heya! Welcome to <img class="zeega-intro-logo" src="assets/img/zeega-logo-500.png" width="190px"/></h1>\n\n            <p>\n                Zeega is a community creating everything from stories to interactive music to memes.\n            </p>\n            <p>\n                We’ve got a few fun prompts to get you started.\n            </p>\n\n            <div class="intro-graphic">\n                <img src="assets/img/intro-graphic.png" width="100%"/>\n            </div>\n            <a href="#" class="finish btnz btnz-submit">Start Making <i class="icon-chevron-right icon-white"></i></a>\n        </div>\n\n\n    </div>\n</div>';
+}
+return __p;
+};
+
 this["JST"]["app/templates/item-collection-viewer.html"] = function(obj){
 var __p='';var print=function(){__p+=Array.prototype.join.call(arguments, '')};
 with(obj||{}){
@@ -49,7 +57,7 @@ var __p='';var print=function(){__p+=Array.prototype.join.call(arguments, '')};
 with(obj||{}){
 __p+='<div class="viewer-preview" style="">\n    <iframe width="100%" height="166" autoplay="true" scrolling="no" frameborder="no" src="https://w.soundcloud.com/player/?url='+
 ( attribution_uri )+
-'?sharing=false&liking=false&download=false&show_comments=false&show_playcount=false&buying=false"></iframe>\n</div>\n<div class="viewer-controls">\n    <a class="add-to-frame" href="#"><i class="icon-download"></i> add to page</a>\n    <a href="'+
+'?sharing=false&liking=false&download=false&show_comments=false&show_playcount=false&buying=false"></iframe>\n</div>\n<div class="viewer-controls">\n    <a class="add-to-frame audio" href="#"><i class="icon-download"></i> make soundtrack</a>\n    <a href="'+
 ( attribution_uri )+
 '" target="blank"><i class="icon-share-alt"></i> view original</a>\n   \n     ';
  if( allowDelete == 1  ) { 
@@ -65,7 +73,7 @@ var __p='';var print=function(){__p+=Array.prototype.join.call(arguments, '')};
 with(obj||{}){
 __p+='<div class="viewer-preview" style="\n    background: url('+
 ( uri )+
-');\n    background-size: contain;\n    background-position: 50% 50%;\n    background-repeat: no-repeat;\n"></div>\n<div class="viewer-controls">\n    <a class="add-to-frame" href="#"><i class="icon-download"></i> add to page</a>\n    <a href="'+
+');\n    background-size: contain;\n    background-position: 50% 50%;\n    background-repeat: no-repeat;\n"></div>\n<div class="viewer-controls">\n    <a class="add-to-frame image" href="#"><i class="icon-download"></i> add to page</a>\n    <a href="'+
 ( attribution_uri )+
 '" target="blank"><i class="icon-share-alt"></i> view original</a>\n    ';
  if( allowDelete == 1  ) { 
@@ -97,7 +105,7 @@ var __p='';var print=function(){__p+=Array.prototype.join.call(arguments, '')};
 with(obj||{}){
 __p+='<div class="viewer-preview" style="">\n    <iframe width="560" height="315" src="http://www.youtube.com/embed/'+
 ( uri )+
-'" frameborder="0" allowfullscreen></iframe>\n</div>\n<div class="viewer-controls">\n    <a class="add-to-frame" href="#"><i class="icon-download"></i> add to page</a>\n    <a href="'+
+'" frameborder="0" allowfullscreen></iframe>\n</div>\n<div class="viewer-controls">\n    <a class="add-to-frame youtube" href="#"><i class="icon-download"></i> add to page</a>\n    <a href="'+
 ( attribution_uri )+
 '" target="blank"><i class="icon-share-alt"></i> view original</a>\n   \n     ';
  if( allowDelete == 1  ) { 
@@ -117,7 +125,9 @@ __p+='<a href="#">\n    <div class="item-thumb">\n        ';
 ( title )+
 '</div>\n        ';
  } 
-;__p+='\n        <img src="'+
+;__p+='\n        <img class="browser-thumb '+
+( media_type )+
+'" src="'+
 ( thumbnail_url )+
 '"\n            alt="'+
 ( title )+
@@ -228,6 +238,20 @@ __p+='<a href="#" class="modal-close">&times;</a>\n<div class="modal-content">\n
 '</div>\n    <div class="modal-body">'+
 ( modal.content )+
 '</div>\n    <div class="modal-footer"></div>\n</div>\n';
+}
+return __p;
+};
+
+this["JST"]["app/templates/pointer.html"] = function(obj){
+var __p='';var print=function(){__p+=Array.prototype.join.call(arguments, '')};
+with(obj||{}){
+__p+=''+
+( content )+
+'\n';
+ if ( canCancel ) { 
+;__p+='\n    <small>[<a href="#" class="stop-pointing">close</a>]</small>\n';
+ } 
+;__p+='';
 }
 return __p;
 };
@@ -489,9 +513,9 @@ var __p='';var print=function(){__p+=Array.prototype.join.call(arguments, '')};
 with(obj||{}){
 __p+='<div class="modal-content">\n    <div class="modal-title">Edit your text</div>\n    <div class="modal-body">\n\n        <textarea rows="4" cols="59" maxlength="140">'+
 ( attr.content )+
-'</textarea>\n\n        <div class="textarea-info">max 140 characters</div>\n\n        <div class="text-controls clearfix">\n            <div class="color-selector">\n                <input class="simple-color" value="'+
+'</textarea>\n\n        <div class="textarea-info">max 140 characters</div>\n\n        <div class="text-controls clearfix">\n            <div class="control-module">\n                <div class="control-title">color</div>\n                <div class="color-selector">\n                    <input class="simple-color" value="'+
 ( attr.color )+
-'"/>\n            </div>\n            <a href="#" class="btnz btnz-light text-btn-bold"><i class="icon-bold"></i></a>\n            <a href="#" class="btnz btnz-light text-btn-italic"><i class="icon-italic"></i></a>\n            <a href="#" class="btnz btnz-light text-btn-align-left"><i class="icon-align-left"></i></a>\n            <a href="#" class="btnz btnz-light text-btn-align-center"><i class="icon-align-center"></i></a>\n            <a href="#" class="btnz btnz-light text-btn-align-right"><i class="icon-align-right"></i></a>\n\n            <select class="font-list" style=""></select>\n\n            <div class="control-module">\n                <div class="control-title">font size</div>\n                <select class="size-list" style="">\n                    <option value="100">8</option>\n                    <option value="125">10</option>\n                    <option value="150">12</option>\n                    <option value="175">14</option>\n                    <option value="200">18</option>\n                    <option value="250">24</option>\n                    <option value="375">36</option>\n                    <option value="500">48</option>\n                    <option value="800">72</option>\n                    <option value="1600">144</option>\n                    <option value="2400">200</option>\n                    <option value="3600">300</option>\n                </select>\n            </div>\n\n            <div class="control-module">\n                <div class="control-title">line height</div>\n                <select class="line-height-list">\n                    <option value="1">1</option>\n                    <option value="1.25">1.25</option>\n                    <option value="1.5">1.5</option>\n                    <option value="1.75">1.75</option>\n                    <option value="2">2</option>\n                </select>\n            </div>\n\n            <div class="control-module">\n                <div class="control-title">mobile position</div>\n                <select class="text-position-list">\n                    <option value="top">top</option>\n                    <option value="middle">middle</option>\n                    <option value="bottom">bottom</option>\n                </select>\n            </div>\n            \n        </div>\n\n        <div class="sample-header">sample</div>\n        <div class="text-sample">'+
+'"/>\n                </div>\n            </div>\n            <a href="#" class="btnz btnz-light text-btn-bold"><i class="icon-bold"></i></a>\n            <a href="#" class="btnz btnz-light text-btn-italic"><i class="icon-italic"></i></a>\n            <a href="#" class="btnz btnz-light text-btn-align-left"><i class="icon-align-left"></i></a>\n            <a href="#" class="btnz btnz-light text-btn-align-center"><i class="icon-align-center"></i></a>\n            <a href="#" class="btnz btnz-light text-btn-align-right"><i class="icon-align-right"></i></a>\n\n            <select class="font-list" style=""></select>\n\n            <div class="control-module">\n                <div class="control-title">font size</div>\n                <select class="size-list" style="">\n                    <option value="100">8</option>\n                    <option value="125">10</option>\n                    <option value="150">12</option>\n                    <option value="175">14</option>\n                    <option value="200">18</option>\n                    <option value="250">24</option>\n                    <option value="375">36</option>\n                    <option value="500">48</option>\n                    <option value="800">72</option>\n                    <option value="1600">144</option>\n                    <option value="2400">200</option>\n                    <option value="3600">300</option>\n                </select>\n            </div>\n<!--\n            <div class="control-module">\n                <div class="control-title">line height</div>\n                <select class="line-height-list">\n                    <option value="1">1</option>\n                    <option value="1.25">1.25</option>\n                    <option value="1.5">1.5</option>\n                    <option value="1.75">1.75</option>\n                    <option value="2">2</option>\n                </select>\n            </div>\n\n            <div class="control-module">\n                <div class="control-title">mobile position</div>\n                <select class="text-position-list">\n                    <option value="top">top</option>\n                    <option value="middle">middle</option>\n                    <option value="bottom">bottom</option>\n                </select>\n            </div>\n            \n        </div>\n-->\n        <div class="sample-header">sample</div>\n        <div class="text-sample">'+
 ( attr.content )+
 '</div>\n\n        <div class="bottom-chooser clearfix">\n            <a href="#" class="submit btnz btnz-submit">OK</a>\n        </div>\n    </div>\n</div>\n';
 }

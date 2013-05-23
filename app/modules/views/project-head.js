@@ -107,12 +107,13 @@ function( app ) {
 
             "click .close-grave": "closeGrave",
             "mousedown .text-box": "onBoxFocus",
+            "click .share-zeega": "showShare",
             "click .embed-zeega": "showEmbed",
             "keyup #project-caption": "onCaptionKeypress"
         },
 
         initHelpSequence: function() {
-            app.layout.instructions.startIntroSequence();
+            app.layout.initialInstructions.startPointing();
         },
 
         showEmbed: function() {
@@ -140,9 +141,9 @@ function( app ) {
 
             if( !this.$(".share-grave").is(":visible") ) {
                 this.model.project.save( "publish_update", 1 );
-                app.trigger("grave_open");
+                app.emit("grave_open", null );
             } else {
-                app.trigger("grave_closed");
+                app.emit("grave_closed", null );
             }
             this.$(".share-grave")
                 .toggleClass("active")
@@ -176,8 +177,8 @@ function( app ) {
             var projectData = app.project.getProjectJSON();
 
             app.zeegaplayer = null;
-            app.trigger("project_preview");
-            this.model.project.save( "publish_update", 1 );
+            app.emit("project_preview", null );
+            this.model.project.save("publish_update", 1 );
             
             app.zeegaplayer = new Zeega.player({
                 // debugEvents: true,
@@ -204,7 +205,7 @@ function( app ) {
 
         stopListeningToPlayer: function() {
             $("body").unbind("keyup.player");
-            app.trigger("project_preview_ended");
+            app.emit("project_preview_ended", null );
         },
 
         onBlur: function() {

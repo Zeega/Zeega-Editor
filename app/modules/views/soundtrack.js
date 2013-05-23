@@ -53,7 +53,7 @@ function( app, Viewer ) {
                     if ( _.contains( ["Audio"], app.dragging.get("layer_type") )) {
                         this.updateWaveform( app.dragging.get("thumbnail_url") );
 
-                        app.trigger("soundtrack_added", app.dragging );
+                        app.emit("soundtrack_added", app.dragging );
                         app.status.get('currentSequence').setSoundtrack( app.dragging, this );
                     }
                 }.bind( this )

@@ -52,9 +52,10 @@ function( app ) {
                         if ( _.contains( ["Audio"], app.dragging.get("layer_type") )) {
                             //app.layout.soundtrack.updateWaveform( app.dragging.get("thumbnail_url") );
 
+                            app.emit("soundtrack_added", app.dragging );
                             app.status.get('currentSequence').setSoundtrack( app.dragging, app.layout.soundtrack );
                         } else {
-                            app.trigger("item_dropped", app.dragging );
+                            app.emit("item_dropped", app.dragging );
                             this.model.status.get('currentFrame').addLayerByItem( app.dragging );
                         }
 
