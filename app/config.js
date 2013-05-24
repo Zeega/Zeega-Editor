@@ -23,7 +23,7 @@ require.config({
 
 //    colorpicker: "../vendor/colorpicker/js/colorpicker",
     simpleColorPicker: "../vendor/simple-color-picker/src/jquery.simple-color",
-    ddslick: "../assets/js/plugins/jquery.ddslick",
+    ddslick: "../vendor/ddslick/jquery.ddslick",
     mousetrap: "../vendor/mousetrap/mousetrap",
     spin: "../assets/js/libs/spin",
     tipsy: "../vendor/tipsy/src/javascripts/jquery.tipsy",
