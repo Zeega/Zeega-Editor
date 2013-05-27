@@ -432,7 +432,7 @@ function( app, ItemModel, MediaView, ItemCollectionViewer ) {
         apiUrl: "https://secure.flickr.com/services/rest/?",
         
         favUrl: "https://secure.flickr.com/services/rest/?nojsoncallback=1&format=json&method=flickr.interestingness.getList&extras=owner_name&per_page=100&api_key=97ac5e379fbf4df38a357f9c0943e140",
-        //favUrl: app.searchAPI + "archive=Flickr&type=Image&user=1&limit=48&sort=date-desc",
+        //favUrl: app.searchAPI + "archive=Flickr&type=Image&user=5192b78a20d5cd1712000000&limit=48&sort=date-desc",
         allowSearch: true,
 
         defaults: {
@@ -474,7 +474,7 @@ function( app, ItemModel, MediaView, ItemCollectionViewer ) {
         
         api: "Soundcloud",
         apiUrl: "https://api.soundcloud.com/tracks.json?",
-        favUrl: app.searchAPI + "archive=SoundCloud&type=Audio&user=1&limit=48&sort=date-desc",
+        favUrl: app.searchAPI + "archive=SoundCloud&type=Audio&user=5192b78a20d5cd1712000000&limit=48&sort=date-desc",
         
         allowSearch: true,
         defaults: {
@@ -509,7 +509,7 @@ function( app, ItemModel, MediaView, ItemCollectionViewer ) {
         apiUrl: "https://api.instagram.com/v1/",
         queryType: "tag",
         favUrl: "https://api.instagram.com/v1/media/popular?client_id=725bbc7af5094c8682bdb322d29734cc&callback=?",
-        //favUrl: app.searchAPI + "archive=Instagram&type=Image&user=1&limit=48&sort=date-desc",
+        //favUrl: app.searchAPI + "archive=Instagram&type=Image&user=5192b78a20d5cd1712000000&limit=48&sort=date-desc",
         allowSearch: true,
 
         defaults: {
@@ -537,7 +537,7 @@ function( app, ItemModel, MediaView, ItemCollectionViewer ) {
         api: "Giphy",
         apiUrl: app.api + "items/parser?",
         allowSearch: true,
-        favUrl: app.searchAPI + "archive=Giphy&type=Image&user=1&limit=48&sort=date-desc",
+        favUrl: app.searchAPI + "archive=Giphy&type=Image&user=5192b78a20d5cd1712000000&limit=48&sort=date-desc",
 
 
         defaults: {
@@ -571,7 +571,7 @@ function( app, ItemModel, MediaView, ItemCollectionViewer ) {
         api: "Tumblr",
         apiUrl: app.api + "items/parser?",
         allowSearch: true,
-        favUrl: app.searchAPI + "archive=Tumblr&type=Image&user=1&limit=48&sort=date-desc",
+        favUrl: app.searchAPI + "archive=Tumblr&type=Image&user=5192b78a20d5cd1712000000&limit=48&sort=date-desc",
 
         defaults: {
             urlArguments: {
@@ -603,7 +603,7 @@ function( app, ItemModel, MediaView, ItemCollectionViewer ) {
         
         api: "Youtube",
         apiUrl: "https://gdata.youtube.com/feeds/api/videos?",
-        favUrl: app.searchAPI + "archive=Youtube&user=1&limit=48&sort=date-desc",
+        favUrl: app.searchAPI + "archive=Youtube&user=5192b78a20d5cd1712000000&limit=48&sort=date-desc",
 
         allowSearch: true,
 
