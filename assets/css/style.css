@@ -1972,7 +1972,6 @@ body .ui-tooltip {
   background-color: rgba(50, 205, 50, 0.75);
   display: inline-block;
   width: 80px;
-<<<<<<< HEAD
   float: left;
   font-size: 13px;
   text-align: center;
@@ -1997,32 +1996,6 @@ body .ui-tooltip {
   padding: 10px 5px 0 5px;
   float: left;
 }
-=======
-  float: left;
-  font-size: 13px;
-  text-align: center;
-  margin-top: 10px;
-  line-height: 1.5em;
-  color: white;
-}
-.text-modal .link-new-page.active {
-  outline: 3px solid orangered;
-}
-.text-modal .divider {
-  float: left;
-  width: 50px;
-  text-align: center;
-  padding-top: 30px;
-}
-.text-modal .page-chooser-list {
-  width: 420px;
-  background: white;
-  overflow: auto;
-  white-space: nowrap;
-  padding: 10px 5px 0 5px;
-  float: left;
-}
->>>>>>> c20fd5d2ac753ba973c537545d9542a504b0042d
 .text-modal .page-chooser-list .page {
   background: black;
   height: 60px;
@@ -2030,7 +2003,6 @@ body .ui-tooltip {
   margin-right: 10px;
   white-space: nowrap;
   display: inline-block;
-<<<<<<< HEAD
 }
 .text-modal .page-chooser-list .page a {
   display: block;
@@ -2043,20 +2015,6 @@ body .ui-tooltip {
 .text-modal .page-chooser-list .page.inactive {
   opacity: 0.5;
 }
-=======
-}
-.text-modal .page-chooser-list .page a {
-  display: block;
-  position: absolute;
-  left: 0;
-  top: 0;
-  height: 100%;
-  width: 100%;
-}
-.text-modal .page-chooser-list .page.inactive {
-  opacity: 0.5;
-}
->>>>>>> c20fd5d2ac753ba973c537545d9542a504b0042d
 .text-modal .page-chooser-list .page.active {
   outline: 3px solid orangered;
 }
@@ -2828,17 +2786,10 @@ body .ui-tooltip {
   resize: none;
   float: left;
   font-size: 17px;
-<<<<<<< HEAD
 }
 .text-modal .top-box select {
   float: right;
 }
-=======
-}
-.text-modal .top-box select {
-  float: right;
-}
->>>>>>> c20fd5d2ac753ba973c537545d9542a504b0042d
 .text-modal .top-box .textarea-info {
   font-size: 12px;
   color: #999;
@@ -2857,7 +2808,6 @@ body .ui-tooltip {
   background-color: rgba(50, 205, 50, 0.75);
   display: inline-block;
   width: 80px;
-<<<<<<< HEAD
   float: left;
   font-size: 13px;
   text-align: center;
@@ -2890,40 +2840,6 @@ body .ui-tooltip {
   white-space: nowrap;
   display: inline-block;
 }
-=======
-  float: left;
-  font-size: 13px;
-  text-align: center;
-  margin-top: 10px;
-  line-height: 1.5em;
-  color: white;
-}
-.text-modal .link-new-page.active {
-  outline: 3px solid orangered;
-}
-.text-modal .divider {
-  float: left;
-  width: 50px;
-  text-align: center;
-  padding-top: 30px;
-}
-.text-modal .page-chooser-list {
-  width: 420px;
-  background: white;
-  overflow: auto;
-  white-space: nowrap;
-  padding: 10px 5px 0 5px;
-  float: left;
-}
-.text-modal .page-chooser-list .page {
-  background: black;
-  height: 60px;
-  width: 80px;
-  margin-right: 10px;
-  white-space: nowrap;
-  display: inline-block;
-}
->>>>>>> c20fd5d2ac753ba973c537545d9542a504b0042d
 .text-modal .page-chooser-list .page a {
   display: block;
   position: absolute;
