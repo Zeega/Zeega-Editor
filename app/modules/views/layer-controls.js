@@ -27,7 +27,7 @@ function( app ) {
                 this.loadControls();
                 this.$el.css({
                     top: $target.offset().top + "px",
-                    right: "160px",
+                    right: "82px",
                     height: ( $target.height() - 2 )+ "px"
                 });
             } else {

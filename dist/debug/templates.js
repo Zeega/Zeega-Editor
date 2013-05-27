@@ -159,11 +159,21 @@ return __p;
 this["JST"]["app/templates/layer-list.html"] = function(obj){
 var __p='';var print=function(){__p+=Array.prototype.join.call(arguments, '')};
 with(obj||{}){
-__p+='<div class="layer-marker">\n    <div class="layer-list-top">\n        <span class="layer-title">'+
+__p+='<div class="layer-marker">\n\n';
+ if ( !attr.thumbnail_url ) { 
+;__p+='\n    <div class="layer-list-top">\n        <span class="layer-title">'+
 ( attr.title )+
-'</span>\n    </div>\n    <div class="layer-list-bottom clearfix">\n        <a href="#" class="action-bg pull-left"><i class="zicon-'+
+'</span>\n    </div>\n';
+ } 
+;__p+='\n\n    <div class="layer-list-bottom clearfix">\n        <a href="#" class="action-bg pull-left"><i class="zicon-'+
 ( type.toLowerCase() )+
-' zicon-white"></i></a>\n        <a href="#" class="action-bg pull-right tooltip"\n            title="delete layer"\n            data-gravity="e"\n        ><i data-action="deleteLayer" class="action icon-trash icon-white"></i></a>\n    </div>\n</div>';
+' zicon-white"></i></a>\n        <a href="#" class="action-bg pull-right tooltip"\n            title="delete layer"\n            data-gravity="e"\n        ><i data-action="deleteLayer" class="action icon-trash icon-white"></i></a>\n    </div>\n</div>\n\n';
+ if ( attr.thumbnail_url ) { 
+;__p+='\n    <div class="layer-list-bg"\n        style="\n            background: url('+
+( attr.thumbnail_url )+
+');\n            background-size: cover;\n        "\n    ></div>\n';
+ } 
+;__p+='';
 }
 return __p;
 };
