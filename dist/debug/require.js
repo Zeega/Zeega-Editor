@@ -537,7 +537,7 @@ return __p;
 this["JST"]["app/templates/layer-drawer.html"] = function(obj){
 var __p='';var print=function(){__p+=Array.prototype.join.call(arguments, '')};
 with(obj||{}){
-__p+='<div class="ZEEGA-layer-drawer ZEEGA-hmenu clear">\n    <ul>\n        <li class="draggable-layer-type">\n            <a href="#" data-layer-type="TextV2"\n                title="add text"\n                data-gravity="n"\n            >\n                <div class="item-label">text</div>\n                <i class="icon-font"></i>\n            </a>\n        </li>\n        <li class="draggable-layer-type">\n            <a href="#" data-layer-type="Rectangle"\n                title="add color box"\n                data-gravity="n"\n            >\n                <div class="item-label">color</div>\n                <i class="icon-th-large"></i>\n            </a>\n        </li>\n        <li class="draggable-layer-type">\n            <a href="#" data-layer-type="Link"\n                title="add interactivity"\n                data-gravity="n"\n            >\n                <div class="item-label">link</div>\n                <i class="icon-arrow-up"></i>\n            </a>\n        </li>\n    </ul>\n</div>';
+__p+='<div class="ZEEGA-layer-drawer ZEEGA-hmenu clear">\n    <ul>\n        <li>\n            <a href="#"\n                data-layer-type="TextV2"\n                title="add text"\n                data-gravity="n"\n            >\n                <div class="item-label">text</div>\n                <i class="icon-font"></i>\n            </a>\n        </li>\n        <li>\n            <a href="#"\n                data-layer-type="Rectangle"\n                title="add color box"\n                data-gravity="n"\n            >\n                <div class="item-label">color</div>\n                <i class="icon-th-large"></i>\n            </a>\n        </li>\n        \n        <!--\n        <li>\n            <a href="#" data-layer-type="Link"\n                title="add interactivity"\n                data-gravity="n"\n            >\n                <div class="item-label">link</div>\n                <i class="icon-arrow-up"></i>\n            </a>\n        </li>\n        -->\n\n    </ul>\n</div>';
 }
 return __p;
 };
@@ -760,6 +760,26 @@ __p+='<div class="control-name">'+
 return __p;
 };
 
+this["JST"]["app/zeega-parser/plugins/controls/dropdown/dropdown.html"] = function(obj){
+var __p='';var print=function(){__p+=Array.prototype.join.call(arguments, '')};
+with(obj||{}){
+__p+='<div class="control-name">'+
+( title )+
+'</div>\n<div class="dropdown-wrapper">\n    <select class="'+
+( propertyName )+
+'-dropdown">\n        ';
+ _.each( optionList, function( option ) { 
+;__p+='\n            <option value="'+
+( option.value )+
+'">'+
+( option.title )+
+'</option>\n        ';
+ }); 
+;__p+='\n    </select>\n</div>';
+}
+return __p;
+};
+
 this["JST"]["app/zeega-parser/plugins/controls/linkimage/linkimage.html"] = function(obj){
 var __p='';var print=function(){__p+=Array.prototype.join.call(arguments, '')};
 with(obj||{}){
@@ -897,13 +917,19 @@ return __p;
 this["JST"]["app/zeega-parser/plugins/layers/text_v2/textmodal.html"] = function(obj){
 var __p='';var print=function(){__p+=Array.prototype.join.call(arguments, '')};
 with(obj||{}){
-__p+='<div class="modal-content">\n    <div class="modal-title">Edit your text</div>\n    <div class="modal-body">\n\n        <textarea rows="4" cols="59" maxlength="140">'+
+__p+='<div class="modal-content">\n    <div class="modal-title">Edit your text</div>\n    <div class="modal-body">\n\n        <div class="top-box clearfix">\n            <textarea rows="4" cols="59" maxlength="140">'+
 ( attr.content )+
-'</textarea>\n\n        <div class="textarea-info">max 140 characters</div>\n\n        <div class="text-controls clearfix">\n            <div class="control-module">\n                <div class="control-title">color</div>\n                <div class="color-selector">\n                    <input class="simple-color" value="'+
-( attr.color )+
-'"/>\n                </div>\n            </div>\n            <a href="#" class="btnz btnz-light text-btn-bold"><i class="icon-bold"></i></a>\n            <a href="#" class="btnz btnz-light text-btn-italic"><i class="icon-italic"></i></a>\n            <a href="#" class="btnz btnz-light text-btn-align-left"><i class="icon-align-left"></i></a>\n            <a href="#" class="btnz btnz-light text-btn-align-center"><i class="icon-align-center"></i></a>\n            <a href="#" class="btnz btnz-light text-btn-align-right"><i class="icon-align-right"></i></a>\n\n            <select class="font-list" style=""></select>\n\n            <div class="control-module">\n                <div class="control-title">font size</div>\n                <select class="size-list" style="">\n                    <option value="100">8</option>\n                    <option value="125">10</option>\n                    <option value="150">12</option>\n                    <option value="175">14</option>\n                    <option value="200">18</option>\n                    <option value="250">24</option>\n                    <option value="375">36</option>\n                    <option value="500">48</option>\n                    <option value="800">72</option>\n                    <option value="1600">144</option>\n                    <option value="2400">200</option>\n                    <option value="3600">300</option>\n                </select>\n            </div>\n<!--\n            <div class="control-module">\n                <div class="control-title">line height</div>\n                <select class="line-height-list">\n                    <option value="1">1</option>\n                    <option value="1.25">1.25</option>\n                    <option value="1.5">1.5</option>\n                    <option value="1.75">1.75</option>\n                    <option value="2">2</option>\n                </select>\n            </div>\n\n            <div class="control-module">\n                <div class="control-title">mobile position</div>\n                <select class="text-position-list">\n                    <option value="top">top</option>\n                    <option value="middle">middle</option>\n                    <option value="bottom">bottom</option>\n                </select>\n            </div>\n            \n        </div>\n-->\n        <div class="sample-header">sample</div>\n        <div class="text-sample">'+
-( attr.content )+
-'</div>\n\n        <div class="bottom-chooser clearfix">\n            <a href="#" class="submit btnz btnz-submit">OK</a>\n        </div>\n    </div>\n</div>\n';
+'</textarea>\n            <select class="font-list" id="font-list-'+
+( id )+
+'"></select>\n            <div class="textarea-info">max 140 characters</div>\n        </div>\n\n        <div class="bottom-box clearfix">\n            <a href="#" class="link-page-open action ';
+ if ( attr.to_frame ) { 
+;__p+='hide';
+ } 
+;__p+='"><i class="icon-plus-sign"></i> link to page</a>\n\n            <div class="page-chooser-wrapper ';
+ if ( !attr.to_frame ) { 
+;__p+='hide';
+ } 
+;__p+='">\n                <a href="#" class="link-new-page"><i class="icon-plus icon-white"></i></br>New Page</a>\n                <div class="divider">or</div>\n                <ul class="page-chooser-list clearfix"></ul>\n                <a href="#" class="unlink-text action"><i class="icon-minus-sign"></i> remove link</a>\n            </div>\n        </div>\n\n        <div class="bottom-chooser clearfix">\n            <a href="#" class="text-modal-save btnz btnz-submit">OK</a>\n        </div>\n    </div>\n</div>\n';
 }
 return __p;
 };
@@ -1062,13 +1088,19 @@ return __p;
 this["JST"]["app/zeega-parser/plugins/layers/text_v2/textmodal.html"] = function(obj){
 var __p='';var print=function(){__p+=Array.prototype.join.call(arguments, '')};
 with(obj||{}){
-__p+='<div class="modal-content">\n    <div class="modal-title">Edit your text</div>\n    <div class="modal-body">\n\n        <textarea rows="4" cols="59" maxlength="140">'+
+__p+='<div class="modal-content">\n    <div class="modal-title">Edit your text</div>\n    <div class="modal-body">\n\n        <div class="top-box clearfix">\n            <textarea rows="4" cols="59" maxlength="140">'+
 ( attr.content )+
-'</textarea>\n\n        <div class="textarea-info">max 140 characters</div>\n\n        <div class="text-controls clearfix">\n            <div class="control-module">\n                <div class="control-title">color</div>\n                <div class="color-selector">\n                    <input class="simple-color" value="'+
-( attr.color )+
-'"/>\n                </div>\n            </div>\n            <a href="#" class="btnz btnz-light text-btn-bold"><i class="icon-bold"></i></a>\n            <a href="#" class="btnz btnz-light text-btn-italic"><i class="icon-italic"></i></a>\n            <a href="#" class="btnz btnz-light text-btn-align-left"><i class="icon-align-left"></i></a>\n            <a href="#" class="btnz btnz-light text-btn-align-center"><i class="icon-align-center"></i></a>\n            <a href="#" class="btnz btnz-light text-btn-align-right"><i class="icon-align-right"></i></a>\n\n            <select class="font-list" style=""></select>\n\n            <div class="control-module">\n                <div class="control-title">font size</div>\n                <select class="size-list" style="">\n                    <option value="100">8</option>\n                    <option value="125">10</option>\n                    <option value="150">12</option>\n                    <option value="175">14</option>\n                    <option value="200">18</option>\n                    <option value="250">24</option>\n                    <option value="375">36</option>\n                    <option value="500">48</option>\n                    <option value="800">72</option>\n                    <option value="1600">144</option>\n                    <option value="2400">200</option>\n                    <option value="3600">300</option>\n                </select>\n            </div>\n<!--\n            <div class="control-module">\n                <div class="control-title">line height</div>\n                <select class="line-height-list">\n                    <option value="1">1</option>\n                    <option value="1.25">1.25</option>\n                    <option value="1.5">1.5</option>\n                    <option value="1.75">1.75</option>\n                    <option value="2">2</option>\n                </select>\n            </div>\n\n            <div class="control-module">\n                <div class="control-title">mobile position</div>\n                <select class="text-position-list">\n                    <option value="top">top</option>\n                    <option value="middle">middle</option>\n                    <option value="bottom">bottom</option>\n                </select>\n            </div>\n            \n        </div>\n-->\n        <div class="sample-header">sample</div>\n        <div class="text-sample">'+
-( attr.content )+
-'</div>\n\n        <div class="bottom-chooser clearfix">\n            <a href="#" class="submit btnz btnz-submit">OK</a>\n        </div>\n    </div>\n</div>\n';
+'</textarea>\n            <select class="font-list" id="font-list-'+
+( id )+
+'"></select>\n            <div class="textarea-info">max 140 characters</div>\n        </div>\n\n        <div class="bottom-box clearfix">\n            <a href="#" class="link-page-open action ';
+ if ( attr.to_frame ) { 
+;__p+='hide';
+ } 
+;__p+='"><i class="icon-plus-sign"></i> link to page</a>\n\n            <div class="page-chooser-wrapper ';
+ if ( !attr.to_frame ) { 
+;__p+='hide';
+ } 
+;__p+='">\n                <a href="#" class="link-new-page"><i class="icon-plus icon-white"></i></br>New Page</a>\n                <div class="divider">or</div>\n                <ul class="page-chooser-list clearfix"></ul>\n                <a href="#" class="unlink-text action"><i class="icon-minus-sign"></i> remove link</a>\n            </div>\n        </div>\n\n        <div class="bottom-chooser clearfix">\n            <a href="#" class="text-modal-save btnz btnz-submit">OK</a>\n        </div>\n    </div>\n</div>\n';
 }
 return __p;
 };
@@ -33907,6 +33939,45 @@ function( app, ControlView ) {
 
 });
 
+zeega.define('zeega_parser/plugins/controls/dropdown/dropdown',[
+    "app",
+    "zeega_parser/modules/control.view",
+    "jqueryUI"
+],
+
+function( Zeega, ControlView ) {
+
+    return {
+        dropdown: ControlView.extend({
+
+            template: "dropdown/dropdown",
+
+            serialize: function() {
+                return _.extend({}, this.model.toJSON(), this._userOptions );
+            },
+
+            create: function() {
+                this.$("select").val( this.getAttr( this.propertyName ) );
+            },
+
+            events: {
+                "change select": "onChange"
+            },
+
+            onChange: function( e ) {
+                var attr = {};
+
+                attr[ this.propertyName ] = this.$("select").val();
+                this.update( attr );
+                this.updateVisual( this.$("select").val() + this._userOptions.units );
+            }
+
+        })
+    };
+
+
+});
+
 /*
 
 plugin/layer manifest file
@@ -33923,7 +33994,8 @@ zeega.define('zeega_parser/plugins/controls/_all-controls',[
     "zeega_parser/plugins/controls/color/color",
     "zeega_parser/plugins/controls/linkto/linkto",
     "zeega_parser/plugins/controls/linkimage/linkimage",
-    "zeega_parser/plugins/controls/av/av"
+    "zeega_parser/plugins/controls/av/av",
+    "zeega_parser/plugins/controls/dropdown/dropdown"
 ],
 function(
     Position,
@@ -33933,7 +34005,8 @@ function(
     Color,
     LinkTo,
     LinkImage,
-    AV
+    AV,
+    Dropdown
 ) {
 
     return _.extend(
@@ -33944,7 +34017,8 @@ function(
         Color,
         LinkTo,
         LinkImage,
-        AV
+        AV,
+        Dropdown
     );
 });
 
@@ -35416,9 +35490,12 @@ function( app, _Layer, Visual ) {
   return Layer;
 });
 
+/* stub */;
+zeega.define("ddslick", function(){});
+
 zeega.define('zeega_parser/plugins/layers/text_v2/textmodal',[
     "app",
-    "simpleColorPicker"
+    "ddslick"
 ],
 
 function( app ) {
@@ -35435,6 +35512,9 @@ function( app ) {
         className: "text-modal overlay-dimmer ZEEGA-modal",
 
         initialize: function() {
+            // temporary hack to get latest textmodal.html to load
+            // window.JST["app/zeega-parser/plugins/layers/text_v2/textmodal.html"] = null;
+
             this.saveContent = _.debounce(function() {
                 this.model.saveAttr({ content: this.$("textarea").val() });
                 this.updateSample();
@@ -35442,111 +35522,46 @@ function( app ) {
         },
 
         afterRender: function() {
-            var $colorPicker = this.$(".simple-color");
-
-            $colorPicker
-                .simpleColor({
-                    livePreview: true,
-                    onCellEnter: function( hex ) {
-                        this.$(".text-sample")
-                            .css({
-                                color: "#" + hex
-                            });
-                    }.bind( this ),
-                    callback: function( hex ) {
-                        this.onChangeColor( hex );
-                    }.bind( this )
-                });
-
-            this.$("textarea").bind("input propertychange", function() {
-                this.$(".text-sample").text( this.$("textarea").val() );
-            }.bind( this )),
-
             $("#main").addClass("modal");
             this.loadFonts();
-            this.loadSize();
-            this.loadTextPosition();
-            this.loadLineHeight();
-            this.setButtonStates();
-
-            this.updateSample();
             
             this.$("textarea").focus().select();
+            this.fillInPages();
+        },
+
+        fillInPages: function() {
+            app.status.get("currentSequence").frames.each(function( frame ) {
+                var fv = $("<li>"),
+                    bg = frame.get("thumbnail_url") === "" ? "black" :
+                        "url(" + frame.get("thumbnail_url") +") no-repeat center center";
+
+                fv.addClass("page")
+                    .data("id", frame.id )
+                    .css({
+                        background: bg,
+                        "-webkit-background-size": "cover"
+                    });
+
+                if ( app.status.get("currentFrame").id == frame.id ) {
+                    fv.addClass("inactive");
+                }
+
+                if ( this.model.getAttr("to_frame") == frame.id ) {
+                    fv.addClass("active");
+                }
+
+                this.$('.page-chooser-list').append( fv );
+            }, this );
         },
 
         events: {
             "click .modal-close": "closeThis",
-            "click .submit": "submit",
-            "click .text-btn-italic": "toggleItalics",
-            "click .text-btn-bold": "toggleBold",
-
+            "click .text-modal-save": "submit",
             "keypress textarea": "onKeypress",
-            "change .size-list": "onChangeSize",
-            "change .font-list": "onChangeFont",
-            "change .line-height-list": "onLineHeight",
-            "change .text-position-list": "onTextPosition",
-            "click .text-btn-align-left": "toggleAlignLeft",
-            "click .text-btn-align-center": "toggleAlignCenter",
-            "click .text-btn-align-right": "toggleAlignRight"
-        },
-
-        onChangeColor: function( hex ) {
-            this.model.saveAttr({ color: "#" + hex });
-            this.updateSample();
-        },
-
-        onChangeSize: function( e ) {
-            this.model.setAttr({ fontSize: $( e.target ).val() });
-            this.model.saveAttr({ fontSize: $( e.target ).val() });
-        },
-
-        onChangeFont: function( e ) {
-            this.model.saveAttr({ fontFamily: $( e.target ).val() });
-            this.updateSample();
-        },
-
-        onTextPosition: function( e ) {
-            this.model.saveAttr({ mobileTextPosition: $( e.target ).val() });
-            this.updateSample();
-        },
-
-        onLineHeight: function( e ) {
-            this.model.saveAttr({ lineHeight: $( e.target ).val() });
-            this.updateSample();
-        },
-
-        toggleItalics: function() {
-            var italic = this.model.getAttr("italic");
-
-            this.model.saveAttr({ italic: !italic });
-            this.updateSample();
-            this.setButtonStates();
-        },
-
-        toggleAlignLeft: function() {
-            this.model.saveAttr({ textAlign: "left" });
-            this.updateSample();
-            this.setButtonStates();
-        },
-
-        toggleAlignCenter: function() {
-            this.model.saveAttr({ textAlign: "center" });
-            this.updateSample();
-            this.setButtonStates();
-        },
-
-        toggleAlignRight: function() {
-            this.model.saveAttr({ textAlign: "right" });
-            this.updateSample();
-            this.setButtonStates();
-        },
-
-        toggleBold: function() {
-            var bold = this.model.getAttr("bold");
-
-            this.model.saveAttr({ bold: !bold });
-            this.updateSample();
-            this.setButtonStates();
+            "click .page" : "selectPage",
+            "click .link-new-page": "selectNewPage",
+            "click .link-page-open": "openLinkDrawer",
+            "click .unlink-text": "unlink"
         },
 
         onKeypress: function( e ) {
@@ -35555,6 +35570,12 @@ function( app ) {
 
         closeThis: function() {
             $("#main").removeClass("modal");
+
+            if ( !this.model.get("attr").to_frame ) {
+                this.$(".page-chooser-wrapper").addClass("hide");
+                this.$(".link-page-open").removeClass("hide");
+            }
+
             this.$el.fadeOut(function() {
                 this.$el.attr("style", "");
                 this.remove();
@@ -35562,58 +35583,92 @@ function( app ) {
             this.$("input").unbind("input propertychange");
         },
 
+        openLinkDrawer: function() {
+            this.$(".page-chooser-wrapper").slideDown();
+            this.$(".link-page").hide();
+        },
+
+        unlink: function() {
+            this.model.saveAttr({ to_frame: null });
+            this.$(".page-chooser-wrapper").slideUp();
+            this.$(".link-page").show();
+        },
+
         submit: function() {
-            this.model.saveAttr({ content: this.$("textarea").val() });
+            this.model.setAttr({ content: this.$("textarea").val() });
             this.closeThis();
             this.updateVisualElement();
+
+            if ( this.selectedFrame !== null && this.selectedFrame == "NEW_FRAME" ) {
+                this.linkToNewPage();
+                this.closeThis();
+            } else if ( this.selectedFrame !== null ) {
+                this.model.saveAttr({ to_frame: this.selectedFrame });
+                this.model.trigger("change:to_frame", this.model, this.selectedFrame );
+                this.closeThis();
+            }
         },
 
         loadFonts: function() {
             this.$(".font-list").empty();
+
             _.each( this.model.fontList, function( fontName ) {
-                this.$(".font-list").append("<option value='" + fontName + "'>" + fontName + "</option>");
+                var opt = $("<option value='" + fontName + "' data-nondescription='" + fontName + "'>" + fontName + "</option>");
+
+                if ( this.model.getAttr("fontFamily") == fontName ) {
+                    opt.attr("selected", "selected");
+                }
+                this.$(".font-list").append( opt );
             }, this );
 
-            this.$(".font-list").val( this.model.getAttr("fontFamily") );
-        },
-
-        loadSize: function() {
-            this.$(".size-list").val( this.model.getAttr("fontSize") );
-        },
-
-        loadTextPosition: function() {
-            this.$(".text-position-list").val( this.model.getAttr("mobileTextPosition") );
-        },
-
-        loadLineHeight: function() {
-            this.$(".line-height-list").val( this.model.getAttr("lineHeight") );
-        },
-
-        setButtonStates: function() {
-            this.$(".active").removeClass("active");
-
-            this.$(".text-btn-bold").addClass( this.model.getAttr("bold") ? "active" : "" );
-            this.$(".text-btn-italic").addClass( this.model.getAttr("italic") ? "active" : "" );
-            this.$(".text-btn-align-left").addClass( this.model.getAttr("textAlign") == "left" ? "active" : "" );
-            this.$(".text-btn-align-center").addClass( this.model.getAttr("textAlign") == "center" ? "active" : "" );
-            this.$(".text-btn-align-right").addClass( this.model.getAttr("textAlign") == "right" ? "active" : "" );
+            $('#font-list-' + this.model.id ).ddslick({
+                height: "200px",
+                onSelected: function(data){
+                    this.model.setAttr({ fontFamily: data.selectedData.value });
+                    this.updateSample();
+                }.bind( this )
+            });
         },
 
         updateSample: function() {
-            this.$(".text-sample")
-                .css({
-                    color: "#" + this.model.getAttr("color"),
-                    fontWeight: this.model.getAttr("bold") ? "bold" : "normal",
-                    fontStyle: this.model.getAttr("italic") ? "italic" : "normal",
-                    fontFamily: this.model.getAttr("fontFamily"),
-                    textAlign: this.model.getAttr("textAlign")
-                })
-                .text( this.model.getAttr("content") );
-            this.updateVisualElement();
+            this.$("textarea").css({
+                fontFamily: this.model.getAttr("fontFamily")
+            });
         },
 
         updateVisualElement: function() {
             this.model.visual.updateStyle();
+        },
+
+        selectPage: function( e ) {
+            var $frameLI = $(e.target).closest("li");
+
+            if ( !$frameLI.hasClass("inactive") ) {
+                this.$(".page-chooser-list li.active, .link-new-page").removeClass("active");
+                $frameLI.addClass("active");
+                this.selectedFrame = $frameLI.data("id");
+            }
+
+            this.$(".submit").removeClass("btnz-inactive");
+        },
+
+        selectNewPage: function() {
+            this.$(".page-chooser-list li.active").removeClass("active");
+            this.$(".link-new-page").addClass("active");
+            this.selectedFrame = "NEW_FRAME";
+            this.$(".submit").removeClass("btnz-inactive");
+        },
+
+        linkToNewPage: function() {
+            var newFrame = app.status.get("currentSequence").frames.addFrame();
+
+            newFrame.once("sync", this.onNewFrameSave, this );
+            this.closeThis();
+        },
+
+        onNewFrameSave: function( newFrame ) {
+            this.model.saveAttr({ to_frame: newFrame.id });
+            this.model.trigger("change:to_frame", this.model, newFrame.id );
         },
 
         fetch: function( path ) {
@@ -35660,7 +35715,7 @@ function( app, _Layer, Visual, TextModal ) {
             citation: false,
             color: "#FFF",
             content: "text",
-            fontSize: 100,
+            fontSize: 150,
             fontFamily: "Archivo Black",
             default_controls: true,
             left: 12.5,
@@ -35669,6 +35724,7 @@ function( app, _Layer, Visual, TextModal ) {
             top: 40,
             width: 75,
             dissolve: true,
+            to_frame: null,
 
             bold: false,
             italic: false,
@@ -35695,7 +35751,26 @@ function( app, _Layer, Visual, TextModal ) {
                     step: 0.001,
                     css: true
                 }
+            },{
+                type: "color",
+                options: {
+                    title: "color",
+                    propertyName: "color"
+                }
+            },{
+                type: "dropdown",
+                options: {
+                    title: "font size",
+                    propertyName: "fontSize",
+                    units: "%",
+                    optionList: [
+                        { title: "small", value: 50 },
+                        { title: "medium", value: 150 },
+                        { title: "large", value: 250 }
+                    ]
+                }
             }
+
         ],
 
         fontList: [
@@ -35823,6 +35898,13 @@ function( app, _Layer, Visual, TextModal ) {
                 });
             }
 
+            if ( this.getAttr("to_frame") ) {
+                this.$el.addClass("linked-layer link-reveal");
+                setTimeout(function() {
+                    this.$el.removeClass("link-reveal");
+                }.bind( this ), 750 );
+            }
+
         },
 
         // ## TODO Simplify this - 5/3/2013
@@ -35901,6 +35983,20 @@ function( app, _Layer, Visual, TextModal ) {
             };
 
             this.$el.css( css );
+        },
+
+        events: {
+            "click": "onClick"
+        },
+
+        onClick: function() {
+
+            if ( this.model.mode == "editor" ) {
+                app.status.setCurrentLayer( this.model );
+            } else {
+                this.model.relay.set( "current_frame", this.getAttr("to_frame") );
+            }
+            return false;
         }
   });
 
@@ -35944,6 +36040,7 @@ function( Zeega, LayerModel, Visual ) {
 
         template: "youtube/youtube",
         ignoreFirst: true,
+
         afterRender: function(){
             
             if( /iPhone|iPod/i.test(navigator.userAgent) ) {
@@ -35962,12 +36059,11 @@ function( Zeega, LayerModel, Visual ) {
         events: {
             "click .play-button": "playVideo",
             "tap .play-button": "playVideo"
-
         },
 
         ytInit: function(){
-            
             window.jQuery(this.$(".youtube-player" )).on("api-ready", jQuery.proxy( this.onApiReady, this) );
+
             if ( _.isUndefined( window.YT ) ){
                 var tag = document.createElement('script');
                 tag.src = "//www.youtube.com/iframe_api";
@@ -35976,7 +36072,6 @@ function( Zeega, LayerModel, Visual ) {
             } else {
                 this.onApiReady();
             }
- 
         },
 
         onPlayerReady: function(e){
@@ -35985,12 +36080,12 @@ function( Zeega, LayerModel, Visual ) {
 
         onStateChange: function(e){
             var currentSequence;
-            if(this.model.status.get("current_sequence_model")){
+
+            if( this.model.status.get("current_sequence_model")){
                 currentSequence = this.model.status.get("current_sequence_model");
             } else {
                 currentSequence = this.model.status.get("currentSequence");
             }
-
 
             if( currentSequence.get("attr").soundtrack && /iPad/i.test(navigator.userAgent) && e.data ==2 && this.ignoreFirst ) {
                 this.ignoreFirst = false;
@@ -36009,7 +36104,7 @@ function( Zeega, LayerModel, Visual ) {
                 this.$(".youtube-player").removeClass("active");
                 this.$(".play-button").fadeIn("fast");
                 
-            } else if (e.data == 1 ){
+            } else if ( e.data == 1 ){
                 if( Zeega.mode == "player"){
                     this.model.status.get("project").suspend();
                 }
@@ -36023,12 +36118,8 @@ function( Zeega, LayerModel, Visual ) {
         },
 
         onApiReady: function(){
-
-
-
             var onPlayerReady = jQuery.proxy( this.onPlayerReady, this),
                 onStateChange = jQuery.proxy( this.onStateChange, this);
-
 
             this.$("#yt-player-" + this.model.id).attr("id", "yt-player-" + this.model.id + "-" + this.model.cid );
 
@@ -36038,19 +36129,16 @@ function( Zeega, LayerModel, Visual ) {
                         'onStateChange': onStateChange
                     }
                 });
-            
-            
         },
 
         playVideo: function(){
 
             if( Zeega.mode == "player"){
                 this.model.status.get("project").suspend();
-            } else if (Zeega.mode == "editor" ){
+            } else if ( Zeega.mode == "editor" ){
                 this.$el.removeClass("editor");
                 this.$el.css({"top": "0", "left": "0", "width": "100%", "height": "100%"}, 1000);
             }
-
 
             this.$(".play-button").fadeOut("fast");
             this.$(".youtube-player").addClass("active");
@@ -36088,7 +36176,6 @@ function( app, Layer, Visual ){
             top: 0,
             height: 100,
             width: 100,
-            width: null,
             opacity: 1,
             aspectRatio: null,
             dissolve: true
@@ -36433,9 +36520,12 @@ function( app, Backbone, Layers, ThumbWorker ) {
             */
 
             newLayer.order[ this.id ] = this.layers.length;
+
+            app.emit("layer_added_start", newLayer );
             newLayer.save().success(function( response ) {
                 this.layers.add( newLayer );
                 app.status.setCurrentLayer( newLayer );
+                app.emit("layer_added_success", newLayer );
             }.bind( this ));
         },
 
@@ -36461,9 +36551,12 @@ function( app, Backbone, Layers, ThumbWorker ) {
                 newLayer.order[ this.id ] = this.layers.length;
             }
             
+            app.emit("layer_added_start", newLayer );
+
             newLayer.save().success(function( response ) {
                     this.layers.add( newLayer );
                     app.status.setCurrentLayer( newLayer );
+                    app.emit("layer_added_success", newLayer );
                 }.bind( this ));
             
         },
@@ -36676,7 +36769,7 @@ function( app, Layers ) {
 
         onAdd: function( layer ) {
             if( app.mode != "player" ){
-               if ( layer ) {
+                if ( layer ) {
                     layer.addCollection( this );
                     layer.initVisual( Layers[ layer.get("type") ]);
                     app.trigger("layer_added", layer );
@@ -36923,23 +37016,6 @@ function( app, SequenceCollection ) {
             user_id: null
         },
 
-        defaultCoverImages: [
-            "http://giphy.com/gifs/VxbP9tLeKzazm",
-            "http://giphy.com/gifs/4lLVnnMbawnss",
-            "http://giphy.com/gifs/bq6gi8shRqgyA",
-            "http://giphy.com/gifs/BDqInV6xYl1Ju",
-            "http://giphy.com/gifs/k0ywWCPu4IlEs",
-            "http://giphy.com/gifs/Mi6gE0Qjw2dWM",
-            "http://www.musicobsessed.com/wp-content/gallery/sfmo/tv-set-funky-cuteo.gif",
-            "http://24.media.tumblr.com/tumblr_m8582nac7y1r0k830o1_500.gif",
-            "http://24.media.tumblr.com/tumblr_lnxkb8K8u61qjvkx9o1_500.gif",
-            "http://25.media.tumblr.com/tumblr_mbjwlvwO5R1reeolao1_500.gif",
-            "http://reignandpour.com/home_files/tv.gif",
-            "http://s8.favim.com/orig/72/gif-animated-gif-tv-static-glitch-Favim.com-687367.gif",
-            "http://alaingiffard.files.wordpress.com/2007/12/applaudissements-001_1173713587.gif",
-            "http://www.poly.edu/sites/polyproto.poly.edu/files/cinemaNOISE.gif"
-        ],
-
         defaultOptions: {
             preloadRadius: 2,
             attach: {}
@@ -36950,9 +37026,6 @@ function( app, SequenceCollection ) {
         },
 
         initialize: function( data, options ) {
-            // if ( this.get("cover_image") == "" ) {
-            //     this.set("cover_image", this.defaultCoverImages[ Math.floor( Math.random() * this.defaultCoverImages.length ) ])
-            // }
             this.options = _.defaults( options, this.defaultOptions );
             this.parser = options.parser;
             this.parseSequences();
@@ -37008,7 +37081,7 @@ function( app, SequenceCollection ) {
                     var linksTo = [];
 
                     frame.layers.each(function( layer ) {
-                        if ( layer.get("type") == "Link" && layer.get("attr").to_frame != frame.id ) {
+                        if ( layer.get("attr").to_frame != frame.id ) {
                             var targetFrameID, targetFrame, linksFrom;
 
                             targetFrameID = parseInt( layer.get("attr").to_frame, 10 );
@@ -37244,7 +37317,7 @@ function() {
                 frame.layers = _.without( frame.layers, response.sequences[0].attr.soundtrack );
             });
         }
-    }
+    };
 
     // no op. projects are already formatted
     Parser[type].parse = function( response, opts ) {
@@ -37277,7 +37350,7 @@ function() {
             
             endPage.id = endId;
             response.frames.push( endPage );
-            response.sequences[0].frames.push( endId )
+            response.sequences[0].frames.push( endId );
         }
 
         return response;
@@ -37311,10 +37384,10 @@ function() {
                 frame.layers = _.without( frame.layers, response.sequences[0].attr.soundtrack );
             });
         }
-    }
+    };
 
     Parser[type].parse = function( response, opts ) {
-        var response = response.items[0].text;
+        response = response.items[0].text;
 
         removeDupeSoundtrack( response );
 
@@ -37344,7 +37417,7 @@ function() {
             
             endPage.id = endId;
             response.frames.push( endPage );
-            response.sequences[0].frames.push( endId )
+            response.sequences[0].frames.push( endId );
         }
 
         return response;
@@ -38937,585 +39010,6 @@ function( Zeega ) {
 zeega.define("main", function(){});
 }());
 define("zeegaplayer", function(){});
-
-// tipsy, facebook style tooltips for jquery
-// version 1.0.0a
-// (c) 2008-2010 jason frame [jason@onehackoranother.com]
-// released under the MIT license
-
-(function($) {
-    
-    function maybeCall(thing, ctx) {
-        return (typeof thing == 'function') ? (thing.call(ctx)) : thing;
-    };
-    
-    function isElementInDOM(ele) {
-      while (ele = ele.parentNode) {
-        if (ele == document) return true;
-      }
-      return false;
-    };
-    
-    function Tipsy(element, options) {
-        this.$element = $(element);
-        this.options = options;
-        this.enabled = true;
-        this.fixTitle();
-    };
-    
-    Tipsy.prototype = {
-        show: function() {
-            var title = this.getTitle();
-            if (title && this.enabled) {
-                var $tip = this.tip();
-                
-                $tip.find('.tipsy-inner')[this.options.html ? 'html' : 'text'](title);
-                $tip[0].className = 'tipsy'; // reset classname in case of dynamic gravity
-                $tip.remove().css({top: 0, left: 0, visibility: 'hidden', display: 'block'}).prependTo(document.body);
-                
-                var pos = $.extend({}, this.$element.offset(), {
-                    width: this.$element[0].offsetWidth,
-                    height: this.$element[0].offsetHeight
-                });
-                
-                var actualWidth = $tip[0].offsetWidth,
-                    actualHeight = $tip[0].offsetHeight,
-                    gravity = maybeCall(this.options.gravity, this.$element[0]);
-                
-                var tp;
-                switch (gravity.charAt(0)) {
-                    case 'n':
-                        tp = {top: pos.top + pos.height + this.options.offset, left: pos.left + pos.width / 2 - actualWidth / 2};
-                        break;
-                    case 's':
-                        tp = {top: pos.top - actualHeight - this.options.offset, left: pos.left + pos.width / 2 - actualWidth / 2};
-                        break;
-                    case 'e':
-                        tp = {top: pos.top + pos.height / 2 - actualHeight / 2, left: pos.left - actualWidth - this.options.offset};
-                        break;
-                    case 'w':
-                        tp = {top: pos.top + pos.height / 2 - actualHeight / 2, left: pos.left + pos.width + this.options.offset};
-                        break;
-                }
-                
-                if (gravity.length == 2) {
-                    if (gravity.charAt(1) == 'w') {
-                        tp.left = pos.left + pos.width / 2 - 15;
-                    } else {
-                        tp.left = pos.left + pos.width / 2 - actualWidth + 15;
-                    }
-                }
-                
-                $tip.css(tp).addClass('tipsy-' + gravity);
-                $tip.find('.tipsy-arrow')[0].className = 'tipsy-arrow tipsy-arrow-' + gravity.charAt(0);
-                if (this.options.className) {
-                    $tip.addClass(maybeCall(this.options.className, this.$element[0]));
-                }
-                
-                if (this.options.fade) {
-                    $tip.stop().css({opacity: 0, display: 'block', visibility: 'visible'}).animate({opacity: this.options.opacity});
-                } else {
-                    $tip.css({visibility: 'visible', opacity: this.options.opacity});
-                }
-            }
-        },
-        
-        hide: function() {
-            if (this.options.fade) {
-                this.tip().stop().fadeOut(function() { $(this).remove(); });
-            } else {
-                this.tip().remove();
-            }
-        },
-        
-        fixTitle: function() {
-            var $e = this.$element;
-            if ($e.attr('title') || typeof($e.attr('original-title')) != 'string') {
-                $e.attr('original-title', $e.attr('title') || '').removeAttr('title');
-            }
-        },
-        
-        getTitle: function() {
-            var title, $e = this.$element, o = this.options;
-            this.fixTitle();
-            var title, o = this.options;
-            if (typeof o.title == 'string') {
-                title = $e.attr(o.title == 'title' ? 'original-title' : o.title);
-            } else if (typeof o.title == 'function') {
-                title = o.title.call($e[0]);
-            }
-            title = ('' + title).replace(/(^\s*|\s*$)/, "");
-            return title || o.fallback;
-        },
-        
-        tip: function() {
-            if (!this.$tip) {
-                this.$tip = $('<div class="tipsy"></div>').html('<div class="tipsy-arrow"></div><div class="tipsy-inner"></div>');
-                this.$tip.data('tipsy-pointee', this.$element[0]);
-            }
-            return this.$tip;
-        },
-        
-        validate: function() {
-            if (!this.$element[0].parentNode) {
-                this.hide();
-                this.$element = null;
-                this.options = null;
-            }
-        },
-        
-        enable: function() { this.enabled = true; },
-        disable: function() { this.enabled = false; },
-        toggleEnabled: function() { this.enabled = !this.enabled; }
-    };
-    
-    $.fn.tipsy = function(options) {
-        
-        if (options === true) {
-            return this.data('tipsy');
-        } else if (typeof options == 'string') {
-            var tipsy = this.data('tipsy');
-            if (tipsy) tipsy[options]();
-            return this;
-        }
-        
-        options = $.extend({}, $.fn.tipsy.defaults, options);
-        
-        function get(ele) {
-            var tipsy = $.data(ele, 'tipsy');
-            if (!tipsy) {
-                tipsy = new Tipsy(ele, $.fn.tipsy.elementOptions(ele, options));
-                $.data(ele, 'tipsy', tipsy);
-            }
-            return tipsy;
-        }
-        
-        function enter() {
-            var tipsy = get(this);
-            tipsy.hoverState = 'in';
-            if (options.delayIn == 0) {
-                tipsy.show();
-            } else {
-                tipsy.fixTitle();
-                setTimeout(function() { if (tipsy.hoverState == 'in') tipsy.show(); }, options.delayIn);
-            }
-        };
-        
-        function leave() {
-            var tipsy = get(this);
-            tipsy.hoverState = 'out';
-            if (options.delayOut == 0) {
-                tipsy.hide();
-            } else {
-                setTimeout(function() { if (tipsy.hoverState == 'out') tipsy.hide(); }, options.delayOut);
-            }
-        };
-        
-        if (!options.live) this.each(function() { get(this); });
-        
-        if (options.trigger != 'manual') {
-            var binder   = options.live ? 'live' : 'bind',
-                eventIn  = options.trigger == 'hover' ? 'mouseenter' : 'focus',
-                eventOut = options.trigger == 'hover' ? 'mouseleave' : 'blur';
-            this[binder](eventIn, enter)[binder](eventOut, leave);
-        }
-        
-        return this;
-        
-    };
-    
-    $.fn.tipsy.defaults = {
-        className: null,
-        delayIn: 0,
-        delayOut: 0,
-        fade: false,
-        fallback: '',
-        gravity: 'n',
-        html: false,
-        live: false,
-        offset: 0,
-        opacity: 0.8,
-        title: 'title',
-        trigger: 'hover'
-    };
-    
-    $.fn.tipsy.revalidate = function() {
-      $('.tipsy').each(function() {
-        var pointee = $.data(this, 'tipsy-pointee');
-        if (!pointee || !isElementInDOM(pointee)) {
-          $(this).remove();
-        }
-      });
-    };
-    
-    // Overwrite this method to provide options on a per-element basis.
-    // For example, you could store the gravity in a 'tipsy-gravity' attribute:
-    // return $.extend({}, options, {gravity: $(ele).attr('tipsy-gravity') || 'n' });
-    // (remember - do not modify 'options' in place!)
-    $.fn.tipsy.elementOptions = function(ele, options) {
-        return $.metadata ? $.extend({}, options, $(ele).metadata()) : options;
-    };
-    
-    $.fn.tipsy.autoNS = function() {
-        return $(this).offset().top > ($(document).scrollTop() + $(window).height() / 2) ? 's' : 'n';
-    };
-    
-    $.fn.tipsy.autoWE = function() {
-        return $(this).offset().left > ($(document).scrollLeft() + $(window).width() / 2) ? 'e' : 'w';
-    };
-    
-    /**
-     * yields a closure of the supplied parameters, producing a function that takes
-     * no arguments and is suitable for use as an autogravity function like so:
-     *
-     * @param margin (int) - distance from the viewable region edge that an
-     *        element should be before setting its tooltip's gravity to be away
-     *        from that edge.
-     * @param prefer (string, e.g. 'n', 'sw', 'w') - the direction to prefer
-     *        if there are no viewable region edges effecting the tooltip's
-     *        gravity. It will try to vary from this minimally, for example,
-     *        if 'sw' is preferred and an element is near the right viewable 
-     *        region edge, but not the top edge, it will set the gravity for
-     *        that element's tooltip to be 'se', preserving the southern
-     *        component.
-     */
-     $.fn.tipsy.autoBounds = function(margin, prefer) {
-		return function() {
-			var dir = {ns: prefer[0], ew: (prefer.length > 1 ? prefer[1] : false)},
-			    boundTop = $(document).scrollTop() + margin,
-			    boundLeft = $(document).scrollLeft() + margin,
-			    $this = $(this);
-
-			if ($this.offset().top < boundTop) dir.ns = 'n';
-			if ($this.offset().left < boundLeft) dir.ew = 'w';
-			if ($(window).width() + $(document).scrollLeft() - $this.offset().left < margin) dir.ew = 'e';
-			if ($(window).height() + $(document).scrollTop() - $this.offset().top < margin) dir.ns = 's';
-
-			return dir.ns + (dir.ew ? dir.ew : '');
-		}
-	};
-    
-})(jQuery);
-
-define("../vendor/tipsy/src/javascripts/jquery.tipsy", function(){});
-
-/*
- * jQuery simple-color plugin
- * @requires jQuery v1.4.2 or later
- *
- * See http://recursive-design.com/projects/jquery-simple-color/
- *
- * Licensed under the MIT license:
- *   http://www.opensource.org/licenses/mit-license.php
- *
- * Version: @VERSION (@DATE)
- */
- (function($) {
-/**
- * simpleColor() provides a mechanism for displaying simple color-pickers.
- *
- * If an options Object is provided, the following attributes are supported:
- *
- *  defaultColor:       Default (initially selected) color.
- *                      Default value: '#FFF'
- *
- *  border:             CSS border properties.
- *                      Default value: '1px solid #000'
- *
- *  cellWidth:          Width of each individual color cell.
- *                      Default value: 10
- *
- *  cellHeight:         Height of each individual color cell.
- *                      Default value: 10
- *
- *  cellMargin:         Margin of each individual color cell.
- *                      Default value: 1
- *
- *  boxWidth:           Width of the color display box.
- *                      Default value: 115px
- *
- *  boxHeight:          Height of the color display box.
- *                      Default value: 20px
- *
- *  columns:            Number of columns to display. Color order may look strange if this is altered.
- *                      Default value: 16
- *
- *  insert:             The position to insert the color picker. 'before' or 'after'.
- *                      Default value: 'after'
- *
- *  colors:             An array of colors to display, if you want to customize the default color set.
- *                      Default value: default color set - see 'default_colors' below.
- *
- *  displayColorCode:   Display the color code (eg #333333) as text inside the button. true or false.
- *                      Default value: false
- *
- *  colorCodeAlign:     Text alignment used to display the color code inside the button. Only used if 'displayColorCode' is true. 'left', 'center' or 'right'
- *                      Default value: 'center'
- *
- *  colorCodeColor:     Text color of the color code inside the button. Only used if 'displayColorCode' is true.
- *                      Default value: '#FFF'
- *
- *  callback:           Callback function to call after a color has been chosen.
- *                      Default value: null
- *                      Returns: Hex Value
- *
- *  onCellEnter:        Callback function that excecutes when a cell is entered by the user's mouse
- *                      Default value: null
- *                      Returns: Hex Value
- *
- *  onClose:            Callback function that executes whenever the chooser is closed
- *                      Default value: null
- *
- *  livePreview:        The color display will change to show the color of the hovered color cell.
- *                      The display will revert if no color is selected.
- *                      Default value: false
- */
-  $.fn.simpleColor = function(options) {
-
-    var default_colors = [
-      '990033', 'ff3366', 'cc0033', 'ff0033', 'ff9999', 'cc3366', 'ffccff', 'cc6699',
-      '993366', '660033', 'cc3399', 'ff99cc', 'ff66cc', 'ff99ff', 'ff6699', 'cc0066',
-      'ff0066', 'ff3399', 'ff0099', 'ff33cc', 'ff00cc', 'ff66ff', 'ff33ff', 'ff00ff',
-      'cc0099', '990066', 'cc66cc', 'cc33cc', 'cc99ff', 'cc66ff', 'cc33ff', '993399',
-      'cc00cc', 'cc00ff', '9900cc', '990099', 'cc99cc', '996699', '663366', '660099',
-      '9933cc', '660066', '9900ff', '9933ff', '9966cc', '330033', '663399', '6633cc',
-      '6600cc', '9966ff', '330066', '6600ff', '6633ff', 'ccccff', '9999ff', '9999cc',
-      '6666cc', '6666ff', '666699', '333366', '333399', '330099', '3300cc', '3300ff',
-      '3333ff', '3333cc', '0066ff', '0033ff', '3366ff', '3366cc', '000066', '000033',
-      '0000ff', '000099', '0033cc', '0000cc', '336699', '0066cc', '99ccff', '6699ff',
-      '003366', '6699cc', '006699', '3399cc', '0099cc', '66ccff', '3399ff', '003399',
-      '0099ff', '33ccff', '00ccff', '99ffff', '66ffff', '33ffff', '00ffff', '00cccc',
-      '009999', '669999', '99cccc', 'ccffff', '33cccc', '66cccc', '339999', '336666',
-      '006666', '003333', '00ffcc', '33ffcc', '33cc99', '00cc99', '66ffcc', '99ffcc',
-      '00ff99', '339966', '006633', '336633', '669966', '66cc66', '99ff99', '66ff66',
-      '339933', '99cc99', '66ff99', '33ff99', '33cc66', '00cc66', '66cc99', '009966',
-      '009933', '33ff66', '00ff66', 'ccffcc', 'ccff99', '99ff66', '99ff33', '00ff33',
-      '33ff33', '00cc33', '33cc33', '66ff33', '00ff00', '66cc33', '006600', '003300',
-      '009900', '33ff00', '66ff00', '99ff00', '66cc00', '00cc00', '33cc00', '339900',
-      '99cc66', '669933', '99cc33', '336600', '669900', '99cc00', 'ccff66', 'ccff33',
-      'ccff00', '999900', 'cccc00', 'cccc33', '333300', '666600', '999933', 'cccc66',
-      '666633', '999966', 'cccc99', 'ffffcc', 'ffff99', 'ffff66', 'ffff33', 'ffff00',
-      'ffcc00', 'ffcc66', 'ffcc33', 'cc9933', '996600', 'cc9900', 'ff9900', 'cc6600',
-      '993300', 'cc6633', '663300', 'ff9966', 'ff6633', 'ff9933', 'ff6600', 'cc3300',
-      '996633', '330000', '663333', '996666', 'cc9999', '993333', 'cc6666', 'ffcccc',
-      'ff3333', 'cc3333', 'ff6666', '660000', '990000', 'cc0000', 'ff0000', 'ff3300',
-      'cc9966', 'ffcc99', 'ffffff', 'cccccc', '999999', '666666', '333333', '000000',
-      '000000', '000000', '000000', '000000', '000000', '000000', '000000', '000000'
-    ];
-
-    // Option defaults
-    options = $.extend({
-      defaultColor:     this.attr('defaultColor') || '#FFF',
-      border:           this.attr('border') || '1px solid #000',
-      cellWidth:        this.attr('cellWidth') || 10,
-      cellHeight:       this.attr('cellHeight') || 10,
-      cellMargin:       this.attr('cellMargin') || 1,
-      boxWidth:         this.attr('boxWidth') || '115px',
-      boxHeight:        this.attr('boxHeight') || '20px',
-      columns:          this.attr('columns') || 16,
-      insert:           this.attr('insert') || 'after',
-      buttonClass:      this.attr('buttonClass') || '',
-      colors:           this.attr('colors') || default_colors,
-      displayColorCode: this.attr('displayColorCode') || false,
-      colorCodeAlign:   this.attr('colorCodeAlign') || 'center',
-      colorCodeColor:   this.attr('colorCodeColor') || '#FFF',
-      callback: null,
-      onCellEnter: null,
-      onClose: null,
-      livePreview: false
-    }, options || {});
-
-    // Hide the input
-    this.hide();
-
-    // Figure out the cell dimensions
-    options.totalWidth = options.columns * (options.cellWidth + (2 * options.cellMargin));
-    if ($.browser.msie) {
-      options.totalWidth += 2;
-    }
-
-    options.totalHeight = Math.ceil(options.colors.length / options.columns) * (options.cellHeight + (2 * options.cellMargin));
-
-    // Store these options so they'll be available to the other functions
-    // TODO - must be a better way to do this, not sure what the 'official'
-    // jQuery method is. Ideally i want to pass these as a parameter to the 
-    // each() function but i'm not sure how
-    $.simpleColorOptions = options;
-
-    function buildSelector(index) {
-      options = $.simpleColorOptions;
-
-      // Create a container to hold everything
-      var container = $("<div class='simpleColorContainer' />");
-      
-      // Absolutely positioned child elements now 'work'.
-      container.css('position', 'relative');
-
-      // Create the color display box
-      var default_color = (this.value && this.value != '') ? this.value : options.defaultColor;
-
-      var display_box = $("<div class='simpleColorDisplay' />");
-      display_box.css({
-        'backgroundColor': default_color,
-        'border': options.border,
-        'width':           options.boxWidth,
-        'height':          options.boxHeight,
-        // Make sure that the code is vertically centered.
-        'line-height':     options.boxHeight,
-        'cursor':          'pointer'
-      });
-      container.append(display_box);
-      
-      // If 'displayColorCode' is turned on, display the currently selected color code as text inside the button.
-      if (options.displayColorCode) {
-        display_box.text(this.value);
-        display_box.css({
-          'color':     options.colorCodeColor,
-            'textAlign': options.colorCodeAlign
-        });
-      }
-      
-      var select_callback = function (event) {
-
-        // bind and namespace the click listener only when the chooser is displayed
-        // unbind when the chooser is closed
-        $('html').bind("click.simpleColorDisplay", function(e) {
-
-          $('html').unbind("click.simpleColorDisplay");
-          $('.simpleColorChooser').hide();
-
-          // if the user has not selected a new color, then revert the display
-          // makes sure the selected cell is within the current color selector
-          if (!$(e.target).hasClass("simpleColorCell")||!$.contains( $(event.target).closest(".simpleColorContainer")[0], $(e.target)[0] )) {
-            display_box.css('backgroundColor', default_color);
-            if (options.displayColorCode) {
-              display_box.text(default_color);
-            }
-          }
-          // execute onClose callback whenever the color chooser is closed
-          if (options.onClose) {
-            options.onClose();
-          }
-        });
-
-        // Use an existing chooser if there is one
-        if (event.data.container.chooser) {
-          event.data.container.chooser.toggle();
-      
-        // Build the chooser.
-        } else {
-
-          // Make a chooser div to hold the cells
-          var chooser = $("<div class='simpleColorChooser'/>");
-          chooser.css({
-            'border':   options.border,
-            'margin':   '0 0 0 5px',
-            'width':    options.totalWidth,
-            'height':   options.totalHeight,
-            'top':      0,
-            'left':     options.boxWidth,
-            'position': 'absolute'
-          });
-      
-          event.data.container.chooser = chooser;
-          event.data.container.append(chooser);
-      
-          // Create the cells
-          for (var i=0; i<options.colors.length; i++) {
-            var cell = $("<div class='simpleColorCell' id='" + options.colors[i] + "'/>");
-            cell.css({
-              'width':           options.cellWidth + 'px',
-              'height':          options.cellHeight + 'px',
-              'margin':          options.cellMargin + 'px',
-              'cursor':          'pointer',
-              'lineHeight':      options.cellHeight + 'px',
-              'fontSize':        '1px',
-              'float':           'left',
-              'backgroundColor': '#'+options.colors[i]
-            });
-            chooser.append(cell);
-
-            if (options.onCellEnter||options.livePreview) {
-              cell.bind('mouseenter', function(event) {
-                if (options.onCellEnter) {
-                  options.onCellEnter(this.id)
-                }
-                if (options.livePreview) {
-                  display_box.css('backgroundColor', '#' + this.id);
-                  if (options.displayColorCode) {
-                    display_box.text('#' + this.id);
-                  }
-                }
-              });
-            }
-
-            cell.bind('click', {
-              input: event.data.input, 
-              chooser: chooser, 
-              display_box: display_box
-            }, 
-            function(event) {
-              event.data.input.value = '#' + this.id;
-              $(event.data.input).change();
-              event.data.display_box.css('backgroundColor', '#' + this.id);
-              event.data.chooser.hide();
-              event.data.display_box.show();
-
-              // If 'displayColorCode' is turned on, display the currently selected color code as text inside the button.
-              if (options.displayColorCode) {
-                event.data.display_box.text('#' + this.id);
-              }
-
-              // If a callback function is defined then excecute it.
-              if (options.callback) {
-                options.callback(this.id);
-              }
-
-            });
-          }
-        }
-      };
-      
-      var callback_params = {
-        container: container, 
-        input: this, 
-        display_box: display_box
-      };
-
-      // Also bind the display box button to display the chooser.
-      display_box.bind('click', callback_params, select_callback);
-
-      $(this).after(container);
-
-    };
-
-    this.each(buildSelector);
-
-        $('.simpleColorDisplay').each(function() {
-            $(this).click(function(e){
-                e.stopPropagation();
-            });
-        });
-
-    return this;
-  };
-
-  /*
-   * Close the given color selectors
-   */
-  $.fn.closeSelector = function() {
-    this.each( function(index) {
-      var container = $(this).parent().find('div.simpleColorContainer');
-      container.find('.simpleColorChooser').hide();
-      container.find('.simpleColorDisplay').show();
-    });
-
-    return this;
-  };
-
-})(jQuery);
-
-define("../vendor/simple-color-picker/src/jquery.simple-color", function(){});
 
 var jam = {
     "packages": [
@@ -57779,6 +57273,7 @@ function( app, LayerControls ) {
             if ( confirm("do you really want to delete this layer?") ) {
                 $(".tipsy").remove();
                 this.model.collection.remove( this.model );
+                app.emit("layer_deleted", this.model );
             }
         },
 
@@ -72796,7 +72291,6 @@ function( app, LayerList ) {
         },
 
         onLayerAdd: function( layerModel, collection ) {
-
             var layerView = new LayerList({
                     model: layerModel,
                     attributes: {
@@ -72807,6 +72301,7 @@ function( app, LayerList ) {
             this.layerViews.push( layerView );
             this.$("ul.layer-list").prepend( layerView.el );
             layerView.render();
+            app.emit("layer_add", layerModel );
         },
 
         renderFrameLayers: function( frameModel ) {
@@ -72876,15 +72371,68 @@ function( app ) {
         el: null,
         template: "layer-drawer",
 
+        initialize: function() {
+            app.status.on("change:currentFrame", this.checkText, this );
+
+            // ensures that only one text layer exists at a time.
+            // sort of a hack?
+            app.on("layer_deleted", this.onLayerDelete, this );
+            app.on("layer_added_success", this.onLayerAdd, this );
+        },
+
+        afterRender: function() {
+            var hasTextLayer = app.status.get("currentFrame").layers.any(function(layer){
+                return layer.get("type") == "TextV2";
+            });
+
+            this.toggleTextButton( hasTextLayer );
+        },
+
+        checkText: function( status, frame ) {
+            var hasTextLayer = frame.layers.any(function(layer){
+                return layer.get("type") == "TextV2";
+            });
+
+            this.toggleTextButton( hasTextLayer );
+        },
+
+        toggleTextButton: function( disabled ) {
+            if ( disabled ) {
+                this.$("a[data-layer-type='TextV2']")
+                    .addClass("disabled")
+                    .attr("title", "only one text layer per page")
+            } else {
+                this.$("a[data-layer-type='TextV2']")
+                    .removeClass("disabled")
+                    .attr("title", "add text");
+            }
+        },
+
+        onLayerDelete: function( layerModel ) {
+            if ( layerModel.get("type") == "TextV2") {
+                this.$("a[data-layer-type='TextV2']").removeClass("disabled");
+            }
+        },
+
+        onLayerAdd: function( layerModel ) {
+            console.log("on layer ADD",layerModel.get("type"), layerModel)
+            if ( layerModel.get("type") == "TextV2") {
+                this.$("a[data-layer-type='TextV2']").addClass("disabled");
+            }
+        },
+
         events: {
             "click a": "clickedLayerType"
         },
 
         clickedLayerType: function( e ) {
-            var layerType = $(e.target).closest("a").data("layerType");
 
-            app.status.get('currentFrame').addLayerType( layerType );
-            app.trigger("layer_type_added", layerType );
+            if ( !$(e.target).closest("a").hasClass("disabled") ) {
+                var layerType = $(e.target).closest("a").data("layerType");
+
+                app.status.get('currentFrame').addLayerType( layerType );
+                app.trigger("layer_type_added", layerType );
+            }
         }
         
     });
@@ -75765,6 +75313,45 @@ function( app, ControlView ) {
 
 });
 
+define('zeega_parser/plugins/controls/dropdown/dropdown',[
+    "app",
+    "zeega_parser/modules/control.view",
+    "jqueryUI"
+],
+
+function( Zeega, ControlView ) {
+
+    return {
+        dropdown: ControlView.extend({
+
+            template: "dropdown/dropdown",
+
+            serialize: function() {
+                return _.extend({}, this.model.toJSON(), this._userOptions );
+            },
+
+            create: function() {
+                this.$("select").val( this.getAttr( this.propertyName ) );
+            },
+
+            events: {
+                "change select": "onChange"
+            },
+
+            onChange: function( e ) {
+                var attr = {};
+
+                attr[ this.propertyName ] = this.$("select").val();
+                this.update( attr );
+                this.updateVisual( this.$("select").val() + this._userOptions.units );
+            }
+
+        })
+    };
+
+
+});
+
 /*
 
 plugin/layer manifest file
@@ -75781,7 +75368,8 @@ define('zeega_parser/plugins/controls/_all-controls',[
     "zeega_parser/plugins/controls/color/color",
     "zeega_parser/plugins/controls/linkto/linkto",
     "zeega_parser/plugins/controls/linkimage/linkimage",
-    "zeega_parser/plugins/controls/av/av"
+    "zeega_parser/plugins/controls/av/av",
+    "zeega_parser/plugins/controls/dropdown/dropdown"
 ],
 function(
     Position,
@@ -75791,7 +75379,8 @@ function(
     Color,
     LinkTo,
     LinkImage,
-    AV
+    AV,
+    Dropdown
 ) {
 
     return _.extend(
@@ -75802,7 +75391,8 @@ function(
         Color,
         LinkTo,
         LinkImage,
-        AV
+        AV,
+        Dropdown
     );
 });
 
@@ -77274,9 +76864,363 @@ function( app, _Layer, Visual ) {
   return Layer;
 });
 
+//Title: Custom DropDown plugin by PC
+//Documentation: http://designwithpc.com/Plugins/ddslick
+//Author: PC 
+//Website: http://designwithpc.com
+//Twitter: http://twitter.com/chaudharyp
+
+(function ($) {
+
+    $.fn.ddslick = function (method) {
+        if (methods[method]) {
+            return methods[method].apply(this, Array.prototype.slice.call(arguments, 1));
+        } else if (typeof method === 'object' || !method) {
+            return methods.init.apply(this, arguments);
+        } else {
+            $.error('Method ' + method + ' does not exists.');
+        }
+    };
+
+    var methods = {},
+
+    //Set defauls for the control
+    defaults = {
+        data: [],
+        keepJSONItemsOnTop: false,
+        width: 260,
+        height: null,
+        background: "#eee",
+        selectText: "",
+        defaultSelectedIndex: null,
+        truncateDescription: true,
+        imagePosition: "left",
+        showSelectedHTML: true,
+        clickOffToClose: true,
+        embedCSS: true,
+        onSelected: function () { }
+    },
+
+    ddSelectHtml = '<div class="dd-select"><input class="dd-selected-value" type="hidden" /><a class="dd-selected"></a><span class="dd-pointer dd-pointer-down"></span></div>',
+    ddOptionsHtml = '<ul class="dd-options"></ul>',
+
+    //CSS for ddSlick
+    ddslickCSS = '<style id="css-ddslick" type="text/css">' +
+                '.dd-select{ border-radius:2px; border:solid 1px #ccc; position:relative; cursor:pointer;}' +
+                '.dd-desc { color:#aaa; display:block; overflow: hidden; font-weight:normal; line-height: 1.4em; }' +
+                '.dd-selected{ overflow:hidden; display:block; padding:10px; font-weight:bold;}' +
+                '.dd-pointer{ width:0; height:0; position:absolute; right:10px; top:50%; margin-top:-3px;}' +
+                '.dd-pointer-down{ border:solid 5px transparent; border-top:solid 5px #000; }' +
+                '.dd-pointer-up{border:solid 5px transparent !important; border-bottom:solid 5px #000 !important; margin-top:-8px;}' +
+                '.dd-options{ border:solid 1px #ccc; border-top:none; list-style:none; box-shadow:0px 1px 5px #ddd; display:none; position:absolute; z-index:2000; margin:0; padding:0;background:#fff; overflow:auto;}' +
+                '.dd-option{ padding:10px; display:block; border-bottom:solid 1px #ddd; overflow:hidden; text-decoration:none; color:#333; cursor:pointer;-webkit-transition: all 0.25s ease-in-out; -moz-transition: all 0.25s ease-in-out;-o-transition: all 0.25s ease-in-out;-ms-transition: all 0.25s ease-in-out; }' +
+                '.dd-options > li:last-child > .dd-option{ border-bottom:none;}' +
+                '.dd-option:hover{ background:#f3f3f3; color:#000;}' +
+                '.dd-selected-description-truncated { text-overflow: ellipsis; white-space:nowrap; }' +
+                '.dd-option-selected { background:#f6f6f6; }' +
+                '.dd-option-image, .dd-selected-image { vertical-align:middle; float:left; margin-right:5px; max-width:64px;}' +
+                '.dd-image-right { float:right; margin-right:15px; margin-left:5px;}' +
+                '.dd-container{ position:relative;}​ .dd-selected-text { font-weight:bold}​</style>';
+
+    //Public methods 
+    methods.init = function (options) {
+        //Preserve the original defaults by passing an empty object as the target
+        //The object is used to get global flags like embedCSS.
+        var options = $.extend({}, defaults, options);
+        
+        //CSS styles are only added once.
+        if ($('#css-ddslick').length <= 0 && options.embedCSS) {
+            $(ddslickCSS).appendTo('head');
+        }
+
+        //Apply on all selected elements
+        return this.each(function () {
+            //Preserve the original defaults by passing an empty object as the target 
+            //The object is used to save drop-down's corresponding settings and data.
+            var options = $.extend({}, defaults, options);
+            
+            var obj = $(this),
+                data = obj.data('ddslick');
+            //If the plugin has not been initialized yet
+            if (!data) {
+
+                var ddSelect = [], ddJson = options.data;
+
+                //Get data from HTML select options
+                obj.find('option').each(function () {
+                    var $this = $(this), thisData = $this.data();
+                    ddSelect.push({
+                        text: $.trim($this.text()),
+                        value: $this.val(),
+                        selected: $this.is(':selected'),
+                        description: thisData.description,
+                        imageSrc: thisData.imagesrc //keep it lowercase for HTML5 data-attributes
+                    });
+                });
+
+                //Update Plugin data merging both HTML select data and JSON data for the dropdown
+                if (options.keepJSONItemsOnTop)
+                    $.merge(options.data, ddSelect);
+                else options.data = $.merge(ddSelect, options.data);
+
+                //Replace HTML select with empty placeholder, keep the original
+                var original = obj, placeholder = $('<div id="' + obj.attr('id') + '"></div>');
+                obj.replaceWith(placeholder);
+                obj = placeholder;
+
+                //Add classes and append ddSelectHtml & ddOptionsHtml to the container
+                obj.addClass('dd-container').append(ddSelectHtml).append(ddOptionsHtml);
+
+                // Inherit name attribute from original element
+                obj.find("input.dd-selected-value").attr("name", $(original).attr("name"))
+
+                //Get newly created ddOptions and ddSelect to manipulate
+                var ddSelect = obj.find('.dd-select'),
+                    ddOptions = obj.find('.dd-options');
+
+                //Set widths
+                ddOptions.css({ width: options.width });
+                ddSelect.css({ width: options.width, background: options.background });
+                obj.css({ width: options.width });
+
+                //Set height
+                if (options.height != null)
+                    ddOptions.css({ height: options.height, overflow: 'auto' });
+
+                //Add ddOptions to the container. Replace with template engine later.
+                $.each(options.data, function (index, item) {
+                    if (item.selected) options.defaultSelectedIndex = index;
+                    ddOptions.append('<li>' +
+                        '<a class="dd-option">' +
+                            (item.value ? ' <input class="dd-option-value" type="hidden" value="' + item.value + '" />' : '') +
+                            (item.imageSrc ? ' <img class="dd-option-image' + (options.imagePosition == "right" ? ' dd-image-right' : '') + '" src="' + item.imageSrc + '" />' : '') +
+                            (item.text ? ' <label class="dd-option-text">' + item.text + '</label>' : '') +
+                            (item.description ? ' <small class="dd-option-description dd-desc">' + item.description + '</small>' : '') +
+                        '</a>' +
+                    '</li>');
+                });
+
+                //Save plugin data.
+                var pluginData = {
+                    settings: options,
+                    original: original,
+                    selectedIndex: -1,
+                    selectedItem: null,
+                    selectedData: null
+                }
+                obj.data('ddslick', pluginData);
+
+                //Check if needs to show the select text, otherwise show selected or default selection
+                if (options.selectText.length > 0 && options.defaultSelectedIndex == null) {
+                    obj.find('.dd-selected').html(options.selectText);
+                }
+                else {
+                    var index = (options.defaultSelectedIndex != null && options.defaultSelectedIndex >= 0 && options.defaultSelectedIndex < options.data.length)
+                                ? options.defaultSelectedIndex
+                                : 0;
+                    selectIndex(obj, index);
+                }
+
+                //EVENTS
+                //Displaying options
+                obj.find('.dd-select').on('click.ddslick', function () {
+                    open(obj);
+                });
+
+                //Selecting an option
+                obj.find('.dd-option').on('click.ddslick', function () {
+                    selectIndex(obj, $(this).closest('li').index());
+                });
+
+                //Click anywhere to close
+                if (options.clickOffToClose) {
+                    ddOptions.addClass('dd-click-off-close');
+                    obj.on('click.ddslick', function (e) { e.stopPropagation(); });
+                    $('body').on('click', function () {
+                        $('.dd-click-off-close').slideUp(50).siblings('.dd-select').find('.dd-pointer').removeClass('dd-pointer-up');
+                    });
+                }
+            }
+        });
+    };
+
+    //Public method to select an option by its index
+    methods.select = function (options) {
+        return this.each(function () {
+            if (options.index!==undefined)
+                selectIndex($(this), options.index);
+            if (options.id)
+                selectId($(this), options.id);
+        });
+    }
+
+    //Public method to open drop down
+    methods.open = function () {
+        return this.each(function () {
+            var $this = $(this),
+                pluginData = $this.data('ddslick');
+
+            //Check if plugin is initialized
+            if (pluginData)
+                open($this);
+        });
+    };
+
+    //Public method to close drop down
+    methods.close = function () {
+        return this.each(function () {
+            var $this = $(this),
+                pluginData = $this.data('ddslick');
+
+            //Check if plugin is initialized
+            if (pluginData)
+                close($this);
+        });
+    };
+
+    //Public method to destroy. Unbind all events and restore the original Html select/options
+    methods.destroy = function () {
+        return this.each(function () {
+            var $this = $(this),
+                pluginData = $this.data('ddslick');
+
+            //Check if already destroyed
+            if (pluginData) {
+                var originalElement = pluginData.original;
+                $this.removeData('ddslick').unbind('.ddslick').replaceWith(originalElement);
+            }
+        });
+    }
+    
+     //Private: Select id
+    function selectId(obj, id) {
+    
+       var index = obj.find(".dd-option-value[value= '" + id + "']").parents("li").prevAll().length;
+       selectIndex(obj, index);
+       
+    }
+
+    //Private: Select index
+    function selectIndex(obj, index) {
+
+        //Get plugin data
+        var pluginData = obj.data('ddslick');
+
+        //Get required elements
+        var ddSelected = obj.find('.dd-selected'),
+            ddSelectedValue = ddSelected.siblings('.dd-selected-value'),
+            ddOptions = obj.find('.dd-options'),
+            ddPointer = ddSelected.siblings('.dd-pointer'),
+            selectedOption = obj.find('.dd-option').eq(index),
+            selectedLiItem = selectedOption.closest('li'),
+            settings = pluginData.settings,
+            selectedData = pluginData.settings.data[index];
+
+        //Highlight selected option
+        obj.find('.dd-option').removeClass('dd-option-selected');
+        selectedOption.addClass('dd-option-selected');
+
+        //Update or Set plugin data with new selection
+        pluginData.selectedIndex = index;
+        pluginData.selectedItem = selectedLiItem;
+        pluginData.selectedData = selectedData;
+
+        //If set to display to full html, add html
+        if (settings.showSelectedHTML) {
+            ddSelected.html(
+                    (selectedData.imageSrc ? '<img class="dd-selected-image' + (settings.imagePosition == "right" ? ' dd-image-right' : '') + '" src="' + selectedData.imageSrc + '" />' : '') +
+                    (selectedData.text ? '<label class="dd-selected-text">' + selectedData.text + '</label>' : '') +
+                    (selectedData.description ? '<small class="dd-selected-description dd-desc' + (settings.truncateDescription ? ' dd-selected-description-truncated' : '') + '" >' + selectedData.description + '</small>' : '')
+                );
+
+        }
+            //Else only display text as selection
+        else ddSelected.html(selectedData.text);
+
+        //Updating selected option value
+        ddSelectedValue.val(selectedData.value);
+
+        //BONUS! Update the original element attribute with the new selection
+        pluginData.original.val(selectedData.value);
+        obj.data('ddslick', pluginData);
+
+        //Close options on selection
+        close(obj);
+
+        //Adjust appearence for selected option
+        adjustSelectedHeight(obj);
+
+        //Callback function on selection
+        if (typeof settings.onSelected == 'function') {
+            settings.onSelected.call(this, pluginData);
+        }
+    }
+
+    //Private: Close the drop down options
+    function open(obj) {
+
+        var $this = obj.find('.dd-select'),
+            ddOptions = $this.siblings('.dd-options'),
+            ddPointer = $this.find('.dd-pointer'),
+            wasOpen = ddOptions.is(':visible');
+
+        //Close all open options (multiple plugins) on the page
+        $('.dd-click-off-close').not(ddOptions).slideUp(50);
+        $('.dd-pointer').removeClass('dd-pointer-up');
+
+        if (wasOpen) {
+            ddOptions.slideUp('fast');
+            ddPointer.removeClass('dd-pointer-up');
+        }
+        else {
+            ddOptions.slideDown('fast');
+            ddPointer.addClass('dd-pointer-up');
+        }
+
+        //Fix text height (i.e. display title in center), if there is no description
+        adjustOptionsHeight(obj);
+    }
+
+    //Private: Close the drop down options
+    function close(obj) {
+        //Close drop down and adjust pointer direction
+        obj.find('.dd-options').slideUp(50);
+        obj.find('.dd-pointer').removeClass('dd-pointer-up').removeClass('dd-pointer-up');
+    }
+
+    //Private: Adjust appearence for selected option (move title to middle), when no desripction
+    function adjustSelectedHeight(obj) {
+
+        //Get height of dd-selected
+        var lSHeight = obj.find('.dd-select').css('height');
+
+        //Check if there is selected description
+        var descriptionSelected = obj.find('.dd-selected-description');
+        var imgSelected = obj.find('.dd-selected-image');
+        if (descriptionSelected.length <= 0 && imgSelected.length > 0) {
+            obj.find('.dd-selected-text').css('lineHeight', lSHeight);
+        }
+    }
+
+    //Private: Adjust appearence for drop down options (move title to middle), when no desripction
+    function adjustOptionsHeight(obj) {
+        obj.find('.dd-option').each(function () {
+            var $this = $(this);
+            var lOHeight = $this.css('height');
+            var descriptionOption = $this.find('.dd-option-description');
+            var imgOption = obj.find('.dd-option-image');
+            if (descriptionOption.length <= 0 && imgOption.length > 0) {
+                $this.find('.dd-option-text').css('lineHeight', lOHeight);
+            }
+        });
+    }
+
+})(jQuery);
+define("ddslick", function(){});
+
 define('zeega_parser/plugins/layers/text_v2/textmodal',[
     "app",
-    "simpleColorPicker"
+    "ddslick"
 ],
 
 function( app ) {
@@ -77293,6 +77237,9 @@ function( app ) {
         className: "text-modal overlay-dimmer ZEEGA-modal",
 
         initialize: function() {
+            // temporary hack to get latest textmodal.html to load
+            // window.JST["app/zeega-parser/plugins/layers/text_v2/textmodal.html"] = null;
+
             this.saveContent = _.debounce(function() {
                 this.model.saveAttr({ content: this.$("textarea").val() });
                 this.updateSample();
@@ -77300,111 +77247,46 @@ function( app ) {
         },
 
         afterRender: function() {
-            var $colorPicker = this.$(".simple-color");
-
-            $colorPicker
-                .simpleColor({
-                    livePreview: true,
-                    onCellEnter: function( hex ) {
-                        this.$(".text-sample")
-                            .css({
-                                color: "#" + hex
-                            });
-                    }.bind( this ),
-                    callback: function( hex ) {
-                        this.onChangeColor( hex );
-                    }.bind( this )
-                });
-
-            this.$("textarea").bind("input propertychange", function() {
-                this.$(".text-sample").text( this.$("textarea").val() );
-            }.bind( this )),
-
             $("#main").addClass("modal");
             this.loadFonts();
-            this.loadSize();
-            this.loadTextPosition();
-            this.loadLineHeight();
-            this.setButtonStates();
-
-            this.updateSample();
             
             this.$("textarea").focus().select();
+            this.fillInPages();
+        },
+
+        fillInPages: function() {
+            app.status.get("currentSequence").frames.each(function( frame ) {
+                var fv = $("<li>"),
+                    bg = frame.get("thumbnail_url") === "" ? "black" :
+                        "url(" + frame.get("thumbnail_url") +") no-repeat center center";
+
+                fv.addClass("page")
+                    .data("id", frame.id )
+                    .css({
+                        background: bg,
+                        "-webkit-background-size": "cover"
+                    });
+
+                if ( app.status.get("currentFrame").id == frame.id ) {
+                    fv.addClass("inactive");
+                }
+
+                if ( this.model.getAttr("to_frame") == frame.id ) {
+                    fv.addClass("active");
+                }
+
+                this.$('.page-chooser-list').append( fv );
+            }, this );
         },
 
         events: {
             "click .modal-close": "closeThis",
-            "click .submit": "submit",
-            "click .text-btn-italic": "toggleItalics",
-            "click .text-btn-bold": "toggleBold",
-
+            "click .text-modal-save": "submit",
             "keypress textarea": "onKeypress",
-            "change .size-list": "onChangeSize",
-            "change .font-list": "onChangeFont",
-            "change .line-height-list": "onLineHeight",
-            "change .text-position-list": "onTextPosition",
-            "click .text-btn-align-left": "toggleAlignLeft",
-            "click .text-btn-align-center": "toggleAlignCenter",
-            "click .text-btn-align-right": "toggleAlignRight"
-        },
-
-        onChangeColor: function( hex ) {
-            this.model.saveAttr({ color: "#" + hex });
-            this.updateSample();
-        },
-
-        onChangeSize: function( e ) {
-            this.model.setAttr({ fontSize: $( e.target ).val() });
-            this.model.saveAttr({ fontSize: $( e.target ).val() });
-        },
-
-        onChangeFont: function( e ) {
-            this.model.saveAttr({ fontFamily: $( e.target ).val() });
-            this.updateSample();
-        },
-
-        onTextPosition: function( e ) {
-            this.model.saveAttr({ mobileTextPosition: $( e.target ).val() });
-            this.updateSample();
-        },
-
-        onLineHeight: function( e ) {
-            this.model.saveAttr({ lineHeight: $( e.target ).val() });
-            this.updateSample();
-        },
-
-        toggleItalics: function() {
-            var italic = this.model.getAttr("italic");
-
-            this.model.saveAttr({ italic: !italic });
-            this.updateSample();
-            this.setButtonStates();
-        },
-
-        toggleAlignLeft: function() {
-            this.model.saveAttr({ textAlign: "left" });
-            this.updateSample();
-            this.setButtonStates();
-        },
-
-        toggleAlignCenter: function() {
-            this.model.saveAttr({ textAlign: "center" });
-            this.updateSample();
-            this.setButtonStates();
-        },
-
-        toggleAlignRight: function() {
-            this.model.saveAttr({ textAlign: "right" });
-            this.updateSample();
-            this.setButtonStates();
-        },
-
-        toggleBold: function() {
-            var bold = this.model.getAttr("bold");
-
-            this.model.saveAttr({ bold: !bold });
-            this.updateSample();
-            this.setButtonStates();
+            "click .page" : "selectPage",
+            "click .link-new-page": "selectNewPage",
+            "click .link-page-open": "openLinkDrawer",
+            "click .unlink-text": "unlink"
         },
 
         onKeypress: function( e ) {
@@ -77413,6 +77295,12 @@ function( app ) {
 
         closeThis: function() {
             $("#main").removeClass("modal");
+
+            if ( !this.model.get("attr").to_frame ) {
+                this.$(".page-chooser-wrapper").addClass("hide");
+                this.$(".link-page-open").removeClass("hide");
+            }
+
             this.$el.fadeOut(function() {
                 this.$el.attr("style", "");
                 this.remove();
@@ -77420,58 +77308,92 @@ function( app ) {
             this.$("input").unbind("input propertychange");
         },
 
+        openLinkDrawer: function() {
+            this.$(".page-chooser-wrapper").slideDown();
+            this.$(".link-page").hide();
+        },
+
+        unlink: function() {
+            this.model.saveAttr({ to_frame: null });
+            this.$(".page-chooser-wrapper").slideUp();
+            this.$(".link-page").show();
+        },
+
         submit: function() {
-            this.model.saveAttr({ content: this.$("textarea").val() });
+            this.model.setAttr({ content: this.$("textarea").val() });
             this.closeThis();
             this.updateVisualElement();
+
+            if ( this.selectedFrame !== null && this.selectedFrame == "NEW_FRAME" ) {
+                this.linkToNewPage();
+                this.closeThis();
+            } else if ( this.selectedFrame !== null ) {
+                this.model.saveAttr({ to_frame: this.selectedFrame });
+                this.model.trigger("change:to_frame", this.model, this.selectedFrame );
+                this.closeThis();
+            }
         },
 
         loadFonts: function() {
             this.$(".font-list").empty();
+
             _.each( this.model.fontList, function( fontName ) {
-                this.$(".font-list").append("<option value='" + fontName + "'>" + fontName + "</option>");
+                var opt = $("<option value='" + fontName + "' data-nondescription='" + fontName + "'>" + fontName + "</option>");
+
+                if ( this.model.getAttr("fontFamily") == fontName ) {
+                    opt.attr("selected", "selected");
+                }
+                this.$(".font-list").append( opt );
             }, this );
 
-            this.$(".font-list").val( this.model.getAttr("fontFamily") );
-        },
-
-        loadSize: function() {
-            this.$(".size-list").val( this.model.getAttr("fontSize") );
-        },
-
-        loadTextPosition: function() {
-            this.$(".text-position-list").val( this.model.getAttr("mobileTextPosition") );
-        },
-
-        loadLineHeight: function() {
-            this.$(".line-height-list").val( this.model.getAttr("lineHeight") );
-        },
-
-        setButtonStates: function() {
-            this.$(".active").removeClass("active");
-
-            this.$(".text-btn-bold").addClass( this.model.getAttr("bold") ? "active" : "" );
-            this.$(".text-btn-italic").addClass( this.model.getAttr("italic") ? "active" : "" );
-            this.$(".text-btn-align-left").addClass( this.model.getAttr("textAlign") == "left" ? "active" : "" );
-            this.$(".text-btn-align-center").addClass( this.model.getAttr("textAlign") == "center" ? "active" : "" );
-            this.$(".text-btn-align-right").addClass( this.model.getAttr("textAlign") == "right" ? "active" : "" );
+            $('#font-list-' + this.model.id ).ddslick({
+                height: "200px",
+                onSelected: function(data){
+                    this.model.setAttr({ fontFamily: data.selectedData.value });
+                    this.updateSample();
+                }.bind( this )
+            });
         },
 
         updateSample: function() {
-            this.$(".text-sample")
-                .css({
-                    color: "#" + this.model.getAttr("color"),
-                    fontWeight: this.model.getAttr("bold") ? "bold" : "normal",
-                    fontStyle: this.model.getAttr("italic") ? "italic" : "normal",
-                    fontFamily: this.model.getAttr("fontFamily"),
-                    textAlign: this.model.getAttr("textAlign")
-                })
-                .text( this.model.getAttr("content") );
-            this.updateVisualElement();
+            this.$("textarea").css({
+                fontFamily: this.model.getAttr("fontFamily")
+            });
         },
 
         updateVisualElement: function() {
             this.model.visual.updateStyle();
+        },
+
+        selectPage: function( e ) {
+            var $frameLI = $(e.target).closest("li");
+
+            if ( !$frameLI.hasClass("inactive") ) {
+                this.$(".page-chooser-list li.active, .link-new-page").removeClass("active");
+                $frameLI.addClass("active");
+                this.selectedFrame = $frameLI.data("id");
+            }
+
+            this.$(".submit").removeClass("btnz-inactive");
+        },
+
+        selectNewPage: function() {
+            this.$(".page-chooser-list li.active").removeClass("active");
+            this.$(".link-new-page").addClass("active");
+            this.selectedFrame = "NEW_FRAME";
+            this.$(".submit").removeClass("btnz-inactive");
+        },
+
+        linkToNewPage: function() {
+            var newFrame = app.status.get("currentSequence").frames.addFrame();
+
+            newFrame.once("sync", this.onNewFrameSave, this );
+            this.closeThis();
+        },
+
+        onNewFrameSave: function( newFrame ) {
+            this.model.saveAttr({ to_frame: newFrame.id });
+            this.model.trigger("change:to_frame", this.model, newFrame.id );
         },
 
         fetch: function( path ) {
@@ -77518,7 +77440,7 @@ function( app, _Layer, Visual, TextModal ) {
             citation: false,
             color: "#FFF",
             content: "text",
-            fontSize: 100,
+            fontSize: 150,
             fontFamily: "Archivo Black",
             default_controls: true,
             left: 12.5,
@@ -77527,6 +77449,7 @@ function( app, _Layer, Visual, TextModal ) {
             top: 40,
             width: 75,
             dissolve: true,
+            to_frame: null,
 
             bold: false,
             italic: false,
@@ -77553,7 +77476,26 @@ function( app, _Layer, Visual, TextModal ) {
                     step: 0.001,
                     css: true
                 }
+            },{
+                type: "color",
+                options: {
+                    title: "color",
+                    propertyName: "color"
+                }
+            },{
+                type: "dropdown",
+                options: {
+                    title: "font size",
+                    propertyName: "fontSize",
+                    units: "%",
+                    optionList: [
+                        { title: "small", value: 50 },
+                        { title: "medium", value: 150 },
+                        { title: "large", value: 250 }
+                    ]
+                }
             }
+
         ],
 
         fontList: [
@@ -77681,6 +77623,13 @@ function( app, _Layer, Visual, TextModal ) {
                 });
             }
 
+            if ( this.getAttr("to_frame") ) {
+                this.$el.addClass("linked-layer link-reveal");
+                setTimeout(function() {
+                    this.$el.removeClass("link-reveal");
+                }.bind( this ), 750 );
+            }
+
         },
 
         // ## TODO Simplify this - 5/3/2013
@@ -77759,6 +77708,20 @@ function( app, _Layer, Visual, TextModal ) {
             };
 
             this.$el.css( css );
+        },
+
+        events: {
+            "click": "onClick"
+        },
+
+        onClick: function() {
+
+            if ( this.model.mode == "editor" ) {
+                app.status.setCurrentLayer( this.model );
+            } else {
+                this.model.relay.set( "current_frame", this.getAttr("to_frame") );
+            }
+            return false;
         }
   });
 
@@ -77938,7 +77901,6 @@ function( app, Layer, Visual ){
             top: 0,
             height: 100,
             width: 100,
-            width: null,
             opacity: 1,
             aspectRatio: null,
             dissolve: true
@@ -78779,23 +78741,6 @@ function( app, SequenceCollection ) {
             user_id: null
         },
 
-        defaultCoverImages: [
-            "http://giphy.com/gifs/VxbP9tLeKzazm",
-            "http://giphy.com/gifs/4lLVnnMbawnss",
-            "http://giphy.com/gifs/bq6gi8shRqgyA",
-            "http://giphy.com/gifs/BDqInV6xYl1Ju",
-            "http://giphy.com/gifs/k0ywWCPu4IlEs",
-            "http://giphy.com/gifs/Mi6gE0Qjw2dWM",
-            "http://www.musicobsessed.com/wp-content/gallery/sfmo/tv-set-funky-cuteo.gif",
-            "http://24.media.tumblr.com/tumblr_m8582nac7y1r0k830o1_500.gif",
-            "http://24.media.tumblr.com/tumblr_lnxkb8K8u61qjvkx9o1_500.gif",
-            "http://25.media.tumblr.com/tumblr_mbjwlvwO5R1reeolao1_500.gif",
-            "http://reignandpour.com/home_files/tv.gif",
-            "http://s8.favim.com/orig/72/gif-animated-gif-tv-static-glitch-Favim.com-687367.gif",
-            "http://alaingiffard.files.wordpress.com/2007/12/applaudissements-001_1173713587.gif",
-            "http://www.poly.edu/sites/polyproto.poly.edu/files/cinemaNOISE.gif"
-        ],
-
         defaultOptions: {
             preloadRadius: 2,
             attach: {}
@@ -78806,9 +78751,6 @@ function( app, SequenceCollection ) {
         },
 
         initialize: function( data, options ) {
-            // if ( this.get("cover_image") == "" ) {
-            //     this.set("cover_image", this.defaultCoverImages[ Math.floor( Math.random() * this.defaultCoverImages.length ) ])
-            // }
             this.options = _.defaults( options, this.defaultOptions );
             this.parser = options.parser;
             this.parseSequences();
@@ -78864,7 +78806,7 @@ function( app, SequenceCollection ) {
                     var linksTo = [];
 
                     frame.layers.each(function( layer ) {
-                        if ( layer.get("type") == "Link" && layer.get("attr").to_frame != frame.id ) {
+                        if ( layer.get("attr").to_frame != frame.id ) {
                             var targetFrameID, targetFrame, linksFrom;
 
                             targetFrameID = parseInt( layer.get("attr").to_frame, 10 );
@@ -79100,7 +79042,7 @@ function() {
                 frame.layers = _.without( frame.layers, response.sequences[0].attr.soundtrack );
             });
         }
-    }
+    };
 
     // no op. projects are already formatted
     Parser[type].parse = function( response, opts ) {
@@ -79133,7 +79075,7 @@ function() {
             
             endPage.id = endId;
             response.frames.push( endPage );
-            response.sequences[0].frames.push( endId )
+            response.sequences[0].frames.push( endId );
         }
 
         return response;
@@ -79167,10 +79109,10 @@ function() {
                 frame.layers = _.without( frame.layers, response.sequences[0].attr.soundtrack );
             });
         }
-    }
+    };
 
     Parser[type].parse = function( response, opts ) {
-        var response = response.items[0].text;
+        response = response.items[0].text;
 
         removeDupeSoundtrack( response );
 
@@ -79200,7 +79142,7 @@ function() {
             
             endPage.id = endId;
             response.frames.push( endPage );
-            response.sequences[0].frames.push( endId )
+            response.sequences[0].frames.push( endId );
         }
 
         return response;
@@ -81348,9 +81290,9 @@ require.config({
   // generated configuration file.
 
   // Release
- deps: [ "../vendor/tipsy/src/javascripts/jquery.tipsy", "../vendor/simple-color-picker/src/jquery.simple-color", "zeegaplayer", "../vendor/jam/require.config", "main", "spin"],
+//  deps: [ "../vendor/tipsy/src/javascripts/jquery.tipsy", "../vendor/simple-color-picker/src/jquery.simple-color", "zeegaplayer", "../vendor/jam/require.config", "main", "spin"],
 
-//   deps: ["zeegaplayer", "../vendor/jam/require.config", "main", "spin"],
+  deps: ["zeegaplayer", "../vendor/jam/require.config", "main", "spin"],
 
 
   paths: {
