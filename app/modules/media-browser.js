@@ -331,13 +331,13 @@ function( app, ItemModel, MediaView, ItemCollectionViewer ) {
         api: "Zeega",
         mediaCollection: null,
         apiUrl: app.searchAPI,
-        favUrl: app.searchAPI + "type=-project AND -Collection AND -Audio&user=5192b78a20d5cd1712000000&limit=48&sort=date-desc",
+        favUrl: app.searchAPI + "user=5192b78a20d5cd1712000000&limit=48",
         allowSearch: false,
 
         defaults: {
                 urlArguments: {
                     collection: "",
-                    type: "-project AND -Collection AND -Video",
+                    type: "",
                     page: 1,
                     q: "",
                     limit: 48,
@@ -391,7 +391,7 @@ function( app, ItemModel, MediaView, ItemCollectionViewer ) {
         defaults: {
                 urlArguments: {
                     collection: "",
-                    type: "-project AND -Collection AND -Video",
+                    type: "",
                     page: 1,
                     q: "",
                     limit: 48,
@@ -408,17 +408,9 @@ function( app, ItemModel, MediaView, ItemCollectionViewer ) {
 
         
         _search: function( query ){
-
-
             var args = this.get("urlArguments");
-
-           
-
-            if(query === ""){
-                args.data_source = "db";
-            } else if( query !== args.q ) {
+            if( query !== args.q ) {
                 args.q = query;
-                args.data_source = "solr";
             }
 
             this.set("urlArguments", args );
