@@ -77943,7 +77943,7 @@ function( app ) {
                 this.linkToNewPage();
                 this.closeThis();
                 this.model.visual.$el.addClass("linked-layer");
-            } else if ( this.selectedFrame !== null ) {
+            } else if ( this.selectedFrame !== null && !_.isUndefined( this.selectedFrame )) {
                 this.model.saveAttr({ to_frame: this.selectedFrame });
                 this.model.trigger("change:to_frame", this.model, this.selectedFrame );
                 this.closeThis();
@@ -78250,7 +78250,6 @@ function( app, _Layer, Visual, TextModal ) {
             }
 
             if ( !_.isNull( this.getAttr("to_frame")) && !_.isUndefined ( this.getAttr("to_frame") ) ) {
-
                 this.$el.addClass("linked-layer link-reveal");
                 setTimeout(function() {
                     this.$el.removeClass("link-reveal");
@@ -81905,9 +81904,9 @@ require.config({
   // generated configuration file.
 
   // Release
-  deps: [ "../vendor/tipsy/src/javascripts/jquery.tipsy", "../vendor/simple-color-picker/src/jquery.simple-color", "zeegaplayer", "../vendor/jam/require.config", "main", "spin"],
+ deps: [ "../vendor/tipsy/src/javascripts/jquery.tipsy", "../vendor/simple-color-picker/src/jquery.simple-color", "zeegaplayer", "../vendor/jam/require.config", "main", "spin"],
 
- // deps: ["zeegaplayer", "../vendor/jam/require.config", "main", "spin"],
+ //  deps: ["zeegaplayer", "../vendor/jam/require.config", "main", "spin"],
 
 
   paths: {
