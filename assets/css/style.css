@@ -2777,6 +2777,9 @@ body .ui-tooltip {
 .text-modal a.action:hover {
   text-decoration: underline;
 }
+.text-modal .modal-body {
+  min-height: 162px !important;
+}
 .text-modal .top-box {
   margin-bottom: 10px;
 }
@@ -6212,11 +6215,15 @@ a:active {
 .frames .ZEEGA-frame {
   display: inline-block;
   position: relative;
-  padding: 5px;
+  padding: 5px 0px 5px 5px;
 }
 .frames .frame-placeholder:child-first,
 .frames .ZEEGA-frame:child-first {
   padding-left: 5px;
+}
+.frames .frame-placeholder:last-child .advance-toggle,
+.frames .ZEEGA-frame:last-child .advance-toggle {
+  display: none;
 }
 .frames .frame-placeholder.active .frame-thumb,
 .frames .ZEEGA-frame.active .frame-thumb {
