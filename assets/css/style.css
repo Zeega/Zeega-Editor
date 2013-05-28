@@ -5952,6 +5952,9 @@ html {
 .ZEEGA-hmenu > ul > li {
   float: left;
 }
+.ZEEGA-hmenu > ul > li.ZEEGA-layer-drawer {
+  float: right;
+}
 .ZEEGA-hmenu > ul > li > a {
   border-radius: 2px;
   padding: 10px;
@@ -6699,6 +6702,9 @@ a:active {
   float: left;
   width: 150px;
   margin: 0 0 10px 10px;
+}
+.ZEEGA-layer-drawer.ZEEGA-hmenu ul > li {
+  float: right;
 }
 .ZEEGA-layer-drawer .disabled {
   opacity: 0.5;
