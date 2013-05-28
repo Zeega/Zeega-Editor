@@ -48,7 +48,9 @@ function( app, FrameView ) {
         },
 
         onFrameAdd: function( frameModel, collection ) {
-            this.model.status.setCurrentFrame( frameModel );
+            if ( frameModel.editorAdvanceToPage != false ) {
+                this.model.status.setCurrentFrame( frameModel );
+            }
             this.renderSequenceFrames( this.model.status.get("currentSequence") );
             this.updateFrameOrder();
             app.emit("page_added", null);
