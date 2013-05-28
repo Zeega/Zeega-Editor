@@ -48,7 +48,7 @@ function( app, FrameView ) {
         },
 
         onFrameAdd: function( frameModel, collection ) {
-            if ( frameModel.editorAdvanceToPage != false ) {
+            if ( frameModel.editorAdvanceToPage !== false ) {
                 this.model.status.setCurrentFrame( frameModel );
             }
             this.renderSequenceFrames( this.model.status.get("currentSequence") );

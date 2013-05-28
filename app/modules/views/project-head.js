@@ -14,14 +14,14 @@ function( app ) {
                 userId: app.userId,
                 userProjects: $.parseJSON( window.userProjects ),
                 webRoot: app.webRoot,
-                tumblr_share: this.getTumblrShareUrl(),
-            }, 
+                tumblr_share: this.getTumblrShareUrl()
+            },
             app.metadata,
             this.model.project.toJSON() );
         },
 
         getTumblrShareUrl: function() {
-            var html = "<p>" + app.project.get("title") + "</p>" + 
+            var html = "<p>" + app.project.get("title") + "</p>" +
                 "<p><a href='" + app.webRoot + app.project.get("item_id") + "'>" +
                 "<strong>►&nbsp;Play&nbsp;Zeega&nbsp;►</strong></a>" +
                 "</p><p>by&nbsp;<a href='" + app.webRoot + "profile/" + app.project.get("user_id") + "'>" + app.project.get("authors") + "</a></p>";

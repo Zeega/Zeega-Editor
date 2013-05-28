@@ -39,7 +39,7 @@ function( app ) {
             if ( disabled ) {
                 this.$("a[data-layer-type='TextV2']")
                     .addClass("disabled")
-                    .attr("title", "only one text layer per page")
+                    .attr("title", "only one text layer per page");
             } else {
                 this.$("a[data-layer-type='TextV2']")
                     .removeClass("disabled")
@@ -54,7 +54,7 @@ function( app ) {
         },
 
         onLayerAdd: function( layerModel ) {
-            console.log("on layer ADD",layerModel.get("type"), layerModel)
+            // console.log("on layer ADD",layerModel.get("type"), layerModel)
             if ( layerModel.get("type") == "TextV2") {
                 this.$("a[data-layer-type='TextV2']").addClass("disabled");
             }

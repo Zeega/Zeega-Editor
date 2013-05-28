@@ -405,7 +405,13 @@ __p+='<div class="frame-menu tooltip"\n    title="delete page"\n    data-gravity
 ( thumbnail_url )+
 ') no-repeat center center; \n            -webkit-background-size: cover;\n            -moz-background-size: cover;\n            -o-background-size: cover;\n            background-size: cover;\n        ';
  } 
-;__p+='\n"></a>\n\n<a href="#" class="advance-toggle';
+;__p+='\n"></a>\n\n<a title="';
+ if ( attr.advance ) { 
+;__p+=' remove default advance ';
+ } else {  
+;__p+=' add default advance ';
+ }
+;__p+='" data-gravity="n" href="#" class="advance-toggle';
  if ( attr.advance ) { 
 ;__p+=' active';
  } 
@@ -56932,14 +56938,14 @@ function( app ) {
                 userId: app.userId,
                 userProjects: $.parseJSON( window.userProjects ),
                 webRoot: app.webRoot,
-                tumblr_share: this.getTumblrShareUrl(),
-            }, 
+                tumblr_share: this.getTumblrShareUrl()
+            },
             app.metadata,
             this.model.project.toJSON() );
         },
 
         getTumblrShareUrl: function() {
-            var html = "<p>" + app.project.get("title") + "</p>" + 
+            var html = "<p>" + app.project.get("title") + "</p>" +
                 "<p><a href='" + app.webRoot + app.project.get("item_id") + "'>" +
                 "<strong>►&nbsp;Play&nbsp;Zeega&nbsp;►</strong></a>" +
                 "</p><p>by&nbsp;<a href='" + app.webRoot + "profile/" + app.project.get("user_id") + "'>" + app.project.get("authors") + "</a></p>";
@@ -57187,17 +57193,25 @@ function( app ) {
         },
 
         toggleAdvance: function() {
-            console.log("toggle advance", this.model.get("attr"), this.model.get("attr").advance );
+            //console.log("toggle advance", this.model.get("attr"), this.model.get("attr").advance );
 
             this.$(".advance-toggle").toggleClass("active");
+            
+            if( this.model.get("attr").advance ){
+                this.$(".advance-toggle").attr({ "title" : "add default advance" });
+            } else {
+                this.$(".advance-toggle").attr({ "title" : "remove default advance" });
+            }
+
             this.model.saveAttr({
                 advance: !this.model.get("attr").advance
             });
         },
 
         turnOffAdvance: function() {
-            console.log("TURN OFF ADVANCE")
-            this.$(".advance-toggle").removeClass("active");
+           // console.log("TURN OFF ADVANCE")
+            this.$(".advance-toggle").removeClass("active").attr({ "original-title" : "add default advance" });
+
         },
 
         doAction: function( e ) {
@@ -57205,7 +57219,7 @@ function( app ) {
         },
 
         deleteFrame: function() {
-            if ( confirm("Delete Page? This cannot be undone!") ) { 
+            if ( confirm("Delete Page? This cannot be undone!") ) {
                 $(".tipsy").remove();
                 app.emit("page_delete", this.model );
                 this.model.collection.remove( this.model );
@@ -57277,7 +57291,7 @@ function( app, FrameView ) {
         },
 
         onFrameAdd: function( frameModel, collection ) {
-            if ( frameModel.editorAdvanceToPage != false ) {
+            if ( frameModel.editorAdvanceToPage !== false ) {
                 this.model.status.setCurrentFrame( frameModel );
             }
             this.renderSequenceFrames( this.model.status.get("currentSequence") );
@@ -72995,7 +73009,7 @@ function( app ) {
             if ( disabled ) {
                 this.$("a[data-layer-type='TextV2']")
                     .addClass("disabled")
-                    .attr("title", "only one text layer per page")
+                    .attr("title", "only one text layer per page");
             } else {
                 this.$("a[data-layer-type='TextV2']")
                     .removeClass("disabled")
@@ -73010,7 +73024,7 @@ function( app ) {
         },
 
         onLayerAdd: function( layerModel ) {
-            console.log("on layer ADD",layerModel.get("type"), layerModel)
+            // console.log("on layer ADD",layerModel.get("type"), layerModel)
             if ( layerModel.get("type") == "TextV2") {
                 this.$("a[data-layer-type='TextV2']").addClass("disabled");
             }
@@ -73512,7 +73526,7 @@ function( app ) {
         $target: null,
 
         className: function() {
-            return "pointer point-" + this.model.get("pointDirection")
+            return "pointer point-" + this.model.get("pointDirection");
         },
 
         template: "pointer",
@@ -73537,7 +73551,7 @@ function( app ) {
             if ( this.$target.length ) {
                 css.top = ( this.$target.offset().top + ( this.$target.height() / ( this.model.get("verticalDivision") || 2 ) ) - 21 );
                 if ( this.model.get("pointDirection") == "right" ) {
-                    css.left = this.$target.offset().left - this.$el.width() - 20 - 15 ; 
+                    css.left = this.$target.offset().left - this.$el.width() - 20 - 15 ;
                 } else {
                     css.left = this.$target.offset().left + this.$target.width() + 15;
                 }
@@ -73651,9 +73665,9 @@ function( app, PointerModel ) {
         },
 
         point: function( pointer ) {
-            console.log("Pointer", pointer, this)
+            console.log("Pointer", pointer, this);
             pointer.once("end", this.pointNext, this );
-            pointer.point()
+            pointer.point();
         },
 
         pointNext: function() {
@@ -73661,7 +73675,7 @@ function( app, PointerModel ) {
 
             this.index++;
             next = this.at( this.index );
-console.log("point next", next, this.index)
+// console.log("point next", next, this.index)
 
             if ( next ) {
                 this.point( next );
@@ -73673,7 +73687,7 @@ console.log("point next", next, this.index)
         },
 
         cancel: function() {
-            this.trigger("cancel")
+            this.trigger("cancel");
         }
 
     });
@@ -74654,8 +74668,8 @@ function( app, ProjectHead, Frames, Workspace, Layers, LayerDrawer, Soundtrack, 
                 if ( layer.get("type") == "Youtube" ) {
                     // do pointers
                     this.YTInstructions = new Pointers( this.YTSequence );
-                    console.log("do pointers",this.YTSequence, this.YTInstructions)
-                    this.YTInstructions.startPointing()
+                    //console.log("do pointers",this.YTSequence, this.YTInstructions)
+                    this.YTInstructions.startPointing();
                 }
             }, this );
         },
@@ -77027,19 +77041,19 @@ function( app, _Layer, Visual ){
 
         
         window.onPlayerLoaded = function( containerId ) {
-            onPlayerLoaded[ containerId ] && onPlayerLoaded[ containerId ]();
+            var k = onPlayerLoaded[ containerId ] && onPlayerLoaded[ containerId ]();
         };
 
         window.onLoading= function( containerId, value ) {
-            onLoading[ containerId ] && onLoading[ containerId ](value);
+            var k = onLoading[ containerId ] && onLoading[ containerId ](value);
         };
 
         window.onStateChange= function( containerId, eventid, eventvalue ) {
-            onStateChange[ containerId ] && onStateChange[ containerId ](eventid, eventvalue);
+            var k = onStateChange[ containerId ] && onStateChange[ containerId ](eventid, eventvalue);
         };
 
         window.onError= function( containerId, value ) {
-          onError[ containerId ] && onError[ containerId ](value);
+            var k = onError[ containerId ] && onError[ containerId ](value);
         };
 
         Layer.Audio.Visual = Visual.extend({
@@ -81890,9 +81904,9 @@ require.config({
   // generated configuration file.
 
   // Release
-  deps: [ "../vendor/tipsy/src/javascripts/jquery.tipsy", "../vendor/simple-color-picker/src/jquery.simple-color", "zeegaplayer", "../vendor/jam/require.config", "main", "spin"],
+deps: [ "../vendor/tipsy/src/javascripts/jquery.tipsy", "../vendor/simple-color-picker/src/jquery.simple-color", "zeegaplayer", "../vendor/jam/require.config", "main", "spin"],
 
-//  deps: ["zeegaplayer", "../vendor/jam/require.config", "main", "spin"],
+ //   deps: ["zeegaplayer", "../vendor/jam/require.config", "main", "spin"],
 
 
   paths: {

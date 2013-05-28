@@ -49,17 +49,25 @@ function( app ) {
         },
 
         toggleAdvance: function() {
-            console.log("toggle advance", this.model.get("attr"), this.model.get("attr").advance );
+            //console.log("toggle advance", this.model.get("attr"), this.model.get("attr").advance );
 
             this.$(".advance-toggle").toggleClass("active");
+            
+            if( this.model.get("attr").advance ){
+                this.$(".advance-toggle").attr({ "title" : "add default advance" });
+            } else {
+                this.$(".advance-toggle").attr({ "title" : "remove default advance" });
+            }
+
             this.model.saveAttr({
                 advance: !this.model.get("attr").advance
             });
         },
 
         turnOffAdvance: function() {
-            console.log("TURN OFF ADVANCE")
-            this.$(".advance-toggle").removeClass("active");
+           // console.log("TURN OFF ADVANCE")
+            this.$(".advance-toggle").removeClass("active").attr({ "original-title" : "add default advance" });
+
         },
 
         doAction: function( e ) {
@@ -67,7 +75,7 @@ function( app ) {
         },
 
         deleteFrame: function() {
-            if ( confirm("Delete Page? This cannot be undone!") ) { 
+            if ( confirm("Delete Page? This cannot be undone!") ) {
                 $(".tipsy").remove();
                 app.emit("page_delete", this.model );
                 this.model.collection.remove( this.model );

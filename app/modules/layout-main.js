@@ -105,8 +105,8 @@ function( app, ProjectHead, Frames, Workspace, Layers, LayerDrawer, Soundtrack, 
                 if ( layer.get("type") == "Youtube" ) {
                     // do pointers
                     this.YTInstructions = new Pointers( this.YTSequence );
-                    console.log("do pointers",this.YTSequence, this.YTInstructions)
-                    this.YTInstructions.startPointing()
+                    //console.log("do pointers",this.YTSequence, this.YTInstructions)
+                    this.YTInstructions.startPointing();
                 }
             }, this );
         },

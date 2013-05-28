@@ -17,9 +17,9 @@ function( app, PointerModel ) {
         },
 
         point: function( pointer ) {
-            console.log("Pointer", pointer, this)
+            console.log("Pointer", pointer, this);
             pointer.once("end", this.pointNext, this );
-            pointer.point()
+            pointer.point();
         },
 
         pointNext: function() {
@@ -27,7 +27,7 @@ function( app, PointerModel ) {
 
             this.index++;
             next = this.at( this.index );
-console.log("point next", next, this.index)
+// console.log("point next", next, this.index)
 
             if ( next ) {
                 this.point( next );
@@ -39,7 +39,7 @@ console.log("point next", next, this.index)
         },
 
         cancel: function() {
-            this.trigger("cancel")
+            this.trigger("cancel");
         }
 
     });
