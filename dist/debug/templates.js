@@ -19,11 +19,11 @@ __p+='<div class="frame-menu tooltip"\n    title="delete page"\n    data-gravity
 ( thumbnail_url )+
 ') no-repeat center center; \n            -webkit-background-size: cover;\n            -moz-background-size: cover;\n            -o-background-size: cover;\n            background-size: cover;\n        ';
  } 
-;__p+='\n"></a>\n<!--\n<a href="#" class="advance-toggle';
+;__p+='\n"></a>\n\n<a href="#" class="advance-toggle';
  if ( attr.advance ) { 
 ;__p+=' active';
  } 
-;__p+='">\n    <i class="icon-chevron-right"></i>\n</a>\n-->';
+;__p+='">\n    <i class="icon-chevron-right"></i>\n</a>\n';
 }
 return __p;
 };
