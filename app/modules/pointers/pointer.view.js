@@ -10,7 +10,7 @@ function( app ) {
         $target: null,
 
         className: function() {
-            return "pointer point-" + this.model.get("pointDirection")
+            return "pointer point-" + this.model.get("pointDirection");
         },
 
         template: "pointer",
@@ -35,7 +35,7 @@ function( app ) {
             if ( this.$target.length ) {
                 css.top = ( this.$target.offset().top + ( this.$target.height() / ( this.model.get("verticalDivision") || 2 ) ) - 21 );
                 if ( this.model.get("pointDirection") == "right" ) {
-                    css.left = this.$target.offset().left - this.$el.width() - 20 - 15 ; 
+                    css.left = this.$target.offset().left - this.$el.width() - 20 - 15 ;
                 } else {
                     css.left = this.$target.offset().left + this.$target.width() + 15;
                 }

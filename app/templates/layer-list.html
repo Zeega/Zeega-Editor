@@ -1,7 +1,11 @@
 <div class="layer-marker">
+
+<% if ( !attr.thumbnail_url ) { %>
     <div class="layer-list-top">
         <span class="layer-title"><%= attr.title %></span>
     </div>
+<% } %>
+
     <div class="layer-list-bottom clearfix">
         <a href="#" class="action-bg pull-left"><i class="zicon-<%= type.toLowerCase() %> zicon-white"></i></a>
         <a href="#" class="action-bg pull-right tooltip"
@@ -10,3 +14,12 @@
         ><i data-action="deleteLayer" class="action icon-trash icon-white"></i></a>
     </div>
 </div>
+
+<% if ( attr.thumbnail_url ) { %>
+    <div class="layer-list-bg"
+        style="
+            background: url(<%= attr.thumbnail_url %>);
+            background-size: cover;
+        "
+    ></div>
+<% } %>

@@ -68,7 +68,6 @@ function( app, LayerList ) {
         },
 
         onLayerAdd: function( layerModel, collection ) {
-
             var layerView = new LayerList({
                     model: layerModel,
                     attributes: {
@@ -79,6 +78,7 @@ function( app, LayerList ) {
             this.layerViews.push( layerView );
             this.$("ul.layer-list").prepend( layerView.el );
             layerView.render();
+            app.emit("layer_add", layerModel );
         },
 
         renderFrameLayers: function( frameModel ) {

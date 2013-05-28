@@ -87,6 +87,7 @@ function( app, LayerControls ) {
             if ( confirm("do you really want to delete this layer?") ) {
                 $(".tipsy").remove();
                 this.model.collection.remove( this.model );
+                app.emit("layer_deleted", this.model );
             }
         },
 
