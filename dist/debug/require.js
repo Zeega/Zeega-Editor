@@ -76990,19 +76990,19 @@ function( app, _Layer, Visual ){
 
         
         window.onPlayerLoaded = function( containerId ) {
-            var k = onPlayerLoaded[ containerId ] && onPlayerLoaded[ containerId ]();
+            onPlayerLoaded[ containerId ] && onPlayerLoaded[ containerId ]();
         };
 
         window.onLoading= function( containerId, value ) {
-            var k = onLoading[ containerId ] && onLoading[ containerId ](value);
+            onLoading[ containerId ] && onLoading[ containerId ](value);
         };
 
         window.onStateChange= function( containerId, eventid, eventvalue ) {
-            var k = onStateChange[ containerId ] && onStateChange[ containerId ](eventid, eventvalue);
+            onStateChange[ containerId ] && onStateChange[ containerId ](eventid, eventvalue);
         };
 
         window.onError= function( containerId, value ) {
-            var k = onError[ containerId ] && onError[ containerId ](value);
+          onError[ containerId ] && onError[ containerId ](value);
         };
 
         Layer.Audio.Visual = Visual.extend({
@@ -77808,6 +77808,7 @@ function( app ) {
         afterRender: function() {
             $("#main").addClass("modal");
             this.loadFonts();
+            
             this.$("textarea").focus().select();
             this.fillInPages();
         },
@@ -77875,8 +77876,7 @@ function( app ) {
             this.selectedFrame = null;
             this.model.saveAttr({ to_frame: null });
 
-            this.model.visual.$el.removeClass("linked-layer");
-
+            
             this.$(".page-chooser-wrapper").slideUp(function(){
                 $(this).parent().find(".link-page-open").show();
             });
@@ -77891,12 +77891,10 @@ function( app ) {
             if ( this.selectedFrame !== null && this.selectedFrame == "NEW_FRAME" ) {
                 this.linkToNewPage();
                 this.closeThis();
-                this.model.visual.$el.addClass("linked-layer");
-            } else if ( this.selectedFrame !== null && !_.isUndefined( this.selectedFrame )) {
+            } else if ( this.selectedFrame !== null ) {
                 this.model.saveAttr({ to_frame: this.selectedFrame });
                 this.model.trigger("change:to_frame", this.model, this.selectedFrame );
                 this.closeThis();
-                this.model.visual.$el.addClass("linked-layer");
             }
         },
 
@@ -77951,7 +77949,7 @@ function( app ) {
         },
 
         linkToNewPage: function() {
-            var newFrame = app.status.get("currentSequence").frames.addFrame( "auto", false );
+            var newFrame = app.status.get("currentSequence").frames.addFrame();
 
             newFrame.once("sync", this.onNewFrameSave, this );
             this.closeThis();
@@ -78055,18 +78053,9 @@ function( app, _Layer, Visual, TextModal ) {
                     propertyName: "fontSize",
                     units: "%",
                     optionList: [
-                        { title: "8", value: 100 },
-                        { title: "10", value: 125 },
-                        { title: "12", value: 150 },
-                        { title: "14", value: 175 },
-                        { title: "18", value: 200 },
-                        { title: "24", value: 250 },
-                        { title: "36", value: 375 },
-                        { title: "48", value: 500 },
-                        { title: "72", value: 800 },
-                        { title: "144", value: 1600 },
-                        { title: "200", value: 2400 },
-                        { title: "300", value: 3600 }
+                        { title: "small", value: 50 },
+                        { title: "medium", value: 150 },
+                        { title: "large", value: 250 }
                     ]
                 }
             }
@@ -78198,7 +78187,7 @@ function( app, _Layer, Visual, TextModal ) {
                 });
             }
 
-            if ( !_.isNull( this.getAttr("to_frame")) && !_.isUndefined ( this.getAttr("to_frame") ) ) {
+            if ( !_.isNull( this.getAttr("to_frame") ) ) {
                 this.$el.addClass("linked-layer link-reveal");
                 setTimeout(function() {
                     this.$el.removeClass("link-reveal");
@@ -78808,7 +78797,16 @@ function( app, Backbone, Layers, ThumbWorker ) {
         addLayerType: function( type ) {
             var newLayer = new Layers[ type ]({ type: type });
 
-            this.set("attr", this.defaults.attr );
+            // turn off advance if the type is a link
+            /*
+            if ( type == "Link") {
+                var attr = this.get("attr");
+
+                attr.advance = false;
+                this.set("attr", attr );
+                this.trigger("no_advance")
+            }
+            */
 
             newLayer.order[ this.id ] = this.layers.length;
 
@@ -79148,13 +79146,17 @@ function( app, FrameModel, LayerCollection ) {
 
         // add frame at a specified index.
         // omit index to append frame
-        addFrame: function( index, skipTo ) {
+        addFrame: function( index ) {
             var newFrame, continuingLayers = [];
-
-            skipTo = !_.isUndefined( skipTo ) ? skipTo : true;
-            index = index == "auto" ? undefined : index;
+            // if the sequence has persistent layers then add them to new frames!
+            if ( this.sequence.get("persistent_layers").length ) {
+                _.each( this.sequence.get("persistent_layers"), function( layerID ) {
+                    continuingLayers.push( app.project.getLayer( layerID ) );
+                });
+            }
 
             newFrame = new FrameModel({
+                layers: this.sequence.get("persistent_layers").reverse(),
                 _order: index
             });
 
@@ -79162,7 +79164,6 @@ function( app, FrameModel, LayerCollection ) {
             newFrame.layers = new LayerCollection( _.compact( continuingLayers ) );
             newFrame.layers.frame = newFrame;
             newFrame.listenToLayers();
-            newFrame.editorAdvanceToPage = skipTo;
 
             newFrame.save().success(function() {
                 app.project.addFrameToKey( newFrame.id, this.sequence.id );
@@ -79354,8 +79355,8 @@ function( app, SequenceCollection ) {
                     frames.each(function( frame, j ) {
                         frame.put({
                             // for the new advance logic
-                            _next: frame.get("attr").advance && frames.at( j + 1 ) ? frames.at( j + 1 ).id : null,
-                            // _next: frames.at( j + 1 ) ? frames.at( j + 1 ).id : null,
+                            // _next: frame.get("attr").advance && frames.at( j + 1 ) ? frames.at( j + 1 ).id : null,
+                            _next: frames.at( j + 1 ) ? frames.at( j + 1 ).id : null,
                             _last: frames.at( j - 1 ) ? frames.at( j - 1 ).id : null
                         });
                     });
@@ -81845,9 +81846,9 @@ require.config({
   // generated configuration file.
 
   // Release
-  deps: [ "../vendor/tipsy/src/javascripts/jquery.tipsy", "../vendor/simple-color-picker/src/jquery.simple-color", "zeegaplayer", "../vendor/jam/require.config", "main", "spin"],
+deps: [ "../vendor/tipsy/src/javascripts/jquery.tipsy", "../vendor/simple-color-picker/src/jquery.simple-color", "zeegaplayer", "../vendor/jam/require.config", "main", "spin"],
 
-//  deps: ["zeegaplayer", "../vendor/jam/require.config", "main", "spin"],
+//    deps: ["zeegaplayer", "../vendor/jam/require.config", "main", "spin"],
 
 
   paths: {
