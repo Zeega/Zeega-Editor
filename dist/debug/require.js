@@ -75986,7 +75986,7 @@ function( app, Controls ) {
             if ( this.isNew() ) {
                 return app.api + "projects/" + app.project.id + "/layers";
             } else {
-                return app.api + "projects/" + app.project.id + "/layers/" + this.id;
+                return app.api + "layers/" + this.id;
             }
         },
 
@@ -78575,7 +78575,7 @@ function( app, Layers ) {
             if ( this.isNew() ) {
                 return app.api + 'projects/'+ app.project.id +'/sequences';
             } else {
-                return app.api + 'projects/'+ app.project.id +'/sequences/' + this.id;
+                return app.api +'sequences/' + this.id;
             }
         },
 
@@ -78648,15 +78648,11 @@ function( app, Layers ) {
         },
 
         persistLayer: function( layer ) {
-            var persistentLayers = this.get("persistent_layers");
+            if ( !_.contains( layer.id, this.get("persistent_layers") ) ) {
+                var pLayers = this.get("persistent_layers");
 
-            if ( !_.isArray(persistentLayers) ) {
-                persistentLayers = [];
-            }
-
-            if ( _.isEmpty(persistentLayers) || !_.contains( layer.id, persistentLayers ) ) {
-                persistentLayers.push( layer.id );
-                this.set("persistent_layers", persistentLayers );
+                pLayers.push( layer.id );
+                this.set("persistent_layers", pLayers );
                 this.frames.each(function( frame ) {
                     layer.order[ frame.id ] = frame.layers.length;
                     frame.layers.add( layer );
@@ -78746,9 +78742,9 @@ function( app, Backbone, Layers, ThumbWorker ) {
 
         url: function() {
             if( this.isNew() ) {
-                return app.api + 'projects/' + app.project.id +'/sequences/'+ app.status.get("currentSequence").id +'/frames';
+                return app.api + 'projects/'+ app.project.id +'/sequences/'+ app.status.get("currentSequence").id +'/frames';
             } else {
-                return app.api + 'projects/' + app.project.id + '/frames/'+ this.id;
+                return app.api + 'frames/'+ this.id;
             }
         },
 
@@ -78781,7 +78777,7 @@ function( app, Backbone, Layers, ThumbWorker ) {
 
                 worker.postMessage({
                     cmd: 'capture',
-                    msg: app.api + "projects/" + app.project.id + "/frames/" + this.id + "/thumbnail"
+                    msg: app.api + "frames/" + this.id + "/thumbnail"
                 });
 
             }, 1000);
@@ -79376,7 +79372,7 @@ function( app, SequenceCollection ) {
                         if ( layer.get("attr").to_frame != frame.id ) {
                             var targetFrameID, targetFrame, linksFrom;
 
-                            targetFrameID = layer.get("attr").to_frame;
+                            targetFrameID = parseInt( layer.get("attr").to_frame, 10 );
                             targetFrame = this.getFrame( targetFrameID );
 
                             if ( targetFrame ) {
@@ -81849,9 +81845,9 @@ require.config({
   // generated configuration file.
 
   // Release
- deps: [ "../vendor/tipsy/src/javascripts/jquery.tipsy", "../vendor/simple-color-picker/src/jquery.simple-color", "zeegaplayer", "../vendor/jam/require.config", "main", "spin"],
+  deps: [ "../vendor/tipsy/src/javascripts/jquery.tipsy", "../vendor/simple-color-picker/src/jquery.simple-color", "zeegaplayer", "../vendor/jam/require.config", "main", "spin"],
 
-//   deps: ["zeegaplayer", "../vendor/jam/require.config", "main", "spin"],
+//  deps: ["zeegaplayer", "../vendor/jam/require.config", "main", "spin"],
 
 
   paths: {
