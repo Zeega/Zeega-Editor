@@ -619,7 +619,7 @@ return __p;
 this["JST"]["app/templates/media-drawer.html"] = function(obj){
 var __p='';var print=function(){__p+=Array.prototype.join.call(arguments, '')};
 with(obj||{}){
-__p+='<div class="media-drawer-controls ZEEGA-hmenu light img-tabs">\n    <ul class=\'pull-left\'>\n        \n        <li>\n            <a href="#" data-api = "Zeega" class="active media-toggle"\n                title="our faves from across the web"\n                data-gravity="sw"\n            ><i class="socialz-zeega socialz-white"></i></a>\n        </li>\n\n        <li>\n            <a href="#" data-api = "Soundcloud" class="media-toggle"\n                title="sounds from SoundCloud"\n                data-gravity="sw"\n            ><i class="socialz-soundcloud"></i></a>\n        </li>\n\n<!--\n        <li>\n            <a href="#" data-api="Tumblr" class="media-toggle"\n                title="GIFs and images from Tumblr"\n                data-gravity="sw"\n            ><i class="socialz-tumblr"></i></a>\n        </li>\n    -->\n        <!--\n        <li>\n            <a href="#" data-api = "Instagram" class="media-toggle"\n                title="images from Instagram"\n                data-gravity="sw"\n            ><i class="socialz-instagram"></i></a>\n        </li>\n    -->\n        <li>\n            <a href="#" data-api = "Flickr" class="media-toggle"\n                title="images from Flickr"\n                data-gravity="sw"\n            ><i class="socialz-flickr"></i></a>\n        </li>\n\n        <li>\n            <a href="#" data-api = "Giphy" class="media-toggle"\n                title="GIFs from Giphy"\n                data-gravity="sw"\n            ><i class="socialz-giphy"></i></a>\n        </li>\n       \n      \n        <li>\n            <a href="#" data-api = "Youtube" class="media-toggle"\n                title="Videos from Youtube"\n                data-gravity="sw"\n            ><i class="socialz-youtube"></i></a>\n        </li>\n         <!--\n        <li >\n            <a href="#" data-api = "MyZeega" class="media-toggle"><i class="socialz-user"></i></a>\n        </li>\n         -->\n\n    </ul>\n    <ul class="pull-right">\n        <li >\n            <a id="media-upload-tab" href="#" data-api = "MyZeega" class="media-toggle">UPLOAD</a>\n        </li>\n    </ul>\n    \n    \n</div>\n<div class="ZEEGA-items"></div>\n';
+__p+='<div class="media-drawer-controls ZEEGA-hmenu light img-tabs">\n    <ul class=\'pull-left\'>\n        \n        <li>\n            <a href="#" data-api = "Zeega" class="active media-toggle"\n                title="our faves from across the web"\n                data-gravity="sw"\n            ><i class="socialz-zeega socialz-white"></i></a>\n        </li>\n\n        <li>\n            <a href="#" data-api = "Soundcloud" class="media-toggle"\n                title="sounds from SoundCloud"\n                data-gravity="sw"\n            ><i class="socialz-soundcloud"></i></a>\n        </li>\n\n<!--\n        <li>\n            <a href="#" data-api="Tumblr" class="media-toggle"\n                title="GIFs and images from Tumblr"\n                data-gravity="sw"\n            ><i class="socialz-tumblr"></i></a>\n        </li>\n    -->\n        <!--\n        <li>\n            <a href="#" data-api = "Instagram" class="media-toggle"\n                title="images from Instagram"\n                data-gravity="sw"\n            ><i class="socialz-instagram"></i></a>\n        </li>\n    -->\n        <li>\n            <a href="#" data-api = "Flickr" class="media-toggle"\n                title="images from Flickr"\n                data-gravity="sw"\n            ><i class="socialz-flickr"></i></a>\n        </li>\n\n        <li>\n            <a href="#" data-api = "Giphy" class="media-toggle"\n                title="GIFs from Giphy"\n                data-gravity="sw"\n            ><i class="socialz-giphy"></i></a>\n        </li>\n       \n       <!--  \n        <li>\n            <a href="#" data-api = "Youtube" class="media-toggle"\n                title="Videos from Youtube"\n                data-gravity="sw"\n            ><i class="socialz-youtube"></i></a>\n        </li>\n\n           -->\n         <!--\n        <li >\n            <a href="#" data-api = "MyZeega" class="media-toggle"><i class="socialz-user"></i></a>\n        </li>\n         -->\n\n    </ul>\n    <ul class="pull-right">\n        <li >\n            <a id="media-upload-tab" href="#" data-api = "MyZeega" class="media-toggle">UPLOAD</a>\n        </li>\n    </ul>\n    \n    \n</div>\n<div class="ZEEGA-items"></div>\n';
 }
 return __p;
 };
@@ -79647,7 +79647,7 @@ function() {
     Parser[ type ] = { name: type };
 
     Parser[ type ].validate = function( response ) {
-        if ( response.sequences && response.frames && response.layers ) {
+        if ( response.project.sequences && response.project.frames && response.project.layers ) {
             return true;
         }
         return false;
@@ -79664,39 +79664,61 @@ function() {
 
     // no op. projects are already formatted
     Parser[type].parse = function( response, opts ) {
+        removeDupeSoundtrack( response.project );
+        return response.project;
 
-        removeDupeSoundtrack( response );
 
-        if ( opts.endPage ) {
-            var endId, lastPageId, lastPage, endPage, endLayers;
+        // if ( opts.endPage ) {
+        //     var endId, lastPageId, lastPage, endPage, endLayers;
 
-            endId = -1;
-            lastPageId = response.sequences[0].frames[ response.sequences[0].frames.length - 1 ];
-            lastPage = _.find( response.frames, function( frame ) {
-                return frame.id == lastPageId;
-            });
-            endPage = _.extend({}, lastPage );
+        //     endId = -1;
+        //     lastPageId = response.sequences[0].frames[ response.sequences[0].frames.length - 1 ];
+        //     lastPage = _.find( response.frames, function( frame ) {
+        //         return frame.id == lastPageId;
+        //     });
+        //     endPage = _.extend({}, lastPage );
 
-            // only allow images, color layers
-            endLayers = _.filter(response.layers, function( layer ) {
-                return _.include(["Image", "Rectangle"], layer.type ) && _.include( endPage.layers, layer.id );
-            });
+        //     // only allow images, color layers
+        //     endLayers = _.filter(response.layers, function( layer ) {
+        //         return _.include(["Image", "Rectangle"], layer.type ) && _.include( endPage.layers, layer.id );
+        //     });
 
-            endPage.layers = _.pluck( endLayers, "id");
-            endPage.layers.push( endId );
+        //     endPage.layers = _.pluck( endLayers, "id");
+        //     endPage.layers.push( endId );
 
-            // add layer to layer array
-            response.layers.push({
-                id: endId,
-                type: "EndPageLayer"
-            });
+        // removeDupeSoundtrack( response.project );
+
+        // if ( opts.endPage ) {
+        //     var endId, lastPageId, lastPage, endPage, endLayers;
+
+        //     endId = -1;
+        //     lastPageId = response.sequences[0].frames[ response.sequences[0].frames.length - 1 ];
+        //     lastPage = _.find( response.frames, function( frame ) {
+        //         return frame.id == lastPageId;
+        //     });
+        //     endPage = _.extend({}, lastPage );
+
+        //     // only allow images, color layers
+        //     endLayers = _.filter(response.layers, function( layer ) {
+        //         return _.include(["Image", "Rectangle"], layer.type ) && _.include( endPage.layers, layer.id );
+        //     });
+
+        //     endPage.layers = _.pluck( endLayers, "id");
+        //     endPage.layers.push( endId );
+        //     // add layer to layer array
+        //     response.layers.push({
+        //         id: endId,
+        //         type: "EndPageLayer"
+        //     });
             
-            endPage.id = endId;
-            response.frames.push( endPage );
-            response.sequences[0].frames.push( endId );
-        }
+        //     endPage.id = endId;
+        //     response.frames.push( endPage );
+        //     response.sequences[0].frames.push( endId );
+        // }
 
-        return response;
+        // return response;
+        //}
+
     };
 
     return Parser;
@@ -81900,9 +81922,9 @@ require.config({
   // generated configuration file.
 
   // Release
-deps: [ "../vendor/tipsy/src/javascripts/jquery.tipsy", "../vendor/simple-color-picker/src/jquery.simple-color", "zeegaplayer", "../vendor/jam/require.config", "main", "spin"],
+ deps: [ "../vendor/tipsy/src/javascripts/jquery.tipsy", "../vendor/simple-color-picker/src/jquery.simple-color", "zeegaplayer", "../vendor/jam/require.config", "main", "spin"],
 
-//    deps: ["zeegaplayer", "../vendor/jam/require.config", "main", "spin"],
+//   deps: ["zeegaplayer", "../vendor/jam/require.config", "main", "spin"],
 
 
   paths: {
