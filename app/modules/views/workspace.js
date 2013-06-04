@@ -8,22 +8,19 @@ function( app ) {
 
     return Backbone.View.extend({
 
-        aspectRatio: 0.751174,
+        aspectRatio: 0.75,
 
-        // template: "workspace",
         className: "ZEEGA-workspace",
 
         initialize: function() {
+            this.aspectRatio = app.project.get("aspect_ratio");
             app.on("window-resize", this.onResize, this );
-            // app.once("rendered", this.onResize, this );
             app.status.on("change:currentFrame", this.onChangeFrame, this );
         },
 
         afterRender: function() {
             this.renderFrame( this.model.status.get("currentFrame") );
             this.makeDroppable();
-
-            // this.instructions();
         },
 
         instructions: function() {
@@ -38,7 +35,6 @@ function( app ) {
                     .prepend("<img class='intro intro-02' src='assets/img/intro-02.png' width='100%' />")
                     .prepend("<img class='intro intro-03' src='assets/img/intro-03.png' width='100%' />");
             }
-
         },
 
         makeDroppable: function() {
