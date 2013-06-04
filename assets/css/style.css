@@ -6600,6 +6600,10 @@ a:active {
   opacity: 0.85;
   border: solid 1px white;
 }
+.ui-draggable-dragging {
+  cursor: -moz-grabbing !important;
+  cursor: -webkit-grabbing !important;
+}
 .media-drawer .item {
   width: -webkit-calc(100% / 4);
   width: -moz-calc(100% / 4);
@@ -6608,6 +6612,8 @@ a:active {
 }
 .media-drawer .item > a {
   cursor: move;
+  cursor: -moz-grab;
+  cursor: -webkit-grab;
 }
 .media-drawer .item .item-thumb {
   height: 75px;
@@ -6714,7 +6720,7 @@ a:active {
 }
 .media-collection {
   position: relative;
-  background: url(../img/transparency-grid-dark.png);
+  background: #111;
   height: 100%;
   overflow: hidden;
 }

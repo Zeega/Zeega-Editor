@@ -1,8 +1,16 @@
+
+
+
 .item-dragging {
     height: 75px;
     width: 75px;
     opacity: 0.85;
     border: solid 1px white;
+}
+
+.ui-draggable-dragging {
+   cursor: -moz-grabbing !important;
+   cursor: -webkit-grabbing !important;
 }
 
 .media-drawer {
@@ -15,6 +23,8 @@
 
         &>a {
             cursor: move;
+            cursor: -moz-grab;
+            cursor: -webkit-grab;
         }
         float: left;
         .item-thumb {
