@@ -8,7 +8,7 @@ function( app ) {
 
     return Backbone.View.extend({
 
-        aspectRatio: 4/3,
+        aspectRatio: 0.751174,
 
         // template: "workspace",
         className: "ZEEGA-workspace",
