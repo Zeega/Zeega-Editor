@@ -17,7 +17,6 @@ function( app, ItemModel, ItemCollectionViewer ) {
         view: null,
         searchModel: null,
         itemsCount: 0,
-
         url: function() {
             var url;
 
@@ -53,8 +52,6 @@ function( app, ItemModel, ItemCollectionViewer ) {
         },
 
         parse: function( res ) {
-            this.itemsCount = res.items_count;
-
             return res.items;
         }
     });
@@ -262,7 +259,6 @@ function( app, ItemModel, ItemCollectionViewer ) {
     });
 
     Collections.Tumblr = Collections.Zeega.extend({
-
         parse: function(res){
             var photos = res.items;
             

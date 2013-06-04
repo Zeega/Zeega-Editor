@@ -236,6 +236,7 @@ function( app, ItemModel, CollectionView, Collection, ItemCollectionViewer ) {
             var args = this.get("urlArguments");
             args.offset += 50;
             this.set("urlArguments", args );
+
             this.mediaCollection.fetch({remove: false});
         }
     });
@@ -299,6 +300,7 @@ function( app, ItemModel, CollectionView, Collection, ItemCollectionViewer ) {
             args.url = "http://www.tumblr.com/tagged/" + args.tag + "/before/" + args.before;
 
             this.set("urlArguments", args );
+            this.mediaCollection.pumpkin ="orange";
             this.mediaCollection.fetch();
             
         },
@@ -311,8 +313,7 @@ function( app, ItemModel, CollectionView, Collection, ItemCollectionViewer ) {
             args.url = "http://www.tumblr.com/tagged/" + args.tag + "/before/" + args.before;
 
             this.set("urlArguments", args );
-            this.mediaCollection.fetch({remove: false});
-            
+            this.mediaCollection.fetch({remove:false});
         }
 
     });
