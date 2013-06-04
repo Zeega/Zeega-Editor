@@ -81427,7 +81427,7 @@ function( app, ItemModel, CollectionView, Collection, ItemCollectionViewer ) {
         defaults: {
                 urlArguments: {
                     collection: "",
-                    type: "",
+                    type: "Image",
                     page: 1,
                     q: "",
                     limit: 48,
