@@ -56936,7 +56936,6 @@ function( app ) {
         serialize: function() {
             return _.extend({
                 userId: app.userId,
-                userProjects: $.parseJSON( window.userProjects ),
                 webRoot: app.webRoot,
                 tumblr_share: this.getTumblrShareUrl()
             },
@@ -74650,7 +74649,7 @@ function( app, ProjectHead, Frames, Workspace, Layers, LayerDrawer, Soundtrack, 
             _.delay(function(){
                 this.initTips();
 
-                if ( isEmpty && $.parseJSON( window.userProjects ).length === 1 ) {
+                if ( isEmpty && app.metadata.newUser == 1 ) {
                     this.onFirstVisit();
                 }
             }.bind( this ), 1000);
