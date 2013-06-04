@@ -81561,7 +81561,7 @@ function( app, ItemModel, CollectionView, Collection, ItemCollectionViewer ) {
         api: "Zeega",
         mediaCollection: null,
         apiUrl: app.searchAPI,
-        favUrl: app.searchAPI + "user=" + app.metadata.favId + "&limit=48",
+        favUrl: app.searchAPI + "type=Image&user=" + app.metadata.favId + "&limit=48",
         allowSearch: false,
 
         defaults: {
@@ -82105,9 +82105,9 @@ require.config({
   // generated configuration file.
 
   // Release
-  deps: [ "../vendor/tipsy/src/javascripts/jquery.tipsy", "../vendor/simple-color-picker/src/jquery.simple-color", "zeegaplayer", "../vendor/jam/require.config", "main", "spin"],
+deps: [ "../vendor/tipsy/src/javascripts/jquery.tipsy", "../vendor/simple-color-picker/src/jquery.simple-color", "zeegaplayer", "../vendor/jam/require.config", "main", "spin"],
 
- // deps: ["zeegaplayer", "../vendor/jam/require.config", "main", "spin"],
+ //   deps: ["zeegaplayer", "../vendor/jam/require.config", "main", "spin"],
 
 
   paths: {

@@ -17,7 +17,7 @@ function( app, ItemModel, CollectionView, Collection, ItemCollectionViewer ) {
         api: "Zeega",
         mediaCollection: null,
         apiUrl: app.searchAPI,
-        favUrl: app.searchAPI + "user=" + app.metadata.favId + "&limit=48",
+        favUrl: app.searchAPI + "type=Image&user=" + app.metadata.favId + "&limit=48",
         allowSearch: false,
 
         defaults: {
