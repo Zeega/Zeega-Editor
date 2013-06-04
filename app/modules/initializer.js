@@ -5,7 +5,7 @@ define([
     "modules/layout-main",
     // Plugins
     "zeega-parser/parser",
-    "modules/media-browser",
+    "modules/media-browser/media-browser",
     "backbone"
 ],
 

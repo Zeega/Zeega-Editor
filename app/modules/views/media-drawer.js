@@ -1,10 +1,9 @@
 define([
     "app",
-    "modules/views/media-upload",
     "backbone"
 ],
 
-function( app, MediaUpload ) {
+function( app ) {
 
     return Backbone.View.extend({
 
@@ -18,7 +17,6 @@ function( app, MediaUpload ) {
         afterRender: function() {
             
             this.renderMedia();
-            this.onResize();
         },
         renderMedia: function() {
 
@@ -30,16 +28,8 @@ function( app, MediaUpload ) {
 
 
         events: {
-            "click .clear-search": "clearSearch",
-            "focus .search-box": "onSearchFocus",
             "click .media-toggle": "onMediaToggle"
         },
-
-        clearSearch: function() {
-            this.$(".search-box").val("");
-            this.search("");
-        },
-
         onMediaToggle: function(event){
             var api = $(event.target).closest("a").data("api");
 
@@ -66,19 +56,7 @@ function( app, MediaUpload ) {
             return false;
         },
 
-        onSearchFocus: function() {
-            
-        },
 
-        
-
-        onResize: function() {
-            //var leftCol = $(".left-column .static-upper").height() + 30;
-
-            //console.log("resizeeee", leftCol, window.innerHeight - leftCol )
-
-            //this.$(".ZEEGA-items").css("height", window.innerHeight - leftCol );
-        }
 
 
     });
