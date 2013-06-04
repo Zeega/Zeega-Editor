@@ -6716,6 +6716,7 @@ a:active {
   position: relative;
   background: url(../img/transparency-grid-dark.png);
   height: 100%;
+  overflow: hidden;
 }
 .media-collection .search-box {
   border-radius: 2px;
@@ -6812,13 +6813,12 @@ a:active {
   overflow-x: hidden;
   position: absolute;
   width: 100%;
-  height: -webkit-calc(100% - 60px);
-  height: -moz-calc(100% - 60px);
-  height: calc(100% - 60px);
+  height: 100%;
 }
 .media-collection .media-collection-items {
   *zoom: 1;
   position: relative;
+  padding-bottom: 150px;
 }
 .media-collection .media-collection-items:before,
 .media-collection .media-collection-items:after {
