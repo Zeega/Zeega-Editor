@@ -78,15 +78,23 @@ function( app, UploadView, Spinner ) {
         },
 
         renderItems: function() {
-            console.log("rendering items", this.model.mediaCollection.length )
+
+            
+
+            this.$(".more-tab").remove();
             if ( this.model.mediaCollection.length && this.model.mediaCollection.at( 0 ).get("uri") ) {
                 this.model.mediaCollection.each(function( item ) {
                     this.$(".media-collection-items").append( item.view.el );
                     item.view.render();
                 }, this );
-            } else if( this.model.getQuery() !== "" ) {
+                if( this.model.mediaCollection.more ){
+                    this.$(".media-collection-items").append("<li class='item more-tab'><h2>more</h2></li>");
+                }
+                
+            } else if( this.model.getQuery() !== "" &&  this.$(".media-collection-items li").length === 0) {
                 this.$(".media-collection-items").append("<div class='empty-collection'>no items found :( try again?</div>");
             }
+
 
             this.listen();
 
@@ -103,20 +111,22 @@ function( app, UploadView, Spinner ) {
 
             this.spinner.stop();
             this.busy = false;
+
+            $(this.el).find("img").on("error", function(e) {
+                $(e.target).closest("li").hide();
+            });
         },
 
         events: {
             "keyup .search-box": "onSearchKeyPress",
-            "click .submit": "onSubmitClick"
+            "click .submit": "onSubmitClick",
+            "click .more-tab": "loadMore"
         },
 
         onSearchKeyPress: function( e ) {
             if ( !this.busy ){
                 if ( e.which == 13 ) {
                     this.search( this.$(".search-box").val() );
-                } else if ( e.which ==27 ) {
-                    this.more();
-                    return false;
                 }
             }
         },
@@ -126,7 +136,10 @@ function( app, UploadView, Spinner ) {
                 this.search( this.$(".search-box").val() );
             }
         },
-        more: function(){
+        loadMore: function(){
+            this.busy = true;
+            this.$( ".more-tab").empty();
+            this.spinner.spin( this.$( ".more-tab")[0] );
             this.model.more();
         },
         search: function( query ) {

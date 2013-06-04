@@ -112,7 +112,7 @@ function( app, ItemModel, CollectionView, Collection, ItemCollectionViewer ) {
             
         },
         _more: function(){
-            console.log("more")
+
             var args = this.get("urlArguments");
             args.offset += 50;
             args.url = "http://giphy.com/tags/" + args.tag + "/offset/" + args.offset;
@@ -185,18 +185,19 @@ function( app, ItemModel, CollectionView, Collection, ItemCollectionViewer ) {
         },
         _search: function( query ){
 
-            var args= this.get("urlArguments");
-
-            
-            
-            
+            var args = this.get("urlArguments");
+            args.page = 1;
             args.text = query;
             this.set("urlArguments", args );
             this.mediaCollection.fetch();
+  
+        },
+        _more: function(){
             
-
-
-            
+            var args = this.get("urlArguments");
+            args.page += 1;
+            this.set("urlArguments", args );
+            this.mediaCollection.fetch({remove: false});
         }
     });
 
@@ -224,11 +225,18 @@ function( app, ItemModel, CollectionView, Collection, ItemCollectionViewer ) {
 
             var args= this.get("urlArguments");
 
-            
+                args.offset = 0;
                 args.q = query;
                 this.set("urlArguments", args );
                 this.mediaCollection.fetch();
             
+        },
+        _more: function(){
+            
+            var args = this.get("urlArguments");
+            args.offset += 50;
+            this.set("urlArguments", args );
+            this.mediaCollection.fetch({remove: false});
         }
     });
 

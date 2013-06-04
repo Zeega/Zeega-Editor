@@ -87,7 +87,7 @@ function( app, ProjectHead, Frames, Workspace, Layers, LayerDrawer, Soundtrack, 
             _.delay(function(){
                 this.initTips();
 
-                if ( isEmpty && $.parseJSON( window.userProjects ).length === 1 ) {
+                if ( isEmpty && app.metadata.newUser == 1 ) {
                     this.onFirstVisit();
                 }
             }.bind( this ), 1000);

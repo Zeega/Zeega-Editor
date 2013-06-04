@@ -107,8 +107,12 @@ function( app, ItemModel, ItemCollectionViewer ) {
                 items.push( item );
             });
 
+            if( res.photos.page < res.photos.pages ){
+                this.more = true;
+            } else {
+                this.more = false;
+            }
 
-            this.itemsCount = res.photos.perpage;
             return items;
         }
     });
@@ -230,7 +234,7 @@ function( app, ItemModel, ItemCollectionViewer ) {
                     }
                     
                 });
-
+                this.more = true;
                 return items;
             }
     });
@@ -247,7 +251,12 @@ function( app, ItemModel, ItemCollectionViewer ) {
                 count++;
             });
 
-            this.itemsCount = res.items_count;
+            if(photos[0]){
+                this.more = photos[0].attributes.more;
+            } else {
+                this.more = false;
+            }
+            
             return photos;
         }
     });

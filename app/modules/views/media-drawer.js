@@ -54,7 +54,7 @@ function( app ) {
             }
 
             return false;
-        },
+        }
 
 
 

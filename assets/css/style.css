@@ -6600,14 +6600,32 @@ a:active {
   opacity: 0.85;
   border: solid 1px white;
 }
+.ui-draggable-dragging {
+  cursor: -moz-grabbing !important;
+  cursor: -webkit-grabbing !important;
+}
 .media-drawer .item {
   width: -webkit-calc(100% / 4);
   width: -moz-calc(100% / 4);
   width: calc(100% / 4);
   float: left;
 }
+.media-drawer .item.more-tab {
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  cursor: pointer;
+  color: white;
+  width: 73px;
+  height: 75px;
+}
+.media-drawer .item.more-tab > h2 {
+  padding-top: 14px;
+  font-size: 1em;
+  text-align: center;
+}
 .media-drawer .item > a {
   cursor: move;
+  cursor: -moz-grab;
+  cursor: -webkit-grab;
 }
 .media-drawer .item .item-thumb {
   height: 75px;
@@ -6714,8 +6732,9 @@ a:active {
 }
 .media-collection {
   position: relative;
-  background: url(../img/transparency-grid-dark.png);
+  background: #111;
   height: 100%;
+  overflow: hidden;
 }
 .media-collection .search-box {
   border-radius: 2px;
@@ -6812,13 +6831,12 @@ a:active {
   overflow-x: hidden;
   position: absolute;
   width: 100%;
-  height: -webkit-calc(100% - 60px);
-  height: -moz-calc(100% - 60px);
-  height: calc(100% - 60px);
+  height: 100%;
 }
 .media-collection .media-collection-items {
   *zoom: 1;
   position: relative;
+  padding-bottom: 150px;
 }
 .media-collection .media-collection-items:before,
 .media-collection .media-collection-items:after {
