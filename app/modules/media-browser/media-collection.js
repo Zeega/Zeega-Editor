@@ -264,15 +264,13 @@ function( app, ItemModel, ItemCollectionViewer ) {
     Collections.Tumblr = Collections.Zeega.extend({
 
         parse: function(res){
-            var photos = res.items,
-                count = 1;
+            var photos = res.items;
             
             _.each( photos, function( photo ){
-                photo.id = count;
-                count++;
+                photo.id = photo.attributes.id;
             });
 
-            this.itemsCount = res.items_count;
+            this.more = true;
             return photos;
         }
     });

@@ -294,14 +294,27 @@ function( app, ItemModel, CollectionView, Collection, ItemCollectionViewer ) {
 
             var args = this.get("urlArguments");
 
-           
+            args.before = new Date().getTime();
             args.tag = query;
-            args.url = "http://www.tumblr.com/tagged/" + query;
+            args.url = "http://www.tumblr.com/tagged/" + args.tag + "/before/" + args.before;
 
             this.set("urlArguments", args );
             this.mediaCollection.fetch();
             
+        },
+        _more: function( query ){
+
+            var args = this.get("urlArguments");
+
+            args.before = this.mediaCollection.at(this.mediaCollection.length - 1).get("attributes").timestamp;
+
+            args.url = "http://www.tumblr.com/tagged/" + args.tag + "/before/" + args.before;
+
+            this.set("urlArguments", args );
+            this.mediaCollection.fetch({remove: false});
+            
         }
+
     });
 
     Search.Youtube = Search.Zeega.extend({
