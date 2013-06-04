@@ -17,6 +17,9 @@ function( app, ItemModel, ItemCollectionViewer ) {
         view: null,
         searchModel: null,
         itemsCount: 0,
+        initialize: function(){
+            this.on("all", function(event, model){console.log("EVENT:",event, model)});
+        },
         url: function() {
             var url;
 
