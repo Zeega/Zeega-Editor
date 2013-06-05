@@ -33709,9 +33709,6 @@ function( Spinner ) {
     // Localize or create a new JavaScript Template object.
     var JST = window.JST = window.JST || {};
 
-
-
-
     var zeegaJQuery = $;
     var zeegaBackbone = Backbone;
     zeegaBackbone.$ = zeegaJQuery; // set backbone jquery
@@ -33723,6 +33720,28 @@ function( Spinner ) {
         return this.set.apply( this, args );
     };
 
+    // zeegaBackbone.View.prototype.fetch = function( path ) {
+    //     // Initialize done for use in async-mode
+    //     var done;
+    //      console.log("FETCH", path)
+
+    //     // Concatenate the file extension.
+    //     path = "app/templates/"+ path + ".html";
+
+    //     // If cached, use the compiled template.
+    //     if ( JST[ path ] ) {
+    //         return JST[ path ];
+    //     } else {
+    //         // Put fetch into `async-mode`.
+    //         done = this.async();
+
+    //         // Seek out the template asynchronously.
+    //         return app.$.ajax({ url: app.root + path }).then(function(contents) {
+    //             done( JST[path] = _.template(contents) );
+    //         });
+    //     }
+    // };
+
     // Mix Backbone.Events, modules, and layout management into the app object.
     return _.extend(app, {
         // Create a custom object with a nested Views object.
@@ -33731,6 +33750,7 @@ function( Spinner ) {
         },
 
         Backbone: zeegaBackbone,
+        $: zeegaJQuery
 
     }, zeegaBackbone.Events );
 
@@ -44652,20 +44672,11 @@ function(app, Router) {
 
 define("main", function(){});
 
-// Set the require.js configuration for your application.
 require.config({
 
-  // Initialize the application with the main application file and the JamJS
-  // generated configuration file.
-
-  // Release
   deps: ["../vendor/jam/require.config", "main"],
 
-//  deps: ["../vendor/jam/require.config", "main", "spin"],
-
-
   paths: {
-
     jqueryUI: "../assets/js/plugins/jquery-ui/js/jquery-ui-1.10.1.custom",
 
     zeega_parser: "zeega-parser",
