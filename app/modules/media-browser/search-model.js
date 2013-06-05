@@ -150,9 +150,16 @@ function( app, ItemModel, CollectionView, Collection, ItemCollectionViewer ) {
             if( query !== args.q ) {
                 args.q = query;
             }
-
+            args.page = 1;
             this.set("urlArguments", args );
             this.mediaCollection.fetch();
+        },
+        _more: function(){
+            
+            var args = this.get("urlArguments");
+            args.page += 1;
+            this.set("urlArguments", args );
+            this.mediaCollection.fetch({remove: false});
         }
     });
 

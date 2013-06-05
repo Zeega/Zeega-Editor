@@ -81290,12 +81290,18 @@ function( app, ItemModel, ItemCollectionViewer ) {
                 count = 1;
             
             _.each( photos, function( photo ){
-                //photo.id = count;
                 photo.allowDelete = 1;
                 count++;
             });
 
             this.itemsCount = res.items_count;
+
+            if( photos.length == 48 ){
+                this.more = true;
+            } else {
+                this.more = false;
+            }
+
             return photos;
         }
     });
@@ -81694,9 +81700,16 @@ function( app, ItemModel, CollectionView, Collection, ItemCollectionViewer ) {
             if( query !== args.q ) {
                 args.q = query;
             }
-
+            args.page = 1;
             this.set("urlArguments", args );
             this.mediaCollection.fetch();
+        },
+        _more: function(){
+            
+            var args = this.get("urlArguments");
+            args.page += 1;
+            this.set("urlArguments", args );
+            this.mediaCollection.fetch({remove: false});
         }
     });
 
@@ -82107,7 +82120,7 @@ require.config({
   // Release
 deps: [ "../vendor/tipsy/src/javascripts/jquery.tipsy", "../vendor/simple-color-picker/src/jquery.simple-color", "zeegaplayer", "../vendor/jam/require.config", "main", "spin"],
 
- //   deps: ["zeegaplayer", "../vendor/jam/require.config", "main", "spin"],
+   // deps: ["zeegaplayer", "../vendor/jam/require.config", "main", "spin"],
 
 
   paths: {

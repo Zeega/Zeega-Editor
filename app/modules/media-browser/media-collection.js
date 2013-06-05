@@ -63,12 +63,18 @@ function( app, ItemModel, ItemCollectionViewer ) {
                 count = 1;
             
             _.each( photos, function( photo ){
-                //photo.id = count;
                 photo.allowDelete = 1;
                 count++;
             });
 
             this.itemsCount = res.items_count;
+
+            if( photos.length == 48 ){
+                this.more = true;
+            } else {
+                this.more = false;
+            }
+
             return photos;
         }
     });
