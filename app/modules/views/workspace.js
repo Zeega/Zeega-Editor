@@ -6,12 +6,13 @@ define([
 function( app ) {
 
 
-    return Backbone.View.extend({
+    return Backbone.Layout.extend({
 
         aspectRatio: 0.75,
+        workspacePadding: 40,
 
         className: "ZEEGA-workspace",
-        manage: true,
+//        template: "app/templates/workspace",
 
         initialize: function() {
             this.aspectRatio = app.project.get("aspect_ratio");
@@ -22,20 +23,8 @@ function( app ) {
         afterRender: function() {
             this.renderFrame( this.model.status.get("currentFrame") );
             this.makeDroppable();
-        },
 
-        instructions: function() {
-            var isEmpty =  app.project.sequences.length == 1 &&
-                app.project.sequences.at( 0 ).frames.length == 1 &&
-                app.project.sequences.at( 0 ).frames.at( 0 ).layers.length === 0;
-
-            if ( true ) {
-                $("body")
-                    .prepend("<img class='intro intro-00' src='assets/img/intro-00.png' width='100%' />")
-                    .prepend("<img class='intro intro-01' src='assets/img/intro-01.png' width='100%' />")
-                    .prepend("<img class='intro intro-02' src='assets/img/intro-02.png' width='100%' />")
-                    .prepend("<img class='intro intro-03' src='assets/img/intro-03.png' width='100%' />");
-            }
+            $(".workspace").prepend("<div class='workspace-overlay'></div>")
         },
 
         makeDroppable: function() {
@@ -65,18 +54,15 @@ function( app ) {
             var h, w,
                 workspace = this.$el.closest(".workspace");
 
-            // h = window.innerHeight;
-            // w = window.innerWidth;
-
             w = workspace.width();
             h = workspace.height();
 
 
             if ( w / h > this.aspectRatio ) {
-                height = h - 20;
+                height = h - this.workspacePadding;
                 width = this.aspectRatio * height;
             } else {
-                width = w - 20 ;
+                width = w - this.workspacePadding ;
                 height = width / this.aspectRatio;
             }
 
@@ -84,6 +70,11 @@ function( app ) {
                 height: height,
                 width: width,
                 fontSize: ( width / 520 ) + "em"
+            });
+
+            $(".workspace-overlay").animate({
+                height: height + 30,
+                width: width + 30
             });
         },
 

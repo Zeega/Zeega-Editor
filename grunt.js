@@ -188,16 +188,24 @@ module.exports = function(grunt) {
                 }
             },
 
+            player: {
+                files: {
+                    "app/player/assets/css/player.css": [
+                        "app/player/assets/css/less/**/*.less"
+                    ]
+                }
+            },
+
             main: {
                 files: {
                     "assets/css/style.css": [
                         "vendor/h5bp/normalize.css",
                         "assets/js/plugins/jquery-ui/css/ui-lightness/jquery-ui-1.10.1.custom.css",
                         "vendor/colorpicker/css/colorpicker.css",
-                        "vendor/zeegaplayer/dist/debug/css/zeega.css",
                         "assets/css/modules.less",
                         "assets/css/layers.less",
                         "assets/css/controls.less",
+                        "app/player/assets/css/player.css",
                         "assets/css/less/_all.less"
                     ]
                 }

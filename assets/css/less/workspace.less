@@ -10,6 +10,26 @@
     overflow: hidden;
     .clearfix;
 
+
+    .workspace-overlay {
+        width: 320px;
+        height: 426px;
+        margin: auto;
+        left: 0;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        pointer-events: none;
+        z-index: 10;
+        position: absolute;
+        background: url(../img/workspace-sheen.png);
+        background-size: cover;
+        background-position: center;
+        opacity: 0.75;
+        border: 1px solid white;
+        border-radius: 10px;
+    }
+
     .ZEEGA-workspace {
         overflow: hidden;
         position: absolute;
@@ -23,5 +43,8 @@
         bottom: 0;
         font-size: 0.7692307692em;
         box-shadow: 2px 2px 5px rgba(0,0,0,0.5);
+
+        border: 15px solid #222;
+        border-radius: 8px;
     }
 }
