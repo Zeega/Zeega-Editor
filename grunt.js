@@ -119,7 +119,7 @@ module.exports = function(grunt) {
                 folders: {
                     "app": "dist/release",
                     "assets/js/libs": "dist/release",
-                    "assets/css": "dist/release"
+                    "assets/css": "assets/css"
                 }
             }
         },

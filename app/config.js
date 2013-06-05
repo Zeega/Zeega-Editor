@@ -5,10 +5,7 @@ require.config({
   // generated configuration file.
 
   // Release
-//  deps: [ "../vendor/tipsy/src/javascripts/jquery.tipsy", "../vendor/simple-color-picker/src/jquery.simple-color", "zeegaplayer", "../vendor/jam/require.config", "main", "spin"],
-
-  deps: ["../vendor/jam/require.config", "main", "spin"],
-
+  deps: ["../vendor/jam/require.config", "main"],
 
   paths: {
 
@@ -21,9 +18,6 @@ require.config({
 
     player: "player",
 
-    zeegaplayer: "../vendor/zeegaplayer/dist/debug/zeega",
-
-//    colorpicker: "../vendor/colorpicker/js/colorpicker",
     simpleColorPicker: "../vendor/simple-color-picker/src/jquery.simple-color",
     ddslick: "../vendor/ddslick/jquery.ddslick",
     mousetrap: "../vendor/mousetrap/mousetrap",
@@ -33,9 +27,7 @@ require.config({
   },
 
   shim: {
-    zeegaplayer: ["jquery"],
     jqueryUI: ["jquery"],
-//    colorpicker: ["jquery"],
     ddslick: ["jquery"],
     simpleColorPicker: ["jquery"],
     mousetrap: {
