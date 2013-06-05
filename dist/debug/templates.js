@@ -355,7 +355,7 @@ return __p;
 this["JST"]["app/templates/workspace.html"] = function(obj){
 var __p='';var print=function(){__p+=Array.prototype.join.call(arguments, '')};
 with(obj||{}){
-__p+='<div class="ZEEGA-workspace"\n    title="drag media here to add to your Zeega"\n    data-gravity="n"\n></div>';
+__p+='<div class="workspace-wrapper">\n    <div class="workspace-overlay"></div>\n    <div class="ZEEGA-workspace"\n        title="drag media here to add to your Zeega"\n        data-gravity="n"\n    ></div>\n</div>';
 }
 return __p;
 };

@@ -24,7 +24,7 @@ function( app ) {
             this.renderFrame( this.model.status.get("currentFrame") );
             this.makeDroppable();
 
-            $(".workspace").prepend("<div class='workspace-overlay'></div>")
+            $(".workspace").prepend("<div class='workspace-overlay'></div>");
         },
 
         makeDroppable: function() {
