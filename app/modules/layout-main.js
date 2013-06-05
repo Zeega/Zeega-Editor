@@ -22,8 +22,7 @@ function( app, ProjectHead, Frames, Workspace, Layers, LayerDrawer, Soundtrack, 
     return Backbone.Layout.extend({
 
         el: "#main",
-        template: "layout-main",
-        manage: true,
+        template: "app/templates/layout-main",
 
         initialize: function() {
             app.on("rendered", this.lazyResize, this );

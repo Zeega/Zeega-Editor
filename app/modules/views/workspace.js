@@ -11,6 +11,7 @@ function( app ) {
         aspectRatio: 0.75,
 
         className: "ZEEGA-workspace",
+        manage: true,
 
         initialize: function() {
             this.aspectRatio = app.project.get("aspect_ratio");

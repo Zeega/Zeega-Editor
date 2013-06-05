@@ -11,7 +11,7 @@ function( app, ItemView ) {
             return "item item-" + this.model.id; 
         },
         tagName: "li",
-        template: "item",
+        template: "app/templates/item",
 
         serialize: function() {
             return this.model.toJSON();

@@ -6,26 +6,26 @@ define([
 function( app ) {
 
     var UploadItem = Backbone.Model.extend({
-            url: app.api + "items",
-            defaults:{
-                "title": "",
-                "headline": "",
-                "description": "",
-                "text": "",
-                "uri": "",
-                "attribution_uri": "",
-                "thumbnail_url": "",
-                "media_type": "Image",
-                "layer_type": "Image",
-                "archive": "Absolute",
-                "media_geo_latitude": null,
-                "media_geo_longitude": null,
-                "media_date_created": "",
-                "child_items_count": 0,
-                "editable": true,
-                "published": false,
-                "enabled": true
-            }
+        url: app.api + "items",
+        defaults:{
+            "title": "",
+            "headline": "",
+            "description": "",
+            "text": "",
+            "uri": "",
+            "attribution_uri": "",
+            "thumbnail_url": "",
+            "media_type": "Image",
+            "layer_type": "Image",
+            "archive": "Absolute",
+            "media_geo_latitude": null,
+            "media_geo_longitude": null,
+            "media_date_created": "",
+            "child_items_count": 0,
+            "editable": true,
+            "published": false,
+            "enabled": true
+        }
     });
 
     var WebItem = UploadItem.extend({
@@ -58,7 +58,7 @@ function( app ) {
 
     return Backbone.View.extend({
 
-        template: "media-upload",
+        template: "app/templates/media-upload",
         className: "media-upload",
 
         events: {

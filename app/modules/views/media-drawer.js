@@ -9,7 +9,7 @@ function( app, MediaUpload ) {
     return Backbone.View.extend({
 
         el: null,
-        template: "media-drawer",
+        template: "app/templates/media-drawer",
 
         initialize: function() {
             app.on("window-resize", this.onResize, this );
@@ -21,9 +21,9 @@ function( app, MediaUpload ) {
             this.onResize();
         },
         renderMedia: function() {
+            var collection = this.model.getCurrent();
 
             this.$(".ZEEGA-items").empty();
-            var collection = this.model.getCurrent();
             this.$(".ZEEGA-items").append( collection.view.el );
             collection.view.render();
         },

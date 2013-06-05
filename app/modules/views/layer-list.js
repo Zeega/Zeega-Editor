@@ -12,7 +12,7 @@ function( app, LayerControls ) {
     return Backbone.View.extend({
 
         tagName: "li",
-        template: "layer-list",
+        template: "app/templates/layer-list",
         className: "ZEEGA-layer-list",
 
         serialize: function() {

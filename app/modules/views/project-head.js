@@ -1,13 +1,14 @@
 define([
     "app",
+    "player/modules/player",
     "backbone"
 ],
 
-function( app ) {
+function( app, Zeega ) {
 
     return Backbone.View.extend({
 
-        template: "project-head",
+        template: "app/templates/project-head",
 
         serialize: function() {
             return _.extend({
@@ -174,7 +175,7 @@ function( app ) {
         },
 
         projectPreview: function() {
-            var projectData = app.project.getProjectJSON();
+            var projectData = { project: app.project.getProjectJSON()};
 
             app.zeegaplayer = null;
             app.emit("project_preview", null );

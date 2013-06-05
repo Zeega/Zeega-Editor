@@ -10,7 +10,7 @@ function( app ) {
 
     return Backbone.View.extend({
 
-        template: "modal",
+        template: "app/templates/modal",
         modalClass: "",
         
         className: function() {

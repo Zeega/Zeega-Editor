@@ -10,7 +10,7 @@ function( app, FrameView ) {
 
     return Backbone.View.extend({
 
-        template: "frames",
+        template: "app/templates/frames",
         className: "ZEEGA-frames",
 
         afterRender: function() {

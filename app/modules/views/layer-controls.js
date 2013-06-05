@@ -11,7 +11,7 @@ function( app ) {
         controls: [],
         inFocus: null,
 
-        template: "layer-controls",
+        template: "app/templates/layer-controls",
         className: "ZEEGA-control-floater",
 
         initialize: function() {

@@ -1,9 +1,6 @@
 [submodule "app/zeega-parser"]
 	path = app/zeega-parser
 	url = https://github.com/Zeega/Zeega-Parser.git
-[submodule "vendor/zeegaplayer"]
-	path = vendor/zeegaplayer
-	url = https://github.com/Zeega/Zeega-Player.git
 [submodule "vendor/mousetrap"]
 	path = vendor/mousetrap
 	url = https://github.com/ccampbell/mousetrap.git
@@ -13,3 +10,6 @@
 [submodule "vendor/tipsy"]
 	path = vendor/tipsy
 	url = https://github.com/jaz303/tipsy.git
+[submodule "app/player"]
+	path = app/player
+	url = https://github.com/Zeega/Zeega-Player.git

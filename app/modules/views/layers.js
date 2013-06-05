@@ -12,9 +12,11 @@ function( app, LayerList ) {
 
     return Backbone.View.extend({
 
-        template: "layers",
+        template: "app/templates/layers",
         className: "ZEEGA-layers",
         layerViews: [],
+
+        manage: true,
         
         initialize: function() {
             app.on("window-resize rendered", this.onResize, this );

@@ -8,7 +8,7 @@ function( app ) {
     // This will fetch the tutorial template and render it.
     Navbar = Backbone.View.extend({
 
-        template: "navbar",
+        template: "app/templates/navbar",
         className: "navbar ZEEGA-hmenu clear",
         
         serialize: function() {

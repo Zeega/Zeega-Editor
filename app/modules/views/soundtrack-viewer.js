@@ -9,7 +9,7 @@ function( app ) {
     return Backbone.View.extend({
         
         className: "ZEEGA-modal ZEEGA-item-collection-viewer",
-        template: "soundtrack-viewer",
+        template: "app/templates/soundtrack-viewer",
 
         initialize: function(){
             this.listen();

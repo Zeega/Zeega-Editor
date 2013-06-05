@@ -8,7 +8,7 @@ function( app ) {
     return Backbone.View.extend({
 
         tagName: "li",
-        template: "frame",
+        template: "app/templates/frame",
         className: "ZEEGA-frame",
 
         serialize: function() {

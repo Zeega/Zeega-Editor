@@ -4,8 +4,6 @@ define([
 
     var meta = $("meta[name=zeega]");
 
-            
-
     // Provide a global location to place configuration settings and module
     // creation.
     var app = {
@@ -33,7 +31,6 @@ define([
 
         // function that editor events should call so they can be routed, inspected and modified
         emit: function( event, args ) {
-            console.log( event, args );
             // other things can be done here as well
             this.trigger( event, args );
         }
@@ -51,19 +48,15 @@ define([
         return this.set.apply( this, args );
     };
 
-    $.noConflict();
     $ = jQuery;
 
-    // Configure LayoutManager with Backbone Boilerplate defaults.
-    Backbone.LayoutManager.configure({
-        // Allow LayoutManager to augment Backbone.View.prototype.
+    Backbone.Layout.configure({
         manage: true,
-
-        // prefix: "app/templates/",
+        prefix: "",
 
         fetch: function(path) {
             // Concatenate the file extension.
-            path = "app/templates/" + path + ".html";
+            path = path + ".html";
             // If cached, use the compiled template.
             if (JST[path]) {
                 return JST[path];

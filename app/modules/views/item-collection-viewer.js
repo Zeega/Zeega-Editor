@@ -19,7 +19,7 @@ function( app, Modal, FrameView, ImageView, AudioView, VideoView, YoutubeView ) 
         index: 0,
         currentItem: null,
 
-        template: "item-collection-viewer",
+        template: "app/templates/item-collection-viewer",
 
         className: "ZEEGA-modal ZEEGA-item-collection-viewer",
 

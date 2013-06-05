@@ -8,7 +8,7 @@ function( app ) {
     return Backbone.View.extend({
 
         el: null,
-        template: "layer-drawer",
+        template: "app/templates/layer-drawer",
 
         initialize: function() {
             app.status.on("change:currentFrame", this.checkText, this );

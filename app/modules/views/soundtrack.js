@@ -10,7 +10,7 @@ function( app, Viewer ) {
     return Backbone.View.extend({
 
         model: null,
-        template: "soundtrack",
+        template: "app/templates/soundtrack",
         className: "ZEEGA-soundtrack",
 
         serialize: function() {

@@ -7,7 +7,7 @@ require.config({
   // Release
 //  deps: [ "../vendor/tipsy/src/javascripts/jquery.tipsy", "../vendor/simple-color-picker/src/jquery.simple-color", "zeegaplayer", "../vendor/jam/require.config", "main", "spin"],
 
-  deps: ["zeegaplayer", "../vendor/jam/require.config", "main", "spin"],
+  deps: ["../vendor/jam/require.config", "main", "spin"],
 
 
   paths: {
@@ -18,6 +18,8 @@ require.config({
     libs: "../assets/js/libs",
     plugins: "../assets/js/plugins",
     vendor: "../vendor",
+
+    player: "player",
 
     zeegaplayer: "../vendor/zeegaplayer/dist/debug/zeega",
 
@@ -31,11 +33,11 @@ require.config({
   },
 
   shim: {
+    zeegaplayer: ["jquery"],
     jqueryUI: ["jquery"],
 //    colorpicker: ["jquery"],
     ddslick: ["jquery"],
     simpleColorPicker: ["jquery"],
-
     mousetrap: {
         exports: 'Mousetrap'
     },

@@ -7,7 +7,7 @@ function( app ) {
 
     return Backbone.View.extend({
 
-        template: "frame-controls",
+        template: "app/templates/frame-controls",
         className: "ZEEGA-frame",
 
         saveAdvance: null,

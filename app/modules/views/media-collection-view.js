@@ -29,7 +29,7 @@ function( app, UploadView, Spinner ) {
         },
 
         className: "media-collection",
-        template: "media-collection",
+        template: "app/templates/media-collection",
 
         serialize: function() {
             var d=new Date();
