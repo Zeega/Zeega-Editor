@@ -30,5 +30,4 @@ require.config({
 
     tipsy: ["jquery"]
   }
-
 });
