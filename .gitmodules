@@ -10,3 +10,6 @@
 [submodule "app/player"]
 	path = app/player
 	url = https://github.com/Zeega/Zeega-Player.git
+[submodule "app/engine"]
+	path = app/engine
+	url = https://github.com/Zeega/Zeega-Parser.git
