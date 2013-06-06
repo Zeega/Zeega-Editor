@@ -43,7 +43,8 @@ module.exports = function(grunt) {
         jst: {
             "dist/debug/templates.js": [
                 "app/templates/**/*.html",
-                "app/editor/plugins/**/*.html"
+                "app/editor/plugins/**/*.html",
+                "app/engine/plugins/**/*.html"
             ]
         },
 
