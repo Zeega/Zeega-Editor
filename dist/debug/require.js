@@ -746,226 +746,6 @@ __p+='<div class="workspace-wrapper">\n    <div class="workspace-overlay"></div>
 return __p;
 };
 
-this["JST"]["app/zeega-parser/plugins/controls/av/av.html"] = function(obj){
-var __p='';var print=function(){__p+=Array.prototype.join.call(arguments, '')};
-with(obj||{}){
-__p+='<div class="control-name">media controls</div>\n<a href="#" class="playpause"><i class="icon-play icon-white"></i></a>\n<div class="av-slider"></div>\n';
-}
-return __p;
-};
-
-this["JST"]["app/zeega-parser/plugins/controls/checkbox/checkbox.html"] = function(obj){
-var __p='';var print=function(){__p+=Array.prototype.join.call(arguments, '')};
-with(obj||{}){
-__p+='<div class="control-name">'+
-( title )+
-'</div>\n<div class="roundedOne">\n    <input type="checkbox" value="None" id="roundedOne" name="check" />\n    <label for="roundedOne"></label>\n</div>';
-}
-return __p;
-};
-
-this["JST"]["app/zeega-parser/plugins/controls/color/color.html"] = function(obj){
-var __p='';var print=function(){__p+=Array.prototype.join.call(arguments, '')};
-with(obj||{}){
-__p+='<div class="control-name">'+
-( _title )+
-'</div>\n<div class="color-selector">\n    <input class="simple_color" value="'+
-( attr[ _propertyName ] )+
-'"/>\n</div>';
-}
-return __p;
-};
-
-this["JST"]["app/zeega-parser/plugins/controls/dropdown/dropdown.html"] = function(obj){
-var __p='';var print=function(){__p+=Array.prototype.join.call(arguments, '')};
-with(obj||{}){
-__p+='<div class="control-name">'+
-( title )+
-'</div>\n<div class="dropdown-wrapper">\n    <select class="'+
-( propertyName )+
-'-dropdown">\n        ';
- _.each( optionList, function( option ) { 
-;__p+='\n            <option value="'+
-( option.value )+
-'">'+
-( option.title )+
-'</option>\n        ';
- }); 
-;__p+='\n    </select>\n</div>';
-}
-return __p;
-};
-
-this["JST"]["app/zeega-parser/plugins/controls/linkimage/linkimage.html"] = function(obj){
-var __p='';var print=function(){__p+=Array.prototype.join.call(arguments, '')};
-with(obj||{}){
-__p+='<div class="control-name">type</div>\n<select class="link-image-select">\n    <option value="arrow_up">Up Arrow</option>\n    <option value="arrow_down">Down Arrow</option>\n    <option value="arrow_left">Left Arrow</option>\n    <option value="arrow_right">Right Arrow</option>\n    <option value="default">Glowing Rectangle</option>\n</select>';
-}
-return __p;
-};
-
-this["JST"]["app/zeega-parser/plugins/controls/linkto/linkto.html"] = function(obj){
-var __p='';var print=function(){__p+=Array.prototype.join.call(arguments, '')};
-with(obj||{}){
-__p+='<div class="control-name">link to</div>\n<div class="control-frame-thumb" style="\n    background: url('+
-( thumbnail_url )+
-') no-repeat center center; \n    -webkit-background-size: cover;\n    background-size: cover;\n">\n    <a href="#"></a>\n</div>';
-}
-return __p;
-};
-
-this["JST"]["app/zeega-parser/plugins/controls/opacity/opacity.html"] = function(obj){
-var __p='';var print=function(){__p+=Array.prototype.join.call(arguments, '')};
-with(obj||{}){
-__p+='<div class="hover-icon">\n    <i class="icon-eye-open id-icon icon-white"></i>\n    <input type="text" class="text-input" value="'+
-( Math.floor( attr.opacity * 100 ) )+
-'">\n    <div class="hidden-controls">\n        <div class="opacity-slider"></div>\n    </div>\n</div>';
-}
-return __p;
-};
-
-this["JST"]["app/zeega-parser/plugins/controls/slider/slider.html"] = function(obj){
-var __p='';var print=function(){__p+=Array.prototype.join.call(arguments, '')};
-with(obj||{}){
-__p+='<div class="hover-icon">\n    <div class="control-name">'+
-( title )+
-'</div>\n    <input type="text" class="text-input" value="'+
-( Math.floor( attr[ _propertyName ] * 100 ) )+
-'">\n    <div class="hidden-controls">\n        <div class="control-slider"></div>\n    </div>\n</div>';
-}
-return __p;
-};
-
-this["JST"]["app/zeega-parser/plugins/layers/audio/audio-flash.html"] = function(obj){
-var __p='';var print=function(){__p+=Array.prototype.join.call(arguments, '')};
-with(obj||{}){
-__p+='<div id="audio-flash-'+
-( id )+
-'" data-src="'+
-( attr.uri )+
-'"  data-cue="'+
-( attr.cue_in )+
-'"  >\n    <div id="flash-'+
-( id )+
-'" %>" > \n    </div>\n</div>';
-}
-return __p;
-};
-
-this["JST"]["app/zeega-parser/plugins/layers/audio/audio.html"] = function(obj){
-var __p='';var print=function(){__p+=Array.prototype.join.call(arguments, '')};
-with(obj||{}){
-__p+='<audio id="audio-el-'+
-( id )+
-'" src="'+
-( attr.uri )+
-'"\n    ';
- if ( attr.loop ) { 
-;__p+='\n        loop\n    ';
- } 
-;__p+='\n    preload\n></audio>';
-}
-return __p;
-};
-
-this["JST"]["app/zeega-parser/plugins/layers/end_page/endpage.html"] = function(obj){
-var __p='';var print=function(){__p+=Array.prototype.join.call(arguments, '')};
-with(obj||{}){
-__p+='';
-}
-return __p;
-};
-
-this["JST"]["app/zeega-parser/plugins/layers/image/image.html"] = function(obj){
-var __p='';var print=function(){__p+=Array.prototype.join.call(arguments, '')};
-with(obj||{}){
-__p+='<div class="visual-target" style="\n    background: url('+
-( attr.uri )+
-');\n    background-size: cover;\n    background-position: center;\n"></div>';
-}
-return __p;
-};
-
-this["JST"]["app/zeega-parser/plugins/layers/link/frame-chooser.html"] = function(obj){
-var __p='';var print=function(){__p+=Array.prototype.join.call(arguments, '')};
-with(obj||{}){
-__p+='<a href="#" class="modal-close">&times;</a>\n<div class="modal-content">\n    <div class="modal-title">Where do you want your link to go?</div>\n    <div class="modal-body">\n        <a href="#" class="link-new-page"><i class="icon-plus icon-white"></i></br>New Page</a>\n        <div class="divider">or</div>\n        <ul class="page-chooser-list clearfix"></ul>\n        <div class="bottom-chooser">\n            <a href="#" class="submit btnz btnz-submit btnz-inactive">OK</a>\n        </div>\n    </div>\n</div>\n';
-}
-return __p;
-};
-
-this["JST"]["app/zeega-parser/plugins/layers/link/link.html"] = function(obj){
-var __p='';var print=function(){__p+=Array.prototype.join.call(arguments, '')};
-with(obj||{}){
-__p+='<div href=\'#\' class=\'ZEEGA-link-inner\'></div>';
-}
-return __p;
-};
-
-this["JST"]["app/zeega-parser/plugins/layers/rectangle/rectangle.html"] = function(obj){
-var __p='';var print=function(){__p+=Array.prototype.join.call(arguments, '')};
-with(obj||{}){
-__p+='<div class="visual-target"></div>\n<div class="controls-inline"></div>';
-}
-return __p;
-};
-
-this["JST"]["app/zeega-parser/plugins/layers/text/text.html"] = function(obj){
-var __p='';var print=function(){__p+=Array.prototype.join.call(arguments, '')};
-with(obj||{}){
-__p+='<div class="visual-target">'+
-( attr.content )+
-'</div>\n<div class="controls-inline"></div>';
-}
-return __p;
-};
-
-this["JST"]["app/zeega-parser/plugins/layers/text_v2/text-v2.html"] = function(obj){
-var __p='';var print=function(){__p+=Array.prototype.join.call(arguments, '')};
-with(obj||{}){
-__p+='<div class="visual-target">'+
-( attr.content )+
-'</div>\n<div class="controls-inline"></div>';
-}
-return __p;
-};
-
-this["JST"]["app/zeega-parser/plugins/layers/text_v2/textmodal.html"] = function(obj){
-var __p='';var print=function(){__p+=Array.prototype.join.call(arguments, '')};
-with(obj||{}){
-__p+='<div class="modal-content">\n    <div class="modal-title">Edit your text</div>\n    <div class="modal-body">\n\n        <div class="top-box clearfix">\n            <textarea rows="4" cols="59" maxlength="140">'+
-( attr.content )+
-'</textarea>\n            <select class="font-list" id="font-list-'+
-( id )+
-'"></select>\n            <div class="textarea-info">max 140 characters</div>\n        </div>\n\n        <div class="bottom-box clearfix">\n            <a href="#" class="link-page-open action ';
- if ( attr.to_frame ) { 
-;__p+='hide';
- } 
-;__p+='"><i class="icon-plus-sign"></i> link to page</a>\n\n            <div class="page-chooser-wrapper ';
- if ( !attr.to_frame ) { 
-;__p+='hide';
- } 
-;__p+='">\n                <a href="#" class="link-new-page"><i class="icon-plus icon-white"></i></br>New Page</a>\n                <div class="divider">or</div>\n                <ul class="page-chooser-list clearfix"></ul>\n                <a href="#" class="unlink-text action"><i class="icon-minus-sign"></i> remove link</a>\n            </div>\n        </div>\n\n        <div class="bottom-chooser clearfix">\n            <a href="#" class="text-modal-save btnz btnz-submit">OK</a>\n        </div>\n    </div>\n</div>\n';
-}
-return __p;
-};
-
-this["JST"]["app/zeega-parser/plugins/layers/youtube/youtube.html"] = function(obj){
-var __p='';var print=function(){__p+=Array.prototype.join.call(arguments, '')};
-with(obj||{}){
-__p+='<div   class="youtube-player"  class="visual-target">\n    \n\n    <iframe id="yt-player-'+
-( id )+
-'" type="text/html" width="100%" height="100%"\n        src="http://www.youtube.com/embed/'+
-( attr.uri )+
-'?enablejsapi=1&iv_load_policy=3&showinfo=0';
- if ( !/iPad/i.test(navigator.userAgent) ) { 
-;__p+='&controls=0';
- } 
-;__p+='&modestbranding=1&disablekb=1&rel=0&wmode=opaque"\n        frameborder="0">\n    </iframe>\n</div>\n<div class="play-button"></div>\n<div class="ipad-cover"> pause video to return to Zeega </div>\n<div class="controls-inline"></div>\n\n';
-}
-return __p;
-};
-
 var jam = {
     "packages": [
         {
@@ -18232,7 +18012,7 @@ define('app',[
         // The root path to run the application.
         attributes: { mobile: false },
         mode: "editor",
-        parserPath: "app/zeega-parser/",
+        parserPath: "app/engine/",
         dragging: null,
         mediaCollection: null,
 
@@ -33718,28 +33498,6 @@ function( Spinner ) {
         return this.set.apply( this, args );
     };
 
-    // zeegaBackbone.View.prototype.fetch = function( path ) {
-    //     // Initialize done for use in async-mode
-    //     var done;
-    //      console.log("FETCH", path)
-
-    //     // Concatenate the file extension.
-    //     path = "app/templates/"+ path + ".html";
-
-    //     // If cached, use the compiled template.
-    //     if ( JST[ path ] ) {
-    //         return JST[ path ];
-    //     } else {
-    //         // Put fetch into `async-mode`.
-    //         done = this.async();
-
-    //         // Seek out the template asynchronously.
-    //         return app.$.ajax({ url: app.root + path }).then(function(contents) {
-    //             done( JST[path] = _.template(contents) );
-    //         });
-    //     }
-    // };
-
     // Mix Backbone.Events, modules, and layout management into the app object.
     return _.extend(app, {
         // Create a custom object with a nested Views object.
@@ -33754,7 +33512,7 @@ function( Spinner ) {
 
 });
 
-define('zeega_parser/modules/control.view',[
+define('engine/modules/control.view',[
     "app",
     "jqueryUI"
 ],
@@ -33882,9 +33640,9 @@ function( app ) {
 
 });
 
-define('zeega_parser/plugins/controls/position/position',[
+define('engine/plugins/controls/position/position',[
     "app",
-    "zeega_parser/modules/control.view"
+    "engine/modules/control.view"
 ],
 
 function( Zeega, ControlView ) {
@@ -33958,9 +33716,9 @@ function( Zeega, ControlView ) {
 
 });
 
-define('zeega_parser/plugins/controls/slider/slider',[
+define('engine/plugins/controls/slider/slider',[
     "app",
-    "zeega_parser/modules/control.view",
+    "engine/modules/control.view",
     "jqueryUI"
 ],
 
@@ -34086,9 +33844,9 @@ function( Zeega, ControlView ) {
 
 });
 
-define('zeega_parser/plugins/controls/resize/resize',[
+define('engine/plugins/controls/resize/resize',[
     "app",
-    "zeega_parser/modules/control.view"
+    "engine/modules/control.view"
 ],
 
 function( Zeega, ControlView ) {
@@ -34156,9 +33914,9 @@ function( Zeega, ControlView ) {
 
 });
 
-define('zeega_parser/plugins/controls/checkbox/checkbox',[
+define('engine/plugins/controls/checkbox/checkbox',[
     "app",
-    "zeega_parser/modules/control.view",
+    "engine/modules/control.view",
     "jqueryUI"
 ],
 
@@ -34209,7 +33967,7 @@ function( Zeega, ControlView ) {
  * Licensed under the MIT license:
  *   http://www.opensource.org/licenses/mit-license.php
  *
- * Version: @VERSION (@DATE)
+ * Version: 1.1.3 (201304080141)
  */
  (function($) {
 /**
@@ -34256,15 +34014,15 @@ function( Zeega, ControlView ) {
  *  colorCodeColor:     Text color of the color code inside the button. Only used if 'displayColorCode' is true.
  *                      Default value: '#FFF'
  *
- *  callback:           Callback function to call after a color has been chosen.
+ *  onSelect:           Callback function to call after a color has been chosen.
  *                      Default value: null
- *                      Returns: Hex Value
+ *                      Returns:       hex value
  *
- *  onCellEnter:        Callback function that excecutes when a cell is entered by the user's mouse
+ *  onCellEnter:        Callback function that excecutes when the mouse enters a cell.
  *                      Default value: null
- *                      Returns: Hex Value
+ *                      Returns:       hex value
  *
- *  onClose:            Callback function that executes whenever the chooser is closed
+ *  onClose:            Callback function that executes when the chooser is closed.
  *                      Default value: null
  *
  *  livePreview:        The color display will change to show the color of the hovered color cell.
@@ -34320,10 +34078,10 @@ function( Zeega, ControlView ) {
       displayColorCode: this.attr('displayColorCode') || false,
       colorCodeAlign:   this.attr('colorCodeAlign') || 'center',
       colorCodeColor:   this.attr('colorCodeColor') || '#FFF',
-      callback: null,
-      onCellEnter: null,
-      onClose: null,
-      livePreview: false
+      onSelect:         null,
+      onCellEnter:      null,
+      onClose:          null,
+      livePreview:      false
     }, options || {});
 
     // Hide the input
@@ -34350,7 +34108,7 @@ function( Zeega, ControlView ) {
       var container = $("<div class='simpleColorContainer' />");
       
       // Absolutely positioned child elements now 'work'.
-      container.css('position', 'relative');
+			container.css('position', 'relative');
 
       // Create the color display box
       var default_color = (this.value && this.value != '') ? this.value : options.defaultColor;
@@ -34358,7 +34116,7 @@ function( Zeega, ControlView ) {
       var display_box = $("<div class='simpleColorDisplay' />");
       display_box.css({
         'backgroundColor': default_color,
-        'border': options.border,
+        'border':          options.border,
         'width':           options.boxWidth,
         'height':          options.boxHeight,
         // Make sure that the code is vertically centered.
@@ -34372,28 +34130,28 @@ function( Zeega, ControlView ) {
         display_box.text(this.value);
         display_box.css({
           'color':     options.colorCodeColor,
-            'textAlign': options.colorCodeAlign
+          'textAlign': options.colorCodeAlign
         });
       }
       
       var select_callback = function (event) {
 
-        // bind and namespace the click listener only when the chooser is displayed
-        // unbind when the chooser is closed
+        // Bind and namespace the click listener only when the chooser is 
+        // displayed. Unbind when the chooser is closed.
         $('html').bind("click.simpleColorDisplay", function(e) {
-
           $('html').unbind("click.simpleColorDisplay");
           $('.simpleColorChooser').hide();
 
-          // if the user has not selected a new color, then revert the display
-          // makes sure the selected cell is within the current color selector
-          if (!$(e.target).hasClass("simpleColorCell")||!$.contains( $(event.target).closest(".simpleColorContainer")[0], $(e.target)[0] )) {
+          // If the user has not selected a new color, then revert the display.
+          // Makes sure the selected cell is within the current color selector.
+          var target = $(e.target);
+          if (target.is('.simpleColorCell') === false || $.contains( $(event.target).closest('.simpleColorContainer')[0], target[0]) === false) {
             display_box.css('backgroundColor', default_color);
             if (options.displayColorCode) {
               display_box.text(default_color);
             }
           }
-          // execute onClose callback whenever the color chooser is closed
+          // Execute onClose callback whenever the color chooser is closed.
           if (options.onClose) {
             options.onClose();
           }
@@ -34435,11 +34193,10 @@ function( Zeega, ControlView ) {
               'backgroundColor': '#'+options.colors[i]
             });
             chooser.append(cell);
-
-            if (options.onCellEnter||options.livePreview) {
+            if (options.onCellEnter || options.livePreview) {
               cell.bind('mouseenter', function(event) {
                 if (options.onCellEnter) {
-                  options.onCellEnter(this.id)
+                  options.onCellEnter(this.id);
                 }
                 if (options.livePreview) {
                   display_box.css('backgroundColor', '#' + this.id);
@@ -34449,7 +34206,6 @@ function( Zeega, ControlView ) {
                 }
               });
             }
-
             cell.bind('click', {
               input: event.data.input, 
               chooser: chooser, 
@@ -34466,10 +34222,9 @@ function( Zeega, ControlView ) {
               if (options.displayColorCode) {
                 event.data.display_box.text('#' + this.id);
               }
-
-              // If a callback function is defined then excecute it.
-              if (options.callback) {
-                options.callback(this.id);
+              // If an onSelect callback function is defined then excecute it.
+              if (options.onSelect) {
+                options.onSelect(this.id);
               }
 
             });
@@ -34492,11 +34247,11 @@ function( Zeega, ControlView ) {
 
     this.each(buildSelector);
 
-        $('.simpleColorDisplay').each(function() {
-            $(this).click(function(e){
-                e.stopPropagation();
-            });
-        });
+    $('.simpleColorDisplay').each(function() {
+      $(this).click(function(e){
+        e.stopPropagation();
+      });
+    });
 
     return this;
   };
@@ -34516,12 +34271,12 @@ function( Zeega, ControlView ) {
 
 })(jQuery);
 
-define("simpleColorPicker", function(){});
+define("engineVendor/jquery-simple-color/jquery.simple-color", function(){});
 
-define('zeega_parser/plugins/controls/color/color',[
+define('engine/plugins/controls/color/color',[
     "app",
-    "zeega_parser/modules/control.view",
-    "simpleColorPicker"
+    "engine/modules/control.view",
+    "engineVendor/jquery-simple-color/jquery.simple-color"
 ],
 
 function( app, ControlView ) {
@@ -34577,9 +34332,9 @@ function( app, ControlView ) {
 
 });
 
-define('zeega_parser/plugins/controls/linkto/linkto',[
+define('engine/plugins/controls/linkto/linkto',[
     "app",
-    "zeega_parser/modules/control.view"
+    "engine/modules/control.view"
 ],
 
 function( app, ControlView ) {
@@ -34618,9 +34373,9 @@ function( app, ControlView ) {
 
 });
 
-define('zeega_parser/plugins/controls/linkimage/linkimage',[
+define('engine/plugins/controls/linkimage/linkimage',[
     "app",
-    "zeega_parser/modules/control.view"
+    "engine/modules/control.view"
 ],
 
 function( app, ControlView ) {
@@ -34655,9 +34410,9 @@ function( app, ControlView ) {
 
 });
 
-define('zeega_parser/plugins/controls/av/av',[
+define('engine/plugins/controls/av/av',[
     "app",
-    "zeega_parser/modules/control.view",
+    "engine/modules/control.view",
     "jqueryUI"
 ],
 
@@ -34861,9 +34616,9 @@ function( app, ControlView ) {
 
 });
 
-define('zeega_parser/plugins/controls/dropdown/dropdown',[
+define('engine/plugins/controls/dropdown/dropdown',[
     "app",
-    "zeega_parser/modules/control.view",
+    "engine/modules/control.view",
     "jqueryUI"
 ],
 
@@ -34908,16 +34663,16 @@ this should be auto generated probably!!
 
 */
 
-define('zeega_parser/plugins/controls/_all-controls',[
-    "zeega_parser/plugins/controls/position/position",
-    "zeega_parser/plugins/controls/slider/slider",
-    "zeega_parser/plugins/controls/resize/resize",
-    "zeega_parser/plugins/controls/checkbox/checkbox",
-    "zeega_parser/plugins/controls/color/color",
-    "zeega_parser/plugins/controls/linkto/linkto",
-    "zeega_parser/plugins/controls/linkimage/linkimage",
-    "zeega_parser/plugins/controls/av/av",
-    "zeega_parser/plugins/controls/dropdown/dropdown"
+define('engine/plugins/controls/_all-controls',[
+    "engine/plugins/controls/position/position",
+    "engine/plugins/controls/slider/slider",
+    "engine/plugins/controls/resize/resize",
+    "engine/plugins/controls/checkbox/checkbox",
+    "engine/plugins/controls/color/color",
+    "engine/plugins/controls/linkto/linkto",
+    "engine/plugins/controls/linkimage/linkimage",
+    "engine/plugins/controls/av/av",
+    "engine/plugins/controls/dropdown/dropdown"
 ],
 function(
     Position,
@@ -34945,9 +34700,9 @@ function(
 });
 
 // layer.js
-define('zeega_parser/modules/layer.model',[
+define('engine/modules/layer.model',[
     "app",
-    "zeega_parser/plugins/controls/_all-controls"
+    "engine/plugins/controls/_all-controls"
 ],
 
 function( app, Controls ) {
@@ -35129,9 +34884,9 @@ function( app, Controls ) {
 });
 
 // layer.js
-define('zeega_parser/modules/layer.visual.view',[
+define('engine/modules/layer.visual.view',[
     "app",
-    "zeega_parser/plugins/controls/_all-controls"
+    "engine/plugins/controls/_all-controls"
 ],
 
 function( app, Controls ) {
@@ -35370,7 +35125,7 @@ function( app, Controls ) {
             // Initialize done for use in async-mode
             var done;
  
-            path = app.parserPath + "plugins/layers/"+ path + ".html";
+            path = "app/engine/plugins/layers/"+ path + ".html";
             // If cached, use the compiled template.
             if ( JST[ path ] ) {
                 return JST[ path ];
@@ -35396,15 +35151,14 @@ function( app, Controls ) {
 
 (function(c,n){var k="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///ywAAAAAAQABAAACAUwAOw==";c.fn.imagesLoaded=function(l){function m(){var b=c(h),a=c(g);d&&(g.length?d.reject(e,b,a):d.resolve(e));c.isFunction(l)&&l.call(f,e,b,a)}function i(b,a){b.src===k||-1!==c.inArray(b,j)||(j.push(b),a?g.push(b):h.push(b),c.data(b,"imagesLoaded",{isBroken:a,src:b.src}),o&&d.notifyWith(c(b),[a,e,c(h),c(g)]),e.length===j.length&&(setTimeout(m),e.unbind(".imagesLoaded")))}var f=this,d=c.isFunction(c.Deferred)?c.Deferred():
 0,o=c.isFunction(d.notify),e=f.find("img").add(f.filter("img")),j=[],h=[],g=[];e.length?e.bind("load.imagesLoaded error.imagesLoaded",function(b){i(b.target,"error"===b.type)}).each(function(b,a){var e=a.src,d=c.data(a,"imagesLoaded");if(d&&d.src===e)i(a,d.isBroken);else if(a.complete&&a.naturalWidth!==n)i(a,0===a.naturalWidth||0===a.naturalHeight);else if(a.readyState||a.complete)a.src=k,a.src=e}):m();return d?d.promise(f):f}})(jQuery);
+define("engineVendor/jquery.imagesloaded.min", function(){});
 
-define("plugins/jquery.imagesloaded.min", function(){});
-
-define('zeega_parser/plugins/layers/image/image',[
+define('engine/plugins/layers/image/image',[
     "app",
-    "zeega_parser/modules/layer.model",
-    "zeega_parser/modules/layer.visual.view",
+    "engine/modules/layer.model",
+    "engine/modules/layer.visual.view",
     //plugins
-    "plugins/jquery.imagesloaded.min"
+    "engineVendor/jquery.imagesloaded.min"
 ],
 
 function( app, Layer, Visual ){
@@ -35496,6 +35250,7 @@ function( app, Layer, Visual ){
 
             if ( this.model.getAttr("page_background")) {
                 this.makePageBackground();
+                this.disableDrag();
             }
         },
 
@@ -35517,12 +35272,6 @@ function( app, Layer, Visual ){
                 $img.remove();
             }.bind( this ));
             $("body").append( $img );
-        },
-
-        visualAfterRender: function() {
-            if ( this.model.getAttr("page_background")) {
-                this.disableDrag();
-            }
         },
 
         disableDrag: function() {
@@ -35602,7 +35351,7 @@ function( app, Layer, Visual ){
     return L;
 });
 
-define('zeega_parser/plugins/layers/link/frame-chooser',[
+define('engine/plugins/layers/link/frame-chooser',[
     "app"
 ],
 
@@ -35733,11 +35482,11 @@ function( app ) {
     });
 
 });
-define('zeega_parser/plugins/layers/link/link',[
+define('engine/plugins/layers/link/link',[
     "app",
-    "zeega_parser/modules/layer.model",
-    "zeega_parser/modules/layer.visual.view",
-    "zeega_parser/plugins/layers/link/frame-chooser"
+    "engine/modules/layer.model",
+    "engine/modules/layer.visual.view",
+    "engine/plugins/layers/link/frame-chooser"
 ],
 
 function( app, _Layer, Visual, FrameChooser ) {
@@ -35855,10 +35604,10 @@ function( app, _Layer, Visual, FrameChooser ) {
 window.swfobject=function(){var D="undefined",r="object",S="Shockwave Flash",W="ShockwaveFlash.ShockwaveFlash",q="application/x-shockwave-flash",R="SWFObjectExprInst",x="onreadystatechange",O=window,j=document,t=navigator,T=false,U=[h],o=[],N=[],I=[],l,Q,E,B,J=false,a=false,n,G,m=true,M=function(){var aa=typeof j.getElementById!=D&&typeof j.getElementsByTagName!=D&&typeof j.createElement!=D,ah=t.userAgent.toLowerCase(),Y=t.platform.toLowerCase(),ae=Y?/win/.test(Y):/win/.test(ah),ac=Y?/mac/.test(Y):/mac/.test(ah),af=/webkit/.test(ah)?parseFloat(ah.replace(/^.*webkit\/(\d+(\.\d+)?).*$/,"$1")):false,X=!+"\v1",ag=[0,0,0],ab=null;if(typeof t.plugins!=D&&typeof t.plugins[S]==r){ab=t.plugins[S].description;if(ab&&!(typeof t.mimeTypes!=D&&t.mimeTypes[q]&&!t.mimeTypes[q].enabledPlugin)){T=true;X=false;ab=ab.replace(/^.*\s+(\S+\s+\S+$)/,"$1");ag[0]=parseInt(ab.replace(/^(.*)\..*$/,"$1"),10);ag[1]=parseInt(ab.replace(/^.*\.(.*)\s.*$/,"$1"),10);ag[2]=/[a-zA-Z]/.test(ab)?parseInt(ab.replace(/^.*[a-zA-Z]+(.*)$/,"$1"),10):0}}else{if(typeof O.ActiveXObject!=D){try{var ad=new ActiveXObject(W);if(ad){ab=ad.GetVariable("$version");if(ab){X=true;ab=ab.split(" ")[1].split(",");ag=[parseInt(ab[0],10),parseInt(ab[1],10),parseInt(ab[2],10)]}}}catch(Z){}}}return{w3:aa,pv:ag,wk:af,ie:X,win:ae,mac:ac}}(),k=function(){if(!M.w3){return}if((typeof j.readyState!=D&&j.readyState=="complete")||(typeof j.readyState==D&&(j.getElementsByTagName("body")[0]||j.body))){f()}if(!J){if(typeof j.addEventListener!=D){j.addEventListener("DOMContentLoaded",f,false)}if(M.ie&&M.win){j.attachEvent(x,function(){if(j.readyState=="complete"){j.detachEvent(x,arguments.callee);f()}});if(O==top){(function(){if(J){return}try{j.documentElement.doScroll("left")}catch(X){setTimeout(arguments.callee,0);return}f()})()}}if(M.wk){(function(){if(J){return}if(!/loaded|complete/.test(j.readyState)){setTimeout(arguments.callee,0);return}f()})()}s(f)}}();function f(){if(J){return}try{var Z=j.getElementsByTagName("body")[0].appendChild(C("span"));Z.parentNode.removeChild(Z)}catch(aa){return}J=true;var X=U.length;for(var Y=0;Y<X;Y++){U[Y]()}}function K(X){if(J){X()}else{U[U.length]=X}}function s(Y){if(typeof O.addEventListener!=D){O.addEventListener("load",Y,false)}else{if(typeof j.addEventListener!=D){j.addEventListener("load",Y,false)}else{if(typeof O.attachEvent!=D){i(O,"onload",Y)}else{if(typeof O.onload=="function"){var X=O.onload;O.onload=function(){X();Y()}}else{O.onload=Y}}}}}function h(){if(T){V()}else{H()}}function V(){var X=j.getElementsByTagName("body")[0];var aa=C(r);aa.setAttribute("type",q);var Z=X.appendChild(aa);if(Z){var Y=0;(function(){if(typeof Z.GetVariable!=D){var ab=Z.GetVariable("$version");if(ab){ab=ab.split(" ")[1].split(",");M.pv=[parseInt(ab[0],10),parseInt(ab[1],10),parseInt(ab[2],10)]}}else{if(Y<10){Y++;setTimeout(arguments.callee,10);return}}X.removeChild(aa);Z=null;H()})()}else{H()}}function H(){var ag=o.length;if(ag>0){for(var af=0;af<ag;af++){var Y=o[af].id;var ab=o[af].callbackFn;var aa={success:false,id:Y};if(M.pv[0]>0){var ae=c(Y);if(ae){if(F(o[af].swfVersion)&&!(M.wk&&M.wk<312)){w(Y,true);if(ab){aa.success=true;aa.ref=z(Y);ab(aa)}}else{if(o[af].expressInstall&&A()){var ai={};ai.data=o[af].expressInstall;ai.width=ae.getAttribute("width")||"0";ai.height=ae.getAttribute("height")||"0";if(ae.getAttribute("class")){ai.styleclass=ae.getAttribute("class")}if(ae.getAttribute("align")){ai.align=ae.getAttribute("align")}var ah={};var X=ae.getElementsByTagName("param");var ac=X.length;for(var ad=0;ad<ac;ad++){if(X[ad].getAttribute("name").toLowerCase()!="movie"){ah[X[ad].getAttribute("name")]=X[ad].getAttribute("value")}}P(ai,ah,Y,ab)}else{p(ae);if(ab){ab(aa)}}}}}else{w(Y,true);if(ab){var Z=z(Y);if(Z&&typeof Z.SetVariable!=D){aa.success=true;aa.ref=Z}ab(aa)}}}}}function z(aa){var X=null;var Y=c(aa);if(Y&&Y.nodeName=="OBJECT"){if(typeof Y.SetVariable!=D){X=Y}else{var Z=Y.getElementsByTagName(r)[0];if(Z){X=Z}}}return X}function A(){return !a&&F("6.0.65")&&(M.win||M.mac)&&!(M.wk&&M.wk<312)}function P(aa,ab,X,Z){a=true;E=Z||null;B={success:false,id:X};var ae=c(X);if(ae){if(ae.nodeName=="OBJECT"){l=g(ae);Q=null}else{l=ae;Q=X}aa.id=R;if(typeof aa.width==D||(!/%$/.test(aa.width)&&parseInt(aa.width,10)<310)){aa.width="310"}if(typeof aa.height==D||(!/%$/.test(aa.height)&&parseInt(aa.height,10)<137)){aa.height="137"}j.title=j.title.slice(0,47)+" - Flash Player Installation";var ad=M.ie&&M.win?"ActiveX":"PlugIn",ac="MMredirectURL="+O.location.toString().replace(/&/g,"%26")+"&MMplayerType="+ad+"&MMdoctitle="+j.title;if(typeof ab.flashvars!=D){ab.flashvars+="&"+ac}else{ab.flashvars=ac}if(M.ie&&M.win&&ae.readyState!=4){var Y=C("div");X+="SWFObjectNew";Y.setAttribute("id",X);ae.parentNode.insertBefore(Y,ae);ae.style.display="none";(function(){if(ae.readyState==4){ae.parentNode.removeChild(ae)}else{setTimeout(arguments.callee,10)}})()}u(aa,ab,X)}}function p(Y){if(M.ie&&M.win&&Y.readyState!=4){var X=C("div");Y.parentNode.insertBefore(X,Y);X.parentNode.replaceChild(g(Y),X);Y.style.display="none";(function(){if(Y.readyState==4){Y.parentNode.removeChild(Y)}else{setTimeout(arguments.callee,10)}})()}else{Y.parentNode.replaceChild(g(Y),Y)}}function g(ab){var aa=C("div");if(M.win&&M.ie){aa.innerHTML=ab.innerHTML}else{var Y=ab.getElementsByTagName(r)[0];if(Y){var ad=Y.childNodes;if(ad){var X=ad.length;for(var Z=0;Z<X;Z++){if(!(ad[Z].nodeType==1&&ad[Z].nodeName=="PARAM")&&!(ad[Z].nodeType==8)){aa.appendChild(ad[Z].cloneNode(true))}}}}}return aa}function u(ai,ag,Y){var X,aa=c(Y);if(M.wk&&M.wk<312){return X}if(aa){if(typeof ai.id==D){ai.id=Y}if(M.ie&&M.win){var ah="";for(var ae in ai){if(ai[ae]!=Object.prototype[ae]){if(ae.toLowerCase()=="data"){ag.movie=ai[ae]}else{if(ae.toLowerCase()=="styleclass"){ah+=' class="'+ai[ae]+'"'}else{if(ae.toLowerCase()!="classid"){ah+=" "+ae+'="'+ai[ae]+'"'}}}}}var af="";for(var ad in ag){if(ag[ad]!=Object.prototype[ad]){af+='<param name="'+ad+'" value="'+ag[ad]+'" />'}}aa.outerHTML='<object classid="clsid:D27CDB6E-AE6D-11cf-96B8-444553540000"'+ah+">"+af+"</object>";N[N.length]=ai.id;X=c(ai.id)}else{var Z=C(r);Z.setAttribute("type",q);for(var ac in ai){if(ai[ac]!=Object.prototype[ac]){if(ac.toLowerCase()=="styleclass"){Z.setAttribute("class",ai[ac])}else{if(ac.toLowerCase()!="classid"){Z.setAttribute(ac,ai[ac])}}}}for(var ab in ag){if(ag[ab]!=Object.prototype[ab]&&ab.toLowerCase()!="movie"){e(Z,ab,ag[ab])}}aa.parentNode.replaceChild(Z,aa);X=Z}}return X}function e(Z,X,Y){var aa=C("param");aa.setAttribute("name",X);aa.setAttribute("value",Y);Z.appendChild(aa)}function y(Y){var X=c(Y);if(X&&X.nodeName=="OBJECT"){if(M.ie&&M.win){X.style.display="none";(function(){if(X.readyState==4){b(Y)}else{setTimeout(arguments.callee,10)}})()}else{X.parentNode.removeChild(X)}}}function b(Z){var Y=c(Z);if(Y){for(var X in Y){if(typeof Y[X]=="function"){Y[X]=null}}Y.parentNode.removeChild(Y)}}function c(Z){var X=null;try{X=j.getElementById(Z)}catch(Y){}return X}function C(X){return j.createElement(X)}function i(Z,X,Y){Z.attachEvent(X,Y);I[I.length]=[Z,X,Y]}function F(Z){var Y=M.pv,X=Z.split(".");X[0]=parseInt(X[0],10);X[1]=parseInt(X[1],10)||0;X[2]=parseInt(X[2],10)||0;return(Y[0]>X[0]||(Y[0]==X[0]&&Y[1]>X[1])||(Y[0]==X[0]&&Y[1]==X[1]&&Y[2]>=X[2]))?true:false}function v(ac,Y,ad,ab){if(M.ie&&M.mac){return}var aa=j.getElementsByTagName("head")[0];if(!aa){return}var X=(ad&&typeof ad=="string")?ad:"screen";if(ab){n=null;G=null}if(!n||G!=X){var Z=C("style");Z.setAttribute("type","text/css");Z.setAttribute("media",X);n=aa.appendChild(Z);if(M.ie&&M.win&&typeof j.styleSheets!=D&&j.styleSheets.length>0){n=j.styleSheets[j.styleSheets.length-1]}G=X}if(M.ie&&M.win){if(n&&typeof n.addRule==r){n.addRule(ac,Y)}}else{if(n&&typeof j.createTextNode!=D){n.appendChild(j.createTextNode(ac+" {"+Y+"}"))}}}function w(Z,X){if(!m){return}var Y=X?"visible":"hidden";if(J&&c(Z)){c(Z).style.visibility=Y}else{v("#"+Z,"visibility:"+Y)}}function L(Y){var Z=/[\\\"<>\.;]/;var X=Z.exec(Y)!=null;return X&&typeof encodeURIComponent!=D?encodeURIComponent(Y):Y}var d=function(){if(M.ie&&M.win){window.attachEvent("onunload",function(){var ac=I.length;for(var ab=0;ab<ac;ab++){I[ab][0].detachEvent(I[ab][1],I[ab][2])}var Z=N.length;for(var aa=0;aa<Z;aa++){y(N[aa])}for(var Y in M){M[Y]=null}M=null;for(var X in swfobject){swfobject[X]=null}swfobject=null})}}();return{registerObject:function(ab,X,aa,Z){if(M.w3&&ab&&X){var Y={};Y.id=ab;Y.swfVersion=X;Y.expressInstall=aa;Y.callbackFn=Z;o[o.length]=Y;w(ab,false)}else{if(Z){Z({success:false,id:ab})}}},getObjectById:function(X){if(M.w3){return z(X)}},embedSWF:function(ab,ah,ae,ag,Y,aa,Z,ad,af,ac){var X={success:false,id:ah};if(M.w3&&!(M.wk&&M.wk<312)&&ab&&ah&&ae&&ag&&Y){w(ah,false);K(function(){ae+="";ag+="";var aj={};if(af&&typeof af===r){for(var al in af){aj[al]=af[al]}}aj.data=ab;aj.width=ae;aj.height=ag;var am={};if(ad&&typeof ad===r){for(var ak in ad){am[ak]=ad[ak]}}if(Z&&typeof Z===r){for(var ai in Z){if(typeof am.flashvars!=D){am.flashvars+="&"+ai+"="+Z[ai]}else{am.flashvars=ai+"="+Z[ai]}}}if(F(Y)){var an=u(aj,am,ah);if(aj.id==ah){w(ah,true)}X.success=true;X.ref=an}else{if(aa&&A()){aj.data=aa;P(aj,am,ah,ac);return}else{w(ah,true)}}if(ac){ac(X)}})}else{if(ac){ac(X)}}},switchOffAutoHideShow:function(){m=false},ua:M,getFlashPlayerVersion:function(){return{major:M.pv[0],minor:M.pv[1],release:M.pv[2]}},hasFlashPlayerVersion:F,createSWF:function(Z,Y,X){if(M.w3){return u(Z,Y,X)}else{return undefined}},showExpressInstall:function(Z,aa,X,Y){if(M.w3&&A()){P(Z,aa,X,Y)}},removeSWF:function(X){if(M.w3){y(X)}},createCSS:function(aa,Z,Y,X){if(M.w3){v(aa,Z,Y,X)}},addDomLoadEvent:K,addLoadEvent:s,getQueryParamValue:function(aa){var Z=j.location.search||j.location.hash;if(Z){if(/\?/.test(Z)){Z=Z.split("?")[1]}if(aa==null){return L(Z)}var Y=Z.split("&");for(var X=0;X<Y.length;X++){if(Y[X].substring(0,Y[X].indexOf("="))==aa){return L(Y[X].substring((Y[X].indexOf("=")+1)))}}}return""},expressInstallCallback:function(){if(a){var X=c(R);if(X&&l){X.parentNode.replaceChild(l,X);if(Q){w(Q,true);if(M.ie&&M.win){l.style.display="block"}}if(E){E(B)}}a=false}}}}();
 define("swfObject", function(){});
 
-define('zeega_parser/plugins/layers/audio/audio',[
+define('engine/plugins/layers/audio/audio',[
     "app",
-    "zeega_parser/modules/layer.model",
-    "zeega_parser/modules/layer.visual.view",
+    "engine/modules/layer.model",
+    "engine/modules/layer.visual.view",
     "swfObject"
 ],
 
@@ -36224,10 +35973,10 @@ function( app, _Layer, Visual ){
     return Layer;
 });
 
-define('zeega_parser/plugins/layers/rectangle/rectangle',[
+define('engine/plugins/layers/rectangle/rectangle',[
     "app",
-    "zeega_parser/modules/layer.model",
-    "zeega_parser/modules/layer.visual.view"
+    "engine/modules/layer.model",
+    "engine/modules/layer.visual.view"
 ],
 function( app, LayerModel, Visual ) {
 
@@ -36306,10 +36055,10 @@ function( app, LayerModel, Visual ) {
   return Layer;
 });
 
-define('zeega_parser/plugins/layers/text/text',[
+define('engine/plugins/layers/text/text',[
     "app",
-    "zeega_parser/modules/layer.model",
-    "zeega_parser/modules/layer.visual.view"
+    "engine/modules/layer.model",
+    "engine/modules/layer.visual.view"
 ],
 function( app, _Layer, Visual ) {
 
@@ -36533,8 +36282,7 @@ function( app, _Layer, Visual ) {
         //Preserve the original defaults by passing an empty object as the target
         //The object is used to get global flags like embedCSS.
         var options = $.extend({}, defaults, options);
-        var opts = options;
-
+        
         //CSS styles are only added once.
         if ($('#css-ddslick').length <= 0 && options.embedCSS) {
             $(ddslickCSS).appendTo('head');
@@ -36544,8 +36292,8 @@ function( app, _Layer, Visual ) {
         return this.each(function () {
             //Preserve the original defaults by passing an empty object as the target 
             //The object is used to save drop-down's corresponding settings and data.
-            var options = $.extend({}, defaults, opts);
-
+            var options = $.extend({}, defaults, options);
+            
             var obj = $(this),
                 data = obj.data('ddslick');
             //If the plugin has not been initialized yet
@@ -36601,7 +36349,7 @@ function( app, _Layer, Visual ) {
                         '<a class="dd-option">' +
                             (item.value ? ' <input class="dd-option-value" type="hidden" value="' + item.value + '" />' : '') +
                             (item.imageSrc ? ' <img class="dd-option-image' + (options.imagePosition == "right" ? ' dd-image-right' : '') + '" src="' + item.imageSrc + '" />' : '') +
-                            (item.text ? ' <label class="dd-option-text"><i class="font-sample-' + item.text.replace(/ /g,"-") + '"></i></label>' : '') +
+                            (item.text ? ' <label class="dd-option-text">' + item.text + '</label>' : '') +
                             (item.description ? ' <small class="dd-option-description dd-desc">' + item.description + '</small>' : '') +
                         '</a>' +
                     '</li>');
@@ -36823,11 +36571,11 @@ function( app, _Layer, Visual ) {
     }
 
 })(jQuery);
-define("ddslick", function(){});
+define("engineVendor/ddslick", function(){});
 
-define('zeega_parser/plugins/layers/text_v2/textmodal',[
+define('engine/plugins/layers/text_v2/textmodal',[
     "app",
-    "ddslick"
+    "engineVendor/ddslick"
 ],
 
 function( app ) {
@@ -37035,11 +36783,11 @@ function( app ) {
     });
 
 });
-define('zeega_parser/plugins/layers/text_v2/text',[
+define('engine/plugins/layers/text_v2/text',[
     "app",
-    "zeega_parser/modules/layer.model",
-    "zeega_parser/modules/layer.visual.view",
-    "zeega_parser/plugins/layers/text_v2/textmodal"
+    "engine/modules/layer.model",
+    "engine/modules/layer.visual.view",
+    "engine/plugins/layers/text_v2/textmodal"
 ],
 function( app, _Layer, Visual, TextModal ) {
 
@@ -37351,10 +37099,10 @@ function( app, _Layer, Visual, TextModal ) {
   return Layer;
 });
 
-define('zeega_parser/plugins/layers/youtube/youtube',[
+define('engine/plugins/layers/youtube/youtube',[
     "app",
-    "zeega_parser/modules/layer.model",
-    "zeega_parser/modules/layer.visual.view"
+    "engine/modules/layer.model",
+    "engine/modules/layer.visual.view"
 ],
 
 function( Zeega, LayerModel, Visual ) {
@@ -37504,10 +37252,10 @@ function( Zeega, LayerModel, Visual ) {
 
     return Layer;
 });
-define('zeega_parser/plugins/layers/end_page/endpage',[
-    "app",
-    "zeega_parser/modules/layer.model",
-    "zeega_parser/modules/layer.visual.view"
+define('engine/plugins/layers/end_page/endpage',[
+    "player/app",
+    "engine/modules/layer.model",
+    "engine/modules/layer.visual.view"
 ],
 
 function( app, Layer, Visual ){
@@ -37561,15 +37309,15 @@ this should be auto generated probably!!
 
 */
 
-define('zeega_parser/plugins/layers/_all',[
-    "zeega_parser/plugins/layers/image/image",
-    "zeega_parser/plugins/layers/link/link",
-    "zeega_parser/plugins/layers/audio/audio",
-    "zeega_parser/plugins/layers/rectangle/rectangle",
-    "zeega_parser/plugins/layers/text/text",
-    "zeega_parser/plugins/layers/text_v2/text",
-    "zeega_parser/plugins/layers/youtube/youtube",
-    "zeega_parser/plugins/layers/end_page/endpage"
+define('engine/plugins/layers/_all',[
+    "engine/plugins/layers/image/image",
+    "engine/plugins/layers/link/link",
+    "engine/plugins/layers/audio/audio",
+    "engine/plugins/layers/rectangle/rectangle",
+    "engine/plugins/layers/text/text",
+    "engine/plugins/layers/text_v2/text",
+    "engine/plugins/layers/youtube/youtube",
+    "engine/plugins/layers/end_page/endpage"
 ],
 function(
     image,
@@ -37596,9 +37344,9 @@ function(
     );
 });
 
-define('zeega_parser/modules/sequence.model',[
+define('engine/modules/sequence.model',[
     "app",
-    "zeega_parser/plugins/layers/_all"
+    "engine/plugins/layers/_all"
 ],
 
 function( app, Layers ) {
@@ -37745,10 +37493,10 @@ function( app, Layers ) {
 
 });
 // frame.js
-define('zeega_parser/modules/frame.model',[
+define('engine/modules/frame.model',[
     "app",
     "backbone",
-    "zeega_parser/plugins/layers/_all"
+    "engine/plugins/layers/_all"
 ],
 
 function( app, Backbone, Layers, ThumbWorker ) {
@@ -38098,9 +37846,9 @@ function( app, Backbone, Layers, ThumbWorker ) {
 });
 
 // layer.js
-define('zeega_parser/modules/layer.collection',[
+define('engine/modules/layer.collection',[
     "app",
-    "zeega_parser/plugins/layers/_all"
+    "engine/plugins/layers/_all"
 ],
 
 function( app, Layers ) {
@@ -38154,10 +37902,10 @@ function( app, Layers ) {
 });
 
 // frame.js
-define('zeega_parser/modules/frame.collection',[
+define('engine/modules/frame.collection',[
     "app",
-    "zeega_parser/modules/frame.model",
-    "zeega_parser/modules/layer.collection"
+    "engine/modules/frame.model",
+    "engine/modules/layer.collection"
 ],
 
 function( app, FrameModel, LayerCollection ) {
@@ -38278,12 +38026,12 @@ function( app, FrameModel, LayerCollection ) {
 
 });
 
-define('zeega_parser/modules/sequence.collection',[
+define('engine/modules/sequence.collection',[
     "app",
-    "zeega_parser/modules/sequence.model",
-    "zeega_parser/modules/frame.collection",
-    "zeega_parser/modules/layer.collection",
-    "zeega_parser/plugins/layers/_all"
+    "engine/modules/sequence.model",
+    "engine/modules/frame.collection",
+    "engine/modules/layer.collection",
+    "engine/plugins/layers/_all"
 ],
 
 function( app, SequenceModel, FrameCollection, LayerCollection, LayerModels ) {
@@ -38330,9 +38078,9 @@ function( app, SequenceModel, FrameCollection, LayerCollection, LayerModels ) {
     });
 
 });
-define('zeega_parser/modules/project.model',[
+define('engine/modules/project.model',[
     "app",
-    "zeega_parser/modules/sequence.collection"
+    "engine/modules/sequence.collection"
 ],
 
 function( app, SequenceCollection ) {
@@ -38614,8 +38362,8 @@ function( app, SequenceCollection ) {
     });
 
 });
-define('zeega_parser/data-parsers/zeega-project-model',[
-    "zeega_parser/modules/project.model"
+define('engine/data-parsers/zeega-project-model',[
+    "engine/modules/project.model"
 ],
 
 function( ProjectModel ) {
@@ -38640,10 +38388,7 @@ function( ProjectModel ) {
     return Parser;
 });
 
-define('zeega_parser/data-parsers/zeega-project',[
-
-
-    ],
+define('engine/data-parsers/zeega-project',[],
 
 function() {
     var type = "zeega-project",
@@ -38670,6 +38415,37 @@ function() {
     // no op. projects are already formatted
     Parser[type].parse = function( response, opts ) {
         removeDupeSoundtrack( response.project );
+
+        if ( opts.endPage ) {
+            var endId, lastPageId, lastPage, endPage, endLayers;
+
+            endId = -1;
+            lastPageId = response.project.sequences[0].frames[ response.project.sequences[0].frames.length - 1 ];
+            lastPage = _.find( response.project.frames, function( frame ) {
+                return frame.id == lastPageId;
+            });
+            endPage = _.extend({}, lastPage );
+
+            // only allow images, color layers
+            endLayers = _.filter(response.project.layers, function( layer ) {
+                return _.include(["Image", "Rectangle"], layer.type ) && _.include( endPage.layers, layer.id );
+            });
+
+            endPage.layers = _.pluck( endLayers, "id");
+            endPage.layers.push( endId );
+
+            // add layer to layer array
+            response.project.layers.push({
+                id: endId,
+                type: "EndPageLayer"
+            });
+            
+            endPage.id = endId;
+            response.project.frames.push( endPage );
+            response.project.sequences[0].frames.push( endId );
+        }
+
+
         return response.project;
 
 
@@ -38729,7 +38505,7 @@ function() {
     return Parser;
 });
 
-define('zeega_parser/data-parsers/zeega-project-published',["lodash"],
+define('engine/data-parsers/zeega-project-published',["lodash"],
 
 function() {
     var type = "zeega-project-published",
@@ -38796,7 +38572,7 @@ function() {
     return Parser;
 });
 
-define('zeega_parser/data-parsers/zeega-project-collection',[
+define('engine/data-parsers/zeega-project-collection',[
     "lodash"
 ],
 function() {
@@ -38844,7 +38620,7 @@ function() {
     return Parser;
 });
 
-define('zeega_parser/data-parsers/zeega-collection',[
+define('engine/data-parsers/zeega-collection',[
     "lodash"
 ],
 function( _ ) {
@@ -38924,7 +38700,7 @@ function( _ ) {
     return Parser;
 });
 
-define('zeega_parser/data-parsers/flickr',[
+define('engine/data-parsers/flickr',[
     "lodash"
 ],
 function() {
@@ -39002,13 +38778,13 @@ this should be auto generated probably!!
 
 */
 
-define('zeega_parser/data-parsers/_all',[
-    "zeega_parser/data-parsers/zeega-project-model",
-    "zeega_parser/data-parsers/zeega-project",
-    "zeega_parser/data-parsers/zeega-project-published",
-    "zeega_parser/data-parsers/zeega-project-collection",
-    "zeega_parser/data-parsers/zeega-collection",
-    "zeega_parser/data-parsers/flickr"
+define('engine/data-parsers/_all',[
+    "engine/data-parsers/zeega-project-model",
+    "engine/data-parsers/zeega-project",
+    "engine/data-parsers/zeega-project-published",
+    "engine/data-parsers/zeega-project-collection",
+    "engine/data-parsers/zeega-collection",
+    "engine/data-parsers/flickr"
 ],
 function(
     zProjectModel,
@@ -39033,12 +38809,12 @@ function(
 });
 
 // parser.js
-define('zeega-parser/parser',[
+define('engine/parser',[
     "app",
     "lodash",
 
-    "zeega_parser/modules/project.model",
-    "zeega_parser/data-parsers/_all"
+    "engine/modules/project.model",
+    "engine/data-parsers/_all"
 ],
 
 function( Zeega, _, ProjectModel, DataParser ) {
@@ -39561,14 +39337,14 @@ function( app, ControlsView ) {
 define('player/modules/player',[
     "player/app",
 
-    "zeega-parser/parser",
+    "engine/parser",
 
     "player/modules/relay",
     "player/modules/status",
     "player/modules/player-layout"
 ],
 
-function( app, ZeegaParser, Relay, Status, PlayerLayout ) {
+function( app, Engine, Relay, Status, PlayerLayout ) {
     /**
     Player
 
@@ -39891,7 +39667,7 @@ function( app, ZeegaParser, Relay, Status, PlayerLayout ) {
         },
 
         _parseData: function( response ) {
-            this.project = new ZeegaParser.parse( response,
+            this.project = new Engine.parse( response,
                 _.extend({},
                     this.toJSON(),
                     {
@@ -44530,7 +44306,7 @@ define('modules/initializer',[
     "modules/status",
     "modules/layout-main",
     // Plugins
-    "zeega-parser/parser",
+    "engine/parser",
     "modules/media-browser",
     "backbone"
 ],
@@ -44668,19 +44444,18 @@ require.config({
   paths: {
     jqueryUI: "../assets/js/plugins/jquery-ui/js/jquery-ui-1.10.1.custom",
 
-    zeega_parser: "zeega-parser",
     libs: "../assets/js/libs",
     plugins: "../assets/js/plugins",
     vendor: "../vendor",
+    engineVendor: "engine/vendor",
 
     player: "player",
 
     simpleColorPicker: "../vendor/simple-color-picker/src/jquery.simple-color",
-    ddslick: "../vendor/ddslick/jquery.ddslick",
     mousetrap: "../vendor/mousetrap/mousetrap",
     spin: "../assets/js/libs/spin",
     tipsy: "../vendor/tipsy/src/javascripts/jquery.tipsy",
-    swfObject: "../app/zeega-parser/vendor/swfobject"
+    swfObject: "engine/vendor/swfobject"
   },
 
   shim: {
@@ -44693,6 +44468,5 @@ require.config({
 
     tipsy: ["jquery"]
   }
-
 });
 define("config", function(){});

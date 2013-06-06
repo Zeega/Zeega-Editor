@@ -18,8 +18,8 @@ module.exports = function(grunt) {
             files: [
                 "build/config.js", [
                     "app/modules/**/*.js",
-                    "app/zeega-parser/modules/**/*.js",
-                    "app/zeega-parser/plugins/**/*.js"
+                    "app/editor/modules/**/*.js",
+                    "app/editor/plugins/**/*.js"
                 ]
             ]
         },
@@ -43,7 +43,7 @@ module.exports = function(grunt) {
         jst: {
             "dist/debug/templates.js": [
                 "app/templates/**/*.html",
-                "app/zeega-parser/plugins/**/*.html"
+                "app/editor/plugins/**/*.html"
             ]
         },
 
@@ -131,7 +131,7 @@ module.exports = function(grunt) {
                     flatten: true
                 },
                 files: {
-                    "assets/img/layers/": "app/zeega-parser/plugins/layers/**/img/*"
+                    "assets/img/layers/": "app/editor/plugins/layers/**/img/*"
                 }
             },
 
@@ -175,7 +175,7 @@ module.exports = function(grunt) {
             controls: {
                 files: {
                     "assets/css/controls.less": [
-                        "app/zeega-parser/plugins/controls/**/*.less"
+                        "app/engine/plugins/controls/**/*.less"
                     ]
                 }
             },
@@ -183,7 +183,7 @@ module.exports = function(grunt) {
             layers: {
                 files: {
                     "assets/css/layers.less": [
-                        "app/zeega-parser/plugins/layers/**/*.less"
+                        "app/engine/plugins/layers/**/*.less"
                     ]
                 }
             },
