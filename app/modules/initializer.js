@@ -5,7 +5,7 @@ define([
     "modules/layout-main",
     // Plugins
     "engine/parser",
-    "modules/media-browser",
+    "modules/media-browser/media-browser",
     "backbone"
 ],
 

@@ -19,7 +19,8 @@ module.exports = function(grunt) {
                 "build/config.js", [
                     "app/modules/**/*.js",
                     "app/editor/modules/**/*.js",
-                    "app/editor/plugins/**/*.js"
+                    "app/editor/plugins/**/*.js",
+                    "app/player/templates/**/*.js"
                 ]
             ]
         },

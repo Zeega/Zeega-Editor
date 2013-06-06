@@ -14,7 +14,6 @@ function( app ) {
         serialize: function() {
             return {
                 userId: app.userId,
-                userProjects: $.parseJSON( window.userProjects ),
                 directory: app.directory,
                 root: app.root
             };

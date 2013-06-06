@@ -1,8 +1,16 @@
+
+
+
 .item-dragging {
     height: 75px;
     width: 75px;
     opacity: 0.85;
     border: solid 1px white;
+}
+
+.ui-draggable-dragging {
+   cursor: -moz-grabbing !important;
+   cursor: -webkit-grabbing !important;
 }
 
 .media-drawer {
@@ -13,8 +21,21 @@
         width: -moz-calc( ~"100% / 4" );
         width: calc( ~"100% / 4" );
 
+        &.more-tab {
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            cursor:pointer;
+            color:white; width:73px; 
+            height:75px;
+            &>h2 {
+                padding-top:14px;
+                font-size:1em;
+                text-align:center;
+            }
+        }
         &>a {
             cursor: move;
+            cursor: -moz-grab;
+            cursor: -webkit-grab;
         }
         float: left;
         .item-thumb {

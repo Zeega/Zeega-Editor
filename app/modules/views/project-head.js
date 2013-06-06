@@ -13,7 +13,6 @@ function( app, Zeega ) {
         serialize: function() {
             return _.extend({
                 userId: app.userId,
-                userProjects: $.parseJSON( window.userProjects ),
                 webRoot: app.webRoot,
                 tumblr_share: this.getTumblrShareUrl()
             },

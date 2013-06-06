@@ -7,19 +7,9 @@ define([
 
 function( app, UploadView, Spinner ) {
 
-    var Media = {
-        Zeega: {},
-        Instagram: {},
-        Flickr: {},
-        Soundcloud: {},
-        Giphy: {},
-        Tumblr: {},
-        Youtube: {},
-        Web: {},
-        MyZeega: {}
-    };
+    var Views = {};
 
-    Media.Zeega.View = Backbone.View.extend({
+    Views.Zeega = Backbone.View.extend({
 
         busy: false,
         spinner: null,
@@ -88,17 +78,23 @@ function( app, UploadView, Spinner ) {
         },
 
         renderItems: function() {
-            
-            this.$(".media-collection-items").empty();
 
+            
+
+            this.$(".more-tab").remove();
             if ( this.model.mediaCollection.length && this.model.mediaCollection.at( 0 ).get("uri") ) {
                 this.model.mediaCollection.each(function( item ) {
                     this.$(".media-collection-items").append( item.view.el );
                     item.view.render();
                 }, this );
-            } else if( this.model.getQuery() !== "" ) {
+                if( this.model.mediaCollection.more ){
+                    this.$(".media-collection-items").append("<li class='item more-tab'><h2>more</h2></li>");
+                }
+                
+            } else if( this.model.getQuery() !== "" &&  this.$(".media-collection-items li").length === 0) {
                 this.$(".media-collection-items").append("<div class='empty-collection'>no items found :( try again?</div>");
             }
+
 
             this.listen();
 
@@ -115,11 +111,16 @@ function( app, UploadView, Spinner ) {
 
             this.spinner.stop();
             this.busy = false;
+
+            $(this.el).find("img").on("error", function(e) {
+                $(e.target).closest("li").hide();
+            });
         },
 
         events: {
             "keyup .search-box": "onSearchKeyPress",
-            "click .submit": "onSubmitClick"
+            "click .submit": "onSubmitClick",
+            "click .more-tab": "loadMore"
         },
 
         onSearchKeyPress: function( e ) {
@@ -135,10 +136,15 @@ function( app, UploadView, Spinner ) {
                 this.search( this.$(".search-box").val() );
             }
         },
-
+        loadMore: function(){
+            this.busy = true;
+            this.$( ".more-tab").empty();
+            this.spinner.spin( this.$( ".more-tab")[0] );
+            this.model.more();
+        },
         search: function( query ) {
             this.busy = true;
-
+            this.$(".media-collection-items").empty();
             this.model.search( query );
             this.$(".search-box").blur();
             this.$(".search-box, .media-collection-wrapper").css({
@@ -153,10 +159,7 @@ function( app, UploadView, Spinner ) {
 
     });
 
-   
-            
-
-    Media.Instagram.View = Media.Zeega.View.extend({
+    Views.Instagram  = Views.Zeega.extend({
 
 
         _afterRender: function(){
@@ -179,14 +182,14 @@ function( app, UploadView, Spinner ) {
         }
 
     });
-    Media.Flickr.View = Media.Zeega.View.extend({});
-    Media.Soundcloud.View = Media.Zeega.View.extend({});
-    Media.Giphy.View = Media.Zeega.View.extend({});
-    Media.Tumblr.View = Media.Zeega.View.extend({});
-    Media.Youtube.View = Media.Zeega.View.extend({});
-    Media.Web.View = Media.Zeega.View.extend({});
+    Views.Flickr        = Views.Zeega.extend({});
+    Views.Soundcloud    = Views.Zeega.extend({});
+    Views.Giphy         = Views.Zeega.extend({});
+    Views.Tumblr        = Views.Zeega.extend({});
+    Views.Youtube       = Views.Zeega.extend({});
+    Views.Web           = Views.Zeega.extend({});
     
-    Media.MyZeega.View = Media.Zeega.View.extend({
+    Views.MyZeega       = Views.Zeega.extend({
 
         template: "media-collection",
 
@@ -199,6 +202,6 @@ function( app, UploadView, Spinner ) {
 
     });
 
-    return Media;
+    return Views;
 
 });
