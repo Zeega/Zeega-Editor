@@ -19,8 +19,7 @@ module.exports = function(grunt) {
                 "build/config.js", [
                     "app/modules/**/*.js",
                     "app/editor/modules/**/*.js",
-                    "app/editor/plugins/**/*.js",
-                    "app/player/templates/**/*.js"
+                    "app/editor/plugins/**/*.js"
                 ]
             ]
         },
@@ -45,7 +44,8 @@ module.exports = function(grunt) {
             "dist/debug/templates.js": [
                 "app/templates/**/*.html",
                 "app/editor/plugins/**/*.html",
-                "app/engine/plugins/**/*.html"
+                "app/engine/plugins/**/*.html",
+                "app/player/templates/**/*.html"
             ]
         },
 
