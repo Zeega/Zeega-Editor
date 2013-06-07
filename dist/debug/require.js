@@ -428,14 +428,6 @@ __p+='<div class="add-frame"\n    title="add new page"\n    data-gravity="n"\n>\
 return __p;
 };
 
-this["JST"]["app/templates/intro-modal.html"] = function(obj){
-var __p='';var print=function(){__p+=Array.prototype.join.call(arguments, '')};
-with(obj||{}){
-__p+='<div class="modal-wrapper">\n\n    <div class="modal-content">\n\n        <div class="step-1">\n\n            <h1>Heya! Welcome to <img class="zeega-intro-logo" src="assets/img/zeega-logo-500.png" width="190px"/></h1>\n\n            <p>\n                Zeega is a community creating everything from stories to interactive music to memes.\n            </p>\n            <p>\n                We’ve got a few fun prompts to get you started.\n            </p>\n\n            <div class="intro-graphic">\n                <img src="assets/img/intro-graphic.png" width="100%"/>\n            </div>\n            <a href="#" class="finish btnz btnz-submit">Start Making <i class="icon-chevron-right icon-white"></i></a>\n        </div>\n\n\n    </div>\n</div>';
-}
-return __p;
-};
-
 this["JST"]["app/templates/item-collection-viewer.html"] = function(obj){
 var __p='';var print=function(){__p+=Array.prototype.join.call(arguments, '')};
 with(obj||{}){
@@ -640,20 +632,6 @@ __p+='<a href="#" class="modal-close">&times;</a>\n<div class="modal-content">\n
 '</div>\n    <div class="modal-body">'+
 ( modal.content )+
 '</div>\n    <div class="modal-footer"></div>\n</div>\n';
-}
-return __p;
-};
-
-this["JST"]["app/templates/pointer.html"] = function(obj){
-var __p='';var print=function(){__p+=Array.prototype.join.call(arguments, '')};
-with(obj||{}){
-__p+=''+
-( content )+
-'\n';
- if ( canCancel ) { 
-;__p+='\n    <small>[<a href="#" class="stop-pointing">close</a>]</small>\n';
- } 
-;__p+='';
 }
 return __p;
 };
@@ -986,6 +964,14 @@ this["JST"]["app/player/templates/controls/playpause.html"] = function(obj){
 var __p='';var print=function(){__p+=Array.prototype.join.call(arguments, '')};
 with(obj||{}){
 __p+='<a href="#" class="ZEEGA-playpause pause-zcon"></a>';
+}
+return __p;
+};
+
+this["JST"]["app/player/templates/controls/size-toggle.html"] = function(obj){
+var __p='';var print=function(){__p+=Array.prototype.join.call(arguments, '')};
+with(obj||{}){
+__p+='<a href="#" class="size-toggle">\n    <i class="size-toggle-mobile"></i>\n</a>';
 }
 return __p;
 };
@@ -35401,6 +35387,103 @@ function( app, Controls ) {
 
 });
 
+define('modules/askers/asker.view',[
+    "app",
+    "backbone"
+],
+
+function( app ) {
+
+    return Backbone.View.extend({
+
+        template: "app/modules/askers/asker",
+        className: "ZEEGA-asker asker-overlay",
+
+        serialize: function() {
+            return this.model.toJSON();
+        },
+
+        start: function() {
+            $("body").append( this.el );
+            $("#main").addClass("modal");
+            this.render();
+            this.$el.fadeIn("fast");
+        },
+
+        afterRender: function() {
+            $("body").bind("keyup.asker", function( e ) {
+                if ( e.which == 13 ) { //enter
+                    this.okay();
+                } else if ( e.which == 27 ) { // esc
+                    this.cancel();
+                }
+            }.bind( this ));
+        },
+
+        events: {
+            "click .ask-cancel": "cancel",
+            "click .ask-okay": "okay"
+        },
+
+        cancel: function() {
+            this.model.set("response", false );
+            this.close();
+        },
+
+        okay: function() {
+            this.model.set("response", true );
+            this.close();
+        },
+
+        close: function() {
+            $("#main").removeClass("modal");
+            this.$el.fadeOut( 250, function() {
+                this.remove();
+            }.bind( this ));
+            $("body").unbind("keyup.asker");
+        }
+
+    });
+
+});
+
+define('modules/askers/asker',[
+    "app",
+    "modules/askers/asker.view",
+    "backbone"
+],
+
+function( app, AskerView ) {
+
+    return Backbone.Model.extend({
+
+        defaults: {
+            question: "",
+            description: "",
+            response: null,
+            okay: null,
+            cancel: null
+        },
+
+        initialize: function() {
+            this.view = new AskerView({ model: this });
+            this.view.start();
+
+            this.on("change:response", this.onAnswer, this );
+        },
+
+        onAnswer: function( model, answer ) {
+            this.off("change:response");
+            if ( answer && _.isFunction( this.get("okay"))) {
+                this.get("okay")( answer );
+            } else if ( !answer && _.isFunction( this.get("cancel"))) {
+                this.get("cancel")( answer );
+            }
+        }
+
+    });
+});
+
 (function(c,n){var k="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///ywAAAAAAQABAAACAUwAOw==";c.fn.imagesLoaded=function(l){function m(){var b=c(h),a=c(g);d&&(g.length?d.reject(e,b,a):d.resolve(e));c.isFunction(l)&&l.call(f,e,b,a)}function i(b,a){b.src===k||-1!==c.inArray(b,j)||(j.push(b),a?g.push(b):h.push(b),c.data(b,"imagesLoaded",{isBroken:a,src:b.src}),o&&d.notifyWith(c(b),[a,e,c(h),c(g)]),e.length===j.length&&(setTimeout(m),e.unbind(".imagesLoaded")))}var f=this,d=c.isFunction(c.Deferred)?c.Deferred():
 0,o=c.isFunction(d.notify),e=f.find("img").add(f.filter("img")),j=[],h=[],g=[];e.length?e.bind("load.imagesLoaded error.imagesLoaded",function(b){i(b.target,"error"===b.type)}).each(function(b,a){var e=a.src,d=c.data(a,"imagesLoaded");if(d&&d.src===e)i(a,d.isBroken);else if(a.complete&&a.naturalWidth!==n)i(a,0===a.naturalWidth||0===a.naturalHeight);else if(a.readyState||a.complete)a.src=k,a.src=e}):m();return d?d.promise(f):f}})(jQuery);
 define("engineVendor/jquery.imagesloaded.min", function(){});
@@ -35409,11 +35492,13 @@ define('engine/plugins/layers/image/image',[
     "app",
     "engine/modules/layer.model",
     "engine/modules/layer.visual.view",
+    "modules/askers/asker",
+
     //plugins
     "engineVendor/jquery.imagesloaded.min"
 ],
 
-function( app, Layer, Visual ){
+function( app, Layer, Visual, Asker ){
 
     var L = {};
 
@@ -35529,9 +35614,14 @@ function( app, Layer, Visual ){
         disableDrag: function() {
             this.model.trigger("control_drag_disable");
             this.$el.bind("mousedown.imageDrag", function() {
-                if ( confirm("make layer positionable?") ) {
-                    this.fitToWorkspace();
-                }
+
+                new Asker({
+                    question: "Make this layer positionable?",
+                    okay: function() {
+                        this.fitToWorkspace();
+                    }.bind( this )
+                });
+
             }.bind( this ));
         },
 
@@ -39164,7 +39254,7 @@ function( app ) {
 
     return app.Backbone.Layout.extend({
         template: "app/player/templates/controls/arrows",
-        className: "controls-arrows"
+        className: "ZEEGA-player-control controls-arrows"
     });
 
 });
@@ -39176,7 +39266,7 @@ function( app ) {
 
     return app.Backbone.Layout.extend({
         template: "app/player/templates/controls/close",
-        className: "controls-close"
+        className: "ZEEGA-player-control  controls-close"
     });
 
 });
@@ -39188,7 +39278,19 @@ function( app ) {
 
     return app.Backbone.Layout.extend({
         template: "app/player/templates/controls/playpause",
-        className: "controls-playpause"
+        className: "ZEEGA-player-control  controls-playpause"
+    });
+
+});
+
+define('player/modules/controls/size-toggle',[
+    "player/app"
+],
+function( app ) {
+
+    return app.Backbone.Layout.extend({
+        template: "app/player/templates/controls/size-toggle",
+        className: "ZEEGA-player-control controls-screen-toggle"
     });
 
 });
@@ -39197,9 +39299,10 @@ define('player/modules/controls-view',[
     "player/app",
     "player/modules/controls/arrows",
     "player/modules/controls/close",
-    "player/modules/controls/playpause"
+    "player/modules/controls/playpause",
+    "player/modules/controls/size-toggle"
 ],
-function( app, ArrowView, CloseView, PlayPauseView ) {
+function( app, ArrowView, CloseView, PlayPauseView, SizeToggle ) {
 
     return app.Backbone.Layout.extend({
 
@@ -39223,22 +39326,24 @@ function( app, ArrowView, CloseView, PlayPauseView ) {
             if ( this.options.settings.playpause ) {
                 this.insertView( new PlayPauseView() );
             }
-        },
 
-        serialize: function() {
-
-            // return _.defaults( this.options.settings, {
-            //     arrows: true,
-            //     close: true,
-            //     playpause: true
-            // });
+            if ( this.options.settings.sizeToggle ) {
+                this.insertView( new SizeToggle() );
+            }
         },
 
         events: {
             "click .ZEEGA-close": "close",
             "click .ZEEGA-prev": "prev",
             "click .ZEEGA-next": "next",
-            "click .ZEEGA-playpause": "playpause"
+            "click .ZEEGA-playpause": "playpause",
+            "click .size-toggle": "toggleSize"
+        },
+
+        toggleSize: function( event ) {
+            this.model.trigger("size_toggle");
+
+            this.$(".size-toggle i").toggleClass("size-toggle-laptop").toggleClass("size-toggle-mobile");
         },
 
         close: function( event ) {
@@ -39321,12 +39426,16 @@ function( app, ControlsView ) {
         template: "app/player/templates/layouts/player-layout",
         className: "ZEEGA-player",
 
+        mobileView: false,
+
         initialize: function() {
             // debounce the resize function so it doesn"t bog down the browser
             var divId = this.model.get("divId"),
                 lazyResize = _.debounce(function() {
                     this.resizeWindow();
                 }.bind(this), 300);
+
+            this.mobileView = this.model.get("previewMode") == "mobile";
 
             // attempt to detect if the parent container is being resized
             app.$( window ).resize( lazyResize );
@@ -39338,7 +39447,7 @@ function( app, ControlsView ) {
 
         afterRender: function() {
             // correctly size the player window
-            this.$(".ZEEGA-player-wrapper").css( this.getWrapperSize() );
+            this.$(".ZEEGA-player-wrapper").css( this.mobileView ? this.getPlayerSize() : this.getWrapperSize() );
             this.$(".ZEEGA-player-window").css( this.getPlayerSize() );
 
             this.setPrevNext();
@@ -39392,9 +39501,18 @@ function( app, ControlsView ) {
             }
         },
 
+        toggleSize: function() {
+            this.mobileView = !this.mobileView;
+            if ( this.mobileView ) {
+                this.$(".ZEEGA-player-wrapper").css( this.getPlayerSize() );
+            } else {
+                this.$(".ZEEGA-player-wrapper").css( this.getWrapperSize() );
+            }
+        },
+
         resizeWindow: function() {
             // animate the window size in place
-            var css = this.getWrapperSize();
+            var css = this.mobileView ? this.getPlayerSize() : this.getWrapperSize();
 
             this.$(".ZEEGA-player-wrapper").css( css );
             this.$(".ZEEGA-player-window").css( this.getPlayerSize() );
@@ -39604,6 +39722,15 @@ function( app, Engine, Relay, Status, PlayerLayout ) {
             @default null
             **/
             preloadRadius: 2,
+
+            /**
+            the beginning state of the preview. vertical or fullscreen mode
+
+            @property previewMode
+            @type String
+            @default "standard"
+            **/
+            previewMode: "standard", // or mobile
 
             /**
             Instance of a Sequence.Collection
@@ -39826,8 +39953,13 @@ function( app, Engine, Relay, Status, PlayerLayout ) {
         // attach listeners
         _listen: function() {
             this.on("cue_frame", this.cueFrame, this );
+            this.on("size_toggle", this.toggleSize, this );
             // relays
             this.relay.on("change:current_frame", this._remote_cueFrame, this );
+        },
+
+        toggleSize: function() {
+            this.Layout.toggleSize();
         },
 
         _remote_cueFrame: function( info, id ) {
@@ -40279,7 +40411,11 @@ function( app, Zeega ) {
         },
 
         initHelpSequence: function() {
-            app.layout.initialInstructions.startPointing();
+            if ( app.layout.initialInstructions.pointing ) {
+                app.layout.initialInstructions.cancel();
+            } else {
+                app.layout.initialInstructions.startPointing();
+            }
         },
 
         showEmbed: function() {
@@ -40350,10 +40486,12 @@ function( app, Zeega ) {
                 // debugEvents: true,
                 scalable: true,
 
+                previewMode: "mobile",
                 data: projectData,
                 controls: {
                     arrows: true,
-                    close: true
+                    close: true,
+                    sizeToggle: true
                 }
             });
 
@@ -40388,10 +40526,11 @@ function( app, Zeega ) {
 
 define('modules/views/frame',[
     "app",
+    "modules/askers/asker",
     "backbone"
 ],
 
-function( app ) {
+function( app, Asker ) {
 
     return Backbone.View.extend({
 
@@ -40463,11 +40602,15 @@ function( app ) {
         },
 
         deleteFrame: function() {
-            if ( confirm("Delete Page? This cannot be undone!") ) {
-                $(".tipsy").remove();
-                app.emit("page_delete", this.model );
-                this.model.collection.remove( this.model );
-            }
+            new Asker({
+                question: "Do you really want to delete this page?",
+                description: "You cannot undo this!",
+                okay: function() {
+                    $(".tipsy").remove();
+                    app.emit("page_delete", this.model );
+                    this.model.collection.remove( this.model );
+                }.bind( this )
+            });
         },
 
         viewFrame: function() {
@@ -41028,12 +41171,12 @@ define("tipsy", function(){});
 define('modules/views/layer-list',[
     "app",
     "modules/views/layer-controls",
+    "modules/askers/asker",
     "backbone",
     "tipsy"
-
 ],
 
-function( app, LayerControls ) {
+function( app, LayerControls, Asker) {
 
     // This will fetch the tutorial template and render it.
     return Backbone.View.extend({
@@ -41111,11 +41254,15 @@ function( app, LayerControls ) {
         },
 
         deleteLayer: function() {
-            if ( confirm("do you really want to delete this layer?") ) {
-                $(".tipsy").remove();
-                this.model.collection.remove( this.model );
-                app.emit("layer_deleted", this.model );
-            }
+            new Asker({
+                question: "Do you really want to delete this layer?",
+                description: "You cannot undo this!",
+                okay: function() {
+                    $(".tipsy").remove();
+                    this.model.collection.remove( this.model );
+                    app.emit("layer_deleted", this.model );
+                }.bind( this )
+            });
         },
 
         selectLayer: function() {
@@ -41308,54 +41455,10 @@ function( app ) {
         el: null,
         template: "app/templates/layer-drawer",
 
-        initialize: function() {
-            app.status.on("change:currentFrame", this.checkText, this );
-
-            // ensures that only one text layer exists at a time.
-            // sort of a hack?
-            app.on("layer_deleted", this.onLayerDelete, this );
-            app.on("layer_added_success", this.onLayerAdd, this );
-        },
-
         afterRender: function() {
             var hasTextLayer = app.status.get("currentFrame").layers.any(function(layer){
                 return layer.get("type") == "TextV2";
             });
-
-            this.toggleTextButton( hasTextLayer );
-        },
-
-        checkText: function( status, frame ) {
-            var hasTextLayer = frame.layers.any(function(layer){
-                return layer.get("type") == "TextV2";
-            });
-
-            this.toggleTextButton( hasTextLayer );
-        },
-
-        toggleTextButton: function( disabled ) {
-            if ( disabled ) {
-                this.$("a[data-layer-type='TextV2']")
-                    .addClass("disabled")
-                    .attr("title", "only one text layer per page");
-            } else {
-                this.$("a[data-layer-type='TextV2']")
-                    .removeClass("disabled")
-                    .attr("title", "add text");
-            }
-        },
-
-        onLayerDelete: function( layerModel ) {
-            if ( layerModel.get("type") == "TextV2") {
-                this.$("a[data-layer-type='TextV2']").removeClass("disabled");
-            }
-        },
-
-        onLayerAdd: function( layerModel ) {
-            // console.log("on layer ADD",layerModel.get("type"), layerModel)
-            if ( layerModel.get("type") == "TextV2") {
-                this.$("a[data-layer-type='TextV2']").addClass("disabled");
-            }
         },
 
         events: {
@@ -41657,7 +41760,7 @@ function( app ) {
             return "pointer point-" + this.model.get("pointDirection");
         },
 
-        template: "pointer",
+        template: "app/modules/pointers/pointer",
 
         serialize: function() {
             return this.model.toJSON();
@@ -41786,14 +41889,15 @@ function( app, PointerModel ) {
 
         model: PointerModel,
         index: 0,
+        pointing: false,
 
         startPointing: function() {
             this.index = 0;
             this.point( this.at( this.index ));
+            this.pointing = true;
         },
 
         point: function( pointer ) {
-            console.log("Pointer", pointer, this);
             pointer.once("end", this.pointNext, this );
             pointer.point();
         },
@@ -41803,19 +41907,21 @@ function( app, PointerModel ) {
 
             this.index++;
             next = this.at( this.index );
-// console.log("point next", next, this.index)
 
             if ( next ) {
                 this.point( next );
+            } else {
+                this.stopPointing();
             }
         },
 
         stopPointing: function() {
-
+            this.cancel();
         },
 
         cancel: function() {
             this.trigger("cancel");
+            this.pointing = false;
         }
 
     });
@@ -41828,10 +41934,9 @@ define('modules/intro-modal/intro-modal.view',[
 
 function( app ) {
 
-
     return Backbone.View.extend({
 
-        template: "intro-modal",
+        template: "app/modules/intro-modal/intro-modal",
         
         className: "ZEEGA-intro-modal modal-overlay",
 
@@ -42772,8 +42877,6 @@ function( app, ProjectHead, Frames, Workspace, Layers, LayerDrawer, Soundtrack, 
 
             this.initialInstructions = new Pointers( this.initialSequence );
 
-            this.pointerListen();
-
             _.delay(function(){
                 this.initTips();
 
@@ -42788,17 +42891,7 @@ function( app, ProjectHead, Frames, Workspace, Layers, LayerDrawer, Soundtrack, 
 
             introModalView.start();
             this.initialInstructions.startPointing();
-        },
-
-        pointerListen: function() {
-            app.on("layer_added_success",function( layer ) {
-                if ( layer.get("type") == "Youtube" ) {
-                    // do pointers
-                    this.YTInstructions = new Pointers( this.YTSequence );
-                    //console.log("do pointers",this.YTSequence, this.YTInstructions)
-                    this.YTInstructions.startPointing();
-                }
-            }, this );
+            this.pointing = true;
         },
 
         initTips: function() {

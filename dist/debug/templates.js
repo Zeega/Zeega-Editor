@@ -42,14 +42,6 @@ __p+='<div class="add-frame"\n    title="add new page"\n    data-gravity="n"\n>\
 return __p;
 };
 
-this["JST"]["app/templates/intro-modal.html"] = function(obj){
-var __p='';var print=function(){__p+=Array.prototype.join.call(arguments, '')};
-with(obj||{}){
-__p+='<div class="modal-wrapper">\n\n    <div class="modal-content">\n\n        <div class="step-1">\n\n            <h1>Heya! Welcome to <img class="zeega-intro-logo" src="assets/img/zeega-logo-500.png" width="190px"/></h1>\n\n            <p>\n                Zeega is a community creating everything from stories to interactive music to memes.\n            </p>\n            <p>\n                We’ve got a few fun prompts to get you started.\n            </p>\n\n            <div class="intro-graphic">\n                <img src="assets/img/intro-graphic.png" width="100%"/>\n            </div>\n            <a href="#" class="finish btnz btnz-submit">Start Making <i class="icon-chevron-right icon-white"></i></a>\n        </div>\n\n\n    </div>\n</div>';
-}
-return __p;
-};
-
 this["JST"]["app/templates/item-collection-viewer.html"] = function(obj){
 var __p='';var print=function(){__p+=Array.prototype.join.call(arguments, '')};
 with(obj||{}){
@@ -254,20 +246,6 @@ __p+='<a href="#" class="modal-close">&times;</a>\n<div class="modal-content">\n
 '</div>\n    <div class="modal-body">'+
 ( modal.content )+
 '</div>\n    <div class="modal-footer"></div>\n</div>\n';
-}
-return __p;
-};
-
-this["JST"]["app/templates/pointer.html"] = function(obj){
-var __p='';var print=function(){__p+=Array.prototype.join.call(arguments, '')};
-with(obj||{}){
-__p+=''+
-( content )+
-'\n';
- if ( canCancel ) { 
-;__p+='\n    <small>[<a href="#" class="stop-pointing">close</a>]</small>\n';
- } 
-;__p+='';
 }
 return __p;
 };
@@ -600,6 +578,14 @@ this["JST"]["app/player/templates/controls/playpause.html"] = function(obj){
 var __p='';var print=function(){__p+=Array.prototype.join.call(arguments, '')};
 with(obj||{}){
 __p+='<a href="#" class="ZEEGA-playpause pause-zcon"></a>';
+}
+return __p;
+};
+
+this["JST"]["app/player/templates/controls/size-toggle.html"] = function(obj){
+var __p='';var print=function(){__p+=Array.prototype.join.call(arguments, '')};
+with(obj||{}){
+__p+='<a href="#" class="size-toggle">\n    <i class="size-toggle-mobile"></i>\n</a>';
 }
 return __p;
 };
