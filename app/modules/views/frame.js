@@ -1,9 +1,10 @@
 define([
     "app",
+    "modules/askers/asker",
     "backbone"
 ],
 
-function( app ) {
+function( app, Asker ) {
 
     return Backbone.View.extend({
 
@@ -75,11 +76,15 @@ function( app ) {
         },
 
         deleteFrame: function() {
-            if ( confirm("Delete Page? This cannot be undone!") ) {
-                $(".tipsy").remove();
-                app.emit("page_delete", this.model );
-                this.model.collection.remove( this.model );
-            }
+            new Asker({
+                question: "Do you really want to delete this page?",
+                description: "You cannot undo this!",
+                okay: function() {
+                    $(".tipsy").remove();
+                    app.emit("page_delete", this.model );
+                    this.model.collection.remove( this.model );
+                }.bind( this )
+            });
         },
 
         viewFrame: function() {

@@ -1,12 +1,12 @@
 define([
     "app",
     "modules/views/layer-controls",
+    "modules/askers/asker",
     "backbone",
     "tipsy"
-
 ],
 
-function( app, LayerControls ) {
+function( app, LayerControls, Asker) {
 
     // This will fetch the tutorial template and render it.
     return Backbone.View.extend({
@@ -84,11 +84,15 @@ function( app, LayerControls ) {
         },
 
         deleteLayer: function() {
-            if ( confirm("do you really want to delete this layer?") ) {
-                $(".tipsy").remove();
-                this.model.collection.remove( this.model );
-                app.emit("layer_deleted", this.model );
-            }
+            new Asker({
+                question: "Do you really want to delete this layer?",
+                description: "You cannot undo this!",
+                okay: function() {
+                    $(".tipsy").remove();
+                    this.model.collection.remove( this.model );
+                    app.emit("layer_deleted", this.model );
+                }.bind( this )
+            });
         },
 
         selectLayer: function() {
