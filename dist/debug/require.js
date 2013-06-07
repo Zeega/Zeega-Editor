@@ -527,7 +527,7 @@ return __p;
 this["JST"]["app/templates/layer-controls.html"] = function(obj){
 var __p='';var print=function(){__p+=Array.prototype.join.call(arguments, '')};
 with(obj||{}){
-__p+='<div class="layer-edit-floater">\n    <div class="layer-controls-inner"></div>\n</div>';
+__p+='<div class="layer-edit-floater">\n    <ul class="layer-controls-inner"></ul>\n</div>';
 }
 return __p;
 };
@@ -720,6 +720,40 @@ this["JST"]["app/templates/workspace.html"] = function(obj){
 var __p='';var print=function(){__p+=Array.prototype.join.call(arguments, '')};
 with(obj||{}){
 __p+='<div class="workspace-wrapper">\n    <div class="workspace-overlay"></div>\n    <div class="ZEEGA-workspace"\n        title="drag media here to add to your Zeega"\n        data-gravity="n"\n    ></div>\n</div>';
+}
+return __p;
+};
+
+this["JST"]["app/modules/askers/asker.html"] = function(obj){
+var __p='';var print=function(){__p+=Array.prototype.join.call(arguments, '')};
+with(obj||{}){
+__p+='<div class="asker-floater">\n    <div class="asker-content">\n        <h3>'+
+( question )+
+'</h3>\n        <div class="sub">'+
+( description )+
+'</div>\n        <div class="options">\n            <a href="#" class="ask-cancel">cancel</a>\n            <a class="ask-okay btnz btnz-submit">Okay</a>\n        </div>\n    </div>\n</div>';
+}
+return __p;
+};
+
+this["JST"]["app/modules/intro-modal/intro-modal.html"] = function(obj){
+var __p='';var print=function(){__p+=Array.prototype.join.call(arguments, '')};
+with(obj||{}){
+__p+='<div class="modal-wrapper">\n\n    <div class="modal-content">\n\n        <div class="step-1">\n\n            <h1>Heya! Welcome to <img class="zeega-intro-logo" src="assets/img/zeega-logo-500.png" width="190px"/></h1>\n\n            <p>\n                Zeega is a community creating everything from stories to interactive music to memes.\n            </p>\n            <p>\n                We’ve got a few fun prompts to get you started.\n            </p>\n\n            <div class="intro-graphic">\n                <img src="assets/img/intro-graphic.png" width="100%"/>\n            </div>\n            <a href="#" class="finish btnz btnz-submit">Start Making <i class="icon-chevron-right icon-white"></i></a>\n        </div>\n\n\n    </div>\n</div>';
+}
+return __p;
+};
+
+this["JST"]["app/modules/pointers/pointer.html"] = function(obj){
+var __p='';var print=function(){__p+=Array.prototype.join.call(arguments, '')};
+with(obj||{}){
+__p+=''+
+( content )+
+'\n';
+ if ( canCancel ) { 
+;__p+='\n    <small>[<a href="#" class="stop-pointing">close</a>]</small>\n';
+ } 
+;__p+='';
 }
 return __p;
 };
@@ -33759,7 +33793,8 @@ function( app ) {
 
     return app.Backbone.View.extend({
 
-
+        tagName: "li",
+        
         type: "",
         parentName: "",
         propertyName: "",
@@ -35535,7 +35570,7 @@ function( app, Layer, Visual, Asker ){
             {
                 type: "slider",
                 options: {
-                    title: "<i class='icon-eye-open icon-white'></i>",
+                    title: "opacity",
                     propertyName: "opacity",
                     min: 0,
                     max: 1,
@@ -35545,7 +35580,7 @@ function( app, Layer, Visual, Asker ){
             },{
                 type: "checkbox",
                 options: {
-                    title: "<i class='icon-resize-full icon-white'></i>",
+                    title: "fullscreen",
                     propertyName: "page_background",
                     triggerEvent: "toggle_page_background"
                 }
@@ -37158,7 +37193,7 @@ function( app, _Layer, Visual, TextModal ) {
             },
             { type: "slider",
                 options: {
-                    title: "<i class='icon-eye-open icon-white'></i>",
+                    title: "opacity",
                     propertyName: "opacity",
                     min: 0,
                     max: 1,
@@ -40871,8 +40906,7 @@ function( app ) {
                 this.loadControls();
                 this.$el.css({
                     top: $target.offset().top + "px",
-                    right: "82px",
-                    height: ( $target.height() - 2 )+ "px"
+                    right: "82px"
                 });
             } else {
                 this.remove();
@@ -40881,8 +40915,10 @@ function( app ) {
 
         loadControls: function() {
             _.each( this.model._controls, function( control ) {
-                this.$(".layer-controls-inner").append( control.el );
-                control.render();
+                if ( control.template ) {
+                    this.$(".layer-controls-inner").append( control.el );
+                    control.render();
+                }
             });
         },
 

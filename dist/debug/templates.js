@@ -141,7 +141,7 @@ return __p;
 this["JST"]["app/templates/layer-controls.html"] = function(obj){
 var __p='';var print=function(){__p+=Array.prototype.join.call(arguments, '')};
 with(obj||{}){
-__p+='<div class="layer-edit-floater">\n    <div class="layer-controls-inner"></div>\n</div>';
+__p+='<div class="layer-edit-floater">\n    <ul class="layer-controls-inner"></ul>\n</div>';
 }
 return __p;
 };

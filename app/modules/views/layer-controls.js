@@ -27,8 +27,7 @@ function( app ) {
                 this.loadControls();
                 this.$el.css({
                     top: $target.offset().top + "px",
-                    right: "82px",
-                    height: ( $target.height() - 2 )+ "px"
+                    right: "82px"
                 });
             } else {
                 this.remove();
@@ -37,8 +36,10 @@ function( app ) {
 
         loadControls: function() {
             _.each( this.model._controls, function( control ) {
-                this.$(".layer-controls-inner").append( control.el );
-                control.render();
+                if ( control.template ) {
+                    this.$(".layer-controls-inner").append( control.el );
+                    control.render();
+                }
             });
         },
 

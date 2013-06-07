@@ -2422,7 +2422,6 @@ body .ui-tooltip {
 }
 .control-slider {
   position: relative;
-  width: 26px;
 }
 .control-slider .hover-icon .id-icon {
   margin: 0 auto;
@@ -2430,6 +2429,8 @@ body .ui-tooltip {
 }
 .control-slider .hover-icon .hidden-controls {
   display: none;
+  width: 24px;
+  left: 18px;
 }
 .control-slider .hover-icon:hover .hidden-controls {
   display: block;
@@ -5900,7 +5901,6 @@ a:active {
 .ZEEGA-control-floater {
   background: rgba(0, 0, 0, 0.5);
   background-image: url(../img/tiny-stripes-dark.png);
-  padding: 10px;
   border: 1px solid orangered;
   position: absolute;
   z-index: 100;
@@ -5908,8 +5908,10 @@ a:active {
   border-radius: 2px 0 0 2px;
 }
 .ZEEGA-control-floater .control {
-  margin-left: 10px;
   float: left;
+  border-right: 1px solid rgba(255, 255, 255, 0.2);
+  padding: 12px 10px;
+  text-align: center;
 }
 .ZEEGA-control-floater .control .control-name {
   color: #fff;
