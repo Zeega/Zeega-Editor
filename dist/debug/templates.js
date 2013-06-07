@@ -338,6 +338,40 @@ __p+='<div class="workspace-wrapper">\n    <div class="workspace-overlay"></div>
 return __p;
 };
 
+this["JST"]["app/modules/askers/asker.html"] = function(obj){
+var __p='';var print=function(){__p+=Array.prototype.join.call(arguments, '')};
+with(obj||{}){
+__p+='<div class="asker-floater">\n    <div class="asker-content">\n        <h3>'+
+( question )+
+'</h3>\n        <div class="sub">'+
+( description )+
+'</div>\n        <div class="options">\n            <a href="#" class="ask-cancel">cancel</a>\n            <a class="ask-okay btnz btnz-submit">Okay</a>\n        </div>\n    </div>\n</div>';
+}
+return __p;
+};
+
+this["JST"]["app/modules/intro-modal/intro-modal.html"] = function(obj){
+var __p='';var print=function(){__p+=Array.prototype.join.call(arguments, '')};
+with(obj||{}){
+__p+='<div class="modal-wrapper">\n\n    <div class="modal-content">\n\n        <div class="step-1">\n\n            <h1>Heya! Welcome to <img class="zeega-intro-logo" src="assets/img/zeega-logo-500.png" width="190px"/></h1>\n\n            <p>\n                Zeega is a community creating everything from stories to interactive music to memes.\n            </p>\n            <p>\n                We’ve got a few fun prompts to get you started.\n            </p>\n\n            <div class="intro-graphic">\n                <img src="assets/img/intro-graphic.png" width="100%"/>\n            </div>\n            <a href="#" class="finish btnz btnz-submit">Start Making <i class="icon-chevron-right icon-white"></i></a>\n        </div>\n\n\n    </div>\n</div>';
+}
+return __p;
+};
+
+this["JST"]["app/modules/pointers/pointer.html"] = function(obj){
+var __p='';var print=function(){__p+=Array.prototype.join.call(arguments, '')};
+with(obj||{}){
+__p+=''+
+( content )+
+'\n';
+ if ( canCancel ) { 
+;__p+='\n    <small>[<a href="#" class="stop-pointing">close</a>]</small>\n';
+ } 
+;__p+='';
+}
+return __p;
+};
+
 this["JST"]["app/engine/plugins/controls/av/av.html"] = function(obj){
 var __p='';var print=function(){__p+=Array.prototype.join.call(arguments, '')};
 with(obj||{}){
