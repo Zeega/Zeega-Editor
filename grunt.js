@@ -128,6 +128,12 @@ module.exports = function(grunt) {
 
         copy: {
 
+            css: {
+                files: {
+                    "dist/debug/index.css": "assets/css/style.css"
+                }
+            },
+
             layersImages: {
                 options: {
                     flatten: true
@@ -193,7 +199,7 @@ module.exports = function(grunt) {
             player: {
                 files: {
                     "app/player/assets/css/player.css": [
-                        "app/player/assets/css/less/**/*.less"
+                        "app/player/assets/css/less/_all.less"
                     ]
                 }
             },

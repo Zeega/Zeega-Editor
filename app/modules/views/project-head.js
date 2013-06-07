@@ -182,6 +182,8 @@ function( app, Zeega ) {
             
             app.zeegaplayer = new Zeega.player({
                 // debugEvents: true,
+                scalable: true,
+
                 data: projectData,
                 controls: {
                     arrows: true,

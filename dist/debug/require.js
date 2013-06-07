@@ -993,7 +993,7 @@ return __p;
 this["JST"]["app/player/templates/layouts/player-layout.html"] = function(obj){
 var __p='';var print=function(){__p+=Array.prototype.join.call(arguments, '')};
 with(obj||{}){
-__p+='<div class=\'ZEEGA-player-window\'></div>';
+__p+='<div class="ZEEGA-player-wrapper">\n    <div class=\'ZEEGA-player-window\'></div>\n</div>';
 }
 return __p;
 };
@@ -18450,7 +18450,7 @@ function( app ) {
   if (typeof exports == 'object')  module.exports = factory()
 
   /* AMD module */
-  else if (typeof define == 'function' && define.amd) define('spin',[],factory)
+  else if (typeof define == 'function' && define.amd) define('engineVendor/spin',[],factory)
 
   /* Browser global */
   else root.Spinner = factory()
@@ -33697,7 +33697,7 @@ define("jqueryUI", function(){});
 define("plugins/backbone.layoutmanager", function(){});
 
 define('player/app',[
-    "spin",
+    "engineVendor/spin",
     "backbone",
     "jqueryUI",
     "plugins/backbone.layoutmanager"
@@ -37164,12 +37164,6 @@ function( app, _Layer, Visual, TextModal ) {
 
         template: "text_v2/text-v2",
 
-        init: function() {
-            // if ( app.attributes.mobile ) {
-            //     window.onorientationchange = function(){ this.moveOnStage(); }.bind(this);
-            // }
-        },
-
         visualProperties: [
             "top",
             "left",
@@ -37185,66 +37179,20 @@ function( app, _Layer, Visual, TextModal ) {
         saveContent: null,
 
         applyStyles: function() {
-            if ( app.attributes.mobile ) {
-                this.$el.css({
-                    width: (window.innerWidth - 60 ) + "px",
-                    left: 0,
-                    right: 0,
-                    margin: "auto"
-                });
-            } else {
-                this.$el.css({
-                    left: this.getAttr("left") + "%",
-                    width: this.getAttr("width") + "%"
-                });
-            }
+
+            this.$el.css({
+                left: this.getAttr("left") + "%",
+                width: this.getAttr("width") + "%"
+            });
         },
 
         moveOnStage: function() {
             var css = {};
 
-            if ( app.attributes.mobile ) {
-                var zHeight = $(".ZEEGA-player-window").height(),
-                    zWidth = $(".ZEEGA-player-window").width();
-
-                if ( this.getAttr("mobileTextPosition") == "middle" ) {
-                   var heightPercent = this.$el.height() / window.innerHeight; // middle
-                   
-                   css.top = (50 - heightPercent * 100 / 2) + "%";
-                    
-                } else if ( this.getAttr("mobileTextPosition") == "top" ) {
-                    var marginTop = (zHeight - window.innerHeight) / 2;
-
-                    css.top = (marginTop + 30) + "px";
-                } else {
-                    // bottom
-                    var marginBottom = (zHeight - window.innerHeight) / 2;
-
-                    css.top = "auto";
-                    css.bottom = (marginBottom + 30) + "px";
-                }
-
-                _.extend( css, {
-                    width: window.innerWidth - 30 + "px",
-                    left: 0,
-                    right: 0,
-                    margin: "auto",
-                    color: this.model.get("attr").color,
-                    fontWeight: this.model.getAttr("bold") ? "bold" : "normal",
-                    fontStyle: this.model.getAttr("italic") ? "italic" : "normal",
-                    fontFamily: this.model.getAttr("fontFamily"),
-                    fontSize: this.model.getAttr("fontSize") + "%",
-                    textAlign: this.model.getAttr("textAlign"),
-                    lineHeight: this.model.getAttr("lineHeight") + "em"
-                });
-
-                this.$el.css(css );
-            } else {
-                this.$el.css({
-                    top: this.getAttr("top") + "%",
-                    left: this.getAttr("left") + "%"
-                });
-            }
+            this.$el.css({
+                top: this.getAttr("top") + "%",
+                left: this.getAttr("left") + "%"
+            });
 
             if ( !_.isNull( this.getAttr("to_frame")) && !_.isUndefined ( this.getAttr("to_frame") ) ) {
                 this.$el.addClass("linked-layer link-reveal");
@@ -37520,10 +37468,10 @@ function( app, Layer, Visual ){
 
         attr: {
             title: "End Page Layer",
-            left: 0,
-            top: 0,
-            height: 100,
-            width: 100,
+            height: 112.67,
+            width: 236.72,
+            top: -6.57277,
+            left: -68.4375,
             opacity: 1,
             aspectRatio: null,
             dissolve: true
@@ -38697,66 +38645,11 @@ function() {
             response.project.sequences[0].frames.push( endId );
         }
 
-
         return response.project;
-
-
-        // if ( opts.endPage ) {
-        //     var endId, lastPageId, lastPage, endPage, endLayers;
-
-        //     endId = -1;
-        //     lastPageId = response.sequences[0].frames[ response.sequences[0].frames.length - 1 ];
-        //     lastPage = _.find( response.frames, function( frame ) {
-        //         return frame.id == lastPageId;
-        //     });
-        //     endPage = _.extend({}, lastPage );
-
-        //     // only allow images, color layers
-        //     endLayers = _.filter(response.layers, function( layer ) {
-        //         return _.include(["Image", "Rectangle"], layer.type ) && _.include( endPage.layers, layer.id );
-        //     });
-
-        //     endPage.layers = _.pluck( endLayers, "id");
-        //     endPage.layers.push( endId );
-
-        // removeDupeSoundtrack( response.project );
-
-        // if ( opts.endPage ) {
-        //     var endId, lastPageId, lastPage, endPage, endLayers;
-
-        //     endId = -1;
-        //     lastPageId = response.sequences[0].frames[ response.sequences[0].frames.length - 1 ];
-        //     lastPage = _.find( response.frames, function( frame ) {
-        //         return frame.id == lastPageId;
-        //     });
-        //     endPage = _.extend({}, lastPage );
-
-        //     // only allow images, color layers
-        //     endLayers = _.filter(response.layers, function( layer ) {
-        //         return _.include(["Image", "Rectangle"], layer.type ) && _.include( endPage.layers, layer.id );
-        //     });
-
-        //     endPage.layers = _.pluck( endLayers, "id");
-        //     endPage.layers.push( endId );
-        //     // add layer to layer array
-        //     response.layers.push({
-        //         id: endId,
-        //         type: "EndPageLayer"
-        //     });
-            
-        //     endPage.id = endId;
-        //     response.frames.push( endPage );
-        //     response.sequences[0].frames.push( endId );
-        // }
-
-        // return response;
-        //}
-
     };
 
     return Parser;
 });
-
 define('engine/data-parsers/zeega-project-published',["lodash"],
 
 function() {
@@ -39460,9 +39353,10 @@ function( app, ControlsView ) {
 
         afterRender: function() {
             // correctly size the player window
-            this.$(".ZEEGA-player-window").css( this.getWindowSize() );
-            this.setPrevNext();
+            this.$(".ZEEGA-player-wrapper").css( this.getWrapperSize() );
+            this.$(".ZEEGA-player-window").css( this.getPlayerSize() );
 
+            this.setPrevNext();
             this.renderControls();
         },
 
@@ -39515,15 +39409,38 @@ function( app, ControlsView ) {
 
         resizeWindow: function() {
             // animate the window size in place
-            var css = this.getWindowSize();
-            this.$(".ZEEGA-player-window").animate( css );
+            var css = this.getWrapperSize();
+
+            this.$(".ZEEGA-player-wrapper").css( css );
+            this.$(".ZEEGA-player-window").css( this.getPlayerSize() );
+            
             this.model.trigger( "window_resized", css );
             app.trigger( "resize_window", css );
         },
 
+        getPlayerSize: function() {
+            var windowRatio, winHeight,
+                css = {
+                    width: 0,
+                    height: 0,
+                    top: 0,
+                    left: 0
+                };
+
+            windowRatio = this.model.get("windowRatio");
+            winHeight = app.$( this.model.get("target") ).find(".ZEEGA-player").height();
+
+            css.width = winHeight * windowRatio;
+            css.height = winHeight;
+            css.top = (winHeight - css.height) / 2;
+            css.fontSize = ( css.width / 520 ) +'em';
+
+            return css;
+        },
+
         // calculate and return the correct window size for the player window
-        getWindowSize: function() {
-            var windowRatio, winWidth, winHeight, actualRatio,
+        getWrapperSize: function() {
+            var windowRatio, winWidth, winHeight, actualRatio, playerMaxWidth, playerMinWidth,
                 css = {
                     width: 0,
                     height: 0,
@@ -39536,44 +39453,17 @@ function( app, ControlsView ) {
             winHeight = app.$( this.model.get("target") ).find(".ZEEGA-player").height();
             actualRatio = winWidth / winHeight;
 
-            if ( this.model.get("cover") === true ) {
-                if ( actualRatio > windowRatio ) { // width > height // fit left & right
-                    css.width = winWidth;
-                    css.height = winWidth / windowRatio;
-                    css.top = (winHeight - css.height) / 2;
-                } else if ( this.model.get("cover") == "vertical" ) {
-                    css.width = winHeight * windowRatio;
-                    css.height = winHeight;
-                    css.left = (winWidth - css.width) / 2;
-                } else { // width < height
-                    css.width = winHeight * windowRatio;
-                    css.height = winHeight;
-                    css.left = (winWidth - css.width) / 2;
-                }
-            } else if ( this.model.get("cover") === false ) {
-                if ( actualRatio > windowRatio ) { // width > height
-                    css.width = winHeight * windowRatio;
-                    css.height = winHeight;
-                } else { // width < height
-                    css.width = winWidth;
-                    css.height = winWidth / windowRatio;
-                    css.top = (winHeight - css.height) / 2;
-                }
+            playerMaxWidth = winHeight * (16/9);
+            playerMinWidth = winHeight * windowRatio;
+
+
+            if ( this.model.get("mobile") ) {
+
             } else {
-                if ( this.model.get("cover") == "horizontal" ) { // width > height // fit left & right
-                    css.width = winWidth;
-                    css.height = winWidth / windowRatio;
-                    css.top = (winHeight - css.height) / 2;
-                } else if ( this.model.get("cover") == "vertical" ) {
-                    var left = ( winWidth - winHeight * windowRatio ) / 2;
-
-                    css.width = winHeight * windowRatio;
-                    css.height = winHeight;
-                    css.left = left < 0 ? left : 0;
-                }
+                css.width = winWidth < playerMaxWidth ? winWidth : playerMaxWidth;
+                css.height = winHeight;
+                css.top = (winHeight - css.height) / 2;
             }
-
-            css.fontSize = ( css.width / 520 ) +'em';
 
             // Append unit to calculated value
             css.width += "px";
@@ -39861,7 +39751,10 @@ function( app, Engine, Relay, Status, PlayerLayout ) {
         */
 
         initialize: function( attributes ) {
+
             this.loadSoundtrack = _.once(function() {
+                // this can be done better // TODO 6/8/13
+                app.soundtrack = this.project.sequences.at(0).soundtrackModel;
 
                 if ( app.soundtrack ) {
                     if ( app.soundtrack.state == "ready" ) {
@@ -40470,6 +40363,8 @@ function( app, Zeega ) {
             
             app.zeegaplayer = new Zeega.player({
                 // debugEvents: true,
+                scalable: true,
+
                 data: projectData,
                 controls: {
                     arrows: true,
@@ -43355,6 +43250,355 @@ function( app ) {
 });
 
 
+//fgnass.github.com/spin.js#v1.3
+
+/**
+ * Copyright (c) 2011-2013 Felix Gnass
+ * Licensed under the MIT license
+ */
+(function(root, factory) {
+
+  /* CommonJS */
+  if (typeof exports == 'object')  module.exports = factory()
+
+  /* AMD module */
+  else if (typeof define == 'function' && define.amd) define('spin',[],factory)
+
+  /* Browser global */
+  else root.Spinner = factory()
+}
+(this, function() {
+  
+
+  var prefixes = ['webkit', 'Moz', 'ms', 'O'] /* Vendor prefixes */
+    , animations = {} /* Animation rules keyed by their name */
+    , useCssAnimations /* Whether to use CSS animations or setTimeout */
+
+  /**
+   * Utility function to create elements. If no tag name is given,
+   * a DIV is created. Optionally properties can be passed.
+   */
+  function createEl(tag, prop) {
+    var el = document.createElement(tag || 'div')
+      , n
+
+    for(n in prop) el[n] = prop[n]
+    return el
+  }
+
+  /**
+   * Appends children and returns the parent.
+   */
+  function ins(parent /* child1, child2, ...*/) {
+    for (var i=1, n=arguments.length; i<n; i++)
+      parent.appendChild(arguments[i])
+
+    return parent
+  }
+
+  /**
+   * Insert a new stylesheet to hold the @keyframe or VML rules.
+   */
+  var sheet = (function() {
+    var el = createEl('style', {type : 'text/css'})
+    ins(document.getElementsByTagName('head')[0], el)
+    return el.sheet || el.styleSheet
+  }())
+
+  /**
+   * Creates an opacity keyframe animation rule and returns its name.
+   * Since most mobile Webkits have timing issues with animation-delay,
+   * we create separate rules for each line/segment.
+   */
+  function addAnimation(alpha, trail, i, lines) {
+    var name = ['opacity', trail, ~~(alpha*100), i, lines].join('-')
+      , start = 0.01 + i/lines * 100
+      , z = Math.max(1 - (1-alpha) / trail * (100-start), alpha)
+      , prefix = useCssAnimations.substring(0, useCssAnimations.indexOf('Animation')).toLowerCase()
+      , pre = prefix && '-' + prefix + '-' || ''
+
+    if (!animations[name]) {
+      sheet.insertRule(
+        '@' + pre + 'keyframes ' + name + '{' +
+        '0%{opacity:' + z + '}' +
+        start + '%{opacity:' + alpha + '}' +
+        (start+0.01) + '%{opacity:1}' +
+        (start+trail) % 100 + '%{opacity:' + alpha + '}' +
+        '100%{opacity:' + z + '}' +
+        '}', sheet.cssRules.length)
+
+      animations[name] = 1
+    }
+
+    return name
+  }
+
+  /**
+   * Tries various vendor prefixes and returns the first supported property.
+   */
+  function vendor(el, prop) {
+    var s = el.style
+      , pp
+      , i
+
+    if(s[prop] !== undefined) return prop
+    prop = prop.charAt(0).toUpperCase() + prop.slice(1)
+    for(i=0; i<prefixes.length; i++) {
+      pp = prefixes[i]+prop
+      if(s[pp] !== undefined) return pp
+    }
+  }
+
+  /**
+   * Sets multiple style properties at once.
+   */
+  function css(el, prop) {
+    for (var n in prop)
+      el.style[vendor(el, n)||n] = prop[n]
+
+    return el
+  }
+
+  /**
+   * Fills in default values.
+   */
+  function merge(obj) {
+    for (var i=1; i < arguments.length; i++) {
+      var def = arguments[i]
+      for (var n in def)
+        if (obj[n] === undefined) obj[n] = def[n]
+    }
+    return obj
+  }
+
+  /**
+   * Returns the absolute page-offset of the given element.
+   */
+  function pos(el) {
+    var o = { x:el.offsetLeft, y:el.offsetTop }
+    while((el = el.offsetParent))
+      o.x+=el.offsetLeft, o.y+=el.offsetTop
+
+    return o
+  }
+
+  // Built-in defaults
+
+  var defaults = {
+    lines: 12,            // The number of lines to draw
+    length: 7,            // The length of each line
+    width: 5,             // The line thickness
+    radius: 10,           // The radius of the inner circle
+    rotate: 0,            // Rotation offset
+    corners: 1,           // Roundness (0..1)
+    color: '#000',        // #rgb or #rrggbb
+    direction: 1,         // 1: clockwise, -1: counterclockwise
+    speed: 1,             // Rounds per second
+    trail: 100,           // Afterglow percentage
+    opacity: 1/4,         // Opacity of the lines
+    fps: 20,              // Frames per second when using setTimeout()
+    zIndex: 2e9,          // Use a high z-index by default
+    className: 'spinner', // CSS class to assign to the element
+    top: 'auto',          // center vertically
+    left: 'auto',         // center horizontally
+    position: 'relative'  // element position
+  }
+
+  /** The constructor */
+  function Spinner(o) {
+    if (typeof this == 'undefined') return new Spinner(o)
+    this.opts = merge(o || {}, Spinner.defaults, defaults)
+  }
+
+  // Global defaults that override the built-ins:
+  Spinner.defaults = {}
+
+  merge(Spinner.prototype, {
+
+    /**
+     * Adds the spinner to the given target element. If this instance is already
+     * spinning, it is automatically removed from its previous target b calling
+     * stop() internally.
+     */
+    spin: function(target) {
+      this.stop()
+
+      var self = this
+        , o = self.opts
+        , el = self.el = css(createEl(0, {className: o.className}), {position: o.position, width: 0, zIndex: o.zIndex})
+        , mid = o.radius+o.length+o.width
+        , ep // element position
+        , tp // target position
+
+      if (target) {
+        target.insertBefore(el, target.firstChild||null)
+        tp = pos(target)
+        ep = pos(el)
+        css(el, {
+          left: (o.left == 'auto' ? tp.x-ep.x + (target.offsetWidth >> 1) : parseInt(o.left, 10) + mid) + 'px',
+          top: (o.top == 'auto' ? tp.y-ep.y + (target.offsetHeight >> 1) : parseInt(o.top, 10) + mid)  + 'px'
+        })
+      }
+
+      el.setAttribute('role', 'progressbar')
+      self.lines(el, self.opts)
+
+      if (!useCssAnimations) {
+        // No CSS animation support, use setTimeout() instead
+        var i = 0
+          , start = (o.lines - 1) * (1 - o.direction) / 2
+          , alpha
+          , fps = o.fps
+          , f = fps/o.speed
+          , ostep = (1-o.opacity) / (f*o.trail / 100)
+          , astep = f/o.lines
+
+        ;(function anim() {
+          i++;
+          for (var j = 0; j < o.lines; j++) {
+            alpha = Math.max(1 - (i + (o.lines - j) * astep) % f * ostep, o.opacity)
+
+            self.opacity(el, j * o.direction + start, alpha, o)
+          }
+          self.timeout = self.el && setTimeout(anim, ~~(1000/fps))
+        })()
+      }
+      return self
+    },
+
+    /**
+     * Stops and removes the Spinner.
+     */
+    stop: function() {
+      var el = this.el
+      if (el) {
+        clearTimeout(this.timeout)
+        if (el.parentNode) el.parentNode.removeChild(el)
+        this.el = undefined
+      }
+      return this
+    },
+
+    /**
+     * Internal method that draws the individual lines. Will be overwritten
+     * in VML fallback mode below.
+     */
+    lines: function(el, o) {
+      var i = 0
+        , start = (o.lines - 1) * (1 - o.direction) / 2
+        , seg
+
+      function fill(color, shadow) {
+        return css(createEl(), {
+          position: 'absolute',
+          width: (o.length+o.width) + 'px',
+          height: o.width + 'px',
+          background: color,
+          boxShadow: shadow,
+          transformOrigin: 'left',
+          transform: 'rotate(' + ~~(360/o.lines*i+o.rotate) + 'deg) translate(' + o.radius+'px' +',0)',
+          borderRadius: (o.corners * o.width>>1) + 'px'
+        })
+      }
+
+      for (; i < o.lines; i++) {
+        seg = css(createEl(), {
+          position: 'absolute',
+          top: 1+~(o.width/2) + 'px',
+          transform: o.hwaccel ? 'translate3d(0,0,0)' : '',
+          opacity: o.opacity,
+          animation: useCssAnimations && addAnimation(o.opacity, o.trail, start + i * o.direction, o.lines) + ' ' + 1/o.speed + 's linear infinite'
+        })
+
+        if (o.shadow) ins(seg, css(fill('#000', '0 0 4px ' + '#000'), {top: 2+'px'}))
+
+        ins(el, ins(seg, fill(o.color, '0 0 1px rgba(0,0,0,.1)')))
+      }
+      return el
+    },
+
+    /**
+     * Internal method that adjusts the opacity of a single line.
+     * Will be overwritten in VML fallback mode below.
+     */
+    opacity: function(el, i, val) {
+      if (i < el.childNodes.length) el.childNodes[i].style.opacity = val
+    }
+
+  })
+
+
+  function initVML() {
+
+    /* Utility function to create a VML tag */
+    function vml(tag, attr) {
+      return createEl('<' + tag + ' xmlns="urn:schemas-microsoft.com:vml" class="spin-vml">', attr)
+    }
+
+    // No CSS transforms but VML support, add a CSS rule for VML elements:
+    sheet.addRule('.spin-vml', 'behavior:url(#default#VML)')
+
+    Spinner.prototype.lines = function(el, o) {
+      var r = o.length+o.width
+        , s = 2*r
+
+      function grp() {
+        return css(
+          vml('group', {
+            coordsize: s + ' ' + s,
+            coordorigin: -r + ' ' + -r
+          }),
+          { width: s, height: s }
+        )
+      }
+
+      var margin = -(o.width+o.length)*2 + 'px'
+        , g = css(grp(), {position: 'absolute', top: margin, left: margin})
+        , i
+
+      function seg(i, dx, filter) {
+        ins(g,
+          ins(css(grp(), {rotation: 360 / o.lines * i + 'deg', left: ~~dx}),
+            ins(css(vml('roundrect', {arcsize: o.corners}), {
+                width: r,
+                height: o.width,
+                left: o.radius,
+                top: -o.width>>1,
+                filter: filter
+              }),
+              vml('fill', {color: o.color, opacity: o.opacity}),
+              vml('stroke', {opacity: 0}) // transparent stroke to fix color bleeding upon opacity change
+            )
+          )
+        )
+      }
+
+      if (o.shadow)
+        for (i = 1; i <= o.lines; i++)
+          seg(i, -2, 'progid:DXImageTransform.Microsoft.Blur(pixelradius=2,makeshadow=1,shadowopacity=.3)')
+
+      for (i = 1; i <= o.lines; i++) seg(i)
+      return ins(el, g)
+    }
+
+    Spinner.prototype.opacity = function(el, i, val, o) {
+      var c = el.firstChild
+      o = o.shadow && o.lines || 0
+      if (c && i+o < c.childNodes.length) {
+        c = c.childNodes[i+o]; c = c && c.firstChild; c = c && c.firstChild
+        if (c) c.opacity = val
+      }
+    }
+  }
+
+  var probe = css(createEl('group'), {behavior: 'url(#default#VML)'})
+
+  if (!vendor(probe, 'transform') && probe.adj) initVML()
+  else useCssAnimations = vendor(probe, 'animation')
+
+  return Spinner
+
+}));
 define('modules/media-browser/media-collection-view',[
     "app",
     "modules/views/media-upload",
