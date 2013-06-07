@@ -57104,13 +57104,15 @@ function( app ) {
             this.model.project.on("sync", this.onSync, this );
         },
 
-        onSync: function() {
-            this.$(".share-twitter").attr("href", "https://twitter.com/intent/tweet?original_referer=" + app.webRoot + this.model.project.get("id") + "&text=" + this.model.project.get("title") +" "+ app.webRoot + this.model.project.get("id") + " made w/ @zeega" );
+        onSync: function( project, response ) {
+
+            this.$(".share-twitter").attr("href", "https://twitter.com/intent/tweet?original_referer=" + app.webRoot + project.get("id") + "&text=" + project.get("title") +" "+ app.webRoot + project.get("id") + " made w/ @zeega" );
             this.$(".share-tumblr").attr("href", "http://www.tumblr.com/share/photo?" + this.getTumblrShareUrl() );
 
             this.$(".project-cover").css({
-                background: "url(" + this.model.project.get("cover_image") + ")",
-                backgroundSize: "cover"
+                background: "url(" + project.get("cover_image") + ")",
+                backgroundSize: "cover",
+                opacity: 1
             });
         },
 
@@ -57130,8 +57132,8 @@ function( app ) {
                 drop: function( e, ui ) {
                     if ( _.contains( ["Image"], app.dragging.get("layer_type") )) {
 
-                        console.log("update cover", app.dragging );
-
+                        //console.log("update cover", app.dragging );
+     
                         this.updateCoverImage( app.dragging.get("uri") );
                         // this.updateWaveform( app.dragging.get("thumbnail_url") );
 
@@ -57154,16 +57156,20 @@ function( app ) {
 
         updateCoverImage: function( url ) {
             app.project.save("cover_image", url );
+            this.$(".project-cover").css({
+                background: "url(" + url + ")",
+                backgroundSize: "cover",
+                opacity: 0.3
+            });
+            // tumblr_caption = "<p><a href='" + app.webRoot + app.project.get("id") + "'><strong>Play&nbsp;► " +
+            //                 app.project.get("title") + "</strong></a></p><p>A Zeega by&nbsp;<a href='" +
+            //                 app.webRoot + "profile/" + app.project.get("user_id") + "'>" + app.project.get("authors") + "</a></p>";
 
-            tumblr_caption = "<p><a href='" + app.webRoot + app.project.get("id") + "'><strong>Play&nbsp;► " +
-                            app.project.get("title") + "</strong></a></p><p>A Zeega by&nbsp;<a href='" +
-                            app.webRoot + "profile/" + app.project.get("user_id") + "'>" + app.project.get("authors") + "</a></p>";
 
-
-            tumblr_share = "source=" + encodeURIComponent( app.project.get("cover_image") ) +
-                            "&caption=" + encodeURIComponent( tumblr_caption ) +
-                            "&click_thru="+ encodeURIComponent( app.webRoot ) + app.project.get("id");
-            this.$("#tumblr-share").attr("href", "http://www.tumblr.com/share/photo?" + tumblr_share );
+            // tumblr_share = "source=" + encodeURIComponent( app.project.get("cover_image") ) +
+            //                 "&caption=" + encodeURIComponent( tumblr_caption ) +
+            //                 "&click_thru="+ encodeURIComponent( app.webRoot ) + app.project.get("id");
+            // this.$("#tumblr-share").attr("href", "http://www.tumblr.com/share/photo?" + tumblr_share );
 
         },
 
@@ -79550,6 +79556,14 @@ function( app, SequenceCollection ) {
 
         onProjectPublish: function( model, response ) {
             this.set({ publish_update: 0 });
+        },
+
+        parse: function( response ){
+            if( response.project ){
+                return response.project;
+            } else {
+                return response;
+            }
         }
 
     });
@@ -82102,9 +82116,9 @@ require.config({
   // generated configuration file.
 
   // Release
- deps: [ "../vendor/tipsy/src/javascripts/jquery.tipsy", "../vendor/simple-color-picker/src/jquery.simple-color", "zeegaplayer", "../vendor/jam/require.config", "main", "spin"],
+deps: [ "../vendor/tipsy/src/javascripts/jquery.tipsy", "../vendor/simple-color-picker/src/jquery.simple-color", "zeegaplayer", "../vendor/jam/require.config", "main", "spin"],
 
- //  deps: ["zeegaplayer", "../vendor/jam/require.config", "main", "spin"],
+  //  deps: ["zeegaplayer", "../vendor/jam/require.config", "main", "spin"],
 
 
   paths: {
