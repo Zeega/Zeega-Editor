@@ -36843,16 +36843,6 @@ function( app ) {
 
         className: "text-modal overlay-dimmer ZEEGA-modal",
 
-        initialize: function() {
-            // temporary hack to get latest textmodal.html to load
-            // window.JST["app/zeega-parser/plugins/layers/text_v2/textmodal.html"] = null;
-
-            this.saveContent = _.debounce(function() {
-                this.model.saveAttr({ content: this.$("textarea").val() });
-                this.updateSample();
-            }, 1000);
-        },
-
         afterRender: function() {
             $("#main").addClass("modal");
             this.loadFonts();
@@ -36888,15 +36878,10 @@ function( app ) {
         events: {
             "click .modal-close": "closeThis",
             "click .text-modal-save": "submit",
-            "keypress textarea": "onKeypress",
             "click .page" : "selectPage",
             "click .link-new-page": "selectNewPage",
             "click .link-page-open": "openLinkDrawer",
             "click .unlink-text": "unlink"
-        },
-
-        onKeypress: function( e ) {
-            this.saveContent();
         },
 
         closeThis: function() {
@@ -36932,7 +36917,7 @@ function( app ) {
         },
 
         submit: function() {
-            this.model.setAttr({ content: this.$("textarea").val() });
+            this.model.saveAttr({ content: this.$("textarea").val() });
             this.closeThis();
             this.updateVisualElement();
 

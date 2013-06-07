@@ -184,10 +184,12 @@ function( app, Zeega ) {
                 // debugEvents: true,
                 scalable: true,
 
+                previewMode: "mobile",
                 data: projectData,
                 controls: {
                     arrows: true,
-                    close: true
+                    close: true,
+                    sizeToggle: true
                 }
             });
 
