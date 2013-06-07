@@ -13,7 +13,7 @@ function( app ) {
             return "pointer point-" + this.model.get("pointDirection");
         },
 
-        template: "pointer",
+        template: "app/modules/pointers/pointer",
 
         serialize: function() {
             return this.model.toJSON();

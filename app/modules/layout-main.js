@@ -81,8 +81,6 @@ function( app, ProjectHead, Frames, Workspace, Layers, LayerDrawer, Soundtrack, 
 
             this.initialInstructions = new Pointers( this.initialSequence );
 
-            this.pointerListen();
-
             _.delay(function(){
                 this.initTips();
 
@@ -97,17 +95,7 @@ function( app, ProjectHead, Frames, Workspace, Layers, LayerDrawer, Soundtrack, 
 
             introModalView.start();
             this.initialInstructions.startPointing();
-        },
-
-        pointerListen: function() {
-            app.on("layer_added_success",function( layer ) {
-                if ( layer.get("type") == "Youtube" ) {
-                    // do pointers
-                    this.YTInstructions = new Pointers( this.YTSequence );
-                    //console.log("do pointers",this.YTSequence, this.YTInstructions)
-                    this.YTInstructions.startPointing();
-                }
-            }, this );
+            this.pointing = true;
         },
 
         initTips: function() {

@@ -113,7 +113,11 @@ function( app, Zeega ) {
         },
 
         initHelpSequence: function() {
-            app.layout.initialInstructions.startPointing();
+            if ( app.layout.initialInstructions.pointing ) {
+                app.layout.initialInstructions.cancel();
+            } else {
+                app.layout.initialInstructions.startPointing();
+            }
         },
 
         showEmbed: function() {

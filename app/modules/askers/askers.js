@@ -5,9 +5,10 @@ define([
 
 function( app ) {
 
+
     return Backbone.View.extend({
 
-        template: "app/modules/intro-modal/intro-modal",
+        template: "intro-modal",
         
         className: "ZEEGA-intro-modal modal-overlay",
 
