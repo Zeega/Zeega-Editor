@@ -135,23 +135,23 @@ module.exports = function(grunt) {
                 }
             },
 
-            layersImages: {
-                options: {
-                    flatten: true
-                },
-                files: {
-                    "assets/img/layers/": "app/editor/plugins/layers/**/img/*"
-                }
-            },
+            // layersImages: {
+            //     options: {
+            //         flatten: true
+            //     },
+            //     files: {
+            //         "assets/img/layers/": "app/editor/plugins/layers/**/img/*"
+            //     }
+            // },
 
-            plugins: {
-                options: {
-                    flatten: true
-                },
-                files: {
-                    "assets/img/": "vendor/colorpicker/images/*"
-                }
-            }
+            // plugins: {
+            //     options: {
+            //         flatten: true
+            //     },
+            //     files: {
+            //         "assets/img/": "vendor/colorpicker/images/*"
+            //     }
+            // }
             
         },
 

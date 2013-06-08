@@ -42,7 +42,6 @@ function( app ) {
 
             if ( previousLayer != layerModel ) {
                 if ( previousLayer && layerModel === null ) {
-                    console.log("prev no current", previousLayer )
                     previousLayer.trigger("blur");
                     previousLayer._layerListView.controls.remove(); // not sure why I have to do this
                     this.set("currentLayer", layerModel );

@@ -163,9 +163,7 @@ __p+='<div class="layer-marker">\n\n';
 ( attr.title )+
 '</span>\n    </div>\n';
  } 
-;__p+='\n\n    <div class="layer-list-bottom clearfix">\n        <a href="#" class="action-bg pull-left"><i class="zicon-'+
-( type.toLowerCase() )+
-' zicon-white"></i></a>\n        <a href="#" class="action-bg pull-right tooltip"\n            title="delete layer"\n            data-gravity="e"\n        ><i data-action="deleteLayer" class="action icon-trash icon-white"></i></a>\n    </div>\n</div>\n\n';
+;__p+='\n\n    <div class="layer-list-bottom clearfix">\n        <a href="#" class="action-bg pull-right tooltip"\n            title="delete layer"\n            data-gravity="e"\n        ><i data-action="deleteLayer" class="action icon-trash icon-white"></i></a>\n    </div>\n</div>\n\n';
  if ( attr.thumbnail_url ) { 
 ;__p+='\n    <div class="layer-list-bg"\n        style="\n            background: url('+
 ( attr.thumbnail_url )+

@@ -549,9 +549,7 @@ __p+='<div class="layer-marker">\n\n';
 ( attr.title )+
 '</span>\n    </div>\n';
  } 
-;__p+='\n\n    <div class="layer-list-bottom clearfix">\n        <a href="#" class="action-bg pull-left"><i class="zicon-'+
-( type.toLowerCase() )+
-' zicon-white"></i></a>\n        <a href="#" class="action-bg pull-right tooltip"\n            title="delete layer"\n            data-gravity="e"\n        ><i data-action="deleteLayer" class="action icon-trash icon-white"></i></a>\n    </div>\n</div>\n\n';
+;__p+='\n\n    <div class="layer-list-bottom clearfix">\n        <a href="#" class="action-bg pull-right tooltip"\n            title="delete layer"\n            data-gravity="e"\n        ><i data-action="deleteLayer" class="action icon-trash icon-white"></i></a>\n    </div>\n</div>\n\n';
  if ( attr.thumbnail_url ) { 
 ;__p+='\n    <div class="layer-list-bg"\n        style="\n            background: url('+
 ( attr.thumbnail_url )+
@@ -18413,18 +18411,19 @@ function( app ) {
         setCurrentLayer: function( layerModel ) {
             var previousLayer = this.get("currentLayer");
 
-            if ( previousLayer && layerModel === null ) {
-                previousLayer.trigger("blur");
-                this.set("currentLayer", layerModel );
-            } else if ( layerModel === null ) {
-                this.set("currentLayer", layerModel );
-            } else if ( previousLayer && previousLayer.id != layerModel.id ) {
-                previousLayer.trigger("blur");
-                this.set("currentLayer", layerModel );
-                layerModel.trigger("focus");
-            } else if ( !previousLayer ) {
-                this.set("currentLayer", layerModel );
-                layerModel.trigger("focus");
+            if ( previousLayer != layerModel ) {
+                if ( previousLayer && layerModel === null ) {
+                    previousLayer.trigger("blur");
+                    previousLayer._layerListView.controls.remove(); // not sure why I have to do this
+                    this.set("currentLayer", layerModel );
+                } else if ( !previousLayer && layerModel ) {
+                    this.set("currentLayer", layerModel );
+                    layerModel.trigger("focus");
+                } else if ( previousLayer && layerModel ) {
+                    previousLayer.trigger("blur");
+                    this.set("currentLayer", layerModel );
+                    layerModel.trigger("focus");
+                }
             }
             
         },
@@ -34156,6 +34155,8 @@ function( Zeega, ControlView ) {
                        
                         this.update( attr );
                         this.updateCSS( attr );
+
+                        this.model.trigger("resized", attr );
                     }.bind( this )
                 };
 
@@ -35255,8 +35256,8 @@ function( app, Controls ) {
             if ( this.model.mode == "player") {
                 this.verifyReady();
             } else if ( this.model.mode == "editor") {
-                this.afterEditorRender();
                 this.loadControls();
+                this.afterEditorRender();
             }
             this.applyVisualProperties();
             this.visualAfterRender();
@@ -35604,13 +35605,16 @@ function( app, Layer, Visual, Asker ){
         },
 
         init: function() {
-            window.JST["app/zeega-parser/plugins/layers/image/image.html"] = null;
 
             if ( this.model.getAttr("page_background")) {
                 this.visualProperties = ["opacity"];
             }
 
+            this.stopListening( this.model );
             this.model.on("toggle_page_background", this.togglePageBackgroundState, this );
+            
+            this.model.off("resized");
+            this.model.on("resized", this.onResize, this );
         },
 
         afterEditorRender: function() {
@@ -35623,6 +35627,18 @@ function( app, Layer, Visual, Asker ){
             if ( this.model.getAttr("page_background")) {
                 this.makePageBackground();
                 this.disableDrag();
+            }
+        },
+
+        onResize: function( attr ) {
+            if ( attr.width > 100 || attr.height > 100 ) {
+                new Asker({
+                    question: "Make this layer fullscreen?",
+                    okay: function() {
+                        this.disableDrag();
+                        this.makePageBackground();
+                    }.bind( this )
+                });
             }
         },
 
@@ -40894,7 +40910,6 @@ function( app ) {
         className: "ZEEGA-control-floater",
 
         initialize: function() {
-            // app.status.on("change:currentLayer", this.onLayerFocus, this );
             this.model.on("focus", this.onLayerFocus, this );
         },
 
@@ -40909,7 +40924,7 @@ function( app ) {
                     right: "82px"
                 });
             } else {
-                this.remove();
+               this.remove();
             }
         },
 
@@ -41230,15 +41245,6 @@ function( app, LayerControls, Asker) {
         initialize: function() {
             this.controls = new LayerControls({ model: this.model, target: this });
 
-            this.stopListening( this.model );
-
-            this.model.on("focus", this.onFocus, this );
-            this.model.on("blur", this.onBlur, this );
-            this.model.on("remove", this.onRemove, this );
-            this.model.on("sync", this.onSync, this );
-            this.model.on("copy_focus", this.onCopyFocus, this );
-            this.model.on("copy_blur", this.onCopyBlur, this );
-
             this.openControls = _.debounce(function() {
                 this.closeControls();
                 $("#main").append( this.controls.el );
@@ -41247,6 +41253,7 @@ function( app, LayerControls, Asker) {
         },
 
         afterRender: function() {
+            this.listen();
 
             if ( app.status.get("copiedLayer") && app.status.get("copiedLayer").id == this.model.id ) {
                 this.onCopyFocus();
@@ -41258,7 +41265,19 @@ function( app, LayerControls, Asker) {
                     return $(this).data("gravity");
                 }
             });
+        },
 
+        cleanup: function() {
+            this.stopListening( this.model );
+        },
+
+        listen: function() {
+            this.model.on("blur", this.onBlur, this );
+            this.model.on("focus", this.onFocus, this );
+            this.model.on("remove", this.onRemove, this );
+            this.model.on("sync", this.onSync, this );
+            this.model.on("copy_focus", this.onCopyFocus, this );
+            this.model.on("copy_blur", this.onCopyBlur, this );
         },
 
         events: {
@@ -41290,15 +41309,20 @@ function( app, LayerControls, Asker) {
         },
 
         deleteLayer: function() {
-            new Asker({
-                question: "Do you really want to delete this layer?",
-                description: "You cannot undo this!",
-                okay: function() {
-                    $(".tipsy").remove();
-                    this.model.collection.remove( this.model );
-                    app.emit("layer_deleted", this.model );
-                }.bind( this )
-            });
+
+            $(".tipsy").remove();
+            this.model.collection.remove( this.model );
+            app.emit("layer_deleted", this.model );
+            
+            // new Asker({
+            //     question: "Do you really want to delete this layer?",
+            //     description: "You cannot undo this!",
+            //     okay: function() {
+            //         $(".tipsy").remove();
+            //         this.model.collection.remove( this.model );
+            //         app.emit("layer_deleted", this.model );
+            //     }.bind( this )
+            // });
         },
 
         selectLayer: function() {
