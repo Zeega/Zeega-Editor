@@ -24,15 +24,6 @@ function( app, LayerControls, Asker) {
         initialize: function() {
             this.controls = new LayerControls({ model: this.model, target: this });
 
-            this.stopListening( this.model );
-
-            this.model.on("focus", this.onFocus, this );
-            this.model.on("blur", this.onBlur, this );
-            this.model.on("remove", this.onRemove, this );
-            this.model.on("sync", this.onSync, this );
-            this.model.on("copy_focus", this.onCopyFocus, this );
-            this.model.on("copy_blur", this.onCopyBlur, this );
-
             this.openControls = _.debounce(function() {
                 this.closeControls();
                 $("#main").append( this.controls.el );
@@ -41,6 +32,7 @@ function( app, LayerControls, Asker) {
         },
 
         afterRender: function() {
+            this.listen();
 
             if ( app.status.get("copiedLayer") && app.status.get("copiedLayer").id == this.model.id ) {
                 this.onCopyFocus();
@@ -52,7 +44,19 @@ function( app, LayerControls, Asker) {
                     return $(this).data("gravity");
                 }
             });
+        },
 
+        cleanup: function() {
+            this.stopListening( this.model );
+        },
+
+        listen: function() {
+            this.model.on("blur", this.onBlur, this );
+            this.model.on("focus", this.onFocus, this );
+            this.model.on("remove", this.onRemove, this );
+            this.model.on("sync", this.onSync, this );
+            this.model.on("copy_focus", this.onCopyFocus, this );
+            this.model.on("copy_blur", this.onCopyBlur, this );
         },
 
         events: {

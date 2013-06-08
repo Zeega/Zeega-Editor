@@ -15,7 +15,6 @@ function( app ) {
         className: "ZEEGA-control-floater",
 
         initialize: function() {
-            // app.status.on("change:currentLayer", this.onLayerFocus, this );
             this.model.on("focus", this.onLayerFocus, this );
         },
 
@@ -30,7 +29,7 @@ function( app ) {
                     right: "82px"
                 });
             } else {
-                this.remove();
+               this.remove();
             }
         },
 

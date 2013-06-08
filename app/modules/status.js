@@ -40,18 +40,20 @@ function( app ) {
         setCurrentLayer: function( layerModel ) {
             var previousLayer = this.get("currentLayer");
 
-            if ( previousLayer && layerModel === null ) {
-                previousLayer.trigger("blur");
-                this.set("currentLayer", layerModel );
-            } else if ( layerModel === null ) {
-                this.set("currentLayer", layerModel );
-            } else if ( previousLayer && previousLayer.id != layerModel.id ) {
-                previousLayer.trigger("blur");
-                this.set("currentLayer", layerModel );
-                layerModel.trigger("focus");
-            } else if ( !previousLayer ) {
-                this.set("currentLayer", layerModel );
-                layerModel.trigger("focus");
+            if ( previousLayer != layerModel ) {
+                if ( previousLayer && layerModel === null ) {
+                    console.log("prev no current", previousLayer )
+                    previousLayer.trigger("blur");
+                    previousLayer._layerListView.controls.remove(); // not sure why I have to do this
+                    this.set("currentLayer", layerModel );
+                } else if ( !previousLayer && layerModel ) {
+                    this.set("currentLayer", layerModel );
+                    layerModel.trigger("focus");
+                } else if ( previousLayer && layerModel ) {
+                    previousLayer.trigger("blur");
+                    this.set("currentLayer", layerModel );
+                    layerModel.trigger("focus");
+                }
             }
             
         },
