@@ -1,6 +1,6 @@
 define([
     "app",
-    "modules/askers/asker",
+    "engine/modules/askers/asker",
     "backbone"
 ],
 

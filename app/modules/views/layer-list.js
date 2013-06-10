@@ -1,7 +1,7 @@
 define([
     "app",
     "modules/views/layer-controls",
-    "modules/askers/asker",
+    "engine/modules/askers/asker",
     "backbone",
     "tipsy"
 ],
