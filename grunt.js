@@ -46,6 +46,7 @@ module.exports = function(grunt) {
                 "app/modules/**/*.html",
                 "app/editor/plugins/**/*.html",
                 "app/engine/plugins/**/*.html",
+                "app/engine/modules/**/*.html",
                 "app/player/templates/**/*.html"
             ]
         },

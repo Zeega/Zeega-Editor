@@ -578,6 +578,18 @@ __p+='<div   class="youtube-player"  class="visual-target">\n    \n\n    <iframe
 return __p;
 };
 
+this["JST"]["app/engine/modules/askers/asker.html"] = function(obj){
+var __p='';var print=function(){__p+=Array.prototype.join.call(arguments, '')};
+with(obj||{}){
+__p+='<div class="asker-floater">\n    <div class="asker-content">\n        <h3>'+
+( question )+
+'</h3>\n        <div class="sub">'+
+( description )+
+'</div>\n        <div class="options">\n            <a href="#" class="ask-cancel">cancel</a>\n            <a class="ask-okay btnz btnz-submit">Okay</a>\n        </div>\n    </div>\n</div>';
+}
+return __p;
+};
+
 this["JST"]["app/player/templates/controls/arrows.html"] = function(obj){
 var __p='';var print=function(){__p+=Array.prototype.join.call(arguments, '')};
 with(obj||{}){
