@@ -34205,9 +34205,15 @@ function( Zeega, ControlView ) {
     return {
         checkbox: ControlView.extend({
 
-            //propertyName: "checkbox", // autoset
-            
             template: "checkbox/checkbox",
+
+            init: function() {
+                this.model.on("change:attr", this.heardChange, this );
+            },
+
+            heardChange: function( model, attr ) {
+                this.render();
+            },
 
             serialize: function() {
                 return _.extend({}, this.model.toJSON(), this._userOptions );
@@ -34225,7 +34231,7 @@ function( Zeega, ControlView ) {
                 var attr = {};
 
                 attr[ this.propertyName ] = this.$("input").is(":checked");
-                this.update( attr );
+                if ( this._userOptions ) this.update( attr );
 
                 if ( this._userOptions.triggerEvent ) {
                     this.model.trigger( this._userOptions.triggerEvent, attr );
@@ -35588,6 +35594,7 @@ function( app, Layer, Visual, Asker ){
                 type: "checkbox",
                 options: {
                     title: "fullscreen",
+                    save: false,
                     propertyName: "page_background",
                     triggerEvent: "toggle_page_background"
                 }
@@ -35617,6 +35624,7 @@ function( app, Layer, Visual, Asker ){
             }
 
             this.stopListening( this.model );
+            this.model.off("toggle_page_background");
             this.model.on("toggle_page_background", this.togglePageBackgroundState, this );
             
             this.model.off("resized");
