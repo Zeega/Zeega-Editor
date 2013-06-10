@@ -8,6 +8,8 @@ function( app, Zeega ) {
 
     return Backbone.View.extend({
 
+        firstPreview: true,
+
         template: "app/templates/project-head",
 
         serialize: function() {
@@ -188,7 +190,7 @@ function( app, Zeega ) {
                 // debugEvents: true,
                 scalable: true,
 
-                previewMode: "standard",
+                previewMode: this.firstPreview ? "standard>mobile" : "mobile",
                 data: projectData,
                 controls: {
                     arrows: true,
@@ -209,6 +211,8 @@ function( app, Zeega ) {
 
             this.stopListening( app.zeegaplayer );
             app.zeegaplayer.on("player_destroyed", this.stopListeningToPlayer, this );
+
+            this.firstPreview = false;
         },
 
         stopListeningToPlayer: function() {

@@ -1017,7 +1017,7 @@ return __p;
 this["JST"]["app/player/templates/layouts/player-layout.html"] = function(obj){
 var __p='';var print=function(){__p+=Array.prototype.join.call(arguments, '')};
 with(obj||{}){
-__p+='<div class="ZEEGA-player-wrapper">\n    <div class=\'ZEEGA-player-window\'></div>\n</div>';
+__p+='<div class="ZEEGA-player-wrapper">\n    <div class="ZEEGA-player-window"></div>\n</div>';
 }
 return __p;
 };
@@ -36688,7 +36688,8 @@ function( app, _Layer, Visual ) {
         //Preserve the original defaults by passing an empty object as the target
         //The object is used to get global flags like embedCSS.
         var options = $.extend({}, defaults, options);
-        
+        var opts = options;
+
         //CSS styles are only added once.
         if ($('#css-ddslick').length <= 0 && options.embedCSS) {
             $(ddslickCSS).appendTo('head');
@@ -36698,8 +36699,8 @@ function( app, _Layer, Visual ) {
         return this.each(function () {
             //Preserve the original defaults by passing an empty object as the target 
             //The object is used to save drop-down's corresponding settings and data.
-            var options = $.extend({}, defaults, options);
-            
+            var options = $.extend({}, defaults, opts);
+
             var obj = $(this),
                 data = obj.data('ddslick');
             //If the plugin has not been initialized yet
@@ -36755,7 +36756,7 @@ function( app, _Layer, Visual ) {
                         '<a class="dd-option">' +
                             (item.value ? ' <input class="dd-option-value" type="hidden" value="' + item.value + '" />' : '') +
                             (item.imageSrc ? ' <img class="dd-option-image' + (options.imagePosition == "right" ? ' dd-image-right' : '') + '" src="' + item.imageSrc + '" />' : '') +
-                            (item.text ? ' <label class="dd-option-text">' + item.text + '</label>' : '') +
+                            (item.text ? ' <label class="dd-option-text"><i class="font-sample-' + item.text.replace(/ /g,"-") + '"></i></label>' : '') +
                             (item.description ? ' <small class="dd-option-description dd-desc">' + item.description + '</small>' : '') +
                         '</a>' +
                     '</li>');
@@ -37193,7 +37194,7 @@ function( app, _Layer, Visual, TextModal ) {
             citation: false,
             color: "#FFF",
             content: "text",
-            fontSize: 150,
+            fontSize: 375,
             fontFamily: "Archivo Black",
             default_controls: true,
             left: 12.5,
@@ -37416,7 +37417,6 @@ function( app, _Layer, Visual, TextModal ) {
                 textAlign: this.model.getAttr("textAlign"),
                 lineHeight: this.model.getAttr("lineHeight") + "em"
             };
-
             this.$el.css( css );
         },
 
@@ -39509,8 +39509,7 @@ function( app, ControlsView ) {
                     this.resizeWindow();
                 }.bind(this), 300);
 
-            // this.mobileView = this.model.get("previewMode") == "mobile";
-
+            this.mobileView = this.model.get("previewMode") == "mobile";
             // attempt to detect if the parent container is being resized
             app.$( window ).resize( lazyResize );
         },
@@ -39521,15 +39520,21 @@ function( app, ControlsView ) {
 
         afterRender: function() {
             // correctly size the player window
-            this.$(".ZEEGA-player-wrapper").css( this.getWrapperSize() );
+            if ( this.mobileView ) {
+                this.$(".ZEEGA-player-wrapper").css( this.getPlayerSize() );
+            } else {
+                this.$(".ZEEGA-player-wrapper").css( this.getWrapperSize() );
+            }
             this.$(".ZEEGA-player-window").css( this.getPlayerSize() );
 
             this.setPrevNext();
             this.renderControls();
 
-            _.delay(function() {
-                this.controls.toggleSize();
-            }.bind( this ), 1000 );
+            if ( this.model.get("previewMode") == "standard>mobile" ) {
+                _.delay(function() {
+                    this.controls.toggleSize();
+                }.bind( this ), 1000 );
+            }
         },
 
         setPrevNext: function() {
@@ -40409,6 +40414,8 @@ function( app, Zeega ) {
 
     return Backbone.View.extend({
 
+        firstPreview: true,
+
         template: "app/templates/project-head",
 
         serialize: function() {
@@ -40589,7 +40596,7 @@ function( app, Zeega ) {
                 // debugEvents: true,
                 scalable: true,
 
-                previewMode: "standard",
+                previewMode: this.firstPreview ? "standard>mobile" : "mobile",
                 data: projectData,
                 controls: {
                     arrows: true,
@@ -40610,6 +40617,8 @@ function( app, Zeega ) {
 
             this.stopListening( app.zeegaplayer );
             app.zeegaplayer.on("player_destroyed", this.stopListeningToPlayer, this );
+
+            this.firstPreview = false;
         },
 
         stopListeningToPlayer: function() {
