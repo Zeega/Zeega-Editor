@@ -722,18 +722,6 @@ __p+='<div class="workspace-wrapper">\n    <div class="workspace-overlay"></div>
 return __p;
 };
 
-this["JST"]["app/modules/askers/asker.html"] = function(obj){
-var __p='';var print=function(){__p+=Array.prototype.join.call(arguments, '')};
-with(obj||{}){
-__p+='<div class="asker-floater">\n    <div class="asker-content">\n        <h3>'+
-( question )+
-'</h3>\n        <div class="sub">'+
-( description )+
-'</div>\n        <div class="options">\n            <a href="#" class="ask-cancel">cancel</a>\n            <a class="ask-okay btnz btnz-submit">Okay</a>\n        </div>\n    </div>\n</div>';
-}
-return __p;
-};
-
 this["JST"]["app/modules/intro-modal/intro-modal.html"] = function(obj){
 var __p='';var print=function(){__p+=Array.prototype.join.call(arguments, '')};
 with(obj||{}){
@@ -1003,7 +991,13 @@ return __p;
 this["JST"]["app/player/templates/controls/size-toggle.html"] = function(obj){
 var __p='';var print=function(){__p+=Array.prototype.join.call(arguments, '')};
 with(obj||{}){
-__p+='<a href="#" class="size-toggle">\n    <i class="size-toggle-mobile"></i>\n</a>';
+__p+='<a href="#" class="size-toggle">\n    ';
+ if ( previewMode == "mobile" ) { 
+;__p+='\n        <i class="size-toggle-mobile"></i>\n    ';
+ } else { 
+;__p+='\n        <i class="size-toggle-laptop"></i>\n    ';
+ } 
+;__p+='\n</a>';
 }
 return __p;
 };
@@ -34586,7 +34580,7 @@ function( app, ControlView ) {
                         onClose: function() {
                             this.onChange();
                         }.bind( this ),
-                        callback: function( hex ) {
+                        onSelect: function( hex ) {
                             var attr = {};
 
                             attr[ this.propertyName ] = "#" + hex;
@@ -35423,7 +35417,7 @@ function( app, Controls ) {
 
 });
 
-define('modules/askers/asker.view',[
+define('engine/modules/askers/asker.view',[
     "app",
     "backbone"
 ],
@@ -35432,7 +35426,7 @@ function( app ) {
 
     return Backbone.View.extend({
 
-        template: "app/modules/askers/asker",
+        template: "app/engine/modules/askers/asker",
         className: "ZEEGA-asker asker-overlay",
 
         serialize: function() {
@@ -35483,9 +35477,9 @@ function( app ) {
 
 });
 
-define('modules/askers/asker',[
+define('engine/modules/askers/asker',[
     "app",
-    "modules/askers/asker.view",
+    "engine/modules/askers/asker.view",
     "backbone"
 ],
 
@@ -35528,7 +35522,7 @@ define('engine/plugins/layers/image/image',[
     "app",
     "engine/modules/layer.model",
     "engine/modules/layer.visual.view",
-    "modules/askers/asker",
+    "engine/modules/askers/asker",
 
     //plugins
     "engineVendor/jquery.imagesloaded.min"
@@ -35631,6 +35625,7 @@ function( app, Layer, Visual, Asker ){
         },
 
         onResize: function( attr ) {
+            /*
             if ( attr.width > 100 || attr.height > 100 ) {
                 new Asker({
                     question: "Make this layer fullscreen?",
@@ -35640,6 +35635,7 @@ function( app, Layer, Visual, Asker ){
                     }.bind( this )
                 });
             }
+            */
         },
 
         determineAspectRatio: function() {
@@ -36383,14 +36379,19 @@ function( app, LayerModel, Visual ) {
         attr: {
             backgroundColor: "#FFFFFF",
             citation: false,
-            height: 100,
-            left: 0,
+            // height: 100,
+            // left: 0,
             linkable: false,
             opacity: 0.75,
             title: "Color Layer",
-            top: 0,
-            width: 100,
-            dissolve: true
+            // top: 0,
+            // width: 100,
+            dissolve: true,
+
+            height: 112.67,
+            width: 236.72,
+            top: -6.57277,
+            left: -68.4375
         },
 
         controls: [
@@ -38370,14 +38371,17 @@ function( app, SequenceModel, FrameCollection, LayerCollection, LayerModels ) {
 
             // generate classed layers and add their visual counterparts
             classedLayers = _.map( layers, function( layer ) {
-                var layerModel = new LayerModels[ layer.type ]( layer );
 
-                layerModel.initVisual( LayerModels[ layer.type ] );
-                
-                return layerModel;
+                if ( LayerModels[ layer.type ]) {
+                    var layerModel = new LayerModels[ layer.type ]( layer );
+
+                    layerModel.initVisual( LayerModels[ layer.type ] );
+
+                    return layerModel;
+                }
             });
 
-            layerCollection = new LayerCollection( classedLayers );
+            layerCollection = new LayerCollection( _.compact( classedLayers ));
 
             this.each(function( sequence ) {
                 var seqFrames;
@@ -39341,7 +39345,11 @@ function( app ) {
 
     return app.Backbone.Layout.extend({
         template: "app/player/templates/controls/size-toggle",
-        className: "ZEEGA-player-control controls-screen-toggle"
+        className: "ZEEGA-player-control controls-screen-toggle",
+
+        serialize: function() {
+            return this.model.toJSON();
+        }
     });
 
 });
@@ -39379,7 +39387,7 @@ function( app, ArrowView, CloseView, PlayPauseView, SizeToggle ) {
             }
 
             if ( this.options.settings.sizeToggle ) {
-                this.insertView( new SizeToggle() );
+                this.insertView( new SizeToggle({ model: this.model }) );
             }
         },
 
@@ -39394,7 +39402,9 @@ function( app, ArrowView, CloseView, PlayPauseView, SizeToggle ) {
         toggleSize: function( event ) {
             this.model.trigger("size_toggle");
 
-            this.$(".size-toggle i").toggleClass("size-toggle-laptop").toggleClass("size-toggle-mobile");
+            this.$(".size-toggle i")
+                .toggleClass("size-toggle-laptop")
+                .toggleClass("size-toggle-mobile");
         },
 
         close: function( event ) {
@@ -39478,6 +39488,7 @@ function( app, ControlsView ) {
         className: "ZEEGA-player",
 
         mobileView: false,
+        mobileOrientation: "portrait", // "landscape"
 
         initialize: function() {
             // debounce the resize function so it doesn"t bog down the browser
@@ -39486,7 +39497,7 @@ function( app, ControlsView ) {
                     this.resizeWindow();
                 }.bind(this), 300);
 
-            this.mobileView = this.model.get("previewMode") == "mobile";
+            // this.mobileView = this.model.get("previewMode") == "mobile";
 
             // attempt to detect if the parent container is being resized
             app.$( window ).resize( lazyResize );
@@ -39498,11 +39509,15 @@ function( app, ControlsView ) {
 
         afterRender: function() {
             // correctly size the player window
-            this.$(".ZEEGA-player-wrapper").css( this.mobileView ? this.getPlayerSize() : this.getWrapperSize() );
+            this.$(".ZEEGA-player-wrapper").css( this.getWrapperSize() );
             this.$(".ZEEGA-player-window").css( this.getPlayerSize() );
 
             this.setPrevNext();
             this.renderControls();
+
+            _.delay(function() {
+                this.controls.toggleSize();
+            }.bind( this ), 1000 );
         },
 
         setPrevNext: function() {
@@ -39563,7 +39578,7 @@ function( app, ControlsView ) {
 
         resizeWindow: function() {
             // animate the window size in place
-            var css = this.mobileView ? this.getPlayerSize() : this.getWrapperSize();
+            var css = this.getWrapperSize();
 
             this.$(".ZEEGA-player-wrapper").css( css );
             this.$(".ZEEGA-player-window").css( this.getPlayerSize() );
@@ -39573,7 +39588,7 @@ function( app, ControlsView ) {
         },
 
         getPlayerSize: function() {
-            var windowRatio, winHeight,
+            var windowRatio, screenRatio, winHeight, winWidth,
                 css = {
                     width: 0,
                     height: 0,
@@ -39581,12 +39596,30 @@ function( app, ControlsView ) {
                     left: 0
                 };
 
-            windowRatio = this.model.get("windowRatio");
             winHeight = app.$( this.model.get("target") ).find(".ZEEGA-player").height();
+            winWidth = app.$( this.model.get("target") ).find(".ZEEGA-player").width();
 
-            css.width = winHeight * windowRatio;
-            css.height = winHeight;
-            css.top = (winHeight - css.height) / 2;
+            windowRatio = this.model.get("windowRatio");
+            screenRatio = winWidth / winHeight;
+
+            if ( this.mobileView ) {
+                if ( screenRatio < windowRatio ) { // vertical
+                    var wrapperHeight = ( winWidth / windowRatio ) * 1.1326;
+
+                    css.width = winWidth;
+                    css.height = winWidth / windowRatio;
+                    css.top = (wrapperHeight - css.height) / 2;
+                } else { // portrait
+                    css.height = winHeight;
+                    css.width = css.height * windowRatio;
+                    css.top = 0;
+                }
+            } else {
+                css.width = winHeight * windowRatio;
+                css.height = winHeight;
+                css.top = (winHeight - css.height) / 2;
+            }
+
             css.fontSize = ( css.width / 520 ) +'em';
 
             return css;
@@ -39594,7 +39627,7 @@ function( app, ControlsView ) {
 
         // calculate and return the correct window size for the player window
         getWrapperSize: function() {
-            var windowRatio, winWidth, winHeight, actualRatio, playerMaxWidth, playerMinWidth,
+            var windowRatio, winWidth, winHeight, screenRatio, playerMaxWidth, playerMinWidth,
                 css = {
                     width: 0,
                     height: 0,
@@ -39605,14 +39638,21 @@ function( app, ControlsView ) {
             windowRatio = this.model.get("windowRatio");
             winWidth = app.$( this.model.get("target") ).find(".ZEEGA-player").width();
             winHeight = app.$( this.model.get("target") ).find(".ZEEGA-player").height();
-            actualRatio = winWidth / winHeight;
+            screenRatio = winWidth / winHeight;
 
             playerMaxWidth = winHeight * (16/9);
             playerMinWidth = winHeight * windowRatio;
 
-
             if ( this.model.get("mobile") ) {
+                css.width = winWidth;
+                css.height = ( winWidth / windowRatio ) * 1.1326;
 
+                if ( screenRatio < windowRatio ) { // vertical
+                    css.top = ( winHeight - css.height ) / 2;
+                } else { // portrait
+                    css.top = 0;
+                }
+                
             } else {
                 css.width = winWidth < playerMaxWidth ? winWidth : playerMaxWidth;
                 css.height = winHeight;
@@ -40537,7 +40577,7 @@ function( app, Zeega ) {
                 // debugEvents: true,
                 scalable: true,
 
-                previewMode: "mobile",
+                previewMode: "standard",
                 data: projectData,
                 controls: {
                     arrows: true,
@@ -40577,7 +40617,7 @@ function( app, Zeega ) {
 
 define('modules/views/frame',[
     "app",
-    "modules/askers/asker",
+    "engine/modules/askers/asker",
     "backbone"
 ],
 
@@ -41222,7 +41262,7 @@ define("tipsy", function(){});
 define('modules/views/layer-list',[
     "app",
     "modules/views/layer-controls",
-    "modules/askers/asker",
+    "engine/modules/askers/asker",
     "backbone",
     "tipsy"
 ],

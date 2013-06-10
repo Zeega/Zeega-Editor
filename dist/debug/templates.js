@@ -336,18 +336,6 @@ __p+='<div class="workspace-wrapper">\n    <div class="workspace-overlay"></div>
 return __p;
 };
 
-this["JST"]["app/modules/askers/asker.html"] = function(obj){
-var __p='';var print=function(){__p+=Array.prototype.join.call(arguments, '')};
-with(obj||{}){
-__p+='<div class="asker-floater">\n    <div class="asker-content">\n        <h3>'+
-( question )+
-'</h3>\n        <div class="sub">'+
-( description )+
-'</div>\n        <div class="options">\n            <a href="#" class="ask-cancel">cancel</a>\n            <a class="ask-okay btnz btnz-submit">Okay</a>\n        </div>\n    </div>\n</div>';
-}
-return __p;
-};
-
 this["JST"]["app/modules/intro-modal/intro-modal.html"] = function(obj){
 var __p='';var print=function(){__p+=Array.prototype.join.call(arguments, '')};
 with(obj||{}){
@@ -617,7 +605,13 @@ return __p;
 this["JST"]["app/player/templates/controls/size-toggle.html"] = function(obj){
 var __p='';var print=function(){__p+=Array.prototype.join.call(arguments, '')};
 with(obj||{}){
-__p+='<a href="#" class="size-toggle">\n    <i class="size-toggle-mobile"></i>\n</a>';
+__p+='<a href="#" class="size-toggle">\n    ';
+ if ( previewMode == "mobile" ) { 
+;__p+='\n        <i class="size-toggle-mobile"></i>\n    ';
+ } else { 
+;__p+='\n        <i class="size-toggle-laptop"></i>\n    ';
+ } 
+;__p+='\n</a>';
 }
 return __p;
 };
