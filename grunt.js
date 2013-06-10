@@ -145,6 +145,16 @@ module.exports = function(grunt) {
                 }
             },
 
+            fonts: {
+                options: {
+                    flatten: false
+                },
+                files: {
+                    "dist/debug/fonts/comic-book/": "assets/css/fonts/comic-book/*",
+                    "dist/release/fonts/comic-book/": "assets/css/fonts/comic-book/*"
+                }
+            },
+
             moveAll: {
                 options: {
                     flatten: true
