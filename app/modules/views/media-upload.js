@@ -191,7 +191,6 @@ function( app, ItemView ) {
 
                     $(".intro").remove();
                     this.addItem( item );
-                    this.render();
                 }.bind(this)
             });
         }

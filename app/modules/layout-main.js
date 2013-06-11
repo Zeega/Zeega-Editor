@@ -28,6 +28,38 @@ function( app, ProjectHead, Frames, Workspace, Layers, LayerDrawer, Soundtrack, 
             app.on("rendered", this.lazyResize, this );
             $( window ).resize( this.lazyResize );
             this.listenForKeys();
+            
+            this.animate = [];
+            this.animate[ 0 ] = 0;
+            this.animate[ 1 ] = 0;
+            this.animate[ 2 ] = 0;
+            app.on("media_drawer_toggle", function( api ){ this.onMediaDrawerToggle( api ); }, this );
+            this.onMediaDrawerToggle("Zeega");
+        },
+
+        onMediaDrawerToggle: function( api ){
+            clearInterval ( this.animateInterval );
+            if( api == "Zeega" || api == "MyZeega" || api == "Giphy" ){
+                var animator = $.proxy(function(){this.animateThumbs();}, this );
+                this.animateInterval = setInterval( animator, 2000 );
+            }
+        },
+
+        animateThumbs: function(){
+
+            $($(".browser-thumb")[this.animate[ 0 ]]).trigger("mouseout");
+            $($(".browser-thumb")[this.animate[ 1 ]]).trigger("mouseout");
+            $($(".browser-thumb")[this.animate[ 2 ]]).trigger("mouseout");
+
+            this.animate[ 0 ] = Math.floor(Math.random( ) * $(".browser-thumb").length );
+            this.animate[ 1 ] = Math.floor(Math.random() * $(".browser-thumb").length  );
+            this.animate[ 2 ] = Math.floor(Math.random() * $(".browser-thumb").length );
+
+            $($(".browser-thumb")[this.animate[ 0 ]]).trigger("mouseover");
+            $($(".browser-thumb")[this.animate[ 1 ]]).trigger("mouseover");
+            $($(".browser-thumb")[this.animate[ 2 ]]).trigger("mouseover");
+
+
         },
 
         beforeRender: function() {
