@@ -96,6 +96,17 @@ function( app ) {
             app.layout.$(".intro").remove();
             item.url = app.api + "items";
             item.on("sync", this.refreshUploads, this );
+
+            if( item.get("thumbnail_url").indexOf(".gif")>0 ){
+                item.set({
+                    "attributes": {
+                        animate_url: item.get("thumbnail_url")
+                    }
+                });
+                item.unset("thumbnail_url");
+            }
+            
+
             item.save();
             if ( item.get("layer_type")  && _.contains( ["Audio"], item.get("layer_type") )) {
                 app.status.get('currentSequence').setSoundtrack( item, app.layout.soundtrack );

@@ -8,7 +8,7 @@ function( app, ItemView ) {
     return Backbone.View.extend({
 
         className: function() {
-            return "item item-" + this.model.id; 
+            return "item item-" + this.model.id;
         },
         tagName: "li",
         template: "app/templates/item",
@@ -52,10 +52,18 @@ function( app, ItemView ) {
             if( this.model.get("archive") == "Giphy" ){
                 this.$("img").attr("src", this.model.get("thumbnail_url").replace("_s.gif", ".gif"));
             }
+
+            if( !_.isUndefined( this.model.get("attributes").animate_url ) ){
+                this.$("img").attr("src", this.model.get("attributes").animate_url );
+            }
         },
 
         onMouseOut: function(){
             if( this.model.get("archive") == "Giphy" ){
+                this.$("img").attr("src", this.model.get("thumbnail_url"));
+            }
+
+            if( !_.isUndefined( this.model.get("attributes").animate_url ) ){
                 this.$("img").attr("src", this.model.get("thumbnail_url"));
             }
         },
