@@ -78,7 +78,7 @@ function( app, Asker ) {
         deleteFrame: function() {
             new Asker({
                 question: "Do you really want to delete this page?",
-                description: "You cannot undo this!",
+                description: "This cannot be undone.",
                 okay: function() {
                     $(".tipsy").remove();
                     app.emit("page_delete", this.model );
