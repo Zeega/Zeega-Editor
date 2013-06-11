@@ -43265,7 +43265,7 @@ function( app, ItemView ) {
     return Backbone.View.extend({
 
         className: function() {
-            return "item item-" + this.model.id; 
+            return "item item-" + this.model.id;
         },
         tagName: "li",
         template: "app/templates/item",
@@ -43309,10 +43309,18 @@ function( app, ItemView ) {
             if( this.model.get("archive") == "Giphy" ){
                 this.$("img").attr("src", this.model.get("thumbnail_url").replace("_s.gif", ".gif"));
             }
+
+            if( !_.isUndefined( this.model.get("attributes").animate_url ) ){
+                this.$("img").attr("src", this.model.get("attributes").animate_url );
+            }
         },
 
         onMouseOut: function(){
             if( this.model.get("archive") == "Giphy" ){
+                this.$("img").attr("src", this.model.get("thumbnail_url"));
+            }
+
+            if( !_.isUndefined( this.model.get("attributes").animate_url ) ){
                 this.$("img").attr("src", this.model.get("thumbnail_url"));
             }
         },
@@ -43355,10 +43363,11 @@ function( app, ItemView ) {
 
 define('modules/views/media-upload',[
     "app",
+    "modules/views/item",
     "backbone"
 ],
 
-function( app ) {
+function( app, ItemView ) {
 
     var UploadItem = Backbone.Model.extend({
         url: app.api + "items",
@@ -43380,6 +43389,10 @@ function( app ) {
             "editable": true,
             "published": false,
             "enabled": true
+        },
+
+        initialize: function() {
+            this.view = new ItemView({ model: this });
         }
     });
 
@@ -43400,7 +43413,13 @@ function( app ) {
                 return array();
             }
 
-            item = res.items[ 0 ];
+            if(!_.isUndefined(res.item)){
+                item = res.item[ 0 ];
+            } else {
+                item = res.items[ 0 ];
+            }
+
+            
             item.editable = -1;
 
             return item;
@@ -43451,7 +43470,19 @@ function( app ) {
             app.layout.$(".intro").remove();
             item.url = app.api + "items";
             item.on("sync", this.refreshUploads, this );
+
+            if( item.get("thumbnail_url").indexOf(".gif")>0 ){
+                item.set({
+                    "attributes": {
+                        animate_url: item.get("thumbnail_url")
+                    }
+                });
+                item.unset("thumbnail_url");
+            }
+            
+
             item.save();
+
             if ( item.get("layer_type")  && _.contains( ["Audio"], item.get("layer_type") )) {
                 app.status.get('currentSequence').setSoundtrack( item, app.layout.soundtrack );
             } else {
@@ -43465,8 +43496,11 @@ function( app ) {
             item.fetch();
         },
 
-        refreshUploads: function(){
-            this.model.search("");
+        refreshUploads: function( item ){
+
+            this.model.mediaCollection.add( item, {at:0} );
+            this.model.mediaCollection.trigger("sync");
+
         },
         updateProgress: function(){
             console.log("updating progress");
@@ -45006,7 +45040,7 @@ function( app, ItemModel, CollectionView, Collection, ItemCollectionViewer ) {
             var args = this.get("urlArguments");
 
             args.before = new Date().getTime();
-            args.tag = query;
+            args.tag = query.replace( " ", "-" );
             args.url = "http://www.tumblr.com/tagged/" + args.tag + "/before/" + args.before;
 
             this.set("urlArguments", args );

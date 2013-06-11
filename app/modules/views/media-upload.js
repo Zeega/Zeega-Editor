@@ -1,9 +1,10 @@
 define([
     "app",
+    "modules/views/item",
     "backbone"
 ],
 
-function( app ) {
+function( app, ItemView ) {
 
     var UploadItem = Backbone.Model.extend({
         url: app.api + "items",
@@ -25,6 +26,10 @@ function( app ) {
             "editable": true,
             "published": false,
             "enabled": true
+        },
+
+        initialize: function() {
+            this.view = new ItemView({ model: this });
         }
     });
 
@@ -45,7 +50,13 @@ function( app ) {
                 return array();
             }
 
-            item = res.items[ 0 ];
+            if(!_.isUndefined(res.item)){
+                item = res.item[ 0 ];
+            } else {
+                item = res.items[ 0 ];
+            }
+
+            
             item.editable = -1;
 
             return item;
@@ -96,7 +107,19 @@ function( app ) {
             app.layout.$(".intro").remove();
             item.url = app.api + "items";
             item.on("sync", this.refreshUploads, this );
+
+            if( item.get("thumbnail_url").indexOf(".gif")>0 ){
+                item.set({
+                    "attributes": {
+                        animate_url: item.get("thumbnail_url")
+                    }
+                });
+                item.unset("thumbnail_url");
+            }
+            
+
             item.save();
+
             if ( item.get("layer_type")  && _.contains( ["Audio"], item.get("layer_type") )) {
                 app.status.get('currentSequence').setSoundtrack( item, app.layout.soundtrack );
             } else {
@@ -110,8 +133,11 @@ function( app ) {
             item.fetch();
         },
 
-        refreshUploads: function(){
-            this.model.search("");
+        refreshUploads: function( item ){
+
+            this.model.mediaCollection.add( item, {at:0} );
+            this.model.mediaCollection.trigger("sync");
+
         },
         updateProgress: function(){
             console.log("updating progress");
