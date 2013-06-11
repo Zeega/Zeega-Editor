@@ -191,7 +191,7 @@ function( app, UploadView, Spinner ) {
     
     Views.MyZeega       = Views.Zeega.extend({
 
-        template: "media-collection",
+        template: "app/templates/media-collection",
 
         _afterRender: function(){
             var uploadView = new UploadView({ model: this.model });
