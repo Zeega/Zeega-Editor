@@ -35622,13 +35622,6 @@ function( app, Layer, Visual, Asker ){
             if ( this.model.getAttr("page_background")) {
                 this.visualProperties = ["opacity"];
             }
-
-            this.stopListening( this.model );
-            this.model.off("toggle_page_background");
-            this.model.on("toggle_page_background", this.togglePageBackgroundState, this );
-            
-            this.model.off("resized");
-            this.model.on("resized", this.onResize, this );
         },
 
         afterEditorRender: function() {
@@ -35642,6 +35635,10 @@ function( app, Layer, Visual, Asker ){
                 this.makePageBackground();
                 this.disableDrag();
             }
+
+            this.stopListening( this.model );
+            this.model.on("toggle_page_background", this.togglePageBackgroundState, this );
+            this.model.on("resized", this.onResize, this );
         },
 
         onResize: function( attr ) {
@@ -37227,7 +37224,7 @@ function( app, _Layer, Visual, TextModal ) {
                 type: "resize",
                 options: {
                     aspectRatio: false,
-                    handles: "se"
+                    handles: "e"
                 }
             },
             { type: "slider",
@@ -37320,6 +37317,16 @@ function( app, _Layer, Visual, TextModal ) {
             "opacity",
             "lineHeight"
         ],
+
+        init: function() {
+            this.model.off("resized");
+            this.model.on("resized", this.onResize, this );
+        },
+
+        onResize: function() {
+            console.log("ONRESIZE")
+            this.$el.css({ height: "auto"});
+        },
 
         serialize: function() {
             return this.model.toJSON();
@@ -43110,7 +43117,7 @@ function( app, ProjectHead, Frames, Workspace, Layers, LayerDrawer, Soundtrack, 
                         pointDirection: "left",
                         verticalDivision: 4
                     },{
-                        target: ".soundtrack",
+                        target: ".ZEEGA-workspace",
                         content: "…to here",
                         color: "blue",
                         canCancel: true,
@@ -43157,26 +43164,7 @@ function( app, ProjectHead, Frames, Workspace, Layers, LayerDrawer, Soundtrack, 
                     }]
                 }
 
-            ],
-
-        YTSequence: [{
-            listenFor: "item_dropped",
-
-            pointers: [{
-                target: ".ZEEGA-workspace",
-                content: "Now add a cover image to your video",
-                color: "red",
-                canCancel: true,
-                pointDirection: "right"
-            },{
-                target: ".socialz-giphy",
-                content: "Drag a GIF or photo",
-                color: "blue",
-                canCancel: false,
-                pointDirection: "left",
-                verticalDivision: 4
-            }]
-        }]
+            ]
 
     });
 
