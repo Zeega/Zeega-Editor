@@ -114,6 +114,7 @@ function( app ) {
             
 
             item.save();
+
             if ( item.get("layer_type")  && _.contains( ["Audio"], item.get("layer_type") )) {
                 app.status.get('currentSequence').setSoundtrack( item, app.layout.soundtrack );
             } else {
@@ -127,8 +128,11 @@ function( app ) {
             item.fetch();
         },
 
-        refreshUploads: function(){
-            this.model.search("");
+        refreshUploads: function( item ){
+
+            this.model.mediaCollection.add( item, {at:0} );
+            this.model.mediaCollection.trigger("sync");
+
         },
         updateProgress: function(){
             console.log("updating progress");
