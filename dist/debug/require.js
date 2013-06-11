@@ -33845,6 +33845,10 @@ function( app ) {
             this.create();
         },
 
+        $getVisual: function() {
+            return this.model.visual.$el.find(".visual-target");
+        },
+
         _onFocus: function() {
             this.onFocus();
         },
@@ -33877,8 +33881,7 @@ function( app ) {
         }, 500 ),
 
         updateVisual: function( value ) {
-            // console.log("UPDATE visual", this, this.$visual, value )
-            this.$visual.css( this.propertyName, value );
+            this.$getVisual().css( this.propertyName, value );
         },
 
         onPropertyUpdate: function() {},
@@ -40736,7 +40739,7 @@ function( app, Asker ) {
         deleteFrame: function() {
             new Asker({
                 question: "Do you really want to delete this page?",
-                description: "You cannot undo this!",
+                description: "This cannot be undone.",
                 okay: function() {
                     $(".tipsy").remove();
                     app.emit("page_delete", this.model );
