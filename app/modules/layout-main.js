@@ -184,7 +184,7 @@ function( app, ProjectHead, Frames, Workspace, Layers, LayerDrawer, Soundtrack, 
                         pointDirection: "left",
                         verticalDivision: 4
                     },{
-                        target: ".soundtrack",
+                        target: ".ZEEGA-workspace",
                         content: "…to here",
                         color: "blue",
                         canCancel: true,
@@ -231,26 +231,7 @@ function( app, ProjectHead, Frames, Workspace, Layers, LayerDrawer, Soundtrack, 
                     }]
                 }
 
-            ],
-
-        YTSequence: [{
-            listenFor: "item_dropped",
-
-            pointers: [{
-                target: ".ZEEGA-workspace",
-                content: "Now add a cover image to your video",
-                color: "red",
-                canCancel: true,
-                pointDirection: "right"
-            },{
-                target: ".socialz-giphy",
-                content: "Drag a GIF or photo",
-                color: "blue",
-                canCancel: false,
-                pointDirection: "left",
-                verticalDivision: 4
-            }]
-        }]
+            ]
 
     });
 

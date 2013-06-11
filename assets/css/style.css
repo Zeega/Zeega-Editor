@@ -1501,46 +1501,6 @@ body .ui-tooltip {
   border-radius: 5px;
 }
 
-.ZEEGA-asker {
-  position: fixed;
-  top: 0;
-  left: 0;
-  height: 100%;
-  width: 100%;
-  z-index: 100;
-  background: url(../img/tiny-stripes.png);
-}
-.ZEEGA-asker h3,
-.ZEEGA-asker h2 {
-  margin: 0 0 20px 0;
-}
-.ZEEGA-asker .sub {
-  color: #666;
-  font-size: 14px;
-}
-.ZEEGA-asker .asker-floater {
-  background: white;
-  width: 400px;
-  height: 100px;
-  border-radius: 2px;
-  margin: auto;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  position: absolute;
-  padding: 20px;
-  box-shadow: 0 0 10px;
-  font-family: "Futura", sans-serif;
-}
-.ZEEGA-asker .options {
-  bottom: 30px;
-  position: absolute;
-  right: 20px;
-}
-.ZEEGA-asker .btnz-submit {
-  margin-left: 20px;
-}
 .ZEEGA-intro-modal {
   display: none;
   position: absolute;
@@ -1793,6 +1753,7 @@ body .ui-tooltip {
 .visual-textv2 .visual-target {
   overflow: visible;
   text-overflow: ellipsis;
+  word-wrap: break-word;
 }
 .visual-textv2 .ui-resizable-e {
   background: yellow;
@@ -2404,6 +2365,10 @@ body .ui-tooltip {
   border: 2px solid transparent;
   background-color: orangered;
 }
+.ui-resizable-handle.ui-resizable-e {
+  width: 8px;
+  right: -6px;
+}
 .ui-resizable-handle.ui-resizable-ne {
   top: -10px;
   right: -10px;
@@ -2659,11 +2624,11 @@ body .ui-tooltip {
   position: relative;
 }
 .ZEEGA-player-wrapper {
+  position: absolute;
   background: black;
   overflow: hidden;
   margin: auto;
-  border-left: 1px solid #333;
-  border-right: 1px solid #333;
+  outline: 1px solid #333;
   transition: height 0.5s;
   -webkit-transition: height 0.5s;
   transition: width 0.5s;
@@ -6058,7 +6023,7 @@ a:active {
   background: url(../img/workspace-sheen.png);
   background-size: cover;
   background-position: center;
-  opacity: 0.75;
+  opacity: 0.15;
   border: 1px solid white;
   border-radius: 10px;
 }
