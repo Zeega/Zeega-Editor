@@ -43282,10 +43282,11 @@ function( app, ItemView ) {
 
 define('modules/views/media-upload',[
     "app",
+    "modules/views/item",
     "backbone"
 ],
 
-function( app ) {
+function( app, ItemView ) {
 
     var UploadItem = Backbone.Model.extend({
         url: app.api + "items",
@@ -43307,6 +43308,10 @@ function( app ) {
             "editable": true,
             "published": false,
             "enabled": true
+        },
+
+        initialize: function() {
+            this.view = new ItemView({ model: this });
         }
     });
 

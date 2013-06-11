@@ -1827,9 +1827,9 @@ body .ui-tooltip {
   padding: 10px 0;
   background-color: rgba(50, 205, 50, 0.75);
   display: inline-block;
-  width: 60px;
+  width: 80px;
   float: left;
-  font-size: 12px;
+  font-size: 13px;
   text-align: center;
   margin-top: 10px;
   line-height: 1.5em;
@@ -1845,7 +1845,7 @@ body .ui-tooltip {
   padding-top: 30px;
 }
 .text-modal .page-chooser-list {
-  width: 440px;
+  width: 420px;
   background: white;
   overflow: auto;
   white-space: nowrap;
@@ -1855,7 +1855,7 @@ body .ui-tooltip {
 .text-modal .page-chooser-list .page {
   background: black;
   height: 60px;
-  width: 45px;
+  width: 80px;
   margin-right: 10px;
   white-space: nowrap;
   display: inline-block;
@@ -6337,7 +6337,7 @@ a:active {
   border-radius: 2px;
   border: none;
   padding: 4px;
-  width: 208px;
+  width: 200px;
   margin: 0;
 }
 .media-collection .submit {
