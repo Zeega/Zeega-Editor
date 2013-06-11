@@ -190,7 +190,7 @@ function( app, Zeega ) {
                 // debugEvents: true,
                 scalable: true,
 
-                previewMode: this.firstPreview ? "standard>mobile" : "mobile",
+                previewMode: "mobile",
                 data: projectData,
                 controls: {
                     arrows: true,

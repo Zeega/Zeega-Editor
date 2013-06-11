@@ -133,7 +133,6 @@ function( app, ProjectHead, Frames, Workspace, Layers, LayerDrawer, Soundtrack, 
         initTips: function() {
             // see http://onehackoranother.com/projects/jquery/tipsy/ for docs
             $("[title]").tipsy({
-
                 fade: true,
                 gravity: function() {
                     return $(this).data("gravity") || "s";
