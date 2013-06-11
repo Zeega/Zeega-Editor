@@ -34235,7 +34235,7 @@ function( Zeega, ControlView ) {
                 var attr = {};
 
                 attr[ this.propertyName ] = this.$("input").is(":checked");
-                if ( this._userOptions ) this.update( attr );
+                if ( this._userOptions.save ) this.update( attr );
 
                 if ( this._userOptions.triggerEvent ) {
                     this.model.trigger( this._userOptions.triggerEvent, attr );
@@ -35708,10 +35708,13 @@ function( app, Layer, Visual, Asker ){
         },
 
         makePageBackground: function() {
-            _.each( this.model.pageBackgroundPositioning, function( val, key ) {
+            var vals = _.extend({}, this.model.pageBackgroundPositioning );
+            
+            _.each( vals, function( val, key ) {
                 this.$el.css( key, val +"%" );
             }, this );
-            this.model.saveAttr( this.model.pageBackgroundPositioning );
+
+            this.model.saveAttr(_.extend({ page_background: true }, vals ));
         },
 
         fitToWorkspace: function() {
@@ -36518,7 +36521,7 @@ function( app, LayerModel, Visual ) {
             _.each( this.model.pageBackgroundPositioning, function( val, key ) {
                 this.$el.css( key, val +"%" );
             }, this );
-            this.model.saveAttr( this.model.pageBackgroundPositioning );
+            this.model.saveAttr( _.extend({ page_background: true }, this.model.pageBackgroundPositioning ));
         },
 
         fitToWorkspace: function() {
@@ -36543,7 +36546,7 @@ function( app, LayerModel, Visual ) {
                 top: top,
                 left: left
             });
-        },
+        }
 
   });
 
@@ -43046,6 +43049,38 @@ function( app, ProjectHead, Frames, Workspace, Layers, LayerDrawer, Soundtrack, 
             app.on("rendered", this.lazyResize, this );
             $( window ).resize( this.lazyResize );
             this.listenForKeys();
+            
+            this.animate = [];
+            this.animate[ 0 ] = 0;
+            this.animate[ 1 ] = 0;
+            this.animate[ 2 ] = 0;
+            app.on("media_drawer_toggle", function( api ){ this.onMediaDrawerToggle( api ); }, this );
+            this.onMediaDrawerToggle("Zeega");
+        },
+
+        onMediaDrawerToggle: function( api ){
+            clearInterval ( this.animateInterval );
+            if( api == "Zeega" || api == "MyZeega" || api == "Giphy" ){
+                var animator = $.proxy(function(){this.animateThumbs();}, this );
+                this.animateInterval = setInterval( animator, 2000 );
+            }
+        },
+
+        animateThumbs: function(){
+
+            $($(".browser-thumb")[this.animate[ 0 ]]).trigger("mouseout");
+            $($(".browser-thumb")[this.animate[ 1 ]]).trigger("mouseout");
+            $($(".browser-thumb")[this.animate[ 2 ]]).trigger("mouseout");
+
+            this.animate[ 0 ] = Math.floor(Math.random( ) * $(".browser-thumb").length );
+            this.animate[ 1 ] = Math.floor(Math.random() * $(".browser-thumb").length  );
+            this.animate[ 2 ] = Math.floor(Math.random() * $(".browser-thumb").length );
+
+            $($(".browser-thumb")[this.animate[ 0 ]]).trigger("mouseover");
+            $($(".browser-thumb")[this.animate[ 1 ]]).trigger("mouseover");
+            $($(".browser-thumb")[this.animate[ 2 ]]).trigger("mouseover");
+
+
         },
 
         beforeRender: function() {
@@ -43554,7 +43589,6 @@ function( app, ItemView ) {
 
                     $(".intro").remove();
                     this.addItem( item );
-                    this.render();
                 }.bind(this)
             });
         }
