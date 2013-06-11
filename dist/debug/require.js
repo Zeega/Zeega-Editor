@@ -43327,7 +43327,7 @@ function( app ) {
                 return array();
             }
 
-            item = res.items[ 0 ];
+            item = res.item[ 0 ];
             item.editable = -1;
 
             return item;
@@ -44944,7 +44944,7 @@ function( app, ItemModel, CollectionView, Collection, ItemCollectionViewer ) {
             var args = this.get("urlArguments");
 
             args.before = new Date().getTime();
-            args.tag = query;
+            args.tag = query.replace( " ", "-" );
             args.url = "http://www.tumblr.com/tagged/" + args.tag + "/before/" + args.before;
 
             this.set("urlArguments", args );

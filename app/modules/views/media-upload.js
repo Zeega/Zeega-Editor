@@ -45,7 +45,7 @@ function( app ) {
                 return array();
             }
 
-            item = res.items[ 0 ];
+            item = res.item[ 0 ];
             item.editable = -1;
 
             return item;
