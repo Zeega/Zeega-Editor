@@ -225,6 +225,7 @@ module.exports = function(grunt) {
                         "assets/css/modules.less",
                         "assets/css/layers.less",
                         "assets/css/controls.less",
+                        "app/engine/modules/**/*.less",
                         "app/player/assets/css/player.css",
                         "assets/css/less/_all.less"
                     ]
