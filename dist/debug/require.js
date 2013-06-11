@@ -43327,7 +43327,13 @@ function( app ) {
                 return array();
             }
 
-            item = res.item[ 0 ];
+            if(!_.isUndefined(res.item)){
+                item = res.item[ 0 ];
+            } else {
+                item = res.items[ 0 ];
+            }
+
+            
             item.editable = -1;
 
             return item;
