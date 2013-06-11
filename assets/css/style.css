@@ -2658,6 +2658,9 @@ body .ui-tooltip {
   width: 100%;
   opacity: 0.01;
 }
+.ZEEGA-player.mobile-player {
+  background: black;
+}
 .ZEEGA-player .ZEEGA-player-window,
 .ZEEGA-player .ZEEGA-player-overlay {
   margin: 0 auto;
@@ -5377,10 +5380,10 @@ body {
   padding: 20px;
 }
 .ZEEGA-modal .arrow-left {
-  left: 20px;
+  left: -40px !important;
 }
 .ZEEGA-modal .arrow-right {
-  right: 20px;
+  right: -40px !important;
 }
 .ZEEGA-modal .arrow {
   display: inline-block;

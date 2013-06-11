@@ -431,7 +431,7 @@ return __p;
 this["JST"]["app/templates/item-collection-viewer.html"] = function(obj){
 var __p='';var print=function(){__p+=Array.prototype.join.call(arguments, '')};
 with(obj||{}){
-__p+='<a href="#" class="prev arrow arrow-left"></a>\n<a href="#" class="next arrow arrow-right"></a>\n\n<div class="modal-content">\n\n    <div class="modal-title"></div>\n    <a href="#" class="modal-close">&times;</a>\n    <div class="modal-body"></div>\n    <div class="modal-footer"></div>\n</div>\n';
+__p+='<div class="modal-content">\n\n    <a href="#" class="prev arrow arrow-left"></a>\n    <a href="#" class="next arrow arrow-right"></a>\n\n    <div class="modal-title"></div>\n    <a href="#" class="modal-close">&times;</a>\n    <div class="modal-body"></div>\n    <div class="modal-footer"></div>\n</div>\n';
 }
 return __p;
 };
@@ -1005,9 +1005,9 @@ var __p='';var print=function(){__p+=Array.prototype.join.call(arguments, '')};
 with(obj||{}){
 __p+='<a href="#" class="size-toggle">\n    ';
  if ( previewMode == "mobile" ) { 
-;__p+='\n        <i class="size-toggle-mobile"></i>\n    ';
+;__p+='\n        <i class="size-toggle-mobile"\n            title="Switch to laptop view"\n            data-gravity="w"\n        ></i>\n    ';
  } else { 
-;__p+='\n        <i class="size-toggle-laptop"></i>\n    ';
+;__p+='\n        <i class="size-toggle-laptop"\n            title="Switch to mobile view"\n            data-gravity="w"\n        ></i>\n    ';
  } 
 ;__p+='\n</a>';
 }
@@ -39463,8 +39463,49 @@ function( app ) {
         template: "app/player/templates/controls/size-toggle",
         className: "ZEEGA-player-control controls-screen-toggle",
 
+        initialize: function() {
+            this.mobile = this.model.get("previewMode") == "mobile";
+        },
+
         serialize: function() {
             return this.model.toJSON();
+        },
+
+        toggle: function() {
+            this.$("i").tipsy("hide");
+
+            this.mobile = !this.mobile;
+            this.$("i")
+                .toggleClass("size-toggle-laptop")
+                .toggleClass("size-toggle-mobile");
+
+            if ( this.mobile ) {
+                this.$("i").attr("title", "Switch to laptop view");
+            } else {
+                this.$("i").attr("title", "Switch to mobile view");
+            }
+            // this.initTipsy();
+        },
+
+        afterRender: function() {
+            this.initTipsy();
+
+            this.$("i").tipsy("show");
+            setTimeout(function() {
+                this.$("i").tipsy("hide");
+            }.bind(this), 5000 );
+        },
+
+        initTipsy: function() {
+            this.$("i").tipsy({
+                fade: true,
+                content: function() {
+                    return $(this).attr("title");
+                },
+                gravity: function() {
+                    return $(this).data("gravity") || "s";
+                }
+            });
         }
     });
 
@@ -39503,7 +39544,8 @@ function( app, ArrowView, CloseView, PlayPauseView, SizeToggle ) {
             }
 
             if ( this.options.settings.sizeToggle ) {
-                this.insertView( new SizeToggle({ model: this.model }) );
+                this.sizeToggle = new SizeToggle({ model: this.model });
+                this.insertView( this.sizeToggle );
             }
         },
 
@@ -39518,9 +39560,7 @@ function( app, ArrowView, CloseView, PlayPauseView, SizeToggle ) {
         toggleSize: function( event ) {
             this.model.trigger("size_toggle");
 
-            this.$(".size-toggle i")
-                .toggleClass("size-toggle-laptop")
-                .toggleClass("size-toggle-mobile");
+            this.sizeToggle.toggle();
         },
 
         close: function( event ) {
@@ -39604,7 +39644,7 @@ function( app, ControlsView ) {
         className: "ZEEGA-player",
 
         mobileView: false,
-        mobileOrientation: "portrait", // "landscape"
+        mobilePreview: true,
 
         initialize: function() {
             // debounce the resize function so it doesn"t bog down the browser
@@ -39613,7 +39653,8 @@ function( app, ControlsView ) {
                     this.resizeWindow();
                 }.bind(this), 300);
 
-            this.mobileView = this.model.get("previewMode") == "mobile";
+            this.mobilePreview = this.model.get("previewMode") == "mobile";
+            this.mobileView = this.model.get("mobile");
             // attempt to detect if the parent container is being resized
             app.$( window ).resize( lazyResize );
         },
@@ -39626,8 +39667,14 @@ function( app, ControlsView ) {
             // correctly size the player window
             if ( this.mobileView ) {
                 this.$(".ZEEGA-player-wrapper").css( this.getPlayerSize() );
+                this.$el.addClass("mobile-player");
             } else {
-                this.$(".ZEEGA-player-wrapper").css( this.getWrapperSize() );
+
+                if ( this.model.get("previewMode") == "mobile" ) {
+                    this.$(".ZEEGA-player-wrapper").css( this.getPlayerSize() );
+                } else {
+                    this.$(".ZEEGA-player-wrapper").css( this.getWrapperSize() );
+                }
             }
             this.$(".ZEEGA-player-window").css( this.getPlayerSize() );
 
@@ -39689,8 +39736,8 @@ function( app, ControlsView ) {
         },
 
         toggleSize: function() {
-            this.mobileView = !this.mobileView;
-            if ( this.mobileView ) {
+            this.mobilePreview = !this.mobilePreview;
+            if ( this.mobilePreview ) {
                 this.$(".ZEEGA-player-wrapper").css( this.getPlayerSize() );
             } else {
                 this.$(".ZEEGA-player-wrapper").css( this.getWrapperSize() );
@@ -40700,7 +40747,7 @@ function( app, Zeega ) {
                 // debugEvents: true,
                 scalable: true,
 
-                previewMode: this.firstPreview ? "standard>mobile" : "mobile",
+                previewMode: "mobile",
                 data: projectData,
                 controls: {
                     arrows: true,
@@ -43154,7 +43201,6 @@ function( app, ProjectHead, Frames, Workspace, Layers, LayerDrawer, Soundtrack, 
         initTips: function() {
             // see http://onehackoranother.com/projects/jquery/tipsy/ for docs
             $("[title]").tipsy({
-
                 fade: true,
                 gravity: function() {
                     return $(this).data("gravity") || "s";

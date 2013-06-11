@@ -45,7 +45,7 @@ return __p;
 this["JST"]["app/templates/item-collection-viewer.html"] = function(obj){
 var __p='';var print=function(){__p+=Array.prototype.join.call(arguments, '')};
 with(obj||{}){
-__p+='<a href="#" class="prev arrow arrow-left"></a>\n<a href="#" class="next arrow arrow-right"></a>\n\n<div class="modal-content">\n\n    <div class="modal-title"></div>\n    <a href="#" class="modal-close">&times;</a>\n    <div class="modal-body"></div>\n    <div class="modal-footer"></div>\n</div>\n';
+__p+='<div class="modal-content">\n\n    <a href="#" class="prev arrow arrow-left"></a>\n    <a href="#" class="next arrow arrow-right"></a>\n\n    <div class="modal-title"></div>\n    <a href="#" class="modal-close">&times;</a>\n    <div class="modal-body"></div>\n    <div class="modal-footer"></div>\n</div>\n';
 }
 return __p;
 };
@@ -619,9 +619,9 @@ var __p='';var print=function(){__p+=Array.prototype.join.call(arguments, '')};
 with(obj||{}){
 __p+='<a href="#" class="size-toggle">\n    ';
  if ( previewMode == "mobile" ) { 
-;__p+='\n        <i class="size-toggle-mobile"></i>\n    ';
+;__p+='\n        <i class="size-toggle-mobile"\n            title="Switch to laptop view"\n            data-gravity="w"\n        ></i>\n    ';
  } else { 
-;__p+='\n        <i class="size-toggle-laptop"></i>\n    ';
+;__p+='\n        <i class="size-toggle-laptop"\n            title="Switch to mobile view"\n            data-gravity="w"\n        ></i>\n    ';
  } 
 ;__p+='\n</a>';
 }
