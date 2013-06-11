@@ -2650,7 +2650,7 @@ body .ui-tooltip {
   background: url(../img/transparency-grid.png);
   background-color: #000000;
   font-family: "Helvetica Neue", Helvetica, sans-serif;
-  font-size: 13px;
+  font-size: 16px;
   height: 100%;
   left: 0;
   overflow: hidden;
@@ -6080,7 +6080,7 @@ a:active {
   top: 0;
   right: 0;
   bottom: 0;
-  font-size: 0.7692307692em;
+  font-size: 16px;
   box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
   border: 15px solid #222;
   border-radius: 8px;

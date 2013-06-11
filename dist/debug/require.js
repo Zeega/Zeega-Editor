@@ -39738,7 +39738,7 @@ function( app, ControlsView ) {
                 css.top = (winHeight - css.height) / 2;
             }
 
-            css.fontSize = ( css.width / 410 ) +'em';
+            css.fontSize = ( css.height *  16 / 426 ) + "px";
 
             return css;
         },
@@ -41011,7 +41011,7 @@ function( app ) {
             this.$el.animate({
                 height: height,
                 width: width,
-                fontSize: ( width / 520 ) + "em"
+                fontSize: ( height *  16 / 426 ) + "px"
             });
 
             $(".workspace-overlay").animate({

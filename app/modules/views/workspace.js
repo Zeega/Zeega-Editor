@@ -69,7 +69,7 @@ function( app ) {
             this.$el.animate({
                 height: height,
                 width: width,
-                fontSize: ( width / 520 ) + "em"
+                fontSize: ( height *  16 / 426 ) + "px"
             });
 
             $(".workspace-overlay").animate({
