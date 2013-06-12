@@ -1514,6 +1514,9 @@ body .ui-tooltip {
 .ZEEGA-intro-modal h1 {
   margin-top: 0;
   text-align: center;
+  font-size: 51px;
+  color: #333;
+  text-shadow: 0 0 20px white;
 }
 .ZEEGA-intro-modal .zeega-intro-logo {
   vertical-align: middle;
@@ -1521,13 +1524,17 @@ body .ui-tooltip {
 .ZEEGA-intro-modal .intro-graphic {
   height: 167px;
   width: 343px;
-  margin: 0 auto;
-  margin-bottom: 10px;
+  margin: 20px auto;
+  border: 2px solid white;
+  border-radius: 5px;
+  overflow: hidden;
+  opacity: 0.9;
 }
 .ZEEGA-intro-modal .modal-wrapper {
-  height: 365px;
+  height: 394px;
   width: 650px;
-  background: #ffffff;
+  background: url(assets/img/tiny-stripes.png);
+  background-color: rgba(255, 255, 255, 0.85);
   position: absolute;
   top: 0;
   bottom: 0;
@@ -1537,12 +1544,19 @@ body .ui-tooltip {
   padding: 20px 40px;
   border-radius: 2px;
   box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.5);
+  border: 6px solid rgba(255, 255, 255, 0.75);
 }
 .ZEEGA-intro-modal .modal-wrapper p {
-  color: #444;
+  padding: 0 20px;
+  margin: 10px 0px;
+  font-weight: bold;
+  color: orangered;
+  text-align: center;
+  font-size: 15px;
 }
 .ZEEGA-intro-modal .modal-wrapper .btnz {
   float: right;
+  background-color: orangered;
 }
 
 .visual-element-audio {
@@ -2646,7 +2660,6 @@ body .ui-tooltip {
   src: local('Ewert'), local('Ewert-Regular'), url(http://themes.googleusercontent.com/static/fonts/ewert/v1/32zt7mPTGOP9C_29yULlQaCWcynf_cDxXwCLxiixG1c.woff) format('woff');
 }
 .ZEEGA-player {
-  background: url(../img/transparency-grid.png);
   background-color: #000000;
   font-family: "Helvetica Neue", Helvetica, sans-serif;
   font-size: 16px;
@@ -2658,8 +2671,8 @@ body .ui-tooltip {
   width: 100%;
   opacity: 0.01;
 }
-.ZEEGA-player.mobile-player {
-  background: black;
+.ZEEGA-player.preview-player {
+  background: url(../img/transparency-grid.png);
 }
 .ZEEGA-player .ZEEGA-player-window,
 .ZEEGA-player .ZEEGA-player-overlay {
