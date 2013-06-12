@@ -127,10 +127,6 @@ __p+='<a href="#">\n    <div class="item-thumb">\n        ';
 ( media_type )+
 '" src="'+
 ( thumbnail_url )+
-'"\n            alt="'+
-( title )+
-'"\n            title="'+
-( title )+
 '"\n            height="100%"\n            width="100%"/>\n    </div>\n    <div class="item-title">\n        \n        <span class="item-title-text">'+
 ( title )+
 '</span>\n    </div>\n</a>';
