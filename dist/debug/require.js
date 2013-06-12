@@ -43509,9 +43509,6 @@ function( app, ItemView ) {
 
     });
 
-
-
-
     return Backbone.View.extend({
 
         template: "app/templates/media-upload",
@@ -43589,7 +43586,6 @@ function( app, ItemView ) {
         },
         imageUpload: function(event) {
 
-
             this.$('.upload-instructions').html("uploading... ");
 
             var fileInput = event.target,
@@ -43607,7 +43603,6 @@ function( app, ItemView ) {
                 }
 
             };
-
 
             $.ajax({
                 url: app.mediaServer + "image",
@@ -43636,6 +43631,7 @@ function( app, ItemView ) {
 
                     $(".intro").remove();
                     this.addItem( item );
+                    this.render();
                 }.bind(this)
             });
         }
