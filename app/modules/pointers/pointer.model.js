@@ -41,6 +41,7 @@ function( app, PointerView ) {
         },
 
         cancel: function() {
+            app.off( this.get("listenFor") );
             _.each( this.views, function( view ) {
                 view.cancel();
             });

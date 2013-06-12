@@ -42141,6 +42141,7 @@ function( app, PointerView ) {
         },
 
         cancel: function() {
+            app.off( this.get("listenFor") );
             _.each( this.views, function( view ) {
                 view.cancel();
             });
@@ -42193,6 +42194,7 @@ function( app, PointerModel ) {
         cancel: function() {
             this.trigger("cancel");
             this.pointing = false;
+            this.index = 0;
         }
 
     });

@@ -43,6 +43,7 @@ function( app, PointerModel ) {
         cancel: function() {
             this.trigger("cancel");
             this.pointing = false;
+            this.index = 0;
         }
 
     });
