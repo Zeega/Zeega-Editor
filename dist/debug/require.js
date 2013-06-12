@@ -40576,12 +40576,15 @@ function( app, Zeega ) {
 
         serialize: function() {
             return _.extend({
-                userId: app.userId,
-                webRoot: app.webRoot,
-                tumblr_share: this.getTumblrShareUrl()
-            },
-            app.metadata,
-            this.model.project.toJSON() );
+                    userId: app.userId,
+                    webRoot: app.webRoot,
+                    tumblr_share: this.getTumblrShareUrl()
+                },
+                app.metadata,
+                this.model.project.toJSON(),
+                { userThumbnail: app.metadata.userThumbnail === "" ? "https://s3.amazonaws.com/zeegastatic/default_profile.jpeg" : app.metadata.userThumbnail }
+
+            );
         },
 
         getTumblrShareUrl: function() {
