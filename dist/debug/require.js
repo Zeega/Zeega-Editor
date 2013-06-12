@@ -45126,7 +45126,7 @@ function( app, ItemModel, CollectionView, Collection, ItemCollectionViewer ) {
             var args = this.get("urlArguments");
 
             args.before = new Date().getTime();
-            args.tag = query.replace( " ", "-" );
+            args.tag = query.replace( " ", "-" ) + "-gif";
             args.url = "http://www.tumblr.com/tagged/" + args.tag + "/before/" + args.before;
 
             this.set("urlArguments", args );
