@@ -53,7 +53,7 @@ function( app, ItemView ) {
                 this.$("img").attr("src", this.model.get("thumbnail_url").replace("_s.gif", ".gif"));
             }
 
-            if( !_.isUndefined( this.model.get("attributes").animate_url ) ){
+            if( this.model.get("attributes") && !_.isUndefined( this.model.get("attributes").animate_url ) ){
                 this.$("img").attr("src", this.model.get("attributes").animate_url );
             }
         },
@@ -63,7 +63,7 @@ function( app, ItemView ) {
                 this.$("img").attr("src", this.model.get("thumbnail_url"));
             }
 
-            if( !_.isUndefined( this.model.get("attributes").animate_url ) ){
+            if( this.model.get("attributes") && !_.isUndefined( this.model.get("attributes").animate_url ) ){
                 this.$("img").attr("src", this.model.get("thumbnail_url"));
             }
         },

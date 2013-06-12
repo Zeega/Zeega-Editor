@@ -35686,7 +35686,9 @@ function( app, Layer, Visual, Asker ){
         disableDrag: function() {
             this.model.trigger("control_drag_disable");
             this.$el.bind("mousedown.imageDrag", function() {
-                this.fitToWorkspace();
+                if ( this.getAttr("aspectRatio") ) {
+                    this.fitToWorkspace();
+                }
                 // new Asker({
                 //     question: "Manually position this image?",
                 //     description: "Right now the image is set to fullscreen",
@@ -43391,7 +43393,7 @@ function( app, ItemView ) {
                 this.$("img").attr("src", this.model.get("thumbnail_url").replace("_s.gif", ".gif"));
             }
 
-            if( !_.isUndefined( this.model.get("attributes").animate_url ) ){
+            if( this.model.get("attributes") && !_.isUndefined( this.model.get("attributes").animate_url ) ){
                 this.$("img").attr("src", this.model.get("attributes").animate_url );
             }
         },
@@ -43401,7 +43403,7 @@ function( app, ItemView ) {
                 this.$("img").attr("src", this.model.get("thumbnail_url"));
             }
 
-            if( !_.isUndefined( this.model.get("attributes").animate_url ) ){
+            if( this.model.get("attributes") && !_.isUndefined( this.model.get("attributes").animate_url ) ){
                 this.$("img").attr("src", this.model.get("thumbnail_url"));
             }
         },
