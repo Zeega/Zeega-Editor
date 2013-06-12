@@ -91,7 +91,7 @@ function( app, UploadView, Spinner ) {
                     this.$(".media-collection-items").append("<li class='item more-tab'><h2>more</h2></li>");
                 }
                 
-            } else if( this.model.getQuery() !== "" &&  this.$(".media-collection-items li").length === 0) {
+            } else if( this.model.getQuery() !== "-gif" && this.model.getQuery() !== "" &&  this.$(".media-collection-items li").length === 0) {
                 this.$(".media-collection-items").append("<div class='empty-collection'>no items found :( try again?</div>");
             }
 
