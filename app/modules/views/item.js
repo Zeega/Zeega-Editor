@@ -32,10 +32,14 @@ function( app, ItemView ) {
                     return $(this).find(".item-thumb img").clone().addClass("item-dragging");
                 },
                 start: function() {
+                    if ( this.model.get("type") == "Image" ) {
+                        $("body").append("<img class='img-preload' src='" + this.model.get("uri") + "' height='1px' width='1px' style='position:absolute;left:-1000%;top:-1000%'/>")
+                    }
                     app.emit("item_drag_start", this.model );
                     app.dragging = this.model;
                 }.bind( this ),
                 stop: function() {
+                    $(".img-preload").remove();
                     app.emit("item_drag_stop", this.model );
                     app.dragging = null;
                 }
