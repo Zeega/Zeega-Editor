@@ -35065,8 +35065,8 @@ function( app, Controls ) {
 
         // when the parent collection is resorted as in a layer shuffle
         onSort: function( collection ) {
-
             var zIndex = this.order[ collection.frame.id ];
+
             this.updateZIndex( zIndex );
         },
 
@@ -37827,7 +37827,7 @@ function( app, Layers ) {
         initSoundtrackModel: function( layers ) {
             if ( this.get("attr").soundtrack ) {
                 this.soundtrackModel = app.soundtrack = layers.get( this.get("attr").soundtrack );
-                this.soundtrackModel.status = app.status;
+                this.soundtrackModel.status = app.player ? app.player.status : app.state;
             }
         },
 
@@ -40588,7 +40588,7 @@ function( app, Zeega ) {
         },
 
         getTumblrShareUrl: function() {
-            var html = "<p>" + app.project.get("title") + "</p>" +
+            var html = "<p>" + this.$("#project-caption").val() + "</p>" +
                 "<p><a href='" + app.webRoot + app.project.get("id") + "'>" +
                 "<strong>►&nbsp;Play&nbsp;Zeega&nbsp;►</strong></a>" +
                 "</p><p>by&nbsp;<a href='" + app.webRoot + "profile/" + app.project.get("user_id") + "'>" + app.project.get("authors") + "</a></p>";
@@ -40603,13 +40603,16 @@ function( app, Zeega ) {
         },
 
         onSync: function() {
-            this.$(".share-twitter").attr("href", "https://twitter.com/intent/tweet?original_referer=" + app.webRoot + this.model.project.get("id") + "&text=" + this.model.project.get("title") +" "+ app.webRoot + this.model.project.get("id") + " made w/ @zeega" );
-            this.$(".share-tumblr").attr("href", "http://www.tumblr.com/share/photo?" + this.getTumblrShareUrl() );
-
+            this.updateShareUrls();
             this.$(".project-cover").css({
                 background: "url(" + this.model.project.get("cover_image") + ")",
                 backgroundSize: "cover"
             });
+        },
+
+        updateShareUrls: function() {
+            this.$(".share-twitter").attr("href", "https://twitter.com/intent/tweet?original_referer=" + app.webRoot + this.model.project.get("id") + "&text=" + this.$("#project-caption").val() +" "+ app.webRoot + this.model.project.get("id") + " made w/ @zeega" );
+            this.$(".share-tumblr").attr("href", "http://www.tumblr.com/share/photo?" + this.getTumblrShareUrl() );
         },
 
         afterRender: function() {
@@ -40676,7 +40679,8 @@ function( app, Zeega ) {
             "mousedown .text-box": "onBoxFocus",
             "click .share-zeega": "showShare",
             "click .embed-zeega": "showEmbed",
-            "keyup #project-caption": "onCaptionKeypress"
+            "keyup #project-caption": "onCaptionKeypress",
+            "blur #project-caption": "updateShareUrls"
         },
 
         initHelpSequence: function() {
@@ -43380,10 +43384,14 @@ function( app, ItemView ) {
                     return $(this).find(".item-thumb img").clone().addClass("item-dragging");
                 },
                 start: function() {
+                    if ( this.model.get("type") == "Image" ) {
+                        $("body").append("<img class='img-preload' src='" + this.model.get("uri") + "' height='1px' width='1px' style='position:absolute;left:-1000%;top:-1000%'/>")
+                    }
                     app.emit("item_drag_start", this.model );
                     app.dragging = this.model;
                 }.bind( this ),
                 stop: function() {
+                    $(".img-preload").remove();
                     app.emit("item_drag_stop", this.model );
                     app.dragging = null;
                 }
