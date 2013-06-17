@@ -104,7 +104,7 @@ function( app, ItemModel, CollectionView, Collection, ItemCollectionViewer ) {
 
          
             args.offset = 0;
-            args.tag = query;
+            args.tag = query.replace( " ", "-" );
             args.url = "http://giphy.com/tags/" + args.tag + "/offset/" + args.offset;
 
             this.set("urlArguments", args );
