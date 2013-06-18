@@ -250,7 +250,12 @@ function( app, ItemModel, ItemCollectionViewer ) {
                 count = 1;
             
             _.each( photos, function( photo ){
-                photo.id = photo.attributes.id;
+                if(!_.isUndefined(photo.attributes.id)){
+                    photo.id = photo.attributes.id;
+                } else {
+                    photo.id = count;
+                }
+                
                 count++;
             });
             
@@ -266,10 +271,16 @@ function( app, ItemModel, ItemCollectionViewer ) {
 
     Collections.Tumblr = Collections.Zeega.extend({
         parse: function(res){
-            var photos = res.items;
+            var photos = res.items,
+                count = 1;
             
             _.each( photos, function( photo ){
-                photo.id = photo.attributes.id;
+                if(!_.isUndefined(photo.attributes.id)){
+                    photo.id = photo.attributes.id;
+                } else {
+                    photo.id = count;
+                }
+                count++;
             });
 
             this.more = true;
