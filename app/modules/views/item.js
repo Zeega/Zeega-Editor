@@ -33,7 +33,7 @@ function( app, ItemView ) {
                 },
                 start: function() {
                     if ( this.model.get("media_type") == "Image" ) {
-                        $("body").append("<img class='img-preload' src='" + this.model.get("uri") + "' height='1px' width='1px' style='position:absolute;left:-1000%;top:-1000%'/>")
+                        $("body").append("<img class='img-preload' src='" + this.model.get("uri") + "' height='1px' width='1px' style='position:absolute;left:-1000%;top:-1000%'/>");
                     }
                     app.emit("item_drag_start", this.model );
                     app.dragging = this.model;
