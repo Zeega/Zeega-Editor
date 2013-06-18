@@ -253,9 +253,9 @@ function( app, ItemModel, ItemCollectionViewer ) {
                 photo.id = photo.attributes.id;
                 count++;
             });
-
-            if(photos[0]){
-                this.more = photos[0].attributes.more;
+            
+            if( res.request.parser && res.request.parser.more ){
+                this.more = true;
             } else {
                 this.more = false;
             }

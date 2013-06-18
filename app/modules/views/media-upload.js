@@ -105,7 +105,7 @@ function( app, ItemView ) {
             item.url = app.api + "items";
             item.on("sync", this.refreshUploads, this );
 
-            if( item.get("thumbnail_url").indexOf(".gif")>0 ){
+            if( item.get("thumbnail_url").indexOf(".gif") > 0 ){
                 item.set({
                     "attributes": {
                         animate_url: item.get("thumbnail_url")

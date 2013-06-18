@@ -14,7 +14,27 @@ function( app, ItemView ) {
         template: "app/templates/item",
 
         serialize: function() {
-            return this.model.toJSON();
+            var w, h, offset,
+                style = "";
+            if( this.model.get("attributes").height ){
+                if( this.model.get("attributes").width > this.model.get("attributes").height ){
+                    h = 75;
+                    w = h * this.model.get("attributes").width / this.model.get("attributes").height ;
+                    offset = ( 75 - w )/2;
+                    style = "width:" + w +"px; height:" + h + "px; left:" + offset + "px;";
+                } else {
+                    w = 75;
+                    h = this.model.get("attributes").height * w / this.model.get("attributes").width;
+                    offset = ( 75 - h )/2;
+                    style = "width:" + w +"px; height:" + h + "px; top:" + offset + "px;";
+                }
+                
+            }
+            return _.extend( {
+                        style: style
+                    },
+                    this.model.toJSON()
+            );
         },
 
         afterRender: function() {
