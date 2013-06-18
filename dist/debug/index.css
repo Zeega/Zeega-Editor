@@ -1533,7 +1533,7 @@ body .ui-tooltip {
 .ZEEGA-intro-modal .modal-wrapper {
   height: 394px;
   width: 650px;
-  background: url(assets/img/tiny-stripes.png);
+  background: url(../img/tiny-stripes.png);
   background-color: rgba(255, 255, 255, 0.85);
   position: absolute;
   top: 0;
@@ -6248,6 +6248,10 @@ a:active {
   height: 75px;
   width: 75px;
   background-color: black;
+  overflow: hidden;
+}
+.media-drawer .item .item-thumb img {
+  position: relative;
 }
 .media-drawer .item .item-thumb .thumb-title {
   position: absolute;

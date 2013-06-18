@@ -513,7 +513,13 @@ __p+='<a href="#">\n    <div class="item-thumb">\n        ';
 ( media_type )+
 '" src="'+
 ( thumbnail_url )+
-'"\n            height="100%"\n            width="100%"/>\n    </div>\n    <div class="item-title">\n        \n        <span class="item-title-text">'+
+'"\n            height="100%"\n            width="100%"\n            ';
+ if ( archive == "Giphy" ){ 
+;__p+='\n            style="'+
+( style )+
+'"\n            ';
+ } 
+;__p+='\n\n        />\n    </div>\n    <div class="item-title">\n        \n        <span class="item-title-text">'+
 ( title )+
 '</span>\n    </div>\n</a>';
 }
@@ -675,7 +681,7 @@ __p+='<a href="http://www.zeega.com" class="ZEEGA-tab">\n    <span class="ZTab-l
 ( webRoot )+
 ''+
 ( id )+
-'/embed" width="100%" height="100%" webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe>\'></input>\n                </div>\n                \n            </div>\n        </div>\n\n        <div class="share-tabs">\n            <ul>\n                <li>\n                    <a href="#" class="share-zeega active">Share your Zeega</a>\n                </li>\n                <li>\n                    <a href="#" class="embed-zeega">Embed</a>\n                </li>\n            </ul>\n        </div>\n\n    </div>\n\n</div>\n';
+'/embed" width="400px" height="480px" webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe>\'></input>\n                </div>\n                \n            </div>\n        </div>\n\n        <div class="share-tabs">\n            <ul>\n                <li>\n                    <a href="#" class="share-zeega active">Share your Zeega</a>\n                </li>\n                <li>\n                    <a href="#" class="embed-zeega">Embed</a>\n                </li>\n            </ul>\n        </div>\n\n    </div>\n\n</div>\n';
 }
 return __p;
 };
@@ -42736,7 +42742,27 @@ function( app, ItemView ) {
         template: "app/templates/item",
 
         serialize: function() {
-            return this.model.toJSON();
+            var w, h, offset,
+                style = "";
+            if( this.model.get("attributes").height ){
+                if( this.model.get("attributes").width > this.model.get("attributes").height ){
+                    h = 75;
+                    w = h * this.model.get("attributes").width / this.model.get("attributes").height ;
+                    offset = ( 75 - w )/2;
+                    style = "width:" + w +"px; height:" + h + "px; left:" + offset + "px;";
+                } else {
+                    w = 75;
+                    h = this.model.get("attributes").height * w / this.model.get("attributes").width;
+                    offset = ( 75 - h )/2;
+                    style = "width:" + w +"px; height:" + h + "px; top:" + offset + "px;";
+                }
+                
+            }
+            return _.extend( {
+                        style: style
+                    },
+                    this.model.toJSON()
+            );
         },
 
         afterRender: function() {
@@ -42937,7 +42963,7 @@ function( app, ItemView ) {
             item.url = app.api + "items";
             item.on("sync", this.refreshUploads, this );
 
-            if( item.get("thumbnail_url").indexOf(".gif")>0 ){
+            if( item.get("thumbnail_url").indexOf(".gif") > 0 ){
                 item.set({
                     "attributes": {
                         animate_url: item.get("thumbnail_url")
@@ -44128,12 +44154,17 @@ function( app, ItemModel, ItemCollectionViewer ) {
                 count = 1;
             
             _.each( photos, function( photo ){
-                photo.id = photo.attributes.id;
+                if(!_.isUndefined(photo.attributes.id)){
+                    photo.id = photo.attributes.id;
+                } else {
+                    photo.id = count;
+                }
+                
                 count++;
             });
-
-            if(photos[0]){
-                this.more = photos[0].attributes.more;
+            
+            if( res.request.parser && res.request.parser.more ){
+                this.more = true;
             } else {
                 this.more = false;
             }
@@ -44144,10 +44175,16 @@ function( app, ItemModel, ItemCollectionViewer ) {
 
     Collections.Tumblr = Collections.Zeega.extend({
         parse: function(res){
-            var photos = res.items;
+            var photos = res.items,
+                count = 1;
             
             _.each( photos, function( photo ){
-                photo.id = photo.attributes.id;
+                if(!_.isUndefined(photo.attributes.id)){
+                    photo.id = photo.attributes.id;
+                } else {
+                    photo.id = count;
+                }
+                count++;
             });
 
             this.more = true;
@@ -44305,7 +44342,7 @@ function( app, ItemModel, CollectionView, Collection, ItemCollectionViewer ) {
 
          
             args.offset = 0;
-            args.tag = query;
+            args.tag = query.replace( " ", "-" );
             args.url = "http://giphy.com/tags/" + args.tag + "/offset/" + args.offset;
 
             this.set("urlArguments", args );
