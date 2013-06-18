@@ -153,7 +153,6 @@ function( app, Zeega ) {
             this.model.status.setCurrentLayer( null );
 
             if( !this.$(".share-grave").is(":visible") ) {
-                this.model.project.save( "publish_update", 1 );
                 app.emit("grave_open", null );
             } else {
                 app.emit("grave_closed", null );
@@ -191,7 +190,7 @@ function( app, Zeega ) {
 
             app.zeegaplayer = null;
             app.emit("project_preview", null );
-            this.model.project.save("publish_update", 1 );
+            
             
             app.zeegaplayer = new Zeega.player({
                 // debugEvents: true,
