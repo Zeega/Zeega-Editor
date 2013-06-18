@@ -26,7 +26,7 @@ function( app, Zeega ) {
         },
 
         getTumblrShareUrl: function() {
-            var html = "<p>" + app.project.get("title") + "</p>" +
+            var html = "<p>" + this.$("#project-caption").val() + "</p>" +
                 "<p><a href='" + app.webRoot + app.project.get("id") + "'>" +
                 "<strong>►&nbsp;Play&nbsp;Zeega&nbsp;►</strong></a>" +
                 "</p><p>by&nbsp;<a href='" + app.webRoot + "profile/" + app.project.get("user_id") + "'>" + app.project.get("authors") + "</a></p>";
@@ -41,13 +41,16 @@ function( app, Zeega ) {
         },
 
         onSync: function() {
-            this.$(".share-twitter").attr("href", "https://twitter.com/intent/tweet?original_referer=" + app.webRoot + this.model.project.get("id") + "&text=" + this.model.project.get("title") +" "+ app.webRoot + this.model.project.get("id") + " made w/ @zeega" );
-            this.$(".share-tumblr").attr("href", "http://www.tumblr.com/share/photo?" + this.getTumblrShareUrl() );
-
+            this.updateShareUrls();
             this.$(".project-cover").css({
                 background: "url(" + this.model.project.get("cover_image") + ")",
                 backgroundSize: "cover"
             });
+        },
+
+        updateShareUrls: function() {
+            this.$(".share-twitter").attr("href", "https://twitter.com/intent/tweet?original_referer=" + app.webRoot + this.model.project.get("id") + "&text=" + this.$("#project-caption").val() +" "+ app.webRoot + this.model.project.get("id") + " made w/ @zeega" );
+            this.$(".share-tumblr").attr("href", "http://www.tumblr.com/share/photo?" + this.getTumblrShareUrl() );
         },
 
         afterRender: function() {
@@ -114,7 +117,8 @@ function( app, Zeega ) {
             "mousedown .text-box": "onBoxFocus",
             "click .share-zeega": "showShare",
             "click .embed-zeega": "showEmbed",
-            "keyup #project-caption": "onCaptionKeypress"
+            "keyup #project-caption": "onCaptionKeypress",
+            "blur #project-caption": "updateShareUrls"
         },
 
         initHelpSequence: function() {
