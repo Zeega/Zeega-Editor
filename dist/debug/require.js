@@ -33751,7 +33751,7 @@ function( Zeega, ControlView ) {
 
     // Figure out the cell dimensions
     options.totalWidth = options.columns * (options.cellWidth + (2 * options.cellMargin));
-    if ($.browser.msie) {
+    if ($.browser && $.browser.msie) {
       options.totalWidth += 2;
     }
 
