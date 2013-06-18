@@ -16,7 +16,7 @@ function( app, ItemView ) {
         serialize: function() {
             var w, h, offset,
                 style = "";
-            if( this.model.get("attributes").height ){
+            if( this.model.get("attributes") && this.model.get("attributes").height ){
                 if( this.model.get("attributes").width > this.model.get("attributes").height ){
                     h = 75;
                     w = h * this.model.get("attributes").width / this.model.get("attributes").height ;
