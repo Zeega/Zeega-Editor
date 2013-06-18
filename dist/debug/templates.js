@@ -537,7 +537,7 @@ return __p;
 this["JST"]["app/engine/plugins/layers/text_v2/textmodal.html"] = function(obj){
 var __p='';var print=function(){__p+=Array.prototype.join.call(arguments, '')};
 with(obj||{}){
-__p+='<div class="modal-content">\n    <div class="modal-title">Edit your text</div>\n    <div class="modal-body">\n\n        <div class="top-box clearfix">\n            <textarea rows="4" cols="59" maxlength="140">'+
+__p+='<div class="modal-content">\n    <div class="modal-title">Edit your text</div>\n    <div class="modal-body">\n\n        <div class="top-box clearfix">\n            <textarea rows="4" cols="59" maxlength="140" placeholder="Type your text here">'+
 ( attr.content )+
 '</textarea>\n            <select class="font-list" id="font-list-'+
 ( id )+

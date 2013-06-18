@@ -923,7 +923,7 @@ return __p;
 this["JST"]["app/engine/plugins/layers/text_v2/textmodal.html"] = function(obj){
 var __p='';var print=function(){__p+=Array.prototype.join.call(arguments, '')};
 with(obj||{}){
-__p+='<div class="modal-content">\n    <div class="modal-title">Edit your text</div>\n    <div class="modal-body">\n\n        <div class="top-box clearfix">\n            <textarea rows="4" cols="59" maxlength="140">'+
+__p+='<div class="modal-content">\n    <div class="modal-title">Edit your text</div>\n    <div class="modal-body">\n\n        <div class="top-box clearfix">\n            <textarea rows="4" cols="59" maxlength="140" placeholder="Type your text here">'+
 ( attr.content )+
 '</textarea>\n            <select class="font-list" id="font-list-'+
 ( id )+
@@ -36261,7 +36261,7 @@ function( app ) {
 
     return app.Backbone.View.extend({
 
-        template: "text_v2/textmodal",
+        template: "app/engine/plugins/layers/text_v2/textmodal",
         serialize: function() {
             return this.model.toJSON();
         },
@@ -36344,20 +36344,27 @@ function( app ) {
         },
 
         submit: function() {
-            this.model.setAttr({ content: this.$("textarea").val() });
             this.closeThis();
-            this.updateVisualElement();
 
-            if ( this.selectedFrame !== null && this.selectedFrame == "NEW_FRAME" ) {
-                this.linkToNewPage();
-                this.closeThis();
-                this.model.visual.$el.addClass("linked-layer");
-                this.model.save();
-            } else if ( this.selectedFrame !== null && !_.isUndefined( this.selectedFrame )) {
-                this.model.saveAttr({ to_frame: this.selectedFrame });
-                this.model.trigger("change:to_frame", this.model, this.selectedFrame );
-                this.closeThis();
-                this.model.visual.$el.addClass("linked-layer");
+            if ( this.$("textarea").val() !== "" ) {
+                this.model.setAttr({ content: this.$("textarea").val() });
+                this.updateVisualElement();
+
+                if ( this.selectedFrame !== null && this.selectedFrame == "NEW_FRAME" ) {
+                    this.linkToNewPage();
+                    this.closeThis();
+                    this.model.visual.$el.addClass("linked-layer");
+                    this.model.save();
+                } else if ( this.selectedFrame !== null && !_.isUndefined( this.selectedFrame )) {
+                    this.model.saveAttr({ to_frame: this.selectedFrame });
+                    this.model.trigger("change:to_frame", this.model, this.selectedFrame );
+                    this.closeThis();
+                    this.model.visual.$el.addClass("linked-layer");
+                }
+            } else {
+                this.model.collection.remove( this.model );
+                app.emit("layer_deleted", this.model );
+                $(".ZEEGA-control-floater").remove();
             }
         },
 
@@ -36421,29 +36428,6 @@ function( app ) {
         onNewFrameSave: function( newFrame ) {
             this.model.saveAttr({ to_frame: newFrame.id });
             this.model.trigger("change:to_frame", this.model, newFrame.id );
-        },
-
-        fetch: function( path ) {
-            // Initialize done for use in async-mode
-            var done;
-            // Concatenate the file extension.
-            path = app.parserPath + "plugins/layers/" + path + ".html";
-            // remove app/templates/ via regexp // hacky? yes. probably.
-            path = path.replace("app/templates/","");
-
-            // If cached, use the compiled template.
-            if ( JST[ path ] ) {
-                return JST[ path ];
-            } else {
-                // Put fetch into `async-mode`.
-                done = this.async();
-                // Seek out the template asynchronously.
-                return app.$.ajax({ url: app.root + path }).then(function( contents ) {
-                    done(
-                      JST[ path ] = _.template( contents )
-                    );
-                });
-            }
         }
     });
 
@@ -36466,7 +36450,7 @@ function( app, _Layer, Visual, TextModal ) {
         attr: {
             citation: false,
             color: "#FFF",
-            content: "text",
+            content: "",
             fontSize: 375,
             fontFamily: "Archivo Black",
             default_controls: true,
@@ -36645,7 +36629,7 @@ function( app, _Layer, Visual, TextModal ) {
         afterEditorRender: function() {
             if ( this.textModal === null ) {
                 this.textModal = new TextModal({ model: this.model });
-                if ( this.model.get("attr").content == "text" ) {
+                if ( this.model.get("attr").content == "" ) {
                     this.launchTextModal();
                 }
             }
@@ -40565,16 +40549,6 @@ function( app, LayerControls, Asker) {
             $(".tipsy").remove();
             this.model.collection.remove( this.model );
             app.emit("layer_deleted", this.model );
-            
-            // new Asker({
-            //     question: "Do you really want to delete this layer?",
-            //     description: "You cannot undo this!",
-            //     okay: function() {
-            //         $(".tipsy").remove();
-            //         this.model.collection.remove( this.model );
-            //         app.emit("layer_deleted", this.model );
-            //     }.bind( this )
-            // });
         },
 
         selectLayer: function() {

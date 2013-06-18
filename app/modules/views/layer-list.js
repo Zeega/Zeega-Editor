@@ -92,16 +92,6 @@ function( app, LayerControls, Asker) {
             $(".tipsy").remove();
             this.model.collection.remove( this.model );
             app.emit("layer_deleted", this.model );
-            
-            // new Asker({
-            //     question: "Do you really want to delete this layer?",
-            //     description: "You cannot undo this!",
-            //     okay: function() {
-            //         $(".tipsy").remove();
-            //         this.model.collection.remove( this.model );
-            //         app.emit("layer_deleted", this.model );
-            //     }.bind( this )
-            // });
         },
 
         selectLayer: function() {
