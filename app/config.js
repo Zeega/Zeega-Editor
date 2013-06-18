@@ -11,8 +11,6 @@ require.config({
     engineVendor: "engine/vendor",
 
     player: "player",
-
-    simpleColorPicker: "../vendor/simple-color-picker/src/jquery.simple-color",
     mousetrap: "../vendor/mousetrap/mousetrap",
     spin: "../assets/js/libs/spin",
     tipsy: "../vendor/tipsy/src/javascripts/jquery.tipsy",
