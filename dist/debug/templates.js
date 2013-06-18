@@ -277,17 +277,21 @@ __p+='<a href="http://www.zeega.com" class="ZEEGA-tab">\n    <span class="ZTab-l
 ( item_id )+
 '"\n                            class="social-share share-twitter"\n                            data-itemid="'+
 ( id )+
-'"\n                            target="blank">\n                        <i class="zitem-twitter zitem-30 color"></i>\n                    </a>\n                    <a href="http://www.facebook.com/sharer.php?u='+
+'"\n                            target="blank">\n                        <i class="social-share-twitter social-share-color"></i>\n                    </a>\n                    <a href="http://www.facebook.com/sharer.php?u='+
 ( webRoot )+
 ''+
 ( id )+
 '"\n                                    class="social-share share-facebook"\n                                    data-itemid="'+
 ( id )+
-'"\n                                    target="blank">\n                        <i class="zitem-facebook zitem-30 color"></i>\n                    </a>\n                    <a id ="tumblr-share" href="http://www.tumblr.com/share/photo?'+
+'"\n                                    target="blank">\n                        <i class="social-share-facebook social-share-color"></i>\n                    </a>\n                    <a id ="tumblr-share" href="http://www.tumblr.com/share/photo?'+
 ( tumblr_share )+
 '" \n                                    class="social-share share-tumblr"\n                                    data-itemid="'+
 ( id )+
-'"\n                                    target="blank">\n                        <i class="zitem-tumblr zitem-30 color"></i>\n                    </a>\n                </div>\n\n                <div>\n                    <input class="text-box" type="text" value="'+
+'"\n                                    target="blank">\n                        <i class="social-share-tumblr social-share-color"></i>\n                    </a>\n                    <a id ="tumblr-share" href="http://www.tumblr.com/share/photo?'+
+( tumblr_share )+
+'" \n                                    class="social-share share-tumblr"\n                                    data-itemid="'+
+( id )+
+'"\n                                    target="blank">\n                        <i class="social-share-reddit social-share-color"></i>\n                    </a>\n                </div>\n\n                <div>\n                    <input class="text-box" type="text" value="'+
 ( webRoot )+
 ''+
 ( id )+
