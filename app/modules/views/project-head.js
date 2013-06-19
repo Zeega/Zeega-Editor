@@ -27,7 +27,8 @@ function( app, Zeega ) {
 
         getShareLinks: function() {
             var title, html,
-                share_links = {};
+                links = {},
+                webRoot = app.webRoot;
 
             if(_.isUndefined( this.$("#project-caption").val()) ){
                 title = app.project.get("title");
@@ -35,25 +36,25 @@ function( app, Zeega ) {
                 title = this.$("#project-caption").val();
             }
 
-            html = "<p>" + this.$("#project-caption").val() + "</p>" +
-                "<p><a href='" + app.webRoot + app.project.get("id") + "'>" +
+            html = "<p>" + title + "</p>" +
+                "<p><a href='" + webRoot + this.model.project.get("id") + "'>" +
                 "<strong>►&nbsp;Play&nbsp;Zeega&nbsp;►</strong></a>" +
-                "</p><p>by&nbsp;<a href='" + app.webRoot + "profile/" + app.project.get("user_id") + "'>" + app.project.get("authors") + "</a></p>";
+                "</p><p>by&nbsp;<a href='" + webRoot + "profile/" + this.model.project.get("user_id") + "'>" + this.model.project.get("authors") + "</a></p>";
 
-            share_links.tumblr = "http://www.tumblr.com/share/photo?source=" + encodeURIComponent( app.project.get("cover_image") ) +
+            links.tumblr = "http://www.tumblr.com/share/photo?source=" + encodeURIComponent( this.model.project.get("cover_image") ) +
                 "&caption=" + encodeURIComponent( html ) +
-                "&click_thru="+ encodeURIComponent( app.webRoot ) + app.project.get("id");
+                "&click_thru="+ encodeURIComponent( webRoot ) + this.model.project.get("id");
 
-            share_links.reddit = "http://www.reddit.com/submit?url=" + encodeURIComponent( app.webRoot ) + app.project.get("id") +
+            links.reddit = "http://www.reddit.com/submit?url=" + encodeURIComponent( app.webRoot ) + this.model.project.get("id") +
                 "&title=" + encodeURIComponent( title );
 
-            share_links.twitter = "https://twitter.com/intent/tweet?original_referer=" + encodeURIComponent( app.webRoot ) + app.project.get("id") +
+            links.twitter = "https://twitter.com/intent/tweet?original_referer=" + encodeURIComponent( webRoot ) + this.model.project.get("id") +
                 "&text=" + encodeURIComponent( title  + " made w/ @zeega") +
-                "&url=" + encodeURIComponent( app.webRoot ) + app.project.get("id");
+                "&url=" + encodeURIComponent( webRoot ) + this.model.project.get("id");
 
-            share_links.facebook = "http://www.facebook.com/sharer.php?u=" + encodeURIComponent( app.webRoot ) + app.project.get("id");
+            share_links.facebook = "http://www.facebook.com/sharer.php?u=" + encodeURIComponent( app.webRoot ) + this.model.project.get("id");
 
-            return share_links;
+            return links;
         },
 
         initialize: function() {
