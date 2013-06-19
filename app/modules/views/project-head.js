@@ -14,7 +14,6 @@ function( app, Zeega ) {
 
         serialize: function() {
             return _.extend({
-                    user_id: app.userId,
                     web_root: app.webRoot,
                     share_links: this.getShareLinks()
                 },
