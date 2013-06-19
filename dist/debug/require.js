@@ -39627,7 +39627,7 @@ function( app, Zeega ) {
                 "&text=" + encodeURIComponent( title  + " made w/ @zeega") +
                 "&url=" + encodeURIComponent( webRoot ) + this.model.project.get("id");
 
-            share_links.facebook = "http://www.facebook.com/sharer.php?u=" + encodeURIComponent( app.webRoot ) + this.model.project.get("id");
+            links.facebook = "http://www.facebook.com/sharer.php?u=" + encodeURIComponent( app.webRoot ) + this.model.project.get("id");
 
             return links;
         },
