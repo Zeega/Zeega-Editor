@@ -5731,6 +5731,10 @@ a:active {
 .frames .ZEEGA-frame:child-first {
   padding-left: 5px;
 }
+.frames .frame-placeholder:last-child,
+.frames .ZEEGA-frame:last-child {
+  margin-right: 20px;
+}
 .frames .frame-placeholder:last-child .advance-toggle,
 .frames .ZEEGA-frame:last-child .advance-toggle {
   display: none;

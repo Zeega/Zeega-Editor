@@ -537,7 +537,7 @@ return __p;
 this["JST"]["app/templates/layer-drawer.html"] = function(obj){
 var __p='';var print=function(){__p+=Array.prototype.join.call(arguments, '')};
 with(obj||{}){
-__p+='<div class="ZEEGA-layer-drawer ZEEGA-hmenu clear">\n    <ul>\n         <li>\n            <a href="#"\n                data-layer-type="Rectangle"\n                title="add color box"\n                data-gravity="n"\n            >\n                <div class="item-label">color</div>\n                <i class="icon-th-large"></i>\n            </a>\n        </li>\n        <li>\n            <a href="#"\n                data-layer-type="TextV2"\n                title="add text"\n                data-gravity="n"\n            >\n                <div class="item-label">text</div>\n                <i class="icon-font"></i>\n            </a>\n        </li>\n       \n        \n        <!--\n        <li>\n            <a href="#" data-layer-type="Link"\n                title="add interactivity"\n                data-gravity="n"\n            >\n                <div class="item-label">link</div>\n                <i class="icon-arrow-up"></i>\n            </a>\n        </li>\n        -->\n\n    </ul>\n</div>';
+__p+='<div class="ZEEGA-layer-drawer ZEEGA-hmenu clear">\n    <ul>\n         <li>\n            <a href="#"\n                data-layer-type="Rectangle"\n                title="add color filter"\n                data-gravity="n"\n            >\n                <div class="item-label">filter</div>\n                <i class="icon-th-large"></i>\n            </a>\n        </li>\n        <li>\n            <a href="#"\n                data-layer-type="TextV2"\n                title="add text"\n                data-gravity="n"\n            >\n                <div class="item-label">text</div>\n                <i class="icon-font"></i>\n            </a>\n        </li>\n    </ul>\n</div>';
 }
 return __p;
 };
@@ -34594,8 +34594,10 @@ function( app, Controls ) {
 
         beforeRender: function() {
             if ( this.model.mode == "player") {
+                
                 var target = this.model.status.target ? this.model.status.target.find(".ZEEGA-player-window") :
-                                            $(".ZEEGA-workspace");
+                                            $(".ZEEGA-workspace")[0] ? $(".ZEEGA-workspace") : $(".ZEEGA-player-window");
+
 
                 this.className = this._className + " " + this.className;
                 this.beforePlayerRender();
@@ -34789,103 +34791,6 @@ function( app, Controls ) {
 
 });
 
-define('engine/modules/askers/asker.view',[
-    "app",
-    "backbone"
-],
-
-function( app ) {
-
-    return Backbone.View.extend({
-
-        template: "app/engine/modules/askers/asker",
-        className: "ZEEGA-asker asker-overlay",
-
-        serialize: function() {
-            return this.model.toJSON();
-        },
-
-        start: function() {
-            $("body").append( this.el );
-            $("#main").addClass("modal");
-            this.render();
-            this.$el.fadeIn("fast");
-        },
-
-        afterRender: function() {
-            $("body").bind("keyup.asker", function( e ) {
-                if ( e.which == 13 ) { //enter
-                    this.okay();
-                } else if ( e.which == 27 ) { // esc
-                    this.cancel();
-                }
-            }.bind( this ));
-        },
-
-        events: {
-            "click .ask-cancel": "cancel",
-            "click .ask-okay": "okay"
-        },
-
-        cancel: function() {
-            this.model.set("response", false );
-            this.close();
-        },
-
-        okay: function() {
-            this.model.set("response", true );
-            this.close();
-        },
-
-        close: function() {
-            $("#main").removeClass("modal");
-            this.$el.fadeOut( 250, function() {
-                this.remove();
-            }.bind( this ));
-            $("body").unbind("keyup.asker");
-        }
-
-    });
-
-});
-
-define('engine/modules/askers/asker',[
-    "app",
-    "engine/modules/askers/asker.view",
-    "backbone"
-],
-
-function( app, AskerView ) {
-
-    return Backbone.Model.extend({
-
-        defaults: {
-            question: "",
-            description: "",
-            response: null,
-            okay: null,
-            cancel: null
-        },
-
-        initialize: function() {
-            this.view = new AskerView({ model: this });
-            this.view.start();
-
-            this.on("change:response", this.onAnswer, this );
-        },
-
-        onAnswer: function( model, answer ) {
-            this.off("change:response");
-            if ( answer && _.isFunction( this.get("okay"))) {
-                this.get("okay")( answer );
-            } else if ( !answer && _.isFunction( this.get("cancel"))) {
-                this.get("cancel")( answer );
-            }
-        }
-
-    });
-});
-
 (function(c,n){var k="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///ywAAAAAAQABAAACAUwAOw==";c.fn.imagesLoaded=function(l){function m(){var b=c(h),a=c(g);d&&(g.length?d.reject(e,b,a):d.resolve(e));c.isFunction(l)&&l.call(f,e,b,a)}function i(b,a){b.src===k||-1!==c.inArray(b,j)||(j.push(b),a?g.push(b):h.push(b),c.data(b,"imagesLoaded",{isBroken:a,src:b.src}),o&&d.notifyWith(c(b),[a,e,c(h),c(g)]),e.length===j.length&&(setTimeout(m),e.unbind(".imagesLoaded")))}var f=this,d=c.isFunction(c.Deferred)?c.Deferred():
 0,o=c.isFunction(d.notify),e=f.find("img").add(f.filter("img")),j=[],h=[],g=[];e.length?e.bind("load.imagesLoaded error.imagesLoaded",function(b){i(b.target,"error"===b.type)}).each(function(b,a){var e=a.src,d=c.data(a,"imagesLoaded");if(d&&d.src===e)i(a,d.isBroken);else if(a.complete&&a.naturalWidth!==n)i(a,0===a.naturalWidth||0===a.naturalHeight);else if(a.readyState||a.complete)a.src=k,a.src=e}):m();return d?d.promise(f):f}})(jQuery);
 define("engineVendor/jquery.imagesloaded.min", function(){});
@@ -34894,13 +34799,12 @@ define('engine/plugins/layers/image/image',[
     "app",
     "engine/modules/layer.model",
     "engine/modules/layer.visual.view",
-    "engine/modules/askers/asker",
 
     //plugins
     "engineVendor/jquery.imagesloaded.min"
 ],
 
-function( app, Layer, Visual, Asker ){
+function( app, Layer, Visual ){
 
     var L = {};
 
@@ -34981,7 +34885,10 @@ function( app, Layer, Visual, Asker ){
         afterEditorRender: function() {
             // add height attribute if not already there
             // this may break if the aspect ratio changes
-            if ( _.isNull( this.getAttr("aspectRatio") ) ) {
+
+            this.aspectRatio = this.getAttr("aspectRatio")
+
+            if ( _.isNull( this.aspectRatio ) ) {
                 this.determineAspectRatio();
             }
 
@@ -34995,26 +34902,16 @@ function( app, Layer, Visual, Asker ){
             this.model.on("resized", this.onResize, this );
         },
 
-        onResize: function( attr ) {
-            /*
-            if ( attr.width > 100 || attr.height > 100 ) {
-                new Asker({
-                    question: "Make this layer fullscreen?",
-                    okay: function() {
-                        this.disableDrag();
-                        this.makePageBackground();
-                    }.bind( this )
-                });
-            }
-            */
-        },
+        onResize: function( attr ) {},
 
         determineAspectRatio: function() {
-            var $img = $("<img>").attr("src", this.getAttr("uri") ).css({
-                position: "absolute",
-                top: "-1000%",
-                left: "-1000%"
-            });
+            var $img = $("<img>")
+                .attr("src", this.getAttr("uri") )
+                .css({
+                    position: "absolute",
+                    top: "-1000%",
+                    left: "-1000%"
+                });
 
             $img.imagesLoaded();
             $img.done(function() {
@@ -35023,6 +34920,7 @@ function( app, Layer, Visual, Asker ){
                 this.model.saveAttr({
                     aspectRatio: $img.width()/ $img.height()
                 });
+                this.aspectRatio = $img.width()/ $img.height();
 
                 $img.remove();
             }.bind( this ));
@@ -35035,18 +34933,11 @@ function( app, Layer, Visual, Asker ){
                 if ( this.getAttr("aspectRatio") ) {
                     this.fitToWorkspace();
                 }
-                // new Asker({
-                //     question: "Manually position this image?",
-                //     description: "Right now the image is set to fullscreen",
-                //     okay: function() {
-                //         this.fitToWorkspace();
-                //     }.bind( this )
-                // });
-
             }.bind( this ));
         },
 
         togglePageBackgroundState: function( state ) {
+
             if ( state.page_background ) {
                 this.disableDrag();
                 this.makePageBackground();
@@ -35073,12 +34964,12 @@ function( app, Layer, Visual, Asker ){
 
             workspaceRatio = this.$workspace().width() / this.$workspace().height();
 
-            if ( this.getAttr("aspectRatio") > workspaceRatio ) {
+            if ( this.aspectRatio > workspaceRatio ) {
                 width = this.$workspace().width();
-                height = width / this.getAttr("aspectRatio");
+                height = width / this.aspectRatio;
             } else {
                 height = this.$workspace().height();
-                width = height * this.getAttr("aspectRatio");
+                width = height * this.aspectRatio;
             }
 
             width = width / this.$workspace().width() * 100;
@@ -35093,6 +34984,7 @@ function( app, Layer, Visual, Asker ){
                 left: left + "%"
             });
             this.model.saveAttr({
+                aspectRatio: this.aspectRatio,
                 page_background: false,
                 height: height,
                 width: width,
@@ -35102,14 +34994,27 @@ function( app, Layer, Visual, Asker ){
         },
 
         verifyReady: function() {
-            var img = app.$( this.$("img") ).imagesLoaded();
+            var $img = $("<img>")
+                .attr("src", this.getAttr("uri"))
+                .css({
+                    height: "1px",
+                    width: "1px",
+                    position: "absolute",
+                    left: "-1000%",
+                    top: "-1000%"
+                });
+            $("body").append( $img );
+            $img.imagesLoaded();
 
-            img.done(function() {
+            $img.done(function() {
                 this.model.trigger( "visual_ready", this.model.id );
+                $img.remove();
             }.bind(this));
 
-            img.fail(function() {
-                this.model.trigger( "visual_error", this.model.id );
+            $img.fail(function() {
+                $img.remove();
+                this.model.trigger("visual_error", this.model.id );
+                this.model.trigger("visual_ready", this.model.id );
             }.bind(this));
         }
     });
@@ -35766,7 +35671,7 @@ function( app, LayerModel, Visual ) {
             // left: 0,
             linkable: false,
             opacity: 0.75,
-            title: "Color Layer",
+            title: "Color Filter",
             // top: 0,
             // width: 100,
             dissolve: true,
@@ -36639,7 +36544,7 @@ function( app, _Layer, Visual, TextModal ) {
         afterEditorRender: function() {
             if ( this.textModal === null ) {
                 this.textModal = new TextModal({ model: this.model });
-                if ( this.model.get("attr").content == "" ) {
+                if ( this.model.get("attr").content === "" ) {
                     this.launchTextModal();
                 }
             }
@@ -37195,6 +37100,8 @@ function( app, Backbone, Layers, ThumbWorker ) {
             // if frame is completely loaded, then just render it
             // else try preloading the layers
             if ( this.ready ) {
+
+                app.spinner.stop();
                 // only render non-common layers. allows for persistent layers
                 commonLayers = this.get("common_layers")[ oldID ] || [];
                 // if the frame is "ready", then just render the layers
@@ -37214,7 +37121,7 @@ function( app, Backbone, Layers, ThumbWorker ) {
 
             } else {
                 this.renderOnReady = oldID;
-                app.spinner.spin( app.$(".ZEEGA-player")[0] );
+                app.spinner.spin( $(".ZEEGA-player-window")[0] );
             }
             /* determines the z-index of the layer in relation to other layers on the frame */
             _.each( this.get("layers"), function( layerID, i ) {
@@ -37300,6 +37207,8 @@ function( app, Backbone, Layers, ThumbWorker ) {
                     layer.exit();
                 }
             });
+
+            this.renderOnReady = null;
         },
 
         unrender: function( newID ) {
@@ -39819,6 +39728,103 @@ function( app, Zeega ) {
 
     });
 
+});
+
+define('engine/modules/askers/asker.view',[
+    "app",
+    "backbone"
+],
+
+function( app ) {
+
+    return Backbone.View.extend({
+
+        template: "app/engine/modules/askers/asker",
+        className: "ZEEGA-asker asker-overlay",
+
+        serialize: function() {
+            return this.model.toJSON();
+        },
+
+        start: function() {
+            $("body").append( this.el );
+            $("#main").addClass("modal");
+            this.render();
+            this.$el.fadeIn("fast");
+        },
+
+        afterRender: function() {
+            $("body").bind("keyup.asker", function( e ) {
+                if ( e.which == 13 ) { //enter
+                    this.okay();
+                } else if ( e.which == 27 ) { // esc
+                    this.cancel();
+                }
+            }.bind( this ));
+        },
+
+        events: {
+            "click .ask-cancel": "cancel",
+            "click .ask-okay": "okay"
+        },
+
+        cancel: function() {
+            this.model.set("response", false );
+            this.close();
+        },
+
+        okay: function() {
+            this.model.set("response", true );
+            this.close();
+        },
+
+        close: function() {
+            $("#main").removeClass("modal");
+            this.$el.fadeOut( 250, function() {
+                this.remove();
+            }.bind( this ));
+            $("body").unbind("keyup.asker");
+        }
+
+    });
+
+});
+
+define('engine/modules/askers/asker',[
+    "app",
+    "engine/modules/askers/asker.view",
+    "backbone"
+],
+
+function( app, AskerView ) {
+
+    return Backbone.Model.extend({
+
+        defaults: {
+            question: "",
+            description: "",
+            response: null,
+            okay: null,
+            cancel: null
+        },
+
+        initialize: function() {
+            this.view = new AskerView({ model: this });
+            this.view.start();
+
+            this.on("change:response", this.onAnswer, this );
+        },
+
+        onAnswer: function( model, answer ) {
+            this.off("change:response");
+            if ( answer && _.isFunction( this.get("okay"))) {
+                this.get("okay")( answer );
+            } else if ( !answer && _.isFunction( this.get("cancel"))) {
+                this.get("cancel")( answer );
+            }
+        }
+
+    });
 });
 
 define('modules/views/frame',[
