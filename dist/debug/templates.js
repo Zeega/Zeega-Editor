@@ -254,49 +254,39 @@ this["JST"]["app/templates/project-head.html"] = function(obj){
 var __p='';var print=function(){__p+=Array.prototype.join.call(arguments, '')};
 with(obj||{}){
 __p+='<a href="http://www.zeega.com" class="ZEEGA-tab">\n    <span class="ZTab-logo"></span>\n</a>\n\n<div class="nav-wrapper">\n    <div class="nav col-left navbar">\n        <ul class=\'pull-left\'>\n            <li>\n                <a href="'+
-( webRoot )+
+( web_root )+
 'profile/'+
 ( userId )+
 '"\n                    title="my profile"\n                    data-gravity="n"\n                    ><span class="user-token"\n                        style="\n                            background-image:url('+
 ( userThumbnail )+
 ');\n                            background-size: cover;\n                        "\n                    ></span></a>\n            </li>\n            <li>\n                <a href="#" class="editor-help btnz btnz-light"\n                    title="view instructions"\n                    data-gravity="n"\n                >Help</a>\n            </li>\n           \n        </ul>\n    </div>\n\n    <ul class="nav-buttons-right">\n        \n        <li>\n            <a href="#" class="project-preview btnz"\n                title="see what you\'re making"\n                data-gravity="n"\n            ><i class="icon-play icon-white"></i> Preview</a>\n        </li>\n        <li>\n            <a href="#" class="project-share btnz btnz-blue btnz-fullwidth"\n                title="share your Zeega with the world"\n                data-gravity="n"\n            ><i class="icon-retweet icon-white"></i> Share</a>\n        </li>\n         <li>\n                <a href="'+
-( webRoot )+
+( web_root )+
 'project/new"\n                    class="btnz new-zeega"\n                    title="start a new Zeega"\n                    data-gravity="ne"\n                    >New</a>\n        </li>\n\n    </ul>\n\n</div>\n\n<div class="share-grave">\n\n    <div class="close-wrapper">\n        <a href="#" class="close-grave">&times;</a>\n    </div>\n\n    <div class="grave-inner">\n\n        <div class="share-meta">\n            <div class="cover-image-wrapper">\n                <div class="project-cover" style="\n                    background: url('+
 ( cover_image )+
 ');\n                    background-size: cover;\n                "></div>\n                <div class="caption-info">Drag cover image here</div>\n            </div>\n            <div class="caption-side">\n                <textarea id="project-caption" placeholder="Caption your Zeega before sharing" maxlength="80">'+
 ( title )+
-'</textarea>\n                <div class="caption-info">80 character limit</div>\n            </div>\n        </div>\n\n\n        <div class="share-tab-content">\n            <div class="share-network share-window active">\n\n                <div>\n                    <a href="https://twitter.com/intent/tweet?original_referer='+
-( webRoot )+
-''+
-( item_id )+
-'&text='+
-( title )+
-' made w/ @zeega&url='+
-( webRoot )+
-''+
-( item_id )+
+'</textarea>\n                <div class="caption-info">80 character limit</div>\n            </div>\n        </div>\n\n\n        <div class="share-tab-content">\n            <div class="share-network share-window active">\n\n                <div>\n                    <a href="'+
+( share_links.twitter )+
 '"\n                            class="social-share share-twitter"\n                            data-itemid="'+
 ( id )+
-'"\n                            target="blank">\n                        <i class="social-share-twitter social-share-color"></i>\n                    </a>\n                    <a href="http://www.facebook.com/sharer.php?u='+
-( webRoot )+
-''+
-( id )+
+'"\n                            target="blank">\n                        <i class="social-share-twitter social-share-color"></i>\n                    </a>\n                    <a href="'+
+( share_links.facebook )+
 '"\n                                    class="social-share share-facebook"\n                                    data-itemid="'+
 ( id )+
-'"\n                                    target="blank">\n                        <i class="social-share-facebook social-share-color"></i>\n                    </a>\n                    <a id ="tumblr-share" href="http://www.tumblr.com/share/photo?'+
-( tumblr_share )+
+'"\n                                    target="blank">\n                        <i class="social-share-facebook social-share-color"></i>\n                    </a>\n                    <a id ="tumblr-share" href="'+
+( share_links.tumblr )+
 '" \n                                    class="social-share share-tumblr"\n                                    data-itemid="'+
 ( id )+
-'"\n                                    target="blank">\n                        <i class="social-share-tumblr social-share-color"></i>\n                    </a>\n                    <a id ="tumblr-share" href="http://www.tumblr.com/share/photo?'+
-( tumblr_share )+
-'" \n                                    class="social-share share-tumblr"\n                                    data-itemid="'+
+'"\n                                    target="blank">\n                        <i class="social-share-tumblr social-share-color"></i>\n                    </a>\n                    <a id ="reddit-share" href="'+
+( share_links.reddit )+
+'" \n                                    class="social-share share-reddit"\n                                    data-itemid="'+
 ( id )+
 '"\n                                    target="blank">\n                        <i class="social-share-reddit social-share-color"></i>\n                    </a>\n                </div>\n\n                <div>\n                    <input class="text-box" type="text" value="'+
-( webRoot )+
+( web_root )+
 ''+
 ( id )+
 '" readonly></input>\n                </div>\n\n            </div>\n            <div class="share-embed share-window">\n                <div>\n                    <p>Use this snippet of code to showcase your Zeega on your own site</p>\n                </div>\n                <div>\n                    <input class="text-box" type="text" value=\'<iframe src="'+
-( webRoot )+
+( web_root )+
 ''+
 ( id )+
 '/embed" width="400px" height="480px" webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe>\'></input>\n                </div>\n                \n            </div>\n        </div>\n\n        <div class="share-tabs">\n            <ul>\n                <li>\n                    <a href="#" class="share-zeega active">Share your Zeega</a>\n                </li>\n                <li>\n                    <a href="#" class="embed-zeega">Embed</a>\n                </li>\n            </ul>\n        </div>\n\n    </div>\n\n</div>\n';

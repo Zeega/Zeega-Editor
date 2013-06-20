@@ -6,7 +6,7 @@
     <div class="nav col-left navbar">
         <ul class='pull-left'>
             <li>
-                <a href="<%= webRoot %>profile/<%= userId %>"
+                <a href="<%= web_root %>profile/<%= userId %>"
                     title="my profile"
                     data-gravity="n"
                     ><span class="user-token"
@@ -41,7 +41,7 @@
             ><i class="icon-retweet icon-white"></i> Share</a>
         </li>
          <li>
-                <a href="<%= webRoot %>project/new"
+                <a href="<%= web_root %>project/new"
                     class="btnz new-zeega"
                     title="start a new Zeega"
                     data-gravity="ne"
@@ -79,26 +79,26 @@
             <div class="share-network share-window active">
 
                 <div>
-                    <a href="https://twitter.com/intent/tweet?original_referer=<%= webRoot %><%= item_id %>&text=<%= title %> made w/ @zeega&url=<%= webRoot %><%= item_id %>"
+                    <a href="<%= share_links.twitter %>"
                             class="social-share share-twitter"
                             data-itemid="<%= id %>"
                             target="blank">
                         <i class="social-share-twitter social-share-color"></i>
                     </a>
-                    <a href="http://www.facebook.com/sharer.php?u=<%= webRoot %><%= id %>"
+                    <a href="<%= share_links.facebook %>"
                                     class="social-share share-facebook"
                                     data-itemid="<%= id %>"
                                     target="blank">
                         <i class="social-share-facebook social-share-color"></i>
                     </a>
-                    <a id ="tumblr-share" href="http://www.tumblr.com/share/photo?<%= tumblr_share %>" 
+                    <a id ="tumblr-share" href="<%= share_links.tumblr %>" 
                                     class="social-share share-tumblr"
                                     data-itemid="<%= id %>"
                                     target="blank">
                         <i class="social-share-tumblr social-share-color"></i>
                     </a>
-                    <a id ="tumblr-share" href="http://www.tumblr.com/share/photo?<%= tumblr_share %>" 
-                                    class="social-share share-tumblr"
+                    <a id ="reddit-share" href="<%= share_links.reddit %>" 
+                                    class="social-share share-reddit"
                                     data-itemid="<%= id %>"
                                     target="blank">
                         <i class="social-share-reddit social-share-color"></i>
@@ -106,7 +106,7 @@
                 </div>
 
                 <div>
-                    <input class="text-box" type="text" value="<%= webRoot %><%= id %>" readonly></input>
+                    <input class="text-box" type="text" value="<%= web_root %><%= id %>" readonly></input>
                 </div>
 
             </div>
@@ -115,7 +115,7 @@
                     <p>Use this snippet of code to showcase your Zeega on your own site</p>
                 </div>
                 <div>
-                    <input class="text-box" type="text" value='<iframe src="<%= webRoot %><%= id %>/embed" width="400px" height="480px" webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe>'></input>
+                    <input class="text-box" type="text" value='<iframe src="<%= web_root %><%= id %>/embed" width="400px" height="480px" webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe>'></input>
                 </div>
                 
             </div>

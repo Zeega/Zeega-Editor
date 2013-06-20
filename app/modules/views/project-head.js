@@ -14,9 +14,8 @@ function( app, Zeega ) {
 
         serialize: function() {
             return _.extend({
-                    userId: app.userId,
-                    webRoot: app.webRoot,
-                    tumblr_share: this.getTumblrShareUrl()
+                    web_root: app.webRoot,
+                    share_links: this.getShareLinks()
                 },
                 app.metadata,
                 this.model.project.toJSON(),
@@ -25,15 +24,36 @@ function( app, Zeega ) {
             );
         },
 
-        getTumblrShareUrl: function() {
-            var html = "<p>" + this.$("#project-caption").val() + "</p>" +
-                "<p><a href='" + app.webRoot + app.project.get("id") + "'>" +
-                "<strong>►&nbsp;Play&nbsp;Zeega&nbsp;►</strong></a>" +
-                "</p><p>by&nbsp;<a href='" + app.webRoot + "profile/" + app.project.get("user_id") + "'>" + app.project.get("authors") + "</a></p>";
+        getShareLinks: function() {
+            var title, html,
+                links = {},
+                webRoot = app.webRoot;
 
-            return "source=" + encodeURIComponent( app.project.get("cover_image") ) +
+            if(_.isUndefined( this.$("#project-caption").val()) ){
+                title = app.project.get("title");
+            } else {
+                title = this.$("#project-caption").val();
+            }
+
+            html = "<p>" + title + "</p>" +
+                "<p><a href='" + webRoot + this.model.project.get("id") + "'>" +
+                "<strong>►&nbsp;Play&nbsp;Zeega&nbsp;►</strong></a>" +
+                "</p><p>by&nbsp;<a href='" + webRoot + "profile/" + this.model.project.get("user_id") + "'>" + this.model.project.get("authors") + "</a></p>";
+
+            links.tumblr = "http://www.tumblr.com/share/photo?source=" + encodeURIComponent( this.model.project.get("cover_image") ) +
                 "&caption=" + encodeURIComponent( html ) +
-                "&click_thru="+ encodeURIComponent( app.webRoot ) + app.project.get("id");
+                "&click_thru="+ encodeURIComponent( webRoot ) + this.model.project.get("id");
+
+            links.reddit = "http://www.reddit.com/submit?url=" + encodeURIComponent( app.webRoot ) + this.model.project.get("id") +
+                "&title=" + encodeURIComponent( title );
+
+            links.twitter = "https://twitter.com/intent/tweet?original_referer=" + encodeURIComponent( webRoot ) + this.model.project.get("id") +
+                "&text=" + encodeURIComponent( title  + " made w/ @zeega") +
+                "&url=" + encodeURIComponent( webRoot ) + this.model.project.get("id");
+
+            links.facebook = "http://www.facebook.com/sharer.php?u=" + encodeURIComponent( app.webRoot ) + this.model.project.get("id");
+
+            return links;
         },
 
         initialize: function() {
@@ -49,8 +69,10 @@ function( app, Zeega ) {
         },
 
         updateShareUrls: function() {
-            this.$(".share-twitter").attr("href", "https://twitter.com/intent/tweet?original_referer=" + app.webRoot + this.model.project.get("id") + "&text=" + this.$("#project-caption").val() +" "+ app.webRoot + this.model.project.get("id") + " made w/ @zeega" );
-            this.$(".share-tumblr").attr("href", "http://www.tumblr.com/share/photo?" + this.getTumblrShareUrl() );
+
+            _.each( this.getShareLinks(), function(value, key){
+                this.$(".share-" + key ).attr("href", value );
+            });
         },
 
         afterRender: function() {
