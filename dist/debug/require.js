@@ -537,7 +537,7 @@ return __p;
 this["JST"]["app/templates/layer-drawer.html"] = function(obj){
 var __p='';var print=function(){__p+=Array.prototype.join.call(arguments, '')};
 with(obj||{}){
-__p+='<div class="ZEEGA-layer-drawer ZEEGA-hmenu clear">\n    <ul>\n         <li>\n            <a href="#"\n                data-layer-type="Rectangle"\n                title="add color box"\n                data-gravity="n"\n            >\n                <div class="item-label">color</div>\n                <i class="icon-th-large"></i>\n            </a>\n        </li>\n        <li>\n            <a href="#"\n                data-layer-type="TextV2"\n                title="add text"\n                data-gravity="n"\n            >\n                <div class="item-label">text</div>\n                <i class="icon-font"></i>\n            </a>\n        </li>\n       \n        \n        <!--\n        <li>\n            <a href="#" data-layer-type="Link"\n                title="add interactivity"\n                data-gravity="n"\n            >\n                <div class="item-label">link</div>\n                <i class="icon-arrow-up"></i>\n            </a>\n        </li>\n        -->\n\n    </ul>\n</div>';
+__p+='<div class="ZEEGA-layer-drawer ZEEGA-hmenu clear">\n    <ul>\n         <li>\n            <a href="#"\n                data-layer-type="Rectangle"\n                title="add color filter"\n                data-gravity="n"\n            >\n                <div class="item-label">filter</div>\n                <i class="icon-th-large"></i>\n            </a>\n        </li>\n        <li>\n            <a href="#"\n                data-layer-type="TextV2"\n                title="add text"\n                data-gravity="n"\n            >\n                <div class="item-label">text</div>\n                <i class="icon-font"></i>\n            </a>\n        </li>\n    </ul>\n</div>';
 }
 return __p;
 };
@@ -1052,6 +1052,355 @@ if (typeof exports !== "undefined" && typeof module !== "undefined") {
 };
 define("../vendor/jam/require.config", function(){});
 
+//fgnass.github.com/spin.js#v1.3
+
+/**
+ * Copyright (c) 2011-2013 Felix Gnass
+ * Licensed under the MIT license
+ */
+(function(root, factory) {
+
+  /* CommonJS */
+  if (typeof exports == 'object')  module.exports = factory()
+
+  /* AMD module */
+  else if (typeof define == 'function' && define.amd) define('engineVendor/spin',[],factory)
+
+  /* Browser global */
+  else root.Spinner = factory()
+}
+(this, function() {
+  
+
+  var prefixes = ['webkit', 'Moz', 'ms', 'O'] /* Vendor prefixes */
+    , animations = {} /* Animation rules keyed by their name */
+    , useCssAnimations /* Whether to use CSS animations or setTimeout */
+
+  /**
+   * Utility function to create elements. If no tag name is given,
+   * a DIV is created. Optionally properties can be passed.
+   */
+  function createEl(tag, prop) {
+    var el = document.createElement(tag || 'div')
+      , n
+
+    for(n in prop) el[n] = prop[n]
+    return el
+  }
+
+  /**
+   * Appends children and returns the parent.
+   */
+  function ins(parent /* child1, child2, ...*/) {
+    for (var i=1, n=arguments.length; i<n; i++)
+      parent.appendChild(arguments[i])
+
+    return parent
+  }
+
+  /**
+   * Insert a new stylesheet to hold the @keyframe or VML rules.
+   */
+  var sheet = (function() {
+    var el = createEl('style', {type : 'text/css'})
+    ins(document.getElementsByTagName('head')[0], el)
+    return el.sheet || el.styleSheet
+  }())
+
+  /**
+   * Creates an opacity keyframe animation rule and returns its name.
+   * Since most mobile Webkits have timing issues with animation-delay,
+   * we create separate rules for each line/segment.
+   */
+  function addAnimation(alpha, trail, i, lines) {
+    var name = ['opacity', trail, ~~(alpha*100), i, lines].join('-')
+      , start = 0.01 + i/lines * 100
+      , z = Math.max(1 - (1-alpha) / trail * (100-start), alpha)
+      , prefix = useCssAnimations.substring(0, useCssAnimations.indexOf('Animation')).toLowerCase()
+      , pre = prefix && '-' + prefix + '-' || ''
+
+    if (!animations[name]) {
+      sheet.insertRule(
+        '@' + pre + 'keyframes ' + name + '{' +
+        '0%{opacity:' + z + '}' +
+        start + '%{opacity:' + alpha + '}' +
+        (start+0.01) + '%{opacity:1}' +
+        (start+trail) % 100 + '%{opacity:' + alpha + '}' +
+        '100%{opacity:' + z + '}' +
+        '}', sheet.cssRules.length)
+
+      animations[name] = 1
+    }
+
+    return name
+  }
+
+  /**
+   * Tries various vendor prefixes and returns the first supported property.
+   */
+  function vendor(el, prop) {
+    var s = el.style
+      , pp
+      , i
+
+    if(s[prop] !== undefined) return prop
+    prop = prop.charAt(0).toUpperCase() + prop.slice(1)
+    for(i=0; i<prefixes.length; i++) {
+      pp = prefixes[i]+prop
+      if(s[pp] !== undefined) return pp
+    }
+  }
+
+  /**
+   * Sets multiple style properties at once.
+   */
+  function css(el, prop) {
+    for (var n in prop)
+      el.style[vendor(el, n)||n] = prop[n]
+
+    return el
+  }
+
+  /**
+   * Fills in default values.
+   */
+  function merge(obj) {
+    for (var i=1; i < arguments.length; i++) {
+      var def = arguments[i]
+      for (var n in def)
+        if (obj[n] === undefined) obj[n] = def[n]
+    }
+    return obj
+  }
+
+  /**
+   * Returns the absolute page-offset of the given element.
+   */
+  function pos(el) {
+    var o = { x:el.offsetLeft, y:el.offsetTop }
+    while((el = el.offsetParent))
+      o.x+=el.offsetLeft, o.y+=el.offsetTop
+
+    return o
+  }
+
+  // Built-in defaults
+
+  var defaults = {
+    lines: 12,            // The number of lines to draw
+    length: 7,            // The length of each line
+    width: 5,             // The line thickness
+    radius: 10,           // The radius of the inner circle
+    rotate: 0,            // Rotation offset
+    corners: 1,           // Roundness (0..1)
+    color: '#000',        // #rgb or #rrggbb
+    direction: 1,         // 1: clockwise, -1: counterclockwise
+    speed: 1,             // Rounds per second
+    trail: 100,           // Afterglow percentage
+    opacity: 1/4,         // Opacity of the lines
+    fps: 20,              // Frames per second when using setTimeout()
+    zIndex: 2e9,          // Use a high z-index by default
+    className: 'spinner', // CSS class to assign to the element
+    top: 'auto',          // center vertically
+    left: 'auto',         // center horizontally
+    position: 'relative'  // element position
+  }
+
+  /** The constructor */
+  function Spinner(o) {
+    if (typeof this == 'undefined') return new Spinner(o)
+    this.opts = merge(o || {}, Spinner.defaults, defaults)
+  }
+
+  // Global defaults that override the built-ins:
+  Spinner.defaults = {}
+
+  merge(Spinner.prototype, {
+
+    /**
+     * Adds the spinner to the given target element. If this instance is already
+     * spinning, it is automatically removed from its previous target b calling
+     * stop() internally.
+     */
+    spin: function(target) {
+      this.stop()
+
+      var self = this
+        , o = self.opts
+        , el = self.el = css(createEl(0, {className: o.className}), {position: o.position, width: 0, zIndex: o.zIndex})
+        , mid = o.radius+o.length+o.width
+        , ep // element position
+        , tp // target position
+
+      if (target) {
+        target.insertBefore(el, target.firstChild||null)
+        tp = pos(target)
+        ep = pos(el)
+        css(el, {
+          left: (o.left == 'auto' ? tp.x-ep.x + (target.offsetWidth >> 1) : parseInt(o.left, 10) + mid) + 'px',
+          top: (o.top == 'auto' ? tp.y-ep.y + (target.offsetHeight >> 1) : parseInt(o.top, 10) + mid)  + 'px'
+        })
+      }
+
+      el.setAttribute('role', 'progressbar')
+      self.lines(el, self.opts)
+
+      if (!useCssAnimations) {
+        // No CSS animation support, use setTimeout() instead
+        var i = 0
+          , start = (o.lines - 1) * (1 - o.direction) / 2
+          , alpha
+          , fps = o.fps
+          , f = fps/o.speed
+          , ostep = (1-o.opacity) / (f*o.trail / 100)
+          , astep = f/o.lines
+
+        ;(function anim() {
+          i++;
+          for (var j = 0; j < o.lines; j++) {
+            alpha = Math.max(1 - (i + (o.lines - j) * astep) % f * ostep, o.opacity)
+
+            self.opacity(el, j * o.direction + start, alpha, o)
+          }
+          self.timeout = self.el && setTimeout(anim, ~~(1000/fps))
+        })()
+      }
+      return self
+    },
+
+    /**
+     * Stops and removes the Spinner.
+     */
+    stop: function() {
+      var el = this.el
+      if (el) {
+        clearTimeout(this.timeout)
+        if (el.parentNode) el.parentNode.removeChild(el)
+        this.el = undefined
+      }
+      return this
+    },
+
+    /**
+     * Internal method that draws the individual lines. Will be overwritten
+     * in VML fallback mode below.
+     */
+    lines: function(el, o) {
+      var i = 0
+        , start = (o.lines - 1) * (1 - o.direction) / 2
+        , seg
+
+      function fill(color, shadow) {
+        return css(createEl(), {
+          position: 'absolute',
+          width: (o.length+o.width) + 'px',
+          height: o.width + 'px',
+          background: color,
+          boxShadow: shadow,
+          transformOrigin: 'left',
+          transform: 'rotate(' + ~~(360/o.lines*i+o.rotate) + 'deg) translate(' + o.radius+'px' +',0)',
+          borderRadius: (o.corners * o.width>>1) + 'px'
+        })
+      }
+
+      for (; i < o.lines; i++) {
+        seg = css(createEl(), {
+          position: 'absolute',
+          top: 1+~(o.width/2) + 'px',
+          transform: o.hwaccel ? 'translate3d(0,0,0)' : '',
+          opacity: o.opacity,
+          animation: useCssAnimations && addAnimation(o.opacity, o.trail, start + i * o.direction, o.lines) + ' ' + 1/o.speed + 's linear infinite'
+        })
+
+        if (o.shadow) ins(seg, css(fill('#000', '0 0 4px ' + '#000'), {top: 2+'px'}))
+
+        ins(el, ins(seg, fill(o.color, '0 0 1px rgba(0,0,0,.1)')))
+      }
+      return el
+    },
+
+    /**
+     * Internal method that adjusts the opacity of a single line.
+     * Will be overwritten in VML fallback mode below.
+     */
+    opacity: function(el, i, val) {
+      if (i < el.childNodes.length) el.childNodes[i].style.opacity = val
+    }
+
+  })
+
+
+  function initVML() {
+
+    /* Utility function to create a VML tag */
+    function vml(tag, attr) {
+      return createEl('<' + tag + ' xmlns="urn:schemas-microsoft.com:vml" class="spin-vml">', attr)
+    }
+
+    // No CSS transforms but VML support, add a CSS rule for VML elements:
+    sheet.addRule('.spin-vml', 'behavior:url(#default#VML)')
+
+    Spinner.prototype.lines = function(el, o) {
+      var r = o.length+o.width
+        , s = 2*r
+
+      function grp() {
+        return css(
+          vml('group', {
+            coordsize: s + ' ' + s,
+            coordorigin: -r + ' ' + -r
+          }),
+          { width: s, height: s }
+        )
+      }
+
+      var margin = -(o.width+o.length)*2 + 'px'
+        , g = css(grp(), {position: 'absolute', top: margin, left: margin})
+        , i
+
+      function seg(i, dx, filter) {
+        ins(g,
+          ins(css(grp(), {rotation: 360 / o.lines * i + 'deg', left: ~~dx}),
+            ins(css(vml('roundrect', {arcsize: o.corners}), {
+                width: r,
+                height: o.width,
+                left: o.radius,
+                top: -o.width>>1,
+                filter: filter
+              }),
+              vml('fill', {color: o.color, opacity: o.opacity}),
+              vml('stroke', {opacity: 0}) // transparent stroke to fix color bleeding upon opacity change
+            )
+          )
+        )
+      }
+
+      if (o.shadow)
+        for (i = 1; i <= o.lines; i++)
+          seg(i, -2, 'progid:DXImageTransform.Microsoft.Blur(pixelradius=2,makeshadow=1,shadowopacity=.3)')
+
+      for (i = 1; i <= o.lines; i++) seg(i)
+      return ins(el, g)
+    }
+
+    Spinner.prototype.opacity = function(el, i, val, o) {
+      var c = el.firstChild
+      o = o.shadow && o.lines || 0
+      if (c && i+o < c.childNodes.length) {
+        c = c.childNodes[i+o]; c = c && c.firstChild; c = c && c.firstChild
+        if (c) c.opacity = val
+      }
+    }
+  }
+
+  var probe = css(createEl('group'), {behavior: 'url(#default#VML)'})
+
+  if (!vendor(probe, 'transform') && probe.adj) initVML()
+  else useCssAnimations = vendor(probe, 'animation')
+
+  return Spinner
+
+}));
 /*!
  * jQuery JavaScript Library v2.0.2
  * http://jquery.com/
@@ -17617,8 +17966,9 @@ define('backbone.layoutmanager', ['backbone.layoutmanager/backbone.layoutmanager
 define("backbone.layoutmanager/backbone.layoutmanager", function(){});
 
 define('app',[
+    "engineVendor/spin",
     "backbone.layoutmanager"
-], function() {
+], function( Spinner ) {
 
     var meta = $("meta[name=zeega]");
 
@@ -17652,8 +18002,27 @@ define('app',[
             // other things can be done here as well
             this.trigger( event, args );
         }
-    
     };
+
+    var opts = {
+        lines: 13, // The number of lines to draw
+        length: 10, // The length of each line
+        width: 4, // The line thickness
+        radius: 30, // The radius of the inner circle
+        corners: 1, // Corner roundness (0..1)
+        rotate: 0, // The rotation offset
+        direction: 1, // 1: clockwise, -1: counterclockwise
+        color: '#FFF', // #rgb or #rrggbb
+        speed: 1, // Rounds per second
+        trail: 60, // Afterglow percentage
+        shadow: false, // Whether to render a shadow
+        hwaccel: false, // Whether to use hardware acceleration
+        className: 'spinner', // The CSS class to assign to the spinner
+        zIndex: 2e9, // The z-index (defaults to 2000000000)
+        top: 'auto', // Top position relative to parent in px
+        left: 'auto' // Left position relative to parent in px
+    };
+    app.spinner = new Spinner(opts);
 
     // Localize or create a new JavaScript Template object.
     var JST = window.JST = window.JST || {};
@@ -17803,355 +18172,6 @@ function( app ) {
 
 });
 
-//fgnass.github.com/spin.js#v1.3
-
-/**
- * Copyright (c) 2011-2013 Felix Gnass
- * Licensed under the MIT license
- */
-(function(root, factory) {
-
-  /* CommonJS */
-  if (typeof exports == 'object')  module.exports = factory()
-
-  /* AMD module */
-  else if (typeof define == 'function' && define.amd) define('engineVendor/spin',[],factory)
-
-  /* Browser global */
-  else root.Spinner = factory()
-}
-(this, function() {
-  
-
-  var prefixes = ['webkit', 'Moz', 'ms', 'O'] /* Vendor prefixes */
-    , animations = {} /* Animation rules keyed by their name */
-    , useCssAnimations /* Whether to use CSS animations or setTimeout */
-
-  /**
-   * Utility function to create elements. If no tag name is given,
-   * a DIV is created. Optionally properties can be passed.
-   */
-  function createEl(tag, prop) {
-    var el = document.createElement(tag || 'div')
-      , n
-
-    for(n in prop) el[n] = prop[n]
-    return el
-  }
-
-  /**
-   * Appends children and returns the parent.
-   */
-  function ins(parent /* child1, child2, ...*/) {
-    for (var i=1, n=arguments.length; i<n; i++)
-      parent.appendChild(arguments[i])
-
-    return parent
-  }
-
-  /**
-   * Insert a new stylesheet to hold the @keyframe or VML rules.
-   */
-  var sheet = (function() {
-    var el = createEl('style', {type : 'text/css'})
-    ins(document.getElementsByTagName('head')[0], el)
-    return el.sheet || el.styleSheet
-  }())
-
-  /**
-   * Creates an opacity keyframe animation rule and returns its name.
-   * Since most mobile Webkits have timing issues with animation-delay,
-   * we create separate rules for each line/segment.
-   */
-  function addAnimation(alpha, trail, i, lines) {
-    var name = ['opacity', trail, ~~(alpha*100), i, lines].join('-')
-      , start = 0.01 + i/lines * 100
-      , z = Math.max(1 - (1-alpha) / trail * (100-start), alpha)
-      , prefix = useCssAnimations.substring(0, useCssAnimations.indexOf('Animation')).toLowerCase()
-      , pre = prefix && '-' + prefix + '-' || ''
-
-    if (!animations[name]) {
-      sheet.insertRule(
-        '@' + pre + 'keyframes ' + name + '{' +
-        '0%{opacity:' + z + '}' +
-        start + '%{opacity:' + alpha + '}' +
-        (start+0.01) + '%{opacity:1}' +
-        (start+trail) % 100 + '%{opacity:' + alpha + '}' +
-        '100%{opacity:' + z + '}' +
-        '}', sheet.cssRules.length)
-
-      animations[name] = 1
-    }
-
-    return name
-  }
-
-  /**
-   * Tries various vendor prefixes and returns the first supported property.
-   */
-  function vendor(el, prop) {
-    var s = el.style
-      , pp
-      , i
-
-    if(s[prop] !== undefined) return prop
-    prop = prop.charAt(0).toUpperCase() + prop.slice(1)
-    for(i=0; i<prefixes.length; i++) {
-      pp = prefixes[i]+prop
-      if(s[pp] !== undefined) return pp
-    }
-  }
-
-  /**
-   * Sets multiple style properties at once.
-   */
-  function css(el, prop) {
-    for (var n in prop)
-      el.style[vendor(el, n)||n] = prop[n]
-
-    return el
-  }
-
-  /**
-   * Fills in default values.
-   */
-  function merge(obj) {
-    for (var i=1; i < arguments.length; i++) {
-      var def = arguments[i]
-      for (var n in def)
-        if (obj[n] === undefined) obj[n] = def[n]
-    }
-    return obj
-  }
-
-  /**
-   * Returns the absolute page-offset of the given element.
-   */
-  function pos(el) {
-    var o = { x:el.offsetLeft, y:el.offsetTop }
-    while((el = el.offsetParent))
-      o.x+=el.offsetLeft, o.y+=el.offsetTop
-
-    return o
-  }
-
-  // Built-in defaults
-
-  var defaults = {
-    lines: 12,            // The number of lines to draw
-    length: 7,            // The length of each line
-    width: 5,             // The line thickness
-    radius: 10,           // The radius of the inner circle
-    rotate: 0,            // Rotation offset
-    corners: 1,           // Roundness (0..1)
-    color: '#000',        // #rgb or #rrggbb
-    direction: 1,         // 1: clockwise, -1: counterclockwise
-    speed: 1,             // Rounds per second
-    trail: 100,           // Afterglow percentage
-    opacity: 1/4,         // Opacity of the lines
-    fps: 20,              // Frames per second when using setTimeout()
-    zIndex: 2e9,          // Use a high z-index by default
-    className: 'spinner', // CSS class to assign to the element
-    top: 'auto',          // center vertically
-    left: 'auto',         // center horizontally
-    position: 'relative'  // element position
-  }
-
-  /** The constructor */
-  function Spinner(o) {
-    if (typeof this == 'undefined') return new Spinner(o)
-    this.opts = merge(o || {}, Spinner.defaults, defaults)
-  }
-
-  // Global defaults that override the built-ins:
-  Spinner.defaults = {}
-
-  merge(Spinner.prototype, {
-
-    /**
-     * Adds the spinner to the given target element. If this instance is already
-     * spinning, it is automatically removed from its previous target b calling
-     * stop() internally.
-     */
-    spin: function(target) {
-      this.stop()
-
-      var self = this
-        , o = self.opts
-        , el = self.el = css(createEl(0, {className: o.className}), {position: o.position, width: 0, zIndex: o.zIndex})
-        , mid = o.radius+o.length+o.width
-        , ep // element position
-        , tp // target position
-
-      if (target) {
-        target.insertBefore(el, target.firstChild||null)
-        tp = pos(target)
-        ep = pos(el)
-        css(el, {
-          left: (o.left == 'auto' ? tp.x-ep.x + (target.offsetWidth >> 1) : parseInt(o.left, 10) + mid) + 'px',
-          top: (o.top == 'auto' ? tp.y-ep.y + (target.offsetHeight >> 1) : parseInt(o.top, 10) + mid)  + 'px'
-        })
-      }
-
-      el.setAttribute('role', 'progressbar')
-      self.lines(el, self.opts)
-
-      if (!useCssAnimations) {
-        // No CSS animation support, use setTimeout() instead
-        var i = 0
-          , start = (o.lines - 1) * (1 - o.direction) / 2
-          , alpha
-          , fps = o.fps
-          , f = fps/o.speed
-          , ostep = (1-o.opacity) / (f*o.trail / 100)
-          , astep = f/o.lines
-
-        ;(function anim() {
-          i++;
-          for (var j = 0; j < o.lines; j++) {
-            alpha = Math.max(1 - (i + (o.lines - j) * astep) % f * ostep, o.opacity)
-
-            self.opacity(el, j * o.direction + start, alpha, o)
-          }
-          self.timeout = self.el && setTimeout(anim, ~~(1000/fps))
-        })()
-      }
-      return self
-    },
-
-    /**
-     * Stops and removes the Spinner.
-     */
-    stop: function() {
-      var el = this.el
-      if (el) {
-        clearTimeout(this.timeout)
-        if (el.parentNode) el.parentNode.removeChild(el)
-        this.el = undefined
-      }
-      return this
-    },
-
-    /**
-     * Internal method that draws the individual lines. Will be overwritten
-     * in VML fallback mode below.
-     */
-    lines: function(el, o) {
-      var i = 0
-        , start = (o.lines - 1) * (1 - o.direction) / 2
-        , seg
-
-      function fill(color, shadow) {
-        return css(createEl(), {
-          position: 'absolute',
-          width: (o.length+o.width) + 'px',
-          height: o.width + 'px',
-          background: color,
-          boxShadow: shadow,
-          transformOrigin: 'left',
-          transform: 'rotate(' + ~~(360/o.lines*i+o.rotate) + 'deg) translate(' + o.radius+'px' +',0)',
-          borderRadius: (o.corners * o.width>>1) + 'px'
-        })
-      }
-
-      for (; i < o.lines; i++) {
-        seg = css(createEl(), {
-          position: 'absolute',
-          top: 1+~(o.width/2) + 'px',
-          transform: o.hwaccel ? 'translate3d(0,0,0)' : '',
-          opacity: o.opacity,
-          animation: useCssAnimations && addAnimation(o.opacity, o.trail, start + i * o.direction, o.lines) + ' ' + 1/o.speed + 's linear infinite'
-        })
-
-        if (o.shadow) ins(seg, css(fill('#000', '0 0 4px ' + '#000'), {top: 2+'px'}))
-
-        ins(el, ins(seg, fill(o.color, '0 0 1px rgba(0,0,0,.1)')))
-      }
-      return el
-    },
-
-    /**
-     * Internal method that adjusts the opacity of a single line.
-     * Will be overwritten in VML fallback mode below.
-     */
-    opacity: function(el, i, val) {
-      if (i < el.childNodes.length) el.childNodes[i].style.opacity = val
-    }
-
-  })
-
-
-  function initVML() {
-
-    /* Utility function to create a VML tag */
-    function vml(tag, attr) {
-      return createEl('<' + tag + ' xmlns="urn:schemas-microsoft.com:vml" class="spin-vml">', attr)
-    }
-
-    // No CSS transforms but VML support, add a CSS rule for VML elements:
-    sheet.addRule('.spin-vml', 'behavior:url(#default#VML)')
-
-    Spinner.prototype.lines = function(el, o) {
-      var r = o.length+o.width
-        , s = 2*r
-
-      function grp() {
-        return css(
-          vml('group', {
-            coordsize: s + ' ' + s,
-            coordorigin: -r + ' ' + -r
-          }),
-          { width: s, height: s }
-        )
-      }
-
-      var margin = -(o.width+o.length)*2 + 'px'
-        , g = css(grp(), {position: 'absolute', top: margin, left: margin})
-        , i
-
-      function seg(i, dx, filter) {
-        ins(g,
-          ins(css(grp(), {rotation: 360 / o.lines * i + 'deg', left: ~~dx}),
-            ins(css(vml('roundrect', {arcsize: o.corners}), {
-                width: r,
-                height: o.width,
-                left: o.radius,
-                top: -o.width>>1,
-                filter: filter
-              }),
-              vml('fill', {color: o.color, opacity: o.opacity}),
-              vml('stroke', {opacity: 0}) // transparent stroke to fix color bleeding upon opacity change
-            )
-          )
-        )
-      }
-
-      if (o.shadow)
-        for (i = 1; i <= o.lines; i++)
-          seg(i, -2, 'progid:DXImageTransform.Microsoft.Blur(pixelradius=2,makeshadow=1,shadowopacity=.3)')
-
-      for (i = 1; i <= o.lines; i++) seg(i)
-      return ins(el, g)
-    }
-
-    Spinner.prototype.opacity = function(el, i, val, o) {
-      var c = el.firstChild
-      o = o.shadow && o.lines || 0
-      if (c && i+o < c.childNodes.length) {
-        c = c.childNodes[i+o]; c = c && c.firstChild; c = c && c.firstChild
-        if (c) c.opacity = val
-      }
-    }
-  }
-
-  var probe = css(createEl('group'), {behavior: 'url(#default#VML)'})
-
-  if (!vendor(probe, 'transform') && probe.adj) initVML()
-  else useCssAnimations = vendor(probe, 'animation')
-
-  return Spinner
-
-}));
 /*! jQuery UI - v1.10.1 - 2013-02-26
 * http://jqueryui.com
 * Includes: jquery.ui.core.js, jquery.ui.widget.js, jquery.ui.mouse.js, jquery.ui.position.js, jquery.ui.draggable.js, jquery.ui.droppable.js, jquery.ui.resizable.js, jquery.ui.selectable.js, jquery.ui.sortable.js, jquery.ui.accordion.js, jquery.ui.autocomplete.js, jquery.ui.button.js, jquery.ui.datepicker.js, jquery.ui.dialog.js, jquery.ui.menu.js, jquery.ui.progressbar.js, jquery.ui.slider.js, jquery.ui.spinner.js, jquery.ui.tabs.js, jquery.ui.tooltip.js, jquery.ui.effect.js, jquery.ui.effect-blind.js, jquery.ui.effect-bounce.js, jquery.ui.effect-clip.js, jquery.ui.effect-drop.js, jquery.ui.effect-explode.js, jquery.ui.effect-fade.js, jquery.ui.effect-fold.js, jquery.ui.effect-highlight.js, jquery.ui.effect-pulsate.js, jquery.ui.effect-scale.js, jquery.ui.effect-shake.js, jquery.ui.effect-slide.js, jquery.ui.effect-transfer.js
@@ -34584,8 +34604,10 @@ function( app, Controls ) {
 
         beforeRender: function() {
             if ( this.model.mode == "player") {
+                
                 var target = this.model.status.target ? this.model.status.target.find(".ZEEGA-player-window") :
-                                            $(".ZEEGA-workspace");
+                                            $(".ZEEGA-workspace")[0] ? $(".ZEEGA-workspace") : $(".ZEEGA-player-window");
+
 
                 this.className = this._className + " " + this.className;
                 this.beforePlayerRender();
@@ -34779,103 +34801,6 @@ function( app, Controls ) {
 
 });
 
-define('engine/modules/askers/asker.view',[
-    "app",
-    "backbone"
-],
-
-function( app ) {
-
-    return Backbone.View.extend({
-
-        template: "app/engine/modules/askers/asker",
-        className: "ZEEGA-asker asker-overlay",
-
-        serialize: function() {
-            return this.model.toJSON();
-        },
-
-        start: function() {
-            $("body").append( this.el );
-            $("#main").addClass("modal");
-            this.render();
-            this.$el.fadeIn("fast");
-        },
-
-        afterRender: function() {
-            $("body").bind("keyup.asker", function( e ) {
-                if ( e.which == 13 ) { //enter
-                    this.okay();
-                } else if ( e.which == 27 ) { // esc
-                    this.cancel();
-                }
-            }.bind( this ));
-        },
-
-        events: {
-            "click .ask-cancel": "cancel",
-            "click .ask-okay": "okay"
-        },
-
-        cancel: function() {
-            this.model.set("response", false );
-            this.close();
-        },
-
-        okay: function() {
-            this.model.set("response", true );
-            this.close();
-        },
-
-        close: function() {
-            $("#main").removeClass("modal");
-            this.$el.fadeOut( 250, function() {
-                this.remove();
-            }.bind( this ));
-            $("body").unbind("keyup.asker");
-        }
-
-    });
-
-});
-
-define('engine/modules/askers/asker',[
-    "app",
-    "engine/modules/askers/asker.view",
-    "backbone"
-],
-
-function( app, AskerView ) {
-
-    return Backbone.Model.extend({
-
-        defaults: {
-            question: "",
-            description: "",
-            response: null,
-            okay: null,
-            cancel: null
-        },
-
-        initialize: function() {
-            this.view = new AskerView({ model: this });
-            this.view.start();
-
-            this.on("change:response", this.onAnswer, this );
-        },
-
-        onAnswer: function( model, answer ) {
-            this.off("change:response");
-            if ( answer && _.isFunction( this.get("okay"))) {
-                this.get("okay")( answer );
-            } else if ( !answer && _.isFunction( this.get("cancel"))) {
-                this.get("cancel")( answer );
-            }
-        }
-
-    });
-});
-
 (function(c,n){var k="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///ywAAAAAAQABAAACAUwAOw==";c.fn.imagesLoaded=function(l){function m(){var b=c(h),a=c(g);d&&(g.length?d.reject(e,b,a):d.resolve(e));c.isFunction(l)&&l.call(f,e,b,a)}function i(b,a){b.src===k||-1!==c.inArray(b,j)||(j.push(b),a?g.push(b):h.push(b),c.data(b,"imagesLoaded",{isBroken:a,src:b.src}),o&&d.notifyWith(c(b),[a,e,c(h),c(g)]),e.length===j.length&&(setTimeout(m),e.unbind(".imagesLoaded")))}var f=this,d=c.isFunction(c.Deferred)?c.Deferred():
 0,o=c.isFunction(d.notify),e=f.find("img").add(f.filter("img")),j=[],h=[],g=[];e.length?e.bind("load.imagesLoaded error.imagesLoaded",function(b){i(b.target,"error"===b.type)}).each(function(b,a){var e=a.src,d=c.data(a,"imagesLoaded");if(d&&d.src===e)i(a,d.isBroken);else if(a.complete&&a.naturalWidth!==n)i(a,0===a.naturalWidth||0===a.naturalHeight);else if(a.readyState||a.complete)a.src=k,a.src=e}):m();return d?d.promise(f):f}})(jQuery);
 define("engineVendor/jquery.imagesloaded.min", function(){});
@@ -34884,13 +34809,12 @@ define('engine/plugins/layers/image/image',[
     "app",
     "engine/modules/layer.model",
     "engine/modules/layer.visual.view",
-    "engine/modules/askers/asker",
 
     //plugins
     "engineVendor/jquery.imagesloaded.min"
 ],
 
-function( app, Layer, Visual, Asker ){
+function( app, Layer, Visual ){
 
     var L = {};
 
@@ -34971,7 +34895,10 @@ function( app, Layer, Visual, Asker ){
         afterEditorRender: function() {
             // add height attribute if not already there
             // this may break if the aspect ratio changes
-            if ( _.isNull( this.getAttr("aspectRatio") ) ) {
+
+            this.aspectRatio = this.getAttr("aspectRatio")
+
+            if ( _.isNull( this.aspectRatio ) ) {
                 this.determineAspectRatio();
             }
 
@@ -34985,26 +34912,16 @@ function( app, Layer, Visual, Asker ){
             this.model.on("resized", this.onResize, this );
         },
 
-        onResize: function( attr ) {
-            /*
-            if ( attr.width > 100 || attr.height > 100 ) {
-                new Asker({
-                    question: "Make this layer fullscreen?",
-                    okay: function() {
-                        this.disableDrag();
-                        this.makePageBackground();
-                    }.bind( this )
-                });
-            }
-            */
-        },
+        onResize: function( attr ) {},
 
         determineAspectRatio: function() {
-            var $img = $("<img>").attr("src", this.getAttr("uri") ).css({
-                position: "absolute",
-                top: "-1000%",
-                left: "-1000%"
-            });
+            var $img = $("<img>")
+                .attr("src", this.getAttr("uri") )
+                .css({
+                    position: "absolute",
+                    top: "-1000%",
+                    left: "-1000%"
+                });
 
             $img.imagesLoaded();
             $img.done(function() {
@@ -35013,6 +34930,7 @@ function( app, Layer, Visual, Asker ){
                 this.model.saveAttr({
                     aspectRatio: $img.width()/ $img.height()
                 });
+                this.aspectRatio = $img.width()/ $img.height();
 
                 $img.remove();
             }.bind( this ));
@@ -35025,18 +34943,11 @@ function( app, Layer, Visual, Asker ){
                 if ( this.getAttr("aspectRatio") ) {
                     this.fitToWorkspace();
                 }
-                // new Asker({
-                //     question: "Manually position this image?",
-                //     description: "Right now the image is set to fullscreen",
-                //     okay: function() {
-                //         this.fitToWorkspace();
-                //     }.bind( this )
-                // });
-
             }.bind( this ));
         },
 
         togglePageBackgroundState: function( state ) {
+
             if ( state.page_background ) {
                 this.disableDrag();
                 this.makePageBackground();
@@ -35063,12 +34974,12 @@ function( app, Layer, Visual, Asker ){
 
             workspaceRatio = this.$workspace().width() / this.$workspace().height();
 
-            if ( this.getAttr("aspectRatio") > workspaceRatio ) {
+            if ( this.aspectRatio > workspaceRatio ) {
                 width = this.$workspace().width();
-                height = width / this.getAttr("aspectRatio");
+                height = width / this.aspectRatio;
             } else {
                 height = this.$workspace().height();
-                width = height * this.getAttr("aspectRatio");
+                width = height * this.aspectRatio;
             }
 
             width = width / this.$workspace().width() * 100;
@@ -35083,6 +34994,7 @@ function( app, Layer, Visual, Asker ){
                 left: left + "%"
             });
             this.model.saveAttr({
+                aspectRatio: this.aspectRatio,
                 page_background: false,
                 height: height,
                 width: width,
@@ -35092,14 +35004,27 @@ function( app, Layer, Visual, Asker ){
         },
 
         verifyReady: function() {
-            var img = app.$( this.$("img") ).imagesLoaded();
+            var $img = $("<img>")
+                .attr("src", this.getAttr("uri"))
+                .css({
+                    height: "1px",
+                    width: "1px",
+                    position: "absolute",
+                    left: "-1000%",
+                    top: "-1000%"
+                });
+            $("body").append( $img );
+            $img.imagesLoaded();
 
-            img.done(function() {
+            $img.done(function() {
                 this.model.trigger( "visual_ready", this.model.id );
+                $img.remove();
             }.bind(this));
 
-            img.fail(function() {
-                this.model.trigger( "visual_error", this.model.id );
+            $img.fail(function() {
+                $img.remove();
+                this.model.trigger("visual_error", this.model.id );
+                this.model.trigger("visual_ready", this.model.id );
             }.bind(this));
         }
     });
@@ -35755,8 +35680,8 @@ function( app, LayerModel, Visual ) {
             // height: 100,
             // left: 0,
             linkable: false,
-            opacity: 0.75,
-            title: "Color Layer",
+            opacity: 1,
+            title: "Color Filter",
             // top: 0,
             // width: 100,
             dissolve: true,
@@ -36354,13 +36279,14 @@ function( app ) {
                     this.linkToNewPage();
                     this.closeThis();
                     this.model.visual.$el.addClass("linked-layer");
-                    this.model.save();
+                    // this.model.save();
                 } else if ( this.selectedFrame !== null && !_.isUndefined( this.selectedFrame )) {
-                    this.model.saveAttr({ to_frame: this.selectedFrame });
+                    this.model.setAttr({ to_frame: this.selectedFrame });
                     this.model.trigger("change:to_frame", this.model, this.selectedFrame );
                     this.closeThis();
                     this.model.visual.$el.addClass("linked-layer");
                 }
+                this.model.save();
             } else {
                 this.model.collection.remove( this.model );
                 app.emit("layer_deleted", this.model );
@@ -36629,7 +36555,7 @@ function( app, _Layer, Visual, TextModal ) {
         afterEditorRender: function() {
             if ( this.textModal === null ) {
                 this.textModal = new TextModal({ model: this.model });
-                if ( this.model.get("attr").content == "" ) {
+                if ( this.model.get("attr").content === "" ) {
                     this.launchTextModal();
                 }
             }
@@ -37064,14 +36990,12 @@ function( app, Backbone, Layers, ThumbWorker ) {
 
             this.set("attr", this.defaults.attr );
 
-            /*
-            // initially set images as background images
-            if ( type == "Image") {
-
-            }
-            */
-
             newLayer.order[ this.id ] = this.layers.length;
+
+            // set image layer opacity to 0.5 for layers on top of other layers
+            if ( this.layers.length && newLayer.get("type") != "TextV2") {
+                newLayer.setAttr({ opacity: 0.5 });
+            }
 
             app.emit("layer_added_start", newLayer );
             newLayer.save().success(function( response ) {
@@ -37086,23 +37010,13 @@ function( app, Backbone, Layers, ThumbWorker ) {
                 type: item.get("layer_type"),
                 attr: _.extend({}, item.toJSON() )
             });
-            var oldYoutube = this.layers.find(function(layer){ return layer.get("type") == "Youtube"; });
-                
 
-            if ( newLayer.get("type") == "Youtube" ){
-                if( oldYoutube ){
-                    oldYoutube.trigger("remove");
-                    this.layers.remove( oldYoutube, { silent: true } );
-                }
-                newLayer.order [ this.id ] = 100;
-                newLayer.status = this.status;
-            } else{
-                if( oldYoutube ){
-                    oldYoutube.order[ this.id ] = 100;
-                }
-                newLayer.order[ this.id ] = this.layers.length;
+            // set image layer opacity to 0.5 for layers on top of other layers
+            if ( this.layers.length && newLayer.get("type") != "TextV2") {
+                newLayer.setAttr({ opacity: 0.5 });
             }
-            
+
+            newLayer.order[ this.id ] = this.layers.length;
             app.emit("layer_added_start", newLayer );
 
             newLayer.save().success(function( response ) {
@@ -37185,6 +37099,8 @@ function( app, Backbone, Layers, ThumbWorker ) {
             // if frame is completely loaded, then just render it
             // else try preloading the layers
             if ( this.ready ) {
+
+                app.spinner.stop();
                 // only render non-common layers. allows for persistent layers
                 commonLayers = this.get("common_layers")[ oldID ] || [];
                 // if the frame is "ready", then just render the layers
@@ -37204,7 +37120,7 @@ function( app, Backbone, Layers, ThumbWorker ) {
 
             } else {
                 this.renderOnReady = oldID;
-                app.spinner.spin( app.$(".ZEEGA-player")[0] );
+                app.spinner.spin( $(".ZEEGA-player-window")[0] );
             }
             /* determines the z-index of the layer in relation to other layers on the frame */
             _.each( this.get("layers"), function( layerID, i ) {
@@ -37290,6 +37206,8 @@ function( app, Backbone, Layers, ThumbWorker ) {
                     layer.exit();
                 }
             });
+
+            this.renderOnReady = null;
         },
 
         unrender: function( newID ) {
@@ -39831,6 +39749,103 @@ function( app, Zeega ) {
 
     });
 
+});
+
+define('engine/modules/askers/asker.view',[
+    "app",
+    "backbone"
+],
+
+function( app ) {
+
+    return Backbone.View.extend({
+
+        template: "app/engine/modules/askers/asker",
+        className: "ZEEGA-asker asker-overlay",
+
+        serialize: function() {
+            return this.model.toJSON();
+        },
+
+        start: function() {
+            $("body").append( this.el );
+            $("#main").addClass("modal");
+            this.render();
+            this.$el.fadeIn("fast");
+        },
+
+        afterRender: function() {
+            $("body").bind("keyup.asker", function( e ) {
+                if ( e.which == 13 ) { //enter
+                    this.okay();
+                } else if ( e.which == 27 ) { // esc
+                    this.cancel();
+                }
+            }.bind( this ));
+        },
+
+        events: {
+            "click .ask-cancel": "cancel",
+            "click .ask-okay": "okay"
+        },
+
+        cancel: function() {
+            this.model.set("response", false );
+            this.close();
+        },
+
+        okay: function() {
+            this.model.set("response", true );
+            this.close();
+        },
+
+        close: function() {
+            $("#main").removeClass("modal");
+            this.$el.fadeOut( 250, function() {
+                this.remove();
+            }.bind( this ));
+            $("body").unbind("keyup.asker");
+        }
+
+    });
+
+});
+
+define('engine/modules/askers/asker',[
+    "app",
+    "engine/modules/askers/asker.view",
+    "backbone"
+],
+
+function( app, AskerView ) {
+
+    return Backbone.Model.extend({
+
+        defaults: {
+            question: "",
+            description: "",
+            response: null,
+            okay: null,
+            cancel: null
+        },
+
+        initialize: function() {
+            this.view = new AskerView({ model: this });
+            this.view.start();
+
+            this.on("change:response", this.onAnswer, this );
+        },
+
+        onAnswer: function( model, answer ) {
+            this.off("change:response");
+            if ( answer && _.isFunction( this.get("okay"))) {
+                this.get("okay")( answer );
+            } else if ( !answer && _.isFunction( this.get("cancel"))) {
+                this.get("cancel")( answer );
+            }
+        }
+
+    });
 });
 
 define('modules/views/frame',[
