@@ -7,7 +7,34 @@ define([
 function( app, ItemView ) {
 
     var UploadItem = Backbone.Model.extend({
+        modelType: "item",
         url: app.api + "items",
+        defaults:{
+            "title": "",
+            "headline": "",
+            "description": "",
+            "text": "",
+            "uri": "",
+            "attribution_uri": "",
+            "thumbnail_url": "",
+            "media_type": "Image",
+            "layer_type": "Image",
+            "archive": "Upload",
+            "media_geo_latitude": null,
+            "media_geo_longitude": null,
+            "media_date_created": "",
+            "child_items_count": 0,
+            "editable": true,
+            "published": false,
+            "enabled": true
+        },
+
+        initialize: function() {
+            this.view = new ItemView({ model: this });
+        }
+    });
+
+    var WebItem = UploadItem.extend({
         defaults:{
             "title": "",
             "headline": "",
@@ -27,14 +54,6 @@ function( app, ItemView ) {
             "published": false,
             "enabled": true
         },
-
-        initialize: function() {
-            this.view = new ItemView({ model: this });
-        }
-    });
-
-    var WebItem = UploadItem.extend({
-
         url: function(){
 
             var url = app.api + "items/parser?url=" + this.get("web_url");
@@ -115,8 +134,10 @@ function( app, ItemView ) {
             }
             
 
-            item.save();
-
+            item.save().success(function( response ){
+                app.emit("item_added", item );
+            });
+            app.emit("item_added", item );
             if ( item.get("layer_type")  && _.contains( ["Audio"], item.get("layer_type") )) {
                 app.status.get('currentSequence').setSoundtrack( item, app.layout.soundtrack );
             } else {

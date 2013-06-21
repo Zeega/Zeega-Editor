@@ -27,12 +27,12 @@ function( app, FrameView ) {
                 tolerance: "pointer",
                 placeholder: "frame-placeholder",
                 update: function( e, ui ) {
-                    this.updateFrameOrder();
+                    app.emit("pages_reordered", this.model.status.get("currentSequence") );
                 }.bind(this)
             });
         },
 
-        updateFrameOrder: function() {
+        updateFrameOrder: function( ) {
             var frameOrder = _.map( this.$("ul.frame-list li"), function( frame ) {
                 return $( frame ).data("id");
             });
@@ -45,6 +45,7 @@ function( app, FrameView ) {
 
             this.model.status.get("currentSequence").frames.sort();
             this.model.status.get("currentSequence").save("frames", frameOrder );
+            
         },
 
         onFrameAdd: function( frameModel, collection ) {
@@ -52,7 +53,7 @@ function( app, FrameView ) {
                 this.model.status.setCurrentFrame( frameModel );
             }
             this.renderSequenceFrames( this.model.status.get("currentSequence") );
-            this.updateFrameOrder();
+            this.updateFrameOrder( );
             app.emit("page_added", null);
         },
 

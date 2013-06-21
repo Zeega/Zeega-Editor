@@ -21,7 +21,7 @@ function( app ) {
             } else if( _.contains( this.modelEvents, event ) ) {
                 this.parseModelEvent (event, args);
             } else {
-                console.log("untracked event:: ", event, args );
+                //console.log("untracked event:: ", event, args );
             }
         },
 
@@ -34,6 +34,15 @@ function( app ) {
                     type: model.get("type"),
                     source: model.get("attr").archive ?  model.get("attr").archive : "none"
                 }
+            } else if ( model.modelType == "sequence" ){
+                params = {
+                    pageCount: model.frames.length
+                }
+            } else if ( model.modelType == "item" ){
+                params = {
+                    type: model.get("media_type"),
+                    source: model.get("archive") ?  model.get("archive") : "none"
+                }
             }
             
             this.trackEvent( event, params );
@@ -42,8 +51,11 @@ function( app ) {
         },
 
         setGlobals: function ( args ){
+
             _.each(args, function (value, key){
-                mixpanel.register({ key : value } );
+                var param = {};
+                param[ key ] = value;
+                mixpanel.register( param );
             });
         },
 
@@ -70,6 +82,8 @@ function( app ) {
             "layer_deleted",
             "soundtrack_added_success",
             "soundtrack_delete",
+            "pages_reordered",
+            "item_added"
 
 
         ],
@@ -77,10 +91,9 @@ function( app ) {
         generateConsole: function(){
             window.mixpanel = {
                 register: function (obj){
-                    _.each(obj, function( value, key ){
-                        console.log("registering global property::  " + key + " : " + value );
-                    });
-                },
+
+                        console.log("registering global property::  " + _.keys(obj) + " : " + _.values(obj) );
+                },                
                 track: function ( event, params ){
                     console.log( "tracking event:: " + event, params );
                 }
