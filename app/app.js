@@ -1,7 +1,6 @@
 define([
     "engineVendor/spin",
     "backbone.layoutmanager"
-
 ], function( Spinner ) {
 
     var meta = $("meta[name=zeega]");
