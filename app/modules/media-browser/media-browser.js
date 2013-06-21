@@ -16,7 +16,7 @@ function( app, SearchModel ) {
             zeegaSearch.mediaBrowser = this;
             this.set("Zeega", zeegaSearch );
             this.set("currentAPI", "Zeega");
-            this.search("");
+            this.get( this.get("currentAPI") ).search( "" );
         },
 
     
@@ -38,10 +38,10 @@ function( app, SearchModel ) {
             return this.get( this.get("currentAPI") );
         },
 
-        search: function( query ){
-            this.get( this.get("currentAPI") ).search( query );
+        // search: function( query ){
+        //     this.get( this.get("currentAPI") ).search( query );
 
-        },
+        // },
 
         more: function(){
             this.get( this.get("currentAPI")).more();

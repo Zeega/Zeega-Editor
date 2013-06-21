@@ -6,15 +6,23 @@ define([
     // Plugins
     "engine/parser",
     "modules/media-browser/media-browser",
+    "analytics/analytics",
     "backbone"
 ],
 
-function( app, Status, Layout, ZeegaParser, MediaBrowser ) {
+function( app, Status, Layout, ZeegaParser, MediaBrowser, Analytics ) {
 
     return Backbone.Model.extend({
         
         initialize: function() {
             app.mediaBrowser = new MediaBrowser();
+            app.analytics = new Analytics();
+            app.analytics.setGlobals({
+                "projectId": app.metadata.projectId,
+                "userId": app.metadata.userId,
+                "userName": app.metadata.userName,
+                "context": "editor"
+            });
             this.loadProject();
         },
 
@@ -44,6 +52,8 @@ function( app, Status, Layout, ZeegaParser, MediaBrowser ) {
                     status: app.status
                 }
             });
+
+
 
             app.status.set({
                 currentSequence: app.project.sequences.at( 0 ),

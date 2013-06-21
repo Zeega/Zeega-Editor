@@ -79,25 +79,25 @@
             <div class="share-network share-window active">
 
                 <div>
-                    <a href="<%= share_links.twitter %>"
+                    <a name="twitter" href="<%= share_links.twitter %>"
                             class="social-share share-twitter"
                             data-itemid="<%= id %>"
                             target="blank">
                         <i class="social-share-twitter social-share-color"></i>
                     </a>
-                    <a href="<%= share_links.facebook %>"
+                    <a name="facebook" href="<%= share_links.facebook %>"
                                     class="social-share share-facebook"
                                     data-itemid="<%= id %>"
                                     target="blank">
                         <i class="social-share-facebook social-share-color"></i>
                     </a>
-                    <a id ="tumblr-share" href="<%= share_links.tumblr %>" 
+                    <a name="tumblr" id ="tumblr-share" href="<%= share_links.tumblr %>" 
                                     class="social-share share-tumblr"
                                     data-itemid="<%= id %>"
                                     target="blank">
                         <i class="social-share-tumblr social-share-color"></i>
                     </a>
-                    <a id ="reddit-share" href="<%= share_links.reddit %>" 
+                    <a name="reddit" id ="reddit-share" href="<%= share_links.reddit %>" 
                                     class="social-share share-reddit"
                                     data-itemid="<%= id %>"
                                     target="blank">
@@ -106,7 +106,7 @@
                 </div>
 
                 <div>
-                    <input class="text-box" type="text" value="<%= web_root %><%= id %>" readonly></input>
+                    <input name="permalink" class="text-box" type="text" value="<%= web_root %><%= id %>" readonly></input>
                 </div>
 
             </div>
@@ -115,7 +115,7 @@
                     <p>Use this snippet of code to showcase your Zeega on your own site</p>
                 </div>
                 <div>
-                    <input class="text-box" type="text" value='<iframe src="<%= web_root %><%= id %>/embed" width="400px" height="480px" webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe>'></input>
+                    <input name="embed" class="text-box" type="text" value='<iframe src="<%= web_root %><%= id %>/embed" width="400px" height="480px" webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe>'></input>
                 </div>
                 
             </div>

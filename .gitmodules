@@ -10,3 +10,6 @@
 [submodule "app/engine"]
 	path = app/engine
 	url = https://github.com/Zeega/Zeega-Parser.git
+[submodule "app/analytics"]
+	path = app/analytics
+	url = https://github.com/Zeega/Analytics-Wrapper.git

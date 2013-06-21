@@ -4,7 +4,6 @@ define([
     "modules/views/frame",
     "modules/views/item-viewer-image",
     "modules/views/item-viewer-audio",
-    "modules/views/item-viewer-video",
     "modules/views/item-viewer-youtube",
 
     "backbone"
@@ -53,15 +52,24 @@ function( app, Modal, FrameView, ImageView, AudioView, VideoView, YoutubeView ) 
                     item.itemView = new ImageView({ model: item });
                 } else if ( item.get("layer_type") == "Audio") {
                     item.itemView = new AudioView({ model: item });
-                } else if ( item.get("layer_type") == "Video") {
-                    item.itemView = new VideoView({ model: item });
                 } else if ( item.get("layer_type") == "Youtube") {
                     item.itemView = new YoutubeView({ model: item });
-                }
+                } 
             }
             // just render item.itemView
-            this.$(".modal-body").html( item.itemView.el );
-            item.itemView.render();
+
+            if( item.itemView.el ){
+               this.$(".modal-body").html( item.itemView.el );
+                item.itemView.render();
+                app.emit("view_item",{
+                    type: item.get("layer_type"),
+                    source: item.get("archive"),
+                    title: item.get("title") ? item.get("title") : "none" 
+                });
+            } else {
+                return false;
+            }
+            
         },
 
         listen: function() {

@@ -48,11 +48,6 @@ function( app ) {
             } else {
                 this.$el.removeClass("list");
             }
-
-            if( api === "MyZeega" ){
-                this.model.search( "" );
-            }
-
             return false;
         }
 

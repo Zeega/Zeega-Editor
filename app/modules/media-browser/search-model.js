@@ -39,7 +39,6 @@ function( app, ItemModel, CollectionView, Collection, ItemCollectionViewer ) {
             this.view = new CollectionView[ this.api ]({ model: this });
             this.mediaCollection = new Collection[ this.api ]();
             this.mediaCollection.searchModel = this;
-            //this.mediaCollection.on("sync", this.onSync, this );
             this.search( "" );
             this.listen();
         },
@@ -49,6 +48,12 @@ function( app, ItemModel, CollectionView, Collection, ItemCollectionViewer ) {
         search: function( query ){
             this.set( "searchQuery", query );
             this._search( query );
+            if( query != "" ){
+                app.emit("media_search",{
+                    "query": query,
+                   "api": this.api,
+                });
+            }
         },
         more: function(){
             this._more();

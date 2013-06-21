@@ -140,14 +140,27 @@ function( app, Zeega ) {
             "click .share-zeega": "showShare",
             "click .embed-zeega": "showEmbed",
             "keyup #project-caption": "onCaptionKeypress",
-            "blur #project-caption": "updateShareUrls"
+            "blur #project-caption": "updateShareUrls",
+            "click .share-network a": "onShareLinkClick"
+        },
+
+        onShareLinkClick: function( event ){
+            app.emit( "share", {
+                "type": event.currentTarget.name
+            });
         },
 
         initHelpSequence: function() {
             if ( app.layout.initialInstructions.pointing ) {
                 app.layout.initialInstructions.cancel();
+                app.emit("help",{
+                    action: "hide"
+                });
             } else {
                 app.layout.initialInstructions.startPointing();
+                app.emit("help",{
+                    action: "show"
+                });
             }
         },
 
@@ -161,8 +174,11 @@ function( app, Zeega ) {
             this.$(".share-zeega, .share-network").addClass("active");
         },
 
-        onBoxFocus: function( e ) {
-            $(e.target).select();
+        onBoxFocus: function( event ) {
+            $(event.target).select();
+            app.emit( "share", {
+                "type": event.currentTarget.name
+            });
             return false;
         },
 

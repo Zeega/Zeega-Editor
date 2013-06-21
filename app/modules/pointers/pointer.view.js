@@ -76,6 +76,9 @@ function( app ) {
 
         stopPointing: function() {
             this.options.parent.collection.cancel();
+            app.emit("help",{
+                    action: "close"
+            });
         }
     });
 });
