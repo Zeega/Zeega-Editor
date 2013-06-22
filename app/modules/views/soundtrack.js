@@ -54,7 +54,7 @@ function( app, Viewer ) {
                         this.updateWaveform( app.dragging.get("thumbnail_url") );
 
                         app.emit("soundtrack_added", app.dragging );
-                        app.status.get('currentSequence').setSoundtrack( app.dragging, this );
+                        app.status.get('currentSequence').setSoundtrack( app.dragging, this, { source: "drag-to-soundtrack" } );
                     }
                 }.bind( this )
             });

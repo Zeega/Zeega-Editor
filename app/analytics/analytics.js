@@ -45,6 +45,8 @@ function( app ) {
                 }
             }
             
+            params = _.extend( params, model.eventData );
+
             this.trackEvent( event, params );
 
 
@@ -72,7 +74,9 @@ function( app ) {
             "view_item",
             "layer_font_change",
             "toggle_help",
-            "help"
+            "help",
+            "preview_toggle_view",
+            "toggle_page_background"
         ],
 
         modelEvents: [
@@ -83,6 +87,7 @@ function( app ) {
             "soundtrack_added_success",
             "soundtrack_delete",
             "pages_reordered",
+            "layers_reordered",
             "item_added"
 
 

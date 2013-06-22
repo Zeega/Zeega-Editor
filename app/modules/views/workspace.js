@@ -39,10 +39,10 @@ function( app ) {
                             //app.layout.soundtrack.updateWaveform( app.dragging.get("thumbnail_url") );
 
                             app.emit("soundtrack_added", app.dragging );
-                            app.status.get('currentSequence').setSoundtrack( app.dragging, app.layout.soundtrack );
+                            app.status.get('currentSequence').setSoundtrack( app.dragging, app.layout.soundtrack, { source: "drag-to-workspace" } );
                         } else {
                             app.emit("item_dropped", app.dragging );
-                            this.model.status.get('currentFrame').addLayerByItem( app.dragging );
+                            this.model.status.get('currentFrame').addLayerByItem( app.dragging, { source: "drag-to-workspace" });
                         }
 
                     }

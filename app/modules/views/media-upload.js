@@ -124,6 +124,8 @@ function( app, ItemView ) {
             item.url = app.api + "items";
             item.on("sync", this.refreshUploads, this );
 
+
+            // gifs only
             if( item.get("thumbnail_url").indexOf(".gif") > 0 ){
                 item.set({
                     "attributes": {
@@ -134,14 +136,18 @@ function( app, ItemView ) {
             }
             
 
+
+
+
             item.save().success(function( response ){
                 app.emit("item_added", item );
             });
-            app.emit("item_added", item );
+
+
             if ( item.get("layer_type")  && _.contains( ["Audio"], item.get("layer_type") )) {
-                app.status.get('currentSequence').setSoundtrack( item, app.layout.soundtrack );
+                app.status.get('currentSequence').setSoundtrack( item, app.layout.soundtrack, { source: "import-item" } );
             } else {
-                app.status.get('currentFrame').addLayerByItem( item );
+                app.status.get('currentFrame').addLayerByItem( item, { source: "import-item" } );
             }
         },
 
