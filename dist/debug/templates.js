@@ -265,27 +265,27 @@ __p+='<a href="http://www.zeega.com" class="ZEEGA-tab">\n    <span class="ZTab-l
 ( cover_image )+
 ');\n                    background-size: cover;\n                "></div>\n                <div class="caption-info">Drag cover image here</div>\n            </div>\n            <div class="caption-side">\n                <textarea id="project-caption" placeholder="Caption your Zeega before sharing" maxlength="80">'+
 ( title )+
-'</textarea>\n                <div class="caption-info">80 character limit</div>\n            </div>\n        </div>\n\n\n        <div class="share-tab-content">\n            <div class="share-network share-window active">\n\n                <div>\n                    <a href="'+
+'</textarea>\n                <div class="caption-info">80 character limit</div>\n            </div>\n        </div>\n\n\n        <div class="share-tab-content">\n            <div class="share-network share-window active">\n\n                <div>\n                    <a name="twitter" href="'+
 ( share_links.twitter )+
 '"\n                            class="social-share share-twitter"\n                            data-itemid="'+
 ( id )+
-'"\n                            target="blank">\n                        <i class="social-share-twitter social-share-color"></i>\n                    </a>\n                    <a href="'+
+'"\n                            target="blank">\n                        <i class="social-share-twitter social-share-color"></i>\n                    </a>\n                    <a name="facebook" href="'+
 ( share_links.facebook )+
 '"\n                                    class="social-share share-facebook"\n                                    data-itemid="'+
 ( id )+
-'"\n                                    target="blank">\n                        <i class="social-share-facebook social-share-color"></i>\n                    </a>\n                    <a id ="tumblr-share" href="'+
+'"\n                                    target="blank">\n                        <i class="social-share-facebook social-share-color"></i>\n                    </a>\n                    <a name="tumblr" id ="tumblr-share" href="'+
 ( share_links.tumblr )+
 '" \n                                    class="social-share share-tumblr"\n                                    data-itemid="'+
 ( id )+
-'"\n                                    target="blank">\n                        <i class="social-share-tumblr social-share-color"></i>\n                    </a>\n                    <a id ="reddit-share" href="'+
+'"\n                                    target="blank">\n                        <i class="social-share-tumblr social-share-color"></i>\n                    </a>\n                    <a name="reddit" id ="reddit-share" href="'+
 ( share_links.reddit )+
 '" \n                                    class="social-share share-reddit"\n                                    data-itemid="'+
 ( id )+
-'"\n                                    target="blank">\n                        <i class="social-share-reddit social-share-color"></i>\n                    </a>\n                </div>\n\n                <div>\n                    <input class="text-box" type="text" value="'+
+'"\n                                    target="blank">\n                        <i class="social-share-reddit social-share-color"></i>\n                    </a>\n                </div>\n\n                <div>\n                    <input name="permalink" class="text-box" type="text" value="'+
 ( web_root )+
 ''+
 ( id )+
-'" readonly></input>\n                </div>\n\n            </div>\n            <div class="share-embed share-window">\n                <div>\n                    <p>Use this snippet of code to showcase your Zeega on your own site</p>\n                </div>\n                <div>\n                    <input class="text-box" type="text" value=\'<iframe src="'+
+'" readonly></input>\n                </div>\n\n            </div>\n            <div class="share-embed share-window">\n                <div>\n                    <p>Use this snippet of code to showcase your Zeega on your own site</p>\n                </div>\n                <div>\n                    <input name="embed" class="text-box" type="text" value=\'<iframe src="'+
 ( web_root )+
 ''+
 ( id )+

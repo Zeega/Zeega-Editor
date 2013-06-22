@@ -651,27 +651,27 @@ __p+='<a href="http://www.zeega.com" class="ZEEGA-tab">\n    <span class="ZTab-l
 ( cover_image )+
 ');\n                    background-size: cover;\n                "></div>\n                <div class="caption-info">Drag cover image here</div>\n            </div>\n            <div class="caption-side">\n                <textarea id="project-caption" placeholder="Caption your Zeega before sharing" maxlength="80">'+
 ( title )+
-'</textarea>\n                <div class="caption-info">80 character limit</div>\n            </div>\n        </div>\n\n\n        <div class="share-tab-content">\n            <div class="share-network share-window active">\n\n                <div>\n                    <a href="'+
+'</textarea>\n                <div class="caption-info">80 character limit</div>\n            </div>\n        </div>\n\n\n        <div class="share-tab-content">\n            <div class="share-network share-window active">\n\n                <div>\n                    <a name="twitter" href="'+
 ( share_links.twitter )+
 '"\n                            class="social-share share-twitter"\n                            data-itemid="'+
 ( id )+
-'"\n                            target="blank">\n                        <i class="social-share-twitter social-share-color"></i>\n                    </a>\n                    <a href="'+
+'"\n                            target="blank">\n                        <i class="social-share-twitter social-share-color"></i>\n                    </a>\n                    <a name="facebook" href="'+
 ( share_links.facebook )+
 '"\n                                    class="social-share share-facebook"\n                                    data-itemid="'+
 ( id )+
-'"\n                                    target="blank">\n                        <i class="social-share-facebook social-share-color"></i>\n                    </a>\n                    <a id ="tumblr-share" href="'+
+'"\n                                    target="blank">\n                        <i class="social-share-facebook social-share-color"></i>\n                    </a>\n                    <a name="tumblr" id ="tumblr-share" href="'+
 ( share_links.tumblr )+
 '" \n                                    class="social-share share-tumblr"\n                                    data-itemid="'+
 ( id )+
-'"\n                                    target="blank">\n                        <i class="social-share-tumblr social-share-color"></i>\n                    </a>\n                    <a id ="reddit-share" href="'+
+'"\n                                    target="blank">\n                        <i class="social-share-tumblr social-share-color"></i>\n                    </a>\n                    <a name="reddit" id ="reddit-share" href="'+
 ( share_links.reddit )+
 '" \n                                    class="social-share share-reddit"\n                                    data-itemid="'+
 ( id )+
-'"\n                                    target="blank">\n                        <i class="social-share-reddit social-share-color"></i>\n                    </a>\n                </div>\n\n                <div>\n                    <input class="text-box" type="text" value="'+
+'"\n                                    target="blank">\n                        <i class="social-share-reddit social-share-color"></i>\n                    </a>\n                </div>\n\n                <div>\n                    <input name="permalink" class="text-box" type="text" value="'+
 ( web_root )+
 ''+
 ( id )+
-'" readonly></input>\n                </div>\n\n            </div>\n            <div class="share-embed share-window">\n                <div>\n                    <p>Use this snippet of code to showcase your Zeega on your own site</p>\n                </div>\n                <div>\n                    <input class="text-box" type="text" value=\'<iframe src="'+
+'" readonly></input>\n                </div>\n\n            </div>\n            <div class="share-embed share-window">\n                <div>\n                    <p>Use this snippet of code to showcase your Zeega on your own site</p>\n                </div>\n                <div>\n                    <input name="embed" class="text-box" type="text" value=\'<iframe src="'+
 ( web_root )+
 ''+
 ( id )+
@@ -34361,6 +34361,7 @@ function( app, Controls ) {
         order: [],
         controls: [],
         visual: null,
+        modelType: "layer",
 
         editorProperties: {
             draggable: true
@@ -34942,6 +34943,7 @@ function( app, Layer, Visual ){
             this.$el.bind("mousedown.imageDrag", function() {
                 if ( this.getAttr("aspectRatio") ) {
                     this.fitToWorkspace();
+                    app.emit("toggle_page_background", { type:"image", state: "fit-to-page", action: "drag" });
                 }
             }.bind( this ));
         },
@@ -34951,8 +34953,10 @@ function( app, Layer, Visual ){
             if ( state.page_background ) {
                 this.disableDrag();
                 this.makePageBackground();
+                app.emit("toggle_page_background", { type:"image", state: "background", action: "toggle-button" });
             } else {
                 this.fitToWorkspace();
+                app.emit("toggle_page_background", { type:"image", state: "fit-to-page", action: "toggle-button" });
             }
         },
 
@@ -35300,6 +35304,7 @@ function( app, _Layer, Visual ){
     Layer.Audio = _Layer.extend({
 
         layerType: "Audio",
+        modelType: "layer",
 
         canplay: false,
 
@@ -35781,8 +35786,10 @@ function( app, LayerModel, Visual ) {
             if ( state.page_background ) {
                 this.disableDrag();
                 this.makePageBackground();
+                app.emit("toggle_page_background", { type:"filter", state: "fit-to-page", action: "toggle-button" });
             } else {
                 this.fitToWorkspace();
+                app.emit("toggle_page_background", { type:"filter", state: "fit-to-page", action: "toggle-button" });
             }
         },
 
@@ -36309,8 +36316,16 @@ function( app ) {
             $('#font-list-' + this.model.id ).ddslick({
                 height: "200px",
                 onSelected: function(data){
+                    if(this.model.getAttr("fontFamily") != data.selectedData.value ){
+                        app.emit("layer_font_change", {
+                            font: data.selectedData.value
+                        });
+                    }
+
                     this.model.setAttr({ fontFamily: data.selectedData.value });
+
                     this.updateSample();
+
                 }.bind( this )
             });
         },
@@ -36318,6 +36333,9 @@ function( app ) {
         updateSample: function() {
             this.$("textarea").css({
                 fontFamily: this.model.getAttr("fontFamily")
+            });
+            app.emit("layer_font_change", {
+                font: this.model.getAttr("fontFamily")
             });
         },
 
@@ -36728,6 +36746,7 @@ function( app, Layers ) {
     return app.Backbone.Model.extend({
 
         soundtrackModel: null,
+        modelType: "sequence",
 
         defaults: {
             advance_to: null,
@@ -36777,7 +36796,7 @@ function( app, Layers ) {
             this.frames.sort();
         },
 
-        setSoundtrack: function( item, view ) {
+        setSoundtrack: function( item, view, eventData ) {
             var newLayer, oldlayer;
 
             oldLayer = app.project.getLayer( this.get("attr").soundtrack );
@@ -36798,29 +36817,30 @@ function( app, Layers ) {
                 item.toJSON())
             );
 
-
+            newLayer.eventData = eventData;
             newLayer.save().success(function( response ) {
                 var attr = this.get("attr");
 
                 if ( _.isArray( attr ) ) {
                     attr = {};
                 }
-
+                app.emit("soundtrack_added_success", newLayer);
                 this.soundtrackModel = newLayer;
                 attr.soundtrack = newLayer.id;
                 this.set("attr", attr );
                 view.setSoundtrackLayer( newLayer );
-
                 this.lazySave();
+
             }.bind( this ));
         },
 
         removeSoundtrack: function( layer ) {
             var attr = this.get("attr");
-
+            app.emit("soundtrack_delete", layer);
             layer.destroy();
             attr.soundtrack = false;
             this.set("attr", attr );
+
         },
 
         persistLayer: function( layer ) {
@@ -36888,6 +36908,7 @@ function( app, Backbone, Layers, ThumbWorker ) {
         state: "waiting",
         hasPlayed: false,
         elapsed: 0,
+        modelType: "frame",
 
         // frame render as soon as it's loaded. used primarily for the initial frame
         renderOnReady: null,
@@ -37005,7 +37026,7 @@ function( app, Backbone, Layers, ThumbWorker ) {
             }.bind( this ));
         },
 
-        addLayerByItem: function( item ) {
+        addLayerByItem: function( item, eventData ) {
             var newLayer = new Layers[ item.get("layer_type") ]({
                 type: item.get("layer_type"),
                 attr: _.extend({}, item.toJSON() )
@@ -37017,6 +37038,8 @@ function( app, Backbone, Layers, ThumbWorker ) {
             }
 
             newLayer.order[ this.id ] = this.layers.length;
+            
+            newLayer.eventData = eventData;
             app.emit("layer_added_start", newLayer );
 
             newLayer.save().success(function( response ) {
@@ -37464,6 +37487,7 @@ function( app, SequenceCollection ) {
 
         updated: false,
         frameKey: {},
+        modelType: "project",
 
         defaults: {
             aspect_ratio: 0.751174,
@@ -38383,10 +38407,12 @@ function( app ) {
 
 });
 
+//TODO replace player/app
 define('player/modules/controls/size-toggle',[
-    "player/app"
+    "player/app",
+    "app"
 ],
-function( app ) {
+function( app, baseApp ) {
 
     return app.Backbone.Layout.extend({
         template: "app/player/templates/controls/size-toggle",
@@ -38410,8 +38436,10 @@ function( app ) {
 
             if ( this.mobile ) {
                 this.$("i").attr("title", "Switch to laptop view");
+                baseApp.emit("preview_toggle_view", { state: "mobile" });
             } else {
                 this.$("i").attr("title", "Switch to mobile view");
+                baseApp.emit("preview_toggle_view", { state: "desktop" });
             }
             // this.initTipsy();
         },
@@ -39633,14 +39661,27 @@ function( app, Zeega ) {
             "click .share-zeega": "showShare",
             "click .embed-zeega": "showEmbed",
             "keyup #project-caption": "onCaptionKeypress",
-            "blur #project-caption": "updateShareUrls"
+            "blur #project-caption": "updateShareUrls",
+            "click .share-network a": "onShareLinkClick"
+        },
+
+        onShareLinkClick: function( event ){
+            app.emit( "share", {
+                "type": event.currentTarget.name
+            });
         },
 
         initHelpSequence: function() {
             if ( app.layout.initialInstructions.pointing ) {
                 app.layout.initialInstructions.cancel();
+                app.emit("help",{
+                    action: "hide"
+                });
             } else {
                 app.layout.initialInstructions.startPointing();
+                app.emit("help",{
+                    action: "show"
+                });
             }
         },
 
@@ -39654,8 +39695,11 @@ function( app, Zeega ) {
             this.$(".share-zeega, .share-network").addClass("active");
         },
 
-        onBoxFocus: function( e ) {
-            $(e.target).select();
+        onBoxFocus: function( event ) {
+            $(event.target).select();
+            app.emit( "share", {
+                "type": event.currentTarget.name
+            });
             return false;
         },
 
@@ -39981,12 +40025,12 @@ function( app, FrameView ) {
                 tolerance: "pointer",
                 placeholder: "frame-placeholder",
                 update: function( e, ui ) {
-                    this.updateFrameOrder();
+                    app.emit("pages_reordered", this.model.status.get("currentSequence") );
                 }.bind(this)
             });
         },
 
-        updateFrameOrder: function() {
+        updateFrameOrder: function( ) {
             var frameOrder = _.map( this.$("ul.frame-list li"), function( frame ) {
                 return $( frame ).data("id");
             });
@@ -39999,6 +40043,7 @@ function( app, FrameView ) {
 
             this.model.status.get("currentSequence").frames.sort();
             this.model.status.get("currentSequence").save("frames", frameOrder );
+            
         },
 
         onFrameAdd: function( frameModel, collection ) {
@@ -40006,7 +40051,7 @@ function( app, FrameView ) {
                 this.model.status.setCurrentFrame( frameModel );
             }
             this.renderSequenceFrames( this.model.status.get("currentSequence") );
-            this.updateFrameOrder();
+            this.updateFrameOrder( );
             app.emit("page_added", null);
         },
 
@@ -40092,10 +40137,10 @@ function( app ) {
                             //app.layout.soundtrack.updateWaveform( app.dragging.get("thumbnail_url") );
 
                             app.emit("soundtrack_added", app.dragging );
-                            app.status.get('currentSequence').setSoundtrack( app.dragging, app.layout.soundtrack );
+                            app.status.get('currentSequence').setSoundtrack( app.dragging, app.layout.soundtrack, { source: "drag-to-workspace" } );
                         } else {
                             app.emit("item_dropped", app.dragging );
-                            this.model.status.get('currentFrame').addLayerByItem( app.dragging );
+                            this.model.status.get('currentFrame').addLayerByItem( app.dragging, { source: "drag-to-workspace" });
                         }
 
                     }
@@ -40746,6 +40791,7 @@ function( app, LayerList ) {
                 },
                 update: function( e, ui ) {
                     this.updateLayerOrder( frameModel );
+                    app.emit("layers_reordered", frameModel );
                 }.bind(this)
             });
         },
@@ -40913,7 +40959,7 @@ function( app, Viewer ) {
                         this.updateWaveform( app.dragging.get("thumbnail_url") );
 
                         app.emit("soundtrack_added", app.dragging );
-                        app.status.get('currentSequence').setSoundtrack( app.dragging, this );
+                        app.status.get('currentSequence').setSoundtrack( app.dragging, this, { source: "drag-to-soundtrack" } );
                     }
                 }.bind( this )
             });
@@ -41053,11 +41099,6 @@ function( app ) {
             } else {
                 this.$el.removeClass("list");
             }
-
-            if( api === "MyZeega" ){
-                this.model.search( "" );
-            }
-
             return false;
         }
 
@@ -41146,6 +41187,9 @@ function( app ) {
 
         stopPointing: function() {
             this.options.parent.collection.cancel();
+            app.emit("help",{
+                    action: "close"
+            });
         }
     });
 });
@@ -42528,7 +42572,34 @@ define('modules/views/media-upload',[
 function( app, ItemView ) {
 
     var UploadItem = Backbone.Model.extend({
+        modelType: "item",
         url: app.api + "items",
+        defaults:{
+            "title": "",
+            "headline": "",
+            "description": "",
+            "text": "",
+            "uri": "",
+            "attribution_uri": "",
+            "thumbnail_url": "",
+            "media_type": "Image",
+            "layer_type": "Image",
+            "archive": "Upload",
+            "media_geo_latitude": null,
+            "media_geo_longitude": null,
+            "media_date_created": "",
+            "child_items_count": 0,
+            "editable": true,
+            "published": false,
+            "enabled": true
+        },
+
+        initialize: function() {
+            this.view = new ItemView({ model: this });
+        }
+    });
+
+    var WebItem = UploadItem.extend({
         defaults:{
             "title": "",
             "headline": "",
@@ -42548,14 +42619,6 @@ function( app, ItemView ) {
             "published": false,
             "enabled": true
         },
-
-        initialize: function() {
-            this.view = new ItemView({ model: this });
-        }
-    });
-
-    var WebItem = UploadItem.extend({
-
         url: function(){
 
             var url = app.api + "items/parser?url=" + this.get("web_url");
@@ -42626,6 +42689,8 @@ function( app, ItemView ) {
             item.url = app.api + "items";
             item.on("sync", this.refreshUploads, this );
 
+
+            // gifs only
             if( item.get("thumbnail_url").indexOf(".gif") > 0 ){
                 item.set({
                     "attributes": {
@@ -42636,12 +42701,18 @@ function( app, ItemView ) {
             }
             
 
-            item.save();
+
+
+
+            item.save().success(function( response ){
+                app.emit("item_added", item );
+            });
+
 
             if ( item.get("layer_type")  && _.contains( ["Audio"], item.get("layer_type") )) {
-                app.status.get('currentSequence').setSoundtrack( item, app.layout.soundtrack );
+                app.status.get('currentSequence').setSoundtrack( item, app.layout.soundtrack, { source: "import-item" } );
             } else {
-                app.status.get('currentFrame').addLayerByItem( item );
+                app.status.get('currentFrame').addLayerByItem( item, { source: "import-item" } );
             }
         },
 
@@ -43373,31 +43444,6 @@ function( app ) {
 
 });
 
-define('modules/views/item-viewer-video',[
-    "app",
-    "backbone"
-],
-
-function( app ) {
-
-
-    return Backbone.View.extend({
-        
-        className: "item-viewer item-viewer-video",
-        template: "app/templates/item-viewer-video",
-
-        serialize: function() {
-            return this.model.toJSON();
-        },
-
-        exit: function() {
-            this.$("video").attr("src", "");
-        }
-        
-    });
-
-});
-
 define('modules/views/item-viewer-youtube',[
     "app",
     "backbone"
@@ -43429,7 +43475,6 @@ define('modules/views/item-collection-viewer',[
     "modules/views/frame",
     "modules/views/item-viewer-image",
     "modules/views/item-viewer-audio",
-    "modules/views/item-viewer-video",
     "modules/views/item-viewer-youtube",
 
     "backbone"
@@ -43478,15 +43523,24 @@ function( app, Modal, FrameView, ImageView, AudioView, VideoView, YoutubeView ) 
                     item.itemView = new ImageView({ model: item });
                 } else if ( item.get("layer_type") == "Audio") {
                     item.itemView = new AudioView({ model: item });
-                } else if ( item.get("layer_type") == "Video") {
-                    item.itemView = new VideoView({ model: item });
                 } else if ( item.get("layer_type") == "Youtube") {
                     item.itemView = new YoutubeView({ model: item });
-                }
+                } 
             }
             // just render item.itemView
-            this.$(".modal-body").html( item.itemView.el );
-            item.itemView.render();
+
+            if( item.itemView.el ){
+               this.$(".modal-body").html( item.itemView.el );
+                item.itemView.render();
+                app.emit("view_item",{
+                    type: item.get("layer_type"),
+                    source: item.get("archive"),
+                    title: item.get("title") ? item.get("title") : "none" 
+                });
+            } else {
+                return false;
+            }
+            
         },
 
         listen: function() {
@@ -43536,13 +43590,14 @@ function( app, Modal, FrameView, ImageView, AudioView, VideoView, YoutubeView ) 
         },
 
         addToFrame: function() {
+
             if ( this.collection.at( this.index ). get("layer_type") == "Audio" ) {
                 app.layout.soundtrack.updateWaveform( this.collection.at( this.index ).get("thumbnail_url") );
                 $(".intro").remove();
                 app.emit("soundtrack_added", this.collection.at( this.index ) );
-                app.status.get('currentSequence').setSoundtrack( this.collection.at( this.index ), app.layout.soundtrack );
+                app.status.get('currentSequence').setSoundtrack( this.collection.at( this.index ), app.layout.soundtrack, { source: "add-to-page" } );
             } else {
-                app.status.get('currentFrame').addLayerByItem( this.collection.at( this.index ) );
+                app.status.get('currentFrame').addLayerByItem( this.collection.at( this.index ), { source: "add-to-page" } );
             }
             this.close();
         },
@@ -43940,7 +43995,6 @@ function( app, ItemModel, CollectionView, Collection, ItemCollectionViewer ) {
             this.view = new CollectionView[ this.api ]({ model: this });
             this.mediaCollection = new Collection[ this.api ]();
             this.mediaCollection.searchModel = this;
-            //this.mediaCollection.on("sync", this.onSync, this );
             this.search( "" );
             this.listen();
         },
@@ -43950,6 +44004,12 @@ function( app, ItemModel, CollectionView, Collection, ItemCollectionViewer ) {
         search: function( query ){
             this.set( "searchQuery", query );
             this._search( query );
+            if( query !== "" ){
+                app.emit("media_search",{
+                    "query": query,
+                   "api": this.api
+                });
+            }
         },
         more: function(){
             this._more();
@@ -44291,7 +44351,7 @@ function( app, SearchModel ) {
             zeegaSearch.mediaBrowser = this;
             this.set("Zeega", zeegaSearch );
             this.set("currentAPI", "Zeega");
-            this.search("");
+            this.get( this.get("currentAPI") ).search( "" );
         },
 
     
@@ -44313,10 +44373,10 @@ function( app, SearchModel ) {
             return this.get( this.get("currentAPI") );
         },
 
-        search: function( query ){
-            this.get( this.get("currentAPI") ).search( query );
+        // search: function( query ){
+        //     this.get( this.get("currentAPI") ).search( query );
 
-        },
+        // },
 
         more: function(){
             this.get( this.get("currentAPI")).more();
@@ -44328,6 +44388,116 @@ function( app, SearchModel ) {
 
 });
 
+define('analytics/analytics',[
+    "app",
+
+    "backbone"
+],
+
+function( app ) {
+
+    return Backbone.Model.extend({
+
+        initialize: function() {
+            app.on( "all", this.onEvent, this );
+            if( !window.mixpanel ){
+                this.generateConsole();
+            }
+        },
+
+        onEvent: function( event, args ){
+            if(_.contains( this.plainEvents, event )){
+                this.trackEvent (event, args);
+            } else if( _.contains( this.modelEvents, event ) ) {
+                this.parseModelEvent (event, args);
+            } else {
+                //console.log("untracked event:: ", event, args );
+            }
+        },
+
+        parseModelEvent: function ( event, model ){
+            var params = {};
+            if( model.modelType == "frame" ){
+                params.layerCount = model.layers.length;
+            } else if ( model.modelType == "layer" ){
+                params = {
+                    type: model.get("type"),
+                    source: model.get("attr").archive ?  model.get("attr").archive : "none"
+                }
+            } else if ( model.modelType == "sequence" ){
+                params = {
+                    pageCount: model.frames.length
+                }
+            } else if ( model.modelType == "item" ){
+                params = {
+                    type: model.get("media_type"),
+                    source: model.get("archive") ?  model.get("archive") : "none"
+                }
+            }
+            
+            params = _.extend( params, model.eventData );
+
+            this.trackEvent( event, params );
+
+
+        },
+
+        setGlobals: function ( args ){
+
+            _.each(args, function (value, key){
+                var param = {};
+                param[ key ] = value;
+                mixpanel.register( param );
+            });
+        },
+
+        trackEvent: function ( event, args ){
+            mixpanel.track( event, args );
+        },
+
+        plainEvents: [
+        //editor
+            "project_preview",
+            "media_search",
+            "page_added",
+            "share",
+            "view_item",
+            "layer_font_change",
+            "toggle_help",
+            "help",
+            "preview_toggle_view",
+            "toggle_page_background"
+        ],
+
+        modelEvents: [
+        //editor
+            "page_delete",
+            "layer_added_success",
+            "layer_deleted",
+            "soundtrack_added_success",
+            "soundtrack_delete",
+            "pages_reordered",
+            "layers_reordered",
+            "item_added"
+
+
+        ],
+
+        generateConsole: function(){
+            window.mixpanel = {
+                register: function (obj){
+
+                        console.log("registering global property::  " + _.keys(obj) + " : " + _.values(obj) );
+                },                
+                track: function ( event, params ){
+                    console.log( "tracking event:: " + event, params );
+                }
+            }
+        }
+
+    });
+
+});
 define('modules/initializer',[
     "app",
     // Modules
@@ -44336,15 +44506,23 @@ define('modules/initializer',[
     // Plugins
     "engine/parser",
     "modules/media-browser/media-browser",
+    "analytics/analytics",
     "backbone"
 ],
 
-function( app, Status, Layout, ZeegaParser, MediaBrowser ) {
+function( app, Status, Layout, ZeegaParser, MediaBrowser, Analytics ) {
 
     return Backbone.Model.extend({
         
         initialize: function() {
             app.mediaBrowser = new MediaBrowser();
+            app.analytics = new Analytics();
+            app.analytics.setGlobals({
+                "projectId": app.metadata.projectId,
+                "userId": app.metadata.userId,
+                "userName": app.metadata.userName,
+                "context": "editor"
+            });
             this.loadProject();
         },
 
@@ -44374,6 +44552,8 @@ function( app, Status, Layout, ZeegaParser, MediaBrowser ) {
                     status: app.status
                 }
             });
+
+
 
             app.status.set({
                 currentSequence: app.project.sequences.at( 0 ),

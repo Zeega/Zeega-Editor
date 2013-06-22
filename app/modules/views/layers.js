@@ -118,7 +118,7 @@ function( app, LayerList ) {
                 },
                 update: function( e, ui ) {
                     this.updateLayerOrder( frameModel );
-                    app.emit("layers_reordered", this.model );
+                    app.emit("layers_reordered", frameModel );
                 }.bind(this)
             });
         },

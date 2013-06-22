@@ -48,10 +48,10 @@ function( app, ItemModel, CollectionView, Collection, ItemCollectionViewer ) {
         search: function( query ){
             this.set( "searchQuery", query );
             this._search( query );
-            if( query != "" ){
+            if( query !== "" ){
                 app.emit("media_search",{
                     "query": query,
-                   "api": this.api,
+                   "api": this.api
                 });
             }
         },
