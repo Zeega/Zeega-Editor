@@ -141,7 +141,10 @@ function( app, Zeega ) {
             "click .embed-zeega": "showEmbed",
             "keyup #project-caption": "onCaptionKeypress",
             "blur #project-caption": "updateShareUrls",
-            "click .share-network a": "onShareLinkClick"
+            "click .share-network a": "onShareLinkClick",
+            "click .new-zeega": "onNewZeega",
+            "click .profile-link": "onProfile",
+            "click .ZEEGA-tab": "onHome"
         },
 
         onShareLinkClick: function( event ){
@@ -268,7 +271,18 @@ function( app, Zeega ) {
             if ( this.model.project.get("title") != this.$(".project-info").text() ) {
                 this.model.project.save("title", this.$(".project-info").text() );
             }
+        },
+
+        onNewZeega: function(){
+            app.emit("new_zeega");
+        },
+        onProfile: function(){
+            app.emit("to_profile");
+        },
+        onHome: function(){
+            app.emit("to_home");
         }
+
 
     });
 

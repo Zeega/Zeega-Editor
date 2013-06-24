@@ -71,12 +71,16 @@ function( app ) {
             "media_search",
             "page_added",
             "share",
-            "view_item",
+           // "view_item",
             "layer_font_change",
             "toggle_help",
             "help",
             "preview_toggle_view",
-            "toggle_page_background"
+            "toggle_page_background",
+            "new_zeega",
+            "to_profile",
+            "to_home",
+            "advance_toggle"
         ],
 
         modelEvents: [
@@ -88,7 +92,10 @@ function( app ) {
             "soundtrack_delete",
             "pages_reordered",
             "layers_reordered",
-            "item_added"
+            "select_link_page",
+            "link_new_page",
+            "unlink",
+            "init_link"
 
 
         ],

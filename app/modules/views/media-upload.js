@@ -134,20 +134,14 @@ function( app, ItemView ) {
                 });
                 item.unset("thumbnail_url");
             }
-            
 
-
-
-
-            item.save().success(function( response ){
-                app.emit("item_added", item );
-            });
+            item.save();
 
 
             if ( item.get("layer_type")  && _.contains( ["Audio"], item.get("layer_type") )) {
-                app.status.get('currentSequence').setSoundtrack( item, app.layout.soundtrack, { source: "import-item" } );
+                app.status.get('currentSequence').setSoundtrack( item, app.layout.soundtrack, { source: "import-item", itemSource: item.get("Archive") } );
             } else {
-                app.status.get('currentFrame').addLayerByItem( item, { source: "import-item" } );
+                app.status.get('currentFrame').addLayerByItem( item, { source: "import-item", itemSource: item.get("Archive") } );
             }
         },
 

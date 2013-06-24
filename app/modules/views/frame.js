@@ -56,8 +56,10 @@ function( app, Asker ) {
             
             if( this.model.get("attr").advance ){
                 this.$(".advance-toggle").attr({ "title" : "add default advance" });
+                app.emit("advance_toggle", {state: "noAdvance"});
             } else {
                 this.$(".advance-toggle").attr({ "title" : "remove default advance" });
+                app.emit("advance_toggle", {state: "advance"});
             }
 
             this.model.saveAttr({
