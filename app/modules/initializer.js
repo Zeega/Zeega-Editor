@@ -21,7 +21,7 @@ function( app, Status, Layout, ZeegaParser, MediaBrowser, Analytics ) {
                 "projectId": app.metadata.projectId,
                 "userId": app.metadata.userId,
                 "userName": app.metadata.userName,
-                "context": "editor"
+                "app": "editor"
             });
             this.loadProject();
         },

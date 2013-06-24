@@ -39668,13 +39668,13 @@ function( app, Zeega ) {
             "click .embed-zeega": "showEmbed",
             "keyup #project-caption": "onCaptionKeypress",
             "blur #project-caption": "updateShareUrls",
-            "click .share-network a": "onShareLinkClick",
+            "click .share-network a": "onShare",
             "click .new-zeega": "onNewZeega",
             "click .profile-link": "onProfile",
             "click .ZEEGA-tab": "onHome"
         },
 
-        onShareLinkClick: function( event ){
+        onShare: function( event ){
             app.emit( "share", {
                 "type": event.currentTarget.name
             });
@@ -44441,16 +44441,16 @@ function( app ) {
                 params = {
                     type: model.get("type"),
                     source: model.get("attr").archive ?  model.get("attr").archive : "none"
-                }
+                };
             } else if ( model.modelType == "sequence" ){
                 params = {
                     pageCount: model.frames.length
-                }
+                };
             } else if ( model.modelType == "item" ){
                 params = {
                     type: model.get("media_type"),
                     source: model.get("archive") ?  model.get("archive") : "none"
-                }
+                };
             }
             
             params = _.extend( params, model.eventData );
@@ -44478,17 +44478,40 @@ function( app ) {
             "project_preview",
             "media_search",
             "page_added",
-            "share",
-           // "view_item",
             "layer_font_change",
             "toggle_help",
             "help",
             "preview_toggle_view",
             "toggle_page_background",
             "new_zeega",
+            "advance_toggle",
+          
+           // "view_item",
+
+            //player
+            
+            // "start_over",
+            // "mute_toggle",
+            // "fullscreen_toggle",
+            "zeega_view",
+            "favorite",
+            "unfavorite",
+            "viewed_to_end",
+
+
+            //mobile player
+            "swipe_to_play",
+
+            //community
+
+            "to_signup",
+
+        //shared
+
+            "share",
             "to_profile",
-            "to_home",
-            "advance_toggle"
+            "to_home"
+
         ],
 
         modelEvents: [
@@ -44523,7 +44546,7 @@ function( app ) {
                         console.log( "tracking event:: " + event, params );
                     }
                 }
-            }
+            };
         }
 
     });
@@ -44552,7 +44575,7 @@ function( app, Status, Layout, ZeegaParser, MediaBrowser, Analytics ) {
                 "projectId": app.metadata.projectId,
                 "userId": app.metadata.userId,
                 "userName": app.metadata.userName,
-                "context": "editor"
+                "app": "editor"
             });
             this.loadProject();
         },

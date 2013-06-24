@@ -141,13 +141,13 @@ function( app, Zeega ) {
             "click .embed-zeega": "showEmbed",
             "keyup #project-caption": "onCaptionKeypress",
             "blur #project-caption": "updateShareUrls",
-            "click .share-network a": "onShareLinkClick",
+            "click .share-network a": "onShare",
             "click .new-zeega": "onNewZeega",
             "click .profile-link": "onProfile",
             "click .ZEEGA-tab": "onHome"
         },
 
-        onShareLinkClick: function( event ){
+        onShare: function( event ){
             app.emit( "share", {
                 "type": event.currentTarget.name
             });
