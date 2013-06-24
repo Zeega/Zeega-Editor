@@ -8,6 +8,8 @@ function( app ) {
 
     return Backbone.Model.extend({
 
+        loggingEnabled: trues,
+
         initialize: function() {
             app.on( "all", this.onEvent, this );
             if( !window.mixpanel ){
@@ -101,13 +103,19 @@ function( app ) {
         ],
 
         generateConsole: function(){
+
+            var debug = this.loggingEnabled;
+
             window.mixpanel = {
                 register: function (obj){
-
+                    if( debug ){
                         console.log("registering global property::  " + _.keys(obj) + " : " + _.values(obj) );
+                    }
                 },                
                 track: function ( event, params ){
-                    console.log( "tracking event:: " + event, params );
+                    if( debug ){
+                        console.log( "tracking event:: " + event, params );
+                    }
                 }
             }
         }
