@@ -257,7 +257,7 @@ __p+='<a href="http://www.zeega.com" class="ZEEGA-tab">\n    <span class="ZTab-l
 ( web_root )+
 'profile/'+
 ( userId )+
-'"\n                    title="my profile"\n                    data-gravity="n"\n                    ><span class="user-token"\n                        style="\n                            background-image:url('+
+'"\n                    class="profile-link"\n                    title="my profile"\n                    data-gravity="n"\n                    ><span class="user-token"\n                        style="\n                            background-image:url('+
 ( userThumbnail )+
 ');\n                            background-size: cover;\n                        "\n                    ></span></a>\n            </li>\n            <li>\n                <a href="#" class="editor-help btnz btnz-light"\n                    title="view instructions"\n                    data-gravity="n"\n                >Help</a>\n            </li>\n           \n        </ul>\n    </div>\n\n    <ul class="nav-buttons-right">\n        \n        <li>\n            <a href="#" class="project-preview btnz"\n                title="see what you\'re making"\n                data-gravity="n"\n            ><i class="icon-play icon-white"></i> Preview</a>\n        </li>\n        <li>\n            <a href="#" class="project-share btnz btnz-blue btnz-fullwidth"\n                title="share your Zeega with the world"\n                data-gravity="n"\n            ><i class="icon-retweet icon-white"></i> Share</a>\n        </li>\n         <li>\n                <a href="'+
 ( web_root )+

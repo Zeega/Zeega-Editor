@@ -643,7 +643,7 @@ __p+='<a href="http://www.zeega.com" class="ZEEGA-tab">\n    <span class="ZTab-l
 ( web_root )+
 'profile/'+
 ( userId )+
-'"\n                    title="my profile"\n                    data-gravity="n"\n                    ><span class="user-token"\n                        style="\n                            background-image:url('+
+'"\n                    class="profile-link"\n                    title="my profile"\n                    data-gravity="n"\n                    ><span class="user-token"\n                        style="\n                            background-image:url('+
 ( userThumbnail )+
 ');\n                            background-size: cover;\n                        "\n                    ></span></a>\n            </li>\n            <li>\n                <a href="#" class="editor-help btnz btnz-light"\n                    title="view instructions"\n                    data-gravity="n"\n                >Help</a>\n            </li>\n           \n        </ul>\n    </div>\n\n    <ul class="nav-buttons-right">\n        \n        <li>\n            <a href="#" class="project-preview btnz"\n                title="see what you\'re making"\n                data-gravity="n"\n            ><i class="icon-play icon-white"></i> Preview</a>\n        </li>\n        <li>\n            <a href="#" class="project-share btnz btnz-blue btnz-fullwidth"\n                title="share your Zeega with the world"\n                data-gravity="n"\n            ><i class="icon-retweet icon-white"></i> Share</a>\n        </li>\n         <li>\n                <a href="'+
 ( web_root )+
@@ -36259,8 +36259,10 @@ function( app ) {
         },
 
         openLinkDrawer: function() {
+
             this.$(".page-chooser-wrapper").slideDown();
             this.$(".link-page-open").hide();
+            app.emit("init_link", this.model );
         },
 
         unlink: function() {
@@ -36272,6 +36274,7 @@ function( app ) {
             this.$(".page-chooser-wrapper").slideUp(function(){
                 $(this).parent().find(".link-page-open").show();
             });
+            app.emit("unlink", this.model );
             
         },
 
@@ -36317,6 +36320,7 @@ function( app ) {
                 height: "200px",
                 onSelected: function(data){
                     if(this.model.getAttr("fontFamily") != data.selectedData.value ){
+                        console.log(this.model.getAttr("fontFamily"),data.selectedData.value )
                         app.emit("layer_font_change", {
                             font: data.selectedData.value
                         });
@@ -36344,6 +36348,7 @@ function( app ) {
         },
 
         selectPage: function( e ) {
+            app.emit("select_link_page", this.model );
             var $frameLI = $(e.target).closest("li");
 
             if ( !$frameLI.hasClass("inactive") ) {
@@ -36363,6 +36368,7 @@ function( app ) {
         },
 
         linkToNewPage: function() {
+            app.emit("link_new_page", this.model );
             var newFrame = app.status.get("currentSequence").frames.addFrame( "auto", false );
 
             newFrame.once("sync", this.onNewFrameSave, this );
@@ -39662,7 +39668,10 @@ function( app, Zeega ) {
             "click .embed-zeega": "showEmbed",
             "keyup #project-caption": "onCaptionKeypress",
             "blur #project-caption": "updateShareUrls",
-            "click .share-network a": "onShareLinkClick"
+            "click .share-network a": "onShareLinkClick",
+            "click .new-zeega": "onNewZeega",
+            "click .profile-link": "onProfile",
+            "click .ZEEGA-tab": "onHome"
         },
 
         onShareLinkClick: function( event ){
@@ -39789,7 +39798,18 @@ function( app, Zeega ) {
             if ( this.model.project.get("title") != this.$(".project-info").text() ) {
                 this.model.project.save("title", this.$(".project-info").text() );
             }
+        },
+
+        onNewZeega: function(){
+            app.emit("new_zeega");
+        },
+        onProfile: function(){
+            app.emit("to_profile");
+        },
+        onHome: function(){
+            app.emit("to_home");
         }
+
 
     });
 
@@ -39950,8 +39970,10 @@ function( app, Asker ) {
             
             if( this.model.get("attr").advance ){
                 this.$(".advance-toggle").attr({ "title" : "add default advance" });
+                app.emit("advance_toggle", {state: "noAdvance"});
             } else {
                 this.$(".advance-toggle").attr({ "title" : "remove default advance" });
+                app.emit("advance_toggle", {state: "advance"});
             }
 
             this.model.saveAttr({
@@ -42699,20 +42721,14 @@ function( app, ItemView ) {
                 });
                 item.unset("thumbnail_url");
             }
-            
 
-
-
-
-            item.save().success(function( response ){
-                app.emit("item_added", item );
-            });
+            item.save();
 
 
             if ( item.get("layer_type")  && _.contains( ["Audio"], item.get("layer_type") )) {
-                app.status.get('currentSequence').setSoundtrack( item, app.layout.soundtrack, { source: "import-item" } );
+                app.status.get('currentSequence').setSoundtrack( item, app.layout.soundtrack, { source: "import-item", itemSource: item.get("Archive") } );
             } else {
-                app.status.get('currentFrame').addLayerByItem( item, { source: "import-item" } );
+                app.status.get('currentFrame').addLayerByItem( item, { source: "import-item", itemSource: item.get("Archive") } );
             }
         },
 
@@ -44398,6 +44414,8 @@ function( app ) {
 
     return Backbone.Model.extend({
 
+        loggingEnabled: trues,
+
         initialize: function() {
             app.on( "all", this.onEvent, this );
             if( !window.mixpanel ){
@@ -44461,12 +44479,16 @@ function( app ) {
             "media_search",
             "page_added",
             "share",
-            "view_item",
+           // "view_item",
             "layer_font_change",
             "toggle_help",
             "help",
             "preview_toggle_view",
-            "toggle_page_background"
+            "toggle_page_background",
+            "new_zeega",
+            "to_profile",
+            "to_home",
+            "advance_toggle"
         ],
 
         modelEvents: [
@@ -44478,19 +44500,28 @@ function( app ) {
             "soundtrack_delete",
             "pages_reordered",
             "layers_reordered",
-            "item_added"
+            "select_link_page",
+            "link_new_page",
+            "unlink",
+            "init_link"
 
 
         ],
 
         generateConsole: function(){
+
+            var debug = this.loggingEnabled;
+
             window.mixpanel = {
                 register: function (obj){
-
+                    if( debug ){
                         console.log("registering global property::  " + _.keys(obj) + " : " + _.values(obj) );
+                    }
                 },                
                 track: function ( event, params ){
-                    console.log( "tracking event:: " + event, params );
+                    if( debug ){
+                        console.log( "tracking event:: " + event, params );
+                    }
                 }
             }
         }
