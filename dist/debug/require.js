@@ -40043,6 +40043,7 @@ function( app, FrameView ) {
                 tolerance: "pointer",
                 placeholder: "frame-placeholder",
                 update: function( e, ui ) {
+                    this.updateFrameOrder();
                     app.emit("pages_reordered", this.model.status.get("currentSequence") );
                 }.bind(this)
             });
@@ -44453,7 +44454,7 @@ function( app ) {
             } else if ( model.modelType == "layer" ){
                 params = {
                     type: model.get("type"),
-                    source: model.get("attr").archive ?  model.get("attr").archive : "none"
+                    api: model.get("attr").archive ?  model.get("attr").archive : "none"
                 };
             } else if ( model.modelType == "sequence" ){
                 params = {
@@ -44462,7 +44463,7 @@ function( app ) {
             } else if ( model.modelType == "item" ){
                 params = {
                     type: model.get("media_type"),
-                    source: model.get("archive") ?  model.get("archive") : "none"
+                    api: model.get("archive") ?  model.get("archive") : "none"
                 };
             }
             

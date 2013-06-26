@@ -27,6 +27,7 @@ function( app, FrameView ) {
                 tolerance: "pointer",
                 placeholder: "frame-placeholder",
                 update: function( e, ui ) {
+                    this.updateFrameOrder();
                     app.emit("pages_reordered", this.model.status.get("currentSequence") );
                 }.bind(this)
             });
