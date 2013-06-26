@@ -34897,7 +34897,7 @@ function( app, Layer, Visual ){
             // add height attribute if not already there
             // this may break if the aspect ratio changes
 
-            this.aspectRatio = this.getAttr("aspectRatio")
+            this.aspectRatio = this.getAttr("aspectRatio");
 
             if ( _.isNull( this.aspectRatio ) ) {
                 this.determineAspectRatio();
@@ -36320,7 +36320,6 @@ function( app ) {
                 height: "200px",
                 onSelected: function(data){
                     if(this.model.getAttr("fontFamily") != data.selectedData.value ){
-                        console.log(this.model.getAttr("fontFamily"),data.selectedData.value )
                         app.emit("layer_font_change", {
                             font: data.selectedData.value
                         });
@@ -36337,9 +36336,6 @@ function( app ) {
         updateSample: function() {
             this.$("textarea").css({
                 fontFamily: this.model.getAttr("fontFamily")
-            });
-            app.emit("layer_font_change", {
-                font: this.model.getAttr("fontFamily")
             });
         },
 
