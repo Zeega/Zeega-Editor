@@ -5726,6 +5726,7 @@ a:active {
   display: inline-block;
   position: relative;
   padding: 5px 0px 5px 5px;
+  margin-right: 5px;
 }
 .frames .frame-placeholder:child-first,
 .frames .ZEEGA-frame:child-first {
@@ -6449,19 +6450,35 @@ a:active {
   background: rgba(256, 256, 256, 0.5);
   margin: -8px;
 }
+.media-upload .upload-chooser {
+  margin: 0 auto;
+  width: 124px;
+}
+.media-upload #imagefile {
+  cursor: pointer;
+}
+.media-upload .paste-url {
+  padding: 9px 0;
+}
+.media-upload .upload-instructions {
+  text-align: center;
+  width: 269px;
+}
 .media-upload .upload-file {
   cursor: pointer;
   border: 1px dashed white;
   padding: 8px;
 }
+.media-upload .upload-file:hover {
+  border: 1px dashed orangered;
+}
 .media-upload .upload-file span {
   position: absolute;
-  font-size: 12px;
+  font-size: 15px;
   cursor: pointer;
 }
 .media-upload .upload-file input {
   opacity: 0;
-  margin-bottom: -2px;
 }
 #media-upload-tab {
   color: grey;

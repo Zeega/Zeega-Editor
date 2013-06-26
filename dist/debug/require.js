@@ -405,7 +405,7 @@ __p+='<div class="frame-menu tooltip"\n    title="delete page"\n    data-gravity
 ( thumbnail_url )+
 ') no-repeat center center; \n            -webkit-background-size: cover;\n            -moz-background-size: cover;\n            -o-background-size: cover;\n            background-size: cover;\n        ';
  } 
-;__p+='\n"></a>\n\n<a title="';
+;__p+='\n"></a>\n\n<!--\n<a title="';
  if ( attr.advance ) { 
 ;__p+=' remove default advance ';
  } else {  
@@ -415,7 +415,7 @@ __p+='<div class="frame-menu tooltip"\n    title="delete page"\n    data-gravity
  if ( attr.advance ) { 
 ;__p+=' active';
  } 
-;__p+='">\n    <i class="icon-chevron-right"></i>\n</a>\n';
+;__p+='">\n    <i class="icon-chevron-right"></i>\n</a>\n-->';
 }
 return __p;
 };
@@ -619,7 +619,7 @@ return __p;
 this["JST"]["app/templates/media-upload.html"] = function(obj){
 var __p='';var print=function(){__p+=Array.prototype.join.call(arguments, '')};
 with(obj||{}){
-__p+='<div class="upload-chooser">\n    <a href="#" class="upload-image-action active">upload an image file</a> | <a href="#" class="paste-url-action">paste a url</a>\n</div>\n\n<div class="upload-toggle">\n    <div class="upload-file">\n        <div class = "upload-progress" ></div>\n        <span class="upload-instructions">click or drag an image here to upload</span>\n        <input id="imagefile"  name="imagefile"  type="file" href="#"></input>\n    </div>\n    <div class="paste-url">\n        <input class="url-box" type="text" placeholder="enter url here" value="" />\n    </div>\n</div>\n\n\n\n<!-- \n<div class = "image-uploads" >\n    <span class="add-photo" href="#">\n        <input id="imagefile"  name="imagefile"  type="file" href="#"></input>\n    </span>\n</div>\n<ul class=\'pull-left search-bar\'>\n    <li>\n        <input class="url-box" type="text" placeholder="enter url here" value="" />\n    </li>\n</ul>\n -->';
+__p+='<div class="upload-chooser">\n    <a href="#" class="upload-image-action active">upload</a> | <a href="#" class="paste-url-action">paste a url</a>\n</div>\n\n<div class="upload-toggle">\n    <div class="upload-file">\n        <div class = "upload-progress" ></div>\n        <span class="upload-instructions">click here to upload an image</span>\n        <input id="imagefile"  name="imagefile"  type="file" href="#"></input>\n    </div>\n    <div class="paste-url">\n        <input class="url-box" type="text" placeholder="enter url here" value="" />\n    </div>\n</div>\n\n\n\n<!-- \n<div class = "image-uploads" >\n    <span class="add-photo" href="#">\n        <input id="imagefile"  name="imagefile"  type="file" href="#"></input>\n    </span>\n</div>\n<ul class=\'pull-left search-bar\'>\n    <li>\n        <input class="url-box" type="text" placeholder="enter url here" value="" />\n    </li>\n</ul>\n -->';
 }
 return __p;
 };
@@ -42679,6 +42679,10 @@ function( app, ItemView ) {
         },
 
         showUploadImage: function() {
+
+       
+
+            this.$("#image-file").trigger("click");
             this.$(".upload-file").show();
             this.$(".paste-url").hide();
             this.$(".upload-image-action").addClass("active");
@@ -42695,7 +42699,7 @@ function( app, ItemView ) {
         onSearchKeyPress: function( e ) {
             var url = this.$(".url-box").val();
             if ( e.which == 13 ) {
-                this.$(".url-box").attr("value", "");
+                this.$(".url-box").val("");
                 this.search( url );
                 return false;
             }
@@ -43196,6 +43200,7 @@ function( app, UploadView, Spinner ) {
         initialize: function() {
             this.listen = _.once(function() {
                 this.model.mediaCollection.on("sync", this.renderItems, this );
+                this.model.mediaCollection.on("error", this.onError, this );
             }.bind( this ));
 
             this.initSpinner();
@@ -43211,6 +43216,22 @@ function( app, UploadView, Spinner ) {
                 color: '#fff' // #rgb or #rrggbb
             };
             this.spinner = new Spinner( opts );
+        },
+
+        onError: function( a, b  ){
+            
+            this.$(".more-tab").remove();
+            this.$(".media-collection-items").append("<div class='empty-collection'>Oops! Couldn't connect to "+ this.model.get("title") +".<br>  Try again?</div>");
+            this.releaseSearchBox();
+        },
+
+        releaseSearchBox: function(){
+            this.$(".search-box, .media-collection-wrapper").css({
+                opacity: 1
+            });
+            this.$(".label").css("visibility", "visible");
+            this.spinner.stop();
+            this.busy = false;
         },
 
         afterRender: function() {
@@ -43250,10 +43271,7 @@ function( app, UploadView, Spinner ) {
 
             this.listen();
 
-            this.$(".search-box, .media-collection-wrapper").css({
-                opacity: 1
-            });
-            this.$(".label").css("visibility", "visible");
+           
 
             if( this.model.getQuery() === "" && this.model.api != "MyZeega" ){
                 this.$(".media-collection-headline").show();
@@ -43261,8 +43279,7 @@ function( app, UploadView, Spinner ) {
                 this.$(".media-collection-headline").hide();
             }
 
-            this.spinner.stop();
-            this.busy = false;
+            this.releaseSearchBox();
 
             $(this.el).find("img").on("error", function(e) {
                 $(e.target).closest("li").hide();
@@ -44098,7 +44115,7 @@ function( app, ItemModel, CollectionView, Collection, ItemCollectionViewer ) {
     Search.MyZeega = Search.Zeega.extend({
 
         api: "MyZeega",
-        allowSearch: true,
+        allowSearch: false,
         defaults: {
                 urlArguments: {
                     collection: "",
@@ -44410,7 +44427,7 @@ function( app ) {
 
     return Backbone.Model.extend({
 
-        loggingEnabled: true,
+        loggingEnabled: false,
 
         initialize: function() {
             app.on( "all", this.onEvent, this );

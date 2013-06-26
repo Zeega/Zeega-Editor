@@ -19,7 +19,7 @@ __p+='<div class="frame-menu tooltip"\n    title="delete page"\n    data-gravity
 ( thumbnail_url )+
 ') no-repeat center center; \n            -webkit-background-size: cover;\n            -moz-background-size: cover;\n            -o-background-size: cover;\n            background-size: cover;\n        ';
  } 
-;__p+='\n"></a>\n\n<a title="';
+;__p+='\n"></a>\n\n<!--\n<a title="';
  if ( attr.advance ) { 
 ;__p+=' remove default advance ';
  } else {  
@@ -29,7 +29,7 @@ __p+='<div class="frame-menu tooltip"\n    title="delete page"\n    data-gravity
  if ( attr.advance ) { 
 ;__p+=' active';
  } 
-;__p+='">\n    <i class="icon-chevron-right"></i>\n</a>\n';
+;__p+='">\n    <i class="icon-chevron-right"></i>\n</a>\n-->';
 }
 return __p;
 };
@@ -233,7 +233,7 @@ return __p;
 this["JST"]["app/templates/media-upload.html"] = function(obj){
 var __p='';var print=function(){__p+=Array.prototype.join.call(arguments, '')};
 with(obj||{}){
-__p+='<div class="upload-chooser">\n    <a href="#" class="upload-image-action active">upload an image file</a> | <a href="#" class="paste-url-action">paste a url</a>\n</div>\n\n<div class="upload-toggle">\n    <div class="upload-file">\n        <div class = "upload-progress" ></div>\n        <span class="upload-instructions">click or drag an image here to upload</span>\n        <input id="imagefile"  name="imagefile"  type="file" href="#"></input>\n    </div>\n    <div class="paste-url">\n        <input class="url-box" type="text" placeholder="enter url here" value="" />\n    </div>\n</div>\n\n\n\n<!-- \n<div class = "image-uploads" >\n    <span class="add-photo" href="#">\n        <input id="imagefile"  name="imagefile"  type="file" href="#"></input>\n    </span>\n</div>\n<ul class=\'pull-left search-bar\'>\n    <li>\n        <input class="url-box" type="text" placeholder="enter url here" value="" />\n    </li>\n</ul>\n -->';
+__p+='<div class="upload-chooser">\n    <a href="#" class="upload-image-action active">upload</a> | <a href="#" class="paste-url-action">paste a url</a>\n</div>\n\n<div class="upload-toggle">\n    <div class="upload-file">\n        <div class = "upload-progress" ></div>\n        <span class="upload-instructions">click here to upload an image</span>\n        <input id="imagefile"  name="imagefile"  type="file" href="#"></input>\n    </div>\n    <div class="paste-url">\n        <input class="url-box" type="text" placeholder="enter url here" value="" />\n    </div>\n</div>\n\n\n\n<!-- \n<div class = "image-uploads" >\n    <span class="add-photo" href="#">\n        <input id="imagefile"  name="imagefile"  type="file" href="#"></input>\n    </span>\n</div>\n<ul class=\'pull-left search-bar\'>\n    <li>\n        <input class="url-box" type="text" placeholder="enter url here" value="" />\n    </li>\n</ul>\n -->';
 }
 return __p;
 };
