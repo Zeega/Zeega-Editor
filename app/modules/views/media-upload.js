@@ -96,6 +96,10 @@ function( app, ItemView ) {
         },
 
         showUploadImage: function() {
+
+       
+
+            this.$("#image-file").trigger("click");
             this.$(".upload-file").show();
             this.$(".paste-url").hide();
             this.$(".upload-image-action").addClass("active");
@@ -112,7 +116,7 @@ function( app, ItemView ) {
         onSearchKeyPress: function( e ) {
             var url = this.$(".url-box").val();
             if ( e.which == 13 ) {
-                this.$(".url-box").attr("value", "");
+                this.$(".url-box").val("");
                 this.search( url );
                 return false;
             }

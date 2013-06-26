@@ -130,7 +130,7 @@ function( app, ItemModel, CollectionView, Collection, ItemCollectionViewer ) {
     Search.MyZeega = Search.Zeega.extend({
 
         api: "MyZeega",
-        allowSearch: true,
+        allowSearch: false,
         defaults: {
                 urlArguments: {
                     collection: "",

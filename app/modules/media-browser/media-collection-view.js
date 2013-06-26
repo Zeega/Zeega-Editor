@@ -44,6 +44,7 @@ function( app, UploadView, Spinner ) {
         initialize: function() {
             this.listen = _.once(function() {
                 this.model.mediaCollection.on("sync", this.renderItems, this );
+                this.model.mediaCollection.on("error", this.onError, this );
             }.bind( this ));
 
             this.initSpinner();
@@ -59,6 +60,22 @@ function( app, UploadView, Spinner ) {
                 color: '#fff' // #rgb or #rrggbb
             };
             this.spinner = new Spinner( opts );
+        },
+
+        onError: function( a, b  ){
+            
+            this.$(".more-tab").remove();
+            this.$(".media-collection-items").append("<div class='empty-collection'>Oops! Couldn't connect to "+ this.model.get("title") +".<br>  Try again?</div>");
+            this.releaseSearchBox();
+        },
+
+        releaseSearchBox: function(){
+            this.$(".search-box, .media-collection-wrapper").css({
+                opacity: 1
+            });
+            this.$(".label").css("visibility", "visible");
+            this.spinner.stop();
+            this.busy = false;
         },
 
         afterRender: function() {
@@ -98,10 +115,7 @@ function( app, UploadView, Spinner ) {
 
             this.listen();
 
-            this.$(".search-box, .media-collection-wrapper").css({
-                opacity: 1
-            });
-            this.$(".label").css("visibility", "visible");
+           
 
             if( this.model.getQuery() === "" && this.model.api != "MyZeega" ){
                 this.$(".media-collection-headline").show();
@@ -109,8 +123,7 @@ function( app, UploadView, Spinner ) {
                 this.$(".media-collection-headline").hide();
             }
 
-            this.spinner.stop();
-            this.busy = false;
+            this.releaseSearchBox();
 
             $(this.el).find("img").on("error", function(e) {
                 $(e.target).closest("li").hide();
