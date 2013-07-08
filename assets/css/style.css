@@ -4954,6 +4954,11 @@ body {
 .btnz.btnz-light.active {
   background-color: #add8e6;
 }
+.btnz.btnz-transparent {
+  background: transparent;
+  color: #666;
+  box-shadow: none;
+}
 .btnz.btnz-submit {
   background-color: rgba(50, 205, 50, 0.75);
   padding-left: 20px;
@@ -5063,6 +5068,10 @@ body {
 }
 .project-head .nav:after {
   clear: both;
+}
+.project-head .saving-indicator {
+  font-family: "helvetica", sans-serif;
+  font-size: 12px;
 }
 .project-head .nav-buttons-right {
   float: right;
