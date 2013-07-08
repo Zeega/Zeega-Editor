@@ -100,7 +100,7 @@ define([
     // events that trigger the save indicator on the editor interface
     Backbone.Model.prototype.initSaveEvents = function() {
         this.on("request", app.onSaveStart, app );
-        this.on("sync", app.onSaveSuccess, app );
+        this.on("sync error", app.onSaveSuccess, app );
     };
 
     $ = jQuery;

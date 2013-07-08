@@ -581,7 +581,7 @@ return __p;
 this["JST"]["app/templates/layout-main.html"] = function(obj){
 var __p='';var print=function(){__p+=Array.prototype.join.call(arguments, '')};
 with(obj||{}){
-__p+='<div class="project-head"></div>\n\n<div class=\'left-column\'>\n    <div class="media-drawer"></div>\n</div>\n\n<div class=\'right-column\'>\n\n    <div class="project-navs">\n        <div class="frames"></div>\n        <div class="soundtrack"></div>\n    </div>\n    <div class="edit-box">\n        <div class="workspace"></div>\n    </div>\n\n    <div class="layer-picker"></div>\n    <div class="layers"></div>\n</div>';
+__p+='<div class="project-head"></div>\n\n<div class=\'left-column\'>\n    <div class="media-drawer"></div>\n</div>\n\n<div class=\'right-column\'>\n\n    <div class="project-navs">\n        <div class="soundtrack"></div>\n        <div class="frames"></div>\n    </div>\n    <div class="edit-box">\n        <div class="workspace"></div>\n    </div>\n\n    <div class="layer-picker"></div>\n    <div class="layers"></div>\n</div>';
 }
 return __p;
 };
@@ -645,7 +645,7 @@ __p+='<a href="http://www.zeega.com" class="ZEEGA-tab">\n    <span class="ZTab-l
 ( userId )+
 '"\n                    class="profile-link"\n                    title="my profile"\n                    data-gravity="n"\n                    ><span class="user-token"\n                        style="\n                            background-image:url('+
 ( userThumbnail )+
-');\n                            background-size: cover;\n                        "\n                    ></span></a>\n            </li>\n            <li>\n                <a href="#" class="editor-help btnz btnz-light"\n                    title="view instructions"\n                    data-gravity="n"\n                >Help</a>\n            </li>\n           \n        </ul>\n    </div>\n\n    <ul class="nav-buttons-right">\n        \n        <li>\n            <a href="#" class="project-preview btnz"\n                title="see what you\'re making"\n                data-gravity="n"\n            ><i class="icon-play icon-white"></i> Preview</a>\n        </li>\n        <li>\n            <a href="#" class="project-share btnz btnz-blue btnz-fullwidth"\n                title="share your Zeega with the world"\n                data-gravity="n"\n            ><i class="icon-retweet icon-white"></i> Share</a>\n        </li>\n         <li>\n                <a href="'+
+');\n                            background-size: cover;\n                        "\n                    ></span></a>\n            </li>\n            <li>\n                <a href="#" class="editor-help btnz btnz-light"\n                    title="view instructions"\n                    data-gravity="n"\n                >Help</a>\n            </li>\n           \n        </ul>\n    </div>\n\n    <ul class="nav-buttons-right">\n        \n        <li>\n            <span class="saving-indicator btnz btnz-transparent"></span>\n        </li>\n\n        <li>\n            <a href="#" class="project-preview btnz"\n                title="see what you\'re making"\n                data-gravity="n"\n            ><i class="icon-play icon-white"></i> Preview</a>\n        </li>\n        <li>\n            <a href="#" class="project-share btnz btnz-blue btnz-fullwidth"\n                title="share your Zeega with the world"\n                data-gravity="n"\n            ><i class="icon-retweet icon-white"></i> Share</a>\n        </li>\n         <li>\n                <a href="'+
 ( web_root )+
 'project/new"\n                    class="btnz new-zeega"\n                    title="start a new Zeega"\n                    data-gravity="ne"\n                    >New</a>\n        </li>\n\n    </ul>\n\n</div>\n\n<div class="share-grave">\n\n    <div class="close-wrapper">\n        <a href="#" class="close-grave">&times;</a>\n    </div>\n\n    <div class="grave-inner">\n\n        <div class="share-meta">\n            <div class="cover-image-wrapper">\n                <div class="project-cover" style="\n                    background: url('+
 ( cover_image )+
@@ -703,7 +703,7 @@ __p+='<div class="elapsed tooltip"></div>\n<div class="soundtrack-waveform"\n   
  if ( model === false ) { 
 ;__p+='\n    <span class="soundtrack-drop-icon"\n        title="drag audio to add soundtrack"\n        data-gravity="ne"\n    ></span>\n    <span class="soundtrack-sub">soundtrack</span>\n';
  } else { 
-;__p+='\n    <div class="soundtrack-controls">\n        <a href="#" class="playpause"\n            title="listen"\n            data-gravity="n"\n        ><i class="icon-play icon-white"></i></a>\n        <a href="#" class="remove"\n            title="remove soundtrack"\n            data-gravity="n"\n        ><i class="icon-remove icon-white"></i></a>\n    </div>\n';
+;__p+='\n    <div class="soundtrack-controls">\n        <a href="#" class="remove"\n            title="remove soundtrack"\n            data-gravity="n"\n        ><i class="icon-remove icon-white"></i></a>\n    </div>\n';
  } 
 ;__p+='';
 }
@@ -18001,10 +18001,39 @@ define('app',[
         emit: function( event, args ) {
             // other things can be done here as well
             this.trigger( event, args );
+        },
+
+        _saving: 0,
+        _saveIndicatorTimeout: null,
+
+        onSaveStart: function( target ) {
+
+            if ( this._saveIndicatorTimeout ) {
+                clearTimeout( this._saveIndicatorTimeout );
+            }
+
+            $(".saving-indicator").text("saving");
+            this._saving++;
+        },
+
+        onSaveSuccess: function( target, opts ) {
+            this._saving--;
+
+            if( this._saving < 1 ) {
+                $(".saving-indicator").text("all changes saved");
+                this._saveIndicatorTimeout = setTimeout( function() {
+                    $(".saving-indicator").empty();
+                }, 2000 );
+            }
+        },
+        
+        onSaveError: function() {
+
         }
+
     };
 
-    var opts = {
+    var spinnerOptions = {
         lines: 13, // The number of lines to draw
         length: 10, // The length of each line
         width: 4, // The line thickness
@@ -18022,7 +18051,7 @@ define('app',[
         top: 'auto', // Top position relative to parent in px
         left: 'auto' // Left position relative to parent in px
     };
-    app.spinner = new Spinner(opts);
+    app.spinner = new Spinner( spinnerOptions );
 
     // Localize or create a new JavaScript Template object.
     var JST = window.JST = window.JST || {};
@@ -18033,6 +18062,12 @@ define('app',[
     Backbone.Model.prototype.put = function() {
         var args = [].slice.call( arguments ).concat([ { silent: true } ]);
         return this.set.apply( this, args );
+    };
+
+    // events that trigger the save indicator on the editor interface
+    Backbone.Model.prototype.initSaveEvents = function() {
+        this.on("request", app.onSaveStart, app );
+        this.on("sync error", app.onSaveSuccess, app );
     };
 
     $ = jQuery;
@@ -34392,6 +34427,7 @@ function( app, Controls ) {
         
             this.on( "visual_ready", this.onVisualReady, this );
             this.on( "visual_error", this.onVisualError, this );
+            this.initSaveEvents();
         },
 
         getAttr: function( attrName ) {
@@ -36776,6 +36812,7 @@ function( app, Layers ) {
             this.lazySave = _.debounce(function() {
                 this.save();
             }.bind( this ), 1000 );
+            this.initSaveEvents();
         },
 
         initSoundtrackModel: function( layers ) {
@@ -36984,6 +37021,8 @@ function( app, Backbone, Layers, ThumbWorker ) {
                 });
 
             }, 1000);
+
+            this.initSaveEvents();
         },
 
 // editor
@@ -37526,6 +37565,7 @@ function( app, SequenceCollection ) {
             this.options = _.defaults( options, this.defaultOptions );
             this.parser = options.parser;
             this.parseSequences();
+            this.initSaveEvents();
         },
 
         parseSequences: function() {
