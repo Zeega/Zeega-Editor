@@ -6203,6 +6203,7 @@ a:active {
   color: orangered;
   position: relative;
   text-shadow: 2px 2px white;
+  margin-right: 10px;
 }
 .soundtrack .soundtrack-waveform {
   background: transparent;
@@ -6220,9 +6221,10 @@ a:active {
 }
 .soundtrack .soundtrack-controls {
   position: absolute;
-  bottom: 0;
+  top: 0;
   background: rgba(0, 0, 0, 0.5);
   width: 100%;
+  text-align: right;
 }
 .soundtrack .soundtrack-controls a {
   position: relative;
