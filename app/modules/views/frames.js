@@ -50,12 +50,15 @@ function( app, FrameView ) {
         },
 
         onFrameAdd: function( frameModel, collection ) {
+            this.$(".frame-list").sortable("destroy");
+
             if ( frameModel.editorAdvanceToPage !== false ) {
                 this.model.status.setCurrentFrame( frameModel );
             }
             this.renderSequenceFrames( this.model.status.get("currentSequence") );
             this.updateFrameOrder( );
             app.emit("page_added", null);
+            this.makeSortable();
         },
 
         onFrameRemove: function( frameModel, collection ) {
