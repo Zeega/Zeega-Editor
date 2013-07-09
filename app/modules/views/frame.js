@@ -22,6 +22,7 @@ function( app, Asker ) {
             this.model.on("thumbUpdateStart", this.onThumbUpdateStart, this );
             this.model.on("change:thumbnail_url", this.onThumbUpdateComplete, this );
             this.model.on("no_advance", this.turnOffAdvance, this );
+            this.makeDroppable();
         },
 
         onThumbUpdateStart: function() {
@@ -40,6 +41,24 @@ function( app, Asker ) {
             this.$(".frame-thumb").css({
                 background: "url(" + this.model.get("thumbnail_url") + ") no-repeat center center",
                 opacity: 1
+            });
+        },
+
+        makeDroppable: function() {
+            this.$el.droppable({
+                accept: ".item, .draggable-layer-type",
+                tolerance: "pointer",
+                drop: function( e, ui ) {
+
+                    console.log("drop", this.model.id )
+                    if ( _.contains( ["Audio"], app.dragging.get("layer_type") )) {
+                        app.emit("soundtrack_added", app.dragging );
+                        app.status.get('currentSequence').setSoundtrack( app.dragging, app.layout.soundtrack, { source: "drag-to-workspace" } );
+                    } else {
+                        app.emit("item_dropped", app.dragging );
+                        this.model.addLayerByItem( app.dragging, { source: "drag-to-workspace" });
+                    }
+                }.bind( this )
             });
         },
 

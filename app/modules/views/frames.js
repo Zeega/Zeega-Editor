@@ -16,6 +16,7 @@ function( app, FrameView ) {
         afterRender: function() {
             this.renderSequenceFrames( this.model.status.get("currentSequence") );
             this.makeSortable();
+            this.makeDroppable();
             this.model.status.get("currentSequence").frames.on("add", this.onFrameAdd, this );
             this.model.status.get("currentSequence").frames.on("remove", this.onFrameRemove, this );
         },
@@ -31,6 +32,11 @@ function( app, FrameView ) {
                     app.emit("pages_reordered", this.model.status.get("currentSequence") );
                 }.bind(this)
             });
+        },
+
+        makeDroppable: function() {
+            // this.$(".frame-list").droppable({});
+            console.log("make droppable")
         },
 
         updateFrameOrder: function( ) {
