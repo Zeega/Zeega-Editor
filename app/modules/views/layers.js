@@ -57,34 +57,20 @@ function( app, LayerList ) {
 
         refresh: function( layerModel ){
             var layerView = new LayerList({
-                        model: layerModel,
-                        attributes: {
-                            "data-id": layerModel.id || 0
-                        }
-                    });
-
-            this.layerViews.push( layerView );
-            this.renderFrameLayers( this.model.status.get("currentFrame") );
-                            layerView.render();
-
-        },
-
-        onLayerAdd: function( layerModel, collection ) {
-            var layerView = new LayerList({
                     model: layerModel,
                     attributes: {
                         "data-id": layerModel.id || 0
                     }
                 });
 
+            this.$("ul.layer-list").sortable("destroy");
+
             this.layerViews.push( layerView );
-            this.$("ul.layer-list").prepend( layerView.el );
+            this.renderFrameLayers( this.model.status.get("currentFrame") );
             layerView.render();
-            app.emit("layer_add", layerModel );
         },
 
         renderFrameLayers: function( frameModel ) {
-
             this.updateListeners();
 
             frameModel.layers.each(function( layer, i ) {

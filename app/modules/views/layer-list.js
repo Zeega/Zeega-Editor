@@ -95,6 +95,7 @@ function( app, LayerControls, Asker) {
         },
 
         selectLayer: function() {
+            
             if ( app.status.get("currentLayer") != this.model ) {
                 app.status.setCurrentLayer( this.model );
             } else {
