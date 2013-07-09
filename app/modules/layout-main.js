@@ -39,27 +39,32 @@ function( app, ProjectHead, Frames, Workspace, Layers, LayerDrawer, Soundtrack, 
 
         onMediaDrawerToggle: function( api ){
             clearInterval ( this.animateInterval );
+            this.animated = 0;
+            console.log("on media drawer toggle");
             if( api == "Zeega" || api == "MyZeega" || api == "Giphy" ){
                 var animator = $.proxy(function(){this.animateThumbs();}, this );
-                this.animateInterval = setInterval( animator, 2000 );
+                this.animateInterval = setInterval( animator, 3000 );
             }
         },
 
         animateThumbs: function(){
-
+            this.animated++;
+            
             $($(".browser-thumb")[this.animate[ 0 ]]).trigger("mouseout");
             $($(".browser-thumb")[this.animate[ 1 ]]).trigger("mouseout");
             $($(".browser-thumb")[this.animate[ 2 ]]).trigger("mouseout");
+            
+            if(this.animated < 4){
+                this.animate[ 0 ] = Math.floor(Math.random( ) * Math.min($(".browser-thumb").length,20) );
+                this.animate[ 1 ] = Math.floor(Math.random() * Math.min($(".browser-thumb").length,20)  );
+                this.animate[ 2 ] = Math.floor(Math.random() * Math.min($(".browser-thumb").length ,20));
 
-            this.animate[ 0 ] = Math.floor(Math.random( ) * $(".browser-thumb").length );
-            this.animate[ 1 ] = Math.floor(Math.random() * $(".browser-thumb").length  );
-            this.animate[ 2 ] = Math.floor(Math.random() * $(".browser-thumb").length );
-
-            $($(".browser-thumb")[this.animate[ 0 ]]).trigger("mouseover");
-            $($(".browser-thumb")[this.animate[ 1 ]]).trigger("mouseover");
-            $($(".browser-thumb")[this.animate[ 2 ]]).trigger("mouseover");
-
-
+                $($(".browser-thumb")[this.animate[ 0 ]]).trigger("mouseover");
+                $($(".browser-thumb")[this.animate[ 1 ]]).trigger("mouseover");
+                $($(".browser-thumb")[this.animate[ 2 ]]).trigger("mouseover");
+            } else {
+                clearInterval( this.animateInterval );
+            }
         },
 
         beforeRender: function() {
