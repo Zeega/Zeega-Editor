@@ -40106,12 +40106,15 @@ function( app, FrameView ) {
         },
 
         onFrameAdd: function( frameModel, collection ) {
+            this.$(".frame-list").sortable("destroy");
+
             if ( frameModel.editorAdvanceToPage !== false ) {
                 this.model.status.setCurrentFrame( frameModel );
             }
             this.renderSequenceFrames( this.model.status.get("currentSequence") );
             this.updateFrameOrder( );
             app.emit("page_added", null);
+            this.makeSortable();
         },
 
         onFrameRemove: function( frameModel, collection ) {
@@ -40693,6 +40696,7 @@ function( app, LayerControls, Asker) {
         },
 
         selectLayer: function() {
+            
             if ( app.status.get("currentLayer") != this.model ) {
                 app.status.setCurrentLayer( this.model );
             } else {
@@ -40789,34 +40793,20 @@ function( app, LayerList ) {
 
         refresh: function( layerModel ){
             var layerView = new LayerList({
-                        model: layerModel,
-                        attributes: {
-                            "data-id": layerModel.id || 0
-                        }
-                    });
-
-            this.layerViews.push( layerView );
-            this.renderFrameLayers( this.model.status.get("currentFrame") );
-                            layerView.render();
-
-        },
-
-        onLayerAdd: function( layerModel, collection ) {
-            var layerView = new LayerList({
                     model: layerModel,
                     attributes: {
                         "data-id": layerModel.id || 0
                     }
                 });
 
+            this.$("ul.layer-list").sortable("destroy");
+
             this.layerViews.push( layerView );
-            this.$("ul.layer-list").prepend( layerView.el );
+            this.renderFrameLayers( this.model.status.get("currentFrame") );
             layerView.render();
-            app.emit("layer_add", layerModel );
         },
 
         renderFrameLayers: function( frameModel ) {
-
             this.updateListeners();
 
             frameModel.layers.each(function( layer, i ) {
