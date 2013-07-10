@@ -44645,6 +44645,7 @@ function( app, Status, Layout, ZeegaParser, MediaBrowser, Analytics ) {
                     throw new Error("Ajax load fail");
                 });
             }
+           
         },
 
         _parseData: function( response ) {
@@ -44666,6 +44667,7 @@ function( app, Status, Layout, ZeegaParser, MediaBrowser, Analytics ) {
         },
 
         insertLayout: function() {
+            window.history.pushState("", "", app.metadata.root + app.project.id );
             app.layout = new Layout();
             app.layout.render();
         }
