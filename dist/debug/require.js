@@ -44667,7 +44667,10 @@ function( app, Status, Layout, ZeegaParser, MediaBrowser, Analytics ) {
         },
 
         insertLayout: function() {
-            window.history.pushState("", "", app.metadata.root + app.project.id );
+
+            var location = app.metadata.root == "/" ? app.metadata.root + app.project.id : "/" + app.metadata.root + app.project.id;
+            window.history.pushState("", "", location );
+            
             app.layout = new Layout();
             app.layout.render();
         }
