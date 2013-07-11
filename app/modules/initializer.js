@@ -26,11 +26,11 @@ function( app, Status, Layout, ZeegaParser, MediaBrowser, Analytics ) {
 
             if( app.metadata.newUser ){
                 app.analytics.people.set({
-                    "id": app.metadata.userId,
-                    "username": app.metadata.userUsername,
-                    "created": new Date(),
-                    "name": app.metadata.userName,
-                    "email": app.metadata.userEmail
+                    $id : app.metadata.userId,
+                    $username: app.metadata.userUsername,
+                    $created: new Date(),
+                    $name: app.metadata.userName,
+                    $email: app.metadata.userEmail
                 });
             }
 
