@@ -23,6 +23,24 @@ function( app, Status, Layout, ZeegaParser, MediaBrowser, Analytics ) {
                 "userName": app.metadata.userName,
                 "app": "editor"
             });
+
+            if( app.metadata.newUser ){
+                app.analytics.people.set({
+                    "id": app.metadata.userId,
+                    "username": app.metadata.userUsername,
+                    "created": new Date(),
+                    "name": app.metadata.userName,
+                    "email": app.metadata.userEmail
+                });
+            }
+
+            app.analytics.identify( app.metadata.userUsername );
+
+            if( app.metadata.newZeega ){
+                app.analytics.people.increment("zeegas");
+                app.emit("new_zeega");
+            }
+
             this.loadProject();
         },
 
