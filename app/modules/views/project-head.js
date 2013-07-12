@@ -142,7 +142,6 @@ function( app, Zeega ) {
             "keyup #project-caption": "onCaptionKeypress",
             "blur #project-caption": "updateShareUrls",
             "click .share-network a": "onShare",
-            "click .new-zeega": "onNewZeega",
             "click .profile-link": "onProfile",
             "click .ZEEGA-tab": "onHome"
         },
@@ -273,9 +272,6 @@ function( app, Zeega ) {
             }
         },
 
-        onNewZeega: function(){
-            app.emit("new_zeega");
-        },
         onProfile: function(){
             app.emit("to_profile");
         },

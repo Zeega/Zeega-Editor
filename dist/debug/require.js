@@ -39705,7 +39705,6 @@ function( app, Zeega ) {
             "keyup #project-caption": "onCaptionKeypress",
             "blur #project-caption": "updateShareUrls",
             "click .share-network a": "onShare",
-            "click .new-zeega": "onNewZeega",
             "click .profile-link": "onProfile",
             "click .ZEEGA-tab": "onHome"
         },
@@ -39836,9 +39835,6 @@ function( app, Zeega ) {
             }
         },
 
-        onNewZeega: function(){
-            app.emit("new_zeega");
-        },
         onProfile: function(){
             app.emit("to_profile");
         },
@@ -44660,6 +44656,24 @@ function( app, Status, Layout, ZeegaParser, MediaBrowser, Analytics ) {
                 "userName": app.metadata.userName,
                 "app": "editor"
             });
+
+            if( app.metadata.newUser ){
+                app.analytics.people.set({
+                    $id : app.metadata.userId,
+                    $username: app.metadata.userUsername,
+                    $created: new Date(),
+                    $name: app.metadata.userName,
+                    $email: app.metadata.userEmail
+                });
+            }
+
+            app.analytics.identify( app.metadata.userUsername );
+
+            if( app.metadata.newZeega ){
+                app.analytics.people.increment("zeegas");
+                app.emit("new_zeega");
+            }
+
             this.loadProject();
         },
 
@@ -44679,6 +44693,7 @@ function( app, Status, Layout, ZeegaParser, MediaBrowser, Analytics ) {
                     throw new Error("Ajax load fail");
                 });
             }
+           
         },
 
         _parseData: function( response ) {
@@ -44700,6 +44715,10 @@ function( app, Status, Layout, ZeegaParser, MediaBrowser, Analytics ) {
         },
 
         insertLayout: function() {
+
+            var location = app.metadata.root == "/" ? app.metadata.root + "editor/" + app.project.id : "/" + app.metadata.root + "editor/" + app.project.id;
+            window.history.pushState("", "", location );
+
             app.layout = new Layout();
             app.layout.render();
         }
