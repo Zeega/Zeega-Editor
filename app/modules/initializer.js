@@ -38,7 +38,7 @@ function( app, Status, Layout, ZeegaParser, MediaBrowser, Analytics ) {
 
             if( app.metadata.newZeega ){
                 app.analytics.people.increment("zeegas");
-                app.emit("new_zeega");
+                app.emit("new_zeega", {});
             }
 
             this.loadProject();
