@@ -4946,6 +4946,9 @@ body {
 .btnz.btnz-blue:hover {
   background-color: #6FF;
 }
+.btnz.btnz-red {
+  background-color: #ff4500;
+}
 .btnz.btnz-light {
   color: #666;
   background-color: white;
@@ -5307,6 +5310,7 @@ body {
   white-space: nowrap;
 }
 .ZEEGA-modal .modal-content .modal-body {
+  position: relative;
   background: white;
   min-height: 120px;
   border-radius: 5px;
@@ -6437,6 +6441,14 @@ a:active {
 }
 .viewer-controls .delete-item {
   float: right;
+}
+.add-to-frame {
+  position: absolute;
+  top: 10px;
+  left: -10px;
+  font-size: 20px;
+  height: 26px;
+  opacity: 0.95;
 }
 .media-drawer-controls .search-box {
   border: none;

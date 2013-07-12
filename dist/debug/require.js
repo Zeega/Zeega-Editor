@@ -441,7 +441,7 @@ var __p='';var print=function(){__p+=Array.prototype.join.call(arguments, '')};
 with(obj||{}){
 __p+='<div class="viewer-preview" style="">\n    <iframe width="100%" height="166" autoplay="true" scrolling="no" frameborder="no" src="https://w.soundcloud.com/player/?url='+
 ( attribution_uri )+
-'?sharing=false&liking=false&download=false&show_comments=false&show_playcount=false&buying=false"></iframe>\n</div>\n<div class="viewer-controls">\n    <a class="add-to-frame audio" href="#"><i class="icon-download"></i> make soundtrack</a>\n    <a href="'+
+'?sharing=false&liking=false&download=false&show_comments=false&show_playcount=false&buying=false"></iframe>\n</div>\n<div class="viewer-controls">\n    <a class="add-to-frame audio btnz btnz-red" href="#">ZEEGA THIS!</a>\n    <a href="'+
 ( attribution_uri )+
 '" target="blank"><i class="icon-share-alt"></i> view original</a>\n   \n     ';
  if( allowDelete == 1  ) { 
@@ -457,7 +457,7 @@ var __p='';var print=function(){__p+=Array.prototype.join.call(arguments, '')};
 with(obj||{}){
 __p+='<div class="viewer-preview" style="\n    background: url('+
 ( uri )+
-');\n    background-size: contain;\n    background-position: 50% 50%;\n    background-repeat: no-repeat;\n"></div>\n<div class="viewer-controls">\n    <a class="add-to-frame image" href="#"><i class="icon-download"></i> add to page</a>\n    <a href="'+
+');\n    background-size: contain;\n    background-position: 50% 50%;\n    background-repeat: no-repeat;\n"></div>\n<div class="viewer-controls">\n    <a class="add-to-frame image btnz btnz-red" href="#">ZEEGA THIS!</a>\n    <a href="'+
 ( attribution_uri )+
 '" target="blank"><i class="icon-share-alt"></i> view original</a>\n    ';
  if( allowDelete == 1  ) { 
@@ -39972,6 +39972,7 @@ function( app, Asker ) {
             this.model.on("thumbUpdateStart", this.onThumbUpdateStart, this );
             this.model.on("change:thumbnail_url", this.onThumbUpdateComplete, this );
             this.model.on("no_advance", this.turnOffAdvance, this );
+            this.makeDroppable();
         },
 
         onThumbUpdateStart: function() {
@@ -39990,6 +39991,23 @@ function( app, Asker ) {
             this.$(".frame-thumb").css({
                 background: "url(" + this.model.get("thumbnail_url") + ") no-repeat center center",
                 opacity: 1
+            });
+        },
+
+        makeDroppable: function() {
+            this.$el.droppable({
+                accept: ".item, .draggable-layer-type",
+                tolerance: "pointer",
+                greedy: true,
+                drop: function( e, ui ) {
+                    if ( _.contains( ["Audio"], app.dragging.get("layer_type") )) {
+                        app.emit("soundtrack_added", app.dragging );
+                        app.status.get('currentSequence').setSoundtrack( app.dragging, app.layout.soundtrack, { source: "drag-to-workspace" } );
+                    } else {
+                        app.emit("item_dropped", app.dragging );
+                        this.model.addLayerByItem( app.dragging, { source: "drag-to-workspace" });
+                    }
+                }.bind( this )
             });
         },
 
@@ -40072,6 +40090,7 @@ function( app, FrameView ) {
         afterRender: function() {
             this.renderSequenceFrames( this.model.status.get("currentSequence") );
             this.makeSortable();
+            this.makeDroppable();
             this.model.status.get("currentSequence").frames.on("add", this.onFrameAdd, this );
             this.model.status.get("currentSequence").frames.on("remove", this.onFrameRemove, this );
         },
@@ -40087,6 +40106,27 @@ function( app, FrameView ) {
                     app.emit("pages_reordered", this.model.status.get("currentSequence") );
                 }.bind(this)
             });
+        },
+
+        makeDroppable: function() {
+            this.$(".frame-list").droppable({
+                accept: ".item, .draggable-layer-type",
+                tolerance: "pointer",
+                drop: function( e, ui ) {
+                    if ( _.contains( ["Audio"], app.dragging.get("layer_type") )) {
+                        app.emit("soundtrack_added", app.dragging );
+                        app.status.get('currentSequence').setSoundtrack( app.dragging, app.layout.soundtrack, { source: "drag-to-workspace" } );
+                    } else {
+                        app.emit("item_dropped", app.dragging );
+                        console.log("DROP TO FRAME LIST")
+                        // make new page
+                        // add layer to page
+                        // this.model.addLayerByItem( app.dragging, { source: "drag-to-workspace" });
+                    }
+                }.bind( this )
+
+            });
+            console.log("make droppable")
         },
 
         updateFrameOrder: function( ) {
@@ -40192,19 +40232,13 @@ function( app ) {
                 accept: ".item, .draggable-layer-type",
                 tolerance: "pointer",
                 drop: function( e, ui ) {
-                    if ( _.isString( app.dragging ) ) {
-                        app.status.get('currentFrame').addLayerType( app.dragging );
-                    } else if ( app.dragging.get("layer_type") ) {
-                        if ( _.contains( ["Audio"], app.dragging.get("layer_type") )) {
-                            //app.layout.soundtrack.updateWaveform( app.dragging.get("thumbnail_url") );
-
-                            app.emit("soundtrack_added", app.dragging );
-                            app.status.get('currentSequence').setSoundtrack( app.dragging, app.layout.soundtrack, { source: "drag-to-workspace" } );
-                        } else {
-                            app.emit("item_dropped", app.dragging );
-                            this.model.status.get('currentFrame').addLayerByItem( app.dragging, { source: "drag-to-workspace" });
-                        }
-
+                    if ( _.contains( ["Audio"], app.dragging.get("layer_type") )) {
+                        //app.layout.soundtrack.updateWaveform( app.dragging.get("thumbnail_url") );
+                        app.emit("soundtrack_added", app.dragging );
+                        app.status.get('currentSequence').setSoundtrack( app.dragging, app.layout.soundtrack, { source: "drag-to-workspace" } );
+                    } else {
+                        app.emit("item_dropped", app.dragging );
+                        this.model.status.get('currentFrame').addLayerByItem( app.dragging, { source: "drag-to-workspace" });
                     }
                 }.bind( this )
             });

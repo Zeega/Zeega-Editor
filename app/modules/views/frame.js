@@ -48,9 +48,8 @@ function( app, Asker ) {
             this.$el.droppable({
                 accept: ".item, .draggable-layer-type",
                 tolerance: "pointer",
+                greedy: true,
                 drop: function( e, ui ) {
-
-                    console.log("drop", this.model.id )
                     if ( _.contains( ["Audio"], app.dragging.get("layer_type") )) {
                         app.emit("soundtrack_added", app.dragging );
                         app.status.get('currentSequence').setSoundtrack( app.dragging, app.layout.soundtrack, { source: "drag-to-workspace" } );

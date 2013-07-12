@@ -35,7 +35,23 @@ function( app, FrameView ) {
         },
 
         makeDroppable: function() {
-            // this.$(".frame-list").droppable({});
+            this.$(".frame-list").droppable({
+                accept: ".item, .draggable-layer-type",
+                tolerance: "pointer",
+                drop: function( e, ui ) {
+                    if ( _.contains( ["Audio"], app.dragging.get("layer_type") )) {
+                        app.emit("soundtrack_added", app.dragging );
+                        app.status.get('currentSequence').setSoundtrack( app.dragging, app.layout.soundtrack, { source: "drag-to-workspace" } );
+                    } else {
+                        app.emit("item_dropped", app.dragging );
+                        console.log("DROP TO FRAME LIST")
+                        // make new page
+                        // add layer to page
+                        // this.model.addLayerByItem( app.dragging, { source: "drag-to-workspace" });
+                    }
+                }.bind( this )
+
+            });
             console.log("make droppable")
         },
 
