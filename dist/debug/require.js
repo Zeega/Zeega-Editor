@@ -441,7 +441,7 @@ var __p='';var print=function(){__p+=Array.prototype.join.call(arguments, '')};
 with(obj||{}){
 __p+='<div class="viewer-preview" style="">\n    <iframe width="100%" height="166" autoplay="true" scrolling="no" frameborder="no" src="https://w.soundcloud.com/player/?url='+
 ( attribution_uri )+
-'?sharing=false&liking=false&download=false&show_comments=false&show_playcount=false&buying=false"></iframe>\n</div>\n<div class="viewer-controls">\n    <a class="add-to-frame audio btnz btnz-red" href="#">ZEEGA THIS!</a>\n    <a href="'+
+'?sharing=false&liking=false&download=false&show_comments=false&show_playcount=false&buying=false"></iframe>\n</div>\n<div class="viewer-controls">\n    <a class="add-to-frame audio btnz btnz-red" href="#">+ ZEEGA THIS</a>\n    <a href="'+
 ( attribution_uri )+
 '" target="blank"><i class="icon-share-alt"></i> view original</a>\n   \n     ';
  if( allowDelete == 1  ) { 
@@ -457,7 +457,7 @@ var __p='';var print=function(){__p+=Array.prototype.join.call(arguments, '')};
 with(obj||{}){
 __p+='<div class="viewer-preview" style="\n    background: url('+
 ( uri )+
-');\n    background-size: contain;\n    background-position: 50% 50%;\n    background-repeat: no-repeat;\n"></div>\n<div class="viewer-controls">\n    <a class="add-to-frame image btnz btnz-red" href="#">ZEEGA THIS!</a>\n    <a href="'+
+');\n    background-size: contain;\n    background-position: 50% 50%;\n    background-repeat: no-repeat;\n"></div>\n<div class="viewer-controls">\n    <a class="add-to-frame image btnz btnz-red" href="#">+ ZEEGA THIS!</a>\n    <a href="'+
 ( attribution_uri )+
 '" target="blank"><i class="icon-share-alt"></i> view original</a>\n    ';
  if( allowDelete == 1  ) { 
@@ -44493,7 +44493,7 @@ function( app ) {
 
     return Backbone.Model.extend({
 
-        loggingEnabled: false,
+        loggingEnabled: true,
 
         initialize: function() {
             app.on( "all", this.onEvent, this );
@@ -44537,6 +44537,19 @@ function( app ) {
             this.trackEvent( event, params );
 
 
+        },
+
+        people: {
+            increment:function( attr ){
+                mixpanel.people.increment( attr );
+            },
+            set: function( obj ){
+                mixpanel.people.set( obj );
+            }
+        },
+
+        identify: function( id ){
+            mixpanel.identify( id );
         },
 
         setGlobals: function ( args ){
@@ -44601,11 +44614,12 @@ function( app ) {
             "soundtrack_added_success",
             "soundtrack_delete",
             "pages_reordered",
-            "layers_reordered",
-            "select_link_page",
-            "link_new_page",
-            "unlink",
-            "init_link"
+            "layers_reordered"
+
+            // "select_link_page",
+            // "link_new_page",
+            // "unlink",
+            // "init_link"
 
 
         ],
@@ -44619,10 +44633,27 @@ function( app ) {
                     if( debug ){
                         console.log("registering global property::  " + _.keys(obj) + " : " + _.values(obj) );
                     }
-                },                
+                },
                 track: function ( event, params ){
                     if( debug ){
                         console.log( "tracking event:: " + event, params );
+                    }
+                },
+                people: {
+                    set: function( obj ){
+                        if( debug ){
+                            console.log( "setting people", obj );
+                        }
+                    },
+                    increment: function( obj ){
+                        if( debug ){
+                            console.log( "increment", obj );
+                        }
+                    }
+                },
+                identify: function( id ){
+                    if( debug ){
+                        console.log( "identify", id );
                     }
                 }
             };

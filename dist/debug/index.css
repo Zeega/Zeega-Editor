@@ -5288,6 +5288,7 @@ body {
   font-size: 3em;
   right: 10px;
   position: absolute;
+  z-index: 100;
 }
 .ZEEGA-modal .modal-content {
   width: 600px;
