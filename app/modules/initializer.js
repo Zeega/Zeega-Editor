@@ -32,6 +32,12 @@ function( app, Status, Layout, ZeegaParser, MediaBrowser, Analytics ) {
                     $name: app.metadata.userName,
                     $email: app.metadata.userEmail
                 });
+            } else {
+                app.analytics.people.set({
+                    $id : app.metadata.userId,
+                    $username: app.metadata.userUsername,
+                    $name: app.metadata.userName
+                });
             }
 
             app.analytics.identify( app.metadata.userUsername );
@@ -40,6 +46,8 @@ function( app, Status, Layout, ZeegaParser, MediaBrowser, Analytics ) {
                 app.analytics.people.increment("zeegas");
                 app.emit("new_zeega", {});
             }
+
+            app.analytics.people.increment("editor_sessions");
 
             this.loadProject();
         },
