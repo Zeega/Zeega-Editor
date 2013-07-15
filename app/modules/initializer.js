@@ -16,6 +16,12 @@ function( app, Status, Layout, ZeegaParser, MediaBrowser, Analytics ) {
         
         initialize: function() {
             app.mediaBrowser = new MediaBrowser();
+            this.initAnalytics();
+
+            this.loadProject();
+        },
+
+        initAnalytics: function() {
             app.analytics = new Analytics();
             app.analytics.setGlobals({
                 "projectId": app.metadata.projectId,
@@ -40,8 +46,6 @@ function( app, Status, Layout, ZeegaParser, MediaBrowser, Analytics ) {
                 app.analytics.people.increment("zeegas");
                 app.emit("new_zeega");
             }
-
-            this.loadProject();
         },
 
         loadProject: function( attributes ) {
@@ -72,8 +76,6 @@ function( app, Status, Layout, ZeegaParser, MediaBrowser, Analytics ) {
                 }
             });
 
-
-
             app.status.set({
                 currentSequence: app.project.sequences.at( 0 ),
                 currentFrame: app.project.sequences.at( 0 ).frames.at( 0 )
@@ -82,8 +84,8 @@ function( app, Status, Layout, ZeegaParser, MediaBrowser, Analytics ) {
         },
 
         insertLayout: function() {
-
             var location = app.metadata.root == "/" ? app.metadata.root + "editor/" + app.project.id : "/" + app.metadata.root + "editor/" + app.project.id;
+
             window.history.pushState("", "", location );
 
             app.layout = new Layout();
