@@ -32,6 +32,7 @@ function( app, Status, Layout, ZeegaParser, MediaBrowser, Analytics ) {
                     $name: app.metadata.userName,
                     $email: app.metadata.userEmail
                 });
+                app.emit("new_user", {});
             } else {
                 app.analytics.people.set({
                     $id : app.metadata.userId,

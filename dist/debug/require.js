@@ -44576,6 +44576,7 @@ function( app ) {
             "preview_toggle_view",
             "toggle_page_background",
             "new_zeega",
+            "new_user",
             "advance_toggle",
           
            // "view_item",
@@ -44696,6 +44697,7 @@ function( app, Status, Layout, ZeegaParser, MediaBrowser, Analytics ) {
                     $name: app.metadata.userName,
                     $email: app.metadata.userEmail
                 });
+                app.emit("new_user", {});
             } else {
                 app.analytics.people.set({
                     $id : app.metadata.userId,
