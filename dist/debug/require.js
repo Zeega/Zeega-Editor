@@ -441,7 +441,7 @@ var __p='';var print=function(){__p+=Array.prototype.join.call(arguments, '')};
 with(obj||{}){
 __p+='<div class="viewer-preview" style="">\n    <iframe width="100%" height="166" autoplay="true" scrolling="no" frameborder="no" src="https://w.soundcloud.com/player/?url='+
 ( attribution_uri )+
-'?sharing=false&liking=false&download=false&show_comments=false&show_playcount=false&buying=false"></iframe>\n</div>\n<div class="viewer-controls">\n    <a class="add-to-frame audio btnz btnz-red" href="#">+ ZEEGA THIS</a>\n    <a href="'+
+'?sharing=false&liking=false&download=false&show_comments=false&show_playcount=false&buying=false"></iframe>\n</div>\n<div class="viewer-controls">\n    <a class="add-to-frame audio btnz btnz-zeega-this" href="#">+ ZEEGA THIS</a>\n    <a href="'+
 ( attribution_uri )+
 '" target="blank"><i class="icon-share-alt"></i> view original</a>\n   \n     ';
  if( allowDelete == 1  ) { 
@@ -457,7 +457,7 @@ var __p='';var print=function(){__p+=Array.prototype.join.call(arguments, '')};
 with(obj||{}){
 __p+='<div class="viewer-preview" style="\n    background: url('+
 ( uri )+
-');\n    background-size: contain;\n    background-position: 50% 50%;\n    background-repeat: no-repeat;\n"></div>\n<div class="viewer-controls">\n    <a class="add-to-frame image btnz btnz-red" href="#">+ ZEEGA THIS!</a>\n    <a href="'+
+');\n    background-size: contain;\n    background-position: 50% 50%;\n    background-repeat: no-repeat;\n"></div>\n<div class="viewer-controls">\n    <a class="add-to-frame image btnz btnz-zeega-this" href="#">+ ZEEGA THIS!</a>\n    <a href="'+
 ( attribution_uri )+
 '" target="blank"><i class="icon-share-alt"></i> view original</a>\n    ';
  if( allowDelete == 1  ) { 
@@ -645,9 +645,9 @@ __p+='<a href="http://www.zeega.com" class="ZEEGA-tab">\n    <span class="ZTab-l
 ( userId )+
 '"\n                    class="profile-link"\n                    title="my profile"\n                    data-gravity="n"\n                    ><span class="user-token"\n                        style="\n                            background-image:url('+
 ( userThumbnail )+
-');\n                            background-size: cover;\n                        "\n                    ></span></a>\n            </li>\n            <li>\n                <a href="#" class="editor-help btnz btnz-light"\n                    title="view instructions"\n                    data-gravity="n"\n                >Help</a>\n            </li>\n           \n        </ul>\n    </div>\n\n    <ul class="nav-buttons-right">\n        \n        <li>\n            <span class="saving-indicator btnz btnz-transparent"></span>\n        </li>\n\n        <li>\n            <a href="#" class="project-preview btnz"\n                title="see what you\'re making"\n                data-gravity="n"\n            ><i class="icon-play icon-white"></i> Preview</a>\n        </li>\n        <li>\n            <a href="#" class="project-share btnz btnz-blue btnz-fullwidth"\n                title="share your Zeega with the world"\n                data-gravity="n"\n            ><i class="icon-retweet icon-white"></i> Share</a>\n        </li>\n         <li>\n                <a href="'+
+');\n                            background-size: cover;\n                        "\n                    ></span></a>\n            </li>\n            <li>\n                <a href="#" class="editor-help btnz btnz-light"\n                    title="view instructions"\n                    data-gravity="n"\n                >Help</a>\n            </li>\n           \n        </ul>\n    </div>\n\n    <ul class="nav-buttons-right">\n        \n        <li>\n            <span class="saving-indicator btnz btnz-transparent"></span>\n        </li>\n\n        <li>\n            <a href="#" class="project-preview btnz btnz-green"\n                title="see what you\'re making"\n                data-gravity="n"\n            ><i class="icon-play icon-white"></i> Play</a>\n        </li>\n        <li>\n            <a href="#" class="project-share btnz btnz-blue btnz-fullwidth"\n                title="share your Zeega with the world"\n                data-gravity="n"\n            ><i class="icon-retweet icon-white"></i> Share</a>\n        </li>\n         <li>\n                <a href="'+
 ( web_root )+
-'project/new"\n                    class="btnz new-zeega"\n                    title="start a new Zeega"\n                    data-gravity="ne"\n                    >New</a>\n        </li>\n\n    </ul>\n\n</div>\n\n<div class="share-grave">\n\n    <div class="close-wrapper">\n        <a href="#" class="close-grave">&times;</a>\n    </div>\n\n    <div class="grave-inner">\n\n        <div class="share-meta">\n            <div class="cover-image-wrapper">\n                <div class="project-cover" style="\n                    background: url('+
+'project/new"\n                    class="btnz new-zeega"\n                    title="start a new Zeega"\n                    data-gravity="ne"\n                    >New Zeega</a>\n        </li>\n\n    </ul>\n\n</div>\n\n<div class="share-grave">\n\n    <div class="close-wrapper">\n        <a href="#" class="close-grave">&times;</a>\n    </div>\n\n    <div class="grave-inner">\n\n        <div class="share-meta">\n            <div class="cover-image-wrapper">\n                <div class="project-cover" style="\n                    background: url('+
 ( cover_image )+
 ');\n                    background-size: cover;\n                "></div>\n                <div class="caption-info">Drag cover image here</div>\n            </div>\n            <div class="caption-side">\n                <textarea id="project-caption" placeholder="Caption your Zeega before sharing" maxlength="80">'+
 ( title )+
@@ -34420,7 +34420,7 @@ function( app, Controls ) {
         initialize: function( attr, opt ) {
             var augmentAttr = _.extend({}, this.attr, this.toJSON().attr );
 
-            // this.mode = opt.mode || this.mode;
+            this.mode = opt?  opt.mode : this.mode;
             
             this.set("attr", augmentAttr );
             this.order = {};
@@ -36998,7 +36998,7 @@ function( app, Backbone, Layers, ThumbWorker ) {
         startThumbWorker: null,
 
         initialize: function() {
-            this.mode = this.collection.mode;
+            this.mode = this.collection ? this.collection.mode : this.mode;
             this.lazySave = _.debounce(function() {
                 this.save();
             }.bind( this ), 1000 );
@@ -37031,9 +37031,9 @@ function( app, Backbone, Layers, ThumbWorker ) {
             // this.initSaveEvents();
         },
 
-// editor
+        // editor
         listenToLayers: function() {
-            if ( this.mode == "editor ") {
+            if ( this.mode == "editor") {
                 this.stopListening( this.layers );
                 this.layers.on("sort", this.onLayerSort, this );
                 this.layers.on("add remove", this.onLayerAddRemove, this );
@@ -37080,7 +37080,7 @@ function( app, Backbone, Layers, ThumbWorker ) {
                 type: item.get("layer_type"),
                 attr: _.extend({}, item.toJSON() )
             });
-
+console.log("add layer", item, eventData)
             // set image layer opacity to 0.5 for layers on top of other layers
             if ( this.layers.length && newLayer.get("type") != "TextV2") {
                 newLayer.setAttr({ opacity: 0.5 });
@@ -37091,7 +37091,8 @@ function( app, Backbone, Layers, ThumbWorker ) {
             newLayer.eventData = eventData;
             app.emit("layer_added_start", newLayer );
 
-            newLayer.save().success(function( response ) {
+            newLayer.save()
+                .success(function( response ) {
                     this.layers.add( newLayer );
                     app.status.setCurrentLayer( newLayer );
                     app.emit("layer_added_success", newLayer );
@@ -37310,7 +37311,8 @@ function( app, Layers ) {
         },
 
         onAdd: function( layer ) {
-            if( app.mode != "player" ){
+
+            if( layer.mode == "editor" ){
                 if ( layer ) {
                     layer.addCollection( this );
                     layer.initVisual( Layers[ layer.get("type") ]);
@@ -37361,7 +37363,7 @@ function( app, FrameModel, LayerCollection ) {
 
         setMode: function( mode ) {
             this.mode = mode;
-
+console.log("frames", this)
             if ( mode == "editor") this.initEditor();
         },
 
@@ -44752,6 +44754,7 @@ function( app, Status, Layout, ZeegaParser, MediaBrowser, Analytics ) {
         _parseData: function( response ) {
             app.status = new Status();
             app.project = new ZeegaParser.parse( response, {
+                mode: "editor",
                 pluginsPath: "app/zeega-parser/plugins/",
                 maxFrames: 5,
                 attach: {
@@ -44769,7 +44772,7 @@ function( app, Status, Layout, ZeegaParser, MediaBrowser, Analytics ) {
         insertLayout: function() {
             var location = app.metadata.root == "/" ? app.metadata.root + "editor/" + app.project.id : "/" + app.metadata.root + "editor/" + app.project.id;
 
-            window.history.pushState("", "", location );
+            // window.history.pushState("", "", location );
 
             app.layout = new Layout();
             app.layout.render();
