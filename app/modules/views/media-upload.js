@@ -26,7 +26,8 @@ function( app, ItemView ) {
             "child_items_count": 0,
             "editable": true,
             "published": false,
-            "enabled": true
+            "enabled": true,
+            "allowDelete": true
         },
 
         initialize: function() {
@@ -52,7 +53,8 @@ function( app, ItemView ) {
             "child_items_count": 0,
             "editable": true,
             "published": false,
-            "enabled": true
+            "enabled": true,
+            "allowDelete": true
         },
         url: function(){
 
