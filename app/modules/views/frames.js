@@ -7,18 +7,36 @@ define([
 
 function( app, FrameView ) {
 
-
     return Backbone.View.extend({
 
         template: "app/templates/frames",
         className: "ZEEGA-frames",
 
         afterRender: function() {
-            this.renderSequenceFrames( this.model.status.get("currentSequence") );
+            var currentSequence = this.model.status.get("currentSequence");
+
+            this.updatedNewPageButtonState( currentSequence );
+            this.renderSequenceFrames( currentSequence );
             this.makeSortable();
             this.makeDroppable();
-            this.model.status.get("currentSequence").frames.on("add", this.onFrameAdd, this );
-            this.model.status.get("currentSequence").frames.on("remove", this.onFrameRemove, this );
+            currentSequence.frames.on("add", this.onFrameAdd, this );
+            currentSequence.frames.on("remove", this.onFrameRemove, this );
+        },
+
+        updatedNewPageButtonState: function( currentSequence ) {
+            if ( app.project.get("remix") !== null ) {
+                if ( currentSequence.frames.length < currentSequence.frames.remixPageMax ) {
+                    // enable
+                    this.$(".add-frame")
+                        .removeClass("disabled")
+                        .attr("title","add new page");
+                } else {
+                    //disable
+                    this.$(".add-frame")
+                        .addClass("disabled")
+                        .attr("title","You have reached the page limit");
+                }
+            }
         },
 
         makeSortable: function() {
@@ -72,19 +90,25 @@ function( app, FrameView ) {
         },
 
         onFrameAdd: function( frameModel, collection ) {
+            var currentSequence = this.model.status.get("currentSequence");
+
             this.$(".frame-list").sortable("destroy");
 
             if ( frameModel.editorAdvanceToPage !== false ) {
                 this.model.status.setCurrentFrame( frameModel );
             }
-            this.renderSequenceFrames( this.model.status.get("currentSequence") );
+            this.renderSequenceFrames( currentSequence );
             this.updateFrameOrder( );
             app.emit("page_added", null);
             this.makeSortable();
+            this.updatedNewPageButtonState( currentSequence );
         },
 
         onFrameRemove: function( frameModel, collection ) {
-            this.renderSequenceFrames( this.model.status.get("currentSequence") );
+            var currentSequence = this.model.status.get("currentSequence");
+
+            this.renderSequenceFrames( currentSequence );
+            this.updatedNewPageButtonState( currentSequence );
         },
 
         renderSequenceFrames: function( sequence ) {

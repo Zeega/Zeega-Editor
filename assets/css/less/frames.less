@@ -125,6 +125,26 @@
         margin-right: 10px;
         .clearfix;
 
+        &.disabled {
+            a {
+
+                &:hover {
+                    box-shadow: none;
+                }
+                box-shadow: none;
+                background-color: #ccc;
+            }
+            .frame-ghost {
+                background: transparent;
+                &:hover {
+                    border: 1px solid rgba(255, 255, 255, 0.75);
+                }
+            }
+            &:hover {
+                box-shadow: none;
+            }
+        }
+
         .frame-ghost {
             border: 1px solid rgba(255, 255, 255, 0.75);
             padding: 5px;
@@ -154,7 +174,7 @@
 
             &:hover {
 
-            .transition( all, 0.25s );
+                .transition( all, 0.25s );
                 box-shadow: inset 0 0 10px rgba(0,0,0,0.25);
             }
         }

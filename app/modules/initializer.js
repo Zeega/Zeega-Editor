@@ -54,16 +54,14 @@ function( app, Status, Layout, ZeegaParser, MediaBrowser, Analytics ) {
                 app.emit("new_zeega", {});
             }
             app.analytics.people.increment("editor_sessions");
-
-            this.loadProject();
         },
 
         loadProject: function( attributes ) {
+
             if ( window.projectJSON ) {
                 this._parseData( jQuery.parseJSON( window.projectJSON ) );
             } else {
                 var rawDataModel = new Backbone.Model();
-
                 // mainly for testing
 
                 rawDataModel.url = app.api + "projects/"+ app.projectId;
@@ -79,14 +77,16 @@ function( app, Status, Layout, ZeegaParser, MediaBrowser, Analytics ) {
 
         _parseData: function( response ) {
             app.status = new Status();
+
             app.project = new ZeegaParser.parse( response, {
                 mode: "editor",
                 pluginsPath: "app/zeega-parser/plugins/",
-                maxFrames: 5,
                 attach: {
                     status: app.status
                 }
             });
+
+            console.log("PROJECT", app.project)
 
             app.status.set({
                 currentSequence: app.project.sequences.at( 0 ),

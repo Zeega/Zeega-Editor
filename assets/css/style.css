@@ -5831,6 +5831,22 @@ a:active {
 .frames .add-frame:after {
   clear: both;
 }
+.frames .add-frame.disabled a {
+  box-shadow: none;
+  background-color: #ccc;
+}
+.frames .add-frame.disabled a:hover {
+  box-shadow: none;
+}
+.frames .add-frame.disabled .frame-ghost {
+  background: transparent;
+}
+.frames .add-frame.disabled .frame-ghost:hover {
+  border: 1px solid rgba(255, 255, 255, 0.75);
+}
+.frames .add-frame.disabled:hover {
+  box-shadow: none;
+}
 .frames .add-frame .frame-ghost {
   border: 1px solid rgba(255, 255, 255, 0.75);
   padding: 5px;
