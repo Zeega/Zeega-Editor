@@ -4946,6 +4946,9 @@ body {
 .btnz.btnz-blue:hover {
   background-color: #6FF;
 }
+.btnz.btnz-green {
+  background-color: limegreen;
+}
 .btnz.btnz-red {
   background-color: #ff4500;
 }
