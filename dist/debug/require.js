@@ -34392,7 +34392,7 @@ function( app, Controls ) {
         ready: false,
         state: "waiting", // waiting, loading, ready, destroyed, error
 
-        mode: "player",
+        mode: "editor",
         order: [],
         controls: [],
         visual: null,
@@ -34417,17 +34417,17 @@ function( app, Controls ) {
             }
         },
 
-        initialize: function() {
+        initialize: function( attr, opt ) {
             var augmentAttr = _.extend({}, this.attr, this.toJSON().attr );
 
-            this.mode = "player",
+            // this.mode = opt.mode || this.mode;
             
             this.set("attr", augmentAttr );
             this.order = {};
         
-            this.on( "visual_ready", this.onVisualReady, this );
-            this.on( "visual_error", this.onVisualError, this );
-            this.initSaveEvents();
+            this.once( "visual_ready", this.onVisualReady, this );
+            this.once( "visual_error", this.onVisualError, this );
+            // this.initSaveEvents();
         },
 
         getAttr: function( attrName ) {
@@ -34456,8 +34456,10 @@ function( app, Controls ) {
         },
 
         addCollection: function( collection ) {
-            this.collection = collection;
-            this.collection.on("sort", this.onSort, this );
+            if ( this.mode == "editor" ) {
+                this.collection = collection;
+                this.collection.on("sort", this.onSort, this );
+            }
         },
 
         // when the parent collection is resorted as in a layer shuffle
@@ -34589,14 +34591,17 @@ function( app, Controls ) {
 
         initialize: function() {
             this.init();
-            this.model.off("blur focus");
-            this.model.on("focus", this.onFocus, this );
-            this.model.on("blur", this.onBlur, this );
 
-            this.listenToFrame = _.once(function() {
-                this.model.collection.frame.on("focus", this.editor_onLayerEnter, this );
-                this.model.collection.frame.on("blur", this.editor_onLayerExit, this );
-            }.bind( this ));
+            if ( this.model.mode == "editor" ) {
+                this.model.off("blur focus");
+                this.model.on("focus", this.onFocus, this );
+                this.model.on("blur", this.onBlur, this );
+
+                this.listenToFrame = _.once(function() {
+                    this.model.collection.frame.on("focus", this.editor_onLayerEnter, this );
+                    this.model.collection.frame.on("blur", this.editor_onLayerExit, this );
+                }.bind( this ));
+            }
         },
 
         events: {},
@@ -36812,7 +36817,7 @@ function( app, Layers ) {
             this.lazySave = _.debounce(function() {
                 this.save();
             }.bind( this ), 1000 );
-            this.initSaveEvents();
+            // this.initSaveEvents();
         },
 
         initSoundtrackModel: function( layers ) {
@@ -36948,6 +36953,7 @@ function( app, Backbone, Layers, ThumbWorker ) {
         hasPlayed: false,
         elapsed: 0,
         modelType: "frame",
+        mode: "editor",
 
         // frame render as soon as it's loaded. used primarily for the initial frame
         renderOnReady: null,
@@ -36992,7 +36998,7 @@ function( app, Backbone, Layers, ThumbWorker ) {
         startThumbWorker: null,
 
         initialize: function() {
-
+            this.mode = this.collection.mode;
             this.lazySave = _.debounce(function() {
                 this.save();
             }.bind( this ), 1000 );
@@ -37022,14 +37028,16 @@ function( app, Backbone, Layers, ThumbWorker ) {
 
             }, 1000);
 
-            this.initSaveEvents();
+            // this.initSaveEvents();
         },
 
 // editor
         listenToLayers: function() {
-            this.stopListening( this.layers );
-            this.layers.on("sort", this.onLayerSort, this );
-            this.layers.on("add remove", this.onLayerAddRemove, this );
+            if ( this.mode == "editor ") {
+                this.stopListening( this.layers );
+                this.layers.on("sort", this.onLayerSort, this );
+                this.layers.on("add remove", this.onLayerAddRemove, this );
+            }
         },
 
         onLayerAddRemove: function() {
@@ -37150,7 +37158,7 @@ function( app, Backbone, Layers, ThumbWorker ) {
             } else if ( !this.ready && !isFrameReady ) {
                 this.layers.each(function( layer ) {
                     if ( layer.state === "waiting" || layer.state === "loading" ) {
-                        layer.on( "layer_ready", this.onLayerReady, this );
+                        layer.once( "layer_ready", this.onLayerReady, this );
                         layer.render();
                     }
                 }, this );
@@ -37349,11 +37357,17 @@ function( app, FrameModel, LayerCollection ) {
     return app.Backbone.Collection.extend({
         model: FrameModel,
 
-        initialize: function() {
-            if ( app.mode != "player") {
-                this.on("add", this.onFrameAdd, this );
-                this.on("remove", this.onFrameRemove, this );
-            }
+        mode: "editor",
+
+        setMode: function( mode ) {
+            this.mode = mode;
+
+            if ( mode == "editor") this.initEditor();
+        },
+
+        initEditor: function() {
+            this.on("add", this.onFrameAdd, this );
+            this.on("remove", this.onFrameRemove, this );
         },
 
         initLayers: function( layerCollection, options ) {
@@ -37475,6 +37489,8 @@ function( app, SequenceModel, FrameCollection, LayerCollection, LayerModels ) {
     return app.Backbone.Collection.extend({
         model: SequenceModel,
 
+        mode: "editor",
+
         initFrames: function( frames, layers, options ) {
             var layerCollection, classedLayers;
 
@@ -37482,13 +37498,13 @@ function( app, SequenceModel, FrameCollection, LayerCollection, LayerModels ) {
             classedLayers = _.map( layers, function( layer ) {
 
                 if ( LayerModels[ layer.type ]) {
-                    var layerModel = new LayerModels[ layer.type ]( layer );
+                    var layerModel = new LayerModels[ layer.type ]( layer, { mode: this.mode } );
 
                     layerModel.initVisual( LayerModels[ layer.type ] );
 
                     return layerModel;
                 }
-            });
+            }.bind(this));
 
             layerCollection = new LayerCollection( _.compact( classedLayers ));
 
@@ -37506,10 +37522,12 @@ function( app, SequenceModel, FrameCollection, LayerCollection, LayerModels ) {
                     return false;
                 });
 
-                sequence.frames = new FrameCollection( seqFrames );
+                sequence.frames = new FrameCollection();
+                sequence.frames.setMode( this.mode );
+                sequence.frames.reset( seqFrames );
                 sequence.frames.sequence = sequence;
                 sequence.frames.initLayers( layerCollection, options );
-            });
+            }, this );
 
             this.at(0).initSoundtrackModel( layerCollection );
             // at this point, all frames should be loaded with layers and layer classes
@@ -37545,6 +37563,7 @@ function( app, SequenceCollection ) {
             item_id: null,
             layers: [],
             location: null,
+            mode: "editor",
             published: true,
             sequences: [],
             tags: "",
@@ -37565,11 +37584,12 @@ function( app, SequenceCollection ) {
             this.options = _.defaults( options, this.defaultOptions );
             this.parser = options.parser;
             this.parseSequences();
-            this.initSaveEvents();
+            // this.initSaveEvents();
         },
 
         parseSequences: function() {
             this.sequences = new SequenceCollection( this.get("sequences") );
+            this.sequences.mode = this.options.mode;
 
             this.sequences.initFrames( this.get("frames"), this.get("layers"), this.options );
 
@@ -37907,7 +37927,6 @@ function() {
         return false;
     };
 
-
     // cleanses bad data from legacy projects
     var removeDupeSoundtrack = function( response ) {
         
@@ -37920,7 +37939,6 @@ function() {
 
     Parser[type].parse = function( response, opts ) {
         response = response.items[0].text;
-
         removeDupeSoundtrack( response );
 
         if ( opts.endPage ) {
@@ -38672,7 +38690,7 @@ function( app, ControlsView ) {
             if ( this.model.get("preview") ) this.$el.addClass("preview-player");
             // correctly size the player window
             if ( this.mobileView ) {
-                this.$(".ZEEGA-player-wrapper").css( this.getPlayerSize() );
+                this.$(".ZEEGA-player-wrapper").css( this.getWrapperSize() );
                 this.$el.addClass("mobile-player");
             } else {
 
@@ -38751,7 +38769,6 @@ function( app, ControlsView ) {
         },
 
         resizeWindow: function() {
-            // animate the window size in place
             var css = this.getWrapperSize();
 
             this.$(".ZEEGA-player-wrapper").css( css );
@@ -38986,7 +39003,7 @@ function( app, Engine, Relay, Status, PlayerLayout ) {
             @type Collection
             @default null
             **/
-            preloadRadius: 2,
+            preloadRadius: 4,
 
             /**
             the beginning state of the preview. vertical or fullscreen mode
@@ -39193,6 +39210,7 @@ function( app, Engine, Relay, Status, PlayerLayout ) {
                 _.extend({},
                     this.toJSON(),
                     {
+                        mode: "player",
                         attach: {
                             status: this.status,
                             relay: this.relay
@@ -44680,6 +44698,12 @@ function( app, Status, Layout, ZeegaParser, MediaBrowser, Analytics ) {
         
         initialize: function() {
             app.mediaBrowser = new MediaBrowser();
+            this.initAnalytics();
+
+            this.loadProject();
+        },
+
+        initAnalytics: function() {
             app.analytics = new Analytics();
             app.analytics.setGlobals({
                 "projectId": app.metadata.projectId,
@@ -44704,8 +44728,6 @@ function( app, Status, Layout, ZeegaParser, MediaBrowser, Analytics ) {
                 app.analytics.people.increment("zeegas");
                 app.emit("new_zeega");
             }
-
-            this.loadProject();
         },
 
         loadProject: function( attributes ) {
@@ -44731,12 +44753,11 @@ function( app, Status, Layout, ZeegaParser, MediaBrowser, Analytics ) {
             app.status = new Status();
             app.project = new ZeegaParser.parse( response, {
                 pluginsPath: "app/zeega-parser/plugins/",
+                maxFrames: 5,
                 attach: {
                     status: app.status
                 }
             });
-
-
 
             app.status.set({
                 currentSequence: app.project.sequences.at( 0 ),
@@ -44746,8 +44767,8 @@ function( app, Status, Layout, ZeegaParser, MediaBrowser, Analytics ) {
         },
 
         insertLayout: function() {
-
             var location = app.metadata.root == "/" ? app.metadata.root + "editor/" + app.project.id : "/" + app.metadata.root + "editor/" + app.project.id;
+
             window.history.pushState("", "", location );
 
             app.layout = new Layout();

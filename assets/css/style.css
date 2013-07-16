@@ -4949,6 +4949,9 @@ body {
 .btnz.btnz-red {
   background-color: #ff4500;
 }
+.btnz.btnz-zeega-this {
+  background-color: red;
+}
 .btnz.btnz-light {
   color: #666;
   background-color: white;
