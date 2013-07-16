@@ -38,14 +38,24 @@ function( app, Status, Layout, ZeegaParser, MediaBrowser, Analytics ) {
                     $name: app.metadata.userName,
                     $email: app.metadata.userEmail
                 });
+                app.emit("new_user", {});
+            } else {
+                app.analytics.people.set({
+                    $id : app.metadata.userId,
+                    $username: app.metadata.userUsername,
+                    $name: app.metadata.userName
+                });
             }
 
             app.analytics.identify( app.metadata.userUsername );
 
             if( app.metadata.newZeega ){
                 app.analytics.people.increment("zeegas");
-                app.emit("new_zeega");
+                app.emit("new_zeega", {});
             }
+            app.analytics.people.increment("editor_sessions");
+
+            this.loadProject();
         },
 
         loadProject: function( attributes ) {

@@ -40134,7 +40134,7 @@ function( app, FrameView ) {
                         app.status.get('currentSequence').setSoundtrack( app.dragging, app.layout.soundtrack, { source: "drag-to-workspace" } );
                     } else {
                         app.emit("item_dropped", app.dragging );
-                        console.log("DROP TO FRAME LIST")
+                        // console.log("DROP TO FRAME LIST")
                         // make new page
                         // add layer to page
                         // this.model.addLayerByItem( app.dragging, { source: "drag-to-workspace" });
@@ -40142,7 +40142,7 @@ function( app, FrameView ) {
                 }.bind( this )
 
             });
-            console.log("make droppable")
+            // console.log("make droppable")
         },
 
         updateFrameOrder: function( ) {
@@ -44722,14 +44722,24 @@ function( app, Status, Layout, ZeegaParser, MediaBrowser, Analytics ) {
                     $name: app.metadata.userName,
                     $email: app.metadata.userEmail
                 });
+                app.emit("new_user", {});
+            } else {
+                app.analytics.people.set({
+                    $id : app.metadata.userId,
+                    $username: app.metadata.userUsername,
+                    $name: app.metadata.userName
+                });
             }
 
             app.analytics.identify( app.metadata.userUsername );
 
             if( app.metadata.newZeega ){
                 app.analytics.people.increment("zeegas");
-                app.emit("new_zeega");
+                app.emit("new_zeega", {});
             }
+            app.analytics.people.increment("editor_sessions");
+
+            this.loadProject();
         },
 
         loadProject: function( attributes ) {
