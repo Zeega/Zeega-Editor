@@ -13,7 +13,6 @@ function( app, Zeega ) {
         template: "app/templates/project-head",
 
         serialize: function() {
-            console.log("PPPP", this.model.project.toJSON() )
             return _.extend({
                     web_root: app.webRoot,
                     share_links: this.getShareLinks()
@@ -92,8 +91,6 @@ function( app, Zeega ) {
                 hoverClass: "can-drop",
                 drop: function( e, ui ) {
                     if ( _.contains( ["Image"], app.dragging.get("layer_type") )) {
-
-                        console.log("update cover", app.dragging );
 
                         this.updateCoverImage( app.dragging.get("uri") );
                         // this.updateWaveform( app.dragging.get("thumbnail_url") );

@@ -37429,7 +37429,7 @@ function( app, FrameModel, LayerCollection ) {
         // omit index to append frame
         addFrame: function( index, skipTo ) {
 
-            if ( app.project.get("remix").remix && this.length < this.remixPageMax ) {
+            if ( !app.project.get("remix").remix || ( app.project.get("remix").remix && this.length < this.remixPageMax )) {
                 var newFrame, continuingLayers = [];
 
                 skipTo = !_.isUndefined( skipTo ) ? skipTo : true;
@@ -37463,7 +37463,7 @@ function( app, FrameModel, LayerCollection ) {
 
                 return newFrame;
             } else {
-                alert("too many pages!")
+                // too many pages. do nothing
             }
         },
 
@@ -37594,33 +37594,6 @@ function( app, SequenceCollection ) {
 
             remix: { remix: false }, // default
 
-            // for remix testing
-            /*
-            remix: {
-                remix: true,
-                root: {
-                    id: "51df7f2a7131b23816000003",
-                    cover_image: "http://zeegaimages1.s3.amazonaws.com/8ab8368e700191ed5bc5e6ea5c45f2a7_7.jpg",
-                    user: {
-                        id: "51dc7711d4567b571b000128",
-                        display_name: "Rich Jones",
-                        username: "user10144",
-                        thumbnail_url: "http://zeegaimages1.s3.amazonaws.com/0352673e20dd302727c95efb8029bab3_4.jpg"
-                    }
-                },
-                parent: {
-                    id: "51df7f2a7131b23816000003",
-                    cover_image: "http://zeegaimages1.s3.amazonaws.com/8ab8368e700191ed5bc5e6ea5c45f2a7_7.jpg",
-                    user: {
-                        id: "51dc7711d4567b571b000128",
-                        display_name: "Rich Jones",
-                        username: "user10144",
-                        thumbnail_url: "http://zeegaimages1.s3.amazonaws.com/0352673e20dd302727c95efb8029bab3_4.jpg"
-                    }
-                }
-            },
-            */
-
             sequences: [],
             tags: "",
             title: "Untitled",
@@ -37641,8 +37614,6 @@ function( app, SequenceCollection ) {
             this.parser = options.parser;
             this.parseSequences();
             this.initSaveEvents();
-
-            console.log("init:", this, app)
         },
 
         parseSequences: function() {
@@ -38298,7 +38269,7 @@ function( Zeega, _, ProjectModel, DataParser ) {
                 return false;
             }
         }, this );
-console.log("parsed:", parsed)
+
         if ( parsed !== undefined ) {
             return new ProjectModel( parsed, options );
         } else {
@@ -39651,7 +39622,6 @@ function( app, Zeega ) {
         template: "app/templates/project-head",
 
         serialize: function() {
-            console.log("PPPP", this.model.project.toJSON() )
             return _.extend({
                     web_root: app.webRoot,
                     share_links: this.getShareLinks()
@@ -39730,8 +39700,6 @@ function( app, Zeega ) {
                 hoverClass: "can-drop",
                 drop: function( e, ui ) {
                     if ( _.contains( ["Image"], app.dragging.get("layer_type") )) {
-
-                        console.log("update cover", app.dragging );
 
                         this.updateCoverImage( app.dragging.get("uri") );
                         // this.updateWaveform( app.dragging.get("thumbnail_url") );
@@ -41122,8 +41090,6 @@ function( app, Viewer ) {
         },
 
         afterRender: function() {
-            console.log("AR ST", app)
-
             if ( !app.project.get("remix").remix ) this.makeDroppable();
 
             app.trigger("rendered", this );
@@ -42392,7 +42358,6 @@ function( app, ProjectHead, Frames, Workspace, Layers, LayerDrawer, Soundtrack, 
         onMediaDrawerToggle: function( api ){
             clearInterval ( this.animateInterval );
             this.animated = 0;
-            console.log("on media drawer toggle");
             if( api == "Zeega" || api == "MyZeega" || api == "Giphy" ){
                 var animator = $.proxy(function(){this.animateThumbs();}, this );
                 this.animateInterval = setInterval( animator, 3000 );
@@ -42521,7 +42486,6 @@ function( app, ProjectHead, Frames, Workspace, Layers, LayerDrawer, Soundtrack, 
             var layerToPaste = app.status.get("copiedLayer");
 
             if ( layerToPaste ) {
-//                console.log("Paste", layerToPaste, app.status.get("currentFrame") );
                 app.status.get("currentFrame").pasteLayer( layerToPaste );
 
                 return false;
@@ -44873,7 +44837,7 @@ function( app, Status, Layout, ZeegaParser, MediaBrowser, Analytics ) {
         insertLayout: function() {
             var location = app.metadata.root == "/" ? app.metadata.root + "editor/" + app.project.id : "/" + app.metadata.root + "editor/" + app.project.id;
 
-            // window.history.pushState("", "", location );
+            window.history.pushState("", "", location );
 
             app.layout = new Layout();
             app.layout.render();
@@ -44902,10 +44866,6 @@ function(app, Initializer) {
         routes: {
             "": "index",
             ":projectID": "index"
-        },
-
-        index: function() {
-            // this.initialize();
         }
     });
 

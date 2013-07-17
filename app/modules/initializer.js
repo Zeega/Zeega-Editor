@@ -96,7 +96,7 @@ function( app, Status, Layout, ZeegaParser, MediaBrowser, Analytics ) {
         insertLayout: function() {
             var location = app.metadata.root == "/" ? app.metadata.root + "editor/" + app.project.id : "/" + app.metadata.root + "editor/" + app.project.id;
 
-            // window.history.pushState("", "", location );
+            window.history.pushState("", "", location );
 
             app.layout = new Layout();
             app.layout.render();

@@ -40,7 +40,6 @@ function( app, ProjectHead, Frames, Workspace, Layers, LayerDrawer, Soundtrack, 
         onMediaDrawerToggle: function( api ){
             clearInterval ( this.animateInterval );
             this.animated = 0;
-            console.log("on media drawer toggle");
             if( api == "Zeega" || api == "MyZeega" || api == "Giphy" ){
                 var animator = $.proxy(function(){this.animateThumbs();}, this );
                 this.animateInterval = setInterval( animator, 3000 );
@@ -169,7 +168,6 @@ function( app, ProjectHead, Frames, Workspace, Layers, LayerDrawer, Soundtrack, 
             var layerToPaste = app.status.get("copiedLayer");
 
             if ( layerToPaste ) {
-//                console.log("Paste", layerToPaste, app.status.get("currentFrame") );
                 app.status.get("currentFrame").pasteLayer( layerToPaste );
 
                 return false;

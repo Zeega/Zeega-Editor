@@ -18,10 +18,6 @@ function(app, Initializer) {
         routes: {
             "": "index",
             ":projectID": "index"
-        },
-
-        index: function() {
-            // this.initialize();
         }
     });
 

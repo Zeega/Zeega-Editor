@@ -36,8 +36,6 @@ function( app, Viewer ) {
         },
 
         afterRender: function() {
-            console.log("AR ST", app)
-
             if ( !app.project.get("remix").remix ) this.makeDroppable();
 
             app.trigger("rendered", this );
