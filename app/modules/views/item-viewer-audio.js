@@ -11,7 +11,11 @@ function( app ) {
         template: "app/templates/item-viewer-audio",
 
         serialize: function() {
-            return this.model.toJSON();
+            return _.extend({
+                    remix: app.project.get("remix").remix
+                },
+                this.model.toJSON()
+            );
         },
 
         exit: function() {

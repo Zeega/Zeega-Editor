@@ -6473,6 +6473,10 @@ a:active {
   height: 26px;
   opacity: 0.95;
 }
+.add-to-frame.disabled {
+  background-color: rgba(150, 150, 150, 0.5);
+  color: rgba(255, 255, 255, 0.5);
+}
 .media-drawer-controls .search-box {
   border: none;
   outline: 0;

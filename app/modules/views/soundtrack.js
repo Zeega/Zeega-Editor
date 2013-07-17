@@ -17,7 +17,10 @@ function( app, Viewer ) {
             if ( this.model === null || this.model.get("type") != "Audio" ) {
                 return { model: false };
             } else if ( this.model.get("type") == "Audio" ) {
-                return _.extend({ model: true }, this.model.toJSON() );
+                return _.extend({
+                    model: true,
+                    remix: app.project.get("remix").remix
+                }, this.model.toJSON() );
             }
         },
 
@@ -33,7 +36,10 @@ function( app, Viewer ) {
         },
 
         afterRender: function() {
-            this.makeDroppable();
+            console.log("AR ST", app)
+
+            if ( !app.project.get("remix").remix ) this.makeDroppable();
+
             app.trigger("rendered", this );
 
             this.$("[title]").tipsy({

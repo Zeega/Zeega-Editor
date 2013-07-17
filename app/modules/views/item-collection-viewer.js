@@ -120,11 +120,12 @@ function( app, Modal, FrameView, ImageView, AudioView, VideoView, YoutubeView ) 
 
         addToFrame: function() {
 
-            if ( this.collection.at( this.index ). get("layer_type") == "Audio" ) {
-                app.layout.soundtrack.updateWaveform( this.collection.at( this.index ).get("thumbnail_url") );
-                $(".intro").remove();
-                app.emit("soundtrack_added", this.collection.at( this.index ) );
-                app.status.get('currentSequence').setSoundtrack( this.collection.at( this.index ), app.layout.soundtrack, { source: "add-to-page" } );
+            if ( this.collection.at( this.index ).get("layer_type") == "Audio" ) {
+                if ( !app.project.get("remix") ) {
+                    app.layout.soundtrack.updateWaveform( this.collection.at( this.index ).get("thumbnail_url") );
+                    app.emit("soundtrack_added", this.collection.at( this.index ) );
+                    app.status.get('currentSequence').setSoundtrack( this.collection.at( this.index ), app.layout.soundtrack, { source: "add-to-page" } );
+                }
             } else {
                 app.status.get('currentFrame').addLayerByItem( this.collection.at( this.index ), { source: "add-to-page" } );
             }

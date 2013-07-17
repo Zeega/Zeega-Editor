@@ -32,10 +32,11 @@ function( app ) {
                 accept: ".item, .draggable-layer-type",
                 tolerance: "pointer",
                 drop: function( e, ui ) {
-                    if ( _.contains( ["Audio"], app.dragging.get("layer_type") )) {
-                        //app.layout.soundtrack.updateWaveform( app.dragging.get("thumbnail_url") );
-                        app.emit("soundtrack_added", app.dragging );
-                        app.status.get('currentSequence').setSoundtrack( app.dragging, app.layout.soundtrack, { source: "drag-to-workspace" } );
+                    if ( _.contains( ["Audio"], app.dragging.get("layer_type")) ) {
+                        if ( !app.project.get("remix").remix ) {
+                            app.emit("soundtrack_added", app.dragging );
+                            app.status.get('currentSequence').setSoundtrack( app.dragging, app.layout.soundtrack, { source: "drag-to-workspace" } );
+                        }
                     } else {
                         app.emit("item_dropped", app.dragging );
                         this.model.status.get('currentFrame').addLayerByItem( app.dragging, { source: "drag-to-workspace" });

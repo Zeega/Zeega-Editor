@@ -15,9 +15,15 @@
     <span class="soundtrack-sub">soundtrack</span>
 <% } else { %>
     <div class="soundtrack-controls">
-        <a href="#" class="remove"
-            title="remove soundtrack"
-            data-gravity="n"
-        ><i class="icon-remove icon-white"></i></a>
+
+        <% if ( remix ) { %>
+            <i class="icon-lock icon-white"></i>
+        <% } else { %>
+            <a href="#" class="remove"
+                title="remove soundtrack"
+                data-gravity="n"
+            ><i class="icon-remove icon-white"></i></a>
+        <% } %>
+
     </div>
 <% } %>
