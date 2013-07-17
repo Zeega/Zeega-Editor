@@ -1,3 +1,35 @@
+.project-cover {
+    &.project-cover-tiny {
+        height: 28px;
+        width: 28px;
+        background-color: #ccc;
+    }
+}
+
+.remix-header {
+    font-size: 14px;
+    border-radius: 2px 40px 40px 2px;
+    padding: 0px 0px 0px 13px;
+    background-color: rgba(0,0,0,0.1);
+    color: #666;
+    font-family: "futura", sans-serif;
+    background: url(../img/tiny-stripes.png);
+    background-color: #ccc;
+    box-shadow: inset 2px 2px 2px rgba(0,0,0,0.25);
+    margin-left: 12px;
+
+    .project-cover,
+    .profile-token {
+        display: inline-block;
+        vertical-align: -11px;
+    }
+
+    .project-cover {
+        position: relative;
+        top: -2px;
+    }
+}
+
 .ZEEGA-tab {
     background: orangered;
     display: block;
@@ -68,6 +100,7 @@
     color: #555;
     z-index: 10;
     position: relative;
+    min-width: 960px;
     .clearfix;
 
     .nav-wrapper {

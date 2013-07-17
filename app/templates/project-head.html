@@ -27,6 +27,36 @@
         </ul>
     </div>
 
+    <% if ( remix.remix ) { %>
+        <div class="nav col-center remix-header">
+            <ul>
+                <li>
+                    Remixing
+                    <div class="project-cover project-cover-tiny" style="
+                            background:url(<%= remix.parent.cover_image %>);
+                            background-position: center;
+                            background-repeat: no-repeat;
+                            -webkit-background-size: cover;
+                            -moz-background-size: cover;
+                            -o-background-size: cover;
+                            background-size: cover;
+                        "></div>
+                    by <%= remix.parent.user.display_name %>
+                    <div class="profile-token profile-token-tiny" style="
+                            background:url(<%= remix.parent.user.thumbnail_url %>);
+                            background-position: center;
+                            background-repeat: no-repeat;
+                            -webkit-background-size: cover;
+                            -moz-background-size: cover;
+                            -o-background-size: cover;
+                            background-size: cover;
+                        "></div>
+                </li>
+               
+            </ul>
+        </div>
+    <% } %>
+
     <ul class="nav-buttons-right">
         
         <li>

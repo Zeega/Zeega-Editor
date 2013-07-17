@@ -86,8 +86,6 @@ function( app, Status, Layout, ZeegaParser, MediaBrowser, Analytics ) {
                 }
             });
 
-            console.log("PROJECT", app.project)
-
             app.status.set({
                 currentSequence: app.project.sequences.at( 0 ),
                 currentFrame: app.project.sequences.at( 0 ).frames.at( 0 )

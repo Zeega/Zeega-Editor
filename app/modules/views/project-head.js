@@ -13,14 +13,16 @@ function( app, Zeega ) {
         template: "app/templates/project-head",
 
         serialize: function() {
+            console.log("PPPP", this.model.project.toJSON() )
             return _.extend({
                     web_root: app.webRoot,
                     share_links: this.getShareLinks()
                 },
                 app.metadata,
                 this.model.project.toJSON(),
-                { userThumbnail: app.metadata.userThumbnail === "" ? "https://s3.amazonaws.com/zeegastatic/default_profile.jpeg" : app.metadata.userThumbnail }
-
+                {
+                    userThumbnail: app.metadata.userThumbnail === "" ? "https://s3.amazonaws.com/zeegastatic/default_profile.jpeg" : app.metadata.userThumbnail
+                }
             );
         },
 
