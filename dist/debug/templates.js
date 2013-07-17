@@ -55,11 +55,15 @@ var __p='';var print=function(){__p+=Array.prototype.join.call(arguments, '')};
 with(obj||{}){
 __p+='<div class="viewer-preview" style="">\n    <iframe width="100%" height="166" autoplay="true" scrolling="no" frameborder="no" src="https://w.soundcloud.com/player/?url='+
 ( attribution_uri )+
-'?sharing=false&liking=false&download=false&show_comments=false&show_playcount=false&buying=false"></iframe>\n</div>\n<div class="viewer-controls">\n    <a class="add-to-frame audio btnz btnz-zeega-this" href="#">+ ZEEGA THIS</a>\n    <a href="'+
+'?sharing=false&liking=false&download=false&show_comments=false&show_playcount=false&buying=false"></iframe>\n</div>\n<div class="viewer-controls">\n    <a class="add-to-frame audio btnz btnz-zeega-this ';
+ if (remix) { 
+;__p+='disabled';
+ } 
+;__p+='" href="#">+ ZEEGA THIS</a>\n    <a href="'+
 ( attribution_uri )+
 '" target="blank"><i class="icon-share-alt"></i> view original</a>\n   \n     ';
  if( allowDelete == 1  ) { 
-;__p+='\n            <a class="delete-item" href="#"><i class="icon-remove"></i> delete</a>\n    ';
+;__p+='\n        <a class="delete-item" href="#"><i class="icon-remove"></i> delete</a>\n    ';
  } 
 ;__p+='\n\n</div>';
 }
@@ -259,7 +263,17 @@ __p+='<a href="http://www.zeega.com" class="ZEEGA-tab">\n    <span class="ZTab-l
 ( userId )+
 '"\n                    class="profile-link"\n                    title="my profile"\n                    data-gravity="n"\n                    ><span class="user-token"\n                        style="\n                            background-image:url('+
 ( userThumbnail )+
-');\n                            background-size: cover;\n                        "\n                    ></span></a>\n            </li>\n            <li>\n                <a href="#" class="editor-help btnz btnz-light"\n                    title="view instructions"\n                    data-gravity="n"\n                >Help</a>\n            </li>\n           \n        </ul>\n    </div>\n\n    <ul class="nav-buttons-right">\n        \n        <li>\n            <span class="saving-indicator btnz btnz-transparent"></span>\n        </li>\n\n        <li>\n            <a href="#" class="project-preview btnz btnz-green"\n                title="see what you\'re making"\n                data-gravity="n"\n            ><i class="icon-play icon-white"></i> Play</a>\n        </li>\n        <li>\n            <a href="#" class="project-share btnz btnz-blue btnz-fullwidth"\n                title="share your Zeega with the world"\n                data-gravity="n"\n            ><i class="icon-retweet icon-white"></i> Share</a>\n        </li>\n         <li>\n                <a href="'+
+');\n                            background-size: cover;\n                        "\n                    ></span></a>\n            </li>\n            <li>\n                <a href="#" class="editor-help btnz btnz-light"\n                    title="view instructions"\n                    data-gravity="n"\n                >Help</a>\n            </li>\n           \n        </ul>\n    </div>\n\n    ';
+ if ( remix.remix ) { 
+;__p+='\n        <div class="nav col-center remix-header">\n            <ul>\n                <li>\n                    Remixing\n                    <div class="project-cover project-cover-tiny" style="\n                            background:url('+
+( remix.parent.cover_image )+
+');\n                            background-position: center;\n                            background-repeat: no-repeat;\n                            -webkit-background-size: cover;\n                            -moz-background-size: cover;\n                            -o-background-size: cover;\n                            background-size: cover;\n                        "></div>\n                    by '+
+( remix.parent.user.display_name )+
+'\n                    <div class="profile-token profile-token-tiny" style="\n                            background:url('+
+( remix.parent.user.thumbnail_url )+
+');\n                            background-position: center;\n                            background-repeat: no-repeat;\n                            -webkit-background-size: cover;\n                            -moz-background-size: cover;\n                            -o-background-size: cover;\n                            background-size: cover;\n                        "></div>\n                </li>\n               \n            </ul>\n        </div>\n    ';
+ } 
+;__p+='\n\n    <ul class="nav-buttons-right">\n        \n        <li>\n            <span class="saving-indicator btnz btnz-transparent"></span>\n        </li>\n\n        <li>\n            <a href="#" class="project-preview btnz btnz-green"\n                title="see what you\'re making"\n                data-gravity="n"\n            ><i class="icon-play icon-white"></i> Play</a>\n        </li>\n        <li>\n            <a href="#" class="project-share btnz btnz-blue btnz-fullwidth"\n                title="share your Zeega with the world"\n                data-gravity="n"\n            ><i class="icon-retweet icon-white"></i> Share</a>\n        </li>\n         <li>\n                <a href="'+
 ( web_root )+
 'project/new"\n                    class="btnz new-zeega"\n                    title="start a new Zeega"\n                    data-gravity="ne"\n                    >New Zeega</a>\n        </li>\n\n    </ul>\n\n</div>\n\n<div class="share-grave">\n\n    <div class="close-wrapper">\n        <a href="#" class="close-grave">&times;</a>\n    </div>\n\n    <div class="grave-inner">\n\n        <div class="share-meta">\n            <div class="cover-image-wrapper">\n                <div class="project-cover" style="\n                    background: url('+
 ( cover_image )+
@@ -317,7 +331,13 @@ __p+='<div class="elapsed tooltip"></div>\n<div class="soundtrack-waveform"\n   
  if ( model === false ) { 
 ;__p+='\n    <span class="soundtrack-drop-icon"\n        title="drag audio to add soundtrack"\n        data-gravity="ne"\n    ></span>\n    <span class="soundtrack-sub">soundtrack</span>\n';
  } else { 
-;__p+='\n    <div class="soundtrack-controls">\n        <a href="#" class="remove"\n            title="remove soundtrack"\n            data-gravity="n"\n        ><i class="icon-remove icon-white"></i></a>\n    </div>\n';
+;__p+='\n    <div class="soundtrack-controls">\n\n        ';
+ if ( remix ) { 
+;__p+='\n            <i class="icon-lock icon-white"></i>\n        ';
+ } else { 
+;__p+='\n            <a href="#" class="remove"\n                title="remove soundtrack"\n                data-gravity="n"\n            ><i class="icon-remove icon-white"></i></a>\n        ';
+ } 
+;__p+='\n\n    </div>\n';
  } 
 ;__p+='';
 }

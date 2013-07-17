@@ -441,11 +441,15 @@ var __p='';var print=function(){__p+=Array.prototype.join.call(arguments, '')};
 with(obj||{}){
 __p+='<div class="viewer-preview" style="">\n    <iframe width="100%" height="166" autoplay="true" scrolling="no" frameborder="no" src="https://w.soundcloud.com/player/?url='+
 ( attribution_uri )+
-'?sharing=false&liking=false&download=false&show_comments=false&show_playcount=false&buying=false"></iframe>\n</div>\n<div class="viewer-controls">\n    <a class="add-to-frame audio btnz btnz-zeega-this" href="#">+ ZEEGA THIS</a>\n    <a href="'+
+'?sharing=false&liking=false&download=false&show_comments=false&show_playcount=false&buying=false"></iframe>\n</div>\n<div class="viewer-controls">\n    <a class="add-to-frame audio btnz btnz-zeega-this ';
+ if (remix) { 
+;__p+='disabled';
+ } 
+;__p+='" href="#">+ ZEEGA THIS</a>\n    <a href="'+
 ( attribution_uri )+
 '" target="blank"><i class="icon-share-alt"></i> view original</a>\n   \n     ';
  if( allowDelete == 1  ) { 
-;__p+='\n            <a class="delete-item" href="#"><i class="icon-remove"></i> delete</a>\n    ';
+;__p+='\n        <a class="delete-item" href="#"><i class="icon-remove"></i> delete</a>\n    ';
  } 
 ;__p+='\n\n</div>';
 }
@@ -645,7 +649,17 @@ __p+='<a href="http://www.zeega.com" class="ZEEGA-tab">\n    <span class="ZTab-l
 ( userId )+
 '"\n                    class="profile-link"\n                    title="my profile"\n                    data-gravity="n"\n                    ><span class="user-token"\n                        style="\n                            background-image:url('+
 ( userThumbnail )+
-');\n                            background-size: cover;\n                        "\n                    ></span></a>\n            </li>\n            <li>\n                <a href="#" class="editor-help btnz btnz-light"\n                    title="view instructions"\n                    data-gravity="n"\n                >Help</a>\n            </li>\n           \n        </ul>\n    </div>\n\n    <ul class="nav-buttons-right">\n        \n        <li>\n            <span class="saving-indicator btnz btnz-transparent"></span>\n        </li>\n\n        <li>\n            <a href="#" class="project-preview btnz btnz-green"\n                title="see what you\'re making"\n                data-gravity="n"\n            ><i class="icon-play icon-white"></i> Play</a>\n        </li>\n        <li>\n            <a href="#" class="project-share btnz btnz-blue btnz-fullwidth"\n                title="share your Zeega with the world"\n                data-gravity="n"\n            ><i class="icon-retweet icon-white"></i> Share</a>\n        </li>\n         <li>\n                <a href="'+
+');\n                            background-size: cover;\n                        "\n                    ></span></a>\n            </li>\n            <li>\n                <a href="#" class="editor-help btnz btnz-light"\n                    title="view instructions"\n                    data-gravity="n"\n                >Help</a>\n            </li>\n           \n        </ul>\n    </div>\n\n    ';
+ if ( remix.remix ) { 
+;__p+='\n        <div class="nav col-center remix-header">\n            <ul>\n                <li>\n                    Remixing\n                    <div class="project-cover project-cover-tiny" style="\n                            background:url('+
+( remix.parent.cover_image )+
+');\n                            background-position: center;\n                            background-repeat: no-repeat;\n                            -webkit-background-size: cover;\n                            -moz-background-size: cover;\n                            -o-background-size: cover;\n                            background-size: cover;\n                        "></div>\n                    by '+
+( remix.parent.user.display_name )+
+'\n                    <div class="profile-token profile-token-tiny" style="\n                            background:url('+
+( remix.parent.user.thumbnail_url )+
+');\n                            background-position: center;\n                            background-repeat: no-repeat;\n                            -webkit-background-size: cover;\n                            -moz-background-size: cover;\n                            -o-background-size: cover;\n                            background-size: cover;\n                        "></div>\n                </li>\n               \n            </ul>\n        </div>\n    ';
+ } 
+;__p+='\n\n    <ul class="nav-buttons-right">\n        \n        <li>\n            <span class="saving-indicator btnz btnz-transparent"></span>\n        </li>\n\n        <li>\n            <a href="#" class="project-preview btnz btnz-green"\n                title="see what you\'re making"\n                data-gravity="n"\n            ><i class="icon-play icon-white"></i> Play</a>\n        </li>\n        <li>\n            <a href="#" class="project-share btnz btnz-blue btnz-fullwidth"\n                title="share your Zeega with the world"\n                data-gravity="n"\n            ><i class="icon-retweet icon-white"></i> Share</a>\n        </li>\n         <li>\n                <a href="'+
 ( web_root )+
 'project/new"\n                    class="btnz new-zeega"\n                    title="start a new Zeega"\n                    data-gravity="ne"\n                    >New Zeega</a>\n        </li>\n\n    </ul>\n\n</div>\n\n<div class="share-grave">\n\n    <div class="close-wrapper">\n        <a href="#" class="close-grave">&times;</a>\n    </div>\n\n    <div class="grave-inner">\n\n        <div class="share-meta">\n            <div class="cover-image-wrapper">\n                <div class="project-cover" style="\n                    background: url('+
 ( cover_image )+
@@ -703,7 +717,13 @@ __p+='<div class="elapsed tooltip"></div>\n<div class="soundtrack-waveform"\n   
  if ( model === false ) { 
 ;__p+='\n    <span class="soundtrack-drop-icon"\n        title="drag audio to add soundtrack"\n        data-gravity="ne"\n    ></span>\n    <span class="soundtrack-sub">soundtrack</span>\n';
  } else { 
-;__p+='\n    <div class="soundtrack-controls">\n        <a href="#" class="remove"\n            title="remove soundtrack"\n            data-gravity="n"\n        ><i class="icon-remove icon-white"></i></a>\n    </div>\n';
+;__p+='\n    <div class="soundtrack-controls">\n\n        ';
+ if ( remix ) { 
+;__p+='\n            <i class="icon-lock icon-white"></i>\n        ';
+ } else { 
+;__p+='\n            <a href="#" class="remove"\n                title="remove soundtrack"\n                data-gravity="n"\n            ><i class="icon-remove icon-white"></i></a>\n        ';
+ } 
+;__p+='\n\n    </div>\n';
  } 
 ;__p+='';
 }
@@ -34427,7 +34447,7 @@ function( app, Controls ) {
         
             this.once( "visual_ready", this.onVisualReady, this );
             this.once( "visual_error", this.onVisualError, this );
-            // this.initSaveEvents();
+            this.initSaveEvents();
         },
 
         getAttr: function( attrName ) {
@@ -36817,7 +36837,7 @@ function( app, Layers ) {
             this.lazySave = _.debounce(function() {
                 this.save();
             }.bind( this ), 1000 );
-            // this.initSaveEvents();
+            this.initSaveEvents();
         },
 
         initSoundtrackModel: function( layers ) {
@@ -37028,7 +37048,7 @@ function( app, Backbone, Layers, ThumbWorker ) {
 
             }, 1000);
 
-            // this.initSaveEvents();
+            this.initSaveEvents();
         },
 
         // editor
@@ -37360,10 +37380,10 @@ function( app, FrameModel, LayerCollection ) {
         model: FrameModel,
 
         mode: "editor",
+        remixPageMax: 5,
 
         setMode: function( mode ) {
             this.mode = mode;
-console.log("frames", this)
             if ( mode == "editor") this.initEditor();
         },
 
@@ -37408,38 +37428,43 @@ console.log("frames", this)
         // add frame at a specified index.
         // omit index to append frame
         addFrame: function( index, skipTo ) {
-            var newFrame, continuingLayers = [];
 
-            skipTo = !_.isUndefined( skipTo ) ? skipTo : true;
-            index = index == "auto" ? undefined : index;
+            if ( app.project.get("remix").remix && this.length < this.remixPageMax ) {
+                var newFrame, continuingLayers = [];
 
-            newFrame = new FrameModel({
-                _order: index
-            });
+                skipTo = !_.isUndefined( skipTo ) ? skipTo : true;
+                index = index == "auto" ? undefined : index;
 
-            newFrame.status = app.status;
-            newFrame.layers = new LayerCollection( _.compact( continuingLayers ) );
-            newFrame.layers.frame = newFrame;
-            newFrame.listenToLayers();
-            newFrame.editorAdvanceToPage = skipTo;
-
-            newFrame.save().success(function() {
-                app.project.addFrameToKey( newFrame.id, this.sequence.id );
-
-                if ( _.isUndefined( index ) ) {
-                    this.push( newFrame );
-                } else {
-                    this.add( newFrame, { at: index });
-                }
-
-                this.each(function( frame, i ) {
-                    frame.set("_order", i );
+                newFrame = new FrameModel({
+                    _order: index
                 });
 
-                app.trigger("frame_add", newFrame );
-            }.bind( this ));
+                newFrame.status = app.status;
+                newFrame.layers = new LayerCollection( _.compact( continuingLayers ) );
+                newFrame.layers.frame = newFrame;
+                newFrame.listenToLayers();
+                newFrame.editorAdvanceToPage = skipTo;
 
-            return newFrame;
+                newFrame.save().success(function() {
+                    app.project.addFrameToKey( newFrame.id, this.sequence.id );
+
+                    if ( _.isUndefined( index ) ) {
+                        this.push( newFrame );
+                    } else {
+                        this.add( newFrame, { at: index });
+                    }
+
+                    this.each(function( frame, i ) {
+                        frame.set("_order", i );
+                    });
+
+                    app.trigger("frame_add", newFrame );
+                }.bind( this ));
+
+                return newFrame;
+            } else {
+                alert("too many pages!")
+            }
         },
 
         onFrameAdd: function( frame ) {
@@ -37559,7 +37584,6 @@ function( app, SequenceCollection ) {
             date_updated: null,
             description: null,
             enabled: true,
-            estimated_time: null,
             frames: [],
             id: null,
             item_id: null,
@@ -37567,6 +37591,36 @@ function( app, SequenceCollection ) {
             location: null,
             mode: "editor",
             published: true,
+
+            remix: { remix: false }, // default
+
+            // for remix testing
+            /*
+            remix: {
+                remix: true,
+                root: {
+                    id: "51df7f2a7131b23816000003",
+                    cover_image: "http://zeegaimages1.s3.amazonaws.com/8ab8368e700191ed5bc5e6ea5c45f2a7_7.jpg",
+                    user: {
+                        id: "51dc7711d4567b571b000128",
+                        display_name: "Rich Jones",
+                        username: "user10144",
+                        thumbnail_url: "http://zeegaimages1.s3.amazonaws.com/0352673e20dd302727c95efb8029bab3_4.jpg"
+                    }
+                },
+                parent: {
+                    id: "51df7f2a7131b23816000003",
+                    cover_image: "http://zeegaimages1.s3.amazonaws.com/8ab8368e700191ed5bc5e6ea5c45f2a7_7.jpg",
+                    user: {
+                        id: "51dc7711d4567b571b000128",
+                        display_name: "Rich Jones",
+                        username: "user10144",
+                        thumbnail_url: "http://zeegaimages1.s3.amazonaws.com/0352673e20dd302727c95efb8029bab3_4.jpg"
+                    }
+                }
+            },
+            */
+
             sequences: [],
             tags: "",
             title: "Untitled",
@@ -37586,7 +37640,9 @@ function( app, SequenceCollection ) {
             this.options = _.defaults( options, this.defaultOptions );
             this.parser = options.parser;
             this.parseSequences();
-            // this.initSaveEvents();
+            this.initSaveEvents();
+
+            console.log("init:", this, app)
         },
 
         parseSequences: function() {
@@ -38233,17 +38289,16 @@ function( Zeega, _, ProjectModel, DataParser ) {
         // determine which parser to use
         _.each( DataParser, function( p ) {
             if ( p.validate( data ) ) {
-                if ( options.debugEvents ) {
-                    console.log( "parsed using: " + p.name );
-                }
-                options.parser = p.name;
 
+                if ( options.debugEvents ) console.log( "parsed using: " + p.name );
+
+                options.parser = p.name;
                 // parse the data
                 parsed = p.parse( data, options );
                 return false;
             }
         }, this );
-
+console.log("parsed:", parsed)
         if ( parsed !== undefined ) {
             return new ProjectModel( parsed, options );
         } else {
@@ -39596,14 +39651,16 @@ function( app, Zeega ) {
         template: "app/templates/project-head",
 
         serialize: function() {
+            console.log("PPPP", this.model.project.toJSON() )
             return _.extend({
                     web_root: app.webRoot,
                     share_links: this.getShareLinks()
                 },
                 app.metadata,
                 this.model.project.toJSON(),
-                { userThumbnail: app.metadata.userThumbnail === "" ? "https://s3.amazonaws.com/zeegastatic/default_profile.jpeg" : app.metadata.userThumbnail }
-
+                {
+                    userThumbnail: app.metadata.userThumbnail === "" ? "https://s3.amazonaws.com/zeegastatic/default_profile.jpeg" : app.metadata.userThumbnail
+                }
             );
         },
 
@@ -40097,18 +40154,36 @@ define('modules/views/frames',[
 
 function( app, FrameView ) {
 
-
     return Backbone.View.extend({
 
         template: "app/templates/frames",
         className: "ZEEGA-frames",
 
         afterRender: function() {
-            this.renderSequenceFrames( this.model.status.get("currentSequence") );
+            var currentSequence = this.model.status.get("currentSequence");
+
+            this.updatedNewPageButtonState( currentSequence );
+            this.renderSequenceFrames( currentSequence );
             this.makeSortable();
             this.makeDroppable();
-            this.model.status.get("currentSequence").frames.on("add", this.onFrameAdd, this );
-            this.model.status.get("currentSequence").frames.on("remove", this.onFrameRemove, this );
+            currentSequence.frames.on("add", this.onFrameAdd, this );
+            currentSequence.frames.on("remove", this.onFrameRemove, this );
+        },
+
+        updatedNewPageButtonState: function( currentSequence ) {
+            if ( app.project.get("remix").remix ) {
+                if ( currentSequence.frames.length < currentSequence.frames.remixPageMax ) {
+                    // enable
+                    this.$(".add-frame")
+                        .removeClass("disabled")
+                        .attr("title","add new page");
+                } else {
+                    //disable
+                    this.$(".add-frame")
+                        .addClass("disabled")
+                        .attr("title","You have reached the page limit");
+                }
+            }
         },
 
         makeSortable: function() {
@@ -40162,19 +40237,25 @@ function( app, FrameView ) {
         },
 
         onFrameAdd: function( frameModel, collection ) {
+            var currentSequence = this.model.status.get("currentSequence");
+
             this.$(".frame-list").sortable("destroy");
 
             if ( frameModel.editorAdvanceToPage !== false ) {
                 this.model.status.setCurrentFrame( frameModel );
             }
-            this.renderSequenceFrames( this.model.status.get("currentSequence") );
+            this.renderSequenceFrames( currentSequence );
             this.updateFrameOrder( );
             app.emit("page_added", null);
             this.makeSortable();
+            this.updatedNewPageButtonState( currentSequence );
         },
 
         onFrameRemove: function( frameModel, collection ) {
-            this.renderSequenceFrames( this.model.status.get("currentSequence") );
+            var currentSequence = this.model.status.get("currentSequence");
+
+            this.renderSequenceFrames( currentSequence );
+            this.updatedNewPageButtonState( currentSequence );
         },
 
         renderSequenceFrames: function( sequence ) {
@@ -40248,10 +40329,11 @@ function( app ) {
                 accept: ".item, .draggable-layer-type",
                 tolerance: "pointer",
                 drop: function( e, ui ) {
-                    if ( _.contains( ["Audio"], app.dragging.get("layer_type") )) {
-                        //app.layout.soundtrack.updateWaveform( app.dragging.get("thumbnail_url") );
-                        app.emit("soundtrack_added", app.dragging );
-                        app.status.get('currentSequence').setSoundtrack( app.dragging, app.layout.soundtrack, { source: "drag-to-workspace" } );
+                    if ( _.contains( ["Audio"], app.dragging.get("layer_type")) ) {
+                        if ( !app.project.get("remix").remix ) {
+                            app.emit("soundtrack_added", app.dragging );
+                            app.status.get('currentSequence').setSoundtrack( app.dragging, app.layout.soundtrack, { source: "drag-to-workspace" } );
+                        }
                     } else {
                         app.emit("item_dropped", app.dragging );
                         this.model.status.get('currentFrame').addLayerByItem( app.dragging, { source: "drag-to-workspace" });
@@ -41021,7 +41103,10 @@ function( app, Viewer ) {
             if ( this.model === null || this.model.get("type") != "Audio" ) {
                 return { model: false };
             } else if ( this.model.get("type") == "Audio" ) {
-                return _.extend({ model: true }, this.model.toJSON() );
+                return _.extend({
+                    model: true,
+                    remix: app.project.get("remix").remix
+                }, this.model.toJSON() );
             }
         },
 
@@ -41037,7 +41122,10 @@ function( app, Viewer ) {
         },
 
         afterRender: function() {
-            this.makeDroppable();
+            console.log("AR ST", app)
+
+            if ( !app.project.get("remix").remix ) this.makeDroppable();
+
             app.trigger("rendered", this );
 
             this.$("[title]").tipsy({
@@ -43548,7 +43636,11 @@ function( app ) {
         template: "app/templates/item-viewer-audio",
 
         serialize: function() {
-            return this.model.toJSON();
+            return _.extend({
+                    remix: app.project.get("remix").remix
+                },
+                this.model.toJSON()
+            );
         },
 
         exit: function() {
@@ -43706,11 +43798,12 @@ function( app, Modal, FrameView, ImageView, AudioView, VideoView, YoutubeView ) 
 
         addToFrame: function() {
 
-            if ( this.collection.at( this.index ). get("layer_type") == "Audio" ) {
-                app.layout.soundtrack.updateWaveform( this.collection.at( this.index ).get("thumbnail_url") );
-                $(".intro").remove();
-                app.emit("soundtrack_added", this.collection.at( this.index ) );
-                app.status.get('currentSequence').setSoundtrack( this.collection.at( this.index ), app.layout.soundtrack, { source: "add-to-page" } );
+            if ( this.collection.at( this.index ).get("layer_type") == "Audio" ) {
+                if ( !app.project.get("remix") ) {
+                    app.layout.soundtrack.updateWaveform( this.collection.at( this.index ).get("thumbnail_url") );
+                    app.emit("soundtrack_added", this.collection.at( this.index ) );
+                    app.status.get('currentSequence').setSoundtrack( this.collection.at( this.index ), app.layout.soundtrack, { source: "add-to-page" } );
+                }
             } else {
                 app.status.get('currentFrame').addLayerByItem( this.collection.at( this.index ), { source: "add-to-page" } );
             }
@@ -44738,16 +44831,14 @@ function( app, Status, Layout, ZeegaParser, MediaBrowser, Analytics ) {
                 app.emit("new_zeega", {});
             }
             app.analytics.people.increment("editor_sessions");
-
-            this.loadProject();
         },
 
         loadProject: function( attributes ) {
+
             if ( window.projectJSON ) {
                 this._parseData( jQuery.parseJSON( window.projectJSON ) );
             } else {
                 var rawDataModel = new Backbone.Model();
-
                 // mainly for testing
 
                 rawDataModel.url = app.api + "projects/"+ app.projectId;
@@ -44763,10 +44854,10 @@ function( app, Status, Layout, ZeegaParser, MediaBrowser, Analytics ) {
 
         _parseData: function( response ) {
             app.status = new Status();
+
             app.project = new ZeegaParser.parse( response, {
                 mode: "editor",
                 pluginsPath: "app/zeega-parser/plugins/",
-                maxFrames: 5,
                 attach: {
                     status: app.status
                 }
