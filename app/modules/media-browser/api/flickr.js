@@ -34,41 +34,41 @@ function( app, SearchModel ) {
         _initialize: function(){
             this.mediaCollection._parse = function( res ) {
 
-            if(!_.isUndefined( res.items_count )){
-                this.itemsCount = res.items_count;
+                if(!_.isUndefined( res.items_count )){
+                    this.itemsCount = res.items_count;
 
-                return res.items;
-            }
+                    return res.items;
+                }
 
 
-            var items =[],
-                item;
+                var items =[],
+                    item;
 
-            _.each( res.photos.photo, function( photo ){
+                _.each( res.photos.photo, function( photo ){
 
-                item = {};
-                item.id = photo.id;
-                item.layer_type = "Image";
-                item.media_type = "Image";
-                item.archive = "Flickr";
-                item.title = photo.title;
-                item.thumbnail_url = "https://farm" + photo.farm + ".static.flickr.com/" + photo.server + "/" +
-                                    photo.id + "_" + photo.secret + "_s.jpg";
-                item.uri = "https://farm" + photo.farm + ".static.flickr.com/" + photo.server + "/" +
-                                    photo.id + "_" + photo.secret + ".jpg";
-                item.attribution_uri =  "http://www.flickr.com/photos/" + photo.owner + "/" + photo.id;
-                item.media_user_realname = photo.owner_name;
-                items.push( item );
-            });
+                    item = {};
+                    item.id = photo.id;
+                    item.layer_type = "Image";
+                    item.media_type = "Image";
+                    item.archive = "Flickr";
+                    item.title = photo.title;
+                    item.thumbnail_url = "https://farm" + photo.farm + ".static.flickr.com/" + photo.server + "/" +
+                                        photo.id + "_" + photo.secret + "_s.jpg";
+                    item.uri = "https://farm" + photo.farm + ".static.flickr.com/" + photo.server + "/" +
+                                        photo.id + "_" + photo.secret + ".jpg";
+                    item.attribution_uri =  "http://www.flickr.com/photos/" + photo.owner + "/" + photo.id;
+                    item.media_user_realname = photo.owner_name;
+                    items.push( item );
+                });
 
-            if( res.photos.page < res.photos.pages ){
-                this.more = true;
-            } else {
-                this.more = false;
-            }
+                if( res.photos.page < res.photos.pages ){
+                    this.more = true;
+                } else {
+                    this.more = false;
+                }
 
-            return items;
-        }
+                return items;
+            };
 
         },
 

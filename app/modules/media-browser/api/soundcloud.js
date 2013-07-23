@@ -68,7 +68,7 @@ function( app, SearchModel ) {
                 });
                 this.more = true;
                 return items;
-            }
+            };
         },
 
 

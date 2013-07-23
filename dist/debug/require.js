@@ -611,7 +611,7 @@ return __p;
 this["JST"]["app/templates/media-drawer.html"] = function(obj){
 var __p='';var print=function(){__p+=Array.prototype.join.call(arguments, '')};
 with(obj||{}){
-__p+='<div class="media-drawer-controls ZEEGA-hmenu light img-tabs">\n    <ul class=\'pull-left\'>\n        \n        <li>\n            <a href="#" data-api = "Zeega" class="active media-toggle"\n                title="our faves from across the web"\n                data-gravity="sw"\n            ><i class="socialz-zeega socialz-white"></i></a>\n        </li>\n\n        <li>\n            <a href="#" data-api = "Soundcloud" class="media-toggle"\n                title="sounds from SoundCloud"\n                data-gravity="sw"\n            ><i class="socialz-soundcloud"></i></a>\n        </li>\n   \n\n        <li>\n            <a href="#" data-api="Tumblr" class="media-toggle"\n                title="GIFs and images from Tumblr"\n                data-gravity="sw"\n            ><i class="socialz-tumblr"></i></a>\n        </li>\n    <!-- -->\n        <!--\n        <li>\n            <a href="#" data-api = "Instagram" class="media-toggle"\n                title="images from Instagram"\n                data-gravity="sw"\n            ><i class="socialz-instagram"></i></a>\n        </li>\n    -->\n        <li>\n            <a href="#" data-api = "Flickr" class="media-toggle"\n                title="images from Flickr"\n                data-gravity="sw"\n            ><i class="socialz-flickr"></i></a>\n        </li>\n\n        <li>\n            <a href="#" data-api = "Giphy" class="media-toggle"\n                title="GIFs from Giphy"\n                data-gravity="sw"\n            ><i class="socialz-giphy"></i></a>\n        </li>\n       \n       <!--  \n        <li>\n            <a href="#" data-api = "Youtube" class="media-toggle"\n                title="Videos from Youtube"\n                data-gravity="sw"\n            ><i class="socialz-youtube"></i></a>\n        </li>\n\n           -->\n         <!--\n        <li >\n            <a href="#" data-api = "MyZeega" class="media-toggle"><i class="socialz-user"></i></a>\n        </li>\n         -->\n\n    </ul>\n    <ul class="pull-right">\n        <li >\n            <a id="media-upload-tab" href="#" data-api = "MyZeega" class="media-toggle">UPLOAD</a>\n        </li>\n    </ul>\n    \n    \n</div>\n<div class="ZEEGA-items"></div>\n';
+__p+='<div class="media-drawer-controls ZEEGA-hmenu light img-tabs">\n    <ul class=\'pull-left\'>\n        \n        <li>\n            <a href="#" data-api = "Favorites" class="active media-toggle"\n                title="our faves from across the web"\n                data-gravity="sw"\n            ><i class="socialz-zeega socialz-white"></i></a>\n        </li>\n\n        <li>\n            <a href="#" data-api = "Soundcloud" class="media-toggle"\n                title="sounds from SoundCloud"\n                data-gravity="sw"\n            ><i class="socialz-soundcloud"></i></a>\n        </li>\n   \n\n        <li>\n            <a href="#" data-api="Tumblr" class="media-toggle"\n                title="GIFs and images from Tumblr"\n                data-gravity="sw"\n            ><i class="socialz-tumblr"></i></a>\n        </li>\n    <!-- -->\n        <!--\n        <li>\n            <a href="#" data-api = "Instagram" class="media-toggle"\n                title="images from Instagram"\n                data-gravity="sw"\n            ><i class="socialz-instagram"></i></a>\n        </li>\n    -->\n        <li>\n            <a href="#" data-api = "Flickr" class="media-toggle"\n                title="images from Flickr"\n                data-gravity="sw"\n            ><i class="socialz-flickr"></i></a>\n        </li>\n\n        <li>\n            <a href="#" data-api = "Giphy" class="media-toggle"\n                title="GIFs from Giphy"\n                data-gravity="sw"\n            ><i class="socialz-giphy"></i></a>\n        </li>\n       \n       <!--  \n        <li>\n            <a href="#" data-api = "Youtube" class="media-toggle"\n                title="Videos from Youtube"\n                data-gravity="sw"\n            ><i class="socialz-youtube"></i></a>\n        </li>\n\n           -->\n         <!--\n   \n         -->\n\n    </ul>\n    <ul class="pull-right">\n        <li >\n            <a id="media-upload-tab" href="#" data-api = "Zeega" class="media-toggle">UPLOAD</a>\n        </li>\n    </ul>\n    \n    \n</div>\n<div class="ZEEGA-items"></div>\n';
 }
 return __p;
 };
@@ -645,7 +645,7 @@ __p+='<a href="http://www.zeega.com" class="ZEEGA-tab">\n    <span class="ZTab-l
 ( userId )+
 '"\n                    class="profile-link"\n                    title="my profile"\n                    data-gravity="n"\n                    ><span class="user-token"\n                        style="\n                            background-image:url('+
 ( userThumbnail )+
-');\n                            background-size: cover;\n                        "\n                    ></span></a>\n            </li>\n            <li>\n                <a href="#" class="editor-help btnz btnz-light"\n                    title="view instructions"\n                    data-gravity="n"\n                >Help</a>\n            </li>\n           \n        </ul>\n    </div>\n\n    <ul class="nav-buttons-right">\n        \n        <li>\n            <span class="saving-indicator btnz btnz-transparent"></span>\n        </li>\n\n        <li>\n            <a href="#" class="project-preview btnz"\n                title="see what you\'re making"\n                data-gravity="n"\n            ><i class="icon-play icon-white"></i> Preview</a>\n        </li>\n        <li>\n            <a href="#" class="project-share btnz btnz-blue btnz-fullwidth"\n                title="share your Zeega with the world"\n                data-gravity="n"\n            ><i class="icon-retweet icon-white"></i> Share</a>\n        </li>\n         <li>\n                <a href="'+
+');\n                            background-size: cover;\n                        "\n                    ></span></a>\n            </li>\n            <li>\n                <a href="#" class="editor-help btnz btnz-light"\n                    title="view instructions"\n                    data-gravity="n"\n                >Help</a>\n            </li>\n           \n        </ul>\n    </div>\n\n    <ul class="nav-buttons-right">\n        \n        <li>\n            <span class="saving-indicator btnz btnz-transparent"></span>\n        </li>\n\n        <li>\n            <a href="#" class="project-preview btnz btnz-green" data-gravity="n" original-title="see what you\'re making">\n                <i class="icon-play icon-white"></i> Play\n            </a>\n        </li>\n        <li>\n            <a href="#" class="project-share btnz btnz-blue btnz-fullwidth"\n                title="share your Zeega with the world"\n                data-gravity="n"\n            ><i class="icon-retweet icon-white"></i> Share</a>\n        </li>\n         <li>\n                <a href="'+
 ( web_root )+
 'project/new"\n                    class="btnz new-zeega"\n                    title="start a new Zeega"\n                    data-gravity="ne"\n                    >New</a>\n        </li>\n\n    </ul>\n\n</div>\n\n<div class="share-grave">\n\n    <div class="close-wrapper">\n        <a href="#" class="close-grave">&times;</a>\n    </div>\n\n    <div class="grave-inner">\n\n        <div class="share-meta">\n            <div class="cover-image-wrapper">\n                <div class="project-cover" style="\n                    background: url('+
 ( cover_image )+
@@ -722,6 +722,14 @@ this["JST"]["app/modules/intro-modal/intro-modal.html"] = function(obj){
 var __p='';var print=function(){__p+=Array.prototype.join.call(arguments, '')};
 with(obj||{}){
 __p+='<div class="modal-wrapper">\n\n    <div class="modal-content">\n\n        <div class="step-1">\n\n            <h1>Heya! Welcome to Zeega!</h1>\n\n            <p>\n                Zeega is a community creating everything from stories to interactive music to memes.\n            </p>\n            <p>\n                We’ve got a few fun prompts to get you started.\n            </p>\n\n            <div class="intro-graphic">\n                <img src="assets/img/intro-graphic.png" width="100%"/>\n            </div>\n            <a href="#" class="finish btnz btnz-submit">Start Making <i class="icon-chevron-right icon-white"></i></a>\n        </div>\n\n\n    </div>\n</div>';
+}
+return __p;
+};
+
+this["JST"]["app/modules/media-browser/index.html"] = function(obj){
+var __p='';var print=function(){__p+=Array.prototype.join.call(arguments, '')};
+with(obj||{}){
+__p+='\n\n\n<html>\n\n\n<body>\n\n<div style="width:500px; height: 266px; background-image: url(\'giftest.jpg\');" ></div>\n\n\n\n</body>\n\n\n\n</html>';
 }
 return __p;
 };
@@ -41128,7 +41136,213 @@ function( app, Viewer ) {
 
 });
 
-define('modules/views/media-drawer',[
+define('modules/media-browser/item-view',[
+    "app",
+    "backbone"
+],
+
+function( app, ItemView ) {
+
+    var dim = 100;
+
+    return Backbone.View.extend({
+
+        className: function() {
+            return "item item-" + this.model.id;
+        },
+        tagName: "li",
+        template: "app/templates/item",
+
+        serialize: function() {
+            var w, h, offset,
+                style = "";
+            if( this.model.get("attributes") && this.model.get("attributes").height ){
+                if( this.model.get("attributes").width > this.model.get("attributes").height ){
+                    h = dim;
+                    w = h * this.model.get("attributes").width / this.model.get("attributes").height ;
+                    offset = ( dim - w )/2;
+                    style = "width:" + w +"px; height:" + h + "px; left:" + offset + "px;";
+                } else {
+                    w = dim;
+                    h = this.model.get("attributes").height * w / this.model.get("attributes").width;
+                    offset = ( dim - h )/2;
+                    style = "width:" + w +"px; height:" + h + "px; top:" + offset + "px;";
+                }
+                
+            }
+            return _.extend( {
+                        style: style
+                    },
+                    this.model.toJSON()
+            );
+        },
+
+        afterRender: function() {
+            this.listenTo(this.model, 'destroy', this.remove);
+            this.$el.draggable({
+                revert: "invalid",
+                appendTo: $("body"),
+                zIndex: 10000,
+                cursorAt: {
+                    left: 20,
+                    top: 20
+                },
+                helper: function( e ) {
+                    
+                    return $(this).find(".item-thumb img").clone().addClass("item-dragging");
+                },
+                start: function() {
+                    if ( this.model.get("media_type") == "Image" ) {
+                        $("body").append("<img class='img-preload' src='" + this.model.get("uri") + "' height='1px' width='1px' style='position:absolute;left:-1000%;top:-1000%'/>");
+                    }
+                    app.emit("item_drag_start", this.model );
+                    app.dragging = this.model;
+                }.bind( this ),
+                stop: function() {
+                    $(".img-preload").remove();
+                    app.emit("item_drag_stop", this.model );
+                    app.dragging = null;
+                }
+            });
+        },
+
+        events: {
+            "click": "viewItem",
+            "mouseover img": "onMouseOver",
+            "mouseout img": "onMouseOut"
+        },
+
+        onMouseOver: function(){
+            if( this.model.get("archive") == "Giphy" ){
+                this.$("img").attr("src", this.model.get("thumbnail_url").replace("_s.gif", ".gif"));
+            }
+
+            if( this.model.get("attributes") && !_.isUndefined( this.model.get("attributes").animate_url ) ){
+                this.$("img").attr("src", this.model.get("attributes").animate_url );
+            }
+        },
+
+        onMouseOut: function(){
+            if( this.model.get("archive") == "Giphy" ){
+                this.$("img").attr("src", this.model.get("thumbnail_url"));
+            }
+
+            if( this.model.get("attributes") && !_.isUndefined( this.model.get("attributes").animate_url ) ){
+                this.$("img").attr("src", this.model.get("thumbnail_url"));
+            }
+        },
+
+        viewItem: function() {
+            this.model.collection.itemViewer( this.model );
+        }
+
+    });
+
+});
+
+define('modules/media-browser/item-model',[
+    "app",
+    "modules/media-browser/item-view",
+    "backbone"
+],
+
+function( app, ItemView ) {
+
+    return Backbone.Model.extend({
+        
+        view: null,
+        defaults: {
+            allowDelete: 0
+        },
+        url: function(){
+            var url = app.api + "items/" + this.id;
+
+            return url;
+        },
+        
+        initialize: function() {
+            this.view = new ItemView({ model: this });
+        }
+
+    });
+
+});
+
+define('modules/views/modal',[
+    "app",
+
+
+    "backbone"
+],
+
+function( app ) {
+
+
+    return Backbone.View.extend({
+
+        template: "app/templates/modal",
+        modalClass: "",
+        
+        className: function() {
+            return "ZEEGA-modal " + this.options.modal.className;
+        },
+
+        serialize: function() {
+            return this.options;
+        },
+
+        show: function() {
+            $("body").append( this.el );
+            $("#main").addClass("modal");
+            this.$el.attr("style","");
+            this.render();
+        },
+        
+        events: {
+            "click .modal-close": "hide"
+        },
+
+        close: function() {
+            $("#main").removeClass("modal");
+            this.$el.fadeOut(function() {
+                this.remove();
+            }.bind( this ));
+        },
+
+        hide: function() {
+            this.close();
+        }
+
+    });
+
+});
+
+define('modules/media-browser/item-viewer-image',[
+    "app",
+    "backbone"
+],
+
+function( app ) {
+
+
+    return Backbone.View.extend({
+        
+        className: "item-viewer item-viewer-image",
+        template: "app/templates/item-viewer-image",
+
+        serialize: function() {
+            return this.model.toJSON();
+        },
+
+        exit: function() {
+            
+        }
+        
+    });
+
+});
+
+define('modules/media-browser/item-viewer-audio',[
     "app",
     "backbone"
 ],
@@ -41136,24 +41350,1680 @@ define('modules/views/media-drawer',[
 function( app ) {
 
     return Backbone.View.extend({
+        
+        className: "item-viewer item-viewer-audio",
+        template: "app/templates/item-viewer-audio",
+
+        serialize: function() {
+            return this.model.toJSON();
+        },
+
+        exit: function() {
+            this.$("audio").attr("src", "");
+        }
+        
+    });
+
+});
+
+define('modules/media-browser/item-collection-viewer',[
+    "app",
+    "modules/views/modal",
+    "modules/views/frame",
+    "modules/media-browser/item-viewer-image",
+    "modules/media-browser/item-viewer-audio",
+
+    "backbone"
+],
+
+function( app, Modal, FrameView, ImageView, AudioView, VideoView, YoutubeView ) {
+
+
+    return Backbone.View.extend({
+
+        start: 0,
+        index: 0,
+        currentItem: null,
+
+        template: "app/templates/item-collection-viewer",
+
+        className: "ZEEGA-modal ZEEGA-item-collection-viewer",
+
+        initialize: function() {
+            this.start = this.options.start;
+        },
+
+        init: function( startIndex ) {
+            this.start = startIndex;
+            this.goToItem( startIndex );
+        },
+
+        afterRender: function() {
+            $("#main").addClass("modal");
+            this.goToItem( this.start );
+            this.listen();
+        },
+
+        goToItem: function( index ) {
+            var item = this.collection.at( index );
+
+            if ( this.currentItem ) {
+                this.currentItem.itemView.exit();
+            }
+            this.index = index;
+            this.currentItem = item;
+            this.$(".modal-title").text( item.get("title") );
+
+            if ( _.isUndefined( item.itemView ) ) {
+                if ( item.get("layer_type") == "Image") {
+                    item.itemView = new ImageView({ model: item });
+                } else if ( item.get("layer_type") == "Audio") {
+                    item.itemView = new AudioView({ model: item });
+                } else if ( item.get("layer_type") == "Youtube") {
+                    item.itemView = new YoutubeView({ model: item });
+                } 
+            }
+            // just render item.itemView
+
+            if( item.itemView.el ){
+               this.$(".modal-body").html( item.itemView.el );
+                item.itemView.render();
+                app.emit("view_item",{
+                    type: item.get("layer_type"),
+                    source: item.get("archive"),
+                    title: item.get("title") ? item.get("title") : "none" 
+                });
+            } else {
+                return false;
+            }
+            
+        },
+
+        listen: function() {
+            $("body").bind("keyup.modal", function( e ) { this.keyup( e ); }.bind( this ));
+        },
+
+        unlisten: function() {
+            $("body").unbind("keyup.modal");
+        },
+
+        events: {
+
+            "click .modal-close": "close",
+            "click .prev": "prev",
+            "click .next": "next",
+            "click .add-to-frame": "addToFrame",
+            "click .delete-item": "deleteItem",
+            "click": "onClick"
+        },
+
+        onClick: function( e ){
+            if( $( e.target ).attr("class") == "ZEEGA-modal ZEEGA-item-collection-viewer" ){
+                this.close();
+            }
+        },
+
+        keyup: function( e ) {
+            if ( e.which == 37 ) { // left
+                this.prev();
+            } else if ( e.which == 39 ) { // right
+                this.next();
+            } else if ( e.which == 27 ) { // esc
+                this.close();
+            }
+        },
+
+        prev: function() {
+            if ( this.index > 0 ) {
+                this.goToItem( this.index - 1 );
+            }
+        },
+
+        next: function() {
+            if ( this.collection.length > this.index + 1 ) {
+                this.goToItem( this.index + 1 );
+            }
+        },
+
+        addToFrame: function() {
+
+            if ( this.collection.at( this.index ). get("layer_type") == "Audio" ) {
+                app.layout.soundtrack.updateWaveform( this.collection.at( this.index ).get("thumbnail_url") );
+                $(".intro").remove();
+                app.emit("soundtrack_added", this.collection.at( this.index ) );
+                app.status.get('currentSequence').setSoundtrack( this.collection.at( this.index ), app.layout.soundtrack, { source: "add-to-page" } );
+            } else {
+                app.status.get('currentFrame').addLayerByItem( this.collection.at( this.index ), { source: "add-to-page" } );
+            }
+            this.close();
+        },
+
+        close: function() {
+            this.unlisten();
+            $("#main").removeClass("modal");
+            this.$el.fadeOut(function() {
+                this.remove();
+                this.$el.attr("style", "");
+            }.bind( this ));
+        },
+
+        deleteItem: function(){
+            this.currentItem.destroy();
+            this.goToItem( this.index );
+        }
+
+    });
+
+});
+
+define('modules/media-browser/search-results-collection',[
+    "app",
+    "modules/media-browser/item-model",
+    "modules/media-browser/item-collection-viewer",
+    "backbone"
+],
+
+function( app, ItemModel, ItemCollectionViewer ) {
+
+
+    return Backbone.Collection.extend({
+
+        model: ItemModel,
+        view: null,
+        searchModel: null,
+        itemsCount: 0,
+        noResults: false,
+
+        url: function() {
+            var url;
+
+            if( this.searchModel.getQuery() === "" ){
+                
+                url = this.searchModel.favUrl;
+
+            } else {
+
+                url = this.searchModel.apiUrl;
+                _.each( this.searchModel.toJSON().urlArguments, function( value, key ) {
+                    if ( value !== "" && value !== null ) {
+                        url += key + "=" + ( _.isFunction( value ) ? value() : value ) + "&";
+                    }
+                });
+            }
+            return url;
+        },
+
+        itemViewer: function( model ) {
+            var startIndex = _.indexOf( this.pluck("id"), model.id );
+
+            startIndex = startIndex < 0 ? 0 : startIndex;
+
+            if ( this.view === null ) {
+                this.view = new ItemCollectionViewer({ collection: this, start: startIndex });
+            } else {
+                this.view.init( startIndex );
+            }
+
+            $("body").append( this.view.el );
+            this.view.render();
+        },
+
+        parse: function( res ) {
+            items = this._parse(res);
+            
+            if( items.length === 0 ){
+                this.noResults = true;
+            } else {
+                this.noResults = false;
+            }
+            return items;
+
+        },
+
+        _parse: function( res ) {
+            return res.items;
+        }
+    });
+
+});
+
+define('modules/media-browser/search-model',[
+    "app",
+    "modules/media-browser/search-results-collection",
+    "backbone"
+],
+
+function( app, MediaCollection ) {
+
+    return Backbone.Model.extend({
+
+        api: "",
+        mediaCollection: null,
+        apiUrl: "",
+        favUrl: "",
+        allowSearch: false,
+
+        defaults: {
+            urlArguments: {
+
+            },
+            title: "",
+            placeholder: "",
+            searchQuery: null
+        },
+
+        initialize: function() {
+
+            this.mediaCollection = new MediaCollection();
+            this.mediaCollection.searchModel = this;
+            this._initialize();
+        },
+
+        getQuery: function(){
+            return this.get("urlArguments").q;
+        },
+
+        getRawQuery: function(){
+            return this.get("searchQuery");
+        },
+
+        resultsReturned: function(){
+
+            return !this.mediaCollection.noResults;
+        
+        },
+
+        search: function( query ){
+
+            if( _.isUndefined( query ) || _.isNull( query ) ){
+                query = "";
+            }
+
+            if( query !== this.get( "searchQuery" ) ){
+                this.set( "searchQuery", query );
+                this._search( query );
+                if( query !== "" ){
+                    app.emit("media_search",{
+                        "query": query,
+                       "api": this.api
+                    });
+                }
+            }
+            
+        },
+        more: function(){
+            this._more();
+        },
+        _more: function(){
+
+        },
+        _search: function( query ){
+
+            var args = this.get("urlArguments");
+
+            if( query !== args.q ) {
+                args.q = query;
+            }
+
+            this.set("urlArguments", args );
+            this.mediaCollection.fetch();
+        },
+
+
+        onSync: function( collection ) {
+            this.mediaBrowser.trigger( "media_ready", collection );
+        }
+    });
+
+});
+define('modules/media-browser/api/zeega',[
+    "app",
+    "modules/media-browser/search-model",
+    "backbone"
+],
+
+function( app, SearchModel ) {
+
+    return SearchModel.extend({
+
+        api: "Zeega",
+        allowSearch: false,
+        apiUrl: app.searchAPI,
+        defaults: {
+                urlArguments: {
+                    collection: "",
+                    type: "",
+                    page: 1,
+                    q: "",
+                    limit: 48,
+                    data_source: "db",
+                    user: function() {
+                        return app.userId;
+                },
+                sort: "date-desc"
+            },
+            title: "My Media",
+            placeholder: "search your media",
+            searchQuery: null
+        },
+
+         _initialize: function(){
+            this.mediaCollection.url = function() {
+                var url = this.searchModel.apiUrl;
+
+                _.each( this.searchModel.toJSON().urlArguments, function( value, key ) {
+                    if ( value !== "" && value !== null ) {
+                        url += key + "=" + ( _.isFunction( value ) ? value() : value ) + "&";
+                    }
+                });
+                console.log(this.searchModel.apiUrl,url);
+                return url;
+            };
+
+            this.mediaCollection.parse = function( res ) {
+                var photos = res.items,
+                    count = 1;
+                
+                _.each( photos, function( photo ){
+                    photo.allowDelete = 1;
+                    count++;
+                });
+
+                this.itemsCount = res.items_count;
+
+                if( photos.length == 48 ){
+                    this.more = true;
+                } else {
+                    this.more = false;
+                }
+
+                return photos;
+            };
+        },
+        
+        _search: function( query ){
+            var args = this.get("urlArguments");
+            if( query !== args.q ) {
+                args.q = query;
+            }
+            args.page = 1;
+            this.set("urlArguments", args );
+            this.mediaCollection.fetch();
+        },
+
+        _more: function(){
+            
+            var args = this.get("urlArguments");
+            args.page += 1;
+            this.set("urlArguments", args );
+            this.mediaCollection.fetch({remove: false});
+        }
+    });
+
+});
+
+define('modules/media-browser/api/flickr',[
+    "app",
+    "modules/media-browser/search-model",
+    "backbone"
+],
+
+function( app, SearchModel ) {
+
+
+    return SearchModel.extend({
+        
+        api: "Flickr",
+        apiUrl: "https://secure.flickr.com/services/rest/?",
+        
+        favUrl: "https://secure.flickr.com/services/rest/?nojsoncallback=1&format=json&method=flickr.interestingness.getList&extras=owner_name&per_page=100&api_key=97ac5e379fbf4df38a357f9c0943e140",
+        allowSearch: true,
+
+        defaults: {
+            urlArguments: {
+                nojsoncallback: "1",
+                format: "json",
+                method: "flickr.photos.search",
+                extras: "owner_name",
+                per_page: "100",
+                api_key: "97ac5e379fbf4df38a357f9c0943e140",
+                text: ""
+    
+            },
+            title: "Flickr",
+            placeholder: "search Flickr photos",
+            searchQuery:  null
+        },
+
+        _initialize: function(){
+            this.mediaCollection._parse = function( res ) {
+
+                if(!_.isUndefined( res.items_count )){
+                    this.itemsCount = res.items_count;
+
+                    return res.items;
+                }
+
+
+                var items =[],
+                    item;
+
+                _.each( res.photos.photo, function( photo ){
+
+                    item = {};
+                    item.id = photo.id;
+                    item.layer_type = "Image";
+                    item.media_type = "Image";
+                    item.archive = "Flickr";
+                    item.title = photo.title;
+                    item.thumbnail_url = "https://farm" + photo.farm + ".static.flickr.com/" + photo.server + "/" +
+                                        photo.id + "_" + photo.secret + "_s.jpg";
+                    item.uri = "https://farm" + photo.farm + ".static.flickr.com/" + photo.server + "/" +
+                                        photo.id + "_" + photo.secret + ".jpg";
+                    item.attribution_uri =  "http://www.flickr.com/photos/" + photo.owner + "/" + photo.id;
+                    item.media_user_realname = photo.owner_name;
+                    items.push( item );
+                });
+
+                if( res.photos.page < res.photos.pages ){
+                    this.more = true;
+                } else {
+                    this.more = false;
+                }
+
+                return items;
+            };
+
+        },
+
+        getQuery: function(){
+            return this.get("urlArguments").text;
+        },
+        _search: function( query ){
+
+            var args = this.get("urlArguments");
+            args.page = 1;
+            args.text = query;
+            this.set("urlArguments", args );
+            this.mediaCollection.fetch();
+  
+        },
+        _more: function(){
+            var args = this.get("urlArguments");
+            args.page += 1;
+            this.set("urlArguments", args );
+            this.mediaCollection.fetch({remove: false});
+        }
+    });
+
+});
+
+define('modules/media-browser/api/tumblr',[
+    "app",
+    "modules/media-browser/search-model",
+    "backbone"
+],
+
+function( app, SearchModel ) {
+
+
+    return SearchModel.extend({
+        
+        api: "Tumblr",
+        apiUrl: app.api + "items/parser?",
+        favUrl: app.searchAPI + "archive=Tumblr&type=Image&user=" + app.metadata.favId + "&limit=48&sort=date-desc",
+        allowSearch: true,
+        defaults: {
+            urlArguments: {
+                url: "",
+                tag: ""
+            },
+            title: "Tumblr",
+            placeholder: "search Tumblr posts",
+            searchQuery: null
+        },
+        _initialize: function(){
+
+            this.mediaCollection._parse = function(res){
+                var photos = res.items,
+                    count = 1;
+                
+                _.each( photos, function( photo ){
+                    if(!_.isUndefined(photo.attributes.id)){
+                        photo.id = photo.attributes.id;
+                    } else {
+                        photo.id = count;
+                    }
+                    count++;
+                });
+
+                this.more = true;
+                return photos;
+            };
+        },
+
+        getQuery: function(){
+            return this.get("urlArguments").tag;
+        },
+
+        _search: function( query ){
+
+            var args = this.get("urlArguments");
+
+            args.before = new Date().getTime();
+            args.tag = query.replace( " ", "-" );
+            if( args.tag !== "" ){
+                args.tag = args.tag  + "-gif";
+            }
+            args.url = "http://www.tumblr.com/tagged/" + args.tag + "/before/" + args.before;
+
+            this.set("urlArguments", args );
+            this.mediaCollection.pumpkin ="orange";
+            this.mediaCollection.fetch();
+            
+        },
+        
+        _more: function( query ){
+
+            var args = this.get("urlArguments");
+
+            args.before = this.mediaCollection.at(this.mediaCollection.length - 1).get("attributes").timestamp;
+
+            args.url = "http://www.tumblr.com/tagged/" + args.tag + "/before/" + args.before;
+
+            this.set("urlArguments", args );
+            this.mediaCollection.fetch({remove:false});
+        }
+
+    });
+
+       
+
+});
+
+define('modules/media-browser/api/soundcloud',[
+    "app",
+    "modules/media-browser/search-model",
+    "backbone"
+],
+
+function( app, SearchModel ) {
+
+
+    return SearchModel.extend({
+        
+        api: "Soundcloud",
+        apiUrl: "https://api.soundcloud.com/tracks.json?",
+        favUrl: app.searchAPI + "archive=SoundCloud&type=Audio&user=" + app.metadata.favId + "&limit=48&sort=date-desc",
+        
+        allowSearch: true,
+        defaults: {
+            urlArguments: {
+                callback: "?",
+                q: "",
+                consumer_key: "lyCI2ejeGofrnVyfMI18VQ"
+            },
+            title: "Soundcloud",
+            placeholder: "search SoundCloud audio",
+            searchQuery: null
+        },
+
+        _initialize:function(){
+
+            this.mediaCollection._parse = function(res){
+                var items = [],
+                    item,
+                    count =1;
+
+                if(!_.isUndefined( res.items_count )){
+                    this.itemsCount = res.items_count;
+
+                    return res.items;
+                }
+
+                _.each( res, function( track ){
+                    item = {};
+                    item.id = count;
+                    count++;
+                    item.layer_type ="Audio";
+                    item.media_type = "Audio";
+                    item.archive = "SoundCloud";
+                    item.title = track.title;
+
+                    if( !_.isNull( track.artwork_url )){
+                        item.thumbnail_url = track.artwork_url;
+                    } else if( !_.isNull( track.user.avatar_url )){
+                        item.thumbnail_url = track.user.avatar_url;
+                    } else {
+                        item.thumbnail_url = track.waveform_url;
+                    }
+
+                    
+                    item.uri = track.stream_url + "?consumer_key=lyCI2ejeGofrnVyfMI18VQ";
+                    item.attribution_uri =  track.permalink_url;
+                    item.media_user_realname = track.user.username;
+                    item.archive = "SoundCloud";
+
+                    if( track.streamable ){
+                        items.push( item );
+                    }
+                    
+                });
+                this.more = true;
+                return items;
+            };
+        },
+
+
+        getQuery: function(){
+            return this.get("urlArguments").q;
+        },
+        _search: function( query ){
+
+            var args= this.get("urlArguments");
+
+                args.offset = 0;
+                args.q = query;
+                this.set("urlArguments", args );
+                this.mediaCollection.fetch();
+            
+        },
+        _more: function(){
+            
+            var args = this.get("urlArguments");
+            args.offset += 50;
+            this.set("urlArguments", args );
+
+            this.mediaCollection.fetch({remove: false});
+        }
+    });
+});
+
+define('modules/media-browser/api/giphy',[
+    "app",
+    "modules/media-browser/search-model",
+    "backbone"
+],
+
+function( app, SearchModel ) {
+
+
+    return SearchModel.extend({
+        
+        api: "Giphy",
+        apiUrl: app.api + "items/parser?",
+        allowSearch: true,
+        favUrl: app.searchAPI + "archive=Giphy&type=Image&user=" + app.metadata.favId + "&limit=48&sort=date-desc",
+
+
+        defaults: {
+            urlArguments: {
+                url: "",
+                tag: "",
+                offset: 0
+            },
+            title: "Giphy",
+            placeholder: "search Giphy gifs",
+            searchQuery: null
+        },
+
+        _initialize : function(){
+
+            this.mediaCollection._parse = function(res){
+            
+                var photos = res.items,
+                    count = 1;
+                
+                _.each( photos, function( photo ){
+                    if(!_.isUndefined(photo.attributes.id)){
+                        photo.id = photo.attributes.id;
+                    } else {
+                        photo.id = count;
+                    }
+                    
+                    count++;
+                });
+                
+                if( res.request.parser && res.request.parser.more ){
+                    this.more = true;
+                } else {
+                    this.more = false;
+                }
+                
+                return photos;
+            };
+        },
+
+        getQuery: function(){
+            return this.get("urlArguments").tag;
+        },
+        
+        _search: function( query ){
+
+            var args = this.get("urlArguments");
+
+         
+            args.offset = 0;
+            
+            if( query !== "" ){
+                args.tag = query.replace( " ", "-" );
+            }
+            
+            
+
+            args.url = "http://giphy.com/tags/" + args.tag + "/offset/" + args.offset;
+
+            this.set("urlArguments", args );
+            this.mediaCollection.fetch();
+            
+        },
+        _more: function(){
+
+            var args = this.get("urlArguments");
+            args.offset += 50;
+            args.url = "http://giphy.com/tags/" + args.tag + "/offset/" + args.offset;
+
+            this.set("urlArguments", args );
+            this.mediaCollection.fetch({remove: false});
+        }
+    });
+});
+
+define('modules/media-browser/api/favorites',[
+    "app",
+    "modules/media-browser/search-model",
+    "backbone"
+],
+
+function( app, SearchModel ) {
+
+    return SearchModel.extend({
+
+        api: "Favorites",
+        mediaCollection: null,
+        apiUrl: app.searchAPI,
+        favUrl: app.searchAPI + "type=Image&user=" + app.metadata.favId + "&limit=48",
+        allowSearch: false,
+
+        defaults: {
+                urlArguments: {
+                    collection: "",
+                    type: "Image",
+                    page: 1,
+                    q: "",
+                    limit: 48,
+                    user: 1,
+                    sort: "date-desc"
+            },
+            title: "Zeega",
+            placeholder: "search Zeega favorites",
+            searchQuery: null
+        },
+
+        _initialize: function(){
+            this.mediaCollection.url = function() {
+                var url;
+
+                if( this.searchModel.getQuery() === "" && this.searchModel.api != "Zeega" ){
+                    
+                    url = this.searchModel.favUrl;
+
+                } else {
+
+                    url = this.searchModel.apiUrl;
+                    _.each( this.searchModel.toJSON().urlArguments, function( value, key ) {
+                        if ( value !== "" && value !== null ) {
+                            url += key + "=" + ( _.isFunction( value ) ? value() : value ) + "&";
+                        }
+                    });
+                }
+                return url;
+            };
+        }
+    });
+
+});
+
+define('modules/media-browser/media-library',[
+    "app",
+    "modules/media-browser/api/zeega",
+    "modules/media-browser/api/flickr",
+    "modules/media-browser/api/tumblr",
+    "modules/media-browser/api/soundcloud",
+    "modules/media-browser/api/giphy",
+    "modules/media-browser/api/favorites",
+    "backbone"
+],
+
+function( app, ZeegaSearch, FlickrSearch, TumblrSearch, SoundcloudSearch, GiphySearch, FavoritesSearch ) {
+
+
+
+    return Backbone.Model.extend({
+
+        defaults:{
+            Flickr: new FlickrSearch(),
+            Zeega: new ZeegaSearch(),
+            Tumblr: new TumblrSearch(),
+            Soundcloud: new SoundcloudSearch(),
+            Giphy: new GiphySearch(),
+            Favorites: new FavoritesSearch()
+        },
+        
+        initialize: function() {
+             this.set ( "currentAPI", "Zeega" );
+             app.mediaSearchQuery = "";
+        },
+
+        setAPI: function( api ){
+            this.set ( "currentAPI", api );
+        },
+
+        getAPI: function(){
+            return this.get( this.get("currentAPI") );
+        },
+
+        more: function(){
+            this.get( this.get("currentAPI")).more();
+        }
+
+
+
+    });
+
+});
+
+define('modules/media-browser/media-upload',[
+    "app",
+    "modules/media-browser/item-view",
+    "backbone"
+],
+
+function( app, ItemView ) {
+
+    var UploadItem = Backbone.Model.extend({
+        modelType: "item",
+        url: app.api + "items",
+        defaults:{
+            "title": "",
+            "headline": "",
+            "description": "",
+            "text": "",
+            "uri": "",
+            "attribution_uri": "",
+            "thumbnail_url": "",
+            "media_type": "Image",
+            "layer_type": "Image",
+            "archive": "Upload",
+            "media_geo_latitude": null,
+            "media_geo_longitude": null,
+            "media_date_created": "",
+            "child_items_count": 0,
+            "editable": true,
+            "published": false,
+            "enabled": true,
+            "allowDelete": true
+        },
+
+        initialize: function() {
+            this.view = new ItemView({ model: this });
+        }
+    });
+
+    var WebItem = UploadItem.extend({
+        defaults:{
+            "title": "",
+            "headline": "",
+            "description": "",
+            "text": "",
+            "uri": "",
+            "attribution_uri": "",
+            "thumbnail_url": "",
+            "media_type": "Image",
+            "layer_type": "Image",
+            "archive": "Absolute",
+            "media_geo_latitude": null,
+            "media_geo_longitude": null,
+            "media_date_created": "",
+            "child_items_count": 0,
+            "editable": true,
+            "published": false,
+            "enabled": true,
+            "allowDelete": true
+        },
+        url: function(){
+
+            var url = app.api + "items/parser?url=" + this.get("web_url");
+
+            return url;
+        },
+
+        parse: function( res ) {
+            var item;
+
+            if ( res.code == 500 ){
+                this.itemsCount = 0;
+                return array();
+            }
+
+            if(!_.isUndefined(res.item)){
+                item = res.item[ 0 ];
+            } else {
+                item = res.items[ 0 ];
+            }
+
+            
+            item.editable = -1;
+
+            return item;
+        }
+
+    });
+
+    return Backbone.View.extend({
+
+        template: "app/templates/media-upload",
+        className: "media-upload",
+
+        events: {
+            "click .upload-image-action": "showUploadImage",
+            "click .paste-url-action": "showPasteBox",
+            "change #imagefile": "imageUpload",
+            "keyup .url-box": "onSearchKeyPress"
+        },
+
+        showUploadImage: function() {
+
+       
+
+            this.$("#image-file").trigger("click");
+            this.$(".upload-file").show();
+            this.$(".paste-url").hide();
+            this.$(".upload-image-action").addClass("active");
+            this.$(".paste-url-action").removeClass("active");
+        },
+
+        showPasteBox: function() {
+            this.$(".upload-file").hide();
+            this.$(".paste-url").show();
+            this.$(".upload-image-action").removeClass("active");
+            this.$(".paste-url-action").addClass("active");
+        },
+        
+        onSearchKeyPress: function( e ) {
+            var url = this.$(".url-box").val();
+            if ( e.which == 13 ) {
+                this.$(".url-box").val("");
+                this.search( url );
+                return false;
+            }
+        },
+
+        addItem: function( item ) {
+            item.off("sync");
+            app.layout.$(".intro").remove();
+            item.url = app.api + "items";
+            item.on("sync", this.refreshUploads, this );
+
+
+            // gifs only
+            if( item.get("thumbnail_url").indexOf(".gif") > 0 ){
+                item.set({
+                    "attributes": {
+                        animate_url: item.get("thumbnail_url")
+                    }
+                });
+                item.unset("thumbnail_url");
+            }
+
+            item.save();
+
+
+            if ( item.get("layer_type")  && _.contains( ["Audio"], item.get("layer_type") )) {
+                app.status.get('currentSequence').setSoundtrack( item, app.layout.soundtrack, { source: "import-item", itemSource: item.get("Archive") } );
+            } else {
+                app.status.get('currentFrame').addLayerByItem( item, { source: "import-item", itemSource: item.get("Archive") } );
+            }
+        },
+
+        search: function( url ){
+            var item = new WebItem({ web_url: url });
+            item.on("sync", this.addItem, this );
+            item.fetch();
+        },
+
+        refreshUploads: function( item ){
+
+            this.model.mediaCollection.add( item, {at:0} );
+            this.model.mediaCollection.trigger("sync");
+
+        },
+        updateProgress: function(){
+            console.log("updating progress");
+        },
+        imageUpload: function(event) {
+
+            this.$('.upload-instructions').html("uploading... ");
+
+            var fileInput = event.target,
+                imageData,
+                _this = this;
+
+            imageData = new FormData();
+            imageData.append( "file", fileInput.files[0] );
+
+            var updateProgress = function( e ){
+                var w = e.loaded * 141 / e.total;
+                _this.$('.upload-progress').clearQueue().animate ({ "width": w + "px"}, 1000);
+                if(  w == 141 ) {
+                    _this.$('.upload-progress').clearQueue().animate ({ "width": "283px"}, 10000);
+                }
+
+            };
+
+            $.ajax({
+                url: app.mediaServer + "image",
+                type: "POST",
+                data: imageData,
+                dataType: "json",
+                processData: false,
+                contentType: false,
+                fileElementId: "imagefile",
+                
+                xhr: function() {  // custom xhr
+                    myXhr = $.ajaxSettings.xhr();
+                    if(myXhr.upload){ // check if upload property exists
+                        myXhr.upload.addEventListener('progress', updateProgress, false); // for handling the progress of the upload
+                    }
+                    return myXhr;
+                },
+                
+                success: function( data ) {
+                    var item = new UploadItem({
+                        "title": data.title,
+                        "uri": data.fullsize_url,
+                        "attribution_uri": data.fullsize_url,
+                        "thumbnail_url": data.image_url_4
+                    });
+
+                    $(".intro").remove();
+                    this.addItem( item );
+                    this.render();
+                }.bind(this)
+            });
+        }
+
+
+    });
+
+});
+
+
+//fgnass.github.com/spin.js#v1.3
+
+/**
+ * Copyright (c) 2011-2013 Felix Gnass
+ * Licensed under the MIT license
+ */
+(function(root, factory) {
+
+  /* CommonJS */
+  if (typeof exports == 'object')  module.exports = factory()
+
+  /* AMD module */
+  else if (typeof define == 'function' && define.amd) define('spin',[],factory)
+
+  /* Browser global */
+  else root.Spinner = factory()
+}
+(this, function() {
+  
+
+  var prefixes = ['webkit', 'Moz', 'ms', 'O'] /* Vendor prefixes */
+    , animations = {} /* Animation rules keyed by their name */
+    , useCssAnimations /* Whether to use CSS animations or setTimeout */
+
+  /**
+   * Utility function to create elements. If no tag name is given,
+   * a DIV is created. Optionally properties can be passed.
+   */
+  function createEl(tag, prop) {
+    var el = document.createElement(tag || 'div')
+      , n
+
+    for(n in prop) el[n] = prop[n]
+    return el
+  }
+
+  /**
+   * Appends children and returns the parent.
+   */
+  function ins(parent /* child1, child2, ...*/) {
+    for (var i=1, n=arguments.length; i<n; i++)
+      parent.appendChild(arguments[i])
+
+    return parent
+  }
+
+  /**
+   * Insert a new stylesheet to hold the @keyframe or VML rules.
+   */
+  var sheet = (function() {
+    var el = createEl('style', {type : 'text/css'})
+    ins(document.getElementsByTagName('head')[0], el)
+    return el.sheet || el.styleSheet
+  }())
+
+  /**
+   * Creates an opacity keyframe animation rule and returns its name.
+   * Since most mobile Webkits have timing issues with animation-delay,
+   * we create separate rules for each line/segment.
+   */
+  function addAnimation(alpha, trail, i, lines) {
+    var name = ['opacity', trail, ~~(alpha*100), i, lines].join('-')
+      , start = 0.01 + i/lines * 100
+      , z = Math.max(1 - (1-alpha) / trail * (100-start), alpha)
+      , prefix = useCssAnimations.substring(0, useCssAnimations.indexOf('Animation')).toLowerCase()
+      , pre = prefix && '-' + prefix + '-' || ''
+
+    if (!animations[name]) {
+      sheet.insertRule(
+        '@' + pre + 'keyframes ' + name + '{' +
+        '0%{opacity:' + z + '}' +
+        start + '%{opacity:' + alpha + '}' +
+        (start+0.01) + '%{opacity:1}' +
+        (start+trail) % 100 + '%{opacity:' + alpha + '}' +
+        '100%{opacity:' + z + '}' +
+        '}', sheet.cssRules.length)
+
+      animations[name] = 1
+    }
+
+    return name
+  }
+
+  /**
+   * Tries various vendor prefixes and returns the first supported property.
+   */
+  function vendor(el, prop) {
+    var s = el.style
+      , pp
+      , i
+
+    if(s[prop] !== undefined) return prop
+    prop = prop.charAt(0).toUpperCase() + prop.slice(1)
+    for(i=0; i<prefixes.length; i++) {
+      pp = prefixes[i]+prop
+      if(s[pp] !== undefined) return pp
+    }
+  }
+
+  /**
+   * Sets multiple style properties at once.
+   */
+  function css(el, prop) {
+    for (var n in prop)
+      el.style[vendor(el, n)||n] = prop[n]
+
+    return el
+  }
+
+  /**
+   * Fills in default values.
+   */
+  function merge(obj) {
+    for (var i=1; i < arguments.length; i++) {
+      var def = arguments[i]
+      for (var n in def)
+        if (obj[n] === undefined) obj[n] = def[n]
+    }
+    return obj
+  }
+
+  /**
+   * Returns the absolute page-offset of the given element.
+   */
+  function pos(el) {
+    var o = { x:el.offsetLeft, y:el.offsetTop }
+    while((el = el.offsetParent))
+      o.x+=el.offsetLeft, o.y+=el.offsetTop
+
+    return o
+  }
+
+  // Built-in defaults
+
+  var defaults = {
+    lines: 12,            // The number of lines to draw
+    length: 7,            // The length of each line
+    width: 5,             // The line thickness
+    radius: 10,           // The radius of the inner circle
+    rotate: 0,            // Rotation offset
+    corners: 1,           // Roundness (0..1)
+    color: '#000',        // #rgb or #rrggbb
+    direction: 1,         // 1: clockwise, -1: counterclockwise
+    speed: 1,             // Rounds per second
+    trail: 100,           // Afterglow percentage
+    opacity: 1/4,         // Opacity of the lines
+    fps: 20,              // Frames per second when using setTimeout()
+    zIndex: 2e9,          // Use a high z-index by default
+    className: 'spinner', // CSS class to assign to the element
+    top: 'auto',          // center vertically
+    left: 'auto',         // center horizontally
+    position: 'relative'  // element position
+  }
+
+  /** The constructor */
+  function Spinner(o) {
+    if (typeof this == 'undefined') return new Spinner(o)
+    this.opts = merge(o || {}, Spinner.defaults, defaults)
+  }
+
+  // Global defaults that override the built-ins:
+  Spinner.defaults = {}
+
+  merge(Spinner.prototype, {
+
+    /**
+     * Adds the spinner to the given target element. If this instance is already
+     * spinning, it is automatically removed from its previous target b calling
+     * stop() internally.
+     */
+    spin: function(target) {
+      this.stop()
+
+      var self = this
+        , o = self.opts
+        , el = self.el = css(createEl(0, {className: o.className}), {position: o.position, width: 0, zIndex: o.zIndex})
+        , mid = o.radius+o.length+o.width
+        , ep // element position
+        , tp // target position
+
+      if (target) {
+        target.insertBefore(el, target.firstChild||null)
+        tp = pos(target)
+        ep = pos(el)
+        css(el, {
+          left: (o.left == 'auto' ? tp.x-ep.x + (target.offsetWidth >> 1) : parseInt(o.left, 10) + mid) + 'px',
+          top: (o.top == 'auto' ? tp.y-ep.y + (target.offsetHeight >> 1) : parseInt(o.top, 10) + mid)  + 'px'
+        })
+      }
+
+      el.setAttribute('role', 'progressbar')
+      self.lines(el, self.opts)
+
+      if (!useCssAnimations) {
+        // No CSS animation support, use setTimeout() instead
+        var i = 0
+          , start = (o.lines - 1) * (1 - o.direction) / 2
+          , alpha
+          , fps = o.fps
+          , f = fps/o.speed
+          , ostep = (1-o.opacity) / (f*o.trail / 100)
+          , astep = f/o.lines
+
+        ;(function anim() {
+          i++;
+          for (var j = 0; j < o.lines; j++) {
+            alpha = Math.max(1 - (i + (o.lines - j) * astep) % f * ostep, o.opacity)
+
+            self.opacity(el, j * o.direction + start, alpha, o)
+          }
+          self.timeout = self.el && setTimeout(anim, ~~(1000/fps))
+        })()
+      }
+      return self
+    },
+
+    /**
+     * Stops and removes the Spinner.
+     */
+    stop: function() {
+      var el = this.el
+      if (el) {
+        clearTimeout(this.timeout)
+        if (el.parentNode) el.parentNode.removeChild(el)
+        this.el = undefined
+      }
+      return this
+    },
+
+    /**
+     * Internal method that draws the individual lines. Will be overwritten
+     * in VML fallback mode below.
+     */
+    lines: function(el, o) {
+      var i = 0
+        , start = (o.lines - 1) * (1 - o.direction) / 2
+        , seg
+
+      function fill(color, shadow) {
+        return css(createEl(), {
+          position: 'absolute',
+          width: (o.length+o.width) + 'px',
+          height: o.width + 'px',
+          background: color,
+          boxShadow: shadow,
+          transformOrigin: 'left',
+          transform: 'rotate(' + ~~(360/o.lines*i+o.rotate) + 'deg) translate(' + o.radius+'px' +',0)',
+          borderRadius: (o.corners * o.width>>1) + 'px'
+        })
+      }
+
+      for (; i < o.lines; i++) {
+        seg = css(createEl(), {
+          position: 'absolute',
+          top: 1+~(o.width/2) + 'px',
+          transform: o.hwaccel ? 'translate3d(0,0,0)' : '',
+          opacity: o.opacity,
+          animation: useCssAnimations && addAnimation(o.opacity, o.trail, start + i * o.direction, o.lines) + ' ' + 1/o.speed + 's linear infinite'
+        })
+
+        if (o.shadow) ins(seg, css(fill('#000', '0 0 4px ' + '#000'), {top: 2+'px'}))
+
+        ins(el, ins(seg, fill(o.color, '0 0 1px rgba(0,0,0,.1)')))
+      }
+      return el
+    },
+
+    /**
+     * Internal method that adjusts the opacity of a single line.
+     * Will be overwritten in VML fallback mode below.
+     */
+    opacity: function(el, i, val) {
+      if (i < el.childNodes.length) el.childNodes[i].style.opacity = val
+    }
+
+  })
+
+
+  function initVML() {
+
+    /* Utility function to create a VML tag */
+    function vml(tag, attr) {
+      return createEl('<' + tag + ' xmlns="urn:schemas-microsoft.com:vml" class="spin-vml">', attr)
+    }
+
+    // No CSS transforms but VML support, add a CSS rule for VML elements:
+    sheet.addRule('.spin-vml', 'behavior:url(#default#VML)')
+
+    Spinner.prototype.lines = function(el, o) {
+      var r = o.length+o.width
+        , s = 2*r
+
+      function grp() {
+        return css(
+          vml('group', {
+            coordsize: s + ' ' + s,
+            coordorigin: -r + ' ' + -r
+          }),
+          { width: s, height: s }
+        )
+      }
+
+      var margin = -(o.width+o.length)*2 + 'px'
+        , g = css(grp(), {position: 'absolute', top: margin, left: margin})
+        , i
+
+      function seg(i, dx, filter) {
+        ins(g,
+          ins(css(grp(), {rotation: 360 / o.lines * i + 'deg', left: ~~dx}),
+            ins(css(vml('roundrect', {arcsize: o.corners}), {
+                width: r,
+                height: o.width,
+                left: o.radius,
+                top: -o.width>>1,
+                filter: filter
+              }),
+              vml('fill', {color: o.color, opacity: o.opacity}),
+              vml('stroke', {opacity: 0}) // transparent stroke to fix color bleeding upon opacity change
+            )
+          )
+        )
+      }
+
+      if (o.shadow)
+        for (i = 1; i <= o.lines; i++)
+          seg(i, -2, 'progid:DXImageTransform.Microsoft.Blur(pixelradius=2,makeshadow=1,shadowopacity=.3)')
+
+      for (i = 1; i <= o.lines; i++) seg(i)
+      return ins(el, g)
+    }
+
+    Spinner.prototype.opacity = function(el, i, val, o) {
+      var c = el.firstChild
+      o = o.shadow && o.lines || 0
+      if (c && i+o < c.childNodes.length) {
+        c = c.childNodes[i+o]; c = c && c.firstChild; c = c && c.firstChild
+        if (c) c.opacity = val
+      }
+    }
+  }
+
+  var probe = css(createEl('group'), {behavior: 'url(#default#VML)'})
+
+  if (!vendor(probe, 'transform') && probe.adj) initVML()
+  else useCssAnimations = vendor(probe, 'animation')
+
+  return Spinner
+
+}));
+define('modules/media-browser/search-view',[
+    "app",
+    "modules/media-browser/media-upload",
+    "spin",
+    "backbone"
+],
+
+function( app, UploadView, Spinner ) {
+
+    return Backbone.View.extend({
+
+        busy: false,
+        spinner: null,
+
+        defaults: {
+            title: "untitled"
+        },
+
+        className: "media-collection",
+        template: "app/templates/media-collection",
+
+        serialize: function() {
+            var d=new Date();
+            var weekday=new Array(7);
+
+            weekday[0]="Sunday";
+            weekday[1]="Monday";
+            weekday[2]="Tuesday";
+            weekday[3]="Wednesday";
+            weekday[4]="Thursday";
+            weekday[5]="Friday";
+            weekday[6]="Saturday";
+
+            return _.extend({},
+                _.defaults( this.model.toJSON(), this.defaults ),
+                { day: weekday[d.getDay()] }
+            );
+        },
+
+        listen: null,
+
+        initialize: function() {
+            this.listen = _.once(function() {
+                this.model.mediaCollection.on("sync", this.renderItems, this );
+                this.model.mediaCollection.on("error", this.onError, this );
+            }.bind( this ));
+
+            this.initSpinner();
+        },
+
+        initSpinner: function() {
+            var opts = {
+                lines: 12, // The number of lines to draw
+                length: 5, // The length of each line
+                width: 2, // The line thickness
+                radius: 5, // The radius of the inner circle
+                corners: 1, // Corner roundness (0..1)
+                color: '#fff' // #rgb or #rrggbb
+            };
+            this.spinner = new Spinner( opts );
+        },
+
+        onError: function( a, b  ){
+            
+            this.$(".more-tab").remove();
+            this.$(".media-collection-items").append("<div class='empty-collection'>Oops! Couldn't connect to "+ this.model.get("title") +".<br>  Try again?</div>");
+            this.releaseSearchBox();
+        },
+
+        releaseSearchBox: function(){
+            this.$(".search-box, .media-collection-wrapper").css({
+                opacity: 1
+            });
+            this.$(".label").css("visibility", "visible");
+            this.spinner.stop();
+            this.busy = false;
+        },
+
+        afterRender: function() {
+            
+            this.renderItems();
+            this._afterRender();
+            
+            if( this.model.allowSearch ){
+                $(".media-collection-search").show();
+            } else if( this.model.api == "Zeega" ){
+                var uploadView = new UploadView({ model: this.model });
+                this.$el.find(".media-collection-header").append( uploadView.el );
+                uploadView.render();
+            }
+        },
+
+        //extend this function
+        _afterRender: function(){
+
+        },
+
+        renderItems: function() {
+
+            
+
+            this.$(".more-tab").remove();
+
+
+            if ( this.model.mediaCollection.length && this.model.mediaCollection.at( 0 ).get("uri") ) {
+                this.model.mediaCollection.each(function( item ) {
+                    this.$(".media-collection-items").append( item.view.el );
+                    item.view.render();
+                }, this );
+                if( this.model.mediaCollection.more ){
+                    this.$(".media-collection-items").append("<li class='item more-tab'><h2>more</h2></li>");
+                }
+            } else if( !this.model.resultsReturned() && this.model.mediaCollection.length === 0) {
+                
+                this.$(".media-collection-items").append("<div class='empty-collection'>no items found :( try again?</div>");
+            } 
+
+
+            this.listen();
+
+           
+
+            if( this.model.getQuery() === "" && this.model.api != "Zeega" ){
+                this.$(".media-collection-headline").show();
+            } else {
+                this.$(".media-collection-headline").hide();
+            }
+
+            this.releaseSearchBox();
+
+            $(this.el).find("img").on("error", function(e) {
+                $(e.target).closest("li").hide();
+            });
+        },
+
+        events: {
+            "keyup .search-box": "onSearchKeyPress",
+            "click .submit": "onSubmitClick",
+            "click .more-tab": "loadMore"
+        },
+
+        onSearchKeyPress: function( e ) {
+            if ( !this.busy ){
+                if ( e.which == 13 ) {
+                    app.mediaSearchQuery = this.$(".search-box").val();
+                    this.search( app.mediaSearchQuery );
+                }
+            }
+        },
+
+        onSubmitClick: function() {
+            if ( !this.busy ) {
+                app.mediaSearchQuery = this.$(".search-box").val();
+                this.search( app.mediaSearchQuery );
+            }
+        },
+        loadMore: function(){
+            this.busy = true;
+            this.$( ".more-tab").empty();
+            this.spinner.spin( this.$( ".more-tab")[0] );
+            this.model.more();
+        },
+        search: function( query ) {
+            if( !this.model.allowSearch ){
+                this.model.search( "" );
+            } else if( this.model.getRawQuery() != query){
+                this.$(".search-box").attr("value", query);
+                this.busy = true;
+                this.$(".media-collection-items").empty();
+                this.model.search( query );
+                this.$(".search-box").blur();
+                this.$(".search-box, .media-collection-wrapper").css({
+                    opacity: 0.5
+                });
+
+                this.$(".label").css("visibility", "hidden");
+
+                this.spinner.spin( this.$(".submit")[0] );
+            } else {
+                this.render();
+            }
+        }
+
+    });
+
+});
+
+define('modules/media-browser/media-drawer-view',[
+    "app",
+    "modules/media-browser/media-library",
+    "modules/media-browser/search-view",
+    "backbone"
+],
+
+function( app, MediaLibrary, SearchView ) {
+
+    return Backbone.View.extend({
 
         el: null,
         template: "app/templates/media-drawer",
 
         initialize: function() {
-            app.on("window-resize", this.onResize, this );
+            this.model = new MediaLibrary();
         },
 
         afterRender: function() {
             
-            this.renderMedia();
+            this.model.setAPI( "Favorites" );
+            this.setView();
         },
-        renderMedia: function() {
-            var collection = this.model.getCurrent();
-
-            this.$(".ZEEGA-items").empty();
-            this.$(".ZEEGA-items").append( collection.view.el );
-            collection.view.render();
+        setView: function( ) {
+           
+            var searchView = new SearchView({model: this.model.getAPI() });
+            this.$(".ZEEGA-items").empty().append( searchView.el );
+            searchView.render();
+            searchView.search( app.mediaSearchQuery );
         },
 
 
@@ -41164,14 +43034,18 @@ function( app ) {
             var api = $(event.target).closest("a").data("api");
 
             app.emit("media_drawer_toggle", api );
+            
             this.$(".media-toggle").removeClass("active");
             this.$(".media-toggle i").removeClass("socialz-white");
             $(event.target).closest("a").addClass("active");
             $(event.target).closest("a").find("i").addClass("socialz-white");
 
             this.$el.find(".search-box").attr("placeholder", "search " + api);
+            
+
             this.model.setAPI( api );
-            this.renderMedia();
+            this.setView();
+            
 
             if( api === "Soundcloud" ){
                 this.$el.addClass("list");
@@ -41180,10 +43054,6 @@ function( app ) {
             }
             return false;
         }
-
-
-
-
     });
 
 });
@@ -42252,7 +44122,7 @@ define('modules/layout-main',[
     "modules/views/layers",
     "modules/views/layer-drawer",
     "modules/views/soundtrack",
-    "modules/views/media-drawer",
+    "modules/media-browser/media-drawer-view",
     "modules/pointers/pointers",
     "modules/intro-modal/intro-modal.view",
     "mousetrap",
@@ -42284,8 +44154,7 @@ function( app, ProjectHead, Frames, Workspace, Layers, LayerDrawer, Soundtrack, 
         onMediaDrawerToggle: function( api ){
             clearInterval ( this.animateInterval );
             this.animated = 0;
-            console.log("on media drawer toggle");
-            if( api == "Zeega" || api == "MyZeega" || api == "Giphy" ){
+            if( api == "Zeega" || api == "Favorites" || api == "Giphy" ){
                 var animator = $.proxy(function(){this.animateThumbs();}, this );
                 this.animateInterval = setInterval( animator, 3000 );
             }
@@ -42340,7 +44209,6 @@ function( app, ProjectHead, Frames, Workspace, Layers, LayerDrawer, Soundtrack, 
             }).render();
 
             new MediaDrawer({
-                model: app.mediaBrowser,
                 el: this.$(".media-drawer")
             }).render();
 
@@ -42512,1974 +44380,6 @@ function( app, ProjectHead, Frames, Workspace, Layers, LayerDrawer, Soundtrack, 
                 }
 
             ]
-
-    });
-
-});
-
-define('modules/views/item',[
-    "app",
-    "backbone"
-],
-
-function( app, ItemView ) {
-
-    return Backbone.View.extend({
-
-        className: function() {
-            return "item item-" + this.model.id;
-        },
-        tagName: "li",
-        template: "app/templates/item",
-
-        serialize: function() {
-            var w, h, offset,
-                style = "";
-            if( this.model.get("attributes") && this.model.get("attributes").height ){
-                if( this.model.get("attributes").width > this.model.get("attributes").height ){
-                    h = 75;
-                    w = h * this.model.get("attributes").width / this.model.get("attributes").height ;
-                    offset = ( 75 - w )/2;
-                    style = "width:" + w +"px; height:" + h + "px; left:" + offset + "px;";
-                } else {
-                    w = 75;
-                    h = this.model.get("attributes").height * w / this.model.get("attributes").width;
-                    offset = ( 75 - h )/2;
-                    style = "width:" + w +"px; height:" + h + "px; top:" + offset + "px;";
-                }
-                
-            }
-            return _.extend( {
-                        style: style
-                    },
-                    this.model.toJSON()
-            );
-        },
-
-        afterRender: function() {
-            this.listenTo(this.model, 'destroy', this.remove);
-            this.$el.draggable({
-                revert: "invalid",
-                appendTo: $("body"),
-                zIndex: 10000,
-                cursorAt: {
-                    left: 20,
-                    top: 20
-                },
-                helper: function( e ) {
-                    
-                    return $(this).find(".item-thumb img").clone().addClass("item-dragging");
-                },
-                start: function() {
-                    if ( this.model.get("media_type") == "Image" ) {
-                        $("body").append("<img class='img-preload' src='" + this.model.get("uri") + "' height='1px' width='1px' style='position:absolute;left:-1000%;top:-1000%'/>");
-                    }
-                    app.emit("item_drag_start", this.model );
-                    app.dragging = this.model;
-                }.bind( this ),
-                stop: function() {
-                    $(".img-preload").remove();
-                    app.emit("item_drag_stop", this.model );
-                    app.dragging = null;
-                }
-            });
-        },
-
-        events: {
-            "click": "viewItem",
-            "mouseover img": "onMouseOver",
-            "mouseout img": "onMouseOut"
-        },
-
-        onMouseOver: function(){
-            if( this.model.get("archive") == "Giphy" ){
-                this.$("img").attr("src", this.model.get("thumbnail_url").replace("_s.gif", ".gif"));
-            }
-
-            if( this.model.get("attributes") && !_.isUndefined( this.model.get("attributes").animate_url ) ){
-                this.$("img").attr("src", this.model.get("attributes").animate_url );
-            }
-        },
-
-        onMouseOut: function(){
-            if( this.model.get("archive") == "Giphy" ){
-                this.$("img").attr("src", this.model.get("thumbnail_url"));
-            }
-
-            if( this.model.get("attributes") && !_.isUndefined( this.model.get("attributes").animate_url ) ){
-                this.$("img").attr("src", this.model.get("thumbnail_url"));
-            }
-        },
-
-        viewItem: function() {
-            this.model.collection.itemViewer( this.model );
-        }
-
-    });
-
-});
-
-define('modules/item.model',[
-    "app",
-    "modules/views/item",
-    "backbone"
-],
-
-function( app, ItemView ) {
-
-    return Backbone.Model.extend({
-        
-        view: null,
-        defaults: {
-            allowDelete: 0
-        },
-        url: function(){
-            var url = app.api + "items/" + this.id;
-
-            return url;
-        },
-        
-        initialize: function() {
-            this.view = new ItemView({ model: this });
-        }
-
-    });
-
-});
-
-define('modules/views/media-upload',[
-    "app",
-    "modules/views/item",
-    "backbone"
-],
-
-function( app, ItemView ) {
-
-    var UploadItem = Backbone.Model.extend({
-        modelType: "item",
-        url: app.api + "items",
-        defaults:{
-            "title": "",
-            "headline": "",
-            "description": "",
-            "text": "",
-            "uri": "",
-            "attribution_uri": "",
-            "thumbnail_url": "",
-            "media_type": "Image",
-            "layer_type": "Image",
-            "archive": "Upload",
-            "media_geo_latitude": null,
-            "media_geo_longitude": null,
-            "media_date_created": "",
-            "child_items_count": 0,
-            "editable": true,
-            "published": false,
-            "enabled": true,
-            "allowDelete": true
-        },
-
-        initialize: function() {
-            this.view = new ItemView({ model: this });
-        }
-    });
-
-    var WebItem = UploadItem.extend({
-        defaults:{
-            "title": "",
-            "headline": "",
-            "description": "",
-            "text": "",
-            "uri": "",
-            "attribution_uri": "",
-            "thumbnail_url": "",
-            "media_type": "Image",
-            "layer_type": "Image",
-            "archive": "Absolute",
-            "media_geo_latitude": null,
-            "media_geo_longitude": null,
-            "media_date_created": "",
-            "child_items_count": 0,
-            "editable": true,
-            "published": false,
-            "enabled": true,
-            "allowDelete": true
-        },
-        url: function(){
-
-            var url = app.api + "items/parser?url=" + this.get("web_url");
-
-            return url;
-        },
-
-        parse: function( res ) {
-            var item;
-
-            if ( res.code == 500 ){
-                this.itemsCount = 0;
-                return array();
-            }
-
-            if(!_.isUndefined(res.item)){
-                item = res.item[ 0 ];
-            } else {
-                item = res.items[ 0 ];
-            }
-
-            
-            item.editable = -1;
-
-            return item;
-        }
-
-    });
-
-    return Backbone.View.extend({
-
-        template: "app/templates/media-upload",
-        className: "media-upload",
-
-        events: {
-            "click .upload-image-action": "showUploadImage",
-            "click .paste-url-action": "showPasteBox",
-            "change #imagefile": "imageUpload",
-            "keyup .url-box": "onSearchKeyPress"
-        },
-
-        showUploadImage: function() {
-
-       
-
-            this.$("#image-file").trigger("click");
-            this.$(".upload-file").show();
-            this.$(".paste-url").hide();
-            this.$(".upload-image-action").addClass("active");
-            this.$(".paste-url-action").removeClass("active");
-        },
-
-        showPasteBox: function() {
-            this.$(".upload-file").hide();
-            this.$(".paste-url").show();
-            this.$(".upload-image-action").removeClass("active");
-            this.$(".paste-url-action").addClass("active");
-        },
-        
-        onSearchKeyPress: function( e ) {
-            var url = this.$(".url-box").val();
-            if ( e.which == 13 ) {
-                this.$(".url-box").val("");
-                this.search( url );
-                return false;
-            }
-        },
-
-        addItem: function( item ) {
-            item.off("sync");
-            app.layout.$(".intro").remove();
-            item.url = app.api + "items";
-            item.on("sync", this.refreshUploads, this );
-
-
-            // gifs only
-            if( item.get("thumbnail_url").indexOf(".gif") > 0 ){
-                item.set({
-                    "attributes": {
-                        animate_url: item.get("thumbnail_url")
-                    }
-                });
-                item.unset("thumbnail_url");
-            }
-
-            item.save();
-
-
-            if ( item.get("layer_type")  && _.contains( ["Audio"], item.get("layer_type") )) {
-                app.status.get('currentSequence').setSoundtrack( item, app.layout.soundtrack, { source: "import-item", itemSource: item.get("Archive") } );
-            } else {
-                app.status.get('currentFrame').addLayerByItem( item, { source: "import-item", itemSource: item.get("Archive") } );
-            }
-        },
-
-        search: function( url ){
-            var item = new WebItem({ web_url: url });
-            item.on("sync", this.addItem, this );
-            item.fetch();
-        },
-
-        refreshUploads: function( item ){
-
-            this.model.mediaCollection.add( item, {at:0} );
-            this.model.mediaCollection.trigger("sync");
-
-        },
-        updateProgress: function(){
-            console.log("updating progress");
-        },
-        imageUpload: function(event) {
-
-            this.$('.upload-instructions').html("uploading... ");
-
-            var fileInput = event.target,
-                imageData,
-                _this = this;
-
-            imageData = new FormData();
-            imageData.append( "file", fileInput.files[0] );
-
-            var updateProgress = function( e ){
-                var w = e.loaded * 141 / e.total;
-                _this.$('.upload-progress').clearQueue().animate ({ "width": w + "px"}, 1000);
-                if(  w == 141 ) {
-                    _this.$('.upload-progress').clearQueue().animate ({ "width": "283px"}, 10000);
-                }
-
-            };
-
-            $.ajax({
-                url: app.mediaServer + "image",
-                type: "POST",
-                data: imageData,
-                dataType: "json",
-                processData: false,
-                contentType: false,
-                fileElementId: "imagefile",
-                
-                xhr: function() {  // custom xhr
-                    myXhr = $.ajaxSettings.xhr();
-                    if(myXhr.upload){ // check if upload property exists
-                        myXhr.upload.addEventListener('progress', updateProgress, false); // for handling the progress of the upload
-                    }
-                    return myXhr;
-                },
-                
-                success: function( data ) {
-                    var item = new UploadItem({
-                        "title": data.title,
-                        "uri": data.fullsize_url,
-                        "attribution_uri": data.fullsize_url,
-                        "thumbnail_url": data.image_url_4
-                    });
-
-                    $(".intro").remove();
-                    this.addItem( item );
-                    this.render();
-                }.bind(this)
-            });
-        }
-
-
-    });
-
-});
-
-
-//fgnass.github.com/spin.js#v1.3
-
-/**
- * Copyright (c) 2011-2013 Felix Gnass
- * Licensed under the MIT license
- */
-(function(root, factory) {
-
-  /* CommonJS */
-  if (typeof exports == 'object')  module.exports = factory()
-
-  /* AMD module */
-  else if (typeof define == 'function' && define.amd) define('spin',[],factory)
-
-  /* Browser global */
-  else root.Spinner = factory()
-}
-(this, function() {
-  
-
-  var prefixes = ['webkit', 'Moz', 'ms', 'O'] /* Vendor prefixes */
-    , animations = {} /* Animation rules keyed by their name */
-    , useCssAnimations /* Whether to use CSS animations or setTimeout */
-
-  /**
-   * Utility function to create elements. If no tag name is given,
-   * a DIV is created. Optionally properties can be passed.
-   */
-  function createEl(tag, prop) {
-    var el = document.createElement(tag || 'div')
-      , n
-
-    for(n in prop) el[n] = prop[n]
-    return el
-  }
-
-  /**
-   * Appends children and returns the parent.
-   */
-  function ins(parent /* child1, child2, ...*/) {
-    for (var i=1, n=arguments.length; i<n; i++)
-      parent.appendChild(arguments[i])
-
-    return parent
-  }
-
-  /**
-   * Insert a new stylesheet to hold the @keyframe or VML rules.
-   */
-  var sheet = (function() {
-    var el = createEl('style', {type : 'text/css'})
-    ins(document.getElementsByTagName('head')[0], el)
-    return el.sheet || el.styleSheet
-  }())
-
-  /**
-   * Creates an opacity keyframe animation rule and returns its name.
-   * Since most mobile Webkits have timing issues with animation-delay,
-   * we create separate rules for each line/segment.
-   */
-  function addAnimation(alpha, trail, i, lines) {
-    var name = ['opacity', trail, ~~(alpha*100), i, lines].join('-')
-      , start = 0.01 + i/lines * 100
-      , z = Math.max(1 - (1-alpha) / trail * (100-start), alpha)
-      , prefix = useCssAnimations.substring(0, useCssAnimations.indexOf('Animation')).toLowerCase()
-      , pre = prefix && '-' + prefix + '-' || ''
-
-    if (!animations[name]) {
-      sheet.insertRule(
-        '@' + pre + 'keyframes ' + name + '{' +
-        '0%{opacity:' + z + '}' +
-        start + '%{opacity:' + alpha + '}' +
-        (start+0.01) + '%{opacity:1}' +
-        (start+trail) % 100 + '%{opacity:' + alpha + '}' +
-        '100%{opacity:' + z + '}' +
-        '}', sheet.cssRules.length)
-
-      animations[name] = 1
-    }
-
-    return name
-  }
-
-  /**
-   * Tries various vendor prefixes and returns the first supported property.
-   */
-  function vendor(el, prop) {
-    var s = el.style
-      , pp
-      , i
-
-    if(s[prop] !== undefined) return prop
-    prop = prop.charAt(0).toUpperCase() + prop.slice(1)
-    for(i=0; i<prefixes.length; i++) {
-      pp = prefixes[i]+prop
-      if(s[pp] !== undefined) return pp
-    }
-  }
-
-  /**
-   * Sets multiple style properties at once.
-   */
-  function css(el, prop) {
-    for (var n in prop)
-      el.style[vendor(el, n)||n] = prop[n]
-
-    return el
-  }
-
-  /**
-   * Fills in default values.
-   */
-  function merge(obj) {
-    for (var i=1; i < arguments.length; i++) {
-      var def = arguments[i]
-      for (var n in def)
-        if (obj[n] === undefined) obj[n] = def[n]
-    }
-    return obj
-  }
-
-  /**
-   * Returns the absolute page-offset of the given element.
-   */
-  function pos(el) {
-    var o = { x:el.offsetLeft, y:el.offsetTop }
-    while((el = el.offsetParent))
-      o.x+=el.offsetLeft, o.y+=el.offsetTop
-
-    return o
-  }
-
-  // Built-in defaults
-
-  var defaults = {
-    lines: 12,            // The number of lines to draw
-    length: 7,            // The length of each line
-    width: 5,             // The line thickness
-    radius: 10,           // The radius of the inner circle
-    rotate: 0,            // Rotation offset
-    corners: 1,           // Roundness (0..1)
-    color: '#000',        // #rgb or #rrggbb
-    direction: 1,         // 1: clockwise, -1: counterclockwise
-    speed: 1,             // Rounds per second
-    trail: 100,           // Afterglow percentage
-    opacity: 1/4,         // Opacity of the lines
-    fps: 20,              // Frames per second when using setTimeout()
-    zIndex: 2e9,          // Use a high z-index by default
-    className: 'spinner', // CSS class to assign to the element
-    top: 'auto',          // center vertically
-    left: 'auto',         // center horizontally
-    position: 'relative'  // element position
-  }
-
-  /** The constructor */
-  function Spinner(o) {
-    if (typeof this == 'undefined') return new Spinner(o)
-    this.opts = merge(o || {}, Spinner.defaults, defaults)
-  }
-
-  // Global defaults that override the built-ins:
-  Spinner.defaults = {}
-
-  merge(Spinner.prototype, {
-
-    /**
-     * Adds the spinner to the given target element. If this instance is already
-     * spinning, it is automatically removed from its previous target b calling
-     * stop() internally.
-     */
-    spin: function(target) {
-      this.stop()
-
-      var self = this
-        , o = self.opts
-        , el = self.el = css(createEl(0, {className: o.className}), {position: o.position, width: 0, zIndex: o.zIndex})
-        , mid = o.radius+o.length+o.width
-        , ep // element position
-        , tp // target position
-
-      if (target) {
-        target.insertBefore(el, target.firstChild||null)
-        tp = pos(target)
-        ep = pos(el)
-        css(el, {
-          left: (o.left == 'auto' ? tp.x-ep.x + (target.offsetWidth >> 1) : parseInt(o.left, 10) + mid) + 'px',
-          top: (o.top == 'auto' ? tp.y-ep.y + (target.offsetHeight >> 1) : parseInt(o.top, 10) + mid)  + 'px'
-        })
-      }
-
-      el.setAttribute('role', 'progressbar')
-      self.lines(el, self.opts)
-
-      if (!useCssAnimations) {
-        // No CSS animation support, use setTimeout() instead
-        var i = 0
-          , start = (o.lines - 1) * (1 - o.direction) / 2
-          , alpha
-          , fps = o.fps
-          , f = fps/o.speed
-          , ostep = (1-o.opacity) / (f*o.trail / 100)
-          , astep = f/o.lines
-
-        ;(function anim() {
-          i++;
-          for (var j = 0; j < o.lines; j++) {
-            alpha = Math.max(1 - (i + (o.lines - j) * astep) % f * ostep, o.opacity)
-
-            self.opacity(el, j * o.direction + start, alpha, o)
-          }
-          self.timeout = self.el && setTimeout(anim, ~~(1000/fps))
-        })()
-      }
-      return self
-    },
-
-    /**
-     * Stops and removes the Spinner.
-     */
-    stop: function() {
-      var el = this.el
-      if (el) {
-        clearTimeout(this.timeout)
-        if (el.parentNode) el.parentNode.removeChild(el)
-        this.el = undefined
-      }
-      return this
-    },
-
-    /**
-     * Internal method that draws the individual lines. Will be overwritten
-     * in VML fallback mode below.
-     */
-    lines: function(el, o) {
-      var i = 0
-        , start = (o.lines - 1) * (1 - o.direction) / 2
-        , seg
-
-      function fill(color, shadow) {
-        return css(createEl(), {
-          position: 'absolute',
-          width: (o.length+o.width) + 'px',
-          height: o.width + 'px',
-          background: color,
-          boxShadow: shadow,
-          transformOrigin: 'left',
-          transform: 'rotate(' + ~~(360/o.lines*i+o.rotate) + 'deg) translate(' + o.radius+'px' +',0)',
-          borderRadius: (o.corners * o.width>>1) + 'px'
-        })
-      }
-
-      for (; i < o.lines; i++) {
-        seg = css(createEl(), {
-          position: 'absolute',
-          top: 1+~(o.width/2) + 'px',
-          transform: o.hwaccel ? 'translate3d(0,0,0)' : '',
-          opacity: o.opacity,
-          animation: useCssAnimations && addAnimation(o.opacity, o.trail, start + i * o.direction, o.lines) + ' ' + 1/o.speed + 's linear infinite'
-        })
-
-        if (o.shadow) ins(seg, css(fill('#000', '0 0 4px ' + '#000'), {top: 2+'px'}))
-
-        ins(el, ins(seg, fill(o.color, '0 0 1px rgba(0,0,0,.1)')))
-      }
-      return el
-    },
-
-    /**
-     * Internal method that adjusts the opacity of a single line.
-     * Will be overwritten in VML fallback mode below.
-     */
-    opacity: function(el, i, val) {
-      if (i < el.childNodes.length) el.childNodes[i].style.opacity = val
-    }
-
-  })
-
-
-  function initVML() {
-
-    /* Utility function to create a VML tag */
-    function vml(tag, attr) {
-      return createEl('<' + tag + ' xmlns="urn:schemas-microsoft.com:vml" class="spin-vml">', attr)
-    }
-
-    // No CSS transforms but VML support, add a CSS rule for VML elements:
-    sheet.addRule('.spin-vml', 'behavior:url(#default#VML)')
-
-    Spinner.prototype.lines = function(el, o) {
-      var r = o.length+o.width
-        , s = 2*r
-
-      function grp() {
-        return css(
-          vml('group', {
-            coordsize: s + ' ' + s,
-            coordorigin: -r + ' ' + -r
-          }),
-          { width: s, height: s }
-        )
-      }
-
-      var margin = -(o.width+o.length)*2 + 'px'
-        , g = css(grp(), {position: 'absolute', top: margin, left: margin})
-        , i
-
-      function seg(i, dx, filter) {
-        ins(g,
-          ins(css(grp(), {rotation: 360 / o.lines * i + 'deg', left: ~~dx}),
-            ins(css(vml('roundrect', {arcsize: o.corners}), {
-                width: r,
-                height: o.width,
-                left: o.radius,
-                top: -o.width>>1,
-                filter: filter
-              }),
-              vml('fill', {color: o.color, opacity: o.opacity}),
-              vml('stroke', {opacity: 0}) // transparent stroke to fix color bleeding upon opacity change
-            )
-          )
-        )
-      }
-
-      if (o.shadow)
-        for (i = 1; i <= o.lines; i++)
-          seg(i, -2, 'progid:DXImageTransform.Microsoft.Blur(pixelradius=2,makeshadow=1,shadowopacity=.3)')
-
-      for (i = 1; i <= o.lines; i++) seg(i)
-      return ins(el, g)
-    }
-
-    Spinner.prototype.opacity = function(el, i, val, o) {
-      var c = el.firstChild
-      o = o.shadow && o.lines || 0
-      if (c && i+o < c.childNodes.length) {
-        c = c.childNodes[i+o]; c = c && c.firstChild; c = c && c.firstChild
-        if (c) c.opacity = val
-      }
-    }
-  }
-
-  var probe = css(createEl('group'), {behavior: 'url(#default#VML)'})
-
-  if (!vendor(probe, 'transform') && probe.adj) initVML()
-  else useCssAnimations = vendor(probe, 'animation')
-
-  return Spinner
-
-}));
-define('modules/media-browser/media-collection-view',[
-    "app",
-    "modules/views/media-upload",
-    "spin",
-    "backbone"
-],
-
-function( app, UploadView, Spinner ) {
-
-    var Views = {};
-
-    Views.Zeega = Backbone.View.extend({
-
-        busy: false,
-        spinner: null,
-
-        defaults: {
-            title: "untitled"
-        },
-
-        className: "media-collection",
-        template: "app/templates/media-collection",
-
-        serialize: function() {
-            var d=new Date();
-            var weekday=new Array(7);
-
-            weekday[0]="Sunday";
-            weekday[1]="Monday";
-            weekday[2]="Tuesday";
-            weekday[3]="Wednesday";
-            weekday[4]="Thursday";
-            weekday[5]="Friday";
-            weekday[6]="Saturday";
-
-            return _.extend({},
-                _.defaults( this.model.toJSON(), this.defaults ),
-                { day: weekday[d.getDay()] }
-            );
-        },
-
-        listen: null,
-
-        initialize: function() {
-            this.listen = _.once(function() {
-                this.model.mediaCollection.on("sync", this.renderItems, this );
-                this.model.mediaCollection.on("error", this.onError, this );
-            }.bind( this ));
-
-            this.initSpinner();
-        },
-
-        initSpinner: function() {
-            var opts = {
-                lines: 12, // The number of lines to draw
-                length: 5, // The length of each line
-                width: 2, // The line thickness
-                radius: 5, // The radius of the inner circle
-                corners: 1, // Corner roundness (0..1)
-                color: '#fff' // #rgb or #rrggbb
-            };
-            this.spinner = new Spinner( opts );
-        },
-
-        onError: function( a, b  ){
-            
-            this.$(".more-tab").remove();
-            this.$(".media-collection-items").append("<div class='empty-collection'>Oops! Couldn't connect to "+ this.model.get("title") +".<br>  Try again?</div>");
-            this.releaseSearchBox();
-        },
-
-        releaseSearchBox: function(){
-            this.$(".search-box, .media-collection-wrapper").css({
-                opacity: 1
-            });
-            this.$(".label").css("visibility", "visible");
-            this.spinner.stop();
-            this.busy = false;
-        },
-
-        afterRender: function() {
-            
-            this.renderItems();
-            this._afterRender();
-            
-            if( this.model.allowSearch ){
-                $(".media-collection-search").show();
-            }
-
-        },
-
-        //extend this function
-        _afterRender: function(){
-
-        },
-
-        renderItems: function() {
-
-            
-
-            this.$(".more-tab").remove();
-            if ( this.model.mediaCollection.length && this.model.mediaCollection.at( 0 ).get("uri") ) {
-                this.model.mediaCollection.each(function( item ) {
-                    this.$(".media-collection-items").append( item.view.el );
-                    item.view.render();
-                }, this );
-                if( this.model.mediaCollection.more ){
-                    this.$(".media-collection-items").append("<li class='item more-tab'><h2>more</h2></li>");
-                }
-                
-            } else if( this.model.getQuery() !== "-gif" && this.model.getQuery() !== "" &&  this.$(".media-collection-items li").length === 0) {
-                this.$(".media-collection-items").append("<div class='empty-collection'>no items found :( try again?</div>");
-            }
-
-
-            this.listen();
-
-           
-
-            if( this.model.getQuery() === "" && this.model.api != "MyZeega" ){
-                this.$(".media-collection-headline").show();
-            } else {
-                this.$(".media-collection-headline").hide();
-            }
-
-            this.releaseSearchBox();
-
-            $(this.el).find("img").on("error", function(e) {
-                $(e.target).closest("li").hide();
-            });
-        },
-
-        events: {
-            "keyup .search-box": "onSearchKeyPress",
-            "click .submit": "onSubmitClick",
-            "click .more-tab": "loadMore"
-        },
-
-        onSearchKeyPress: function( e ) {
-            if ( !this.busy ){
-                if ( e.which == 13 ) {
-                    this.search( this.$(".search-box").val() );
-                }
-            }
-        },
-
-        onSubmitClick: function() {
-            if ( !this.busy ) {
-                this.search( this.$(".search-box").val() );
-            }
-        },
-        loadMore: function(){
-            this.busy = true;
-            this.$( ".more-tab").empty();
-            this.spinner.spin( this.$( ".more-tab")[0] );
-            this.model.more();
-        },
-        search: function( query ) {
-            this.busy = true;
-            this.$(".media-collection-items").empty();
-            this.model.search( query );
-            this.$(".search-box").blur();
-            this.$(".search-box, .media-collection-wrapper").css({
-                opacity: 0.5
-            });
-
-            this.$(".label").css("visibility", "hidden");
-
-            this.spinner.spin( this.$(".submit")[0] );
-
-        }
-
-    });
-
-    Views.Instagram  = Views.Zeega.extend({
-
-
-        _afterRender: function(){
-
-            this.$el.find(".collection-options").append("<select class = 'query-type' >" +
-              "<option value='user'>username</option>" +
-              "<option value='tag'>tag</option>" +
-            "</select>");
-        },
-
-        events: {
-            "keyup .search-box": "onSearchKeyPress",
-            "change .query-type": "onQueryTypeChange"
-        },
-
-        onQueryTypeChange: function( ){
-            var type = this.$el.find(".query-type").attr("value");
-            this.model.setQueryType( type );
-
-        }
-
-    });
-    Views.Flickr        = Views.Zeega.extend({});
-    Views.Soundcloud    = Views.Zeega.extend({});
-    Views.Giphy         = Views.Zeega.extend({});
-    Views.Tumblr        = Views.Zeega.extend({});
-    Views.Youtube       = Views.Zeega.extend({});
-    Views.Web           = Views.Zeega.extend({});
-    
-    Views.MyZeega       = Views.Zeega.extend({
-
-        template: "app/templates/media-collection",
-
-        _afterRender: function(){
-            var uploadView = new UploadView({ model: this.model });
-            this.$el.find(".media-collection-header").append( uploadView.el );
-            uploadView.render();
-        }
-
-
-    });
-
-    return Views;
-
-});
-
-define('modules/views/modal',[
-    "app",
-
-
-    "backbone"
-],
-
-function( app ) {
-
-
-    return Backbone.View.extend({
-
-        template: "app/templates/modal",
-        modalClass: "",
-        
-        className: function() {
-            return "ZEEGA-modal " + this.options.modal.className;
-        },
-
-        serialize: function() {
-            return this.options;
-        },
-
-        show: function() {
-            $("body").append( this.el );
-            $("#main").addClass("modal");
-            this.$el.attr("style","");
-            this.render();
-        },
-        
-        events: {
-            "click .modal-close": "hide"
-        },
-
-        close: function() {
-            $("#main").removeClass("modal");
-            this.$el.fadeOut(function() {
-                this.remove();
-            }.bind( this ));
-        },
-
-        hide: function() {
-            this.close();
-        }
-
-    });
-
-});
-
-define('modules/views/item-viewer-image',[
-    "app",
-    "backbone"
-],
-
-function( app ) {
-
-
-    return Backbone.View.extend({
-        
-        className: "item-viewer item-viewer-image",
-        template: "app/templates/item-viewer-image",
-
-        serialize: function() {
-            return this.model.toJSON();
-        },
-
-        exit: function() {
-            
-        }
-        
-    });
-
-});
-
-define('modules/views/item-viewer-audio',[
-    "app",
-    "backbone"
-],
-
-function( app ) {
-
-    return Backbone.View.extend({
-        
-        className: "item-viewer item-viewer-audio",
-        template: "app/templates/item-viewer-audio",
-
-        serialize: function() {
-            return this.model.toJSON();
-        },
-
-        exit: function() {
-            this.$("audio").attr("src", "");
-        }
-        
-    });
-
-});
-
-define('modules/views/item-viewer-youtube',[
-    "app",
-    "backbone"
-],
-
-function( app ) {
-
-
-    return Backbone.View.extend({
-        
-        className: "item-viewer item-viewer-youtube",
-        template: "app/templates/item-viewer-youtube",
-
-        serialize: function() {
-            return this.model.toJSON();
-        },
-
-        exit: function() {
-          
-        }
-        
-    });
-
-});
-
-define('modules/views/item-collection-viewer',[
-    "app",
-    "modules/views/modal",
-    "modules/views/frame",
-    "modules/views/item-viewer-image",
-    "modules/views/item-viewer-audio",
-    "modules/views/item-viewer-youtube",
-
-    "backbone"
-],
-
-function( app, Modal, FrameView, ImageView, AudioView, VideoView, YoutubeView ) {
-
-
-    return Backbone.View.extend({
-
-        start: 0,
-        index: 0,
-        currentItem: null,
-
-        template: "app/templates/item-collection-viewer",
-
-        className: "ZEEGA-modal ZEEGA-item-collection-viewer",
-
-        initialize: function() {
-            this.start = this.options.start;
-        },
-
-        init: function( startIndex ) {
-            this.start = startIndex;
-            this.goToItem( startIndex );
-        },
-
-        afterRender: function() {
-            $("#main").addClass("modal");
-            this.goToItem( this.start );
-            this.listen();
-        },
-
-        goToItem: function( index ) {
-            var item = this.collection.at( index );
-
-            if ( this.currentItem ) {
-                this.currentItem.itemView.exit();
-            }
-            this.index = index;
-            this.currentItem = item;
-            this.$(".modal-title").text( item.get("title") );
-
-            if ( _.isUndefined( item.itemView ) ) {
-                if ( item.get("layer_type") == "Image") {
-                    item.itemView = new ImageView({ model: item });
-                } else if ( item.get("layer_type") == "Audio") {
-                    item.itemView = new AudioView({ model: item });
-                } else if ( item.get("layer_type") == "Youtube") {
-                    item.itemView = new YoutubeView({ model: item });
-                } 
-            }
-            // just render item.itemView
-
-            if( item.itemView.el ){
-               this.$(".modal-body").html( item.itemView.el );
-                item.itemView.render();
-                app.emit("view_item",{
-                    type: item.get("layer_type"),
-                    source: item.get("archive"),
-                    title: item.get("title") ? item.get("title") : "none" 
-                });
-            } else {
-                return false;
-            }
-            
-        },
-
-        listen: function() {
-            $("body").bind("keyup.modal", function( e ) { this.keyup( e ); }.bind( this ));
-        },
-
-        unlisten: function() {
-            $("body").unbind("keyup.modal");
-        },
-
-        events: {
-
-            "click .modal-close": "close",
-            "click .prev": "prev",
-            "click .next": "next",
-            "click .add-to-frame": "addToFrame",
-            "click .delete-item": "deleteItem",
-            "click": "onClick"
-        },
-
-        onClick: function( e ){
-            if( $( e.target ).attr("class") == "ZEEGA-modal ZEEGA-item-collection-viewer" ){
-                this.close();
-            }
-        },
-
-        keyup: function( e ) {
-            if ( e.which == 37 ) { // left
-                this.prev();
-            } else if ( e.which == 39 ) { // right
-                this.next();
-            } else if ( e.which == 27 ) { // esc
-                this.close();
-            }
-        },
-
-        prev: function() {
-            if ( this.index > 0 ) {
-                this.goToItem( this.index - 1 );
-            }
-        },
-
-        next: function() {
-            if ( this.collection.length > this.index + 1 ) {
-                this.goToItem( this.index + 1 );
-            }
-        },
-
-        addToFrame: function() {
-
-            if ( this.collection.at( this.index ). get("layer_type") == "Audio" ) {
-                app.layout.soundtrack.updateWaveform( this.collection.at( this.index ).get("thumbnail_url") );
-                $(".intro").remove();
-                app.emit("soundtrack_added", this.collection.at( this.index ) );
-                app.status.get('currentSequence').setSoundtrack( this.collection.at( this.index ), app.layout.soundtrack, { source: "add-to-page" } );
-            } else {
-                app.status.get('currentFrame').addLayerByItem( this.collection.at( this.index ), { source: "add-to-page" } );
-            }
-            this.close();
-        },
-
-        close: function() {
-            this.unlisten();
-            $("#main").removeClass("modal");
-            this.$el.fadeOut(function() {
-                this.remove();
-                this.$el.attr("style", "");
-            }.bind( this ));
-        },
-
-        deleteItem: function(){
-            this.currentItem.destroy();
-            this.goToItem( this.index );
-        }
-
-    });
-
-});
-
-define('modules/media-browser/media-collection',[
-    "app",
-    "modules/item.model",
-    "modules/views/item-collection-viewer",
-    "backbone"
-],
-
-function( app, ItemModel, ItemCollectionViewer ) {
-
-
-    var Collections = {};
-
-
-    Collections.Zeega = Backbone.Collection.extend({
-
-        model: ItemModel,
-        view: null,
-        searchModel: null,
-        itemsCount: 0,
-        url: function() {
-            var url;
-
-            if( this.searchModel.getQuery() === "" && this.searchModel.api != "MyZeega" ){
-                
-                url = this.searchModel.favUrl;
-
-            } else {
-
-                url = this.searchModel.apiUrl;
-                _.each( this.searchModel.toJSON().urlArguments, function( value, key ) {
-                    if ( value !== "" && value !== null ) {
-                        url += key + "=" + ( _.isFunction( value ) ? value() : value ) + "&";
-                    }
-                });
-            }
-            return url;
-        },
-
-        itemViewer: function( model ) {
-            var startIndex = _.indexOf( this.pluck("id"), model.id );
-
-            startIndex = startIndex < 0 ? 0 : startIndex;
-
-            if ( this.view === null ) {
-                this.view = new ItemCollectionViewer({ collection: this, start: startIndex });
-            } else {
-                this.view.init( startIndex );
-            }
-
-            $("body").append( this.view.el );
-            this.view.render();
-        },
-
-        parse: function( res ) {
-            return res.items;
-        }
-    });
-
-    Collections.MyZeega = Collections.Zeega.extend({
-
-        parse: function( res ) {
-            var photos = res.items,
-                count = 1;
-            
-            _.each( photos, function( photo ){
-                photo.allowDelete = 1;
-                count++;
-            });
-
-            this.itemsCount = res.items_count;
-
-            if( photos.length == 48 ){
-                this.more = true;
-            } else {
-                this.more = false;
-            }
-
-            return photos;
-        }
-    });
-
-    Collections.Flickr = Collections.Zeega.extend({
-
-        parse: function( res ) {
-
-            if(!_.isUndefined( res.items_count )){
-                this.itemsCount = res.items_count;
-
-                return res.items;
-            }
-
-
-            var items =[],
-                item;
-
-            _.each( res.photos.photo, function( photo ){
-
-                item = {};
-                item.id = photo.id;
-                item.layer_type = "Image";
-                item.media_type = "Image";
-                item.archive = "Flickr";
-                item.title = photo.title;
-                item.thumbnail_url = "https://farm" + photo.farm + ".static.flickr.com/" + photo.server + "/" +
-                                    photo.id + "_" + photo.secret + "_s.jpg";
-                item.uri = "https://farm" + photo.farm + ".static.flickr.com/" + photo.server + "/" +
-                                    photo.id + "_" + photo.secret + ".jpg";
-                item.attribution_uri =  "http://www.flickr.com/photos/" + photo.owner + "/" + photo.id;
-                item.media_user_realname = photo.owner_name;
-                items.push( item );
-            });
-
-            if( res.photos.page < res.photos.pages ){
-                this.more = true;
-            } else {
-                this.more = false;
-            }
-
-            return items;
-        }
-    });
-
-    Collections.Instagram = Collections.Zeega.extend({
-        
-
-        url : function(){
-            var url;
-            if( this.searchModel.getQuery() === "" ){
-                url = this.searchModel.favUrl;
-            } else {
-                if( this.searchModel.queryType == "tag" ){
-                    url = this.searchModel.apiUrl + "tags/" + this.searchModel.get("query") +
-                            "/media/recent?client_id=725bbc7af5094c8682bdb322d29734cc&callback=?";
-                } else {
-
-                    // Instagram User queries require user id, route through Zeega
-                    url = app.api + "items/parser?url=http://instagram.com/" + this.searchModel.get("query");
-                }
-            }
-            return url;
-        },
-        
-
-        parse: function(res){
-            
-            if( this.searchModel.queryType == "tag" || this.searchModel.getQuery() === ""){
-                var items = [];
-
-                _.each( res.data, function( photo ){
-
-                    var item = {};
-                    item.id = photo.id;
-                    if( !_.isNull( photo.caption ) && !_.isNull( photo.caption.text ) ){
-                        var tmp = document.createElement("DIV");
-                        tmp.innerHTML = photo.caption.text;
-                        item.title = tmp.textContent||tmp.innerText;
-                    } else {
-                        item.title = "Instagram by " + photo.user.user_name;
-                    }
-                    
-
-                    item.archive = "Instagram";
-                    item.layer_type ="Image";
-                    item.media_type = "Image";
-
-                    item.thumbnail_url = photo.images.thumbnail.url;
-                    item.uri = photo.images.standard_resolution.url;
-                    item.attribution_uri =  photo.link;
-                    item.media_user_realname = photo.user.user_name;
-
-                    items.push( item );
-                });
-                return items;
-            } else {
-                var photos,
-                    count = 1;
-
-                if ( res.code == 500 ){
-                    this.itemsCount = 0;
-                    return array();
-                }
-
-
-                photos = res.items;
-                
-                _.each( photos, function( photo ){
-                    photo.id = count;
-                    count++;
-                });
-     
-                this.itemsCount = res.items_count;
-
-                return res.items;
-
-            }
-        }
-    });
-
-    Collections.Soundcloud = Collections.Zeega.extend({
-            
-            parse: function(res){
-                var items = [],
-                    item,
-                    count =1;
-
-                if(!_.isUndefined( res.items_count )){
-                    this.itemsCount = res.items_count;
-
-                    return res.items;
-                }
-
-                _.each( res, function( track ){
-                    item = {};
-                    item.id = count;
-                    count++;
-                    item.layer_type ="Audio";
-                    item.media_type = "Audio";
-                    item.archive = "SoundCloud";
-                    item.title = track.title;
-
-                    if( !_.isNull( track.artwork_url )){
-                        item.thumbnail_url = track.artwork_url;
-                    } else if( !_.isNull( track.user.avatar_url )){
-                        item.thumbnail_url = track.user.avatar_url;
-                    } else {
-                        item.thumbnail_url = track.waveform_url;
-                    }
-
-                    
-                    item.uri = track.stream_url + "?consumer_key=lyCI2ejeGofrnVyfMI18VQ";
-                    item.attribution_uri =  track.permalink_url;
-                    item.media_user_realname = track.user.username;
-                    item.archive = "SoundCloud";
-
-                    if( track.streamable ){
-                        items.push( item );
-                    }
-                    
-                });
-                this.more = true;
-                return items;
-            }
-    });
-
-    Collections.Giphy = Collections.Zeega.extend({
-
-        parse: function(res){
-            
-            var photos = res.items,
-                count = 1;
-            
-            _.each( photos, function( photo ){
-                if(!_.isUndefined(photo.attributes.id)){
-                    photo.id = photo.attributes.id;
-                } else {
-                    photo.id = count;
-                }
-                
-                count++;
-            });
-            
-            if( res.request.parser && res.request.parser.more ){
-                this.more = true;
-            } else {
-                this.more = false;
-            }
-            
-            return photos;
-        }
-    });
-
-    Collections.Tumblr = Collections.Zeega.extend({
-        parse: function(res){
-            var photos = res.items,
-                count = 1;
-            
-            _.each( photos, function( photo ){
-                if(!_.isUndefined(photo.attributes.id)){
-                    photo.id = photo.attributes.id;
-                } else {
-                    photo.id = count;
-                }
-                count++;
-            });
-
-            this.more = true;
-            return photos;
-        }
-    });
-
-    Collections.Youtube = Collections.Zeega.extend({
-
-        parse: function(res){
-            var items = [],
-                count = 1;
-
-            //check if is favorites
-            if(!_.isUndefined( res.items_count )){
-                    this.itemsCount = res.items_count;
-
-                    return res.items;
-            }
-            
-            _.each( res.data.items, function( video ){
-                var item = {};
-                item.id = count;
-                item.layer_type = "Youtube";
-                item.media_type = "Video";
-                count++;
-
-                item.uri = video.id;
-                item.title = video.title;
-                item.attribution_uri = video.player[ "default" ];
-                item.thumbnail_url = video.thumbnail.hqDefault;
-                item.aspectRatio = video.aspectRatio;
-
-
-                if( video.accessControl.embed == "allowed" ){
-                     items.push( item );
-                }
-
-            });
-
-            this.itemsCount = res.items_count;
-            return items;
-        }
-    });
-
-
-    return Collections;
-
-
-});
-
-define('modules/media-browser/search-model',[
-    "app",
-    "modules/item.model",
-    "modules/media-browser/media-collection-view",
-    "modules/media-browser/media-collection",
-    "modules/views/item-collection-viewer",
-    "backbone"
-],
-
-function( app, ItemModel, CollectionView, Collection, ItemCollectionViewer ) {
-
-
-    var Search = {};
-
-    Search.Zeega = Backbone.Model.extend({
-
-        api: "Zeega",
-        mediaCollection: null,
-        apiUrl: app.searchAPI,
-        favUrl: app.searchAPI + "type=Image&user=" + app.metadata.favId + "&limit=48",
-        allowSearch: false,
-
-        defaults: {
-                urlArguments: {
-                    collection: "",
-                    type: "Image",
-                    page: 1,
-                    q: "",
-                    limit: 48,
-                    user: 1,
-                    sort: "date-desc"
-            },
-            title: "Zeega",
-            placeholder: "search Zeega favorites",
-            searchQuery:""
-        },
-
-        initialize: function() {
-            this.view = new CollectionView[ this.api ]({ model: this });
-            this.mediaCollection = new Collection[ this.api ]();
-            this.mediaCollection.searchModel = this;
-            this.search( "" );
-            this.listen();
-        },
-        getQuery: function(){
-            return this.get("urlArguments").q;
-        },
-        search: function( query ){
-            this.set( "searchQuery", query );
-            this._search( query );
-            if( query !== "" ){
-                app.emit("media_search",{
-                    "query": query,
-                   "api": this.api
-                });
-            }
-        },
-        more: function(){
-            this._more();
-        },
-        _more: function(){
-
-        },
-        _search: function( query ){
-
-            var args = this.get("urlArguments");
-
-            if( query !== args.q ) {
-                args.q = query;
-            }
-
-            this.set("urlArguments", args );
-            this.mediaCollection.fetch();
-        },
-
-        listen: function() {
-        },
-
-        onSync: function( collection ) {
-            this.mediaBrowser.trigger( "media_ready", collection );
-        }
-    });
-
-
-    Search.Giphy = Search.Zeega.extend({
-        
-        api: "Giphy",
-        apiUrl: app.api + "items/parser?",
-        allowSearch: true,
-        favUrl: app.searchAPI + "archive=Giphy&type=Image&user=" + app.metadata.favId + "&limit=48&sort=date-desc",
-
-
-        defaults: {
-            urlArguments: {
-                url: "",
-                tag: "",
-                offset: 0
-            },
-            title: "Giphy",
-            placeholder: "search Giphy gifs",
-            searchQuery: ""
-        },
-        getQuery: function(){
-            return this.get("urlArguments").tag;
-        },
-        _search: function( query ){
-
-            var args = this.get("urlArguments");
-
-         
-            args.offset = 0;
-            args.tag = query.replace( " ", "-" );
-            args.url = "http://giphy.com/tags/" + args.tag + "/offset/" + args.offset;
-
-            this.set("urlArguments", args );
-            this.mediaCollection.fetch();
-            
-        },
-        _more: function(){
-
-            var args = this.get("urlArguments");
-            args.offset += 50;
-            args.url = "http://giphy.com/tags/" + args.tag + "/offset/" + args.offset;
-
-            this.set("urlArguments", args );
-            this.mediaCollection.fetch({remove: false});
-        }
-    });
-
-    Search.MyZeega = Search.Zeega.extend({
-
-        api: "MyZeega",
-        allowSearch: false,
-        defaults: {
-                urlArguments: {
-                    collection: "",
-                    type: "",
-                    page: 1,
-                    q: "",
-                    limit: 48,
-                    data_source: "db",
-                    user: function() {
-                        return app.userId;
-                },
-                sort: "date-desc"
-            },
-            title: "My Media",
-            placeholder: "search your media",
-            searchQuery:""
-        },
-
-        
-        _search: function( query ){
-            var args = this.get("urlArguments");
-            if( query !== args.q ) {
-                args.q = query;
-            }
-            args.page = 1;
-            this.set("urlArguments", args );
-            this.mediaCollection.fetch();
-        },
-        _more: function(){
-            
-            var args = this.get("urlArguments");
-            args.page += 1;
-            this.set("urlArguments", args );
-            this.mediaCollection.fetch({remove: false});
-        }
-    });
-
-    Search.Flickr = Search.Zeega.extend({
-        
-        api: "Flickr",
-        apiUrl: "https://secure.flickr.com/services/rest/?",
-        
-        favUrl: "https://secure.flickr.com/services/rest/?nojsoncallback=1&format=json&method=flickr.interestingness.getList&extras=owner_name&per_page=100&api_key=97ac5e379fbf4df38a357f9c0943e140",
-        //favUrl: app.searchAPI + "archive=Flickr&type=Image&user=" + app.metadata.favId + "&limit=48&sort=date-desc",
-        allowSearch: true,
-
-        defaults: {
-            urlArguments: {
-                nojsoncallback: "1",
-                format: "json",
-                method: "flickr.photos.search",
-                extras: "owner_name",
-                per_page: "100",
-                api_key: "97ac5e379fbf4df38a357f9c0943e140",
-                text: ""
-    
-            },
-            title: "Flickr",
-            placeholder: "search Flickr photos",
-            searchQuery:""
-        },
-        getQuery: function(){
-            return this.get("urlArguments").text;
-        },
-        _search: function( query ){
-
-            var args = this.get("urlArguments");
-            args.page = 1;
-            args.text = query;
-            this.set("urlArguments", args );
-            this.mediaCollection.fetch();
-  
-        },
-        _more: function(){
-            
-            var args = this.get("urlArguments");
-            args.page += 1;
-            this.set("urlArguments", args );
-            this.mediaCollection.fetch({remove: false});
-        }
-    });
-
-    Search.Soundcloud = Search.Zeega.extend({
-        
-        api: "Soundcloud",
-        apiUrl: "https://api.soundcloud.com/tracks.json?",
-        favUrl: app.searchAPI + "archive=SoundCloud&type=Audio&user=" + app.metadata.favId + "&limit=48&sort=date-desc",
-        
-        allowSearch: true,
-        defaults: {
-            urlArguments: {
-                callback: "?",
-                q: "",
-                consumer_key: "lyCI2ejeGofrnVyfMI18VQ"
-            },
-            title: "Soundcloud",
-            placeholder: "search SoundCloud audio",
-            searchQuery:""
-        },
-        getQuery: function(){
-            return this.get("urlArguments").q;
-        },
-        _search: function( query ){
-
-            var args= this.get("urlArguments");
-
-                args.offset = 0;
-                args.q = query;
-                this.set("urlArguments", args );
-                this.mediaCollection.fetch();
-            
-        },
-        _more: function(){
-            
-            var args = this.get("urlArguments");
-            args.offset += 50;
-            this.set("urlArguments", args );
-
-            this.mediaCollection.fetch({remove: false});
-        }
-    });
-
-    Search.Instagram = Search.Zeega.extend({
-        
-        api: "Instagram",
-        apiUrl: "https://api.instagram.com/v1/",
-        queryType: "tag",
-        favUrl: "https://api.instagram.com/v1/media/popular?client_id=725bbc7af5094c8682bdb322d29734cc&callback=?",
-        //favUrl: app.searchAPI + "archive=Instagram&type=Image&user=" + app.metadata.favId + "&limit=48&sort=date-desc",
-        allowSearch: true,
-
-        defaults: {
-            query: "",
-            title: "Instagram",
-            placeholder: "search Instagram photos",
-            searchQuery:""
-        },
-        getQuery: function(){
-            return this.get("query");
-        },
-
-        setQueryType: function( selection ){
-            this.queryType = selection;
-        },
-        _search: function( query ){
-
-            this.set("query", query );
-            this.mediaCollection.fetch();
-        }
-    });
-
-    
-
-    Search.Tumblr = Search.Zeega.extend({
-        
-        api: "Tumblr",
-        apiUrl: app.api + "items/parser?",
-        allowSearch: true,
-        favUrl: app.searchAPI + "archive=Tumblr&type=Image&user=" + app.metadata.favId + "&limit=48&sort=date-desc",
-
-        defaults: {
-            urlArguments: {
-                url: "",
-                tag: ""
-            },
-            title: "Tumblr",
-            placeholder: "search Tumblr posts",
-            searchQuery: ""
-        },
-        getQuery: function(){
-            return this.get("urlArguments").tag;
-        },
-        _search: function( query ){
-
-            var args = this.get("urlArguments");
-
-            args.before = new Date().getTime();
-            args.tag = query.replace( " ", "-" );
-            if( args.tag !== "" ){
-                args.tag = args.tag  + "-gif";
-            }
-            args.url = "http://www.tumblr.com/tagged/" + args.tag + "/before/" + args.before;
-
-            this.set("urlArguments", args );
-            this.mediaCollection.pumpkin ="orange";
-            this.mediaCollection.fetch();
-            
-        },
-        _more: function( query ){
-
-            var args = this.get("urlArguments");
-
-            args.before = this.mediaCollection.at(this.mediaCollection.length - 1).get("attributes").timestamp;
-
-            args.url = "http://www.tumblr.com/tagged/" + args.tag + "/before/" + args.before;
-
-            this.set("urlArguments", args );
-            this.mediaCollection.fetch({remove:false});
-        }
-
-    });
-
-    Search.Youtube = Search.Zeega.extend({
-        
-        api: "Youtube",
-        apiUrl: "https://gdata.youtube.com/feeds/api/videos?",
-        favUrl: app.searchAPI + "archive=Youtube&user=" + app.metadata.favId + "&limit=48&sort=date-desc",
-
-        allowSearch: true,
-
-        defaults: {
-            urlArguments: {
-                callback: "?",
-                orderby: "relevance",
-                alt: "jsonc",
-                v: "2",
-                "max-results": "50",
-                q: ""
-    
-            },
-            title: "Youtube",
-            placeholder: "search Youtube",
-            searchQuery:""
-        },
-        getQuery: function(){
-            return this.get("urlArguments").q;
-        },
-        _search: function( query ){
-
-            var args= this.get("urlArguments");
-
-
-            args.q = query;
-            this.set("urlArguments", args );
-            this.mediaCollection.fetch();
-    
-        }
-    });
-
-    return Search;
-
-
-    
-
-});
-
-define('modules/media-browser/media-browser',[
-    "app",
-    "modules/media-browser/search-model",
-    "backbone"
-],
-
-function( app, SearchModel ) {
-
-
-
-    return Backbone.Model.extend({
-
-        initialize: function() {
-            var zeegaSearch = new SearchModel.Zeega();
-            var _this = this;
-            zeegaSearch.mediaBrowser = this;
-            this.set("Zeega", zeegaSearch );
-            this.set("currentAPI", "Zeega");
-            this.get( this.get("currentAPI") ).search( "" );
-        },
-
-    
-
-        setAPI: function( api, query ){
-        
-            if( _.isUndefined( this.get( api ) ) ){
-
-                var apiSearch = new SearchModel[ api ]();
-                apiSearch.mediaBrowser = this;
-                this.set( api, apiSearch );
-            }
-
-            this.set ( "currentAPI", api );
-
-        },
-
-        getCurrent: function(){
-            return this.get( this.get("currentAPI") );
-        },
-
-        // search: function( query ){
-        //     this.get( this.get("currentAPI") ).search( query );
-
-        // },
-
-        more: function(){
-            this.get( this.get("currentAPI")).more();
-        }
-
-
 
     });
 
@@ -44672,17 +44572,16 @@ define('modules/initializer',[
     "modules/layout-main",
     // Plugins
     "engine/parser",
-    "modules/media-browser/media-browser",
     "analytics/analytics",
     "backbone"
 ],
 
-function( app, Status, Layout, ZeegaParser, MediaBrowser, Analytics ) {
+function( app, Status, Layout, ZeegaParser, Analytics ) {
 
     return Backbone.Model.extend({
         
         initialize: function() {
-            app.mediaBrowser = new MediaBrowser();
+
             app.analytics = new Analytics();
             app.analytics.setGlobals({
                 "projectId": app.metadata.projectId,
@@ -44759,8 +44658,8 @@ function( app, Status, Layout, ZeegaParser, MediaBrowser, Analytics ) {
 
         insertLayout: function() {
 
-            var location = app.metadata.root == "/" ? app.metadata.root + "editor/" + app.project.id : "/" + app.metadata.root + "editor/" + app.project.id;
-            window.history.pushState("", "", location );
+            // var location = app.metadata.root == "/" ? app.metadata.root + "editor/" + app.project.id : "/" + app.metadata.root + "editor/" + app.project.id;
+            // window.history.pushState("", "", location );
 
             app.layout = new Layout();
             app.layout.render();

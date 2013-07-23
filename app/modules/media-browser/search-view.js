@@ -142,7 +142,7 @@ function( app, UploadView, Spinner ) {
         onSearchKeyPress: function( e ) {
             if ( !this.busy ){
                 if ( e.which == 13 ) {
-                    app.mediaSearchQuery = this.$(".search-box").val() 
+                    app.mediaSearchQuery = this.$(".search-box").val();
                     this.search( app.mediaSearchQuery );
                 }
             }
@@ -150,7 +150,7 @@ function( app, UploadView, Spinner ) {
 
         onSubmitClick: function() {
             if ( !this.busy ) {
-                app.mediaSearchQuery = this.$(".search-box").val() 
+                app.mediaSearchQuery = this.$(".search-box").val();
                 this.search( app.mediaSearchQuery );
             }
         },

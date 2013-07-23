@@ -50,7 +50,7 @@ function( app, SearchModel ) {
                 }
                 
                 return photos;
-            }
+            };
         },
 
         getQuery: function(){

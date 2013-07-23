@@ -39,7 +39,7 @@ function( app, SearchModel ) {
 
                 this.more = true;
                 return photos;
-            }
+            };
         },
 
         getQuery: function(){

@@ -47,7 +47,7 @@ function( app, SearchModel ) {
                     });
                 }
                 return url;
-            }
+            };
         }
     });
 

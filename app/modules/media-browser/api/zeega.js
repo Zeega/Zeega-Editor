@@ -64,7 +64,6 @@ function( app, SearchModel ) {
         },
         
         _search: function( query ){
-            console.log("searching for my medias")
             var args = this.get("urlArguments");
             if( query !== args.q ) {
                 args.q = query;
