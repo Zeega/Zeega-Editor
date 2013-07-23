@@ -5,17 +5,16 @@ define([
     "modules/layout-main",
     // Plugins
     "engine/parser",
-    "modules/media-browser/media-browser",
     "analytics/analytics",
     "backbone"
 ],
 
-function( app, Status, Layout, ZeegaParser, MediaBrowser, Analytics ) {
+function( app, Status, Layout, ZeegaParser, Analytics ) {
 
     return Backbone.Model.extend({
         
         initialize: function() {
-            app.mediaBrowser = new MediaBrowser();
+
             app.analytics = new Analytics();
             app.analytics.setGlobals({
                 "projectId": app.metadata.projectId,
@@ -92,8 +91,8 @@ function( app, Status, Layout, ZeegaParser, MediaBrowser, Analytics ) {
 
         insertLayout: function() {
 
-            var location = app.metadata.root == "/" ? app.metadata.root + "editor/" + app.project.id : "/" + app.metadata.root + "editor/" + app.project.id;
-            window.history.pushState("", "", location );
+            // var location = app.metadata.root == "/" ? app.metadata.root + "editor/" + app.project.id : "/" + app.metadata.root + "editor/" + app.project.id;
+            // window.history.pushState("", "", location );
 
             app.layout = new Layout();
             app.layout.render();

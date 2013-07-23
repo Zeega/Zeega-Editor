@@ -5,6 +5,8 @@ define([
 
 function( app, ItemView ) {
 
+    var dim = 100;
+
     return Backbone.View.extend({
 
         className: function() {
@@ -18,14 +20,14 @@ function( app, ItemView ) {
                 style = "";
             if( this.model.get("attributes") && this.model.get("attributes").height ){
                 if( this.model.get("attributes").width > this.model.get("attributes").height ){
-                    h = 75;
+                    h = dim;
                     w = h * this.model.get("attributes").width / this.model.get("attributes").height ;
-                    offset = ( 75 - w )/2;
+                    offset = ( dim - w )/2;
                     style = "width:" + w +"px; height:" + h + "px; left:" + offset + "px;";
                 } else {
-                    w = 75;
+                    w = dim;
                     h = this.model.get("attributes").height * w / this.model.get("attributes").width;
-                    offset = ( 75 - h )/2;
+                    offset = ( dim - h )/2;
                     style = "width:" + w +"px; height:" + h + "px; top:" + offset + "px;";
                 }
                 

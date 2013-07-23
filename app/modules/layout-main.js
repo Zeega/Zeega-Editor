@@ -8,7 +8,7 @@ define([
     "modules/views/layers",
     "modules/views/layer-drawer",
     "modules/views/soundtrack",
-    "modules/views/media-drawer",
+    "modules/media-browser/media-drawer-view",
     "modules/pointers/pointers",
     "modules/intro-modal/intro-modal.view",
     "mousetrap",
@@ -40,8 +40,7 @@ function( app, ProjectHead, Frames, Workspace, Layers, LayerDrawer, Soundtrack, 
         onMediaDrawerToggle: function( api ){
             clearInterval ( this.animateInterval );
             this.animated = 0;
-            console.log("on media drawer toggle");
-            if( api == "Zeega" || api == "MyZeega" || api == "Giphy" ){
+            if( api == "Zeega" || api == "Favorites" || api == "Giphy" ){
                 var animator = $.proxy(function(){this.animateThumbs();}, this );
                 this.animateInterval = setInterval( animator, 3000 );
             }
@@ -96,7 +95,6 @@ function( app, ProjectHead, Frames, Workspace, Layers, LayerDrawer, Soundtrack, 
             }).render();
 
             new MediaDrawer({
-                model: app.mediaBrowser,
                 el: this.$(".media-drawer")
             }).render();
 

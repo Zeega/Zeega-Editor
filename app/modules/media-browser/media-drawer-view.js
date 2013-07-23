@@ -1,9 +1,11 @@
 define([
     "app",
+    "modules/media-browser/media-library",
+    "modules/media-browser/search-view",
     "backbone"
 ],
 
-function( app ) {
+function( app, MediaLibrary, SearchView ) {
 
     return Backbone.View.extend({
 
@@ -11,19 +13,20 @@ function( app ) {
         template: "app/templates/media-drawer",
 
         initialize: function() {
-            app.on("window-resize", this.onResize, this );
+            this.model = new MediaLibrary();
         },
 
         afterRender: function() {
             
-            this.renderMedia();
+            this.model.setAPI( "Favorites" );
+            this.setView();
         },
-        renderMedia: function() {
-            var collection = this.model.getCurrent();
-
-            this.$(".ZEEGA-items").empty();
-            this.$(".ZEEGA-items").append( collection.view.el );
-            collection.view.render();
+        setView: function( ) {
+           
+            var searchView = new SearchView({model: this.model.getAPI() });
+            this.$(".ZEEGA-items").empty().append( searchView.el );
+            searchView.render();
+            searchView.search( app.mediaSearchQuery );
         },
 
 
@@ -34,14 +37,18 @@ function( app ) {
             var api = $(event.target).closest("a").data("api");
 
             app.emit("media_drawer_toggle", api );
+            
             this.$(".media-toggle").removeClass("active");
             this.$(".media-toggle i").removeClass("socialz-white");
             $(event.target).closest("a").addClass("active");
             $(event.target).closest("a").find("i").addClass("socialz-white");
 
             this.$el.find(".search-box").attr("placeholder", "search " + api);
+            
+
             this.model.setAPI( api );
-            this.renderMedia();
+            this.setView();
+            
 
             if( api === "Soundcloud" ){
                 this.$el.addClass("list");
@@ -50,10 +57,6 @@ function( app ) {
             }
             return false;
         }
-
-
-
-
     });
 
 });

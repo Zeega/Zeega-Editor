@@ -1,6 +1,6 @@
 define([
     "app",
-    "modules/views/item",
+    "modules/media-browser/item-view",
     "backbone"
 ],
 
