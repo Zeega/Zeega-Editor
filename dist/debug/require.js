@@ -44578,7 +44578,7 @@ function( app, Status, Layout, ZeegaParser, Analytics ) {
     return Backbone.Model.extend({
         
         initialize: function() {
-            app.mediaBrowser = new MediaBrowser();
+            // app.mediaBrowser = new MediaBrowser();
             this.initAnalytics();
 
             this.loadProject();
