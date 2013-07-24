@@ -4973,8 +4973,13 @@ body {
 .btnz.btnz-red {
   background-color: #ff4500;
 }
+<<<<<<< HEAD
 .btnz.btnz-zeega-this {
   background-color: red;
+=======
+.btnz.btnz-green {
+  background-color: limegreen;
+>>>>>>> e9ea300bf26665e36e52ea5d8dfa9f6bea1bceba
 }
 .btnz.btnz-light {
   color: #666;
@@ -6223,20 +6228,20 @@ a:active {
   cursor: -webkit-grabbing !important;
 }
 .media-drawer .item {
-  width: -webkit-calc(100% / 4);
-  width: -moz-calc(100% / 4);
-  width: calc(100% / 4);
+  width: -webkit-calc(100% / 3);
+  width: -moz-calc(100% / 3);
+  width: calc(100% / 3);
   float: left;
 }
 .media-drawer .item.more-tab {
   border: 1px solid rgba(255, 255, 255, 0.15);
   cursor: pointer;
   color: white;
-  width: 73px;
-  height: 75px;
+  width: 98px;
+  height: 100px;
 }
 .media-drawer .item.more-tab > h2 {
-  padding-top: 14px;
+  padding-top: 26px;
   font-size: 1em;
   text-align: center;
 }
@@ -6246,8 +6251,8 @@ a:active {
   cursor: -webkit-grab;
 }
 .media-drawer .item .item-thumb {
-  height: 75px;
-  width: 75px;
+  height: 100px;
+  width: 100px;
   background-color: black;
   overflow: hidden;
 }

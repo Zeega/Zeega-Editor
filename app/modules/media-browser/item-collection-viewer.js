@@ -2,9 +2,8 @@ define([
     "app",
     "modules/views/modal",
     "modules/views/frame",
-    "modules/views/item-viewer-image",
-    "modules/views/item-viewer-audio",
-    "modules/views/item-viewer-youtube",
+    "modules/media-browser/item-viewer-image",
+    "modules/media-browser/item-viewer-audio",
 
     "backbone"
 ],
