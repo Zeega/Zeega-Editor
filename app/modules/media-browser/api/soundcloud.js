@@ -21,6 +21,7 @@ function( app, SearchModel ) {
                 consumer_key: "lyCI2ejeGofrnVyfMI18VQ"
             },
             title: "Soundcloud",
+            headline: "Favorites from Soundcloud",
             placeholder: "search SoundCloud audio",
             searchQuery: null
         },

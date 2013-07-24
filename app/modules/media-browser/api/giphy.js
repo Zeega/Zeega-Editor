@@ -22,6 +22,7 @@ function( app, SearchModel ) {
                 offset: 0
             },
             title: "Giphy",
+            headline: "Favorites from Giphy",
             placeholder: "search Giphy gifs",
             searchQuery: null
         },

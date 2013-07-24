@@ -89,6 +89,8 @@ function( app, Status, Layout, ZeegaParser, Analytics ) {
                 currentSequence: app.project.sequences.at( 0 ),
                 currentFrame: app.project.sequences.at( 0 ).frames.at( 0 )
             });
+
+            app.remix = app.project.get("remix").remix;
             this.insertLayout();
         },
 

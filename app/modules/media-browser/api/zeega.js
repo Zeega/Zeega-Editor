@@ -25,6 +25,7 @@ function( app, SearchModel ) {
                 sort: "date-desc"
             },
             title: "My Media",
+            headline: "My Media",
             placeholder: "search your media",
             searchQuery: null
         },

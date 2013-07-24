@@ -19,6 +19,7 @@ function( app, SearchModel ) {
                 tag: ""
             },
             title: "Tumblr",
+            headline: "Favorites from Tumblr",
             placeholder: "search Tumblr posts",
             searchQuery: null
         },

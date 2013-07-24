@@ -2,10 +2,10 @@
     <ul class='pull-left'>
         
         <li>
-            <a href="#" data-api = "Favorites" class="active media-toggle"
+            <a href="#" data-api = "Favorites" class="media-toggle"
                 title="our faves from across the web"
                 data-gravity="sw"
-            ><i class="socialz-zeega socialz-white"></i></a>
+            ><i class="socialz-zeega"></i></a>
         </li>
 
         <li>
@@ -45,18 +45,14 @@
             ><i class="socialz-giphy"></i></a>
         </li>
        
-       <!--  
+      <% if (remix ) { %>
         <li>
-            <a href="#" data-api = "Youtube" class="media-toggle"
-                title="Videos from Youtube"
+            <a href="#" data-api = "Remix" class="media-toggle"
+                title="Media from Remix"
                 data-gravity="sw"
-            ><i class="socialz-youtube"></i></a>
+            ><i class="socialz-remix"></i></a>
         </li>
-
-           -->
-         <!--
-   
-         -->
+       <% } %>
 
     </ul>
     <ul class="pull-right">

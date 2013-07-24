@@ -25,11 +25,26 @@ function( app, SearchModel ) {
                     sort: "date-desc"
             },
             title: "Zeega",
+            headline: "Favorites from Zeega",
             placeholder: "search Zeega favorites",
             searchQuery: null
         },
 
         _initialize: function(){
+
+            var d = new Date(),
+                weekday = new Array(7);
+
+            weekday[0]="Sunday";
+            weekday[1]="Monday";
+            weekday[2]="Tuesday";
+            weekday[3]="Wednesday";
+            weekday[4]="Thursday";
+            weekday[5]="Friday";
+            weekday[6]="Saturday";
+
+            this.set("headline", "Zeega's favorites from " + weekday[d.getDay()]);
+
             this.mediaCollection.url = function() {
                 var url;
 
@@ -48,6 +63,21 @@ function( app, SearchModel ) {
                 }
                 return url;
             };
+        },
+
+        _search: function( query ){
+
+            if( this.mediaCollection.length === 0 ){
+                var args = this.get("urlArguments");
+
+                if( query !== args.q ) {
+                    args.q = query;
+                }
+
+                this.set("urlArguments", args );
+                this.mediaCollection.fetch();
+            }
+            
         }
     });
 

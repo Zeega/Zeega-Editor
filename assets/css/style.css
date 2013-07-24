@@ -4736,13 +4736,13 @@ body {
 .socialz-instagram:hover {
   background-position: 0px -150px;
 }
-.socialz-youtube {
+.socialz-remix {
   background-position: 0 -180px;
 }
-.socialz-youtube.socialz-white {
+.socialz-remix.socialz-white {
   background-position: -30px -180px;
 }
-.socialz-youtube:hover {
+.socialz-remix:hover {
   background-position: 0px -180px;
 }
 .socialz-user {
