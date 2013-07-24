@@ -619,7 +619,7 @@ return __p;
 this["JST"]["app/templates/media-upload.html"] = function(obj){
 var __p='';var print=function(){__p+=Array.prototype.join.call(arguments, '')};
 with(obj||{}){
-__p+='<div class="upload-chooser">\n    <a href="#" class="upload-image-action active">upload</a> | <a href="#" class="paste-url-action">paste a url</a>\n</div>\n\n<div class="upload-toggle">\n    <div class="upload-file">\n        <div class = "upload-progress" ></div>\n        <span class="upload-instructions">click here to upload an image</span>\n        <input id="imagefile"  name="imagefile"  type="file" href="#"></input>\n    </div>\n    <div class="paste-url">\n        <input class="url-box" type="text" placeholder="enter url here" value="" />\n    </div>\n</div>\n\n\n\n<!-- \n<div class = "image-uploads" >\n    <span class="add-photo" href="#">\n        <input id="imagefile"  name="imagefile"  type="file" href="#"></input>\n    </span>\n</div>\n<ul class=\'pull-left search-bar\'>\n    <li>\n        <input class="url-box" type="text" placeholder="enter url here" value="" />\n    </li>\n</ul>\n -->';
+__p+='\n\n<div class="upload-toggle">\n    <div class="upload-file">\n        <div class = "upload-progress" ></div>\n        <span class="upload-instructions">click here to upload an image</span>\n        <input id="imagefile"  name="imagefile"  type="file" href="#"></input>\n    </div>\n    <div class="paste-url">\n        <input class="url-box" type="text" placeholder="enter url here" value="" />\n    </div>\n</div>\n<div class="upload-chooser">\n    <a href="#" class="upload-image-action">upload</a> | <a href="#" class="paste-url-action">paste a url</a>\n</div>\n\n\n<!-- \n<div class = "image-uploads" >\n    <span class="add-photo" href="#">\n        <input id="imagefile"  name="imagefile"  type="file" href="#"></input>\n    </span>\n</div>\n<ul class=\'pull-left search-bar\'>\n    <li>\n        <input class="url-box" type="text" placeholder="enter url here" value="" />\n    </li>\n</ul>\n -->';
 }
 return __p;
 };
@@ -42426,9 +42426,7 @@ function( app, ItemView ) {
         },
 
         showUploadImage: function() {
-
-       
-
+            this.model.set("tabState", "upload");
             this.$("#image-file").trigger("click");
             this.$(".upload-file").show();
             this.$(".paste-url").hide();
@@ -42437,10 +42435,20 @@ function( app, ItemView ) {
         },
 
         showPasteBox: function() {
+            this.model.set("tabState", "url");
             this.$(".upload-file").hide();
             this.$(".paste-url").show();
             this.$(".upload-image-action").removeClass("active");
             this.$(".paste-url-action").addClass("active");
+        },
+
+        afterRender: function(){
+            console.log(this.model.get("tabState"));
+            if(this.model.get("tabState") == "url" ){
+                this.showPasteBox();
+            } else {
+                this.showUploadImage();
+            }
         },
         
         onSearchKeyPress: function( e ) {

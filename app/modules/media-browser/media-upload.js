@@ -98,9 +98,7 @@ function( app, ItemView ) {
         },
 
         showUploadImage: function() {
-
-       
-
+            this.model.set("tabState", "upload");
             this.$("#image-file").trigger("click");
             this.$(".upload-file").show();
             this.$(".paste-url").hide();
@@ -109,10 +107,20 @@ function( app, ItemView ) {
         },
 
         showPasteBox: function() {
+            this.model.set("tabState", "url");
             this.$(".upload-file").hide();
             this.$(".paste-url").show();
             this.$(".upload-image-action").removeClass("active");
             this.$(".paste-url-action").addClass("active");
+        },
+
+        afterRender: function(){
+            console.log(this.model.get("tabState"));
+            if(this.model.get("tabState") == "url" ){
+                this.showPasteBox();
+            } else {
+                this.showUploadImage();
+            }
         },
         
         onSearchKeyPress: function( e ) {

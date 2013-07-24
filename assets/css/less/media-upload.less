@@ -11,6 +11,38 @@
 
 
 .media-upload {
+
+    clear: both;
+    padding: 10px 0;
+    font-size: 14px;
+
+    a:link, a:visited, a:hover, a:active {
+        color: white;
+    }
+
+    a {
+        opacity: 0.75;
+        &:hover{
+            opacity: 1;
+        }
+    }
+    a.active {
+        opacity: 1;
+    }
+
+
+    .upload-file {
+
+    }
+
+    .paste-url {
+        display: none;
+    }
+
+    .url-box {
+        width: 100%;
+        border: 0;
+    }
     
     .upload-progress{
         position: absolute;
@@ -23,6 +55,8 @@
     .upload-chooser{
         margin: 0 auto;
         width: 124px;
+        margin-bottom: -10px;
+        margin-top: 5px;
     }
 
     #imagefile{
