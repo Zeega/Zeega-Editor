@@ -41153,6 +41153,13 @@ function( app, ItemView ) {
         serialize: function() {
             var w, h, offset,
                 style = "";
+
+
+            if(_.isNull(this.model.get("thumbnail_url"))){
+                this.model.set( "thumbnail_url", this.model.get("uri") );
+
+            }
+             
             if( this.model.get("attributes") && this.model.get("attributes").height ){
                 if( this.model.get("attributes").width > this.model.get("attributes").height ){
                     h = dim;
@@ -41641,9 +41648,26 @@ function( app, MediaCollection ) {
 
         useBootstrapData: function(){
 
-            var mediaData = jQuery.parseJSON( window.mediaJSON );
-            
-            this.mediaCollection.add( mediaData.items );
+            //cleanup sloppy layer data
+            var mediaData = jQuery.parseJSON( window.mediaJSON ),
+                items = [],
+                uris = [],
+                i = 0;
+
+            _.each(mediaData.items, function(item){
+                if(!_.contains( uris, item.uri )){
+                    item.id = i;
+                    if(_.isNull(item.thumbnail_url)){
+                        item.thumbnail_url = item.uri;
+                    }
+                    items.push( item );
+                    uris.push( item.uri );
+                    i++;
+                }
+            });
+
+            this.mediaCollection.add( items );
+
         
         },
 
@@ -42266,6 +42290,8 @@ function( app, SearchModel ) {
                 return "";
             };
         },
+
+    
         _search: function(){
 
         }

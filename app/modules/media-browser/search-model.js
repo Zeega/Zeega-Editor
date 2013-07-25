@@ -50,9 +50,26 @@ function( app, MediaCollection ) {
 
         useBootstrapData: function(){
 
-            var mediaData = jQuery.parseJSON( window.mediaJSON );
-            
-            this.mediaCollection.add( mediaData.items );
+            //cleanup sloppy layer data
+            var mediaData = jQuery.parseJSON( window.mediaJSON ),
+                items = [],
+                uris = [],
+                i = 0;
+
+            _.each(mediaData.items, function(item){
+                if(!_.contains( uris, item.uri )){
+                    item.id = i;
+                    if(_.isNull(item.thumbnail_url)){
+                        item.thumbnail_url = item.uri;
+                    }
+                    items.push( item );
+                    uris.push( item.uri );
+                    i++;
+                }
+            });
+
+            this.mediaCollection.add( items );
+
         
         },
 

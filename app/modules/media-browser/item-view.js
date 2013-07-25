@@ -18,6 +18,13 @@ function( app, ItemView ) {
         serialize: function() {
             var w, h, offset,
                 style = "";
+
+
+            if(_.isNull(this.model.get("thumbnail_url"))){
+                this.model.set( "thumbnail_url", this.model.get("uri") );
+
+            }
+             
             if( this.model.get("attributes") && this.model.get("attributes").height ){
                 if( this.model.get("attributes").width > this.model.get("attributes").height ){
                     h = dim;

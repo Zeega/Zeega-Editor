@@ -30,6 +30,8 @@ function( app, SearchModel ) {
                 return "";
             };
         },
+
+    
         _search: function(){
 
         }
