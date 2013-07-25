@@ -4736,13 +4736,13 @@ body {
 .socialz-instagram:hover {
   background-position: 0px -150px;
 }
-.socialz-youtube {
+.socialz-remix {
   background-position: 0 -180px;
 }
-.socialz-youtube.socialz-white {
+.socialz-remix.socialz-white {
   background-position: -30px -180px;
 }
-.socialz-youtube:hover {
+.socialz-remix:hover {
   background-position: 0px -180px;
 }
 .socialz-user {
@@ -6418,33 +6418,6 @@ a:active {
   margin: 0;
   padding-top: 5px;
 }
-.media-collection .media-collection-header .media-upload {
-  clear: both;
-  padding: 10px 0;
-  font-size: 14px;
-}
-.media-collection .media-collection-header .media-upload a:link,
-.media-collection .media-collection-header .media-upload a:visited,
-.media-collection .media-collection-header .media-upload a:hover,
-.media-collection .media-collection-header .media-upload a:active {
-  color: white;
-}
-.media-collection .media-collection-header .media-upload a {
-  opacity: 1;
-}
-.media-collection .media-collection-header .media-upload a.active {
-  opacity: 0.75;
-}
-.media-collection .media-collection-header .media-upload .upload-chooser {
-  margin-bottom: 10px;
-}
-.media-collection .media-collection-header .media-upload .paste-url {
-  display: none;
-}
-.media-collection .media-collection-header .media-upload .url-box {
-  width: 100%;
-  border: 0;
-}
 .media-collection .media-collection-wrapper {
   position: relative;
   height: 100%;
@@ -6541,6 +6514,33 @@ a:active {
   padding-left: 5px;
   margin-left: 0;
 }
+.media-upload {
+  clear: both;
+  padding: 10px 0;
+  font-size: 14px;
+}
+.media-upload a:link,
+.media-upload a:visited,
+.media-upload a:hover,
+.media-upload a:active {
+  color: white;
+}
+.media-upload a {
+  opacity: 0.75;
+}
+.media-upload a:hover {
+  opacity: 1;
+}
+.media-upload a.active {
+  opacity: 1;
+}
+.media-upload .paste-url {
+  display: none;
+}
+.media-upload .url-box {
+  width: 100%;
+  border: 0;
+}
 .media-upload .upload-progress {
   position: absolute;
   width: 0px;
@@ -6551,6 +6551,8 @@ a:active {
 .media-upload .upload-chooser {
   margin: 0 auto;
   width: 124px;
+  margin-bottom: -10px;
+  margin-top: 5px;
 }
 .media-upload #imagefile {
   cursor: pointer;

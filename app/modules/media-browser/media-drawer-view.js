@@ -17,8 +17,19 @@ function( app, MediaLibrary, SearchView ) {
         },
 
         afterRender: function() {
-            
-            this.model.setAPI( "Favorites" );
+            if ( app.remix ){
+                this.model.setAPI( "Remix" );
+                this.$(".socialz-remix").addClass("socialz-white");
+                this.$(".socialz-remix").closest("a").addClass("active");
+                this.model.getAPI().useBootstrapData();
+
+            } else {
+                this.model.setAPI( "Favorites" );
+                this.$(".socialz-zeega").addClass("socialz-white");
+                this.$(".socialz-zeega").closest("a").addClass("active");
+                this.model.getAPI().useBootstrapData();
+               
+            }
             this.setView();
         },
         setView: function( ) {
@@ -28,7 +39,12 @@ function( app, MediaLibrary, SearchView ) {
             searchView.render();
             searchView.search( app.mediaSearchQuery );
         },
-
+        serialize: function() {
+            return _.extend({},
+                this.model.toJSON(),
+                { remix: app.remix }
+            );
+        },
 
         events: {
             "click .media-toggle": "onMediaToggle"

@@ -28,6 +28,7 @@ function( app, SearchModel ) {
             },
             title: "Flickr",
             placeholder: "search Flickr photos",
+            headline: "Favorites from Flickr",
             searchQuery:  null
         },
 

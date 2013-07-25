@@ -30,6 +30,10 @@ function( app, MediaCollection ) {
             this._initialize();
         },
 
+        _initialize: function() {
+
+        },
+
         getQuery: function(){
             return this.get("urlArguments").q;
         },
@@ -43,6 +47,15 @@ function( app, MediaCollection ) {
             return !this.mediaCollection.noResults;
         
         },
+
+        useBootstrapData: function(){
+
+            var mediaData = jQuery.parseJSON( window.mediaJSON );
+            
+            this.mediaCollection.add( mediaData.items );
+        
+        },
+
 
         search: function( query ){
 

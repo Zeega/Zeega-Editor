@@ -89,13 +89,15 @@ function( app, Status, Layout, ZeegaParser, Analytics ) {
                 currentSequence: app.project.sequences.at( 0 ),
                 currentFrame: app.project.sequences.at( 0 ).frames.at( 0 )
             });
+
+            app.remix = app.project.get("remix").remix;
             this.insertLayout();
         },
 
         insertLayout: function() {
 
-            // var location = app.metadata.root == "/" ? app.metadata.root + "editor/" + app.project.id : "/" + app.metadata.root + "editor/" + app.project.id;
-            // window.history.pushState("", "", location );
+            var location = app.metadata.root == "/" ? app.metadata.root + "editor/" + app.project.id : "/" + app.metadata.root + "editor/" + app.project.id;
+            window.history.pushState("", "", location );
 
             app.layout = new Layout();
             app.layout.render();

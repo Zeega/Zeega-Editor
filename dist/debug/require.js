@@ -597,17 +597,9 @@ __p+='<div class="media-collection-header">\n    <div class="media-collection-se
 ( placeholder )+
 '" value="'+
 ( searchQuery )+
-'" />\n        <a class="submit btnz"><span class="label">search</span></a>\n\n    </div>\n    <div class="media-collection-headline">\n        \n\n        ';
- if( title == "Zeega"  ) { 
-;__p+='\n            <p>Zeega\'s favorites for '+
-( day )+
-'</p>\n        ';
- } else { 
-;__p+='\n\n        <p> Favorites from '+
-( title )+
-' </p>\n        \n        ';
- } 
-;__p+='\n\n    </div>\n\n</div>\n<div class="media-collection-wrapper" >\n    <div class="media-collection-container">\n        <ul class="media-collection-items"></ul>\n    </div>\n</div>';
+'" />\n        <a class="submit btnz"><span class="label">search</span></a>\n\n    </div>\n    <div class="media-collection-headline">\n        <p> '+
+( headline )+
+' </p>\n    </div>\n\n</div>\n<div class="media-collection-wrapper" >\n    <div class="media-collection-container">\n        <ul class="media-collection-items"></ul>\n    </div>\n</div>';
 }
 return __p;
 };
@@ -615,7 +607,11 @@ return __p;
 this["JST"]["app/templates/media-drawer.html"] = function(obj){
 var __p='';var print=function(){__p+=Array.prototype.join.call(arguments, '')};
 with(obj||{}){
-__p+='<div class="media-drawer-controls ZEEGA-hmenu light img-tabs">\n    <ul class=\'pull-left\'>\n        \n        <li>\n            <a href="#" data-api = "Favorites" class="active media-toggle"\n                title="our faves from across the web"\n                data-gravity="sw"\n            ><i class="socialz-zeega socialz-white"></i></a>\n        </li>\n\n        <li>\n            <a href="#" data-api = "Soundcloud" class="media-toggle"\n                title="sounds from SoundCloud"\n                data-gravity="sw"\n            ><i class="socialz-soundcloud"></i></a>\n        </li>\n   \n\n        <li>\n            <a href="#" data-api="Tumblr" class="media-toggle"\n                title="GIFs and images from Tumblr"\n                data-gravity="sw"\n            ><i class="socialz-tumblr"></i></a>\n        </li>\n    <!-- -->\n        <!--\n        <li>\n            <a href="#" data-api = "Instagram" class="media-toggle"\n                title="images from Instagram"\n                data-gravity="sw"\n            ><i class="socialz-instagram"></i></a>\n        </li>\n    -->\n        <li>\n            <a href="#" data-api = "Flickr" class="media-toggle"\n                title="images from Flickr"\n                data-gravity="sw"\n            ><i class="socialz-flickr"></i></a>\n        </li>\n\n        <li>\n            <a href="#" data-api = "Giphy" class="media-toggle"\n                title="GIFs from Giphy"\n                data-gravity="sw"\n            ><i class="socialz-giphy"></i></a>\n        </li>\n       \n       <!--  \n        <li>\n            <a href="#" data-api = "Youtube" class="media-toggle"\n                title="Videos from Youtube"\n                data-gravity="sw"\n            ><i class="socialz-youtube"></i></a>\n        </li>\n\n           -->\n         <!--\n   \n         -->\n\n    </ul>\n    <ul class="pull-right">\n        <li >\n            <a id="media-upload-tab" href="#" data-api = "Zeega" class="media-toggle">UPLOAD</a>\n        </li>\n    </ul>\n    \n    \n</div>\n<div class="ZEEGA-items"></div>\n';
+__p+='<div class="media-drawer-controls ZEEGA-hmenu light img-tabs">\n    <ul class=\'pull-left\'>\n        \n        <li>\n            <a href="#" data-api = "Favorites" class="media-toggle"\n                title="our faves from across the web"\n                data-gravity="sw"\n            ><i class="socialz-zeega"></i></a>\n        </li>\n\n        <li>\n            <a href="#" data-api = "Soundcloud" class="media-toggle"\n                title="sounds from SoundCloud"\n                data-gravity="sw"\n            ><i class="socialz-soundcloud"></i></a>\n        </li>\n   \n\n        <li>\n            <a href="#" data-api="Tumblr" class="media-toggle"\n                title="GIFs and images from Tumblr"\n                data-gravity="sw"\n            ><i class="socialz-tumblr"></i></a>\n        </li>\n    <!-- -->\n        <!--\n        <li>\n            <a href="#" data-api = "Instagram" class="media-toggle"\n                title="images from Instagram"\n                data-gravity="sw"\n            ><i class="socialz-instagram"></i></a>\n        </li>\n    -->\n        <li>\n            <a href="#" data-api = "Flickr" class="media-toggle"\n                title="images from Flickr"\n                data-gravity="sw"\n            ><i class="socialz-flickr"></i></a>\n        </li>\n\n        <li>\n            <a href="#" data-api = "Giphy" class="media-toggle"\n                title="GIFs from Giphy"\n                data-gravity="sw"\n            ><i class="socialz-giphy"></i></a>\n        </li>\n       \n      ';
+ if (remix ) { 
+;__p+='\n        <li>\n            <a href="#" data-api = "Remix" class="media-toggle"\n                title="Media from Remix"\n                data-gravity="sw"\n            ><i class="socialz-remix"></i></a>\n        </li>\n       ';
+ } 
+;__p+='\n\n    </ul>\n    <ul class="pull-right">\n        <li >\n            <a id="media-upload-tab" href="#" data-api = "Zeega" class="media-toggle">UPLOAD</a>\n        </li>\n    </ul>\n    \n    \n</div>\n<div class="ZEEGA-items"></div>\n';
 }
 return __p;
 };
@@ -623,7 +619,7 @@ return __p;
 this["JST"]["app/templates/media-upload.html"] = function(obj){
 var __p='';var print=function(){__p+=Array.prototype.join.call(arguments, '')};
 with(obj||{}){
-__p+='<div class="upload-chooser">\n    <a href="#" class="upload-image-action active">upload</a> | <a href="#" class="paste-url-action">paste a url</a>\n</div>\n\n<div class="upload-toggle">\n    <div class="upload-file">\n        <div class = "upload-progress" ></div>\n        <span class="upload-instructions">click here to upload an image</span>\n        <input id="imagefile"  name="imagefile"  type="file" href="#"></input>\n    </div>\n    <div class="paste-url">\n        <input class="url-box" type="text" placeholder="enter url here" value="" />\n    </div>\n</div>\n\n\n\n<!-- \n<div class = "image-uploads" >\n    <span class="add-photo" href="#">\n        <input id="imagefile"  name="imagefile"  type="file" href="#"></input>\n    </span>\n</div>\n<ul class=\'pull-left search-bar\'>\n    <li>\n        <input class="url-box" type="text" placeholder="enter url here" value="" />\n    </li>\n</ul>\n -->';
+__p+='\n\n<div class="upload-toggle">\n    <div class="upload-file">\n        <div class = "upload-progress" ></div>\n        <span class="upload-instructions">click here to upload an image</span>\n        <input id="imagefile"  name="imagefile"  type="file" href="#"></input>\n    </div>\n    <div class="paste-url">\n        <input class="url-box" type="text" placeholder="enter url here" value="" />\n    </div>\n</div>\n<div class="upload-chooser">\n    <a href="#" class="upload-image-action">upload</a> | <a href="#" class="paste-url-action">paste a url</a>\n</div>\n\n\n<!-- \n<div class = "image-uploads" >\n    <span class="add-photo" href="#">\n        <input id="imagefile"  name="imagefile"  type="file" href="#"></input>\n    </span>\n</div>\n<ul class=\'pull-left search-bar\'>\n    <li>\n        <input class="url-box" type="text" placeholder="enter url here" value="" />\n    </li>\n</ul>\n -->';
 }
 return __p;
 };
@@ -742,6 +738,14 @@ this["JST"]["app/modules/intro-modal/intro-modal.html"] = function(obj){
 var __p='';var print=function(){__p+=Array.prototype.join.call(arguments, '')};
 with(obj||{}){
 __p+='<div class="modal-wrapper">\n\n    <div class="modal-content">\n\n        <div class="step-1">\n\n            <h1>Heya! Welcome to Zeega!</h1>\n\n            <p>\n                Zeega is a community creating everything from stories to interactive music to memes.\n            </p>\n            <p>\n                We’ve got a few fun prompts to get you started.\n            </p>\n\n            <div class="intro-graphic">\n                <img src="assets/img/intro-graphic.png" width="100%"/>\n            </div>\n            <a href="#" class="finish btnz btnz-submit">Start Making <i class="icon-chevron-right icon-white"></i></a>\n        </div>\n\n\n    </div>\n</div>';
+}
+return __p;
+};
+
+this["JST"]["app/modules/media-browser/index.html"] = function(obj){
+var __p='';var print=function(){__p+=Array.prototype.join.call(arguments, '')};
+with(obj||{}){
+__p+='\n\n\n<html>\n\n\n<body>\n\n<div style="width:500px; height: 266px; background-image: url(\'giftest.jpg\');" ></div>\n\n\n\n</body>\n\n\n\n</html>';
 }
 return __p;
 };
@@ -41617,6 +41621,10 @@ function( app, MediaCollection ) {
             this._initialize();
         },
 
+        _initialize: function() {
+
+        },
+
         getQuery: function(){
             return this.get("urlArguments").q;
         },
@@ -41630,6 +41638,15 @@ function( app, MediaCollection ) {
             return !this.mediaCollection.noResults;
         
         },
+
+        useBootstrapData: function(){
+
+            var mediaData = jQuery.parseJSON( window.mediaJSON );
+            
+            this.mediaCollection.add( mediaData.items );
+        
+        },
+
 
         search: function( query ){
 
@@ -41701,6 +41718,7 @@ function( app, SearchModel ) {
                 sort: "date-desc"
             },
             title: "My Media",
+            headline: "My Media",
             placeholder: "search your media",
             searchQuery: null
         },
@@ -41790,6 +41808,7 @@ function( app, SearchModel ) {
             },
             title: "Flickr",
             placeholder: "search Flickr photos",
+            headline: "Favorites from Flickr",
             searchQuery:  null
         },
 
@@ -41877,6 +41896,7 @@ function( app, SearchModel ) {
                 tag: ""
             },
             title: "Tumblr",
+            headline: "Favorites from Tumblr",
             placeholder: "search Tumblr posts",
             searchQuery: null
         },
@@ -41962,6 +41982,7 @@ function( app, SearchModel ) {
                 consumer_key: "lyCI2ejeGofrnVyfMI18VQ"
             },
             title: "Soundcloud",
+            headline: "Favorites from Soundcloud",
             placeholder: "search SoundCloud audio",
             searchQuery: null
         },
@@ -42061,6 +42082,7 @@ function( app, SearchModel ) {
                 offset: 0
             },
             title: "Giphy",
+            headline: "Favorites from Giphy",
             placeholder: "search Giphy gifs",
             searchQuery: null
         },
@@ -42154,11 +42176,26 @@ function( app, SearchModel ) {
                     sort: "date-desc"
             },
             title: "Zeega",
+            headline: "Favorites from Zeega",
             placeholder: "search Zeega favorites",
             searchQuery: null
         },
 
         _initialize: function(){
+
+            var d = new Date(),
+                weekday = new Array(7);
+
+            weekday[0]="Sunday";
+            weekday[1]="Monday";
+            weekday[2]="Tuesday";
+            weekday[3]="Wednesday";
+            weekday[4]="Thursday";
+            weekday[5]="Friday";
+            weekday[6]="Saturday";
+
+            this.set("headline", "Zeega's favorites from " + weekday[d.getDay()]);
+
             this.mediaCollection.url = function() {
                 var url;
 
@@ -42177,6 +42214,60 @@ function( app, SearchModel ) {
                 }
                 return url;
             };
+        },
+
+        _search: function( query ){
+
+            if( this.mediaCollection.length === 0 ){
+                var args = this.get("urlArguments");
+
+                if( query !== args.q ) {
+                    args.q = query;
+                }
+
+                this.set("urlArguments", args );
+                this.mediaCollection.fetch();
+            }
+            
+        }
+    });
+
+});
+
+define('modules/media-browser/api/remix',[
+    "app",
+    "modules/media-browser/search-model",
+    "backbone"
+],
+
+function( app, SearchModel ) {
+
+    return SearchModel.extend({
+
+        api: "Remix",
+        mediaCollection: null,
+        defaults: {
+                urlArguments: {
+                    collection: "",
+                    type: "Image",
+                    page: 1,
+                    q: "",
+                    limit: 48,
+                    user: 1,
+                    sort: "date-desc"
+            },
+            title: "Remix",
+            headline: "Remix Media",
+            placeholder: "",
+            searchQuery: null
+        },
+        _initialize: function(){
+            this.mediaCollection.url = function(){
+                return "";
+            };
+        },
+        _search: function(){
+
         }
     });
 
@@ -42190,10 +42281,11 @@ define('modules/media-browser/media-library',[
     "modules/media-browser/api/soundcloud",
     "modules/media-browser/api/giphy",
     "modules/media-browser/api/favorites",
+    "modules/media-browser/api/remix",
     "backbone"
 ],
 
-function( app, ZeegaSearch, FlickrSearch, TumblrSearch, SoundcloudSearch, GiphySearch, FavoritesSearch ) {
+function( app, ZeegaSearch, FlickrSearch, TumblrSearch, SoundcloudSearch, GiphySearch, FavoritesSearch, RemixSearch ) {
 
 
 
@@ -42205,12 +42297,15 @@ function( app, ZeegaSearch, FlickrSearch, TumblrSearch, SoundcloudSearch, GiphyS
             Tumblr: new TumblrSearch(),
             Soundcloud: new SoundcloudSearch(),
             Giphy: new GiphySearch(),
-            Favorites: new FavoritesSearch()
+            Favorites: new FavoritesSearch(),
+            currentAPI: "Favorites"
         },
         
         initialize: function() {
-             this.set ( "currentAPI", "Zeega" );
-             app.mediaSearchQuery = "";
+            if ( app.remix ){
+                this.set("Remix", new RemixSearch());
+            }
+            app.mediaSearchQuery = "";
         },
 
         setAPI: function( api ){
@@ -42331,9 +42426,7 @@ function( app, ItemView ) {
         },
 
         showUploadImage: function() {
-
-       
-
+            this.model.set("tabState", "upload");
             this.$("#image-file").trigger("click");
             this.$(".upload-file").show();
             this.$(".paste-url").hide();
@@ -42342,10 +42435,20 @@ function( app, ItemView ) {
         },
 
         showPasteBox: function() {
+            this.model.set("tabState", "url");
             this.$(".upload-file").hide();
             this.$(".paste-url").show();
             this.$(".upload-image-action").removeClass("active");
             this.$(".paste-url-action").addClass("active");
+        },
+
+        afterRender: function(){
+            console.log(this.model.get("tabState"));
+            if(this.model.get("tabState") == "url" ){
+                this.showPasteBox();
+            } else {
+                this.showUploadImage();
+            }
         },
         
         onSearchKeyPress: function( e ) {
@@ -42828,21 +42931,7 @@ function( app, UploadView, Spinner ) {
         template: "app/templates/media-collection",
 
         serialize: function() {
-            var d=new Date();
-            var weekday=new Array(7);
-
-            weekday[0]="Sunday";
-            weekday[1]="Monday";
-            weekday[2]="Tuesday";
-            weekday[3]="Wednesday";
-            weekday[4]="Thursday";
-            weekday[5]="Friday";
-            weekday[6]="Saturday";
-
-            return _.extend({},
-                _.defaults( this.model.toJSON(), this.defaults ),
-                { day: weekday[d.getDay()] }
-            );
+            return _.defaults( this.model.toJSON(), this.defaults );
         },
 
         listen: null,
@@ -43012,8 +43101,19 @@ function( app, MediaLibrary, SearchView ) {
         },
 
         afterRender: function() {
-            
-            this.model.setAPI( "Favorites" );
+            if ( app.remix ){
+                this.model.setAPI( "Remix" );
+                this.$(".socialz-remix").addClass("socialz-white");
+                this.$(".socialz-remix").closest("a").addClass("active");
+                this.model.getAPI().useBootstrapData();
+
+            } else {
+                this.model.setAPI( "Favorites" );
+                this.$(".socialz-zeega").addClass("socialz-white");
+                this.$(".socialz-zeega").closest("a").addClass("active");
+                this.model.getAPI().useBootstrapData();
+               
+            }
             this.setView();
         },
         setView: function( ) {
@@ -43023,7 +43123,12 @@ function( app, MediaLibrary, SearchView ) {
             searchView.render();
             searchView.search( app.mediaSearchQuery );
         },
-
+        serialize: function() {
+            return _.extend({},
+                this.model.toJSON(),
+                { remix: app.remix }
+            );
+        },
 
         events: {
             "click .media-toggle": "onMediaToggle"
@@ -44653,13 +44758,15 @@ function( app, Status, Layout, ZeegaParser, Analytics ) {
                 currentSequence: app.project.sequences.at( 0 ),
                 currentFrame: app.project.sequences.at( 0 ).frames.at( 0 )
             });
+
+            app.remix = app.project.get("remix").remix;
             this.insertLayout();
         },
 
         insertLayout: function() {
 
-            // var location = app.metadata.root == "/" ? app.metadata.root + "editor/" + app.project.id : "/" + app.metadata.root + "editor/" + app.project.id;
-            // window.history.pushState("", "", location );
+            var location = app.metadata.root == "/" ? app.metadata.root + "editor/" + app.project.id : "/" + app.metadata.root + "editor/" + app.project.id;
+            window.history.pushState("", "", location );
 
             app.layout = new Layout();
             app.layout.render();

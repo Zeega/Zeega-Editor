@@ -6,10 +6,11 @@ define([
     "modules/media-browser/api/soundcloud",
     "modules/media-browser/api/giphy",
     "modules/media-browser/api/favorites",
+    "modules/media-browser/api/remix",
     "backbone"
 ],
 
-function( app, ZeegaSearch, FlickrSearch, TumblrSearch, SoundcloudSearch, GiphySearch, FavoritesSearch ) {
+function( app, ZeegaSearch, FlickrSearch, TumblrSearch, SoundcloudSearch, GiphySearch, FavoritesSearch, RemixSearch ) {
 
 
 
@@ -21,12 +22,15 @@ function( app, ZeegaSearch, FlickrSearch, TumblrSearch, SoundcloudSearch, GiphyS
             Tumblr: new TumblrSearch(),
             Soundcloud: new SoundcloudSearch(),
             Giphy: new GiphySearch(),
-            Favorites: new FavoritesSearch()
+            Favorites: new FavoritesSearch(),
+            currentAPI: "Favorites"
         },
         
         initialize: function() {
-             this.set ( "currentAPI", "Zeega" );
-             app.mediaSearchQuery = "";
+            if ( app.remix ){
+                this.set("Remix", new RemixSearch());
+            }
+            app.mediaSearchQuery = "";
         },
 
         setAPI: function( api ){
