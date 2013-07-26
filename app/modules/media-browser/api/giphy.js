@@ -12,7 +12,7 @@ function( app, SearchModel ) {
         api: "Giphy",
         apiUrl: app.getApi() + "items/parser?",
         allowSearch: true,
-        favUrl: app.searchAPI + "archive=Giphy&type=Image&user=" + app.metadata.favId + "&limit=48&sort=date-desc",
+        favUrl: app.getApi() + "items/search?archive=Giphy&type=Image&user=" + app.metadata.favId + "&limit=48&sort=date-desc",
 
 
         defaults: {

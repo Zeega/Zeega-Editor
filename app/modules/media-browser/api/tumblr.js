@@ -11,7 +11,7 @@ function( app, SearchModel ) {
         
         api: "Tumblr",
         apiUrl: app.getApi() + "items/parser?",
-        favUrl: app.searchAPI + "archive=Tumblr&type=Image&user=" + app.metadata.favId + "&limit=48&sort=date-desc",
+        favUrl: app.getApi() + "items/search?archive=Tumblr&type=Image&user=" + app.metadata.favId + "&limit=48&sort=date-desc",
         allowSearch: true,
         defaults: {
             urlArguments: {
@@ -24,7 +24,6 @@ function( app, SearchModel ) {
             searchQuery: null
         },
         _initialize: function(){
-             console.log("_______________"+app.getApi() )
             this.mediaCollection._parse = function(res){
                 var photos = res.items,
                     count = 1;

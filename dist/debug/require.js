@@ -18019,7 +18019,7 @@ define('app',[
         metadata: $("meta[name=zeega]").data(),
 
         getWebRoot: function() {
-            return "http:" + this.metadata.hostname;
+            return "http:" + this.metadata.hostname + this.metadata.apiRoot;
         },
 
         getApi: function() {
@@ -41922,7 +41922,7 @@ function( app, SearchModel ) {
         
         api: "Tumblr",
         apiUrl: app.getApi() + "items/parser?",
-        favUrl: app.searchAPI + "archive=Tumblr&type=Image&user=" + app.metadata.favId + "&limit=48&sort=date-desc",
+        favUrl: app.getApi() + "items/search?archive=Tumblr&type=Image&user=" + app.metadata.favId + "&limit=48&sort=date-desc",
         allowSearch: true,
         defaults: {
             urlArguments: {
@@ -41935,7 +41935,6 @@ function( app, SearchModel ) {
             searchQuery: null
         },
         _initialize: function(){
-             console.log("_______________"+app.getApi() )
             this.mediaCollection._parse = function(res){
                 var photos = res.items,
                     count = 1;
@@ -42106,7 +42105,7 @@ function( app, SearchModel ) {
         api: "Giphy",
         apiUrl: app.getApi() + "items/parser?",
         allowSearch: true,
-        favUrl: app.searchAPI + "archive=Giphy&type=Image&user=" + app.metadata.favId + "&limit=48&sort=date-desc",
+        favUrl: app.getApi() + "items/search?archive=Giphy&type=Image&user=" + app.metadata.favId + "&limit=48&sort=date-desc",
 
 
         defaults: {
@@ -44767,7 +44766,6 @@ function( app, Status, Layout, ZeegaParser, Analytics ) {
             } else {
                 var rawDataModel = new Backbone.Model();
                 // mainly for testing
-console.log("API", app.getApi() + "projects/"+ app.metadata.projectId )
                 rawDataModel.url = app.getApi() + "projects/"+ app.metadata.projectId;
 
                 rawDataModel.fetch().success(function( response ) {

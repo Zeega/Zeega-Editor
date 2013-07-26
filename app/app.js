@@ -18,7 +18,7 @@ define([
         metadata: $("meta[name=zeega]").data(),
 
         getWebRoot: function() {
-            return "http:" + this.metadata.hostname;
+            return "http:" + this.metadata.hostname + this.metadata.apiRoot;
         },
 
         getApi: function() {

@@ -62,7 +62,6 @@ function( app, Status, Layout, ZeegaParser, Analytics ) {
             } else {
                 var rawDataModel = new Backbone.Model();
                 // mainly for testing
-console.log("API", app.getApi() + "projects/"+ app.metadata.projectId )
                 rawDataModel.url = app.getApi() + "projects/"+ app.metadata.projectId;
 
                 rawDataModel.fetch().success(function( response ) {
