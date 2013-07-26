@@ -15,6 +15,7 @@ function( app, ItemView ) {
             "description": "",
             "text": "",
             "uri": "",
+            "zga_uri": null,
             "attribution_uri": "",
             "thumbnail_url": "",
             "media_type": "Image",
@@ -210,6 +211,10 @@ function( app, ItemView ) {
                         "attribution_uri": data.fullsize_url,
                         "thumbnail_url": data.image_url_4
                     });
+
+                    if( data.zga_url ){
+                        item.set("zga_uri", data.zga_url );
+                    }
 
                     $(".intro").remove();
                     this.addItem( item );

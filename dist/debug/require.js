@@ -34931,6 +34931,12 @@ function( app, Layer, Visual ){
         },
 
         init: function() {
+            var attr = this.model.get("attr");
+            if( !_.isNull( attr.zga_uri ) ){
+                attr.uri = attr.zga_uri;
+                this.model.set( { attr: attr } );
+            }
+
 
             if ( this.model.getAttr("page_background")) {
                 this.visualProperties = ["opacity"];
@@ -42250,6 +42256,7 @@ function( app, ItemView ) {
             "description": "",
             "text": "",
             "uri": "",
+            "zga_uri": null,
             "attribution_uri": "",
             "thumbnail_url": "",
             "media_type": "Image",
@@ -42445,6 +42452,10 @@ function( app, ItemView ) {
                         "attribution_uri": data.fullsize_url,
                         "thumbnail_url": data.image_url_4
                     });
+
+                    if( data.zga_url ){
+                        item.set("zga_uri", data.zga_url );
+                    }
 
                     $(".intro").remove();
                     this.addItem( item );
