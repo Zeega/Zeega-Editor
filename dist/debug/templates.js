@@ -356,14 +356,6 @@ __p+='<div class="modal-wrapper">\n\n    <div class="modal-content">\n\n        
 return __p;
 };
 
-this["JST"]["app/modules/media-browser/index.html"] = function(obj){
-var __p='';var print=function(){__p+=Array.prototype.join.call(arguments, '')};
-with(obj||{}){
-__p+='\n\n\n<html>\n\n\n<body>\n\n<div style="width:500px; height: 266px; background-image: url(\'giftest.jpg\');" ></div>\n\n\n\n</body>\n\n\n\n</html>';
-}
-return __p;
-};
-
 this["JST"]["app/modules/pointers/pointer.html"] = function(obj){
 var __p='';var print=function(){__p+=Array.prototype.join.call(arguments, '')};
 with(obj||{}){

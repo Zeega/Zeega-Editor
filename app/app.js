@@ -17,18 +17,18 @@ define([
 
         metadata: $("meta[name=zeega]").data(),
 
-        userId: meta.data("userId") || null,
-        userName: meta.data("userName") || null,
-        projectId: meta.data("projectId")|| null,
-        root: meta.data("root")|| null,
-        apiRoot: meta.data("apiRoot")||  null, // dev only
-        
-        webRoot:  "http:" + meta.data("hostname") +  ( meta.data("apiRoot") ? meta.data("apiRoot") : meta.data("root") ) || null,
-        api: "http:" + meta.data("hostname") +  ( meta.data("apiRoot") ? meta.data("apiRoot") : meta.data("root") ) + "api/"|| null,
-        mediaServer: "http:" + meta.data("hostname") + meta.data("mediaRoot") || null,
-        searchAPI: "http:" + meta.data("hostname") +  ( meta.data("apiRoot") ? meta.data("apiRoot") : meta.data("root") ) + "api/items/search?"|| null,
-        featuredAPI: "http:" + meta.data("hostname") +  ( meta.data("apiRoot") ? meta.data("apiRoot") : meta.data("root") ) + "api/items/featured" || null,
-        thumbnailServer: meta.data("thumbnailServer"),
+        getWebRoot: function() {
+            return "http:" + this.metadata.hostname + this.metadata.root;
+        },
+
+        getApi: function() {
+            return this.getWebRoot() + "api/";
+        },
+
+        getTemplateBase: function() {
+            if ( this.metadata.dev ) return "";
+            else return this.metadata.root;
+        },
 
         // function that editor events should call so they can be routed, inspected and modified
         emit: function( event, args ) {
@@ -121,7 +121,7 @@ define([
             var done = this.async();
 
             // Seek out the template asynchronously.
-            $.get(app.root + path, function(contents) {
+            $.get( app.getTemplateBase() + path, function(contents) {
                 done(JST[path] = _.template(contents));
             });
         }
