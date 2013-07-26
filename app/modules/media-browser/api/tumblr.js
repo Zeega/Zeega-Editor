@@ -24,7 +24,7 @@ function( app, SearchModel ) {
             searchQuery: null
         },
         _initialize: function(){
-
+             console.log("_______________"+app.getApi() )
             this.mediaCollection._parse = function(res){
                 var photos = res.items,
                     count = 1;

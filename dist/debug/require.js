@@ -18019,7 +18019,7 @@ define('app',[
         metadata: $("meta[name=zeega]").data(),
 
         getWebRoot: function() {
-            return "http:" + this.metadata.hostname + this.metadata.root;
+            return "http:" + this.metadata.hostname + this.metadata.apiRoot;
         },
 
         getApi: function() {
@@ -41921,7 +41921,7 @@ function( app, SearchModel ) {
     return SearchModel.extend({
         
         api: "Tumblr",
-        apiUrl: app.getAPI() + "items/parser?",
+        apiUrl: app.getApi() + "items/parser?",
         favUrl: app.searchAPI + "archive=Tumblr&type=Image&user=" + app.metadata.favId + "&limit=48&sort=date-desc",
         allowSearch: true,
         defaults: {
@@ -41935,7 +41935,7 @@ function( app, SearchModel ) {
             searchQuery: null
         },
         _initialize: function(){
-
+             console.log("_______________"+app.getApi() )
             this.mediaCollection._parse = function(res){
                 var photos = res.items,
                     count = 1;
@@ -42104,7 +42104,7 @@ function( app, SearchModel ) {
     return SearchModel.extend({
         
         api: "Giphy",
-        apiUrl: app.getAPI() + "items/parser?",
+        apiUrl: app.getApi() + "items/parser?",
         allowSearch: true,
         favUrl: app.searchAPI + "archive=Giphy&type=Image&user=" + app.metadata.favId + "&limit=48&sort=date-desc",
 
@@ -42122,7 +42122,7 @@ function( app, SearchModel ) {
         },
 
         _initialize : function(){
-            
+
             this.mediaCollection._parse = function(res){
             
                 var photos = res.items,
