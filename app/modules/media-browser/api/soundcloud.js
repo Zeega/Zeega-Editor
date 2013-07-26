@@ -11,7 +11,7 @@ function( app, SearchModel ) {
         
         api: "Soundcloud",
         apiUrl: "https://api.soundcloud.com/tracks.json?",
-        favUrl: app.searchAPI + "archive=SoundCloud&type=Audio&user=" + app.metadata.favId + "&limit=48&sort=date-desc",
+        favUrl: app.getApi() + "items/search?archive=SoundCloud&type=Audio&user=" + app.metadata.favId + "&limit=48&sort=date-desc",
         
         allowSearch: true,
         defaults: {

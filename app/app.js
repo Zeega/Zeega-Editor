@@ -25,6 +25,8 @@ define([
             return this.getWebRoot() + "api/";
         },
 
+        api : "http:" + this.metadata.hostname + this.metadata.apiRoot + "api/",
+
         getTemplateBase: function() {
             if ( this.metadata.dev ) return "";
             else return this.metadata.root;

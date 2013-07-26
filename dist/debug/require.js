@@ -18026,6 +18026,8 @@ define('app',[
             return this.getWebRoot() + "api/";
         },
 
+        api : "http:" + this.metadata.hostname + this.metadata.apiRoot + "api/",
+
         getTemplateBase: function() {
             if ( this.metadata.dev ) return "";
             else return this.metadata.root;
@@ -42005,7 +42007,7 @@ function( app, SearchModel ) {
         
         api: "Soundcloud",
         apiUrl: "https://api.soundcloud.com/tracks.json?",
-        favUrl: app.searchAPI + "archive=SoundCloud&type=Audio&user=" + app.metadata.favId + "&limit=48&sort=date-desc",
+        favUrl: app.getApi() + "items/search?archive=SoundCloud&type=Audio&user=" + app.metadata.favId + "&limit=48&sort=date-desc",
         
         allowSearch: true,
         defaults: {
