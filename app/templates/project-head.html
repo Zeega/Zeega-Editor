@@ -63,12 +63,24 @@
             <span class="saving-indicator btnz btnz-transparent"></span>
         </li>
 
+    <% if ( remix.remix ) { %>
+        <li>
+            <a href="<%= web_root %><%= id %>"
+                class="btnz btnz-green"
+                title="see what you're making"
+                data-gravity="n"
+                target="blank"
+            ><i class="icon-play icon-white"></i> Play</a>
+        </li>
+    <% } else { %>
         <li>
             <a href="#" class="project-preview btnz btnz-green"
                 title="see what you're making"
                 data-gravity="n"
             ><i class="icon-play icon-white"></i> Play</a>
         </li>
+    <% } %>
+
         <li>
             <a href="#" class="project-share btnz btnz-blue btnz-fullwidth"
                 title="share your Zeega with the world"
