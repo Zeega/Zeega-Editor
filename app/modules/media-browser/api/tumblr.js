@@ -10,7 +10,7 @@ function( app, SearchModel ) {
     return SearchModel.extend({
         
         api: "Tumblr",
-        apiUrl: app.api + "items/parser?",
+        apiUrl: app.getAPI() + "items/parser?",
         favUrl: app.searchAPI + "archive=Tumblr&type=Image&user=" + app.metadata.favId + "&limit=48&sort=date-desc",
         allowSearch: true,
         defaults: {

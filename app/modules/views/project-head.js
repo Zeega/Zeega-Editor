@@ -14,7 +14,7 @@ function( app, Zeega ) {
 
         serialize: function() {
             return _.extend({
-                    web_root: app.webRoot,
+                    web_root: app.getWebRoot(),
                     share_links: this.getShareLinks()
                 },
                 app.metadata,
@@ -28,7 +28,7 @@ function( app, Zeega ) {
         getShareLinks: function() {
             var title, html,
                 links = {},
-                webRoot = app.webRoot;
+                webRoot = app.getWebRoot();
 
             if(_.isUndefined( this.$("#project-caption").val()) ){
                 title = app.project.get("title");
@@ -45,14 +45,14 @@ function( app, Zeega ) {
                 "&caption=" + encodeURIComponent( html ) +
                 "&click_thru="+ encodeURIComponent( webRoot ) + this.model.project.get("id");
 
-            links.reddit = "http://www.reddit.com/submit?url=" + encodeURIComponent( app.webRoot ) + this.model.project.get("id") +
+            links.reddit = "http://www.reddit.com/submit?url=" + encodeURIComponent( app.getWebRoot() ) + this.model.project.get("id") +
                 "&title=" + encodeURIComponent( title );
 
             links.twitter = "https://twitter.com/intent/tweet?original_referer=" + encodeURIComponent( webRoot ) + this.model.project.get("id") +
                 "&text=" + encodeURIComponent( title  + " made w/ @zeega") +
                 "&url=" + encodeURIComponent( webRoot ) + this.model.project.get("id");
 
-            links.facebook = "http://www.facebook.com/sharer.php?u=" + encodeURIComponent( app.webRoot ) + this.model.project.get("id");
+            links.facebook = "http://www.facebook.com/sharer.php?u=" + encodeURIComponent( app.getWebRoot() ) + this.model.project.get("id");
 
             return links;
         },
@@ -115,14 +115,14 @@ function( app, Zeega ) {
         updateCoverImage: function( url ) {
             app.project.save("cover_image", url );
 
-            tumblr_caption = "<p><a href='" + app.webRoot + app.project.get("id") + "'><strong>Play&nbsp;► " +
+            tumblr_caption = "<p><a href='" + app.getWebRoot() + app.project.get("id") + "'><strong>Play&nbsp;► " +
                             app.project.get("title") + "</strong></a></p><p>A Zeega by&nbsp;<a href='" +
-                            app.webRoot + "profile/" + app.project.get("user_id") + "'>" + app.project.get("authors") + "</a></p>";
+                            app.getWebRoot() + "profile/" + app.project.get("user_id") + "'>" + app.project.get("authors") + "</a></p>";
 
 
             tumblr_share = "source=" + encodeURIComponent( app.project.get("cover_image") ) +
                             "&caption=" + encodeURIComponent( tumblr_caption ) +
-                            "&click_thru="+ encodeURIComponent( app.webRoot ) + app.project.get("id");
+                            "&click_thru="+ encodeURIComponent( app.getWebRoot() ) + app.project.get("id");
             this.$("#tumblr-share").attr("href", "http://www.tumblr.com/share/photo?" + tumblr_share );
 
         },

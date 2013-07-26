@@ -62,8 +62,8 @@ function( app, Status, Layout, ZeegaParser, Analytics ) {
             } else {
                 var rawDataModel = new Backbone.Model();
                 // mainly for testing
-
-                rawDataModel.url = app.api + "projects/"+ app.projectId;
+console.log("API", app.getApi() + "projects/"+ app.metadata.projectId )
+                rawDataModel.url = app.getApi() + "projects/"+ app.metadata.projectId;
 
                 rawDataModel.fetch().success(function( response ) {
                     this._parseData( response );
@@ -96,8 +96,10 @@ function( app, Status, Layout, ZeegaParser, Analytics ) {
 
         insertLayout: function() {
 
-            var location = app.metadata.root == "/" ? app.metadata.root + "editor/" + app.project.id : "/" + app.metadata.root + "editor/" + app.project.id;
-            window.history.pushState("", "", location );
+            if ( !app.metadata.dev ) {
+                var location = app.metadata.root == "/" ? app.metadata.root + "editor/" + app.project.id : "/" + app.metadata.root + "editor/" + app.project.id;
+                window.history.pushState("", "", location );
+            }
 
             app.layout = new Layout();
             app.layout.render();

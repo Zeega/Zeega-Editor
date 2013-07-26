@@ -61,7 +61,7 @@ __p+='<div class="viewer-preview" style="">\n    <iframe width="100%" height="16
  } 
 ;__p+='" href="#">+ ZEEGA THIS</a>\n    <a href="'+
 ( attribution_uri )+
-'" target="blank"><i class="icon-share-alt"></i> view original</a>\n   \n     ';
+'" target="blank" class="view-original"><i class="icon-share-alt"></i> view original</a>\n   \n     ';
  if( allowDelete == 1  ) { 
 ;__p+='\n        <a class="delete-item" href="#"><i class="icon-remove"></i> delete</a>\n    ';
  } 
@@ -77,7 +77,7 @@ __p+='<div class="viewer-preview" style="\n    background: url('+
 ( uri )+
 ');\n    background-size: contain;\n    background-position: 50% 50%;\n    background-repeat: no-repeat;\n"></div>\n<div class="viewer-controls">\n    <a class="add-to-frame image btnz btnz-zeega-this" href="#">+ ZEEGA THIS!</a>\n    <a href="'+
 ( attribution_uri )+
-'" target="blank"><i class="icon-share-alt"></i> view original</a>\n    ';
+'" target="blank" class="view-original"><i class="icon-share-alt"></i> view original</a>\n    ';
  if( allowDelete == 1  ) { 
 ;__p+='\n        <a class="delete-item" href="#"><i class="icon-remove"></i> delete</a>\n    ';
  } 
@@ -269,7 +269,17 @@ __p+='<a href="http://www.zeega.com" class="ZEEGA-tab">\n    <span class="ZTab-l
 ( remix.parent.user.thumbnail_url )+
 ');\n                            background-position: center;\n                            background-repeat: no-repeat;\n                            -webkit-background-size: cover;\n                            -moz-background-size: cover;\n                            -o-background-size: cover;\n                            background-size: cover;\n                        "></div>\n                </li>\n               \n            </ul>\n        </div>\n    ';
  } 
-;__p+='\n\n    <ul class="nav-buttons-right">\n        \n        <li>\n            <span class="saving-indicator btnz btnz-transparent"></span>\n        </li>\n\n        <li>\n            <a href="#" class="project-preview btnz btnz-green"\n                title="see what you\'re making"\n                data-gravity="n"\n            ><i class="icon-play icon-white"></i> Play</a>\n        </li>\n        <li>\n            <a href="#" class="project-share btnz btnz-blue btnz-fullwidth"\n                title="share your Zeega with the world"\n                data-gravity="n"\n            ><i class="icon-retweet icon-white"></i> Share</a>\n        </li>\n         <li>\n                <a href="'+
+;__p+='\n\n    <ul class="nav-buttons-right">\n        \n        <li>\n            <span class="saving-indicator btnz btnz-transparent"></span>\n        </li>\n\n    ';
+ if ( remix.remix ) { 
+;__p+='\n        <li>\n            <a href="'+
+( web_root )+
+''+
+( id )+
+'"\n                class="btnz btnz-green"\n                title="see what you\'re making"\n                data-gravity="n"\n                target="blank"\n            ><i class="icon-play icon-white"></i> Play</a>\n        </li>\n    ';
+ } else { 
+;__p+='\n        <li>\n            <a href="#" class="project-preview btnz btnz-green"\n                title="see what you\'re making"\n                data-gravity="n"\n            ><i class="icon-play icon-white"></i> Play</a>\n        </li>\n    ';
+ } 
+;__p+='\n\n        <li>\n            <a href="#" class="project-share btnz btnz-blue btnz-fullwidth"\n                title="share your Zeega with the world"\n                data-gravity="n"\n            ><i class="icon-retweet icon-white"></i> Share</a>\n        </li>\n         <li>\n                <a href="'+
 ( web_root )+
 'project/new"\n                    class="btnz new-zeega"\n                    title="start a new Zeega"\n                    data-gravity="ne"\n                    >New Zeega</a>\n        </li>\n\n    </ul>\n\n</div>\n\n<div class="share-grave">\n\n    <div class="close-wrapper">\n        <a href="#" class="close-grave">&times;</a>\n    </div>\n\n    <div class="grave-inner">\n\n        <div class="share-meta">\n            <div class="cover-image-wrapper">\n                <div class="project-cover" style="\n                    background: url('+
 ( cover_image )+
