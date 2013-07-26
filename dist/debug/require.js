@@ -42453,8 +42453,8 @@ function( app, ItemView ) {
                         "thumbnail_url": data.image_url_4
                     });
 
-                    if( data.zga_url ){
-                        item.set("zga_uri", data.zga_url );
+                    if( data.image_url_8 ){
+                        item.set("zga_uri", data.image_url_8 );
                     }
 
                     $(".intro").remove();
