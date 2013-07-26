@@ -10,7 +10,7 @@ function( app, SearchModel ) {
     return SearchModel.extend({
         
         api: "Giphy",
-        apiUrl: app.getAPI() + "items/parser?",
+        apiUrl: app.getApi() + "items/parser?",
         allowSearch: true,
         favUrl: app.searchAPI + "archive=Giphy&type=Image&user=" + app.metadata.favId + "&limit=48&sort=date-desc",
 
@@ -28,7 +28,7 @@ function( app, SearchModel ) {
         },
 
         _initialize : function(){
-            
+
             this.mediaCollection._parse = function(res){
             
                 var photos = res.items,
