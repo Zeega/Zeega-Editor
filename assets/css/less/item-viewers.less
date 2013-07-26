@@ -1,6 +1,8 @@
 .ZEEGA-item-collection-viewer {
     background-image: url(../img/tiny-stripes-dark.png);
-    background-color: rgba(0,0,0,0.75);
+    background: -moz-linear-gradient(top, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0.75) 100%); /* FF3.6+ */
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(0,0,0,0.9)), color-stop(100%,rgba(0,0,0,0.75))); /* Chrome,Safari4+ */
+    background: -webkit-linear-gradient(top, rgba(0,0,0,0.9) 0%,rgba(0,0,0,0.75) 100%); /* Chrome10+,Safari5.1+ */
 
 
     .modal-title {
