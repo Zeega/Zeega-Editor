@@ -25,7 +25,7 @@ define([
             return this.getWebRoot() + "api/";
         },
 
-        api : "http:" + this.metadata.hostname + this.metadata.apiRoot + "api/",
+        api : "http:" + $("meta[name=zeega]").data().hostname + $("meta[name=zeega]").data().apiRoot + "api/",
 
         getTemplateBase: function() {
             if ( this.metadata.dev ) return "";
