@@ -447,7 +447,7 @@ __p+='<div class="viewer-preview" style="">\n    <iframe width="100%" height="16
  } 
 ;__p+='" href="#">+ ZEEGA THIS</a>\n    <a href="'+
 ( attribution_uri )+
-'" target="blank"><i class="icon-share-alt"></i> view original</a>\n   \n     ';
+'" target="blank" class="view-original"><i class="icon-share-alt"></i> view original</a>\n   \n     ';
  if( allowDelete == 1  ) { 
 ;__p+='\n        <a class="delete-item" href="#"><i class="icon-remove"></i> delete</a>\n    ';
  } 
@@ -463,7 +463,7 @@ __p+='<div class="viewer-preview" style="\n    background: url('+
 ( uri )+
 ');\n    background-size: contain;\n    background-position: 50% 50%;\n    background-repeat: no-repeat;\n"></div>\n<div class="viewer-controls">\n    <a class="add-to-frame image btnz btnz-zeega-this" href="#">+ ZEEGA THIS!</a>\n    <a href="'+
 ( attribution_uri )+
-'" target="blank"><i class="icon-share-alt"></i> view original</a>\n    ';
+'" target="blank" class="view-original"><i class="icon-share-alt"></i> view original</a>\n    ';
  if( allowDelete == 1  ) { 
 ;__p+='\n        <a class="delete-item" href="#"><i class="icon-remove"></i> delete</a>\n    ';
  } 
