@@ -655,7 +655,17 @@ __p+='<a href="http://www.zeega.com" class="ZEEGA-tab">\n    <span class="ZTab-l
 ( remix.parent.user.thumbnail_url )+
 ');\n                            background-position: center;\n                            background-repeat: no-repeat;\n                            -webkit-background-size: cover;\n                            -moz-background-size: cover;\n                            -o-background-size: cover;\n                            background-size: cover;\n                        "></div>\n                </li>\n               \n            </ul>\n        </div>\n    ';
  } 
-;__p+='\n\n    <ul class="nav-buttons-right">\n        \n        <li>\n            <span class="saving-indicator btnz btnz-transparent"></span>\n        </li>\n\n        <li>\n            <a href="#" class="project-preview btnz btnz-green"\n                title="see what you\'re making"\n                data-gravity="n"\n            ><i class="icon-play icon-white"></i> Play</a>\n        </li>\n        <li>\n            <a href="#" class="project-share btnz btnz-blue btnz-fullwidth"\n                title="share your Zeega with the world"\n                data-gravity="n"\n            ><i class="icon-retweet icon-white"></i> Share</a>\n        </li>\n         <li>\n                <a href="'+
+;__p+='\n\n    <ul class="nav-buttons-right">\n        \n        <li>\n            <span class="saving-indicator btnz btnz-transparent"></span>\n        </li>\n\n    ';
+ if ( remix.remix ) { 
+;__p+='\n        <li>\n            <a href="'+
+( web_root )+
+''+
+( id )+
+'"\n                class="btnz btnz-green"\n                title="see what you\'re making"\n                data-gravity="n"\n                target="blank"\n            ><i class="icon-play icon-white"></i> Play</a>\n        </li>\n    ';
+ } else { 
+;__p+='\n        <li>\n            <a href="#" class="project-preview btnz btnz-green"\n                title="see what you\'re making"\n                data-gravity="n"\n            ><i class="icon-play icon-white"></i> Play</a>\n        </li>\n    ';
+ } 
+;__p+='\n\n        <li>\n            <a href="#" class="project-share btnz btnz-blue btnz-fullwidth"\n                title="share your Zeega with the world"\n                data-gravity="n"\n            ><i class="icon-retweet icon-white"></i> Share</a>\n        </li>\n         <li>\n                <a href="'+
 ( web_root )+
 'project/new"\n                    class="btnz new-zeega"\n                    title="start a new Zeega"\n                    data-gravity="ne"\n                    >New Zeega</a>\n        </li>\n\n    </ul>\n\n</div>\n\n<div class="share-grave">\n\n    <div class="close-wrapper">\n        <a href="#" class="close-grave">&times;</a>\n    </div>\n\n    <div class="grave-inner">\n\n        <div class="share-meta">\n            <div class="cover-image-wrapper">\n                <div class="project-cover" style="\n                    background: url('+
 ( cover_image )+
@@ -18000,18 +18010,18 @@ define('app',[
 
         metadata: $("meta[name=zeega]").data(),
 
-        userId: meta.data("userId") || null,
-        userName: meta.data("userName") || null,
-        projectId: meta.data("projectId")|| null,
-        root: meta.data("root")|| null,
-        apiRoot: meta.data("apiRoot")||  null, // dev only
-        
-        webRoot:  "http:" + meta.data("hostname") +  ( meta.data("apiRoot") ? meta.data("apiRoot") : meta.data("root") ) || null,
-        api: "http:" + meta.data("hostname") +  ( meta.data("apiRoot") ? meta.data("apiRoot") : meta.data("root") ) + "api/"|| null,
-        mediaServer: "http:" + meta.data("hostname") + meta.data("mediaRoot") || null,
-        searchAPI: "http:" + meta.data("hostname") +  ( meta.data("apiRoot") ? meta.data("apiRoot") : meta.data("root") ) + "api/items/search?"|| null,
-        featuredAPI: "http:" + meta.data("hostname") +  ( meta.data("apiRoot") ? meta.data("apiRoot") : meta.data("root") ) + "api/items/featured" || null,
-        thumbnailServer: meta.data("thumbnailServer"),
+        getWebRoot: function() {
+            return "http:" + this.metadata.hostname + this.metadata.root;
+        },
+
+        getApi: function() {
+            return this.getWebRoot() + "api/";
+        },
+
+        getTemplateBase: function() {
+            if ( this.metadata.dev ) return "";
+            else return this.metadata.root;
+        },
 
         // function that editor events should call so they can be routed, inspected and modified
         emit: function( event, args ) {
@@ -18104,7 +18114,7 @@ define('app',[
             var done = this.async();
 
             // Seek out the template asynchronously.
-            $.get(app.root + path, function(contents) {
+            $.get( app.getTemplateBase() + path, function(contents) {
                 done(JST[path] = _.template(contents));
             });
         }
@@ -33250,7 +33260,7 @@ function( app ) {
                 // Put fetch into `async-mode`.
                 done = this.async();
                 // Seek out the template asynchronously.
-                return app.$.ajax({ url: app.root + path }).then(function( contents ) {
+                return app.$.ajax({ url: app.getTemplateBase() + path }).then(function( contents ) {
                     done(
                       JST[ path ] = _.template( contents )
                     );
@@ -34356,9 +34366,9 @@ function( app, Controls ) {
 
         url: function() {
             if ( this.isNew() ) {
-                return app.api + "projects/" + app.project.id + "/layers";
+                return app.getApi() + "projects/" + app.project.id + "/layers";
             } else {
-                return app.api + "projects/" + app.project.id + "/layers/" + this.id;
+                return app.getApi() + "projects/" + app.project.id + "/layers/" + this.id;
             }
         },
 
@@ -34772,7 +34782,7 @@ function( app, Controls ) {
                 // Put fetch into `async-mode`.
                 done = this.async();
                 // Seek out the template asynchronously.
-                return app.$.ajax({ url: app.root + path }).then(function( contents ) {
+                return app.$.ajax({ url: app.getTemplateBase() + path }).then(function( contents ) {
                     done(
                       JST[ path ] = _.template( contents )
                     );
@@ -36750,9 +36760,9 @@ function( app, Layers ) {
 
         url : function() {
             if ( this.isNew() ) {
-                return app.api + 'projects/'+ app.project.id +'/sequences';
+                return app.getApi() + 'projects/'+ app.project.id +'/sequences';
             } else {
-                return app.api + 'projects/'+ app.project.id +'/sequences/' + this.id;
+                return app.getApi() + 'projects/'+ app.project.id +'/sequences/' + this.id;
             }
         },
 
@@ -36933,9 +36943,9 @@ function( app, Backbone, Layers, ThumbWorker ) {
 
         url: function() {
             if( this.isNew() ) {
-                return app.api + 'projects/' + app.project.id +'/sequences/'+ app.status.get("currentSequence").id +'/frames';
+                return app.getApi() + 'projects/' + app.project.id +'/sequences/'+ app.status.get("currentSequence").id +'/frames';
             } else {
-                return app.api + 'projects/' + app.project.id + '/frames/'+ this.id;
+                return app.getApi() + 'projects/' + app.project.id + '/frames/'+ this.id;
             }
         },
 
@@ -36953,7 +36963,7 @@ function( app, Backbone, Layers, ThumbWorker ) {
             }
 
             this.startThumbWorker = _.debounce(function() {
-                var worker = new Worker( app.webRoot + "js/helpers/thumbworker.js" );
+                var worker = new Worker( app.getApi() + "js/helpers/thumbworker.js" );
                 
                 worker.addEventListener("message", function(e) {
 
@@ -37531,7 +37541,7 @@ function( app, SequenceCollection ) {
         },
 
         url : function() {
-            return app.api +'projects/' + this.id;
+            return app.getApi() +'projects/' + this.id;
         },
 
         initialize: function( data, options ) {
@@ -39546,7 +39556,7 @@ function( app, Zeega ) {
 
         serialize: function() {
             return _.extend({
-                    web_root: app.webRoot,
+                    web_root: app.getWebRoot(),
                     share_links: this.getShareLinks()
                 },
                 app.metadata,
@@ -39560,7 +39570,7 @@ function( app, Zeega ) {
         getShareLinks: function() {
             var title, html,
                 links = {},
-                webRoot = app.webRoot;
+                webRoot = app.getWebRoot();
 
             if(_.isUndefined( this.$("#project-caption").val()) ){
                 title = app.project.get("title");
@@ -39577,14 +39587,14 @@ function( app, Zeega ) {
                 "&caption=" + encodeURIComponent( html ) +
                 "&click_thru="+ encodeURIComponent( webRoot ) + this.model.project.get("id");
 
-            links.reddit = "http://www.reddit.com/submit?url=" + encodeURIComponent( app.webRoot ) + this.model.project.get("id") +
+            links.reddit = "http://www.reddit.com/submit?url=" + encodeURIComponent( app.getWebRoot() ) + this.model.project.get("id") +
                 "&title=" + encodeURIComponent( title );
 
             links.twitter = "https://twitter.com/intent/tweet?original_referer=" + encodeURIComponent( webRoot ) + this.model.project.get("id") +
                 "&text=" + encodeURIComponent( title  + " made w/ @zeega") +
                 "&url=" + encodeURIComponent( webRoot ) + this.model.project.get("id");
 
-            links.facebook = "http://www.facebook.com/sharer.php?u=" + encodeURIComponent( app.webRoot ) + this.model.project.get("id");
+            links.facebook = "http://www.facebook.com/sharer.php?u=" + encodeURIComponent( app.getWebRoot() ) + this.model.project.get("id");
 
             return links;
         },
@@ -39647,14 +39657,14 @@ function( app, Zeega ) {
         updateCoverImage: function( url ) {
             app.project.save("cover_image", url );
 
-            tumblr_caption = "<p><a href='" + app.webRoot + app.project.get("id") + "'><strong>Play&nbsp;► " +
+            tumblr_caption = "<p><a href='" + app.getWebRoot() + app.project.get("id") + "'><strong>Play&nbsp;► " +
                             app.project.get("title") + "</strong></a></p><p>A Zeega by&nbsp;<a href='" +
-                            app.webRoot + "profile/" + app.project.get("user_id") + "'>" + app.project.get("authors") + "</a></p>";
+                            app.getWebRoot() + "profile/" + app.project.get("user_id") + "'>" + app.project.get("authors") + "</a></p>";
 
 
             tumblr_share = "source=" + encodeURIComponent( app.project.get("cover_image") ) +
                             "&caption=" + encodeURIComponent( tumblr_caption ) +
-                            "&click_thru="+ encodeURIComponent( app.webRoot ) + app.project.get("id");
+                            "&click_thru="+ encodeURIComponent( app.getWebRoot() ) + app.project.get("id");
             this.$("#tumblr-share").attr("href", "http://www.tumblr.com/share/photo?" + tumblr_share );
 
         },
@@ -44723,8 +44733,8 @@ function( app, Status, Layout, ZeegaParser, Analytics ) {
             } else {
                 var rawDataModel = new Backbone.Model();
                 // mainly for testing
-
-                rawDataModel.url = app.api + "projects/"+ app.projectId;
+console.log("API", app.getApi() + "projects/"+ app.metadata.projectId )
+                rawDataModel.url = app.getApi() + "projects/"+ app.metadata.projectId;
 
                 rawDataModel.fetch().success(function( response ) {
                     this._parseData( response );
@@ -44757,8 +44767,10 @@ function( app, Status, Layout, ZeegaParser, Analytics ) {
 
         insertLayout: function() {
 
-            var location = app.metadata.root == "/" ? app.metadata.root + "editor/" + app.project.id : "/" + app.metadata.root + "editor/" + app.project.id;
-            window.history.pushState("", "", location );
+            if ( !app.metadata.dev ) {
+                var location = app.metadata.root == "/" ? app.metadata.root + "editor/" + app.project.id : "/" + app.metadata.root + "editor/" + app.project.id;
+                window.history.pushState("", "", location );
+            }
 
             app.layout = new Layout();
             app.layout.render();
