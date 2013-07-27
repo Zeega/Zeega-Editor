@@ -878,6 +878,16 @@ __p+='';
 return __p;
 };
 
+this["JST"]["app/engine/plugins/layers/image/animation.html"] = function(obj){
+var __p='';var print=function(){__p+=Array.prototype.join.call(arguments, '')};
+with(obj||{}){
+__p+='<div class="visual-target" style="\n    background: url('+
+( attr.zga_uri )+
+');\n"></div>';
+}
+return __p;
+};
+
 this["JST"]["app/engine/plugins/layers/image/image.html"] = function(obj){
 var __p='';var print=function(){__p+=Array.prototype.join.call(arguments, '')};
 with(obj||{}){
@@ -10255,6 +10265,10 @@ define('jquery', ['jquery/jquery'], function (main) { return main; });
 
 define("jquery/jquery", function(){});
 
+(function(e){e.frameCollection=[];e.keyframe={browserCode:function(){var e=navigator.userAgent;if(e.indexOf("Opera")!=-1){return"-o-"}else if(e.indexOf("MSIE")!=-1){return"-ms-"}else if(e.indexOf("WebKit")!=-1){return"-webkit-"}else if(navigator.product=="Gecko"){return"-moz-"}else{return""}},generate:function(){e("#keyframes-style").html("");var t=this.browserCode();for(var n in e.frameCollection){var r="@"+t+"keyframes "+n+"{";for(var i in e.frameCollection[n].data){if(i!="name"){r+=i+"{";var s=e.frameCollection[n].data;r+=s[i]+"}"}}r+="}\n";e("#keyframes-style").append(r)}e("#keyframes-style").append(" .boostKeyframe{transform:scale3d(1,1,1);}")}};e.fn.resetKeyframe=function(t){e(this).css(e.keyframe.browserCode()+"animation-play-state","running");var n=e.keyframe.browserCode()+"animation";e(this).css(n,"none");e(this).data("keyframe",false);clearInterval(e(this).data("keyframeTimer"));clearTimeout(e(this).data("keyframeTimer"));if(t){setTimeout(t,1)}};e.fn.pauseKeyframe=function(){e(this).css(e.keyframe.browserCode()+"animation-play-state","paused");clearInterval(e(this).data("keyframeTimer"));clearTimeout(e(this).data("keyframeTimer"))};e.fn.resumeKeyframe=function(){e(this).css(e.keyframe.browserCode()+"animation-play-state","running")};e.fn.addKeyframe=function(t){e.each(t,function(t,n){var r=n.name;n.name="";e.frameCollection[r]={data:n}});e.keyframe.generate()};e.fn.playKeyframe=function(t,n){if(typeof t=="string"){t=t.trim();frameOptSplit=t.split(" ");var r=frameOptSplit[0];var i=parseInt(frameOptSplit[1]);var s=parseInt(frameOptSplit[3]);var o=parseInt(frameOptSplit[4]);frameOptSplit[1]+="ms";frameOptSplit[3]+="ms";var u=frameOptSplit.join(" ")}else{var a={delay:0,repeat:1,direction:"normal",fillMode:"forwards"};var t=e.extend({},a,t);var r=t.name;var i=t.duration;var s=t.delay;var o=t.repeat;t.duration=t.duration+"ms";t.delay=t.delay+"ms";var u="";e.each(t,function(e,t){u+=t+" "});u=u.trim()}var f=e.keyframe.browserCode()+"animation";var l=this;if(o!="infinite"){if(n!=null){e(this).data("keyframeTimer",setTimeout(n,(i+s)*o))}setTimeout(function(){e(l).data("keyframe",false)},(i+s)*o)}else{if(n!=null){e(l).data("keyframeTimer",setTimeout(function(){n();e(l).data("keyframeTimer",setInterval(n,i))},i+s))}}e(this).css(e.keyframe.browserCode()+"animation-play-state","running");e(this).data("keyframe",r);e(this).css(f,u)};e("head").append('<style id="keyframes-style" type="text/css"></style>')})(jQuery)
+;
+define("keyframes", function(){});
+
 //     Underscore.js 1.3.3
 //     (c) 2009-2012 Jeremy Ashkenas, DocumentCloud Inc.
 //     Underscore is freely distributable under the MIT license.
@@ -17975,6 +17989,7 @@ define("backbone.layoutmanager/backbone.layoutmanager", function(){});
 
 define('app',[
     "engineVendor/spin",
+    "keyframes",
     "backbone.layoutmanager"
 ], function( Spinner ) {
 
@@ -34918,7 +34933,15 @@ function( app, Layer, Visual ){
 
     L.Image.Visual = Visual.extend({
 
-        template: "image/image",
+        isAnimated: function(){
+
+            if(!_.isNull(this.model.getAttr("zga_uri")) && !_.isNull(this.model.getAttr("zga_uri"))){
+                return true;
+            } else {
+                return false;
+            }
+        },
+
 
         visualProperties: [
             "height",
@@ -34931,21 +34954,31 @@ function( app, Layer, Visual ){
         },
 
         init: function() {
+
             var attr = this.model.get("attr");
-            if( !_.isNull( attr.zga_uri ) ){
+
+            if( this.isAnimated() ){
+                this.template = "image/animation";
                 attr.uri = attr.zga_uri;
                 this.model.set( { attr: attr } );
+            } else {
+                this.template = "image/image";
             }
-
 
             if ( this.model.getAttr("page_background")) {
                 this.visualProperties = ["opacity"];
             }
         },
 
+        visualAfterRender: function(){
+            if(this.isAnimated()){
+                this.setKeyframes();
+                this.initAnimation();
+            }
+        },
+
+
         afterEditorRender: function() {
-            // add height attribute if not already there
-            // this may break if the aspect ratio changes
 
             this.aspectRatio = this.getAttr("aspectRatio");
 
@@ -35080,7 +35113,64 @@ function( app, Layer, Visual ){
                 this.model.trigger("visual_error", this.model.id );
                 this.model.trigger("visual_ready", this.model.id );
             }.bind(this));
+        },
+
+
+        setKeyframes: function(){
+
+            var attr=this.model.getAttr("zga_uri").match(/\d+\d*_/g);
+            var keyframes = {
+                name: "zga-layer-" + this.model.id
+            };
+
+            var width  = attr[ 0 ].split("_")[0],
+                height = attr[ 1 ].split("_")[0],
+                frames = attr[ 2 ].split("_")[0],
+                delay  = attr[ 3 ].split("_")[0];
+
+            console.log(attr, width, height, frames, delay );
+
+
+
+            var percentDuration = 100.0 / frames;
+
+            console.log ("percentDuration", percentDuration );
+
+            var percent;
+            for (var i = 0; i < frames ; i++ ){
+                //percent = Math.floor(i * percentDuration);
+                percent = i * percentDuration;
+                offset =  i * 100;
+                keyframes[ percent + "%" ] = "background-position: -" +offset + "% 0; -webkit-animation-timing-function: steps(1);";
+
+            }
+
+
+            
+
+            this.backgroundSize = 100 * frames;
+            this.duration = frames * delay / 100.0;
+
+            $.fn.addKeyframe([keyframes]);
+            console.log(keyframes);
+
+        },
+
+        initAnimation: function(){
+
+            this.$(".visual-target").css({
+                "background-size": this.backgroundSize+"%",
+                "-webkit-animation-name": "zga-layer-" + this.model.id,
+                "-webkit-animation-duration": this.duration + "s",
+                "-webkit-animation-iteration-count": "infinite",
+                "-webkit-backface-visibility": "hidden"
+  
+
+            });
+           
         }
+
+
     });
 
     return L;
@@ -44668,10 +44758,12 @@ function( app, Status, Layout, ZeegaParser, Analytics ) {
         },
 
         insertLayout: function() {
-
-            var location = app.metadata.root == "/" ? app.metadata.root + "editor/" + app.project.id : "/" + app.metadata.root + "editor/" + app.project.id;
-            window.history.pushState("", "", location );
-
+            if( !app.metadata.dev ){
+                var location = app.metadata.root == "/" ? app.metadata.root + "editor/" + app.project.id : "/" + app.metadata.root + "editor/" + app.project.id;
+                window.history.pushState("", "", location );
+ 
+            }
+           
             app.layout = new Layout();
             app.layout.render();
         }
@@ -44756,7 +44848,7 @@ define("main", function(){});
 
 require.config({
 
-  deps: ["../vendor/jam/require.config", "main"],
+  deps: ["../vendor/jam/require.config", "main" ],
 
   paths: {
     jqueryUI: "../assets/js/plugins/jquery-ui/js/jquery-ui-1.10.1.custom",
@@ -44770,6 +44862,7 @@ require.config({
     mousetrap: "../vendor/mousetrap/mousetrap",
     spin: "../assets/js/libs/spin",
     tipsy: "../vendor/tipsy/src/javascripts/jquery.tipsy",
+    keyframes: "../vendor/keyframes/jquery.keyframes.min",
     swfObject: "engine/vendor/swfobject"
   },
 
@@ -44780,6 +44873,8 @@ require.config({
     mousetrap: {
         exports: 'Mousetrap'
     },
+
+    keyframes: ["jquery"],
 
     tipsy: ["jquery"]
   }

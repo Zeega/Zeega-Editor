@@ -492,6 +492,16 @@ __p+='';
 return __p;
 };
 
+this["JST"]["app/engine/plugins/layers/image/animation.html"] = function(obj){
+var __p='';var print=function(){__p+=Array.prototype.join.call(arguments, '')};
+with(obj||{}){
+__p+='<div class="visual-target" style="\n    background: url('+
+( attr.zga_uri )+
+');\n"></div>';
+}
+return __p;
+};
+
 this["JST"]["app/engine/plugins/layers/image/image.html"] = function(obj){
 var __p='';var print=function(){__p+=Array.prototype.join.call(arguments, '')};
 with(obj||{}){
