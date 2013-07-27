@@ -1,5 +1,6 @@
 define([
     "engineVendor/spin",
+    "keyframes",
     "backbone.layoutmanager"
 ], function( Spinner ) {
 

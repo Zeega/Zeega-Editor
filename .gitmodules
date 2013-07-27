@@ -13,3 +13,6 @@
 [submodule "app/analytics"]
 	path = app/analytics
 	url = https://github.com/Zeega/Analytics-Wrapper.git
+[submodule "vendor/keyframes"]
+	path = vendor/keyframes
+	url = https://github.com/krazyjakee/jQuery-Keyframes.git
