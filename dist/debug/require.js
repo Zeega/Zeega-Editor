@@ -34965,6 +34965,8 @@ function( app, Layer, Visual ){
                 this.template = "image/image";
             }
 
+            this.setKeyframes();
+
             if ( this.model.getAttr("page_background")) {
                 this.visualProperties = ["opacity"];
             }
@@ -34972,7 +34974,6 @@ function( app, Layer, Visual ){
 
         visualAfterRender: function(){
             if(this.isAnimated()){
-                this.setKeyframes();
                 this.initAnimation();
             }
         },
