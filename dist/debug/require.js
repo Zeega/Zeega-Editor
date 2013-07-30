@@ -34470,12 +34470,15 @@ function( app, Controls ) {
         },
 
         initVisual: function( layerClass ) {
-            this.visual = new layerClass.Visual({
+           if(!this.visual){
+                this.visual = new layerClass.Visual({
                 model: this,
                 attributes: {
                     "data-id": this.id
                 }
             });
+           }
+            
         },
 
         addCollection: function( collection ) {
@@ -34954,18 +34957,17 @@ function( app, Layer, Visual ){
         },
 
         init: function() {
-
+     
             var attr = this.model.get("attr");
-
+            
             if( this.isAnimated() ){
                 this.template = "image/animation";
                 attr.uri = attr.zga_uri;
                 this.model.set( { attr: attr } );
+                this.setKeyframes();
             } else {
                 this.template = "image/image";
             }
-
-            this.setKeyframes();
 
             if ( this.model.getAttr("page_background")) {
                 this.visualProperties = ["opacity"];
@@ -34974,6 +34976,7 @@ function( app, Layer, Visual ){
 
         visualAfterRender: function(){
             if(this.isAnimated()){
+                
                 this.initAnimation();
             }
         },
@@ -34981,7 +34984,9 @@ function( app, Layer, Visual ){
 
         afterEditorRender: function() {
 
-            this.aspectRatio = this.getAttr("aspectRatio");
+            if(!this.isAnimated()){
+                this.aspectRatio = this.getAttr("aspectRatio");
+            }
 
             if ( _.isNull( this.aspectRatio ) ) {
                 this.determineAspectRatio();
@@ -35009,16 +35014,26 @@ function( app, Layer, Visual ){
                 });
 
             $img.imagesLoaded();
-            $img.done(function() {
-                var width, height, top, left, imgRatio, workspaceRatio;
-
+            
+            if( this.isAnimated() ){
                 this.model.saveAttr({
-                    aspectRatio: $img.width()/ $img.height()
+                    aspectRatio: this.aspectRatio
                 });
-                this.aspectRatio = $img.width()/ $img.height();
 
-                $img.remove();
-            }.bind( this ));
+            } else {
+
+                $img.done(function() {
+                    var width, height, top, left, imgRatio, workspaceRatio;
+
+                    this.model.saveAttr({
+                        aspectRatio: $img.width()/ $img.height()
+                    });
+                    this.aspectRatio = $img.width()/ $img.height();
+
+                    $img.remove();
+                }.bind( this ));
+            }
+
             $("body").append( $img );
         },
 
@@ -35045,6 +35060,31 @@ function( app, Layer, Visual ){
         },
 
         makePageBackground: function() {
+
+
+             var realAspect = 2.10 / (this.$workspace().height()/this.$workspace().width());
+    
+
+            console.log("realAspect", realAspect, this.$workspace().height(), this.$workspace().width())
+            if( this.aspectRatio >= realAspect ){
+
+                console.log("this shit is wide");
+                this.model.pageBackgroundPositioning = {
+                    width: this.aspectRatio * 236.72 / realAspect,
+                    height: 112.67,
+                    top: -6.57277,
+                    left: (100 - this.aspectRatio * 236.72 / realAspect)/2
+                };
+
+            } else {
+                this.model.pageBackgroundPositioning = {
+                    width: 236.72,
+                    height: 112.67 * realAspect / this.aspectRatio,
+                    top: (100 - 112.67 * realAspect / this.aspectRatio)/2,
+                    left:  -68.4375
+                };
+            }
+
             var vals = _.extend({}, this.model.pageBackgroundPositioning );
             
             _.each( vals, function( val, key ) {
@@ -35052,9 +35092,13 @@ function( app, Layer, Visual ){
             }, this );
 
             this.model.saveAttr(_.extend({ page_background: true }, vals ));
+
+            this.initAnimation();
         },
 
         fitToWorkspace: function() {
+
+
             var workspaceRatio, width, height, top, left;
 
             this.$el.unbind("mousedown.imageDrag");
@@ -35119,6 +35163,7 @@ function( app, Layer, Visual ){
 
         setKeyframes: function(){
 
+
             var attr=this.model.getAttr("zga_uri").match(/\d+\d*_/g);
             var keyframes = {
                 name: "zga-layer-" + this.model.id
@@ -35129,13 +35174,32 @@ function( app, Layer, Visual ){
                 frames = attr[ 2 ].split("_")[0],
                 delay  = attr[ 3 ].split("_")[0];
 
-            console.log(attr, width, height, frames, delay );
+            
+            this.aspectRatio = parseInt(width, 10 )/parseInt(height, 10);
 
 
+            // var realAspect = 2.10 * this.$workspace().height()/this.$workspace().width();
+   
+            // if( this.aspectRatio >= realAspect ){
+
+            //     this.model.pageBackgroundPositioning = {
+            //         width: this.aspectRatio * 236.72 / realAspect,
+            //         height: 112.67,
+            //         top: -6.57277,
+            //         left: (100 - this.aspectRatio * 112.67 / realAspect)/2
+            //     };
+
+            // } else {
+            //     this.model.pageBackgroundPositioning = {
+            //         width: 236.72,
+            //         height: 112.67 * realAspect / this.aspectRatio,
+            //         top: (100 - 112.67 * realAspect / this.aspectRatio)/2,
+            //         left:  -68.4375
+            //     };
+            // }
 
             var percentDuration = 100.0 / frames;
 
-            console.log ("percentDuration", percentDuration );
 
             var percent;
             for (var i = 0; i < frames ; i++ ){
@@ -35153,8 +35217,7 @@ function( app, Layer, Visual ){
             this.duration = frames * delay / 100.0;
 
             $.fn.addKeyframe([keyframes]);
-            console.log(keyframes);
-
+            
         },
 
         initAnimation: function(){
@@ -37407,7 +37470,7 @@ function( app, Layers ) {
         },
 
         onAdd: function( layer ) {
-            if( app.mode != "player" ){
+            if( app.mode != "player"  ){
                 if ( layer ) {
                     layer.addCollection( this );
                     layer.initVisual( Layers[ layer.get("type") ]);
