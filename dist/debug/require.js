@@ -393,7 +393,7 @@ __p+='\n<div class="item-thumb">\n    <img class="browser-thumb '+
 ( media_type )+
 '" src="'+
 ( thumbnail_url )+
-'" height="100%" width="100%" />\n    <a href="#" class="play-pause"><i class="pp-btn"></i></a>\n</div>\n<div class="item-metadata">\n    <span class="track-of-the-day">track of the day</span>\n    <p class="track-info"><span class="author">'+
+'" height="100%" width="100%" />\n    <a href="#" class="play-pause"><i class="pp-btn"></i></a>\n</div>\n<div class="item-metadata">\n    <p class="track-info"><span class="author">'+
 ( media_creator_realname )+
 '</span><br>'+
 ( title )+
@@ -42313,25 +42313,25 @@ function( app, SearchModel ) {
                     sort: "date-desc"
             },
             title: "Zeega",
-            headline: "Favorites from Zeega",
+            headline: "Track and GIFs of the day",
             placeholder: "search Zeega favorites",
             searchQuery: null
         },
 
         _initialize: function(){
 
-            var d = new Date(),
-                weekday = new Array(7);
+            // var d = new Date(),
+            //     weekday = new Array(7);
 
-            weekday[0]="Sunday";
-            weekday[1]="Monday";
-            weekday[2]="Tuesday";
-            weekday[3]="Wednesday";
-            weekday[4]="Thursday";
-            weekday[5]="Friday";
-            weekday[6]="Saturday";
+            // weekday[0]="Sunday";
+            // weekday[1]="Monday";
+            // weekday[2]="Tuesday";
+            // weekday[3]="Wednesday";
+            // weekday[4]="Thursday";
+            // weekday[5]="Friday";
+            // weekday[6]="Saturday";
 
-            this.set("headline", "Zeega's favorites from " + weekday[d.getDay()]);
+            // this.set("headline", "Zeega's favorites from " + weekday[d.getDay()]);
 
             this.mediaCollection.url = function() {
                 var url;

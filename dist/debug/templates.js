@@ -7,7 +7,7 @@ __p+='\n<div class="item-thumb">\n    <img class="browser-thumb '+
 ( media_type )+
 '" src="'+
 ( thumbnail_url )+
-'" height="100%" width="100%" />\n    <a href="#" class="play-pause"><i class="pp-btn"></i></a>\n</div>\n<div class="item-metadata">\n    <span class="track-of-the-day">track of the day</span>\n    <p class="track-info"><span class="author">'+
+'" height="100%" width="100%" />\n    <a href="#" class="play-pause"><i class="pp-btn"></i></a>\n</div>\n<div class="item-metadata">\n    <p class="track-info"><span class="author">'+
 ( media_creator_realname )+
 '</span><br>'+
 ( title )+

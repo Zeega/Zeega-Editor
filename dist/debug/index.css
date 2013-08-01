@@ -6252,15 +6252,6 @@ a:active {
   font-size: 12px;
   opacity: 0.8;
 }
-.media-drawer .item.audio-item .item-metadata .track-of-the-day {
-  font-weight: bold;
-  color: orangered;
-  width: 100%;
-  float: left;
-  text-align: right;
-  text-transform: uppercase;
-  font-size: 12px;
-}
 .media-drawer .item.more-tab {
   border: 1px solid rgba(255, 255, 255, 0.15);
   cursor: pointer;
@@ -6420,12 +6411,6 @@ a:active {
   background: #111;
   height: 100%;
   overflow: hidden;
-}
-.media-collection.Favorites .track-of-the-day {
-  display: block;
-}
-.media-collection .track-of-the-day {
-  display: none;
 }
 .media-collection .search-box {
   border-radius: 2px;
