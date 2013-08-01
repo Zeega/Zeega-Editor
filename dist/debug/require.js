@@ -386,6 +386,22 @@ var requirejs, require, define;
 
 this["JST"] = this["JST"] || {};
 
+this["JST"]["app/templates/audio-item.html"] = function(obj){
+var __p='';var print=function(){__p+=Array.prototype.join.call(arguments, '')};
+with(obj||{}){
+__p+='\n<div class="item-thumb">\n    <img class="browser-thumb '+
+( media_type )+
+'" src="'+
+( thumbnail_url )+
+'" height="100%" width="100%" />\n    <a href="#" class="play-pause"><i class="pp-btn"></i></a>\n</div>\n<div class="item-metadata">\n    <span class="track-of-the-day">track of the day</span>\n    <p class="track-info"><span class="author">'+
+( media_creator_realname )+
+'</span><br>'+
+( title )+
+'</p>\n</div>\n';
+}
+return __p;
+};
+
 this["JST"]["app/templates/frame-controls.html"] = function(obj){
 var __p='';var print=function(){__p+=Array.prototype.join.call(arguments, '')};
 with(obj||{}){
@@ -18024,6 +18040,10 @@ define('app',[
 
         getApi: function() {
             return this.getWebRoot() + "api/";
+        },
+
+        getUserId: function(){
+            return this.metadata.userId;
         },
 
         api : "http:" + $("meta[name=zeega]").data().hostname + $("meta[name=zeega]").data().apiRoot + "api/",
@@ -41256,13 +41276,84 @@ function( app, ItemView ) {
 
 });
 
-define('modules/media-browser/item-model',[
+define('modules/media-browser/audio-item-view',[
     "app",
-    "modules/media-browser/item-view",
     "backbone"
 ],
 
 function( app, ItemView ) {
+
+    var dim = 100;
+
+    return Backbone.View.extend({
+
+        className: function() {
+            return "item audio-item item-" + this.model.id;
+        },
+        tagName: "li",
+        template: "app/templates/audio-item",
+
+        serialize: function() {
+
+            return _.extend( {
+                        
+                    },
+                    this.model.toJSON()
+            );
+        },
+
+        afterRender: function() {
+            this.listenTo(this.model, 'destroy', this.remove);
+            this.$el.draggable({
+                revert: "invalid",
+                appendTo: $("body"),
+                zIndex: 10000,
+                cursorAt: {
+                    left: 20,
+                    top: 20
+                },
+                helper: function( e ) {
+                    
+                    return $(this).find(".item-thumb img").clone().addClass("item-dragging");
+                },
+                start: function() {
+                    if ( this.model.get("media_type") == "Image" ) {
+                        $("body").append("<img class='img-preload' src='" + this.model.get("uri") + "' height='1px' width='1px' style='position:absolute;left:-1000%;top:-1000%'/>");
+                    }
+                    app.emit("item_drag_start", this.model );
+                    app.dragging = this.model;
+                }.bind( this ),
+                stop: function() {
+                    $(".img-preload").remove();
+                    app.emit("item_drag_stop", this.model );
+                    app.dragging = null;
+                }
+            });
+        },
+
+        events: {
+            "click": "viewItem",
+            "mouseover img": "onMouseOver",
+            "mouseout img": "onMouseOut"
+        },
+
+
+        viewItem: function() {
+            this.model.collection.itemViewer( this.model );
+        }
+
+    });
+
+});
+
+define('modules/media-browser/item-model',[
+    "app",
+    "modules/media-browser/item-view",
+    "modules/media-browser/audio-item-view",
+    "backbone"
+],
+
+function( app, ItemView, AudioItemView ) {
 
     return Backbone.Model.extend({
         
@@ -41276,10 +41367,15 @@ function( app, ItemView ) {
             return url;
         },
         
-        initialize: function() {
-            this.view = new ItemView({ model: this });
-        }
+        initialize: function( attr ) {
 
+            if( attr.media_type == "Audio"){
+                this.view = new AudioItemView({ model: this });
+            } else {
+                this.view = new ItemView({ model: this });
+            }
+            
+        }
     });
 
 });
@@ -41611,10 +41707,11 @@ function( app, ItemModel, ItemCollectionViewer ) {
 define('modules/media-browser/search-model',[
     "app",
     "modules/media-browser/search-results-collection",
+     "modules/media-browser/item-model",
     "backbone"
 ],
 
-function( app, MediaCollection ) {
+function( app, MediaCollection, Item ) {
 
     return Backbone.Model.extend({
 
@@ -41680,6 +41777,10 @@ function( app, MediaCollection ) {
 
             this.mediaCollection.add( items );
 
+            if(this.api == "Favorites"){
+                this.mediaCollection.add( new Item( $.parseJSON( window.audioJSON ).items[0]), { at: 0 } );
+            }
+
         
         },
 
@@ -41739,7 +41840,7 @@ function( app, SearchModel ) {
 
         api: "Zeega",
         allowSearch: false,
-        apiUrl: app.searchAPI,
+        apiUrl: app.getApi() + "items/search?",
         defaults: {
                 urlArguments: {
                     collection: "",
@@ -41749,7 +41850,7 @@ function( app, SearchModel ) {
                     limit: 48,
                     data_source: "db",
                     user: function() {
-                        return app.userId;
+                        return app.getUserId();
                 },
                 sort: "date-desc"
             },
@@ -41768,7 +41869,7 @@ function( app, SearchModel ) {
                         url += key + "=" + ( _.isFunction( value ) ? value() : value ) + "&";
                     }
                 });
-                console.log(this.searchModel.apiUrl,url);
+                console.log(url);
                 return url;
             };
 
@@ -42043,6 +42144,7 @@ function( app, SearchModel ) {
                     item.media_type = "Audio";
                     item.archive = "SoundCloud";
                     item.title = track.title;
+                    item.media_creator_realname = track.user.username;
 
                     if( !_.isNull( track.artwork_url )){
                         item.thumbnail_url = track.artwork_url;
@@ -42196,8 +42298,8 @@ function( app, SearchModel ) {
 
         api: "Favorites",
         mediaCollection: null,
-        apiUrl: app.searchAPI,
-        favUrl: app.searchAPI + "type=Image&user=" + app.metadata.favId + "&limit=48",
+        apiUrl: app.getAPI + "items/search?",
+        favUrl: app.getApi() + "items/search?type=Image&user=" + app.metadata.favId + "&limit=48",
         allowSearch: false,
 
         defaults: {
@@ -42363,7 +42465,7 @@ function( app, ZeegaSearch, FlickrSearch, TumblrSearch, SoundcloudSearch, GiphyS
 
 });
 
-define('modules/media-browser/media-upload',[
+define('modules/media-browser/media-upload-view',[
     "app",
     "modules/media-browser/item-view",
     "backbone"
@@ -42948,7 +43050,7 @@ function( app, ItemView ) {
 }));
 define('modules/media-browser/search-view',[
     "app",
-    "modules/media-browser/media-upload",
+    "modules/media-browser/media-upload-view",
     "spin",
     "backbone"
 ],
@@ -42974,10 +43076,16 @@ function( app, UploadView, Spinner ) {
         listen: null,
 
         initialize: function() {
+            this.$el.addClass(this.model.api );
             this.listen = _.once(function() {
                 this.model.mediaCollection.on("sync", this.renderItems, this );
                 this.model.mediaCollection.on("error", this.onError, this );
             }.bind( this ));
+
+            
+            if( this.model.api == "Zeega" ){
+                this.insertView( ".media-collection-header",  new UploadView({ model: this.model }) );
+            }
 
             this.initSpinner();
         },
@@ -43017,10 +43125,6 @@ function( app, UploadView, Spinner ) {
             
             if( this.model.allowSearch ){
                 $(".media-collection-search").show();
-            } else if( this.model.api == "Zeega" ){
-                var uploadView = new UploadView({ model: this.model });
-                this.$el.find(".media-collection-header").append( uploadView.el );
-                uploadView.render();
             }
         },
 
@@ -43031,10 +43135,7 @@ function( app, UploadView, Spinner ) {
 
         renderItems: function() {
 
-            
-
             this.$(".more-tab").remove();
-
 
             if ( this.model.mediaCollection.length && this.model.mediaCollection.at( 0 ).get("uri") ) {
                 this.model.mediaCollection.each(function( item ) {
@@ -43047,7 +43148,7 @@ function( app, UploadView, Spinner ) {
             } else if( !this.model.resultsReturned() && this.model.mediaCollection.length === 0) {
                 
                 this.$(".media-collection-items").append("<div class='empty-collection'>no items found :( try again?</div>");
-            } 
+            }
 
 
             this.listen();
@@ -43187,11 +43288,11 @@ function( app, MediaLibrary, SearchView ) {
             this.setView();
             
 
-            if( api === "Soundcloud" ){
-                this.$el.addClass("list");
-            } else {
-                this.$el.removeClass("list");
-            }
+            // if( api === "Soundcloud" ){
+            //     this.$el.addClass("list");
+            // } else {
+            //     this.$el.removeClass("list");
+            // }
             return false;
         }
     });

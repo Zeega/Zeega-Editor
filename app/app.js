@@ -25,6 +25,10 @@ define([
             return this.getWebRoot() + "api/";
         },
 
+        getUserId: function(){
+            return this.metadata.userId;
+        },
+
         api : "http:" + $("meta[name=zeega]").data().hostname + $("meta[name=zeega]").data().apiRoot + "api/",
 
         getTemplateBase: function() {

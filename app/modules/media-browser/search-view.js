@@ -1,6 +1,6 @@
 define([
     "app",
-    "modules/media-browser/media-upload",
+    "modules/media-browser/media-upload-view",
     "spin",
     "backbone"
 ],
@@ -26,10 +26,16 @@ function( app, UploadView, Spinner ) {
         listen: null,
 
         initialize: function() {
+            this.$el.addClass(this.model.api );
             this.listen = _.once(function() {
                 this.model.mediaCollection.on("sync", this.renderItems, this );
                 this.model.mediaCollection.on("error", this.onError, this );
             }.bind( this ));
+
+            
+            if( this.model.api == "Zeega" ){
+                this.insertView( ".media-collection-header",  new UploadView({ model: this.model }) );
+            }
 
             this.initSpinner();
         },
@@ -69,10 +75,6 @@ function( app, UploadView, Spinner ) {
             
             if( this.model.allowSearch ){
                 $(".media-collection-search").show();
-            } else if( this.model.api == "Zeega" ){
-                var uploadView = new UploadView({ model: this.model });
-                this.$el.find(".media-collection-header").append( uploadView.el );
-                uploadView.render();
             }
         },
 
@@ -83,10 +85,7 @@ function( app, UploadView, Spinner ) {
 
         renderItems: function() {
 
-            
-
             this.$(".more-tab").remove();
-
 
             if ( this.model.mediaCollection.length && this.model.mediaCollection.at( 0 ).get("uri") ) {
                 this.model.mediaCollection.each(function( item ) {
@@ -99,7 +98,7 @@ function( app, UploadView, Spinner ) {
             } else if( !this.model.resultsReturned() && this.model.mediaCollection.length === 0) {
                 
                 this.$(".media-collection-items").append("<div class='empty-collection'>no items found :( try again?</div>");
-            } 
+            }
 
 
             this.listen();

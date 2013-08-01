@@ -1,5 +1,21 @@
 this["JST"] = this["JST"] || {};
 
+this["JST"]["app/templates/audio-item.html"] = function(obj){
+var __p='';var print=function(){__p+=Array.prototype.join.call(arguments, '')};
+with(obj||{}){
+__p+='\n<div class="item-thumb">\n    <img class="browser-thumb '+
+( media_type )+
+'" src="'+
+( thumbnail_url )+
+'" height="100%" width="100%" />\n    <a href="#" class="play-pause"><i class="pp-btn"></i></a>\n</div>\n<div class="item-metadata">\n    <span class="track-of-the-day">track of the day</span>\n    <p class="track-info"><span class="author">'+
+( media_creator_realname )+
+'</span><br>'+
+( title )+
+'</p>\n</div>\n';
+}
+return __p;
+};
+
 this["JST"]["app/templates/frame-controls.html"] = function(obj){
 var __p='';var print=function(){__p+=Array.prototype.join.call(arguments, '')};
 with(obj||{}){

@@ -21,6 +21,42 @@
         width: -moz-calc( ~"100% / 3" );
         width: calc( ~"100% / 3" );
 
+        &.audio-item {
+            width: 100%;
+            .item-thumb{
+                float:left;
+
+            }
+            .item-metadata{
+                color: white;
+                float:right;
+                width: -webkit-calc( ~"100% - 110px" );
+                width: -moz-calc( ~"100% - 110px" );
+                width: calc( ~"100% - 110px" );
+                padding: 5px;
+                
+                .track-info{
+                    margin:0;
+                    font-size:14px;
+                    .author{
+                        font-size: 12px;
+                        opacity:0.8;
+                    }
+                }
+
+                .track-of-the-day {
+                    font-weight: bold;
+                    color: orangered;
+                    width: 100%;
+                    float: left;
+                    text-align: right;
+                    text-transform: uppercase;
+                    font-size: 12px;
+                }
+                
+            }
+        }
+
         &.more-tab {
             border: 1px solid rgba(255, 255, 255, 0.15);
             cursor:pointer;
@@ -46,6 +82,7 @@
             img {
                 position:relative;
             }
+            position:relative;
 
             .thumb-title {
                 position: absolute;
@@ -62,6 +99,36 @@
                 line-height: 12px;
                 padding-top: 15px;
             }
+        }
+        .play-pause{
+            width: 50px;
+            height: 50px;
+            position: absolute;
+            z-index: 10;
+            top: 25px;
+            left: 25px;
+           
+
+            .pp-btn {
+                background: url(../img/playpause.png);
+                background-size: 50px 25px;
+                position: absolute;
+                margin: auto;
+                left: 0;
+                right: 0;
+                top: 0;
+                bottom: 0;
+                height: 25px;
+                width: 25px;
+                opacity: .7;
+                &:hover{
+                    opacity: 1;
+                }
+                &.pause{
+                    background-position: -25px 0;
+                }
+            }
+            
         }
 
         .item-title {

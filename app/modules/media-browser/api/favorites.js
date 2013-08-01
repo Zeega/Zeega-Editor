@@ -10,8 +10,8 @@ function( app, SearchModel ) {
 
         api: "Favorites",
         mediaCollection: null,
-        apiUrl: app.searchAPI,
-        favUrl: app.searchAPI + "type=Image&user=" + app.metadata.favId + "&limit=48",
+        apiUrl: app.getAPI + "items/search?",
+        favUrl: app.getApi() + "items/search?type=Image&user=" + app.metadata.favId + "&limit=48",
         allowSearch: false,
 
         defaults: {

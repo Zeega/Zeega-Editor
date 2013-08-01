@@ -6230,6 +6230,37 @@ a:active {
   width: calc(100% / 3);
   float: left;
 }
+.media-drawer .item.audio-item {
+  width: 100%;
+}
+.media-drawer .item.audio-item .item-thumb {
+  float: left;
+}
+.media-drawer .item.audio-item .item-metadata {
+  color: white;
+  float: right;
+  width: -webkit-calc(100% - 110px);
+  width: -moz-calc(100% - 110px);
+  width: calc(100% - 110px);
+  padding: 5px;
+}
+.media-drawer .item.audio-item .item-metadata .track-info {
+  margin: 0;
+  font-size: 14px;
+}
+.media-drawer .item.audio-item .item-metadata .track-info .author {
+  font-size: 12px;
+  opacity: 0.8;
+}
+.media-drawer .item.audio-item .item-metadata .track-of-the-day {
+  font-weight: bold;
+  color: orangered;
+  width: 100%;
+  float: left;
+  text-align: right;
+  text-transform: uppercase;
+  font-size: 12px;
+}
 .media-drawer .item.more-tab {
   border: 1px solid rgba(255, 255, 255, 0.15);
   cursor: pointer;
@@ -6252,6 +6283,7 @@ a:active {
   width: 100px;
   background-color: black;
   overflow: hidden;
+  position: relative;
 }
 .media-drawer .item .item-thumb img {
   position: relative;
@@ -6270,6 +6302,33 @@ a:active {
   color: orangered;
   line-height: 12px;
   padding-top: 15px;
+}
+.media-drawer .item .play-pause {
+  width: 50px;
+  height: 50px;
+  position: absolute;
+  z-index: 10;
+  top: 25px;
+  left: 25px;
+}
+.media-drawer .item .play-pause .pp-btn {
+  background: url(../img/playpause.png);
+  background-size: 50px 25px;
+  position: absolute;
+  margin: auto;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  height: 25px;
+  width: 25px;
+  opacity: .7;
+}
+.media-drawer .item .play-pause .pp-btn:hover {
+  opacity: 1;
+}
+.media-drawer .item .play-pause .pp-btn.pause {
+  background-position: -25px 0;
 }
 .media-drawer .item .item-title {
   display: none;
@@ -6361,6 +6420,12 @@ a:active {
   background: #111;
   height: 100%;
   overflow: hidden;
+}
+.media-collection.Favorites .track-of-the-day {
+  display: block;
+}
+.media-collection .track-of-the-day {
+  display: none;
 }
 .media-collection .search-box {
   border-radius: 2px;

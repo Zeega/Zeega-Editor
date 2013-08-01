@@ -1,10 +1,11 @@
 define([
     "app",
     "modules/media-browser/search-results-collection",
+     "modules/media-browser/item-model",
     "backbone"
 ],
 
-function( app, MediaCollection ) {
+function( app, MediaCollection, Item ) {
 
     return Backbone.Model.extend({
 
@@ -69,6 +70,10 @@ function( app, MediaCollection ) {
             });
 
             this.mediaCollection.add( items );
+
+            if(this.api == "Favorites"){
+                this.mediaCollection.add( new Item( $.parseJSON( window.audioJSON ).items[0]), { at: 0 } );
+            }
 
         
         },

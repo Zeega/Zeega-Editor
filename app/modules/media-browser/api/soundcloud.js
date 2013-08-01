@@ -47,6 +47,7 @@ function( app, SearchModel ) {
                     item.media_type = "Audio";
                     item.archive = "SoundCloud";
                     item.title = track.title;
+                    item.media_creator_realname = track.user.username;
 
                     if( !_.isNull( track.artwork_url )){
                         item.thumbnail_url = track.artwork_url;

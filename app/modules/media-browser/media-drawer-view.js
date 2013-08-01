@@ -66,11 +66,11 @@ function( app, MediaLibrary, SearchView ) {
             this.setView();
             
 
-            if( api === "Soundcloud" ){
-                this.$el.addClass("list");
-            } else {
-                this.$el.removeClass("list");
-            }
+            // if( api === "Soundcloud" ){
+            //     this.$el.addClass("list");
+            // } else {
+            //     this.$el.removeClass("list");
+            // }
             return false;
         }
     });

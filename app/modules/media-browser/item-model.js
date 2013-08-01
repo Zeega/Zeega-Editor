@@ -1,10 +1,11 @@
 define([
     "app",
     "modules/media-browser/item-view",
+    "modules/media-browser/audio-item-view",
     "backbone"
 ],
 
-function( app, ItemView ) {
+function( app, ItemView, AudioItemView ) {
 
     return Backbone.Model.extend({
         
@@ -18,10 +19,15 @@ function( app, ItemView ) {
             return url;
         },
         
-        initialize: function() {
-            this.view = new ItemView({ model: this });
-        }
+        initialize: function( attr ) {
 
+            if( attr.media_type == "Audio"){
+                this.view = new AudioItemView({ model: this });
+            } else {
+                this.view = new ItemView({ model: this });
+            }
+            
+        }
     });
 
 });

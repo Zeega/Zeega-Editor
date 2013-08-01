@@ -10,7 +10,7 @@ function( app, SearchModel ) {
 
         api: "Zeega",
         allowSearch: false,
-        apiUrl: app.searchAPI,
+        apiUrl: app.getApi() + "items/search?",
         defaults: {
                 urlArguments: {
                     collection: "",
@@ -20,7 +20,7 @@ function( app, SearchModel ) {
                     limit: 48,
                     data_source: "db",
                     user: function() {
-                        return app.userId;
+                        return app.getUserId();
                 },
                 sort: "date-desc"
             },
@@ -39,7 +39,7 @@ function( app, SearchModel ) {
                         url += key + "=" + ( _.isFunction( value ) ? value() : value ) + "&";
                     }
                 });
-                console.log(this.searchModel.apiUrl,url);
+                console.log(url);
                 return url;
             };
 
