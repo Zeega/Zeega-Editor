@@ -37,7 +37,7 @@ function( app, Viewer ) {
         },
 
         afterRender: function() {
-            if ( !app.zeega.get("currentProject").get("remix").remix ) this.makeDroppable();
+            if ( !app.zeega.getCurrentProject().get("remix").remix ) this.makeDroppable();
 
             app.trigger("rendered", this );
 

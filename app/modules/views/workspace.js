@@ -8,14 +8,15 @@ function( app ) {
 
     return Backbone.Layout.extend({
 
-        aspectRatio: 0.75,
+        aspectRatio: 0.751174,
         workspacePadding: 40,
 
         className: "ZEEGA-workspace",
 //        template: "app/templates/workspace",
 
         initialize: function() {
-            this.aspectRatio = app.zeega.get("currentProject").get("aspect_ratio");
+            console.log("   AR:", this.aspectRatio, app.zeega )
+
             app.on("window-resize", this.onResize, this );
             app.status.on("change:currentFrame", this.onChangeFrame, this );
         },

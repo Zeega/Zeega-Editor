@@ -19,8 +19,9 @@ function( app, FrameView ) {
             this.renderSequenceFrames( currentSequence );
             this.makeSortable();
             this.makeDroppable();
-            currentSequence.frames.on("add", this.onFrameAdd, this );
-            currentSequence.frames.on("remove", this.onFrameRemove, this );
+
+            app.zeega.getCurrentProject().pages.on("add", this.onFrameAdd, this );
+            app.zeega.getCurrentProject().pages.on("remove", this.onFrameRemove, this );
         },
 
         updatedNewPageButtonState: function( currentSequence ) {
@@ -114,23 +115,23 @@ function( app, FrameView ) {
         renderSequenceFrames: function( sequence ) {
             this.$(".frame-list").empty();
 
-            sequence.frames.each(function( frame ) {
-                if ( !frame._frameView ) {
-                    frame._frameView = new FrameView({
-                        model: frame,
+            app.zeega.get("currentProject").pages.each(function( page ) {
+                if ( !page._frameView ) {
+                    page._frameView = new FrameView({
+                        model: page,
                         attributes: {
-                            "data-id": frame.id
+                            "data-id": page.id
                         }
                     });
                 }
 
-                this.$(".frame-list").append( frame._frameView.el );
+                this.$(".frame-list").append( page._frameView.el );
 
-                if ( app.status.get("currentFrame").id == frame.id ) {
-                    frame._frameView.$el.addClass("active");
+                if ( app.zeega.get("currentPage").id == page.id ) {
+                    page._frameView.$el.addClass("active");
                 }
                 
-                frame._frameView.render();
+                page._frameView.render();
             }.bind( this ));
         },
 

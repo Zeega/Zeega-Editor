@@ -18,7 +18,7 @@ function( app, Zeega ) {
                     share_links: this.getShareLinks()
                 },
                 app.metadata,
-                app.zeega.get("currentProject").toJSON(),
+                app.zeega.getCurrentProject().toJSON(),
                 {
                     userThumbnail: app.metadata.userThumbnail === "" ? "https://s3.amazonaws.com/zeegastatic/default_profile.jpeg" : app.metadata.userThumbnail
                 }
@@ -28,11 +28,11 @@ function( app, Zeega ) {
         getShareLinks: function() {
             var title, html,
                 links = {},
-                currentProject = app.zeega.get("currentProject"),
+                currentProject = app.zeega.getCurrentProject(),
                 webRoot = app.getWebRoot();
 
             if(_.isUndefined( this.$("#project-caption").val()) ){
-                title = app.zeega.get("currentProject").get("title");
+                title = app.zeega.getCurrentProject().get("title");
             } else {
                 title = this.$("#project-caption").val();
             }
@@ -59,13 +59,13 @@ function( app, Zeega ) {
         },
 
         initialize: function() {
-            app.zeega.get("currentProject").on("sync", this.onSync, this );
+            app.zeega.getCurrentProject().on("sync", this.onSync, this );
         },
 
         onSync: function() {
             this.updateShareUrls();
             this.$(".project-cover").css({
-                background: "url(" + this.zeega.get("currentProject").get("cover_image") + ")",
+                background: "url(" + this.zeega.getCurrentProject().get("cover_image") + ")",
                 backgroundSize: "cover"
             });
         },
@@ -78,7 +78,7 @@ function( app, Zeega ) {
         },
 
         afterRender: function() {
-            if ( app.zeega.get("currentProject").get("cover_image") === "" ) {
+            if ( app.zeega.getCurrentProject().get("cover_image") === "" ) {
                 this.model.on("layer_added", this.onLayerAdded, this );
             }
 
