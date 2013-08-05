@@ -26,17 +26,18 @@ function( app, Viewer ) {
 
         initialize: function() {
             app.status.on("change:currentSequence", this.onEnterSequence, this );
-            this.onEnterSequence( app.status.get("currentSequence") );
+            this.onEnterSequence();
         },
 
         onEnterSequence: function( sequence ) {
-            if ( sequence.get("attr").soundtrack ) {
-                this.setSoundtrackLayer( app.soundtrack );
-            }
+            var soundtrack = app.zeega.getSoundtrack();
+
+            console.log("on enter", sequence)
+            if ( soundtrack ) this.setSoundtrackLayer( soundtrack );
         },
 
         afterRender: function() {
-            if ( !app.project.get("remix").remix ) this.makeDroppable();
+            if ( !app.zeega.get("currentProject").get("remix").remix ) this.makeDroppable();
 
             app.trigger("rendered", this );
 

@@ -4,12 +4,13 @@ define([
     "modules/status",
     "modules/layout-main",
     // Plugins
-    "engine/parser",
+    "engine/engine",
+//    "engine/parser",
     "analytics/analytics",
     "backbone"
 ],
 
-function( app, Status, Layout, ZeegaParser, Analytics ) {
+function( app, Status, Layout, Engine, Analytics ) {
 
     return Backbone.Model.extend({
         
@@ -76,20 +77,30 @@ function( app, Status, Layout, ZeegaParser, Analytics ) {
         _parseData: function( response ) {
             app.status = new Status();
 
-            app.project = new ZeegaParser.parse( response, {
-                mode: "editor",
-                pluginsPath: "app/zeega-parser/plugins/",
-                attach: {
-                    status: app.status
-                }
-            });
+            app.zeega = new Engine.generateZeega( response,
+                _.extend({},
+                    this.toJSON(),
+                    {
+                        mode: "player"
+                    })
+                );
 
-            app.status.set({
-                currentSequence: app.project.sequences.at( 0 ),
-                currentFrame: app.project.sequences.at( 0 ).frames.at( 0 )
-            });
+            // app.project = new ZeegaParser.parse( response, {
+            //     mode: "editor",
+            //     pluginsPath: "app/zeega-parser/plugins/",
+            //     attach: {
+            //         status: app.status
+            //     }
+            // });
 
-            app.remix = app.project.get("remix").remix;
+            // app.status.set({
+            //     currentSequence: app.project.sequences.at( 0 ),
+            //     currentFrame: app.project.sequences.at( 0 ).frames.at( 0 )
+            // });
+
+            app.remix = app.zeega.get("currentProject").get("remix");
+            console.log("parse:", app, app.zeega)
+
             this.insertLayout();
         },
 

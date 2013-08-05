@@ -15,13 +15,13 @@ function( app ) {
 //        template: "app/templates/workspace",
 
         initialize: function() {
-            this.aspectRatio = app.project.get("aspect_ratio");
+            this.aspectRatio = app.zeega.get("currentProject").get("aspect_ratio");
             app.on("window-resize", this.onResize, this );
             app.status.on("change:currentFrame", this.onChangeFrame, this );
         },
 
         afterRender: function() {
-            this.renderFrame( this.model.status.get("currentFrame") );
+            this.renderFrame( app.zeega.get("currentPage") );
             this.makeDroppable();
 
             $(".workspace").prepend("<div class='workspace-overlay'></div>");
@@ -74,6 +74,7 @@ function( app ) {
         },
 
         onChangeFrame: function( status, frameModel ) {
+            console.log('on change frame', frameModel)
             this.clearWorkspace();
             this.renderFrame( frameModel );
         },
@@ -82,11 +83,11 @@ function( app ) {
             if ( app.status.get("previousFrame") ) {
                 app.status.get("previousFrame").layers.off("add", this.onLayerAdd, this );
             }
-            app.status.get("currentFrame").layers.on("add", this.onLayerAdd, this );
+            app.zeega.get("currentPage").layers.on("add", this.onLayerAdd, this );
         },
 
         clearWorkspace: function() {
-            this.model.status.get("previousFrame").layers.editorCleanup();
+            app.zeega.get("previousPage").layers.editorCleanup();
             this.$el.empty();
         },
 

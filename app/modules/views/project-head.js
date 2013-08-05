@@ -18,7 +18,7 @@ function( app, Zeega ) {
                     share_links: this.getShareLinks()
                 },
                 app.metadata,
-                this.model.project.toJSON(),
+                app.zeega.get("currentProject").toJSON(),
                 {
                     userThumbnail: app.metadata.userThumbnail === "" ? "https://s3.amazonaws.com/zeegastatic/default_profile.jpeg" : app.metadata.userThumbnail
                 }
@@ -28,43 +28,44 @@ function( app, Zeega ) {
         getShareLinks: function() {
             var title, html,
                 links = {},
+                currentProject = app.zeega.get("currentProject"),
                 webRoot = app.getWebRoot();
 
             if(_.isUndefined( this.$("#project-caption").val()) ){
-                title = app.project.get("title");
+                title = app.zeega.get("currentProject").get("title");
             } else {
                 title = this.$("#project-caption").val();
             }
 
             html = "<p>" + title + "</p>" +
-                "<p><a href='" + webRoot + this.model.project.get("id") + "'>" +
+                "<p><a href='" + webRoot + currentProject.get("id") + "'>" +
                 "<strong>►&nbsp;Play&nbsp;Zeega&nbsp;►</strong></a>" +
-                "</p><p>by&nbsp;<a href='" + webRoot + "profile/" + this.model.project.get("user_id") + "'>" + this.model.project.get("authors") + "</a></p>";
+                "</p><p>by&nbsp;<a href='" + webRoot + "profile/" + currentProject.get("user_id") + "'>" + currentProject.get("authors") + "</a></p>";
 
-            links.tumblr = "http://www.tumblr.com/share/photo?source=" + encodeURIComponent( this.model.project.get("cover_image") ) +
+            links.tumblr = "http://www.tumblr.com/share/photo?source=" + encodeURIComponent( currentProject.get("cover_image") ) +
                 "&caption=" + encodeURIComponent( html ) +
-                "&click_thru="+ encodeURIComponent( webRoot ) + this.model.project.get("id");
+                "&click_thru="+ encodeURIComponent( webRoot ) + currentProject.get("id");
 
-            links.reddit = "http://www.reddit.com/submit?url=" + encodeURIComponent( app.getWebRoot() ) + this.model.project.get("id") +
+            links.reddit = "http://www.reddit.com/submit?url=" + encodeURIComponent( app.getWebRoot() ) + currentProject.get("id") +
                 "&title=" + encodeURIComponent( title );
 
-            links.twitter = "https://twitter.com/intent/tweet?original_referer=" + encodeURIComponent( webRoot ) + this.model.project.get("id") +
+            links.twitter = "https://twitter.com/intent/tweet?original_referer=" + encodeURIComponent( webRoot ) + currentProject.get("id") +
                 "&text=" + encodeURIComponent( title  + " made w/ @zeega") +
-                "&url=" + encodeURIComponent( webRoot ) + this.model.project.get("id");
+                "&url=" + encodeURIComponent( webRoot ) + currentProject.get("id");
 
-            links.facebook = "http://www.facebook.com/sharer.php?u=" + encodeURIComponent( app.getWebRoot() ) + this.model.project.get("id");
+            links.facebook = "http://www.facebook.com/sharer.php?u=" + encodeURIComponent( app.getWebRoot() ) + currentProject.get("id");
 
             return links;
         },
 
         initialize: function() {
-            this.model.project.on("sync", this.onSync, this );
+            app.zeega.get("currentProject").on("sync", this.onSync, this );
         },
 
         onSync: function() {
             this.updateShareUrls();
             this.$(".project-cover").css({
-                background: "url(" + this.model.project.get("cover_image") + ")",
+                background: "url(" + this.zeega.get("currentProject").get("cover_image") + ")",
                 backgroundSize: "cover"
             });
         },
@@ -77,7 +78,7 @@ function( app, Zeega ) {
         },
 
         afterRender: function() {
-            if ( app.project.get("cover_image") === "" ) {
+            if ( app.zeega.get("currentProject").get("cover_image") === "" ) {
                 this.model.on("layer_added", this.onLayerAdded, this );
             }
 

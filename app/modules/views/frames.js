@@ -24,7 +24,7 @@ function( app, FrameView ) {
         },
 
         updatedNewPageButtonState: function( currentSequence ) {
-            if ( app.project.get("remix").remix ) {
+            if ( app.zeega.getCurrentProject().get("remix").remix ) {
                 if ( currentSequence.frames.length < currentSequence.frames.remixPageMax ) {
                     // enable
                     this.$(".add-frame")

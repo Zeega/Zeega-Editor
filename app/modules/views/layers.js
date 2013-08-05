@@ -20,7 +20,7 @@ function( app, LayerList ) {
         
         initialize: function() {
             app.on("window-resize rendered", this.onResize, this );
-            app.status.on("change:currentFrame", this.onChangeFrame, this );
+            app.status.on("change:currentPage", this.onChangeFrame, this );
         },
 
         onChangeFrame: function( status, frameModel ) {
@@ -29,7 +29,7 @@ function( app, LayerList ) {
         },
 
         afterRender: function() {
-            this.renderFrameLayers( this.model.status.get("currentFrame") );
+            this.renderFrameLayers( app.zeega.get("currentPage") );
             app.emit("layers_rendered", this );
         },
 
@@ -49,10 +49,10 @@ function( app, LayerList ) {
         },
 
         updateListeners: function() {
-            if ( app.status.get("previousFrame") ) {
-                app.status.get("previousFrame").layers.off("add", this.refresh, this );
+            if ( app.zeega.get("previousPage") ) {
+                app.zeega.get("previousPage").layers.off("add", this.refresh, this );
             }
-            app.status.get("currentFrame").layers.on("add", this.refresh, this );
+            app.zeega.get("currentPage").layers.on("add", this.refresh, this );
         },
 
         refresh: function( layerModel ){
@@ -66,7 +66,7 @@ function( app, LayerList ) {
             this.$("ul.layer-list").sortable("destroy");
 
             this.layerViews.push( layerView );
-            this.renderFrameLayers( this.model.status.get("currentFrame") );
+            this.renderFrameLayers( app.zeega.get("currentPage") );
             layerView.render();
         },
 
