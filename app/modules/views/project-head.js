@@ -65,7 +65,7 @@ function( app, Zeega ) {
         onSync: function() {
             this.updateShareUrls();
             this.$(".project-cover").css({
-                background: "url(" + this.zeega.getCurrentProject().get("cover_image") + ")",
+                background: "url(" + app.zeega.getCurrentProject().get("cover_image") + ")",
                 backgroundSize: "cover"
             });
         },
@@ -104,7 +104,7 @@ function( app, Zeega ) {
         },
 
         onLayerAdded: function( layer ) {
-            if ( this.model.project.get("cover_image") === "" ) {
+            if ( app.zeega.getCurrentProject().get("cover_image") === "" ) {
                 if ( layer.get("type") == "Image" ) {
                     this.updateCoverImage( layer.getAttr("uri") );
                 }
@@ -114,16 +114,18 @@ function( app, Zeega ) {
         },
 
         updateCoverImage: function( url ) {
-            app.project.save("cover_image", url );
+            var currentProject = app.zeega.getCurrentProject();
 
-            tumblr_caption = "<p><a href='" + app.getWebRoot() + app.project.get("id") + "'><strong>Play&nbsp;► " +
-                            app.project.get("title") + "</strong></a></p><p>A Zeega by&nbsp;<a href='" +
-                            app.getWebRoot() + "profile/" + app.project.get("user_id") + "'>" + app.project.get("authors") + "</a></p>";
+            currentProject.save("cover_image", url );
+
+            tumblr_caption = "<p><a href='" + app.getWebRoot() + currentProject.get("id") + "'><strong>Play&nbsp;► " +
+                            currentProject.get("title") + "</strong></a></p><p>A Zeega by&nbsp;<a href='" +
+                            app.getWebRoot() + "profile/" + currentProject.get("user_id") + "'>" + currentProject.get("authors") + "</a></p>";
 
 
-            tumblr_share = "source=" + encodeURIComponent( app.project.get("cover_image") ) +
+            tumblr_share = "source=" + encodeURIComponent( currentProject.get("cover_image") ) +
                             "&caption=" + encodeURIComponent( tumblr_caption ) +
-                            "&click_thru="+ encodeURIComponent( app.getWebRoot() ) + app.project.get("id");
+                            "&click_thru="+ encodeURIComponent( app.getWebRoot() ) + currentProject.get("id");
             this.$("#tumblr-share").attr("href", "http://www.tumblr.com/share/photo?" + tumblr_share );
 
         },

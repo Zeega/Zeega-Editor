@@ -29,6 +29,7 @@ define([
             return this.metadata.userId;
         },
 
+        // get rid of this
         api : "http:" + $("meta[name=zeega]").data().hostname + $("meta[name=zeega]").data().apiRoot + "api/",
 
         getTemplateBase: function() {

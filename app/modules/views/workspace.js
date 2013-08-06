@@ -40,7 +40,7 @@ function( app ) {
                         }
                     } else {
                         app.emit("item_dropped", app.dragging );
-                        this.model.status.get('currentFrame').addLayerByItem( app.dragging, { source: "drag-to-workspace" });
+                        app.zeega.getCurrentPage().addLayerByItem( app.dragging, { source: "drag-to-workspace" });
                     }
                 }.bind( this )
             });
@@ -100,10 +100,11 @@ function( app ) {
         },
 
         onLayerAdd: function( layerModel ) {
+            console.log("on layer add:", layerModel)
             this.$el.append( layerModel.visual.el );
             layerModel.enterEditorMode();
             layerModel.visual.render();
-            layerModel.visual.updateZIndex( app.status.get("currentFrame").layers.length );
+            layerModel.visual.updateZIndex( app.zeega.getCurrentPage().layers.length );
         }
         
     });
