@@ -32,7 +32,6 @@ function( app, Viewer ) {
         onEnterSequence: function( sequence ) {
             var soundtrack = app.zeega.getSoundtrack();
 
-            console.log("on enter", sequence)
             if ( soundtrack ) this.setSoundtrackLayer( soundtrack );
         },
 

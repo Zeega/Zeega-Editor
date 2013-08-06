@@ -70,32 +70,34 @@ function( app, LayerList ) {
             layerView.render();
         },
 
-        renderFrameLayers: function( frameModel ) {
+        renderFrameLayers: function( pageModel ) {
             this.updateListeners();
 
-            frameModel.layers.each(function( layer, i ) {
-                // only generate layer list views if not cached!
-                if ( !layer._layerListView ) {
-                    var layerView = new LayerList({
-                        model: layer,
-                        attributes: {
-                            "data-id": layer.id
-                        }
-                    });
+            pageModel.layers
+                .each(function( layer, i ) {
 
-                    layer._layerListView = layerView;
-                    this.layerViews.push( layerView );
-                }
+                    // only generate layer list views if not cached!
+                    if ( !layer._layerListView ) {
+                        var layerView = new LayerList({
+                            model: layer,
+                            attributes: {
+                                "data-id": layer.id
+                            }
+                        });
 
-                // prepend because layers come in z-index order
-                this.$("ul.layer-list").prepend( layer._layerListView.el );
-                layer._layerListView.render();
-            }, this );
+                        layer._layerListView = layerView;
+                        this.layerViews.push( layerView );
+                    }
 
-            this.makeSortable( frameModel );
+                    // prepend because layers come in z-index order
+                    this.$("ul.layer-list").prepend( layer._layerListView.el );
+                    layer._layerListView.render();
+                }, this );
+
+            this.makeSortable( pageModel );
         },
 
-        makeSortable: function( frameModel ) {
+        makeSortable: function( pageModel ) {
             this.$("ul.layer-list").sortable({
                 containment: "parent",
                 tolerance: "pointer",
@@ -103,22 +105,24 @@ function( app, LayerList ) {
                     app.status.setCurrentLayer( null );
                 },
                 update: function( e, ui ) {
-                    this.updateLayerOrder( frameModel );
-                    app.emit("layers_reordered", frameModel );
+                    this.updateLayerOrder( pageModel );
+                    app.emit("layers_reordered", pageModel );
                 }.bind(this)
             });
         },
 
-        updateLayerOrder: function( frameModel ) {
+        // layer order corresponds to z-index
+
+        updateLayerOrder: function( pageModel ) {
             var layerOrder = _.map( this.$("ul.layer-list li"), function( layer ) {
                 return $( layer ).data("id");
             });
 
             layerOrder.reverse();
             _.each( layerOrder, function( layerID, i ) {
-                frameModel.layers.get( layerID ).order[ frameModel.id ] = i;
+                pageModel.layers.get( layerID ).set("_order", i );
             });
-            frameModel.layers.sort();
+            pageModel.layers.sort();
         }
         
     });

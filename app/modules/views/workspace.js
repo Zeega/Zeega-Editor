@@ -12,10 +12,8 @@ function( app ) {
         workspacePadding: 40,
 
         className: "ZEEGA-workspace",
-//        template: "app/templates/workspace",
 
         initialize: function() {
-            console.log("   AR:", this.aspectRatio, app.zeega )
 
             app.on("window-resize", this.onResize, this );
             app.status.on("change:currentFrame", this.onChangeFrame, this );
@@ -75,14 +73,13 @@ function( app ) {
         },
 
         onChangeFrame: function( status, frameModel ) {
-            console.log('on change frame', frameModel)
             this.clearWorkspace();
             this.renderFrame( frameModel );
         },
 
         updateListeners: function() {
-            if ( app.status.get("previousFrame") ) {
-                app.status.get("previousFrame").layers.off("add", this.onLayerAdd, this );
+            if ( app.zeega.get("previousPage") ) {
+                app.zeega.get("previousPage").layers.off("add", this.onLayerAdd, this );
             }
             app.zeega.get("currentPage").layers.on("add", this.onLayerAdd, this );
         },
@@ -94,17 +91,17 @@ function( app ) {
 
         renderFrame: function( frameModel ) {
             this.updateListeners();
-            frameModel.layers.each(function( layer ) {
-                this.onLayerAdd( layer );
-            }, this );
+            frameModel.layers
+                .each(function( layer ) {
+                    this.onLayerAdd( layer );
+                }, this );
         },
 
         onLayerAdd: function( layerModel ) {
-            console.log("on layer add:", layerModel)
             this.$el.append( layerModel.visual.el );
             layerModel.enterEditorMode();
             layerModel.visual.render();
-            layerModel.visual.updateZIndex( app.zeega.getCurrentPage().layers.length );
+            layerModel.visual.updateZIndex( layerModel.get("_order") );
         }
         
     });

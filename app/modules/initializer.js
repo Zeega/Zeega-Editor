@@ -98,8 +98,8 @@ function( app, Status, Layout, Engine, Analytics ) {
             //     currentFrame: app.project.sequences.at( 0 ).frames.at( 0 )
             // });
 
-            app.remix = app.zeega.get("currentProject").get("remix");
-            console.log("parse:", app, app.zeega)
+            app.remix = app.zeega.getCurrentProject().get("remix");
+            console.log("parse:", app.zeega.getCurrentPage().toJSON() )
 
             this.insertLayout();
         },
