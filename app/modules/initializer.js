@@ -85,21 +85,7 @@ function( app, Status, Layout, Engine, Analytics ) {
                     })
                 );
 
-            // app.project = new ZeegaParser.parse( response, {
-            //     mode: "editor",
-            //     pluginsPath: "app/zeega-parser/plugins/",
-            //     attach: {
-            //         status: app.status
-            //     }
-            // });
-
-            // app.status.set({
-            //     currentSequence: app.project.sequences.at( 0 ),
-            //     currentFrame: app.project.sequences.at( 0 ).frames.at( 0 )
-            // });
-
             app.remix = app.zeega.getCurrentProject().get("remix");
-            console.log("parse:", app.zeega.getCurrentPage().toJSON() )
 
             this.insertLayout();
         },

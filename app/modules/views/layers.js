@@ -119,6 +119,7 @@ function( app, LayerList ) {
             });
 
             layerOrder.reverse();
+
             _.each( layerOrder, function( layerID, i ) {
                 pageModel.layers.get( layerID ).set("_order", i );
             });
