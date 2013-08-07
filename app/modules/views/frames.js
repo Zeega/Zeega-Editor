@@ -13,10 +13,8 @@ function( app, FrameView ) {
         className: "ZEEGA-frames",
 
         afterRender: function() {
-            var currentSequence = this.model.status.get("currentSequence");
-
-            this.updatedNewPageButtonState( currentSequence );
-            this.renderSequenceFrames( currentSequence );
+            this.updatedNewPageButtonState();
+            this.renderSequenceFrames();
             this.makeSortable();
             this.makeDroppable();
 
@@ -24,9 +22,11 @@ function( app, FrameView ) {
             app.zeega.getCurrentProject().pages.on("remove", this.onFrameRemove, this );
         },
 
-        updatedNewPageButtonState: function( currentSequence ) {
-            if ( app.zeega.getCurrentProject().get("remix").remix ) {
-                if ( currentSequence.frames.length < currentSequence.frames.remixPageMax ) {
+        updatedNewPageButtonState: function() {
+            var currentProject = app.zeega.getCurrentProject()
+
+            if ( currentProject.get("remix").remix ) {
+                if ( currentProject.pages.length < currentProject.pages.remixPageMax ) {
                     // enable
                     this.$(".add-frame")
                         .removeClass("disabled")
@@ -48,7 +48,7 @@ function( app, FrameView ) {
                 placeholder: "frame-placeholder",
                 update: function( e, ui ) {
                     this.updateFrameOrder();
-                    app.emit("pages_reordered", this.model.status.get("currentSequence") );
+                    app.emit("pages_reordered", app.zeega.getCurrentProject() );
                 }.bind(this)
             });
         },
@@ -60,7 +60,7 @@ function( app, FrameView ) {
                 drop: function( e, ui ) {
                     if ( _.contains( ["Audio"], app.dragging.get("layer_type") )) {
                         app.emit("soundtrack_added", app.dragging );
-                        app.status.get('currentSequence').setSoundtrack( app.dragging, app.layout.soundtrack, { source: "drag-to-workspace" } );
+//                        app.status.get('currentSequence').setSoundtrack( app.dragging, app.layout.soundtrack, { source: "drag-to-workspace" } );
                     } else {
                         app.emit("item_dropped", app.dragging );
                         // console.log("DROP TO FRAME LIST")
@@ -82,37 +82,34 @@ function( app, FrameView ) {
             frameOrder = _.compact( frameOrder );
 
             _.each( frameOrder, function( frameID, i ) {
-                this.model.status.get("currentSequence").frames.get( frameID ).set("_order", i );
+                app.zeega.getCurrentProject().pages.get( frameID ).set("_order", i );
             }, this );
 
-            this.model.status.get("currentSequence").frames.sort();
-            this.model.status.get("currentSequence").save("frames", frameOrder );
+            app.zeega.getCurrentProject().pages.sort();
+            app.zeega.getCurrentProject().setPageOrder( frameOrder );
             
         },
 
-        onFrameAdd: function( frameModel, collection ) {
-            var currentSequence = this.model.status.get("currentSequence");
-
+        onFrameAdd: function( pageModel, collection ) {
             this.$(".frame-list").sortable("destroy");
 
-            if ( frameModel.editorAdvanceToPage !== false ) {
-                this.model.status.setCurrentFrame( frameModel );
+            if ( pageModel.editorAdvanceToPage !== false ) {
+                app.zeega.setCurrentPage( pageModel );
             }
-            this.renderSequenceFrames( currentSequence );
+
+            this.renderSequenceFrames();
             this.updateFrameOrder( );
             app.emit("page_added", null);
             this.makeSortable();
-            this.updatedNewPageButtonState( currentSequence );
+            this.updatedNewPageButtonState();
         },
 
         onFrameRemove: function( frameModel, collection ) {
-            var currentSequence = this.model.status.get("currentSequence");
-
-            this.renderSequenceFrames( currentSequence );
-            this.updatedNewPageButtonState( currentSequence );
+            this.renderSequenceFrames();
+            this.updatedNewPageButtonState();
         },
 
-        renderSequenceFrames: function( sequence ) {
+        renderSequenceFrames: function() {
             this.$(".frame-list").empty();
 
             app.zeega.get("currentProject").pages.each(function( page ) {
@@ -140,9 +137,9 @@ function( app, FrameView ) {
         },
 
         addFrame: function() {
-            var frameIndex = 1 + this.model.status.get("currentSequence").frames.indexOf( this.model.status.get("currentFrame") );
+            var pageIndex = 1 + app.zeega.getCurrentProject().pages.indexOf( app.zeega.getCurrentPage() );
 
-            this.model.status.get("currentSequence").frames.addFrame( frameIndex );
+            app.zeega.getCurrentProject().pages.addPage( pageIndex );
         }
         
     });

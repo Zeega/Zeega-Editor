@@ -21,7 +21,6 @@ function( app, Asker ) {
             this.model.on("blur", this.onBlur, this );
             this.model.on("thumbUpdateStart", this.onThumbUpdateStart, this );
             this.model.on("change:thumbnail_url", this.onThumbUpdateComplete, this );
-            this.model.on("no_advance", this.turnOffAdvance, this );
             this.makeDroppable();
         },
 
@@ -85,12 +84,6 @@ function( app, Asker ) {
             });
         },
 
-        turnOffAdvance: function() {
-           // console.log("TURN OFF ADVANCE")
-            this.$(".advance-toggle").removeClass("active").attr({ "original-title" : "add default advance" });
-
-        },
-
         doAction: function( e ) {
             this[ $(e.target).closest("a").data("action") ]();
         },
@@ -102,13 +95,14 @@ function( app, Asker ) {
                 okay: function() {
                     $(".tipsy").remove();
                     app.emit("page_delete", this.model );
+                    console.log("delete frame!!", this.model.collection );
                     this.model.collection.remove( this.model );
                 }.bind( this )
             });
         },
 
         viewFrame: function() {
-            this.model.status.setCurrentFrame( this.model );
+            app.zeega.setCurrentPage( this.model );
         },
 
         onFocus: function() {

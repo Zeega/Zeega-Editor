@@ -25,7 +25,7 @@ function( app, Viewer ) {
         },
 
         initialize: function() {
-            app.status.on("change:currentSequence", this.onEnterSequence, this );
+//            app.status.on("change:currentSequence", this.onEnterSequence, this );
             this.onEnterSequence();
         },
 
@@ -58,7 +58,7 @@ function( app, Viewer ) {
                         this.updateWaveform( app.dragging.get("thumbnail_url") );
 
                         app.emit("soundtrack_added", app.dragging );
-                        app.status.get('currentSequence').setSoundtrack( app.dragging, this, { source: "drag-to-soundtrack" } );
+//                        app.status.get('currentSequence').setSoundtrack( app.dragging, this, { source: "drag-to-soundtrack" } );
                     }
                 }.bind( this )
             });
@@ -126,8 +126,8 @@ function( app, Viewer ) {
             this.stopListening( this.model );
             $(".tipsy").remove();
             if ( save ) {
-                app.status.get('currentSequence').removeSoundtrack( this.model );
-                app.status.get('currentSequence').lazySave();
+//                app.status.get('currentSequence').removeSoundtrack( this.model );
+//                app.status.get('currentSequence').lazySave();
             }
             this.model = null;
             this.render();

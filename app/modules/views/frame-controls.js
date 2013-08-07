@@ -13,7 +13,7 @@ function( app ) {
         saveAdvance: null,
 
         initialize: function() {
-            app.status.on("change:currentFrame", this.onChangeFrame, this );
+            app.zeega.on("change:currentFrame", this.onChangeFrame, this );
 
             this.saveAdvance = _.debounce(function() {
                 app.status.get("currentFrame").saveAttr({

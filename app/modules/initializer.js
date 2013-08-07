@@ -1,7 +1,6 @@
 define([
     "app",
     // Modules
-    "modules/status",
     "modules/layout-main",
     // Plugins
     "engine/engine",
@@ -10,7 +9,7 @@ define([
     "backbone"
 ],
 
-function( app, Status, Layout, Engine, Analytics ) {
+function( app, Layout, Engine, Analytics ) {
 
     return Backbone.Model.extend({
         
@@ -75,7 +74,6 @@ function( app, Status, Layout, Engine, Analytics ) {
         },
 
         _parseData: function( response ) {
-            app.status = new Status();
 
             app.zeega = new Engine.generateZeega( response,
                 _.extend({},

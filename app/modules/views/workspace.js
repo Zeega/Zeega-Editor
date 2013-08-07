@@ -16,11 +16,11 @@ function( app ) {
         initialize: function() {
 
             app.on("window-resize", this.onResize, this );
-            app.status.on("change:currentFrame", this.onChangeFrame, this );
+            app.zeega.on("change:currentPage", this.onChangePage, this );
         },
 
         afterRender: function() {
-            this.renderFrame( app.zeega.get("currentPage") );
+            this.renderPage( app.zeega.get("currentPage") );
             this.makeDroppable();
 
             $(".workspace").prepend("<div class='workspace-overlay'></div>");
@@ -34,7 +34,7 @@ function( app ) {
                     if ( _.contains( ["Audio"], app.dragging.get("layer_type")) ) {
                         if ( !app.project.get("remix").remix ) {
                             app.emit("soundtrack_added", app.dragging );
-                            app.status.get('currentSequence').setSoundtrack( app.dragging, app.layout.soundtrack, { source: "drag-to-workspace" } );
+//                            app.status.get('currentSequence').setSoundtrack( app.dragging, app.layout.soundtrack, { source: "drag-to-workspace" } );
                         }
                     } else {
                         app.emit("item_dropped", app.dragging );
@@ -72,9 +72,9 @@ function( app ) {
             });
         },
 
-        onChangeFrame: function( status, frameModel ) {
+        onChangePage: function( status, pageModel ) {
             this.clearWorkspace();
-            this.renderFrame( frameModel );
+            this.renderPage( pageModel );
         },
 
         updateListeners: function() {
@@ -85,13 +85,17 @@ function( app ) {
         },
 
         clearWorkspace: function() {
-            app.zeega.get("previousPage").layers.editorCleanup();
+            var previousPage = app.zeega.get("previousPage");
+
+            if ( previousPage ) {
+                app.zeega.get("previousPage").layers.editorCleanup();
+            }
             this.$el.empty();
         },
 
-        renderFrame: function( frameModel ) {
+        renderPage: function( pageModel ) {
             this.updateListeners();
-            frameModel.layers
+            pageModel.layers
                 .each(function( layer ) {
                     this.onLayerAdd( layer );
                 }, this );

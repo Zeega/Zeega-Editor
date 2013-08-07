@@ -20,7 +20,7 @@ function( app, LayerList ) {
         
         initialize: function() {
             app.on("window-resize rendered", this.onResize, this );
-            app.status.on("change:currentPage", this.onChangeFrame, this );
+            app.zeega.on("change:currentPage", this.onChangeFrame, this );
         },
 
         onChangeFrame: function( status, frameModel ) {
@@ -102,7 +102,7 @@ function( app, LayerList ) {
                 containment: "parent",
                 tolerance: "pointer",
                 start: function() {
-                    app.status.setCurrentLayer( null );
+                    app.zeega.setCurrentLayer( null );
                 },
                 update: function( e, ui ) {
                     this.updateLayerOrder( pageModel );

@@ -34,7 +34,7 @@ function( app, LayerControls, Asker) {
         afterRender: function() {
             this.listen();
 
-            if ( app.status.get("copiedLayer") && app.status.get("copiedLayer").id == this.model.id ) {
+            if ( app.zeega.get("copiedLayer") && app.zeega.get("copiedLayer").id == this.model.id ) {
                 this.onCopyFocus();
             }
 
@@ -77,29 +77,17 @@ function( app, LayerControls, Asker) {
             this[ $(e.target).data("action") ]();
         },
 
-        continueToNextFrame: function() {
-            this.$el.attr("data-continue", "true");
-            app.status.get("currentSequence").continueLayerToNextFrame( this.model );
-        },
-
-        continueToChapter: function() {
-            this.$el.attr("data-persist", "true"); // this will toggle!!
-            app.status.get("currentSequence").togglePersistance( this.model );
-        },
-
         deleteLayer: function() {
-
             $(".tipsy").remove();
             this.model.collection.remove( this.model );
             app.emit("layer_deleted", this.model );
         },
 
         selectLayer: function() {
-            
-            if ( app.status.get("currentLayer") != this.model ) {
-                app.status.setCurrentLayer( this.model );
+            if ( app.zeega.getCurrentLayer() != this.model ) {
+                app.zeega.setCurrentLayer( this.model );
             } else {
-                app.status.setCurrentLayer( null );
+                app.zeega.setCurrentLayer( null );
             }
         },
 
