@@ -12,7 +12,7 @@ function( app ) {
 
         serialize: function() {
             return _.extend({
-                    remix: app.project.get("remix").remix
+                    remix: app.zeega.getCurrentProject().get("remix").remix
                 },
                 this.model.toJSON()
             );

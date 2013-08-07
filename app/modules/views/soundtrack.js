@@ -19,13 +19,12 @@ function( app, Viewer ) {
             } else if ( this.model.get("type") == "Audio" ) {
                 return _.extend({
                     model: true,
-                    remix: app.project.get("remix").remix
+                    remix: app.zeega.getCurrentProject().get("remix").remix
                 }, this.model.toJSON() );
             }
         },
 
         initialize: function() {
-//            app.status.on("change:currentSequence", this.onEnterSequence, this );
             this.onEnterSequence();
         },
 
@@ -126,8 +125,9 @@ function( app, Viewer ) {
             this.stopListening( this.model );
             $(".tipsy").remove();
             if ( save ) {
-//                app.status.get('currentSequence').removeSoundtrack( this.model );
-//                app.status.get('currentSequence').lazySave();
+                app.zeega.getCurrentProject().removeSoundtrack();
+                // app.status.get('currentSequence').removeSoundtrack();
+                // app.status.get('currentSequence').lazySave();
             }
             this.model = null;
             this.render();

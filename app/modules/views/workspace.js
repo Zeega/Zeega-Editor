@@ -32,9 +32,9 @@ function( app ) {
                 tolerance: "pointer",
                 drop: function( e, ui ) {
                     if ( _.contains( ["Audio"], app.dragging.get("layer_type")) ) {
-                        if ( !app.project.get("remix").remix ) {
+                        if ( !app.zeega.isRemix() ) {
                             app.emit("soundtrack_added", app.dragging );
-//                            app.status.get('currentSequence').setSoundtrack( app.dragging, app.layout.soundtrack, { source: "drag-to-workspace" } );
+                            app.zeega.getCurrentProject().setSoundtrack( app.dragging, app.layout.soundtrack, { source: "drag-to-workspace" } );
                         }
                     } else {
                         app.emit("item_dropped", app.dragging );
