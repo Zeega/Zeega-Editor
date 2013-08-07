@@ -95,7 +95,6 @@ function( app, Asker ) {
                 okay: function() {
                     $(".tipsy").remove();
                     app.emit("page_delete", this.model );
-                    console.log("delete frame!!", this.model.collection );
                     this.model.collection.remove( this.model );
                 }.bind( this )
             });
