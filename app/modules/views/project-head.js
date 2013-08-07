@@ -91,13 +91,10 @@ function( app, Zeega ) {
                 tolerance: "pointer",
                 hoverClass: "can-drop",
                 drop: function( e, ui ) {
+                    console.log("DRAGGING:", app.dragging)
                     if ( _.contains( ["Image"], app.dragging.get("layer_type") )) {
 
                         this.updateCoverImage( app.dragging.get("uri") );
-                        // this.updateWaveform( app.dragging.get("thumbnail_url") );
-
-                        // app.trigger("soundtrack_added", app.dragging );
-                        // app.status.get('currentSequence').setSoundtrack( app.dragging, this );
                     }
                 }.bind( this )
             });
@@ -192,7 +189,7 @@ function( app, Zeega ) {
 
         toggleShareGrave: function() {
 
-            this.model.status.setCurrentLayer( null );
+            app.zeega.setCurrentLayer( null );
 
             if( !this.$(".share-grave").is(":visible") ) {
                 app.emit("grave_open", null );
@@ -216,7 +213,7 @@ function( app, Zeega ) {
         },
 
         captionSave: _.debounce(function() {
-            this.model.project.save("title", this.$("#project-caption").val() );
+            app.zeega.getCurrentProject().save("title", this.$("#project-caption").val() );
         }, 1000 ),
 
         onMenuClick: function( e ) {
