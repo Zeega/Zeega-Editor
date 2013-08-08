@@ -249,12 +249,14 @@ function( app, Player ) {
             });
 
             this.stopListening( app.player );
-            app.player.on("player_destroyed", this.stopListeningToPlayer, this );
+            app.player.on("player_destroyed", this.onPlayerDestroy, this );
 
             this.firstPreview = false;
         },
 
-        stopListeningToPlayer: function() {
+        onPlayerDestroy: function() {
+            // switch instance of Zeega to the editor version and release the player version!!
+            app.zeega.injectZeega( app.zeega );
             $("body").unbind("keyup.player");
             app.emit("project_preview_ended", null );
         },
