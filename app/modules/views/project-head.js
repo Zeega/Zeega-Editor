@@ -1,10 +1,9 @@
 define([
     "app",
-    "player/modules/player",
-    "backbone"
+    "player/modules/player"
 ],
 
-function( app, Zeega ) {
+function( app, Player ) {
 
     return Backbone.View.extend({
 
@@ -91,7 +90,6 @@ function( app, Zeega ) {
                 tolerance: "pointer",
                 hoverClass: "can-drop",
                 drop: function( e, ui ) {
-                    console.log("DRAGGING:", app.dragging)
                     if ( _.contains( ["Image"], app.dragging.get("layer_type") )) {
 
                         this.updateCoverImage( app.dragging.get("uri") );
@@ -225,37 +223,33 @@ function( app, Zeega ) {
         },
 
         projectPreview: function() {
-            var projectData = { project: app.project.getProjectJSON()};
+            var projectData = { project: app.zeega.getProjectJSON() };
 
-            app.zeegaplayer = null;
+            app.player = null;
             app.emit("project_preview", null );
             
-            
-            app.zeegaplayer = new Zeega.player({
-                // debugEvents: true,
-                scalable: true,
+            app.player = new Player({
+                    // debugEvents: true,
+                    scalable: true,
 
-                previewMode: "mobile",
-                data: projectData,
-                controls: {
-                    arrows: true,
-                    close: true,
-                    sizeToggle: true
-                }
-            });
-
-            //this is a wild hack, should not be necessary
-            app.zeegaplayer.status.set("frameHistory",[]);
+                    previewMode: "mobile",
+                    data: projectData,
+                    controls: {
+                        arrows: true,
+                        close: true,
+                        sizeToggle: true
+                    }
+                });
 
             // listen for esc key to close preview
             $("body").bind("keyup.player", function( e ) {
                 if ( e.which == 27 ) {
-                    app.zeegaplayer.destroy();
+                    app.player.destroy();
                 }
             });
 
-            this.stopListening( app.zeegaplayer );
-            app.zeegaplayer.on("player_destroyed", this.stopListeningToPlayer, this );
+            this.stopListening( app.player );
+            app.player.on("player_destroyed", this.stopListeningToPlayer, this );
 
             this.firstPreview = false;
         },

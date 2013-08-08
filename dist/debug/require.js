@@ -36810,7 +36810,7 @@ function( app, Layers ) {
 
                 this.soundtrackModel = app.soundtrack = layers.get( this.get("attr").soundtrack );
 
-                if ( app.mode == "editor" ) {
+                if ( this.zeega.get("mode") == "editor" ) {
                     this.soundtrackModel.status = app;
                 } else {
                     this.soundtrackModel.status = app.player ? app.player.status : app.state;

@@ -144,34 +144,34 @@ function( app, ProjectHead, Frames, Workspace, Layers, LayerDrawer, Soundtrack, 
         },
 
         copyLayer: function() {
-            var layerToCopy = app.status.get("currentLayer");
+            var layerToCopy = app.zeega.get("currentLayer");
 
             if ( layerToCopy ) {
-                app.status.copyLayer( layerToCopy );
+                app.zeega.copyLayer( layerToCopy );
 
                 return false;
             }
-        },
-
-        deleteLayer: function( e ) {
-            var layer = app.status.get("currentLayer");
-
-            if ( layer && confirm("do you really want to delete this layer?") ) {
-                app.status.setCurrentLayer( null );
-                app.status.get("currentFrame").layers.remove( layer );
-            }
-            e.preventDefault();
         },
 
         pasteLayer: function() {
-            var layerToPaste = app.status.get("copiedLayer");
+            var layerToPaste = app.zeega.get("copiedLayer");
 
             if ( layerToPaste ) {
-                app.status.get("currentFrame").pasteLayer( layerToPaste );
+                app.zeega.get("currentFrame").pasteLayer( layerToPaste );
 
                 return false;
             }
         },
+
+        // deleteLayer: function( e ) {
+        //     var layer = app.status.get("currentLayer");
+
+        //     if ( layer && confirm("do you really want to delete this layer?") ) {
+        //         app.status.setCurrentLayer( null );
+        //         app.status.get("currentFrame").layers.remove( layer );
+        //     }
+        //     e.preventDefault();
+        // },
 
         lazyResize: _.debounce(function() {
             app.trigger("window-resize");

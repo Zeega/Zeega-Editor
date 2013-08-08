@@ -79,7 +79,7 @@ function( app, Layout, Engine, Analytics ) {
                 _.extend({},
                     this.toJSON(),
                     {
-                        mode: "player"
+                        mode: "editor"
                     })
                 );
 
