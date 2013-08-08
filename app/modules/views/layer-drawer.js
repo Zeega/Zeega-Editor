@@ -25,7 +25,7 @@ function( app ) {
             if ( !$(e.target).closest("a").hasClass("disabled") ) {
                 var layerType = $(e.target).closest("a").data("layerType");
 
-                app.zeega.get('currentPage').addLayerType( layerType );
+                app.zeega.getCurrentPage().addLayerType( layerType );
                 app.trigger("layer_type_added", layerType );
             }
         }

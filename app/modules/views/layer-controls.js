@@ -49,7 +49,7 @@ function( app ) {
                 
                 if ( !clickedInside ) {
                     $(window).unbind( "mouseup.layerControl" + this.model.id );
-                    app.status.setCurrentLayer( null );
+                    app.zeega.setCurrentLayer( null );
                 }
             }.bind( this ));
         },

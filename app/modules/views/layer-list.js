@@ -79,6 +79,7 @@ function( app, LayerControls, Asker) {
 
         deleteLayer: function() {
             $(".tipsy").remove();
+            this.closeControls();
             this.model.collection.remove( this.model );
             app.emit("layer_deleted", this.model );
         },
@@ -98,7 +99,6 @@ function( app, LayerControls, Asker) {
 
         onBlur: function() {
             this.$el.removeClass("active");
-            this.closeControls();
         },
 
         onRemove: function() {
@@ -114,6 +114,7 @@ function( app, LayerControls, Asker) {
         },
 
         closeControls: function() {
+            console.log("close controls")
             this.controls.remove();
         }
         
