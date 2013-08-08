@@ -154,10 +154,10 @@ function( app, ProjectHead, Frames, Workspace, Layers, LayerDrawer, Soundtrack, 
         },
 
         pasteLayer: function() {
-            var layerToPaste = app.zeega.get("copiedLayer");
+            var clipboard = app.zeega.getClipboard();
 
-            if ( layerToPaste ) {
-                app.zeega.get("currentFrame").pasteLayer( layerToPaste );
+            if ( clipboard ) {
+                app.zeega.getCurrentPage().pasteLayer( clipboard );
 
                 return false;
             }

@@ -25,7 +25,6 @@ function( app, LayerControls, Asker) {
             this.controls = new LayerControls({ model: this.model, target: this });
 
             this.openControls = _.debounce(function() {
-                this.closeControls();
                 $("#main").append( this.controls.el );
                 this.controls.render();
             }.bind( this ), 750, true );
@@ -99,6 +98,7 @@ function( app, LayerControls, Asker) {
 
         onBlur: function() {
             this.$el.removeClass("active");
+            this.closeControls();
         },
 
         onRemove: function() {
@@ -114,8 +114,7 @@ function( app, LayerControls, Asker) {
         },
 
         closeControls: function() {
-            console.log("close controls")
-            this.controls.remove();
+            this.controls.$el.remove();
         }
         
     });
