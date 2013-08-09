@@ -71,7 +71,7 @@ function( app, MediaCollection, Item ) {
 
             this.mediaCollection.add( items );
 
-            if(this.api == "Favorites"){
+            if(this.api == "Favorites" && window.audioJSON ){
                 this.mediaCollection.add( new Item( $.parseJSON( window.audioJSON ).items[0]), { at: 0 } );
             }
 
