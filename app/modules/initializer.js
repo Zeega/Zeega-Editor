@@ -91,7 +91,7 @@ function( app, Layout, Engine, Analytics ) {
         insertLayout: function() {
 
             if ( !app.metadata.dev ) {
-                var location = app.metadata.root == "/" ? app.metadata.root + "editor/" + app.project.id : "/" + app.metadata.root + "editor/" + app.project.id;
+                var location = app.metadata.root == "/" ? app.metadata.root + "editor/" + app.zeega.getCurrentProject().id : "/" + app.metadata.root + "editor/" + app.project.id;
                 window.history.pushState("", "", location );
             }
 
