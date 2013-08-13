@@ -671,17 +671,7 @@ __p+='<a href="http://www.zeega.com" class="ZEEGA-tab">\n    <span class="ZTab-l
 ( remix.parent.user.thumbnail_url )+
 ');\n                            background-position: center;\n                            background-repeat: no-repeat;\n                            -webkit-background-size: cover;\n                            -moz-background-size: cover;\n                            -o-background-size: cover;\n                            background-size: cover;\n                        "></div>\n                </li>\n               \n            </ul>\n        </div>\n    ';
  } 
-;__p+='\n\n    <ul class="nav-buttons-right">\n        \n        <li>\n            <span class="saving-indicator btnz btnz-transparent"></span>\n        </li>\n\n    ';
- if ( remix.remix ) { 
-;__p+='\n        <li>\n            <a href="'+
-( web_root )+
-''+
-( id )+
-'"\n                class="btnz btnz-green"\n                title="see what you\'re making"\n                data-gravity="n"\n                target="blank"\n            ><i class="icon-play icon-white"></i> Play</a>\n        </li>\n    ';
- } else { 
-;__p+='\n        <li>\n            <a href="#" class="project-preview btnz btnz-green"\n                title="see what you\'re making"\n                data-gravity="n"\n            ><i class="icon-play icon-white"></i> Play</a>\n        </li>\n    ';
- } 
-;__p+='\n\n        <li>\n            <a href="#" class="project-share btnz btnz-blue btnz-fullwidth"\n                title="share your Zeega with the world"\n                data-gravity="n"\n            ><i class="icon-retweet icon-white"></i> Share</a>\n        </li>\n         <li>\n                <a href="'+
+;__p+='\n\n    <ul class="nav-buttons-right">\n        \n        <li>\n            <span class="saving-indicator btnz btnz-transparent"></span>\n        </li>\n\n        <li>\n            <a href="#" class="project-preview btnz btnz-green"\n                title="see what you\'re making"\n                data-gravity="n"\n            ><i class="icon-play icon-white"></i> Play</a>\n        </li>\n\n        <li>\n            <a href="#" class="project-share btnz btnz-blue btnz-fullwidth"\n                title="share your Zeega with the world"\n                data-gravity="n"\n            ><i class="icon-retweet icon-white"></i> Share</a>\n        </li>\n         <li>\n                <a href="'+
 ( web_root )+
 'project/new"\n                    class="btnz new-zeega"\n                    title="start a new Zeega"\n                    data-gravity="ne"\n                    >New Zeega</a>\n        </li>\n\n    </ul>\n\n</div>\n\n<div class="share-grave">\n\n    <div class="close-wrapper">\n        <a href="#" class="close-grave">&times;</a>\n    </div>\n\n    <div class="grave-inner">\n\n        <div class="share-meta">\n            <div class="cover-image-wrapper">\n                <div class="project-cover" style="\n                    background: url('+
 ( cover_image )+
@@ -35425,7 +35415,6 @@ function( app, _Layer, Visual ){
             setAudio: function() {
                 if ( this.audio === null ) {
                     this.audio = this.$("audio")[0];
-                    console.log("SET AUDIO", this.audio, this.$("audio")[0])
                     this.audio.load();
                 }
             },
@@ -35441,6 +35430,7 @@ function( app, _Layer, Visual ){
 
                 this.audio.load();
                 this.audio.addEventListener("canplay", function() {
+                    this.model.state = "ready";
                     this.onCanPlay();
                 }.bind( this ));
             },
@@ -35605,6 +35595,7 @@ function( app, _Layer, Visual ){
 
             onLoading: function( value ){
                 if( value == 3 ) {
+                    this.model.state = "ready";
                     this.model.trigger( "layer:visual_ready", this.model.id );
                 }
             },
@@ -36625,7 +36616,6 @@ function( app, _Layer, Visual, TextModal ) {
         },
 
         onMouseUp: function() {
-            console.log("TEXT MOUSE UP", this.mousedown,this.model.zeega.get("mode"))
             if ( this.mousedown ) {
                 this.launchTextModal();
                 if ( this.model.zeega.get("mode") == "editor" ) {
@@ -36784,7 +36774,7 @@ function( app, Backbone, LayerCollection, Layers ) {
             }.bind( this ), 1000 );
 
             this.startThumbWorker = _.debounce(function() {
-                var worker = new Worker( app.webRoot + "js/helpers/thumbworker.js" );
+                var worker = new Worker( app.getWebRoot() + "js/helpers/thumbworker.js" );
             
                 worker.addEventListener("message", function(e) {
 
@@ -37034,7 +37024,7 @@ function( app, PageModel, LayerCollection ) {
 
         initialize: function() {
             if ( this.zeega.get("mode") == "editor" ) {
-                this.initEditor()
+                this.initEditor();
             } else if ( this.zeega.get("mode") == "player") {
 
             }
@@ -37300,13 +37290,13 @@ function( app, PageCollection, Layers, SequenceModel ) {
 
         // sequences should be eraticated
         _loadSequence: function() {
-            this.sequence = new SequenceModel( this.get("sequences")[0])
+            this.sequence = new SequenceModel( this.get("sequences")[0]);
         },
 
         _loadPages: function() {
             var pageArray = _.map( this.get("sequences")[0].frames, function( pageId ) {
                     return _.find( this.get("frames"), function( page ) {
-                        return page.id == pageId
+                        return page.id == pageId;
                     });
                 }, this );
 
@@ -38042,7 +38032,7 @@ function( app, Parser, ProjectCollection, ProjectModel, PageCollection, PageMode
             
             this.projects.each(function( project ) {
                 project.pages.each(function( page ) {
-                    pagesArray.push( page )
+                    pagesArray.push( page );
                 });
             });
 
@@ -38066,7 +38056,7 @@ function( app, Parser, ProjectCollection, ProjectModel, PageCollection, PageMode
 
             if ( layer ) {
                 this.set("currentLayer", layer );
-                layer.trigger("focus")
+                layer.trigger("focus");
             } else if ( layer === null ) {
                 this.set("currentLayer", null );
             }
@@ -38107,11 +38097,13 @@ function( app, Parser, ProjectCollection, ProjectModel, PageCollection, PageMode
             if ( remixData.remix && !this.projects.get( remixData.parent.id ) && this.waiting ) {
                 var projectUrl = "http:" + app.metadata.hostname + app.metadata.directory +'api/projects/' + remixData.parent.id;
 
+                this.emit("project:fetching");
+
                 $.getJSON( projectUrl, function( data ) {
                     this._onDataLoaded( data );
                     this.waiting = false;
+                    this.emit("project:fetch_success");
                 }.bind(this));
-
             }
         },
 
@@ -38531,7 +38523,7 @@ function( app, ArrowView, CloseView, PlayPauseView, SizeToggle ) {
         },
 
         afterRender: function() {
-            this.onFramePlay()
+            this.onFramePlay();
         },
 
         events: {
@@ -39348,28 +39340,25 @@ function( app, Engine, Relay, Status, PlayerLayout ) {
             // TODO
         },
 
-        // mobile only hack
-        // TODO -- this blows -j
         mobileLoadAudioLayers: function() {
-            this.project.sequences.each(function( sequence ) {
-                sequence.frames.each(function( frame ) {
-                    frame.layers.each(function( layer ) {
-                        if ( layer.get("type") == "Audio") {
-                            var audio = document.getElementById("audio-el-" + layer.id );
-                            
-                            audio.load();
-                            
-                            return audio;
-                        }
+            if ( app.player.zeega.getSoundtrack().state != "ready" ) {
+                var audio = document.getElementById("audio-el-" + app.player.zeega.getSoundtrack().id );
+                
+                if ( audio ) {
+                    audio.load();
+                    audio.addEventListener("canplay",function() {
+                        app.player.zeega.getSoundtrack().state = "ready";
+                        audio.removeEventListener("canplay");
+                        audio.play();
                     });
-                });
-            });
+                }
+            }
         },
 
 
         // returns project data
         getProjectData: function() {
-            return this.project.getProjectJSON();
+            return this.zeega.getProjectJSON();
         },
 
         getSoundtrack: function() {
@@ -39377,10 +39366,10 @@ function( app, Engine, Relay, Status, PlayerLayout ) {
         },
 
         getFrameData: function() {
-            if ( this.status.get("current_frame") ) {
+            if ( this.zeega.getCurrentPage() ) {
                 return _.extend({},
-                    this.status.get("current_frame_model").toJSON(),
-                    { layers: this.status.get("current_frame_model").layers.toJSON() }
+                    this.zeega.getCurrentPage().toJSON(),
+                    { layers: this.zeega.getCurrentPage().layers.toJSON() }
                 );
             }
 
@@ -43172,7 +43161,6 @@ function( app ) {
         show: function() {
             $("#main").prepend( this.el );
 
-
             this.$el.css(_.extend({
                 top: "-1000%",
                 left: "-1000%"
@@ -44290,7 +44278,7 @@ function( app, ProjectHead, Frames, Workspace, Layers, LayerDrawer, Soundtrack, 
 
         onLayoutReady: function() {
             var isEmpty =  app.zeega.get("currentProject").pages.length == 1 &&
-                app.zeega.get("currentProject").pages.at( 0 ).layers.length === 0;
+                app.zeega.getCurrentProject().pages.at( 0 ).layers.length === 0;
 
             this.initialInstructions = new Pointers( this.initialSequence );
 
@@ -44299,6 +44287,9 @@ function( app, ProjectHead, Frames, Workspace, Layers, LayerDrawer, Soundtrack, 
 
                 if ( isEmpty && app.metadata.newUser == 1 ) {
                     this.onFirstVisit();
+                }
+                if ( app.zeega.isRemix() ) {
+                    this.onRemixSession();
                 }
             }.bind( this ), 1000);
         },
@@ -44309,6 +44300,12 @@ function( app, ProjectHead, Frames, Workspace, Layers, LayerDrawer, Soundtrack, 
             introModalView.start();
             this.initialInstructions.startPointing();
             this.pointing = true;
+        },
+
+        onRemixSession: function() {
+            console.log("on remix session");
+            this.remixInstructions = new Pointers( this.remixSequence );
+            this.remixInstructions.startPointing();
         },
 
         initTips: function() {
@@ -44340,16 +44337,6 @@ function( app, ProjectHead, Frames, Workspace, Layers, LayerDrawer, Soundtrack, 
                 return false;
             }
         },
-
-        // deleteLayer: function( e ) {
-        //     var layer = app.status.get("currentLayer");
-
-        //     if ( layer && confirm("do you really want to delete this layer?") ) {
-        //         app.status.setCurrentLayer( null );
-        //         app.status.get("currentFrame").layers.remove( layer );
-        //     }
-        //     e.preventDefault();
-        // },
 
         lazyResize: _.debounce(function() {
             app.trigger("window-resize");
@@ -44442,6 +44429,26 @@ function( app, ProjectHead, Frames, Workspace, Layers, LayerDrawer, Soundtrack, 
                     }]
                 }
 
+            ],
+
+            remixSequence: [
+                {
+                    listenFor: "all",
+                    pointers: [{
+                        target: ".soundtrack",
+                        content: "You now have the same great track you were just listening to.",
+                        color: "blue",
+                        canCancel: true,
+                        pointDirection: "left"
+                    },{
+                        target: ".ZEEGA-items",
+                        content: "use any of the same media… or find great new stuff from across the web!",
+                        color: "red",
+                        canCancel: true,
+                        pointDirection: "left",
+                        verticalDivision: 4
+                    }]
+                }
             ]
 
     });
@@ -44645,7 +44652,6 @@ function( app, Layout, Engine, Analytics ) {
         initialize: function() {
             // app.mediaBrowser = new MediaBrowser();
             this.initAnalytics();
-
             this.loadProject();
         },
 
