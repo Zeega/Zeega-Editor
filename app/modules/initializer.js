@@ -16,7 +16,6 @@ function( app, Layout, Engine, Analytics ) {
         initialize: function() {
             // app.mediaBrowser = new MediaBrowser();
             this.initAnalytics();
-
             this.loadProject();
         },
 

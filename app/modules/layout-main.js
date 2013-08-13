@@ -112,7 +112,7 @@ function( app, ProjectHead, Frames, Workspace, Layers, LayerDrawer, Soundtrack, 
 
         onLayoutReady: function() {
             var isEmpty =  app.zeega.get("currentProject").pages.length == 1 &&
-                app.zeega.get("currentProject").pages.at( 0 ).layers.length === 0;
+                app.zeega.getCurrentProject().pages.at( 0 ).layers.length === 0;
 
             this.initialInstructions = new Pointers( this.initialSequence );
 
@@ -121,6 +121,9 @@ function( app, ProjectHead, Frames, Workspace, Layers, LayerDrawer, Soundtrack, 
 
                 if ( isEmpty && app.metadata.newUser == 1 ) {
                     this.onFirstVisit();
+                }
+                if ( app.zeega.isRemix() ) {
+                    this.onRemixSession();
                 }
             }.bind( this ), 1000);
         },
@@ -131,6 +134,12 @@ function( app, ProjectHead, Frames, Workspace, Layers, LayerDrawer, Soundtrack, 
             introModalView.start();
             this.initialInstructions.startPointing();
             this.pointing = true;
+        },
+
+        onRemixSession: function() {
+            console.log("on remix session");
+            this.remixInstructions = new Pointers( this.remixSequence );
+            this.remixInstructions.startPointing();
         },
 
         initTips: function() {
@@ -162,16 +171,6 @@ function( app, ProjectHead, Frames, Workspace, Layers, LayerDrawer, Soundtrack, 
                 return false;
             }
         },
-
-        // deleteLayer: function( e ) {
-        //     var layer = app.status.get("currentLayer");
-
-        //     if ( layer && confirm("do you really want to delete this layer?") ) {
-        //         app.status.setCurrentLayer( null );
-        //         app.status.get("currentFrame").layers.remove( layer );
-        //     }
-        //     e.preventDefault();
-        // },
 
         lazyResize: _.debounce(function() {
             app.trigger("window-resize");
@@ -264,6 +263,26 @@ function( app, ProjectHead, Frames, Workspace, Layers, LayerDrawer, Soundtrack, 
                     }]
                 }
 
+            ],
+
+            remixSequence: [
+                {
+                    listenFor: "all",
+                    pointers: [{
+                        target: ".soundtrack",
+                        content: "You now have the same great track you were just listening to.",
+                        color: "blue",
+                        canCancel: true,
+                        pointDirection: "left"
+                    },{
+                        target: ".ZEEGA-items",
+                        content: "use any of the same media… or find great new stuff from across the web!",
+                        color: "red",
+                        canCancel: true,
+                        pointDirection: "left",
+                        verticalDivision: 4
+                    }]
+                }
             ]
 
     });

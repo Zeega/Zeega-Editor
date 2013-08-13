@@ -48,7 +48,6 @@ function( app ) {
         show: function() {
             $("#main").prepend( this.el );
 
-
             this.$el.css(_.extend({
                 top: "-1000%",
                 left: "-1000%"
