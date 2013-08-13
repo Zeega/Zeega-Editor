@@ -122,7 +122,7 @@ function( app, ProjectHead, Frames, Workspace, Layers, LayerDrawer, Soundtrack, 
                 if ( isEmpty && app.metadata.newUser == 1 ) {
                     this.onFirstVisit();
                 }
-                if ( app.zeega.isRemix() ) {
+                if ( app.zeega.isRemix() && app.zeega.isNew() ) {
                     this.onRemixSession();
                 }
             }.bind( this ), 1000);
@@ -137,7 +137,6 @@ function( app, ProjectHead, Frames, Workspace, Layers, LayerDrawer, Soundtrack, 
         },
 
         onRemixSession: function() {
-            console.log("on remix session");
             this.remixInstructions = new Pointers( this.remixSequence );
             this.remixInstructions.startPointing();
         },
