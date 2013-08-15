@@ -10,6 +10,7 @@ function( app, SearchModel ) {
 
         api: "Remix",
         mediaCollection: null,
+
         defaults: {
                 urlArguments: {
                     collection: "",
@@ -25,16 +26,21 @@ function( app, SearchModel ) {
             placeholder: "",
             searchQuery: null
         },
-        _initialize: function(){
+
+        initialize: function() {
+            console.log("INIT REMIX")
+        },
+
+        _initialize: function() {
             this.mediaCollection.url = function(){
                 return "";
             };
         },
-
     
         _search: function(){
 
         }
+
     });
 
 });

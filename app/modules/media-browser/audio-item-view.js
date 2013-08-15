@@ -16,7 +16,6 @@ function( app, ItemView ) {
         template: "app/templates/audio-item",
 
         serialize: function() {
-
             return _.extend( {
                         
                     },

@@ -12,8 +12,6 @@ define([
 
 function( app, ZeegaSearch, FlickrSearch, TumblrSearch, SoundcloudSearch, GiphySearch, FavoritesSearch, RemixSearch ) {
 
-
-
     return Backbone.Model.extend({
 
         defaults:{
@@ -27,8 +25,8 @@ function( app, ZeegaSearch, FlickrSearch, TumblrSearch, SoundcloudSearch, GiphyS
         },
         
         initialize: function() {
-            if ( app.remix ){
-                this.set("Remix", new RemixSearch());
+            if ( app.zeega.isRemix() ){
+                this.set("Remix", new RemixSearch() );
             }
             app.mediaSearchQuery = "";
         },
@@ -44,8 +42,6 @@ function( app, ZeegaSearch, FlickrSearch, TumblrSearch, SoundcloudSearch, GiphyS
         more: function(){
             this.get( this.get("currentAPI")).more();
         }
-
-
 
     });
 

@@ -17,7 +17,7 @@ function( app, MediaLibrary, SearchView ) {
         },
 
         afterRender: function() {
-            if ( app.remix ){
+            if ( app.zeega.isRemix() ){
                 this.model.setAPI( "Remix" );
                 this.$(".socialz-remix").addClass("socialz-white");
                 this.$(".socialz-remix").closest("a").addClass("active");
@@ -28,21 +28,22 @@ function( app, MediaLibrary, SearchView ) {
                 this.$(".socialz-zeega").addClass("socialz-white");
                 this.$(".socialz-zeega").closest("a").addClass("active");
                 this.model.getAPI().useBootstrapData();
-               
             }
             this.setView();
         },
+        
         setView: function( ) {
-           
             var searchView = new SearchView({model: this.model.getAPI() });
+
             this.$(".ZEEGA-items").empty().append( searchView.el );
             searchView.render();
             searchView.search( app.mediaSearchQuery );
         },
+
         serialize: function() {
             return _.extend({},
                 this.model.toJSON(),
-                { remix: app.remix }
+                { remix: app.zeega.isRemix() }
             );
         },
 
