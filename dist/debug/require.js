@@ -624,7 +624,7 @@ this["JST"]["app/templates/media-drawer.html"] = function(obj){
 var __p='';var print=function(){__p+=Array.prototype.join.call(arguments, '')};
 with(obj||{}){
 __p+='<div class="media-drawer-controls ZEEGA-hmenu light img-tabs">\n    <ul class=\'pull-left\'>\n        \n        <li>\n            <a href="#" data-api = "Favorites" class="media-toggle"\n                title="our faves from across the web"\n                data-gravity="sw"\n            ><i class="socialz-zeega"></i></a>\n        </li>\n\n        <li>\n            <a href="#" data-api = "Soundcloud" class="media-toggle"\n                title="sounds from SoundCloud"\n                data-gravity="sw"\n            ><i class="socialz-soundcloud"></i></a>\n        </li>\n   \n\n        <li>\n            <a href="#" data-api="Tumblr" class="media-toggle"\n                title="GIFs and images from Tumblr"\n                data-gravity="sw"\n            ><i class="socialz-tumblr"></i></a>\n        </li>\n    <!-- -->\n        <!--\n        <li>\n            <a href="#" data-api = "Instagram" class="media-toggle"\n                title="images from Instagram"\n                data-gravity="sw"\n            ><i class="socialz-instagram"></i></a>\n        </li>\n    -->\n        <li>\n            <a href="#" data-api = "Flickr" class="media-toggle"\n                title="images from Flickr"\n                data-gravity="sw"\n            ><i class="socialz-flickr"></i></a>\n        </li>\n\n        <li>\n            <a href="#" data-api = "Giphy" class="media-toggle"\n                title="GIFs from Giphy"\n                data-gravity="sw"\n            ><i class="socialz-giphy"></i></a>\n        </li>\n       \n      ';
- if (remix ) { 
+ if ( remix ) { 
 ;__p+='\n        <li>\n            <a href="#" data-api = "Remix" class="media-toggle"\n                title="Media from Remix"\n                data-gravity="sw"\n            ><i class="socialz-remix"></i></a>\n        </li>\n       ';
  } 
 ;__p+='\n\n    </ul>\n    <ul class="pull-right">\n        <li >\n            <a id="media-upload-tab" href="#" data-api = "Zeega" class="media-toggle">UPLOAD</a>\n        </li>\n    </ul>\n    \n    \n</div>\n<div class="ZEEGA-items"></div>\n';
@@ -949,15 +949,7 @@ __p+='<div class="modal-content">\n    <div class="modal-title">Edit your text</
 ( attr.content )+
 '</textarea>\n            <select class="font-list" id="font-list-'+
 ( id )+
-'"></select>\n            <div class="textarea-info">max 140 characters</div>\n        </div>\n\n<!--\n        <div class="bottom-box clearfix">\n            <a href="#" class="link-page-open action ';
- if ( attr.to_frame ) { 
-;__p+='hide';
- } 
-;__p+='"><i class="icon-plus-sign"></i> link to page</a>\n\n            <div class="page-chooser-wrapper ';
- if ( !attr.to_frame ) { 
-;__p+='hide';
- } 
-;__p+='">\n                <a href="#" class="link-new-page"><i class="icon-plus icon-white"></i></br>New Page</a>\n                <div class="divider">or</div>\n                <ul class="page-chooser-list clearfix"></ul>\n                <a href="#" class="unlink-text action"><i class="icon-minus-sign"></i> remove link</a>\n            </div>\n        </div>\n-->\n        <div class="bottom-chooser clearfix">\n            <a href="#" class="text-modal-save btnz btnz-submit">OK</a>\n        </div>\n    </div>\n</div>\n';
+'"></select>\n            <div class="textarea-info">max 140 characters</div>\n        </div>\n\n        <div class="bottom-chooser clearfix">\n            <a href="#" class="text-modal-save btnz btnz-submit">OK</a>\n        </div>\n    </div>\n</div>\n';
 }
 return __p;
 };
@@ -36185,32 +36177,6 @@ function( app ) {
             $("#main").addClass("modal");
             this.loadFonts();
             this.$("textarea").focus().select();
-            this.fillInPages();
-        },
-
-        fillInPages: function() {
-            app.status.get("currentSequence").frames.each(function( frame ) {
-                var fv = $("<li>"),
-                    bg = frame.get("thumbnail_url") === "" ? "black" :
-                        "url(" + frame.get("thumbnail_url") +") no-repeat center center";
-
-                fv.addClass("page")
-                    .data("id", frame.id )
-                    .css({
-                        background: bg,
-                        "-webkit-background-size": "cover"
-                    });
-
-                if ( app.status.get("currentFrame").id == frame.id ) {
-                    fv.addClass("inactive");
-                }
-
-                if ( this.model.getAttr("to_frame") == frame.id ) {
-                    fv.addClass("active");
-                }
-
-                this.$('.page-chooser-list').append( fv );
-            }, this );
         },
 
         events: {
@@ -37395,6 +37361,18 @@ function( app, PageCollection, Layers, SequenceModel ) {
             });
         },
 
+        getSimpleJSON: function() {
+            return _.pick(this.toJSON(),["cover_image", "user", "id"]);
+        },
+
+        getRemixParent: function() {
+
+        },
+
+        getRemixRoot: function() {
+
+        },
+
         getFrame: function( frameID ) {
             
         },
@@ -38113,6 +38091,29 @@ function( app, Parser, ProjectCollection, ProjectModel, PageCollection, PageMode
                     this.waiting = false;
                     this.emit("project:fetch_success");
                 }.bind(this));
+            }
+        },
+
+        getRemixPath: function() {
+            var isComplete, path, temp;
+
+            path = [ this.projects.at(0).getSimpleJSON() ];
+
+            path = this.projects.map(function( project ) {
+                var remixObj = project.get("remix");
+
+                //isComplete = temp.parent.id == temp.root.id;
+project.getSimpleJSON();
+                // temp = project.get("remix");
+
+                return project.get("remix");
+            });
+
+            console.log("__path", path)
+
+            return {
+                complete: isComplete,
+                path: path
             }
         },
 
@@ -39836,8 +39837,8 @@ function( app, Asker ) {
                 greedy: true,
                 drop: function( e, ui ) {
                     if ( _.contains( ["Audio"], app.dragging.get("layer_type") )) {
-                        app.emit("soundtrack_added", app.dragging );
-                        app.status.get('currentSequence').setSoundtrack( app.dragging, app.layout.soundtrack, { source: "drag-to-workspace" } );
+                        // app.emit("soundtrack_added", app.dragging );
+                        // app.status.get('currentSequence').setSoundtrack( app.dragging, app.layout.soundtrack, { source: "drag-to-workspace" } );
                     } else {
                         app.emit("item_dropped", app.dragging );
                         this.model.addLayerByItem( app.dragging, { source: "drag-to-workspace" });
@@ -39853,8 +39854,6 @@ function( app, Asker ) {
         },
 
         toggleAdvance: function() {
-            //console.log("toggle advance", this.model.get("attr"), this.model.get("attr").advance );
-
             this.$(".advance-toggle").toggleClass("active");
             
             if( this.model.get("attr").advance ){
@@ -41114,7 +41113,6 @@ function( app, ItemView ) {
         template: "app/templates/audio-item",
 
         serialize: function() {
-
             return _.extend( {
                         
                     },
@@ -42203,6 +42201,7 @@ function( app, SearchModel ) {
 
         api: "Remix",
         mediaCollection: null,
+
         defaults: {
                 urlArguments: {
                     collection: "",
@@ -42218,16 +42217,21 @@ function( app, SearchModel ) {
             placeholder: "",
             searchQuery: null
         },
-        _initialize: function(){
+
+        initialize: function() {
+            console.log("INIT REMIX")
+        },
+
+        _initialize: function() {
             this.mediaCollection.url = function(){
                 return "";
             };
         },
-
     
         _search: function(){
 
         }
+
     });
 
 });
@@ -42246,8 +42250,6 @@ define('modules/media-browser/media-library',[
 
 function( app, ZeegaSearch, FlickrSearch, TumblrSearch, SoundcloudSearch, GiphySearch, FavoritesSearch, RemixSearch ) {
 
-
-
     return Backbone.Model.extend({
 
         defaults:{
@@ -42261,8 +42263,8 @@ function( app, ZeegaSearch, FlickrSearch, TumblrSearch, SoundcloudSearch, GiphyS
         },
         
         initialize: function() {
-            if ( app.remix ){
-                this.set("Remix", new RemixSearch());
+            if ( app.zeega.isRemix() ){
+                this.set("Remix", new RemixSearch() );
             }
             app.mediaSearchQuery = "";
         },
@@ -42278,8 +42280,6 @@ function( app, ZeegaSearch, FlickrSearch, TumblrSearch, SoundcloudSearch, GiphyS
         more: function(){
             this.get( this.get("currentAPI")).more();
         }
-
-
 
     });
 
@@ -43059,7 +43059,7 @@ function( app, MediaLibrary, SearchView ) {
         },
 
         afterRender: function() {
-            if ( app.remix ){
+            if ( app.zeega.isRemix() ){
                 this.model.setAPI( "Remix" );
                 this.$(".socialz-remix").addClass("socialz-white");
                 this.$(".socialz-remix").closest("a").addClass("active");
@@ -43070,21 +43070,22 @@ function( app, MediaLibrary, SearchView ) {
                 this.$(".socialz-zeega").addClass("socialz-white");
                 this.$(".socialz-zeega").closest("a").addClass("active");
                 this.model.getAPI().useBootstrapData();
-               
             }
             this.setView();
         },
+        
         setView: function( ) {
-           
             var searchView = new SearchView({model: this.model.getAPI() });
+
             this.$(".ZEEGA-items").empty().append( searchView.el );
             searchView.render();
             searchView.search( app.mediaSearchQuery );
         },
+
         serialize: function() {
             return _.extend({},
                 this.model.toJSON(),
-                { remix: app.remix }
+                { remix: app.zeega.isRemix() }
             );
         },
 
