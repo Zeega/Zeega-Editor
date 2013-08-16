@@ -25,7 +25,7 @@ function( app, SearchModel ) {
                     sort: "date-desc"
             },
             title: "Zeega",
-            headline: "Track and GIFs of the day",
+            headline: "Sound and GIFs of the day",
             placeholder: "search Zeega favorites",
             searchQuery: null
         },
