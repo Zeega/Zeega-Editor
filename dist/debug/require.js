@@ -417,7 +417,7 @@ __p+='<div class="frame-menu tooltip"\n    title="delete page"\n    data-gravity
 ( id )+
 '"\n    style="\n        ';
  if( thumbnail_url !== "" ) { 
-;__p+='\n            background: url('+
+;__p+='\n            background-image: url('+
 ( thumbnail_url )+
 ') no-repeat center center; \n            -webkit-background-size: cover;\n            -moz-background-size: cover;\n            -o-background-size: cover;\n            background-size: cover;\n        ';
  } 
@@ -35357,6 +35357,7 @@ function( app, _Layer, Visual ){
             audio: null,
             ended: false,
             playbackCount: 0,
+            playWhenReady: false,
 
             template: "audio/audio",
 
@@ -35365,6 +35366,7 @@ function( app, _Layer, Visual ){
             },
 
             onPlay: function() {
+                if( !this.model.state != "ready") this.playWhenReady = true;
                 if ( this.audio ) {
                     this.ended = false;
                     this.audio.play();
@@ -35423,6 +35425,7 @@ function( app, _Layer, Visual ){
                 this.audio.load();
                 this.audio.addEventListener("canplay", function() {
                     this.model.state = "ready";
+                    if( !this.playWhenReady ) this.audio.pause();
                     this.onCanPlay();
                 }.bind( this ));
             },
@@ -36972,7 +36975,6 @@ function( app, Backbone, LayerCollection, Layers ) {
     });
 });
 
-// frame.js
 define('engine/modules/page.collection',[
     "app",
     "engine/modules/page.model",
@@ -37024,7 +37026,7 @@ function( app, PageModel, LayerCollection ) {
         addPage: function( index, skipTo ) {
 
             if ( !app.zeega.getCurrentProject().get("remix").remix || ( app.zeega.getCurrentProject().get("remix").remix && this.length < this.remixPageMax )) {
-                var newPage, continuingLayers = [];
+                var newPage;
 
                 skipTo = !_.isUndefined( skipTo ) ? skipTo : true;
                 index = index == "auto" ? undefined : index;
@@ -37034,7 +37036,7 @@ function( app, PageModel, LayerCollection ) {
                 });
 
 //                newPage.status = app.status;
-                newPage.layers = new LayerCollection( _.compact( continuingLayers ) );
+                newPage.layers = new LayerCollection();
                 newPage.layers.page = newPage;
                 newPage.initEditorListeners();
                 newPage.editorAdvanceToPage = skipTo;
@@ -37047,8 +37049,8 @@ function( app, PageModel, LayerCollection ) {
                         this.add( newPage, { at: index });
                     }
 
-                    this.each(function( frame, i ) {
-                        frame.set("_order", i );
+                    this.each(function( page, i ) {
+                        page.set("_order", i );
                     });
 
                     app.trigger("frame_add", newPage );
@@ -37058,6 +37060,27 @@ function( app, PageModel, LayerCollection ) {
             } else {
                 // too many pages. do nothing
             }
+        },
+
+        addPageByItem: function( item ) {
+            $.post( app.getApi() + "projects/"+ app.zeega.getCurrentProject().id +"/sequences/"+ app.zeega.getCurrentProject().sequence.id +"/itemframes",
+                item.toJSON(),
+                function( pageData ) {
+                    var newPage = new PageModel(_.extend( pageData, {
+                        _order: this.length
+                    }));
+
+                    newPage.layers = new LayerCollection();
+                    newPage.layers.page = newPage;
+                    newPage.initEditorListeners();
+                    newPage.editorAdvanceToPage = true;
+
+                    newPage.addLayerByItem( item, { source: "drag-to-workspace" });
+                    this.push( newPage );
+                    this.each(function( page, i ) {
+                        page.set("_order", i );
+                    });
+                }.bind(this));
         },
 
         onFrameAdd: function( frame ) {
@@ -37336,17 +37359,6 @@ function( app, PageCollection, Layers, SequenceModel ) {
             }
             
         },
-
-        addPageByItem: function( item ) {
-            console.log("ADD PAGE BY ITEM", item.toJSON() );
-
-            $.post( app.getApi() + "projects/"+ this.id +"/sequences/"+ this.sequence.id +"/itemframes",
-                item.toJSON(),
-                function( response ) {
-                    console.log('get data', response)
-                });
-        },
-
 
         ///////
 
@@ -39978,7 +39990,7 @@ function( app, FrameView ) {
                         // console.log("DROP TO FRAME LIST")
                         // make new page
                         // add layer to page
-                        app.zeega.getCurrentProject().addPageByItem( app.dragging );
+                        app.zeega.getCurrentProject().pages.addPageByItem( app.dragging );
                         // this.model.addLayerByItem( app.dragging, { source: "drag-to-workspace" });
                     }
                 }.bind( this )
@@ -40904,7 +40916,7 @@ function( app, Viewer ) {
                         this.updateWaveform( app.dragging.get("thumbnail_url") );
 
                         app.emit("soundtrack_added", app.dragging );
-//                        app.status.get('currentSequence').setSoundtrack( app.dragging, this, { source: "drag-to-soundtrack" } );
+                        app.zeega.getCurrentProject().setSoundtrack( app.dragging, this, { source: "drag-to-soundtrack" } );
                     }
                 }.bind( this )
             });

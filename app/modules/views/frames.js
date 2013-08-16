@@ -66,7 +66,7 @@ function( app, FrameView ) {
                         // console.log("DROP TO FRAME LIST")
                         // make new page
                         // add layer to page
-                        app.zeega.getCurrentProject().addPageByItem( app.dragging );
+                        app.zeega.getCurrentProject().pages.addPageByItem( app.dragging );
                         // this.model.addLayerByItem( app.dragging, { source: "drag-to-workspace" });
                     }
                 }.bind( this )
