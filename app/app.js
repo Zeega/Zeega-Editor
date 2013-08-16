@@ -25,12 +25,13 @@ define([
             return this.getWebRoot() + "api/";
         },
 
-        getUserId: function(){
+        getUserId: function() {
             return this.metadata.userId;
         },
 
-        // get rid of this
-        api : "http:" + $("meta[name=zeega]").data().hostname + $("meta[name=zeega]").data().apiRoot + "api/",
+        getMediaServerUrl: function() {
+            return this.getWebRoot() + this.metadata.mediaRoot;
+        },
 
         getTemplateBase: function() {
             if ( this.metadata.dev ) return "";

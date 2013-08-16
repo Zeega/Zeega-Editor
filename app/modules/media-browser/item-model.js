@@ -14,7 +14,7 @@ function( app, ItemView, AudioItemView ) {
             allowDelete: 0
         },
         url: function(){
-            var url = app.api + "items/" + this.id;
+            var url = app.getApi() + "items/" + this.id;
 
             return url;
         },
