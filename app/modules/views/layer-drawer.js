@@ -21,7 +21,6 @@ function( app ) {
         },
 
         clickedLayerType: function( e ) {
-
             if ( !$(e.target).closest("a").hasClass("disabled") ) {
                 var layerType = $(e.target).closest("a").data("layerType");
 
