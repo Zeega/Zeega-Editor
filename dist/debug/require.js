@@ -37337,6 +37337,16 @@ function( app, PageCollection, Layers, SequenceModel ) {
             
         },
 
+        addPageByItem: function( item ) {
+            console.log("ADD PAGE BY ITEM", item.toJSON() );
+
+            $.post( app.getApi() + "projects/"+ this.id +"/sequences/"+ this.sequence.id +"/itemframes",
+                item.toJSON(),
+                function( response ) {
+                    console.log('get data', response)
+                });
+        },
+
 
         ///////
 
@@ -39968,6 +39978,7 @@ function( app, FrameView ) {
                         // console.log("DROP TO FRAME LIST")
                         // make new page
                         // add layer to page
+                        app.zeega.getCurrentProject().addPageByItem( app.dragging );
                         // this.model.addLayerByItem( app.dragging, { source: "drag-to-workspace" });
                     }
                 }.bind( this )
