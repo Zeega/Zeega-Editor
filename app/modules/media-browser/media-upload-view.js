@@ -113,7 +113,6 @@ function( app, ItemView ) {
         },
 
         afterRender: function(){
-            console.log(this.model.get("tabState"));
             if(this.model.get("tabState") == "url" ){
                 this.showPasteBox();
             } else {
@@ -150,9 +149,9 @@ function( app, ItemView ) {
             item.save();
 
             if ( item.get("layer_type")  && _.contains( ["Audio"], item.get("layer_type") )) {
-                app.project.zeega.getCurrentProject().setSoundtrack( item, app.layout.soundtrack, { source: "import-item", itemSource: item.get("Archive") } );
+                app.zeega.getCurrentProject().setSoundtrack( item, app.layout.soundtrack, { source: "import-item", itemSource: item.get("Archive") } );
             } else {
-                app.project.zeega.getCurrentPage().addLayerByItem( item, { source: "import-item", itemSource: item.get("Archive") } );
+                app.zeega.getCurrentPage().addLayerByItem( item, { source: "import-item", itemSource: item.get("Archive") } );
             }
         },
 
