@@ -18005,7 +18005,7 @@ define('app',[
         metadata: $("meta[name=zeega]").data(),
 
         getWebRoot: function() {
-            return "http:" + this.metadata.hostname + this.metadata.directory;
+            return "http:" + this.metadata.hostname + this.metadata.root;
         },
 
         getApi: function() {
