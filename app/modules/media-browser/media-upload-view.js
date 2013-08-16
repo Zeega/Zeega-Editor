@@ -149,11 +149,10 @@ function( app, ItemView ) {
 
             item.save();
 
-
             if ( item.get("layer_type")  && _.contains( ["Audio"], item.get("layer_type") )) {
-                app.status.get('currentSequence').setSoundtrack( item, app.layout.soundtrack, { source: "import-item", itemSource: item.get("Archive") } );
+                app.project.zeega.getCurrentProject().setSoundtrack( item, app.layout.soundtrack, { source: "import-item", itemSource: item.get("Archive") } );
             } else {
-                app.status.get('currentFrame').addLayerByItem( item, { source: "import-item", itemSource: item.get("Archive") } );
+                app.project.zeega.getCurrentPage().addLayerByItem( item, { source: "import-item", itemSource: item.get("Archive") } );
             }
         },
 
@@ -192,7 +191,7 @@ function( app, ItemView ) {
                 }
 
             };
-console.log("MSURL",app.getMediaServerUrl() + "image" )
+
             $.ajax({
                 url: app.getMediaServerUrl() + "image",
                 type: "POST",
