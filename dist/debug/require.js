@@ -18012,12 +18012,13 @@ define('app',[
             return this.getWebRoot() + "api/";
         },
 
-        getUserId: function(){
+        getUserId: function() {
             return this.metadata.userId;
         },
 
-        // get rid of this
-        api : "http:" + $("meta[name=zeega]").data().hostname + $("meta[name=zeega]").data().apiRoot + "api/",
+        getMediaServerUrl: function() {
+            return this.getWebRoot() + this.metadata.mediaRoot;
+        },
 
         getTemplateBase: function() {
             if ( this.metadata.dev ) return "";
@@ -36725,9 +36726,9 @@ function( app, Backbone, LayerCollection, Layers ) {
 
         url: function() {
             if( this.isNew() ) {
-                return app.api + 'projects/' + app.zeega.getCurrentProject().id +'/sequences/'+ app.zeega.getCurrentProject().sequence.id +'/frames';
+                return app.getApi() + 'projects/' + app.zeega.getCurrentProject().id +'/sequences/'+ app.zeega.getCurrentProject().sequence.id +'/frames';
             } else {
-                return app.api + 'projects/' + app.zeega.getCurrentProject().id + '/frames/'+ this.id;
+                return app.getApi() + 'projects/' + app.zeega.getCurrentProject().id + '/frames/'+ this.id;
             }
         },
 
@@ -37140,9 +37141,9 @@ function( app, Layers ) {
 
         url : function() {
             if ( this.isNew() ) {
-                return app.api + 'projects/'+ app.zeega.getCurrentProject().id +'/sequences';
+                return app.getApi() + 'projects/'+ app.zeega.getCurrentProject().id +'/sequences';
             } else {
-                return app.api + 'projects/'+ app.zeega.getCurrentProject().id +'/sequences/' + this.id;
+                return app.getApi() + 'projects/'+ app.zeega.getCurrentProject().id +'/sequences/' + this.id;
             }
         },
 
@@ -41208,7 +41209,7 @@ function( app, ItemView, AudioItemView ) {
             allowDelete: 0
         },
         url: function(){
-            var url = app.api + "items/" + this.id;
+            var url = app.getApi() + "items/" + this.id;
 
             return url;
         },
@@ -42323,7 +42324,7 @@ function( app, ItemView ) {
 
     var UploadItem = Backbone.Model.extend({
         modelType: "item",
-        url: app.api + "items",
+        url: app.getApi() + "items",
         defaults:{
             "title": "",
             "headline": "",
@@ -42372,10 +42373,8 @@ function( app, ItemView ) {
             "allowDelete": true
         },
         url: function(){
-
-            var url = app.api + "items/parser?url=" + this.get("web_url");
-
-            return url;
+            console.log("API", app.getApi() + "items/parser?url=" + this.get("web_url"))
+            return app.getApi() + "items/parser?url=" + this.get("web_url");
         },
 
         parse: function( res ) {
@@ -42450,7 +42449,7 @@ function( app, ItemView ) {
         addItem: function( item ) {
             item.off("sync");
             app.layout.$(".intro").remove();
-            item.url = app.api + "items";
+            item.url = app.getApi() + "items";
             item.on("sync", this.refreshUploads, this );
 
 
@@ -42476,6 +42475,7 @@ function( app, ItemView ) {
 
         search: function( url ){
             var item = new WebItem({ web_url: url });
+
             item.on("sync", this.addItem, this );
             item.fetch();
         },
@@ -42508,9 +42508,9 @@ function( app, ItemView ) {
                 }
 
             };
-
+console.log("MSURL",app.getMediaServerUrl() + "image" )
             $.ajax({
-                url: app.mediaServer + "image",
+                url: app.getMediaServerUrl() + "image",
                 type: "POST",
                 data: imageData,
                 dataType: "json",
