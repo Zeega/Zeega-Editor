@@ -293,11 +293,11 @@ __p+='<a href="http://www.zeega.com" class="ZEEGA-tab">\n    <span class="ZTab-l
 ( share_links.tumblr )+
 '" \n                                    class="social-share share-tumblr"\n                                    data-itemid="'+
 ( id )+
-'"\n                                    target="blank">\n                        <i class="social-share-tumblr social-share-color"></i>\n                    </a>\n                    <a name="reddit" id ="reddit-share" href="'+
+'"\n                                    target="blank">\n                        <i class="social-share-tumblr social-share-color"></i>\n                    </a>\n                    <!--\n                    <a name="reddit" id ="reddit-share" href="'+
 ( share_links.reddit )+
 '" \n                                    class="social-share share-reddit"\n                                    data-itemid="'+
 ( id )+
-'"\n                                    target="blank">\n                        <i class="social-share-reddit social-share-color"></i>\n                    </a>\n                </div>\n\n                <div>\n                    <input name="permalink" class="text-box" type="text" value="'+
+'"\n                                    target="blank">\n                        <i class="social-share-reddit social-share-color"></i>\n                    </a>\n                -->\n                </div>\n\n                <div>\n                    <input name="permalink" class="text-box" type="text" value="'+
 ( web_root )+
 ''+
 ( id )+
