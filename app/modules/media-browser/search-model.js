@@ -50,7 +50,6 @@ function( app, MediaCollection, Item ) {
         },
 
         useBootstrapData: function(){
-
             //cleanup sloppy layer data
             var mediaData = jQuery.parseJSON( window.mediaJSON ),
                 items = [],

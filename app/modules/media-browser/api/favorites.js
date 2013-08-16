@@ -32,6 +32,7 @@ function( app, SearchModel ) {
 
         _initialize: function(){
 
+            console.log("GIFOTD", this)
             // var d = new Date(),
             //     weekday = new Array(7);
 

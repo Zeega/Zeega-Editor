@@ -11,16 +11,10 @@
     data-id="<%= id %>"
     style="
         <% if( thumbnail_url !== "" ) { %>
-            background-image: url(<%= thumbnail_url %>) no-repeat center center; 
+            background: url(<%= thumbnail_url %>) no-repeat center center; 
             -webkit-background-size: cover;
             -moz-background-size: cover;
             -o-background-size: cover;
             background-size: cover;
         <% } %>
 "></a>
-
-<!--
-<a title="<% if ( attr.advance ) { %> remove default advance <% } else {  %> add default advance <% }%>" data-gravity="n" href="#" class="advance-toggle<% if ( attr.advance ) { %> active<% } %>">
-    <i class="icon-chevron-right"></i>
-</a>
--->
