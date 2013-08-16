@@ -57,6 +57,7 @@ function( app, FrameView ) {
             this.$(".frame-list").droppable({
                 accept: ".item, .draggable-layer-type",
                 tolerance: "pointer",
+                greedy: true,
                 drop: function( e, ui ) {
                     if ( _.contains( ["Audio"], app.dragging.get("layer_type") )) {
                         app.emit("soundtrack_added", app.dragging );
