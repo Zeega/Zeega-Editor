@@ -30,6 +30,7 @@ function( app ) {
             this.$el.droppable({
                 accept: ".item, .draggable-layer-type",
                 tolerance: "pointer",
+                activeClass: "is-target",
                 drop: function( e, ui ) {
                     if ( _.contains( ["Audio"], app.dragging.get("layer_type")) ) {
                         if ( !app.zeega.isRemix() ) {

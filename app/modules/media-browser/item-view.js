@@ -10,7 +10,7 @@ function( app, ItemView ) {
     return Backbone.View.extend({
 
         className: function() {
-            return "item item-" + this.model.id;
+            return "item item-"+ this.model.get("media_type").toLowerCase() +" item-" + this.model.id;
         },
         tagName: "li",
         template: "app/templates/item",

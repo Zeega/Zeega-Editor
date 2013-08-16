@@ -49,9 +49,9 @@ function( app, Viewer ) {
 
         makeDroppable: function() {
             this.$el.droppable({
-                accept: ".item",
+                accept: ".audio-item",
                 tolerance: "pointer",
-                hoverClass: "can-drop",
+                activeClass: "can-drop",
                 drop: function( e, ui ) {
                     if ( _.contains( ["Audio"], app.dragging.get("layer_type") )) {
                         this.updateWaveform( app.dragging.get("thumbnail_url") );
