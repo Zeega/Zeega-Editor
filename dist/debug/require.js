@@ -36820,9 +36820,14 @@ function( app, Backbone, LayerCollection, Layers ) {
         preload: function() {
             // only try to preload if preload has not been attempted yet
             if ( this.state == "waiting" ) {
-                this.state = "loading";
-                this.once("layers:ready", this.onLayersReady, this );
-                this.layers.preload();
+
+                if ( this.layers.length === 0 ) {
+                    this.onLayersReady( this.layers );
+                } else {
+                    this.state = "loading";
+                    this.once("layers:ready", this.onLayersReady, this );
+                    this.layers.preload();
+                }
             }
         },
 
@@ -36882,7 +36887,10 @@ function( app, Backbone, LayerCollection, Layers ) {
         },
 
         addLayerType: function( type ) {
-            var newLayer = new Layers[ type ]({ type: type });
+            var newLayer = new Layers[ type ]({
+                type: type,
+                _order: this.layers.length
+            });
 
             newLayer.collection = this.layers;
             this.addLayerVisual( newLayer );
@@ -39979,24 +39987,21 @@ function( app, FrameView ) {
 
         makeDroppable: function() {
             this.$(".frame-list").droppable({
-                accept: ".item, .draggable-layer-type",
+                accept: ".item-image",
                 tolerance: "pointer",
+                greedy: true,
+                activeClass: "is-target",
+
                 drop: function( e, ui ) {
                     if ( _.contains( ["Audio"], app.dragging.get("layer_type") )) {
-                        app.emit("soundtrack_added", app.dragging );
-//                        app.status.get('currentSequence').setSoundtrack( app.dragging, app.layout.soundtrack, { source: "drag-to-workspace" } );
+
                     } else {
                         app.emit("item_dropped", app.dragging );
-                        // console.log("DROP TO FRAME LIST")
-                        // make new page
-                        // add layer to page
                         app.zeega.getCurrentProject().pages.addPageByItem( app.dragging );
-                        // this.model.addLayerByItem( app.dragging, { source: "drag-to-workspace" });
                     }
                 }.bind( this )
 
             });
-            // console.log("make droppable")
         },
 
         updateFrameOrder: function( ) {
@@ -40103,6 +40108,7 @@ function( app ) {
             this.$el.droppable({
                 accept: ".item, .draggable-layer-type",
                 tolerance: "pointer",
+                activeClass: "is-target",
                 drop: function( e, ui ) {
                     if ( _.contains( ["Audio"], app.dragging.get("layer_type")) ) {
                         if ( !app.zeega.isRemix() ) {
@@ -40789,7 +40795,6 @@ function( app ) {
         },
 
         clickedLayerType: function( e ) {
-
             if ( !$(e.target).closest("a").hasClass("disabled") ) {
                 var layerType = $(e.target).closest("a").data("layerType");
 
@@ -40908,9 +40913,9 @@ function( app, Viewer ) {
 
         makeDroppable: function() {
             this.$el.droppable({
-                accept: ".item",
+                accept: ".audio-item",
                 tolerance: "pointer",
-                hoverClass: "can-drop",
+                activeClass: "can-drop",
                 drop: function( e, ui ) {
                     if ( _.contains( ["Audio"], app.dragging.get("layer_type") )) {
                         this.updateWaveform( app.dragging.get("thumbnail_url") );
@@ -41019,7 +41024,7 @@ function( app, ItemView ) {
     return Backbone.View.extend({
 
         className: function() {
-            return "item item-" + this.model.id;
+            return "item item-"+ this.model.get("media_type").toLowerCase() +" item-" + this.model.id;
         },
         tagName: "li",
         template: "app/templates/item",
