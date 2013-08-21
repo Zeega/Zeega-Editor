@@ -25,10 +25,10 @@ function( app, MediaCollection, Item ) {
         },
 
         initialize: function() {
-
             this.mediaCollection = new MediaCollection();
             this.mediaCollection.searchModel = this;
             this._initialize();
+console.log("MC1", this.mediaCollection)
         },
 
         _initialize: function() {
@@ -46,7 +46,6 @@ function( app, MediaCollection, Item ) {
         resultsReturned: function(){
 
             return !this.mediaCollection.noResults;
-        
         },
 
         useBootstrapData: function(){
@@ -67,7 +66,7 @@ function( app, MediaCollection, Item ) {
                     i++;
                 }
             });
-
+console.log("MC", this.mediaCollection,this, items)
             this.mediaCollection.add( items );
 
             if(this.api == "Favorites" && window.audioJSON ){

@@ -27,10 +27,6 @@ function( app, SearchModel ) {
             searchQuery: null
         },
 
-        initialize: function() {
-            console.log("INIT REMIX")
-        },
-
         _initialize: function() {
             this.mediaCollection.url = function(){
                 return "";
