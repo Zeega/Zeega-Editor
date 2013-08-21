@@ -28,7 +28,6 @@ function( app, MediaCollection, Item ) {
             this.mediaCollection = new MediaCollection();
             this.mediaCollection.searchModel = this;
             this._initialize();
-console.log("MC1", this.mediaCollection)
         },
 
         _initialize: function() {
@@ -66,16 +65,12 @@ console.log("MC1", this.mediaCollection)
                     i++;
                 }
             });
-console.log("MC", this.mediaCollection,this, items)
             this.mediaCollection.add( items );
 
             if(this.api == "Favorites" && window.audioJSON ){
                 this.mediaCollection.add( new Item( $.parseJSON( window.audioJSON ).items[0]), { at: 0 } );
             }
-
-        
         },
-
 
         search: function( query ){
 

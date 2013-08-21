@@ -35489,8 +35489,6 @@ function( app, _Layer, Visual ){
                 }
             },
 
-
-
             onPlay: function() {
                 this.audio.sendToFlash('play', this.currentTime );
                 this.paused = false;
@@ -35518,7 +35516,6 @@ function( app, _Layer, Visual ){
             },
 
             playPause: function() {
-                
                 if ( this.paused ) {
                     this.onPlay();
                 } else {
@@ -35526,13 +35523,15 @@ function( app, _Layer, Visual ){
                 }
             },
 
+            getAudio: function() {
+                return this;
+            },
+
             flashVideoInit: function() {
                 var flashvars,
                     params,
                     attributes,
                     containerId = "flash-" + this.model.id;
-
-
 
                 $("#audio-"+containerId).on("player-loaded", 
                         $.proxy(function(){
@@ -39226,15 +39225,19 @@ function( app, Engine, Relay, Status, PlayerLayout ) {
         },
 
         cuePage: function( page ) {
-
-            if ( page.state == "waiting" ) {
-                // preload
-                this._playPage( page );
-            } else if ( page.state == "ready" ) {
+            if ( page.state == "ready" ) {
                 this.state = "playing";
                 this.zeega.focusPage( page );
+            } else {
+                this.playAndWaitForPageLoad( page )
             }
             this.preloadPage( page );
+        },
+
+        playAndWaitForPageLoad: function( page ) {
+            console.log("play & wait", page);
+            this.state = "playing";
+            this.zeega.focusPage( page );
         },
 
         preloadTimer: null,
@@ -39282,12 +39285,6 @@ function( app, Engine, Relay, Status, PlayerLayout ) {
 
                 next.preload();
             }
-        },
-
-        // can only be called if a page is preloaded and ready
-        _playPage: function( page ) {
-            this.zeega.focusPage( page );
-//            page.play();
         },
 
         _fadeIn: function() {
@@ -41570,7 +41567,6 @@ function( app, MediaCollection, Item ) {
         },
 
         initialize: function() {
-
             this.mediaCollection = new MediaCollection();
             this.mediaCollection.searchModel = this;
             this._initialize();
@@ -41591,7 +41587,6 @@ function( app, MediaCollection, Item ) {
         resultsReturned: function(){
 
             return !this.mediaCollection.noResults;
-        
         },
 
         useBootstrapData: function(){
@@ -41612,16 +41607,12 @@ function( app, MediaCollection, Item ) {
                     i++;
                 }
             });
-
             this.mediaCollection.add( items );
 
             if(this.api == "Favorites" && window.audioJSON ){
                 this.mediaCollection.add( new Item( $.parseJSON( window.audioJSON ).items[0]), { at: 0 } );
             }
-
-        
         },
-
 
         search: function( query ){
 
@@ -42235,10 +42226,6 @@ function( app, SearchModel ) {
             headline: "Remix Media",
             placeholder: "",
             searchQuery: null
-        },
-
-        initialize: function() {
-            console.log("INIT REMIX")
         },
 
         _initialize: function() {
