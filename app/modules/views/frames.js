@@ -54,7 +54,7 @@ function( app, FrameView ) {
         },
 
         makeDroppable: function() {
-            this.$(".frame-list").droppable({
+            this.$(".frame-list, .add-frame").droppable({
                 accept: ".item-image",
                 tolerance: "pointer",
                 greedy: true,

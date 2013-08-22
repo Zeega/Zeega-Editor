@@ -5884,6 +5884,9 @@ a:active {
 .frames .add-frame:after {
   clear: both;
 }
+.frames .add-frame.is-target .frame-ghost {
+  border: 1px solid limegreen;
+}
 .frames .add-frame.disabled a {
   box-shadow: none;
   background-color: #ccc;
