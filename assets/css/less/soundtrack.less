@@ -16,6 +16,63 @@
     text-shadow: 2px 2px white;
     margin-right: 10px;
 
+    .playpause {
+        float: left;
+        background: url(../img/sounds-sprite.png);
+        height: 40px;
+        width: 40px;
+        display: block;
+        z-index: 10;
+        margin: auto;
+        position: absolute;
+        top: 0;
+        left: 0;
+        bottom: 0;
+        right: 0;
+        background-size: 40px 200px;
+        background-position: 0 -40px;
+        opacity: 0.5;
+
+        -moz-transition: none;
+        -webkit-transition: none;
+        -o-transition: color 0 ease-in;
+        transition: none;
+
+        &.playing {
+            background-position: 0px 0px;
+        }
+
+        &.paused {
+            background-position: 0px -40px;
+            -moz-transition: none;
+            -webkit-transition: none;
+            -o-transition: color 0 ease-in;
+            transition: none;
+        }
+    }
+
+    &:hover {
+        .playpause {
+            opacity: 0.85;
+
+            &.playing {
+                background-position: 0px -40px;
+            }
+            &.paused {
+                background-position: 0px 0px;
+            }
+        }
+    }
+
+    .progress {
+        display: block;
+        height: 100%;
+        width: 100%;
+        position: absolute;
+        z-index: 10000;
+        pointer-events: none;
+    }
+
     .soundtrack-waveform {
         background: transparent;
         position: absolute;
@@ -38,10 +95,6 @@
         background: rgba(0, 0, 0, 0.5);
         width: 100%;
         text-align: right;
-
-        .playpause {
-            float: left;
-        }
 
         a {
             position: relative;

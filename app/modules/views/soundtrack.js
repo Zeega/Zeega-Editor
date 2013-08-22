@@ -43,6 +43,7 @@ function( app, Viewer ) {
                     return $(this).data("gravity");
                 }
             });
+            this.initProgress();
         },
 
         makeDroppable: function() {
@@ -94,8 +95,31 @@ function( app, Viewer ) {
         },
 
         onTimeupdate: function( obj ) {
-            this.$(".elapsed").css("width", ( obj.currentTime / obj.duration ) * 100 + "%" );
-            this.$(".time-display").text( this.toMinSec( obj.currentTime ) + " / " + this.toMinSec( obj.duration ) );
+            this.updateProgress( obj );
+        },
+
+        initProgress: function() {
+            this.bg = this.$(".progress")[0];
+            this.ctx = ctx = this.bg.getContext('2d');
+            this.imd = null;
+            this.circ = Math.PI * 2;
+            this.quart = Math.PI / 2;
+
+            this.ctx.beginPath();
+            this.ctx.strokeStyle = "rgba(0,102,204,0.7)"; // "rgba(255,69,0,0.5)";// '#FF4500';
+            this.ctx.lineCap = 'square';
+            this.ctx.closePath();
+            this.ctx.fill();
+            this.ctx.lineWidth = 5.0;
+
+            this.imd = this.ctx.getImageData(0, 0, 80, 80);
+        },
+
+        updateProgress: function( time ) {
+            this.ctx.putImageData( this.imd, 0, 0 );
+            this.ctx.beginPath();
+            this.ctx.arc( 40, 40, 25, - ( this.quart ), (( this.circ ) * ( time.currentTime / time.duration )) - this.quart, false );
+            this.ctx.stroke();
         },
 
         events: {
@@ -108,7 +132,6 @@ function( app, Viewer ) {
         playpause: function() {
             if ( this.soundtrackLoaded != this.model.id ) {
                 this.model.once("visual:after_render", function() {
-                    console.log("AFTER RENDER")
                     this.model.visual.verifyReady();
                     this.model.visual.playPause();
                 }, this );
@@ -120,7 +143,7 @@ function( app, Viewer ) {
             } else {
                 this.model.visual.playPause();
             }
-            this.$(".playpause i").toggleClass("icon-volume-up icon-volume-off");
+            this.$(".playpause").toggleClass("playing paused");
         },
 
         pause: function() {

@@ -1,4 +1,6 @@
-<div class="elapsed tooltip"></div>
+<a href="#" class="playpause paused"></a>
+
+<canvas class="progress" height="80" width="80"></canvas>
 <div class="soundtrack-waveform"
     
 <% if ( model ) { %>
@@ -16,7 +18,9 @@
 <% } else { %>
     <div class="soundtrack-controls">
 
+        <!--
         <a href="#" class="playpause"><i class="icon-volume-up icon-white"></i></a>
+    -->
         <div class="audio-wrapper"></div>
 
         <% if ( remix ) { %>
