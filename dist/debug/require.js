@@ -719,7 +719,7 @@ __p+='<div class="elapsed tooltip"></div>\n<div class="soundtrack-waveform"\n   
  if ( model === false ) { 
 ;__p+='\n    <span class="soundtrack-drop-icon"\n        title="drag audio to add soundtrack"\n        data-gravity="ne"\n    ></span>\n    <span class="soundtrack-sub">soundtrack</span>\n';
  } else { 
-;__p+='\n    <div class="soundtrack-controls">\n\n        ';
+;__p+='\n    <div class="soundtrack-controls">\n\n        <a href="#" class="playpause"><i class="icon-volume-up icon-white"></i></a>\n        <div class="audio-wrapper"></div>\n\n        ';
  if ( remix ) { 
 ;__p+='\n            <i class="icon-lock icon-white"></i>\n        ';
  } else { 
@@ -34350,10 +34350,11 @@ function(
 // layer.js
 define('engine/modules/layer.model',[
     "app",
-    "engine/plugins/controls/_all-controls"
+    "engine/plugins/controls/_all-controls",
+    "engine/plugins/layers/_all"
 ],
 
-function( app, Controls ) {
+function( app, Controls, Layers ) {
 
     return app.Backbone.Model.extend({
         ready: false,
@@ -34640,6 +34641,7 @@ function( app, Controls ) {
             }
             this.applyVisualProperties();
             this.visualAfterRender();
+            this.model.trigger("visual:after_render", this );
         },
 
         applyStyles: function() {
@@ -35387,9 +35389,9 @@ function( app, _Layer, Visual ){
             playPause: function() {
                 this.setAudio();
                 if ( this.audio.paused ) {
-                    this.audio.play();
+                    this.onPlay();
                 } else {
-                    this.audio.pause();
+                    this.onPause();
                 }
             },
 
@@ -36704,9 +36706,6 @@ function( app, Backbone, LayerCollection, Layers ) {
         state: "waiting",
         modelType: "frame",
 
-        // lazySave: null,
-        // startThumbWorker: null,
-
         defaults: {
             _order: 0,
             attr: {},
@@ -36733,27 +36732,6 @@ function( app, Backbone, LayerCollection, Layers ) {
             this.lazySave = _.debounce(function() {
                 this.save();
             }.bind( this ), 1000 );
-
-            this.startThumbWorker = _.debounce(function() {
-                var worker = new Worker( app.getWebRoot() + "js/helpers/thumbworker.js" );
-            
-                worker.addEventListener("message", function(e) {
-
-                    if( e.data ) {
-                        this.set("thumbnail_url", e.data );
-                        this.lazySave();
-                    } else {
-                        this.trigger('thumbUpdateFail');
-                    }
-                    worker.terminate();
-                }.bind( this ), false);
-
-                worker.postMessage({
-                    cmd: 'capture',
-                    msg: app.getApi() + "projects/" + app.zeega.getCurrentProject().id + "/frames/" + this.id + "/thumbnail"
-                });
-
-            }, 1000);
 
         },
 
@@ -36859,23 +36837,17 @@ function( app, Backbone, LayerCollection, Layers ) {
         },
 
 
-
         // editor
 
         onLayerAddRemove: function() {
             this.onLayerSort();
-            this.once("sync", function() {
-                this.updateThumb();
-            }.bind( this ));
+            this.updateThumbUrl();
         },
 
         onLayerSort: function() {
             this.set("layers", this.layers.pluck("id") );
             this.lazySave();
-
-            this.once("sync", function() {
-                this.updateThumb();
-            }.bind( this ));
+            this.updateThumbUrl();
         },
 
         addLayerType: function( type ) {
@@ -36949,9 +36921,15 @@ function( app, Backbone, LayerCollection, Layers ) {
         },
 
         //update the frame thumbnail
-        updateThumb: function() {
-            this.trigger("thumbUpdateStart");
-            this.startThumbWorker();
+        updateThumbUrl: function() {
+            var url;
+
+            this.layers.each(function( layer ) {
+                if ( layer.get("type") == "Image" ) {
+                    this.set("thumbnail_url", layer.getAttr("thumbnail_url"));
+                    this.lazySave();
+                }
+            }, this );
         },
 
         saveAttr: function( attrObj ) {
@@ -37339,6 +37317,13 @@ function( app, PageCollection, Layers, SequenceModel ) {
                 .save()
                 .success(function( response ) {
                     this.soundtrack = newLayer;
+
+                    newLayer.visual = new Layers["Audio"].Visual({
+                            model: this.soundtrack,
+                            attributes: {
+                                "data-id": newLayer.id
+                            }
+                        });
 
                     this.sequence.save({
                             attr: _.extend({}, this.sequence.get("attr"), { soundtrack: newLayer.id })
@@ -39654,6 +39639,8 @@ function( app, Player ) {
         projectPreview: function() {
             var projectData = { project: app.zeega.getProjectJSON() };
 
+            app.layout.soundtrack.pause();
+
             app.player = null;
             app.emit("project_preview", null );
             
@@ -39826,18 +39813,8 @@ function( app, Asker ) {
         initialize: function() {
             this.model.on("focus", this.onFocus, this );
             this.model.on("blur", this.onBlur, this );
-            this.model.on("thumbUpdateStart", this.onThumbUpdateStart, this );
             this.model.on("change:thumbnail_url", this.onThumbUpdateComplete, this );
             this.makeDroppable();
-        },
-
-        onThumbUpdateStart: function() {
-            this.$el.css({
-                background: "url(assets/img/tiny-stripes.png)"
-            });
-            this.$(".frame-thumb").css({
-                opacity: 0.5
-            });
         },
 
         onThumbUpdateComplete: function() {
@@ -39846,6 +39823,8 @@ function( app, Asker ) {
             });
             this.$(".frame-thumb").css({
                 background: "url(" + this.model.get("thumbnail_url") + ") no-repeat center center",
+                backgroundSize: "cover",
+                backgroundPosition: "center",
                 opacity: 1
             });
         },
@@ -39976,7 +39955,7 @@ function( app, FrameView ) {
         },
 
         makeDroppable: function() {
-            this.$(".frame-list").droppable({
+            this.$(".frame-list, .add-frame").droppable({
                 accept: ".item-image",
                 tolerance: "pointer",
                 greedy: true,
@@ -40854,9 +40833,7 @@ function( app ) {
 
 define('modules/views/soundtrack',[
     "app",
-    "modules/views/soundtrack-viewer",
-    "backbone"
-
+    "modules/views/soundtrack-viewer"
 ],
 
 function( app, Viewer ) {
@@ -40959,14 +40936,28 @@ function( app, Viewer ) {
             "click .remove": "removeSoundtrack"
         },
 
+        soundtrackLoaded: null,
+
         playpause: function() {
-            //this.model.visual.playPause();
+            if ( this.soundtrackLoaded != this.model.id ) {
+                this.model.once("visual:after_render", function() {
+                    console.log("AFTER RENDER")
+                    this.model.visual.verifyReady();
+                    this.model.visual.playPause();
+                }, this );
 
-            // temp use souncloud player in modal
-            this.view = new Viewer({ model: this.model });
-            $("body").append( this.view.el );
-            this.view.render();
+                this.soundtrackLoaded = this.model.id;
+                this.$(".audio-wrapper").empty().append( this.model.visual.el );
+                this.model.visual.playWhenReady = true;
+                this.model.visual.render();
+            } else {
+                this.model.visual.playPause();
+            }
+            this.$(".playpause i").toggleClass("icon-volume-up icon-volume-off");
+        },
 
+        pause: function() {
+            this.model.visual.audio.pause();
         },
 
         onRemoveSoundtrack: function() {
@@ -40976,6 +40967,7 @@ function( app, Viewer ) {
         },
 
         removeSoundtrack: function( save ) {
+            this.soundtrackLoaded = null;
             this.stopListening( this.model );
             $(".tipsy").remove();
             if ( save ) {

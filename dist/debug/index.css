@@ -5884,6 +5884,9 @@ a:active {
 .frames .add-frame:after {
   clear: both;
 }
+.frames .add-frame.is-target .frame-ghost {
+  border: 1px solid limegreen;
+}
 .frames .add-frame.disabled a {
   box-shadow: none;
   background-color: #ccc;
@@ -6367,6 +6370,9 @@ a:active {
   background: rgba(0, 0, 0, 0.5);
   width: 100%;
   text-align: right;
+}
+.soundtrack .soundtrack-controls .playpause {
+  float: left;
 }
 .soundtrack .soundtrack-controls a {
   position: relative;

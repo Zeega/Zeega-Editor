@@ -333,7 +333,7 @@ __p+='<div class="elapsed tooltip"></div>\n<div class="soundtrack-waveform"\n   
  if ( model === false ) { 
 ;__p+='\n    <span class="soundtrack-drop-icon"\n        title="drag audio to add soundtrack"\n        data-gravity="ne"\n    ></span>\n    <span class="soundtrack-sub">soundtrack</span>\n';
  } else { 
-;__p+='\n    <div class="soundtrack-controls">\n\n        ';
+;__p+='\n    <div class="soundtrack-controls">\n\n        <a href="#" class="playpause"><i class="icon-volume-up icon-white"></i></a>\n        <div class="audio-wrapper"></div>\n\n        ';
  if ( remix ) { 
 ;__p+='\n            <i class="icon-lock icon-white"></i>\n        ';
  } else { 
