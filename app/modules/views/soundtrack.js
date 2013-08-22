@@ -105,13 +105,28 @@ function( app, Viewer ) {
             "click .remove": "removeSoundtrack"
         },
 
-        playpause: function() {
-            //this.model.visual.playPause();
+        insertAudioEl: function() {
+            
+        },
 
-            // temp use souncloud player in modal
-            this.view = new Viewer({ model: this.model });
-            $("body").append( this.view.el );
-            this.view.render();
+        soundtrackLoaded: null,
+
+        playpause: function() {
+            console.log("PP",this.soundtrackLoaded, this.model.id )
+            if ( this.soundtrackLoaded != this.model.id ) {
+                console.log("PLAYPAUSE")
+                this.soundtrackLoaded = this.model.id;
+                this.$(".audio-wrapper").empty().append( this.model.visual.el );
+                this.model.visual.render();
+                this.model.once("visual:after_render", function() {
+                    this.model.visual.verifyReady();
+                    this.model.visual.playPause();
+                }, this );
+            } else {
+                this.model.visual.playPause();
+            }
+
+            
 
         },
 
