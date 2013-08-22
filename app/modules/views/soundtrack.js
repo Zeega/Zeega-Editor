@@ -1,8 +1,6 @@
 define([
     "app",
-    "modules/views/soundtrack-viewer",
-    "backbone"
-
+    "modules/views/soundtrack-viewer"
 ],
 
 function( app, Viewer ) {
@@ -105,29 +103,28 @@ function( app, Viewer ) {
             "click .remove": "removeSoundtrack"
         },
 
-        insertAudioEl: function() {
-            
-        },
-
         soundtrackLoaded: null,
 
         playpause: function() {
-            console.log("PP",this.soundtrackLoaded, this.model.id )
             if ( this.soundtrackLoaded != this.model.id ) {
-                console.log("PLAYPAUSE")
-                this.soundtrackLoaded = this.model.id;
-                this.$(".audio-wrapper").empty().append( this.model.visual.el );
-                this.model.visual.render();
                 this.model.once("visual:after_render", function() {
+                    console.log("AFTER RENDER")
                     this.model.visual.verifyReady();
                     this.model.visual.playPause();
                 }, this );
+
+                this.soundtrackLoaded = this.model.id;
+                this.$(".audio-wrapper").empty().append( this.model.visual.el );
+                this.model.visual.playWhenReady = true;
+                this.model.visual.render();
             } else {
                 this.model.visual.playPause();
             }
+            this.$(".playpause i").toggleClass("icon-volume-up icon-volume-off");
+        },
 
-            
-
+        pause: function() {
+            this.model.visual.audio.pause();
         },
 
         onRemoveSoundtrack: function() {
@@ -137,6 +134,7 @@ function( app, Viewer ) {
         },
 
         removeSoundtrack: function( save ) {
+            this.soundtrackLoaded = null;
             this.stopListening( this.model );
             $(".tipsy").remove();
             if ( save ) {

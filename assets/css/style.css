@@ -6371,6 +6371,9 @@ a:active {
   width: 100%;
   text-align: right;
 }
+.soundtrack .soundtrack-controls .playpause {
+  float: left;
+}
 .soundtrack .soundtrack-controls a {
   position: relative;
   display: inline-block;

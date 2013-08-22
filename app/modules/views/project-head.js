@@ -225,6 +225,8 @@ function( app, Player ) {
         projectPreview: function() {
             var projectData = { project: app.zeega.getProjectJSON() };
 
+            app.layout.soundtrack.pause();
+
             app.player = null;
             app.emit("project_preview", null );
             
