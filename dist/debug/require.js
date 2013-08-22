@@ -44557,6 +44557,7 @@ function( app ) {
             "preview_toggle_view",
             "toggle_page_background",
             "new_zeega",
+            "new_user",
             "advance_toggle",
           
            // "view_item",
@@ -44578,6 +44579,7 @@ function( app ) {
             //community
 
             "to_signup",
+            "delete-zeega",
 
         //shared
 
