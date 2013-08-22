@@ -19,18 +19,8 @@ function( app, Asker ) {
         initialize: function() {
             this.model.on("focus", this.onFocus, this );
             this.model.on("blur", this.onBlur, this );
-            this.model.on("thumbUpdateStart", this.onThumbUpdateStart, this );
             this.model.on("change:thumbnail_url", this.onThumbUpdateComplete, this );
             this.makeDroppable();
-        },
-
-        onThumbUpdateStart: function() {
-            this.$el.css({
-                background: "url(assets/img/tiny-stripes.png)"
-            });
-            this.$(".frame-thumb").css({
-                opacity: 0.5
-            });
         },
 
         onThumbUpdateComplete: function() {
@@ -39,6 +29,8 @@ function( app, Asker ) {
             });
             this.$(".frame-thumb").css({
                 background: "url(" + this.model.get("thumbnail_url") + ") no-repeat center center",
+                backgroundSize: "cover",
+                backgroundPosition: "center",
                 opacity: 1
             });
         },
