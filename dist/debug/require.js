@@ -709,7 +709,11 @@ return __p;
 this["JST"]["app/templates/soundtrack.html"] = function(obj){
 var __p='';var print=function(){__p+=Array.prototype.join.call(arguments, '')};
 with(obj||{}){
-__p+='<a href="#" class="playpause paused"></a>\n\n<canvas class="progress" height="80" width="80"></canvas>\n<div class="soundtrack-waveform"\n    \n';
+__p+='';
+ if ( model !== false && canplayMpeg ) { 
+;__p+='\n<a href="#" class="playpause paused"></a>\n<canvas class="progress" height="80" width="80"></canvas>\n';
+ } 
+;__p+='\n\n<div class="soundtrack-waveform"\n    \n';
  if ( model ) { 
 ;__p+='\n    style=" background: url('+
 ( attr.thumbnail_url )+
@@ -719,7 +723,7 @@ __p+='<a href="#" class="playpause paused"></a>\n\n<canvas class="progress" heig
  if ( model === false ) { 
 ;__p+='\n    <span class="soundtrack-drop-icon"\n        title="drag audio to add soundtrack"\n        data-gravity="ne"\n    ></span>\n    <span class="soundtrack-sub">soundtrack</span>\n';
  } else { 
-;__p+='\n    <div class="soundtrack-controls">\n\n        <!--\n        <a href="#" class="playpause"><i class="icon-volume-up icon-white"></i></a>\n    -->\n        <div class="audio-wrapper"></div>\n\n        ';
+;__p+='\n    <div class="soundtrack-controls">\n\n        <div class="audio-wrapper"></div>\n        ';
  if ( remix ) { 
 ;__p+='\n            <i class="icon-lock icon-white"></i>\n        ';
  } else { 
@@ -40860,6 +40864,7 @@ function( app, Viewer ) {
                 return { model: false };
             } else if ( this.model.get("type") == "Audio" ) {
                 return _.extend({
+                    canplayMpeg: this.canPlayMpeg(),
                     model: true,
                     remix: app.zeega.getCurrentProject().get("remix").remix
                 }, this.model.toJSON() );
@@ -40868,6 +40873,12 @@ function( app, Viewer ) {
 
         initialize: function() {
             this.onEnterSequence();
+        },
+
+        canPlayMpeg: function() {
+            var a = document.createElement('audio');
+
+            return !!( a.canPlayType && a.canPlayType('audio/mpeg;').replace(/no/, ''));
         },
 
         onEnterSequence: function( sequence ) {
@@ -40991,7 +41002,9 @@ function( app, Viewer ) {
         },
 
         pause: function() {
-            this.model.visual.audio.pause();
+            if ( this.canPlayMpeg() ) {
+                this.model.visual.audio.pause();
+            }
         },
 
         onRemoveSoundtrack: function() {

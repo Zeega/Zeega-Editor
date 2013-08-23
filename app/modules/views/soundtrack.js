@@ -16,6 +16,7 @@ function( app, Viewer ) {
                 return { model: false };
             } else if ( this.model.get("type") == "Audio" ) {
                 return _.extend({
+                    canplayMpeg: this.canPlayMpeg(),
                     model: true,
                     remix: app.zeega.getCurrentProject().get("remix").remix
                 }, this.model.toJSON() );
@@ -24,6 +25,12 @@ function( app, Viewer ) {
 
         initialize: function() {
             this.onEnterSequence();
+        },
+
+        canPlayMpeg: function() {
+            var a = document.createElement('audio');
+
+            return !!( a.canPlayType && a.canPlayType('audio/mpeg;').replace(/no/, ''));
         },
 
         onEnterSequence: function( sequence ) {
@@ -147,7 +154,9 @@ function( app, Viewer ) {
         },
 
         pause: function() {
-            this.model.visual.audio.pause();
+            if ( this.canPlayMpeg() ) {
+                this.model.visual.audio.pause();
+            }
         },
 
         onRemoveSoundtrack: function() {
