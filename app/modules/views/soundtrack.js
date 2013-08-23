@@ -154,7 +154,7 @@ function( app, Viewer ) {
         },
 
         pause: function() {
-            if ( this.canPlayMpeg() && this.model ) {
+            if ( this.canPlayMpeg() && this.model && this.model.visual.audio ) {
                 this.model.visual.audio.pause();
             }
         },
