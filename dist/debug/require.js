@@ -723,13 +723,7 @@ __p+='';
  if ( model === false ) { 
 ;__p+='\n    <span class="soundtrack-drop-icon"\n        title="drag audio to add soundtrack"\n        data-gravity="ne"\n    ></span>\n    <span class="soundtrack-sub">soundtrack</span>\n';
  } else { 
-;__p+='\n    <div class="soundtrack-controls">\n\n        <div class="audio-wrapper"></div>\n        ';
- if ( remix ) { 
-;__p+='\n            <i class="icon-lock icon-white"></i>\n        ';
- } else { 
-;__p+='\n            <a href="#" class="remove"\n                title="remove soundtrack"\n                data-gravity="n"\n            ><i class="icon-remove icon-white"></i></a>\n        ';
- } 
-;__p+='\n\n    </div>\n';
+;__p+='\n    <div class="soundtrack-controls">\n\n        <div class="audio-wrapper"></div>\n            <a href="#" class="remove"\n                title="remove soundtrack"\n                data-gravity="n"\n            ><i class="icon-remove icon-white"></i></a>\n    </div>\n';
  } 
 ;__p+='';
 }
@@ -40888,7 +40882,7 @@ function( app, Viewer ) {
         },
 
         afterRender: function() {
-            if ( !app.zeega.getCurrentProject().get("remix").remix ) this.makeDroppable();
+            this.makeDroppable();
 
             app.trigger("rendered", this );
 
