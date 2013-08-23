@@ -325,9 +325,9 @@ var __p='';var print=function(){__p+=Array.prototype.join.call(arguments, '')};
 with(obj||{}){
 __p+='';
  if ( model !== false && canplayMpeg ) { 
-;__p+='\n<a href="#" class="playpause paused"></a>\n<canvas class="progress" height="80" width="80"></canvas>\n';
+;__p+='\n<a href="#" class="playpause paused"></a>\n';
  } 
-;__p+='\n\n<div class="soundtrack-waveform"\n    \n';
+;__p+='\n<canvas class="progress" height="80" width="80"></canvas>\n\n<div class="soundtrack-waveform"\n    \n';
  if ( model ) { 
 ;__p+='\n    style=" background: url('+
 ( attr.thumbnail_url )+
