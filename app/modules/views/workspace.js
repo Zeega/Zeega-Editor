@@ -33,10 +33,8 @@ function( app ) {
                 activeClass: "is-target",
                 drop: function( e, ui ) {
                     if ( _.contains( ["Audio"], app.dragging.get("layer_type")) ) {
-                        if ( !app.zeega.isRemix() ) {
-                            app.emit("soundtrack_added", app.dragging );
-                            app.zeega.getCurrentProject().setSoundtrack( app.dragging, app.layout.soundtrack, { source: "drag-to-workspace" } );
-                        }
+                        app.emit("soundtrack_added", app.dragging );
+                        app.zeega.getCurrentProject().setSoundtrack( app.dragging, app.layout.soundtrack, { source: "drag-to-workspace" } );
                     } else {
                         app.emit("item_dropped", app.dragging );
                         app.zeega.getCurrentPage().addLayerByItem( app.dragging, { source: "drag-to-workspace" });
