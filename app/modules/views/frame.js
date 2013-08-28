@@ -41,13 +41,8 @@ function( app, Asker ) {
                 tolerance: "pointer",
                 greedy: true,
                 drop: function( e, ui ) {
-                    if ( _.contains( ["Audio"], app.dragging.get("layer_type") )) {
-                        // app.emit("soundtrack_added", app.dragging );
-                        // app.status.get('currentSequence').setSoundtrack( app.dragging, app.layout.soundtrack, { source: "drag-to-workspace" } );
-                    } else {
-                        app.emit("item_dropped", app.dragging );
-                        this.model.addLayerByItem( app.dragging, { source: "drag-to-workspace" });
-                    }
+                    app.emit("item_dropped", app.dragging );
+                    this.model.addLayerByItem( app.dragging, { source: "drag-to-workspace" });
                 }.bind( this )
             });
         },

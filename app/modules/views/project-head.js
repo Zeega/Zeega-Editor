@@ -225,6 +225,7 @@ function( app, Player ) {
         projectPreview: function() {
             var projectData = { project: app.zeega.getProjectJSON() };
 
+            app.oldZeega = app.zeega;
             app.layout.soundtrack.pause();
 
             app.player = null;
@@ -233,7 +234,7 @@ function( app, Player ) {
             app.player = new Player({
                     // debugEvents: true,
                     scalable: true,
-
+                    endPage: true,
                     previewMode: "mobile",
                     data: projectData,
                     controls: {
@@ -242,6 +243,9 @@ function( app, Player ) {
                         sizeToggle: true
                     }
                 });
+
+            app.player.on("endpage_enter", this.onEndpageEnter, this );
+            app.player.on("endpage_exit", this.onEndpageExit, this );
 
             // listen for esc key to close preview
             $("body").bind("keyup.player", function( e ) {
@@ -256,11 +260,38 @@ function( app, Player ) {
             this.firstPreview = false;
         },
 
+        onEndpageEnter: function( layer ) {
+            var endView;
+
+            layer.visual.$el.empty();
+
+            if ( app.player.zeega.getNextPage() ) {
+
+                endView = new Backbone.View({
+                    template: "app/templates/endpage.remix",
+                    className: "ZEEGA-remix-endpage",
+                    serialize: function() {
+                        return app.player.zeega.getCurrentProject().toJSON();
+                    }
+                });
+
+                layer.visual.$el.append( endView.el );
+                endView.render();
+            }
+
+        },
+
+        onEndpageExit: function( layer ) {
+            layer.visual.$el.empty();
+        },
+
         onPlayerDestroy: function() {
             // switch instance of Zeega to the editor version and release the player version!!
-            app.zeega.injectZeega( app.zeega );
+            app.zeega.injectZeega( app.oldZeega );
             $("body").unbind("keyup.player");
             app.emit("project_preview_ended", null );
+            app.player = null;
+            // this.stopListening( app.player );
         },
 
         onBlur: function() {
