@@ -6846,3 +6846,102 @@ a:active {
 .ZEEGA-player-window .visual-element.visual-link {
   outline: none;
 }
+.ZEEGA-remix-endpage {
+  display: block;
+  color: white;
+  position: absolute;
+  z-index: 10;
+  height: 100%;
+  width: 100%;
+  background: url(../img/tiny-stripes-dark.png);
+}
+.ZEEGA-remix-endpage .title,
+.ZEEGA-remix-endpage .username,
+.ZEEGA-remix-endpage .token-wrapper {
+  float: left;
+}
+.ZEEGA-remix-endpage .token-wrapper {
+  width: 15%;
+}
+.ZEEGA-remix-endpage .title,
+.ZEEGA-remix-endpage .username {
+  width: 42.5%;
+}
+.ZEEGA-remix-endpage .title {
+  text-align: right;
+}
+.ZEEGA-remix-endpage .username {
+  text-align: left;
+}
+.ZEEGA-remix-endpage h1 {
+  font-family: "futura";
+  font-size: 26px;
+  padding: 20px;
+}
+.ZEEGA-remix-endpage .remix-project-wrapper {
+  *zoom: 1;
+}
+.ZEEGA-remix-endpage .remix-project-wrapper:before,
+.ZEEGA-remix-endpage .remix-project-wrapper:after {
+  display: table;
+  content: "";
+  line-height: 0;
+}
+.ZEEGA-remix-endpage .remix-project-wrapper:after {
+  clear: both;
+}
+.ZEEGA-remix-endpage .project-current {
+  background: -webkit-gradient(linear, left top, right top, color-stop(0%, #00ffff), color-stop(100%, rgba(255, 0, 102, 0.5)));
+  /* Chrome,Safari4+ */
+
+  margin-top: 5px;
+  color: white;
+}
+.ZEEGA-remix-endpage .project-current .username,
+.ZEEGA-remix-endpage .project-current .title {
+  margin-top: 16px;
+}
+.ZEEGA-remix-endpage .project-parent {
+  background: -webkit-gradient(linear, left top, right top, color-stop(0%, rgba(255, 0, 102, 0.5)), color-stop(100%, #ff0066));
+  /* Chrome,Safari4+ */
+
+  margin-top: 5px;
+  color: white;
+}
+.ZEEGA-remix-endpage .project-parent .username,
+.ZEEGA-remix-endpage .project-parent .title {
+  margin-top: 38px;
+}
+.ZEEGA-remix-endpage .project-root {
+  background: -webkit-gradient(linear, left top, right top, color-stop(0%, rgba(255, 0, 102, 0.5)), color-stop(100%, #111111));
+  /* Chrome,Safari4+ */
+
+  margin-top: 5px;
+  color: white;
+}
+.ZEEGA-remix-endpage .project-root .username,
+.ZEEGA-remix-endpage .project-root .title {
+  margin-top: 16px;
+}
+.ZEEGA-remix-endpage .end-page-wrapper {
+  height: 200px;
+  width: 100%;
+  position: absolute;
+  text-align: center;
+  font-size: 14px;
+}
+.user-token {
+  margin: auto;
+}
+.user-token.user-token-large {
+  height: 75px;
+  width: 75px;
+  border-radius: 75px;
+  border: 8px solid white;
+}
+.user-token.user-token-medium {
+  height: 37px;
+  width: 37px;
+  border-radius: 37px;
+  border: 3px solid white;
+}

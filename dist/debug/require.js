@@ -402,6 +402,42 @@ __p+='\n<div class="item-thumb">\n    <img class="browser-thumb '+
 return __p;
 };
 
+this["JST"]["app/templates/endpage.project.html"] = function(obj){
+var __p='';var print=function(){__p+=Array.prototype.join.call(arguments, '')};
+with(obj||{}){
+__p+='';
+}
+return __p;
+};
+
+this["JST"]["app/templates/endpage.remix.html"] = function(obj){
+var __p='';var print=function(){__p+=Array.prototype.join.call(arguments, '')};
+with(obj||{}){
+__p+='<div class="end-page-wrapper" >\n\n    <h1>Remix</h1>\n    <div class="project-current remix-project-wrapper">\n        <div class="title">just watched</div>\n        <div class="token-wrapper">\n            <div class="user-token user-token-medium" style="\n                background-image: url('+
+( user.thumbnail_url )+
+');\n                background-size: cover;\n                background-position: center;\n            "></div>\n        </div>\n        <div class="username">'+
+( user.display_name )+
+'</div>\n    </div>\n\n';
+ if ( remix.remix ) { 
+;__p+='\n    <div class="project-parent remix-project-wrapper">\n        <div class="title">up next</div>\n        <div class="token-wrapper">\n            <div class="user-token user-token-large" style="\n                background-image: url('+
+( remix.parent.user.thumbnail_url )+
+');\n                background-size: cover;\n                background-position: center;\n            "></div>\n        </div>\n        <div class="username">'+
+( remix.parent.user.display_name )+
+'</div>\n    </div>\n\n    ';
+ if ( remix.parent.id != remix.root.id ) { 
+;__p+='\n\n        <div class="project-root remix-project-wrapper">\n            <div class="title">remixed from</div>\n            <div class="token-wrapper">\n                <div class="user-token user-token-medium" style="\n                    background-image: url('+
+( remix.root.user.thumbnail_url )+
+');\n                    background-size: cover;\n                    background-position: center;\n                "></div>\n            </div>\n            <div class="username">'+
+( remix.root.user.display_name )+
+'</div>\n        </div>\n\n    ';
+ } 
+;__p+='\n';
+ } 
+;__p+='\n</div>';
+}
+return __p;
+};
+
 this["JST"]["app/templates/frame-controls.html"] = function(obj){
 var __p='';var print=function(){__p+=Array.prototype.join.call(arguments, '')};
 with(obj||{}){
@@ -34348,11 +34384,10 @@ function(
 // layer.js
 define('engine/modules/layer.model',[
     "app",
-    "engine/plugins/controls/_all-controls",
-    "engine/plugins/layers/_all"
+    "engine/plugins/controls/_all-controls"
 ],
 
-function( app, Controls, Layers ) {
+function( app, Controls ) {
 
     return app.Backbone.Model.extend({
         ready: false,
@@ -35334,7 +35369,14 @@ function( app, _Layer, Visual ){
                 }
             },
             "av"
-        ]
+        ],
+
+        play: function() {
+            this.visual.onPlay();
+        },
+        pause: function() {
+            this.visual.onPause();
+        }
     });
 
     canPlayMpeg = function(){
@@ -35431,7 +35473,7 @@ function( app, _Layer, Visual ){
                         if ( this.audio ) {
                             this.model.trigger("timeupdate", {
                                 currentTime: this.audio.currentTime,
-                                duration: this.audio.duration,
+                                duration: this.audio.duration
                             });
                         }
                     }.bind(this));
@@ -36650,12 +36692,21 @@ function( app, Layer, Visual ){
         ],
 
         onPlay: function() {
-            this.model.zeega.emit("endpage_enter", this.model );
+            this.endEnterEmit();
         },
 
         onExit: function() {
+            this.endExitEmit();
+        },
+
+        endEnterEmit: _.debounce(function() {
+            this.model.zeega.emit("endpage_enter", this.model );
+        }, 250, { leading: true }),
+
+        endExitEmit: _.debounce(function() {
             this.model.zeega.emit("endpage_exit", this.model );
-        }
+        }, 250, { leading: true })
+
     });
 
     return L;
@@ -37194,6 +37245,12 @@ function( app, Layers ) {
             if ( currentIndex != -1 && this.frames.length > currentIndex + 1 ) {
                 this.frames.at( currentIndex + 1 ).layers.push( layer );
             }
+        },
+
+        clearVirtualPages: function() {
+            var pages = _.without( this.get("frames"), -1 );
+
+            this.set("frames", pages );
         }
 
     });
@@ -37283,9 +37340,9 @@ function( app, PageCollection, Layers, SequenceModel ) {
 
         _loadSoundtrack: function() {
             if ( this.get("_soundtrack") ) {
-                this.soundtrack = new Layers["Audio"]( _.extend( this.get("_soundtrack"), { type: "Audio" }) );
+                this.soundtrack = new Layers.Audio( _.extend( this.get("_soundtrack"), { type: "Audio" }) );
 
-                this.soundtrack.visual = new Layers["Audio"].Visual({
+                this.soundtrack.visual = new Layers.Audio.Visual({
                         model: this.soundtrack,
                         attributes: {
                             "data-id": this.get("_soundtrack").id
@@ -37327,7 +37384,7 @@ function( app, PageCollection, Layers, SequenceModel ) {
                 .success(function( response ) {
                     this.soundtrack = newLayer;
 
-                    newLayer.visual = new Layers["Audio"].Visual({
+                    newLayer.visual = new Layers.Audio.Visual({
                             model: this.soundtrack,
                             attributes: {
                                 "data-id": newLayer.id
@@ -37940,13 +37997,26 @@ function( app, Parser, ProjectCollection, ProjectModel, PageCollection, PageMode
 
         focusPage: function( page ) {
             if ( this.getCurrentProject().id != page.project.id ) {
+                this.onNewProject( this.getCurrentProject(), page.project );
                 this.set("currentProject", page.project );
+                this.emit("project:project_switch", page.project );
             }
 
             this.blurPage( this.get("currentPage") );
             this.set("currentPage", page );
             page.trigger("focus");
             this.emit("page page:focus", page );
+        },
+
+        onNewProject: function( previous, next ) {
+            if ( (previous.soundtrack && next.soundtrack) && (previous.soundtrack.get("attr").uri == next.soundtrack.get("attr").uri) ) {
+                next.soundtrack = previous.soundtrack;
+            } else if ( (!previous.soundtrack && next.soundtrack) || (previous.soundtrack && !next.soundtrack) || (previous.soundtrack && next.soundtrack) && (previous.soundtrack.get("attr").uri != next.soundtrack.get("attr").uri) ) {
+                this.emit("project:soundtrack_switch", {
+                        next: next ? next.soundtrack : false,
+                        previous: previous ? previous.soundtrack : false
+                    });
+            }
         },
 
         blurPage: function( page ) {
@@ -37975,7 +38045,6 @@ function( app, Parser, ProjectCollection, ProjectModel, PageCollection, PageMode
         getPreviousPage: function( page ) {
             var p = page || this.getCurrentPage();
             var previousPage = false;
-
             if ( p.get("_order") > 0 ) {
                 previousPage = this.getCurrentProject().pages.at( p.get("_order") - 1 );
             } else if ( this.getPreviousProject() ) {
@@ -38058,7 +38127,7 @@ function( app, Parser, ProjectCollection, ProjectModel, PageCollection, PageMode
         },
 
         getSoundtrack: function() {
-            return this.projects.at(0).soundtrack;
+            return this.getCurrentProject().soundtrack;
         },
 
         isRemix: function() {
@@ -38091,15 +38160,10 @@ function( app, Parser, ProjectCollection, ProjectModel, PageCollection, PageMode
         preloadNextZeega: function() {
             var remixData = this.getCurrentProject().getRemixData();
 
-// console.log("PRELOAD:", this.waiting, remixData.remix, this.projects.get( remixData.parent.id ),remixData.parent.id, this.projects )
-            // only preload if the project does not already exist
-
             if ( remixData.remix && !this.projects.get( remixData.parent.id ) && !this.waiting ) {
                 var projectUrl = app.getApi() + "projects/" + remixData.parent.id;
 
                 this.waiting = true;
-
-// console.log("preloading next!!")
                 this.emit("project:fetching");
 
                 $.getJSON( projectUrl, function( data ) {
@@ -38119,18 +38183,16 @@ function( app, Parser, ProjectCollection, ProjectModel, PageCollection, PageMode
                 var remixObj = project.get("remix");
 
                 //isComplete = temp.parent.id == temp.root.id;
-project.getSimpleJSON();
+                project.getSimpleJSON();
                 // temp = project.get("remix");
 
                 return project.get("remix");
             });
 
-            console.log("__path", path)
-
             return {
                 complete: isComplete,
                 path: path
-            }
+            };
         },
 
         _onDataLoaded: function( data ) {
@@ -38159,6 +38221,8 @@ project.getSimpleJSON();
             soundtrack = currentProject.soundtrack ? currentProject.soundtrack.toJSON() : {};
 
             layers.push( soundtrack );
+
+            currentProject.sequence.clearVirtualPages();
 
             _.extend( pData, currentProject.toJSON(), {
                 sequences: [ currentProject.sequence.toJSON() ],
@@ -38199,7 +38263,6 @@ project.getSimpleJSON();
         },
 
         destroy: function() {
-
             this.projects.each(function( project ) {
                 project.destroy();
             });
@@ -38623,6 +38686,7 @@ function( app, ArrowView, CloseView, PlayPauseView, SizeToggle ) {
 
         cleanup: function() {
             $(".tipsy").remove();
+            this.undelegateEvents();
         }
 
     });
@@ -39161,25 +39225,43 @@ function( app, Engine, Relay, Status, PlayerLayout ) {
             }, this );
 
             this.preloadPage( this.zeega.getCurrentPage() );
+
+            this.zeega.on("project:soundtrack_switch", this.onSoundtrackSwitch, this );
         },
 
-        _renderSoundtrack: function() {
-            var soundtrack = this.zeega.getSoundtrack();
+        onSoundtrackSwitch: function( soundtracks ) {
+            if ( soundtracks.previous ) {
+                soundtracks.previous.pause();
+            }
+            if ( soundtracks.next ) {
+                if ( soundtracks.next.state != "ready" ) {
+                    this._renderSoundtrack( soundtracks.next, true );
+                } else {
+                    soundtracks.next.play();
+                }
+            }
+        },
+
+        _renderSoundtrack: function( st, autoplay ) {
+            var soundtrack = st || this.zeega.getSoundtrack();
+
+            autoplay = autoplay || false;
 
             if ( soundtrack ) {
-                this.soundtrackState = "loading";
                 this.emit("soundtrack soundtrack:loading", soundtrack );
-                soundtrack.once("layer:ready", this._onSoundtrackReady, this );
+                soundtrack.once("layer:ready", function() {
+                        this._onSoundtrackReady( soundtrack, autoplay );
+                    }, this );
                 soundtrack.set("_target", this.layout.$(".ZEEGA-soundtrack") );
                 soundtrack.render();
             }
         },
 
-        _onSoundtrackReady: function( soundtrack ) {
+        _onSoundtrackReady: function( soundtrack, autoplay ) {
             this.soundtrackState = "ready";
             this.emit("soundtrack soundtrack:ready", soundtrack );
 
-            if ( this.get("autoplay") ) this.zeega.getSoundtrack().play();
+            if ( this.get("autoplay") || autoplay ) this.zeega.getSoundtrack().play();
         },
 
         play: function() {
@@ -39192,8 +39274,9 @@ function( app, Engine, Relay, Status, PlayerLayout ) {
                 this._fadeIn();
                 this.cuePage( page );
                 
-                if ( soundtrack ) this.zeega.getSoundtrack().play();
-
+                if ( soundtrack ) {
+                    this.zeega.getSoundtrack().play();
+                }
                 this.emit("player player:play", this );
             }
         },
@@ -39212,7 +39295,6 @@ function( app, Engine, Relay, Status, PlayerLayout ) {
             }
         },
 
-
         playPause: function() {
             if ( this.state == "paused" || this.state == "suspended" ) this.play();
             else this.pause();
@@ -39223,13 +39305,12 @@ function( app, Engine, Relay, Status, PlayerLayout ) {
                 this.state = "playing";
                 this.zeega.focusPage( page );
             } else {
-                this.playAndWaitForPageLoad( page )
+                this.playAndWaitForPageLoad( page );
             }
             this.preloadPage( page );
         },
 
         playAndWaitForPageLoad: function( page ) {
-            console.log("play & wait", page);
             this.state = "playing";
             this.zeega.focusPage( page );
         },
@@ -39303,35 +39384,67 @@ function( app, Engine, Relay, Status, PlayerLayout ) {
         cueNext: function() {
             var nextPage = this.zeega.getNextPage();
 
-            if ( nextPage ) this.cuePage( this.zeega.getNextPage() );
+            if ( nextPage ) {
+                this.cuePage( this.zeega.getNextPage() );
+            }
         },
 
         // goes to the prev frame after n ms
         cuePrev: function( ms ) {
             var prevPage = this.zeega.getPreviousPage();
 
-            if ( prevPage ) this.cuePage( this.zeega.getPreviousPage() );
+            if ( prevPage ) {
+                this.cuePage( this.zeega.getPreviousPage() );
+            }
         },
 
         // move this to layout
         _initEvents: function() {
-            var _this = this;
 
             if ( this.get("keyboard") ) {
-                app.$(window).keyup(function( event ) {
+
+                app.$(window).bind("keyup.preview",function( event ) {
                     switch( event.which ) {
                         case 37: // left arrow
-                            _this.cuePrev();
+                            this.cuePrev();
                             break;
                         case 39: // right arrow
-                            _this.cueNext();
+                        console.log("RIGHT")
+                            this.cueNext();
                             break;
                         case 32: // spacebar
-                            _this.playPause();
+                            this.playPause();
                             break;
                     }
                 }.bind( this ));
+
+
+                // app.$(window).keyup(function( event ) {
+                //     switch( event.which ) {
+                //         case 37: // left arrow
+                //             this.cuePrev();
+                //             break;
+                //         case 39: // right arrow
+                //             this.cueNext();
+                //             break;
+                //         case 32: // spacebar
+                //             this.playPause();
+                //             break;
+                //     }
+                // }.bind( this ));
             }
+        },
+
+        _removeListeners: function() {
+            if ( this.get("keyboard") ) {
+                app.$(window).unbind("keyup.preview");
+            }
+
+            this.zeega.off("all");
+
+            // this.off("cue_frame");
+            // this.off("size_toggle");
+            // relays
         },
 
 
@@ -39345,10 +39458,9 @@ function( app, Engine, Relay, Status, PlayerLayout ) {
 
         // attach listeners
         _listen: function() {
+            console.log("**************_listen")
             this.on("cue_frame", this.cueFrame, this );
             this.on("size_toggle", this.toggleSize, this );
-            // relays
-            this.relay.on("change:current_frame", this._remote_cueFrame, this );
         },
 
         toggleSize: function() {
@@ -39401,11 +39513,12 @@ function( app, Engine, Relay, Status, PlayerLayout ) {
 
         // completely obliterate the player. triggers event
         destroy: function() {
-
+            this._removeListeners();
             this.layout.$el.fadeOut( this.get("fadeOut"), function() {
                 this.zeega.destroy();
                 this.layout.remove();
                 this.emit("player_destroyed");
+                this.clear();
             }.bind( this ));
         },
 
@@ -39648,6 +39761,7 @@ function( app, Player ) {
         projectPreview: function() {
             var projectData = { project: app.zeega.getProjectJSON() };
 
+            app.oldZeega = app.zeega;
             app.layout.soundtrack.pause();
 
             app.player = null;
@@ -39656,7 +39770,7 @@ function( app, Player ) {
             app.player = new Player({
                     // debugEvents: true,
                     scalable: true,
-
+                    endPage: true,
                     previewMode: "mobile",
                     data: projectData,
                     controls: {
@@ -39665,6 +39779,9 @@ function( app, Player ) {
                         sizeToggle: true
                     }
                 });
+
+            app.player.on("endpage_enter", this.onEndpageEnter, this );
+            app.player.on("endpage_exit", this.onEndpageExit, this );
 
             // listen for esc key to close preview
             $("body").bind("keyup.player", function( e ) {
@@ -39679,11 +39796,38 @@ function( app, Player ) {
             this.firstPreview = false;
         },
 
+        onEndpageEnter: function( layer ) {
+            var endView;
+
+            layer.visual.$el.empty();
+
+            if ( app.player.zeega.getNextPage() ) {
+
+                endView = new Backbone.View({
+                    template: "app/templates/endpage.remix",
+                    className: "ZEEGA-remix-endpage",
+                    serialize: function() {
+                        return app.player.zeega.getCurrentProject().toJSON();
+                    }
+                });
+
+                layer.visual.$el.append( endView.el );
+                endView.render();
+            }
+
+        },
+
+        onEndpageExit: function( layer ) {
+            layer.visual.$el.empty();
+        },
+
         onPlayerDestroy: function() {
             // switch instance of Zeega to the editor version and release the player version!!
-            app.zeega.injectZeega( app.zeega );
+            app.zeega.injectZeega( app.oldZeega );
             $("body").unbind("keyup.player");
             app.emit("project_preview_ended", null );
+            app.player = null;
+            // this.stopListening( app.player );
         },
 
         onBlur: function() {
@@ -39844,13 +39988,8 @@ function( app, Asker ) {
                 tolerance: "pointer",
                 greedy: true,
                 drop: function( e, ui ) {
-                    if ( _.contains( ["Audio"], app.dragging.get("layer_type") )) {
-                        // app.emit("soundtrack_added", app.dragging );
-                        // app.status.get('currentSequence').setSoundtrack( app.dragging, app.layout.soundtrack, { source: "drag-to-workspace" } );
-                    } else {
-                        app.emit("item_dropped", app.dragging );
-                        this.model.addLayerByItem( app.dragging, { source: "drag-to-workspace" });
-                    }
+                    app.emit("item_dropped", app.dragging );
+                    this.model.addLayerByItem( app.dragging, { source: "drag-to-workspace" });
                 }.bind( this )
             });
         },
@@ -40089,10 +40228,8 @@ function( app ) {
                 activeClass: "is-target",
                 drop: function( e, ui ) {
                     if ( _.contains( ["Audio"], app.dragging.get("layer_type")) ) {
-                        if ( !app.zeega.isRemix() ) {
-                            app.emit("soundtrack_added", app.dragging );
-                            app.zeega.getCurrentProject().setSoundtrack( app.dragging, app.layout.soundtrack, { source: "drag-to-workspace" } );
-                        }
+                        app.emit("soundtrack_added", app.dragging );
+                        app.zeega.getCurrentProject().setSoundtrack( app.dragging, app.layout.soundtrack, { source: "drag-to-workspace" } );
                     } else {
                         app.emit("item_dropped", app.dragging );
                         app.zeega.getCurrentPage().addLayerByItem( app.dragging, { source: "drag-to-workspace" });
@@ -44509,6 +44646,17 @@ function( app ) {
 
         loggingEnabled: true,
 
+        mediaCategories: [
+            "sports",
+            "animals",
+            "reaction",
+            "texture",
+            "pop",
+            "GIFart",
+            "news"
+        ],
+
+
         initialize: function() {
             app.on( "all", this.onEvent, this );
             if( !window.mixpanel ){
@@ -44531,10 +44679,9 @@ function( app ) {
             if( model.modelType == "frame" ){
                 params.layerCount = model.layers.length;
             } else if ( model.modelType == "layer" ){
-                params = {
-                    type: model.get("type"),
-                    api: model.get("attr").archive ?  model.get("attr").archive : "none"
-                };
+
+                params = this.getLayerParams( model );
+
             } else if ( model.modelType == "sequence" ){
                 params = {
                     pageCount: model.frames.length
@@ -44549,6 +44696,36 @@ function( app ) {
             params = _.extend( params, model.eventData );
 
             this.trackEvent( event, params );
+
+
+        },
+
+
+        getLayerParams: function( layer ){
+
+
+
+                params = {
+                    type: layer.get("type"),
+                    api: layer.get("attr").archive ?  layer.get("attr").archive : "none",
+                    category: "unknown",
+                    trending: false,
+                    favorite: false
+                };
+
+                if( layer.get("attr") && layer.get("attr").user && layer.get("attr").user.username == "admin" ){
+                    params.category = _.intersection( layer.get("attr").tags, this.mediaCategories ) ?
+                        _.intersection( layer.get("attr").tags, this.mediaCategories )[0] : "unknown";
+                    params.trending = _.contains( layer.get("attr").tags, "trending" );
+                    params.favorite = true;
+
+                    if(_.isNumber(layer.get("attr").id)){
+                        params.row = Math.floor( layer.get("attr").id / 3 );
+                        params.column = layer.get("attr").id % 3;
+                    }
+
+                }
+                return params;
 
 
         },

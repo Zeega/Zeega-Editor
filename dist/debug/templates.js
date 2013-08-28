@@ -16,6 +16,42 @@ __p+='\n<div class="item-thumb">\n    <img class="browser-thumb '+
 return __p;
 };
 
+this["JST"]["app/templates/endpage.project.html"] = function(obj){
+var __p='';var print=function(){__p+=Array.prototype.join.call(arguments, '')};
+with(obj||{}){
+__p+='';
+}
+return __p;
+};
+
+this["JST"]["app/templates/endpage.remix.html"] = function(obj){
+var __p='';var print=function(){__p+=Array.prototype.join.call(arguments, '')};
+with(obj||{}){
+__p+='<div class="end-page-wrapper" >\n\n    <h1>Remix</h1>\n    <div class="project-current remix-project-wrapper">\n        <div class="title">just watched</div>\n        <div class="token-wrapper">\n            <div class="user-token user-token-medium" style="\n                background-image: url('+
+( user.thumbnail_url )+
+');\n                background-size: cover;\n                background-position: center;\n            "></div>\n        </div>\n        <div class="username">'+
+( user.display_name )+
+'</div>\n    </div>\n\n';
+ if ( remix.remix ) { 
+;__p+='\n    <div class="project-parent remix-project-wrapper">\n        <div class="title">up next</div>\n        <div class="token-wrapper">\n            <div class="user-token user-token-large" style="\n                background-image: url('+
+( remix.parent.user.thumbnail_url )+
+');\n                background-size: cover;\n                background-position: center;\n            "></div>\n        </div>\n        <div class="username">'+
+( remix.parent.user.display_name )+
+'</div>\n    </div>\n\n    ';
+ if ( remix.parent.id != remix.root.id ) { 
+;__p+='\n\n        <div class="project-root remix-project-wrapper">\n            <div class="title">remixed from</div>\n            <div class="token-wrapper">\n                <div class="user-token user-token-medium" style="\n                    background-image: url('+
+( remix.root.user.thumbnail_url )+
+');\n                    background-size: cover;\n                    background-position: center;\n                "></div>\n            </div>\n            <div class="username">'+
+( remix.root.user.display_name )+
+'</div>\n        </div>\n\n    ';
+ } 
+;__p+='\n';
+ } 
+;__p+='\n</div>';
+}
+return __p;
+};
+
 this["JST"]["app/templates/frame-controls.html"] = function(obj){
 var __p='';var print=function(){__p+=Array.prototype.join.call(arguments, '')};
 with(obj||{}){
