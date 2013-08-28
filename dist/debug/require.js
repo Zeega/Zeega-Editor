@@ -689,9 +689,13 @@ __p+='<a href="http://www.zeega.com" class="ZEEGA-tab">\n    <span class="ZTab-l
 ( userThumbnail )+
 ');\n                            background-size: cover;\n                        "\n                    ></span></a>\n            </li>\n            <li>\n                <a href="#" class="editor-help btnz btnz-light"\n                    title="view instructions"\n                    data-gravity="n"\n                >Help</a>\n            </li>\n           \n        </ul>\n    </div>\n\n    ';
  if ( remix.remix ) { 
-;__p+='\n        <div class="nav col-center remix-header">\n            <ul>\n                <li>\n                    Remixing\n                    <div class="project-cover project-cover-tiny" style="\n                            background:url('+
+;__p+='\n        <div class="nav col-center remix-header">\n            <ul>\n                <li>\n                    Remixing\n                    <a href="'+
+( web_root )+
+''+
+( remix.parent.id )+
+'" target="blank" data-bypass="true">\n                        <div class="project-cover project-cover-tiny" style="\n                                background:url('+
 ( remix.parent.cover_image )+
-');\n                            background-position: center;\n                            background-repeat: no-repeat;\n                            -webkit-background-size: cover;\n                            -moz-background-size: cover;\n                            -o-background-size: cover;\n                            background-size: cover;\n                        "></div>\n                    by '+
+');\n                                background-position: center;\n                                background-repeat: no-repeat;\n                                -webkit-background-size: cover;\n                                -moz-background-size: cover;\n                                -o-background-size: cover;\n                                background-size: cover;\n                            "></div>\n                        </a>\n                    by '+
 ( remix.parent.user.display_name )+
 '\n                    <div class="profile-token profile-token-tiny" style="\n                            background:url('+
 ( remix.parent.user.thumbnail_url )+
@@ -18181,7 +18185,6 @@ define('app',[
 
 });
 
-// layer.js
 define('engine/modules/layer.collection',[
     "app"
 ],
@@ -34548,8 +34551,7 @@ function( app, Controls ) {
             this.visual.player_onExit();
         },
 
-        // removes the layer. destroys players, removes from dom, etc
-        destroy: function() {
+        softDestroy: function() {
             // do not attempt to destroy if the layer is waiting or destroyed
             if ( this.state != "waiting" && this.state != "destroyed" ) {
                 this.state = "destroyed";
@@ -34557,7 +34559,6 @@ function( app, Controls ) {
                 if ( this.visual.destroy ) {
                     this.visual.destroy();
                 }
-
             }
         }
 
@@ -37005,7 +37006,7 @@ function( app, Backbone, LayerCollection, Layers ) {
 
         destroy: function() {
             this.layers.each(function( layer ) {
-                layer.destroy();
+                layer.softDestroy();
             });
             this.state = "destroyed";
         }
@@ -40289,13 +40290,19 @@ function( app ) {
 
         renderPage: function( pageModel ) {
             this.updateListeners();
-            pageModel.layers
-                .each(function( layer ) {
-                    this.onLayerAdd( layer );
-                }, this );
+
+            if ( pageModel.layers.length ) {
+                pageModel.layers
+                    .each(function( layer ) {
+                        this.onLayerAdd( layer );
+                    }, this );
+            } else {
+                this.$el.html("<div class='page-instructions'>");
+            }
         },
 
         onLayerAdd: function( layerModel ) {
+            this.$(".page-instructions").remove();
             this.$el.append( layerModel.visual.el );
             layerModel.enterEditorMode();
             layerModel.visual.render();
@@ -44468,9 +44475,9 @@ function( app, ProjectHead, Frames, Workspace, Layers, LayerDrawer, Soundtrack, 
                 if ( isEmpty && app.metadata.newUser == 1 ) {
                     this.onFirstVisit();
                 }
-                if ( app.zeega.isRemix() && app.zeega.isNew() ) {
-                    this.onRemixSession();
-                }
+                // if ( app.zeega.isRemix() && app.zeega.isNew() ) {
+                //     this.onRemixSession();
+                // }
             }.bind( this ), 1000);
         },
 

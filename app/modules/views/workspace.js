@@ -94,13 +94,19 @@ function( app ) {
 
         renderPage: function( pageModel ) {
             this.updateListeners();
-            pageModel.layers
-                .each(function( layer ) {
-                    this.onLayerAdd( layer );
-                }, this );
+
+            if ( pageModel.layers.length ) {
+                pageModel.layers
+                    .each(function( layer ) {
+                        this.onLayerAdd( layer );
+                    }, this );
+            } else {
+                this.$el.html("<div class='page-instructions'>");
+            }
         },
 
         onLayerAdd: function( layerModel ) {
+            this.$(".page-instructions").remove();
             this.$el.append( layerModel.visual.el );
             layerModel.enterEditorMode();
             layerModel.visual.render();

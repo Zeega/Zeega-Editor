@@ -6080,6 +6080,13 @@ a:active {
 .workspace:after {
   clear: both;
 }
+.workspace .page-instructions {
+  background: url(../img/workspace-instructions.png);
+  background-size: cover;
+  background-position: center;
+  height: 100%;
+  width: 100%;
+}
 .workspace .workspace-overlay {
   width: 320px;
   height: 426px;

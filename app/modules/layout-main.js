@@ -122,9 +122,9 @@ function( app, ProjectHead, Frames, Workspace, Layers, LayerDrawer, Soundtrack, 
                 if ( isEmpty && app.metadata.newUser == 1 ) {
                     this.onFirstVisit();
                 }
-                if ( app.zeega.isRemix() && app.zeega.isNew() ) {
-                    this.onRemixSession();
-                }
+                // if ( app.zeega.isRemix() && app.zeega.isNew() ) {
+                //     this.onRemixSession();
+                // }
             }.bind( this ), 1000);
         },
 

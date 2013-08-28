@@ -303,9 +303,13 @@ __p+='<a href="http://www.zeega.com" class="ZEEGA-tab">\n    <span class="ZTab-l
 ( userThumbnail )+
 ');\n                            background-size: cover;\n                        "\n                    ></span></a>\n            </li>\n            <li>\n                <a href="#" class="editor-help btnz btnz-light"\n                    title="view instructions"\n                    data-gravity="n"\n                >Help</a>\n            </li>\n           \n        </ul>\n    </div>\n\n    ';
  if ( remix.remix ) { 
-;__p+='\n        <div class="nav col-center remix-header">\n            <ul>\n                <li>\n                    Remixing\n                    <div class="project-cover project-cover-tiny" style="\n                            background:url('+
+;__p+='\n        <div class="nav col-center remix-header">\n            <ul>\n                <li>\n                    Remixing\n                    <a href="'+
+( web_root )+
+''+
+( remix.parent.id )+
+'" target="blank" data-bypass="true">\n                        <div class="project-cover project-cover-tiny" style="\n                                background:url('+
 ( remix.parent.cover_image )+
-');\n                            background-position: center;\n                            background-repeat: no-repeat;\n                            -webkit-background-size: cover;\n                            -moz-background-size: cover;\n                            -o-background-size: cover;\n                            background-size: cover;\n                        "></div>\n                    by '+
+');\n                                background-position: center;\n                                background-repeat: no-repeat;\n                                -webkit-background-size: cover;\n                                -moz-background-size: cover;\n                                -o-background-size: cover;\n                                background-size: cover;\n                            "></div>\n                        </a>\n                    by '+
 ( remix.parent.user.display_name )+
 '\n                    <div class="profile-token profile-token-tiny" style="\n                            background:url('+
 ( remix.parent.user.thumbnail_url )+
