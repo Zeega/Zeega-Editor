@@ -13,3 +13,6 @@
 [submodule "app/analytics"]
 	path = app/analytics
 	url = https://github.com/Zeega/Analytics-Wrapper.git
+[submodule "app/common"]
+	path = app/common
+	url = https://github.com/Zeega/_zeega.common.git
