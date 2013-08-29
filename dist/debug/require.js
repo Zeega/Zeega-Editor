@@ -34550,7 +34550,7 @@ function( app, Controls ) {
             this.visual.player_onExit();
         },
 
-        softDestroy: function() {
+        finish: function() {
             // do not attempt to destroy if the layer is waiting or destroyed
             if ( this.state != "waiting" && this.state != "destroyed" ) {
                 this.state = "destroyed";
@@ -35424,7 +35424,7 @@ function( app, _Layer, Visual ){
             editor_onLayerEnter: function() {},
 
             editor_onLayerExit: function() {
-                this.destroy();
+                this.finish();
             },
 
             playPause: function() {
@@ -36903,7 +36903,6 @@ function( app, Backbone, LayerCollection, Layers ) {
             this.updateThumbUrl();
         },
 
-
         onLayerRemove: function( layer ) {
             this.once("sync", function() {
                 layer.destroy();
@@ -37011,9 +37010,9 @@ function( app, Backbone, LayerCollection, Layers ) {
             this.lazySave();
         },
 
-        destroy: function() {
+        finish: function() {
             this.layers.each(function( layer ) {
-                layer.softDestroy();
+                layer.finish();
             });
             this.state = "destroyed";
         }
@@ -37149,6 +37148,7 @@ function( app, PageModel, LayerCollection ) {
             }
 
             app.trigger("frame_remove", pageModel );
+            pageModel.finish();
             pageModel.destroy();
         },
 
@@ -37242,6 +37242,7 @@ function( app, Layers ) {
             var attr = this.get("attr");
             
             app.emit("soundtrack_delete", layer);
+            layer.finish();
             layer.destroy();
             attr.soundtrack = false;
             this.set("attr", attr );
@@ -37414,6 +37415,7 @@ function( app, PageCollection, Layers, SequenceModel ) {
                         attr: _.extend({}, this.sequence.get("attr"), { soundtrack: false })
                     });
                 app.emit("soundtrack_delete", this.soundtrack);
+                this.soundtrack.finish();
                 this.soundtrack.destroy();
             }
             
@@ -37489,10 +37491,10 @@ function( app, PageCollection, Layers, SequenceModel ) {
             this.set({ publish_update: 0 });
         },
 
-        destroy: function() {
-            if ( this.soundtrack ) this.soundtrack.destroy();
+        finish: function() {
+            if ( this.soundtrack ) this.soundtrack.finish();
             this.pages.each(function( page ) {
-                page.destroy();
+                page.finish();
             });
         }
 
@@ -38272,7 +38274,7 @@ function( app, Parser, ProjectCollection, ProjectModel, PageCollection, PageMode
 
         destroy: function() {
             this.projects.each(function( project ) {
-                project.destroy();
+                project.finish();
             });
         }
     });
