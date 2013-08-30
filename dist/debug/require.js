@@ -37184,9 +37184,7 @@ function( app, PageModel, LayerCollection ) {
     return app.Backbone.Collection.extend({
 
         model: PageModel,
-
         zeega: null,
-        remixPageMax: 5,
 
         initialize: function() {
             if ( this.zeega.get("mode") == "editor" ) {
@@ -40208,31 +40206,12 @@ function( app, FrameView ) {
         className: "ZEEGA-frames",
 
         afterRender: function() {
-            this.updatedNewPageButtonState();
             this.renderSequenceFrames();
             this.makeSortable();
             this.makeDroppable();
 
             app.zeega.getCurrentProject().pages.on("add", this.onFrameAdd, this );
             app.zeega.getCurrentProject().pages.on("remove", this.onFrameRemove, this );
-        },
-
-        updatedNewPageButtonState: function() {
-            var currentProject = app.zeega.getCurrentProject()
-
-            if ( currentProject.get("remix").remix ) {
-                if ( currentProject.pages.length < currentProject.pages.remixPageMax ) {
-                    // enable
-                    this.$(".add-frame")
-                        .removeClass("disabled")
-                        .attr("title","add new page");
-                } else {
-                    //disable
-                    this.$(".add-frame")
-                        .addClass("disabled")
-                        .attr("title","You have reached the page limit");
-                }
-            }
         },
 
         makeSortable: function() {
@@ -40294,12 +40273,10 @@ function( app, FrameView ) {
             this.updateFrameOrder( );
             app.emit("page_added", null);
             this.makeSortable();
-            this.updatedNewPageButtonState();
         },
 
         onFrameRemove: function( frameModel, collection ) {
             this.renderSequenceFrames();
-            this.updatedNewPageButtonState();
         },
 
         renderSequenceFrames: function() {
