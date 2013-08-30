@@ -13018,7 +13018,7 @@ function( Spinner ) {
         },
 
         getMediaServerUrl: function() {
-            return this.getWebRoot() + this.metadata.mediaRoot;
+            return "http:" + this.metadata.hostname + this.metadata.mediaRoot;
         },
 
         emit: function( event, args ) {
