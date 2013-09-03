@@ -1120,7 +1120,7 @@ define("../vendor/jam/require.config", function(){});
   if (typeof exports == 'object')  module.exports = factory()
 
   /* AMD module */
-  else if (typeof define == 'function' && define.amd) define('engineVendor/spin',[],factory)
+  else if (typeof define == 'function' && define.amd) define('common/libs/spin',[],factory)
 
   /* Browser global */
   else root.Spinner = factory()
@@ -12995,7 +12995,7 @@ metatags
 */
 
 define('common/_app.common',[
-    "engineVendor/spin",
+    "common/libs/spin",
     "backbone"
 ],
 
@@ -13005,8 +13005,12 @@ function( Spinner ) {
 
         metadata: $("meta[name=zeega]").data(),
 
+        getHostname: function() {
+            return "http:" + this.metadata.hostname;
+        },
+
         getWebRoot: function() {
-            return "http:" + this.metadata.hostname + this.metadata.root;
+            return this.getHostname() + this.metadata.root;
         },
 
         getApi: function() {
@@ -13054,7 +13058,7 @@ function( Spinner ) {
         spinStop: function() {
             this.spinner.stop();
         }
-    }
+    };
 });
 
 /*!
@@ -34863,7 +34867,7 @@ function( app, Controls ) {
 
 (function(c,n){var k="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///ywAAAAAAQABAAACAUwAOw==";c.fn.imagesLoaded=function(l){function m(){var b=c(h),a=c(g);d&&(g.length?d.reject(e,b,a):d.resolve(e));c.isFunction(l)&&l.call(f,e,b,a)}function i(b,a){b.src===k||-1!==c.inArray(b,j)||(j.push(b),a?g.push(b):h.push(b),c.data(b,"imagesLoaded",{isBroken:a,src:b.src}),o&&d.notifyWith(c(b),[a,e,c(h),c(g)]),e.length===j.length&&(setTimeout(m),e.unbind(".imagesLoaded")))}var f=this,d=c.isFunction(c.Deferred)?c.Deferred():
 0,o=c.isFunction(d.notify),e=f.find("img").add(f.filter("img")),j=[],h=[],g=[];e.length?e.bind("load.imagesLoaded error.imagesLoaded",function(b){i(b.target,"error"===b.type)}).each(function(b,a){var e=a.src,d=c.data(a,"imagesLoaded");if(d&&d.src===e)i(a,d.isBroken);else if(a.complete&&a.naturalWidth!==n)i(a,0===a.naturalWidth||0===a.naturalHeight);else if(a.readyState||a.complete)a.src=k,a.src=e}):m();return d?d.promise(f):f}})(jQuery);
-define("engineVendor/jquery.imagesloaded.min", function(){});
+define("common/libs/imagesloaded", function(){});
 
 define('engine/plugins/layers/image/image',[
     "app",
@@ -34871,7 +34875,7 @@ define('engine/plugins/layers/image/image',[
     "engine/modules/layer.visual.view",
 
     //plugins
-    "engineVendor/jquery.imagesloaded.min"
+    "common/libs/imagesloaded"
 ],
 
 function( app, Layer, Visual ){
@@ -35013,12 +35017,9 @@ function( app, Layer, Visual ){
             $img.imagesLoaded();
 
             if( this.isAnimated() ){
-
-                console.log("SAVE AR", this.aspectRatio)
                 this.model.saveAttr({
                     aspectRatio: this.aspectRatio
                 });
-
             } else {
 
                 $img.done(function() {
@@ -35183,7 +35184,7 @@ function( app, Layer, Visual ){
             width  = animationMeta[ 0 ].split("_")[0];
             height = animationMeta[ 1 ].split("_")[0];
             frames = animationMeta[ 2 ].split("_")[0];
-            delay  = animationMeta[ 3 ].split("_")[0] == 0 ? 10 : animationMeta[ 3 ].split("_")[0];
+            delay  = animationMeta[ 3 ].split("_")[0] === 0 ? 10 : animationMeta[ 3 ].split("_")[0];
             percentDuration = 100.0 / frames;
 
 
@@ -35191,27 +35192,55 @@ function( app, Layer, Visual ){
             this.backgroundSize = frames * 100;
             this.duration = frames * delay / 100.0;
 
-            css = "@-webkit-keyframes zga-layer-" + this.model.id + "{";
+            css = "@"+ this.browserCode() +"keyframes zga-layer-" + this.model.id + "{";
 
             for (var i = 0; i < frames ; i++ ) {
                 css += ( i * percentDuration ) + "%{" +
                     "background-position:0 -" + ( i * 100 ) + "%;" +
-                    "-webkit-animation-timing-function:steps(1);}";
+                    this.browserCode() + "animation-timing-function:steps(1);" +
+                    "}";
             }
             
-            css += "}"
+            css += "}";
 
             return css;
         },
 
         initAnimation: function(){
-            this.$(".visual-target").css({
-                "background-size": "100% " + this.backgroundSize + "%",
+            var webkitCss, mozCss;
+
+            webkitCss = {
                 "-webkit-animation-name": "zga-layer-" + this.model.id,
                 "-webkit-animation-duration": this.duration + "s",
                 "-webkit-animation-iteration-count": "infinite",
                 "-webkit-backface-visibility": "hidden"
-            });
+            };
+            mozCss = {
+                "animation-name": "zga-layer-" + this.model.id,
+                "animation-duration": this.duration + "s",
+                "animation-iteration-count": "infinite",
+                "backface-visibility": "hidden"
+            };
+
+            this.$(".visual-target").css(_.extend( this.browserCode() == "-moz-" ? mozCss : webkitCss, {
+                "background-size": "100% " + this.backgroundSize + "%"
+            }));
+        },
+
+        browserCode: function() {
+            var ua = navigator.userAgent;
+
+            if(ua.indexOf('Opera') != -1){
+                return '-o-';
+            }else if(ua.indexOf('MSIE') != -1){
+                return '-ms-';
+            }else if(ua.indexOf('WebKit') != -1){
+                return '-webkit-';
+            }else if(navigator.product == 'Gecko'){
+                return '-moz-';
+            }else{
+                return '';
+            }
         }
     });
 
@@ -36776,6 +36805,29 @@ function( app, _Layer, Visual, TextModal ) {
                 lineHeight: this.model.getAttr("lineHeight") + "em"
             };
             this.$el.css( css );
+
+            this.linkify();
+        },
+
+        linkify: function() {
+            var expression, regex, strings, flag;
+
+            flag = false;
+            expression = /[-a-zA-Z0-9@:%_\+.~#?&//=]{2,256}\.[a-z]{2,4}\b(\/[-a-zA-Z0-9@:%_\+.~#?&//=]*)?/gi;
+            regex = new RegExp(expression);
+            strings = this.model.getAttr("content").split(" ");
+
+            _.each( strings, function( str , i ) {
+                if ( str.match( regex ) ) {
+                    flag = true;
+                    str = str.replace("http://","");
+                    strings[i] = "<a href='http://" + str + "' target='blank' data-bypass='true'>" + str + "</a>";
+                }
+            });
+
+            if ( flag ) {
+                this.model.setAttr({ content: strings.join(" ")});
+            }
         },
 
         events: {
@@ -37784,6 +37836,8 @@ function() {
     Parser[type].parse = function( response, opts ) {
         response = response.items[0].text;
         removeDupeSoundtrack( response );
+
+        response.project.sequences[0].frames = _.without(response.project.sequences[0].frames, -1);
 
         if ( opts.endPage ) {
             var endId, lastPageId, lastPage, endPage, endLayers;
