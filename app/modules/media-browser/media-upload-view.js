@@ -1,10 +1,11 @@
 define([
     "app",
     "modules/media-browser/item-view",
+    "common/modules/askers/asker",
     "backbone"
 ],
 
-function( app, ItemView ) {
+function( app, ItemView, Asker ) {
 
     var UploadItem = Backbone.Model.extend({
         modelType: "item",
@@ -166,9 +167,11 @@ function( app, ItemView ) {
             this.model.mediaCollection.trigger("sync");
 
         },
+
         updateProgress: function(){
             console.log("updating progress");
         },
+
         imageUpload: function(event) {
 
             this.$('.upload-instructions').html("uploading... ");
@@ -217,7 +220,23 @@ function( app, ItemView ) {
                     $(".intro").remove();
                     this.addItem( item );
                     this.render();
+                }.bind(this),
+
+                error: function( XHR, status, error ) {
+                    this.onUploadError( XHR, status, error );
                 }.bind(this)
+            });
+        },
+
+        onUploadError: function( XHR, status, error) {
+            console.log("AJAX ERROR", XHR, status, error);
+            new Asker({
+                question: "Something went wrong with your upload!",
+                description: "Try again?",
+                cancel: false,
+                okay: function() {
+                    this.render();
+                }.bind( this )
             });
         }
 

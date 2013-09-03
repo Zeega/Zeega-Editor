@@ -990,18 +990,6 @@ __p+='<div class="modal-content">\n    <div class="modal-title">Edit your text</
 return __p;
 };
 
-this["JST"]["app/engine/modules/askers/asker.html"] = function(obj){
-var __p='';var print=function(){__p+=Array.prototype.join.call(arguments, '')};
-with(obj||{}){
-__p+='<div class="asker-floater">\n    <div class="asker-content">\n        <h3>'+
-( question )+
-'</h3>\n        <div class="sub">'+
-( description )+
-'</div>\n        <div class="options">\n            <a href="#" class="ask-cancel">cancel</a>\n            <a class="ask-okay btnz btnz-submit">Okay</a>\n        </div>\n    </div>\n</div>';
-}
-return __p;
-};
-
 this["JST"]["app/player/templates/controls/arrows.html"] = function(obj){
 var __p='';var print=function(){__p+=Array.prototype.join.call(arguments, '')};
 with(obj||{}){
@@ -40042,7 +40030,7 @@ function( app, Player ) {
 
 });
 
-define('engine/modules/askers/asker.view',[
+define('common/modules/askers/asker.view',[
     "app",
     "backbone"
 ],
@@ -40051,7 +40039,7 @@ function( app ) {
 
     return Backbone.View.extend({
 
-        template: "app/engine/modules/askers/asker",
+        template: "app/common/modules/askers/asker",
         className: "ZEEGA-asker asker-overlay",
 
         serialize: function() {
@@ -40102,9 +40090,9 @@ function( app ) {
 
 });
 
-define('engine/modules/askers/asker',[
+define('common/modules/askers/asker',[
     "app",
-    "engine/modules/askers/asker.view",
+    "common/modules/askers/asker.view",
     "backbone"
 ],
 
@@ -40117,7 +40105,7 @@ function( app, AskerView ) {
             description: "",
             response: null,
             okay: null,
-            cancel: null
+            cancel: true
         },
 
         initialize: function() {
@@ -40141,7 +40129,7 @@ function( app, AskerView ) {
 
 define('modules/views/frame',[
     "app",
-    "engine/modules/askers/asker",
+    "common/modules/askers/asker",
     "backbone"
 ],
 
@@ -40814,7 +40802,7 @@ define("tipsy", function(){});
 define('modules/views/layer-list',[
     "app",
     "modules/views/layer-controls",
-    "engine/modules/askers/asker",
+    "common/modules/askers/asker",
     "backbone",
     "tipsy"
 ],
@@ -42643,10 +42631,11 @@ function( app, ZeegaSearch, FlickrSearch, TumblrSearch, SoundcloudSearch, GiphyS
 define('modules/media-browser/media-upload-view',[
     "app",
     "modules/media-browser/item-view",
+    "common/modules/askers/asker",
     "backbone"
 ],
 
-function( app, ItemView ) {
+function( app, ItemView, Asker ) {
 
     var UploadItem = Backbone.Model.extend({
         modelType: "item",
@@ -42808,9 +42797,11 @@ function( app, ItemView ) {
             this.model.mediaCollection.trigger("sync");
 
         },
+
         updateProgress: function(){
             console.log("updating progress");
         },
+
         imageUpload: function(event) {
 
             this.$('.upload-instructions').html("uploading... ");
@@ -42859,7 +42850,23 @@ function( app, ItemView ) {
                     $(".intro").remove();
                     this.addItem( item );
                     this.render();
+                }.bind(this),
+
+                error: function( XHR, status, error ) {
+                    this.onUploadError( XHR, status, error );
                 }.bind(this)
+            });
+        },
+
+        onUploadError: function( XHR, status, error) {
+            console.log("AJAX ERROR", XHR, status, error);
+            new Asker({
+                question: "Something went wrong with your upload!",
+                description: "Try again?",
+                cancel: false,
+                okay: function() {
+                    this.render();
+                }.bind( this )
             });
         }
 
