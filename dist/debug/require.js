@@ -42875,14 +42875,14 @@ function( app, ItemView, Asker ) {
         },
 
         onUploadError: function( XHR, status, error) {
-            console.log("AJAX ERROR", XHR, status);
+            console.log("AJAX ERROR:", XHR, "status:", status, "error:", error);
             var message;
 
-            switch( status ) {
-                case "error Request Entity Too Large":
+            switch( error ) {
+                case "Request Entity Too Large":
                     message = "Your file is too large. Try saving a smaller version."
                     break;
-                case "error Internal Server Error":
+                case "Internal Server Error":
                     message = "We had a problem uploading your file. Try again?";
                     break;
                 default:
