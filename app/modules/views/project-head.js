@@ -303,6 +303,7 @@ function( app, Player ) {
         onProfile: function(){
             app.emit("to_profile");
         },
+        
         onHome: function(){
             app.emit("to_home");
         }
