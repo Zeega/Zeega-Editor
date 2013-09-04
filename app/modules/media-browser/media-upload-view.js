@@ -234,13 +234,13 @@ function( app, ItemView, Asker ) {
 
             switch( error ) {
                 case "Request Entity Too Large":
-                    message = "Your file is too large. Try saving a smaller version."
+                    message = "Your file is too large. Try saving a smaller version.";
                     break;
                 case "Internal Server Error":
                     message = "We had a problem uploading your file. Try again?";
                     break;
                 default:
-                    message = "Try again?"
+                    message = "Try again?";
             };
 
             new Asker({

@@ -40037,6 +40037,7 @@ function( app, Player ) {
         onProfile: function(){
             app.emit("to_profile");
         },
+        
         onHome: function(){
             app.emit("to_home");
         }
@@ -41480,15 +41481,12 @@ function( app, ItemView ) {
         className: function() {
             return "item audio-item item-" + this.model.id;
         },
+
         tagName: "li",
         template: "app/templates/audio-item",
 
         serialize: function() {
-            return _.extend( {
-                        
-                    },
-                    this.model.toJSON()
-            );
+            return _.extend({}, this.model.toJSON());
         },
 
         afterRender: function() {
@@ -41501,10 +41499,11 @@ function( app, ItemView ) {
                     left: 20,
                     top: 20
                 },
+
                 helper: function( e ) {
-                    
                     return $(this).find(".item-thumb img").clone().addClass("item-dragging");
                 },
+
                 start: function() {
                     if ( this.model.get("media_type") == "Image" ) {
                         $("body").append("<img class='img-preload' src='" + this.model.get("uri") + "' height='1px' width='1px' style='position:absolute;left:-1000%;top:-1000%'/>");
@@ -41512,6 +41511,7 @@ function( app, ItemView ) {
                     app.emit("item_drag_start", this.model );
                     app.dragging = this.model;
                 }.bind( this ),
+                
                 stop: function() {
                     $(".img-preload").remove();
                     app.emit("item_drag_stop", this.model );
@@ -41529,6 +41529,7 @@ function( app, ItemView ) {
 
         viewItem: function() {
             this.model.collection.itemViewer( this.model );
+            app.layout.soundtrack.pause();
         }
 
     });
@@ -42880,13 +42881,13 @@ function( app, ItemView, Asker ) {
 
             switch( error ) {
                 case "Request Entity Too Large":
-                    message = "Your file is too large. Try saving a smaller version."
+                    message = "Your file is too large. Try saving a smaller version.";
                     break;
                 case "Internal Server Error":
                     message = "We had a problem uploading your file. Try again?";
                     break;
                 default:
-                    message = "Try again?"
+                    message = "Try again?";
             };
 
             new Asker({
