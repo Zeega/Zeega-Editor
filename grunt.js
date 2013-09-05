@@ -188,6 +188,7 @@ module.exports = function(grunt) {
             modules: {
                 files: {
                     "assets/css/modules.less": [
+                        "app/common/**/*.less",
                         "app/modules/**/*.less"
                     ]
                 }
