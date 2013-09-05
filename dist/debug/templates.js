@@ -67,9 +67,9 @@ __p+='<div class="frame-menu tooltip"\n    title="delete page"\n    data-gravity
 ( id )+
 '"\n    style="\n        ';
  if( thumbnail_url !== "" ) { 
-;__p+='\n            background: url('+
+;__p+='\n            background-image: url('+
 ( thumbnail_url )+
-') no-repeat center center; \n            -webkit-background-size: cover;\n            -moz-background-size: cover;\n            -o-background-size: cover;\n            background-size: cover;\n        ';
+'); \n            background-repeat: no-repeat;\n            background-position: center;\n            -webkit-background-size: cover;\n            -moz-background-size: cover;\n            -o-background-size: cover;\n            background-size: cover;\n        ';
  } 
 ;__p+='\n"></a>';
 }

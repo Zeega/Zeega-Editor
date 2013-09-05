@@ -25,14 +25,11 @@ function( app, Asker ) {
 
         onThumbUpdateComplete: function() {
             if( this.model.get("thumbnail_url") !== "" ){
-                this.$el.css({
-                    background: "transparent"
-                });
                 this.$(".frame-thumb").css({
-                    background: "url(" + this.model.get("thumbnail_url") + ") no-repeat center center",
+                    backgroundRepeat: "no-repeat",
+                    backgroundImage: "url(" + this.model.get("thumbnail_url") + ")",
                     backgroundSize: "cover",
-                    backgroundPosition: "center",
-                    opacity: 1
+                    backgroundPosition: "center"
                 });
             } else {
                 this.$(".frame-thumb").css({

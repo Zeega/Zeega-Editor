@@ -453,9 +453,9 @@ __p+='<div class="frame-menu tooltip"\n    title="delete page"\n    data-gravity
 ( id )+
 '"\n    style="\n        ';
  if( thumbnail_url !== "" ) { 
-;__p+='\n            background: url('+
+;__p+='\n            background-image: url('+
 ( thumbnail_url )+
-') no-repeat center center; \n            -webkit-background-size: cover;\n            -moz-background-size: cover;\n            -o-background-size: cover;\n            background-size: cover;\n        ';
+'); \n            background-repeat: no-repeat;\n            background-position: center;\n            -webkit-background-size: cover;\n            -moz-background-size: cover;\n            -o-background-size: cover;\n            background-size: cover;\n        ';
  } 
 ;__p+='\n"></a>';
 }
@@ -40180,14 +40180,11 @@ function( app, Asker ) {
 
         onThumbUpdateComplete: function() {
             if( this.model.get("thumbnail_url") !== "" ){
-                this.$el.css({
-                    background: "transparent"
-                });
                 this.$(".frame-thumb").css({
-                    background: "url(" + this.model.get("thumbnail_url") + ") no-repeat center center",
+                    backgroundRepeat: "no-repeat",
+                    backgroundImage: "url(" + this.model.get("thumbnail_url") + ")",
                     backgroundSize: "cover",
-                    backgroundPosition: "center",
-                    opacity: 1
+                    backgroundPosition: "center"
                 });
             } else {
                 this.$(".frame-thumb").css({
