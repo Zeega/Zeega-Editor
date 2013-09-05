@@ -37203,7 +37203,7 @@ function( app, Backbone, LayerCollection, Layers ) {
         //update the frame thumbnail
         updateThumbUrl: function() {
             var url;
-
+            this.set("thumbnail_url", "");
             this.layers.each(function( layer ) {
                 if ( layer.get("type") == "Image" ) {
                     this.set("thumbnail_url", layer.getAttr("thumbnail_url"));
@@ -40179,15 +40179,22 @@ function( app, Asker ) {
         },
 
         onThumbUpdateComplete: function() {
-            this.$el.css({
-                background: "transparent"
-            });
-            this.$(".frame-thumb").css({
-                background: "url(" + this.model.get("thumbnail_url") + ") no-repeat center center",
-                backgroundSize: "cover",
-                backgroundPosition: "center",
-                opacity: 1
-            });
+            if( this.model.get("thumbnail_url") !== "" ){
+                this.$el.css({
+                    background: "transparent"
+                });
+                this.$(".frame-thumb").css({
+                    background: "url(" + this.model.get("thumbnail_url") + ") no-repeat center center",
+                    backgroundSize: "cover",
+                    backgroundPosition: "center",
+                    opacity: 1
+                });
+            } else {
+                this.$(".frame-thumb").css({
+                    background: "black"
+                });
+            }
+            
         },
 
         makeDroppable: function() {
