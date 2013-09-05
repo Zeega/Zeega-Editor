@@ -42896,7 +42896,7 @@ function( app, ItemView, Asker ) {
                 }.bind(this),
 
                 error: function( XHR, status, error ) {
-                    console.log(error);
+
                     this.onUploadError( XHR, status, error );
                 }.bind(this)
             });
@@ -42916,13 +42916,13 @@ function( app, ItemView, Asker ) {
                 default:
                     message = "There was an error processing your file. Try again?";
             }
-
+            this.render();
             new Asker({
                 question: "Something went wrong with your upload!",
                 description: message,
                 cancel: false,
                 okay: function() {
-                    this.render();
+                    //this.render();
                 }.bind( this )
             });
         }
