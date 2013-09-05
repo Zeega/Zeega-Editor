@@ -142,7 +142,6 @@ function( app, ItemView, Asker ) {
                         animate_url: item.get("thumbnail_url")
                     }
                 });
-                item.unset("thumbnail_url");
             }
 
             item.save();
