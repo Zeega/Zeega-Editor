@@ -56,7 +56,7 @@ function( app, ItemView, Asker ) {
             "allowDelete": true
         },
         url: function(){
-            console.log("API", app.getApi() + "items/parser?url=" + this.get("web_url"))
+            // console.log("API", app.getApi() + "items/parser?url=" + this.get("web_url"));
             return app.getApi() + "items/parser?url=" + this.get("web_url");
         },
 
@@ -168,7 +168,7 @@ function( app, ItemView, Asker ) {
         },
 
         updateProgress: function(){
-            console.log("updating progress");
+            // console.log("updating progress");
         },
 
         imageUpload: function(event) {
@@ -228,7 +228,7 @@ function( app, ItemView, Asker ) {
         },
 
         onUploadError: function( XHR, status, error) {
-            console.log("AJAX ERROR:", XHR, "status:", status, "error:", error);
+            // console.log("AJAX ERROR:", XHR, "status:", status, "error:", error);
             var message;
 
             switch( error ) {
@@ -240,7 +240,7 @@ function( app, ItemView, Asker ) {
                     break;
                 default:
                     message = "Try again?";
-            };
+            }
 
             new Asker({
                 question: "Something went wrong with your upload!",

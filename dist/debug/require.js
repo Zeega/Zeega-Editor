@@ -798,6 +798,14 @@ __p+='<div class="modal-wrapper">\n\n    <div class="modal-content">\n\n        
 return __p;
 };
 
+this["JST"]["app/modules/media-browser/index.html"] = function(obj){
+var __p='';var print=function(){__p+=Array.prototype.join.call(arguments, '')};
+with(obj||{}){
+__p+='\n\n\n<html>\n\n\n<body>\n\n<div style="width:500px; height: 266px; background-image: url(\'giftest.jpg\');" ></div>\n\n\n\n</body>\n\n\n\n</html>';
+}
+return __p;
+};
+
 this["JST"]["app/modules/pointers/pointer.html"] = function(obj){
 var __p='';var print=function(){__p+=Array.prototype.join.call(arguments, '')};
 with(obj||{}){
@@ -42249,7 +42257,7 @@ function( app, SearchModel ) {
             var args = this.get("urlArguments");
 
             args.before = new Date().getTime();
-            args.tag = query.replace( " ", "-" );
+            args.tag = query.replace( / /g, "-" );
             if( args.tag !== "" ){
                 args.tag = args.tag  + "-gif";
             }
@@ -42447,7 +42455,7 @@ function( app, SearchModel ) {
             args.offset = 0;
             
             if( query !== "" ){
-                args.tag = query.replace( " ", "-" );
+                args.tag = query.replace( / /g, "-" );
             }
             
             
@@ -42704,7 +42712,7 @@ function( app, ItemView, Asker ) {
             "allowDelete": true
         },
         url: function(){
-            console.log("API", app.getApi() + "items/parser?url=" + this.get("web_url"))
+            // console.log("API", app.getApi() + "items/parser?url=" + this.get("web_url"));
             return app.getApi() + "items/parser?url=" + this.get("web_url");
         },
 
@@ -42790,7 +42798,6 @@ function( app, ItemView, Asker ) {
                         animate_url: item.get("thumbnail_url")
                     }
                 });
-                item.unset("thumbnail_url");
             }
 
             item.save();
@@ -42817,7 +42824,7 @@ function( app, ItemView, Asker ) {
         },
 
         updateProgress: function(){
-            console.log("updating progress");
+            // console.log("updating progress");
         },
 
         imageUpload: function(event) {
@@ -42877,7 +42884,7 @@ function( app, ItemView, Asker ) {
         },
 
         onUploadError: function( XHR, status, error) {
-            console.log("AJAX ERROR:", XHR, "status:", status, "error:", error);
+            // console.log("AJAX ERROR:", XHR, "status:", status, "error:", error);
             var message;
 
             switch( error ) {
@@ -42889,7 +42896,7 @@ function( app, ItemView, Asker ) {
                     break;
                 default:
                     message = "Try again?";
-            };
+            }
 
             new Asker({
                 question: "Something went wrong with your upload!",
