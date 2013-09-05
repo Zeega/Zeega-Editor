@@ -13022,7 +13022,11 @@ function( Spinner ) {
         },
 
         getWebRoot: function() {
-            return this.getHostname() + ( this.metadata.root || this.metadata.directory );
+            if( this.metadata.root || this.metadata.directory ){
+                return this.getHostname() + ( this.metadata.root || this.metadata.directory );
+            } else {
+                return this.getHostname();
+            } 
         },
 
         getApi: function() {
