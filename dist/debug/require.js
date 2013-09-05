@@ -42796,7 +42796,8 @@ function( app, ItemView, Asker ) {
                 item.set({
                     "attributes": {
                         animate_url: item.get("thumbnail_url")
-                    }
+                    },
+                    "create_thumbnail": true
                 });
             }
 
