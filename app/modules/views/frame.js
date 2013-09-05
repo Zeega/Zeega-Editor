@@ -24,15 +24,22 @@ function( app, Asker ) {
         },
 
         onThumbUpdateComplete: function() {
-            this.$el.css({
-                background: "transparent"
-            });
-            this.$(".frame-thumb").css({
-                background: "url(" + this.model.get("thumbnail_url") + ") no-repeat center center",
-                backgroundSize: "cover",
-                backgroundPosition: "center",
-                opacity: 1
-            });
+            if( this.model.get("thumbnail_url") !== "" ){
+                this.$el.css({
+                    background: "transparent"
+                });
+                this.$(".frame-thumb").css({
+                    background: "url(" + this.model.get("thumbnail_url") + ") no-repeat center center",
+                    backgroundSize: "cover",
+                    backgroundPosition: "center",
+                    opacity: 1
+                });
+            } else {
+                this.$(".frame-thumb").css({
+                    background: "black"
+                });
+            }
+            
         },
 
         makeDroppable: function() {
