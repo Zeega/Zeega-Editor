@@ -213,27 +213,26 @@ function( app, ItemView, Asker ) {
                 
                 success: function( data ) {
 
-                    if(data == "Invalid image"){
-                        this.onUploadError({}, {}, "Invalid File Type");
-                    } else {
-                        var item = new UploadItem({
-                            "title": data.title,
-                            "uri": data.fullsize_url,
-                            "attribution_uri": data.fullsize_url,
-                            "thumbnail_url": data.image_url_4
-                        });
+                    
+                    var item = new UploadItem({
+                        "title": data.title,
+                        "uri": data.fullsize_url,
+                        "attribution_uri": data.fullsize_url,
+                        "thumbnail_url": data.image_url_4
+                    });
 
-                        if( data.image_url_8 ){
-                            item.set("zga_uri", data.image_url_8 );
-                        }
-
-                        $(".intro").remove();
-                        this.addItem( item );
-                        this.render();
+                    if( data.image_url_8 ){
+                        item.set("zga_uri", data.image_url_8 );
                     }
+
+                    $(".intro").remove();
+                    this.addItem( item );
+                    this.render();
+                    
                 }.bind(this),
 
                 error: function( XHR, status, error ) {
+                    console.log(error);
                     this.onUploadError( XHR, status, error );
                 }.bind(this)
             });
