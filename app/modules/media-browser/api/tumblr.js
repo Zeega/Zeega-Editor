@@ -51,7 +51,7 @@ function( app, SearchModel ) {
             var args = this.get("urlArguments");
 
             args.before = new Date().getTime();
-            args.tag = query.replace( " ", "-" );
+            args.tag = query.replace( / /g, "-" );
             if( args.tag !== "" ){
                 args.tag = args.tag  + "-gif";
             }

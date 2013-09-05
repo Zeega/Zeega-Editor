@@ -66,7 +66,7 @@ function( app, SearchModel ) {
             args.offset = 0;
             
             if( query !== "" ){
-                args.tag = query.replace( " ", "-" );
+                args.tag = query.replace( / /g, "-" );
             }
             
             
