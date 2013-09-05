@@ -42680,6 +42680,7 @@ function( app, ItemView, Asker ) {
             "description": "",
             "text": "",
             "uri": "",
+            "zga_uri": null,
             "attribution_uri": "",
             "media_type": "Image",
             "layer_type": "Image",
@@ -42706,6 +42707,7 @@ function( app, ItemView, Asker ) {
             "description": "",
             "text": "",
             "uri": "",
+            "zga_uri": null,
             "attribution_uri": "",
             "media_type": "Image",
             "layer_type": "Image",
@@ -42874,16 +42876,25 @@ function( app, ItemView, Asker ) {
                 },
                 
                 success: function( data ) {
-                    var item = new UploadItem({
-                        "title": data.title,
-                        "uri": data.fullsize_url,
-                        "attribution_uri": data.fullsize_url,
-                        "thumbnail_url": data.image_url_4
-                    });
 
-                    $(".intro").remove();
-                    this.addItem( item );
-                    this.render();
+                    if(data == "Invalid image"){
+                        this.onUploadError({}, {}, "Invalid File Type");
+                    } else {
+                        var item = new UploadItem({
+                            "title": data.title,
+                            "uri": data.fullsize_url,
+                            "attribution_uri": data.fullsize_url,
+                            "thumbnail_url": data.image_url_4
+                        });
+
+                        if( data.image_url_8 ){
+                            item.set("zga_uri", data.image_url_8 );
+                        }
+
+                        $(".intro").remove();
+                        this.addItem( item );
+                        this.render();
+                    }
                 }.bind(this),
 
                 error: function( XHR, status, error ) {
@@ -42904,7 +42915,7 @@ function( app, ItemView, Asker ) {
                     message = "We had a problem uploading your file. Try again?";
                     break;
                 default:
-                    message = "Try again?";
+                    message = "There was an error processing your file. Try again?";
             }
 
             new Asker({
