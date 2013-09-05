@@ -42903,7 +42903,7 @@ function( app, ItemView, Asker ) {
         },
 
         onUploadError: function( XHR, status, error) {
-            // console.log("AJAX ERROR:", XHR, "status:", status, "error:", error);
+            console.log("AJAX ERROR:", XHR, "status:", status, "error:", error);
             var message;
 
             switch( error ) {
