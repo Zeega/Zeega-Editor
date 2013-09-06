@@ -169,13 +169,9 @@ __p+='<a href="#">\n    <div class="item-thumb">\n        ';
 ( media_type )+
 '" src="'+
 ( thumbnail_url )+
-'"\n            height="100%"\n            width="100%"\n            ';
- if ( archive == "Giphy" ){ 
-;__p+='\n            style="'+
+'"\n            height="100%"\n            width="100%"\n            style="'+
 ( style )+
-'"\n            ';
- } 
-;__p+='\n\n        />\n    </div>\n    <div class="item-title">\n        \n        <span class="item-title-text">'+
+'"\n\n        />\n    </div>\n    <div class="item-title">\n        \n        <span class="item-title-text">'+
 ( title )+
 '</span>\n    </div>\n</a>';
 }
