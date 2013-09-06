@@ -35092,14 +35092,14 @@ function( app, Layer, Visual ){
                         height: this.model.pageBackgroundPositioning.height,
                         width: this.aspectRatio * this.model.pageBackgroundPositioning.height,
                         top: this.model.pageBackgroundPositioning.top,
-                        left: -((this.aspectRatio * this.model.pageBackgroundPositioning.height) - this.model.pageBackgroundPositioning.width ) / 2
+                        left: - this.model.pageBackgroundPositioning.left -((this.aspectRatio * this.model.pageBackgroundPositioning.height) - this.model.pageBackgroundPositioning.width ) / 2
                     };
                 } else {
                     // taller
                     newBGPos = {
                         height: this.model.pageBackgroundPositioning.width * Math.pow( this.aspectRatio, -1 ),
                         width: this.model.pageBackgroundPositioning.width,
-                        top: -(this.model.pageBackgroundPositioning.width * Math.pow( this.aspectRatio, -1 ) - this.model.pageBackgroundPositioning.height ) / 2,
+                        top: - this.model.pageBackgroundPositioning.top -(this.model.pageBackgroundPositioning.width * Math.pow( this.aspectRatio, -1 ) - this.model.pageBackgroundPositioning.height ) / 2,
                         left: this.model.pageBackgroundPositioning.left
                     };
                 }
