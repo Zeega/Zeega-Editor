@@ -41429,7 +41429,7 @@ function( app, ItemView ) {
 
             if( this.model.get("attributes") && this.model.get("attributes").zga_uri ){
                 this.model.set({
-                    zeega_uri: this.model.get("attributes").zga_uri
+                    zga_uri: this.model.get("attributes").zga_uri
                 });
             }
 
