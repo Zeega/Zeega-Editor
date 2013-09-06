@@ -41394,9 +41394,11 @@ function( app, ItemView ) {
 
             if(_.isNull(this.model.get("thumbnail_url"))){
                 this.model.set( "thumbnail_url", this.model.get("uri") );
-
             }
              
+
+            // update image style if thumbnail is not square
+
             if( this.model.get("attributes") && this.model.get("attributes").height ){
                 if( this.model.get("attributes").width > this.model.get("attributes").height ){
                     h = dim;
@@ -41409,8 +41411,10 @@ function( app, ItemView ) {
                     offset = ( dim - h )/2;
                     style = "width:" + w +"px; height:" + h + "px; top:" + offset + "px;";
                 }
-                
             }
+
+
+
             return _.extend( {
                         style: style
                     },
@@ -41419,6 +41423,16 @@ function( app, ItemView ) {
         },
 
         afterRender: function() {
+
+            
+            // patch for missing zeega_uri attribute
+
+            if( this.model.get("attributes") && this.model.get("attributes").zga_uri ){
+                this.model.set({
+                    zeega_uri: this.model.get("attributes").zga_uri
+                });
+            }
+
             this.listenTo(this.model, 'destroy', this.remove);
             this.$el.draggable({
                 revert: "invalid",
@@ -42878,12 +42892,29 @@ function( app, ItemView, Asker ) {
                     var item = new UploadItem({
                         "title": data.title,
                         "uri": data.fullsize_url,
-                        "attribution_uri": data.fullsize_url,
-                        "thumbnail_url": data.image_url_4
+                        "attribution_uri": data.fullsize_url
                     });
 
                     if( data.image_url_8 ){
-                        item.set("zga_uri", data.image_url_8 );
+                        var animationMeta = data.image_url_8.match(/\d+\d*_/g);
+                        var width  = animationMeta[ 0 ].split("_")[0];
+                        var height = animationMeta[ 1 ].split("_")[0];
+
+                        item.set({
+                            zga_uri: data.image_url_8,
+                            thumbnail_url: data.image_url_5,
+                            attributes: {
+                                animate_url: data.fullsize_url,
+                                zga_uri: data.image_url_8,
+                                width: width,
+                                height: height
+                            }
+                        });
+
+                    } else {
+                        item.set({
+                            thumbnail_url: data.image_url_4
+                        });
                     }
 
                     $(".intro").remove();

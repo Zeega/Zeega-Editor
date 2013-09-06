@@ -22,9 +22,11 @@ function( app, ItemView ) {
 
             if(_.isNull(this.model.get("thumbnail_url"))){
                 this.model.set( "thumbnail_url", this.model.get("uri") );
-
             }
              
+
+            // update image style if thumbnail is not square
+
             if( this.model.get("attributes") && this.model.get("attributes").height ){
                 if( this.model.get("attributes").width > this.model.get("attributes").height ){
                     h = dim;
@@ -37,8 +39,10 @@ function( app, ItemView ) {
                     offset = ( dim - h )/2;
                     style = "width:" + w +"px; height:" + h + "px; top:" + offset + "px;";
                 }
-                
             }
+
+
+
             return _.extend( {
                         style: style
                     },
@@ -47,6 +51,16 @@ function( app, ItemView ) {
         },
 
         afterRender: function() {
+
+            
+            // patch for missing zeega_uri attribute
+
+            if( this.model.get("attributes") && this.model.get("attributes").zga_uri ){
+                this.model.set({
+                    zeega_uri: this.model.get("attributes").zga_uri
+                });
+            }
+
             this.listenTo(this.model, 'destroy', this.remove);
             this.$el.draggable({
                 revert: "invalid",

@@ -217,12 +217,29 @@ function( app, ItemView, Asker ) {
                     var item = new UploadItem({
                         "title": data.title,
                         "uri": data.fullsize_url,
-                        "attribution_uri": data.fullsize_url,
-                        "thumbnail_url": data.image_url_4
+                        "attribution_uri": data.fullsize_url
                     });
 
                     if( data.image_url_8 ){
-                        item.set("zga_uri", data.image_url_8 );
+                        var animationMeta = data.image_url_8.match(/\d+\d*_/g);
+                        var width  = animationMeta[ 0 ].split("_")[0];
+                        var height = animationMeta[ 1 ].split("_")[0];
+
+                        item.set({
+                            zga_uri: data.image_url_8,
+                            thumbnail_url: data.image_url_5,
+                            attributes: {
+                                animate_url: data.fullsize_url,
+                                zga_uri: data.image_url_8,
+                                width: width,
+                                height: height
+                            }
+                        });
+
+                    } else {
+                        item.set({
+                            thumbnail_url: data.image_url_4
+                        });
                     }
 
                     $(".intro").remove();
