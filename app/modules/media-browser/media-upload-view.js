@@ -188,10 +188,6 @@ function( app, ItemView, Asker ) {
             var updateProgress = function( e ){
                 var w = e.loaded * 141 / e.total;
 
-                if( e.loaded * 1.5 > e.total){
-                    $(".upload-instructions").html("optimizing...");
-                }
-
                 _this.$('.upload-progress').clearQueue().animate ({ "width": w + "px"}, 1000);
                 if(  w == 141 ) {
                     _this.$('.upload-progress').clearQueue().animate ({ "width": "270px"}, 10000);
