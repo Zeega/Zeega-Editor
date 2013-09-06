@@ -1533,9 +1533,10 @@ body .ui-tooltip {
   font-family: "Futura", sans-serif;
 }
 .ZEEGA-asker .options {
-  bottom: 30px;
+  bottom: 25px;
   position: absolute;
   right: 20px;
+  cursor: pointer;
 }
 .ZEEGA-asker .btnz-submit {
   margin-left: 20px;
