@@ -239,18 +239,18 @@ function( app, ItemView, Asker ) {
         },
 
         onUploadError: function( XHR, status, error) {
-            console.log("AJAX ERROR:", XHR, "status:", status, "error:", error);
+            // console.log("AJAX ERROR:", XHR, "status:", status, "error:", error);
             var message;
 
             switch( error ) {
                 case "Request Entity Too Large":
-                    message = "Your file is too large. Try saving a smaller version.";
+                    message = "Nertz! Your file is over 3mb. Make it smaller and try again.";
                     break;
                 case "Internal Server Error":
-                    message = "We had a problem uploading your file. Try again?";
+                    message = "Zeega doesn't support this file type. Instead, try a .gif, .jpg or .png!";
                     break;
                 default:
-                    message = "There was an error processing your file. Try again?";
+                    message = "Zeega doesn't support this file type. Instead, try a .gif, .jpg or .png!";
             }
             this.render();
             new Asker({
