@@ -42849,17 +42849,16 @@ function( app, ItemView, Asker ) {
             imageData.append( "file", fileInput.files[0] );
 
             var updateProgress = function( e ){
-                var w = e.loaded * 121 / e.total;
+                var w = e.loaded * 141 / e.total;
 
-                if( e.loaded * 2 > e.total){
+                if( e.loaded * 1.5 > e.total){
                     $(".upload-instructions").html("optimizing...");
                 }
 
                 _this.$('.upload-progress').clearQueue().animate ({ "width": w + "px"}, 1000);
                 if(  w == 141 ) {
-                    _this.$('.upload-progress').clearQueue().animate ({ "width": "283px"}, 10000);
+                    _this.$('.upload-progress').clearQueue().animate ({ "width": "270px"}, 10000);
                 }
-
             };
 
             $.ajax({
