@@ -222,7 +222,12 @@ function( app, ItemView, Asker ) {
                     });
 
                     if( data.image_url_8 ){
-                        item.set("zga_uri", data.image_url_8 );
+                        item.set({
+                            "zga_uri": data.image_url_8,
+                            "attributes": {
+                                animate_url: item.get("fullsize_url")
+                            }
+                        });
                     }
 
                     $(".intro").remove();

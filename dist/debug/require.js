@@ -34979,8 +34979,6 @@ function( app, Layer, Visual ){
             
             if( this.isAnimated() ){
                 this.template = "image/zga";
-                attr.uri = attr.zga_uri;
-                this.model.set( { attr: attr } );
             }
 
             if ( this.model.getAttr("page_background")) {
@@ -41413,6 +41411,10 @@ function( app, ItemView ) {
                 }
                 
             }
+
+
+
+
             return _.extend( {
                         style: style
                     },
@@ -41421,6 +41423,14 @@ function( app, ItemView ) {
         },
 
         afterRender: function() {
+
+
+            if( this.model.get("attributes") && this.model.get("attributes").zga_url ){
+                this.setHoverStyle();
+            }
+
+
+
             this.listenTo(this.model, 'destroy', this.remove);
             this.$el.draggable({
                 revert: "invalid",
@@ -41449,6 +41459,31 @@ function( app, ItemView ) {
             });
         },
 
+        setHoverStyle: function(){
+            var w, h, offset, animationMeta, width, height,
+                style = "",
+                dim = 100;
+
+                animationMeta = this.model.get("zga_uri").match(/\d+\d*_/g);
+                width  = animationMeta[ 0 ].split("_")[0];
+                height = animationMeta[ 1 ].split("_")[0];
+
+
+                 if( width > height ){
+                    h = dim;
+                    w = h * width / height ;
+                    offset = ( dim - w )/2;
+                    style = "width:" + w +"px; height:" + h + "px; left:" + offset + "px;";
+                } else {
+                    w = dim;
+                    h = height * w / width;
+                    offset = ( dim - h )/2;
+                    style = "width:" + w +"px; height:" + h + "px; top:" + offset + "px;";
+                }
+
+                this.model.set("style", style);
+        },
+
         events: {
             "click": "viewItem",
             "mouseover img": "onMouseOver",
@@ -41460,9 +41495,15 @@ function( app, ItemView ) {
                 this.$("img").attr("src", this.model.get("thumbnail_url").replace("_s.gif", ".gif"));
             }
 
-            if( this.model.get("attributes") && !_.isUndefined( this.model.get("attributes").animate_url ) ){
+            else if( this.model.get("attributes") && !_.isUndefined( this.model.get("attributes").animate_url ) ){
                 this.$("img").attr("src", this.model.get("attributes").animate_url );
-            }
+                if( this.model.get("zga_uri") ){
+                    this.$("img").attr("style", this.model.get("style"));
+                }
+
+            } 
+
+
         },
 
         onMouseOut: function(){
@@ -41472,6 +41513,9 @@ function( app, ItemView ) {
 
             if( this.model.get("attributes") && !_.isUndefined( this.model.get("attributes").animate_url ) ){
                 this.$("img").attr("src", this.model.get("thumbnail_url"));
+                if( this.model.get("zga_uri")){
+                    this.$("img").attr("style", "");
+                }
             }
         },
 
@@ -42885,7 +42929,12 @@ function( app, ItemView, Asker ) {
                     });
 
                     if( data.image_url_8 ){
-                        item.set("zga_uri", data.image_url_8 );
+                        item.set({
+                            "zga_uri": data.image_url_8,
+                            "attributes": {
+                                animate_url: item.get("fullsize_url")
+                            }
+                        });
                     }
 
                     $(".intro").remove();
