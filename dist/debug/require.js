@@ -34911,6 +34911,9 @@ function( app, Layer, Visual ){
         },
 
         pageBackgroundPositioning: {
+
+
+            baseRatio: 0.75,
             height: 112.67,
             width: 236.72,
             top: -6.57277,
@@ -35084,23 +35087,23 @@ function( app, Layer, Visual ){
 
                 
             } else {
-                var fullscreenRatio = this.model.pageBackgroundPositioning.width / this.model.pageBackgroundPositioning.height;
+                var fullscreenRatio = ( this.model.pageBackgroundPositioning.width / this.model.pageBackgroundPositioning.height ) * this.model.pageBackgroundPositioning.baseRatio ;
 
                 if ( this.aspectRatio >= fullscreenRatio ) {
                     // wider
 
                     newBGPos = {
                         height: this.model.pageBackgroundPositioning.height,
-                        width: this.aspectRatio * this.model.pageBackgroundPositioning.height,
+                        width: this.aspectRatio * this.model.pageBackgroundPositioning.height / this.pageBackgroundPositioning.baseRatio,
                         top: this.model.pageBackgroundPositioning.top,
-                        left: (100 - this.aspectRatio * this.model.pageBackgroundPositioning.height)/2
+                        left: (100 - this.aspectRatio * this.model.pageBackgroundPositioning.height / this.pageBackgroundPositioning.baseRatio)/2
                     };
                 } else {
                     // taller
                     newBGPos = {
-                        height: this.model.pageBackgroundPositioning.width * Math.pow( this.aspectRatio, -1 ),
+                        height: this.model.pageBackgroundPositioning.width * Math.pow( this.aspectRatio, -1 ) * this.pageBackgroundPositioning.baseRatio,
                         width: this.model.pageBackgroundPositioning.width,
-                        top: ( 100 - this.model.pageBackgroundPositioning.width * Math.pow( this.aspectRatio, -1 ) ) / 2,
+                        top: ( 100 - this.model.pageBackgroundPositioning.width * Math.pow( this.aspectRatio, -1 ) * this.pageBackgroundPositioning.baseRatio ) / 2,
                         left: this.model.pageBackgroundPositioning.left
                     };
                 }
