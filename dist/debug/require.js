@@ -35094,16 +35094,16 @@ function( app, Layer, Visual ){
 
                     newBGPos = {
                         height: this.model.pageBackgroundPositioning.height,
-                        width: this.aspectRatio * this.model.pageBackgroundPositioning.height / this.pageBackgroundPositioning.baseRatio,
+                        width: this.aspectRatio * this.model.pageBackgroundPositioning.height / this.model.pageBackgroundPositioning.baseRatio,
                         top: this.model.pageBackgroundPositioning.top,
-                        left: (100 - this.aspectRatio * this.model.pageBackgroundPositioning.height / this.pageBackgroundPositioning.baseRatio)/2
+                        left: (100 - this.aspectRatio * this.model.pageBackgroundPositioning.height / this.model.pageBackgroundPositioning.baseRatio)/2
                     };
                 } else {
                     // taller
                     newBGPos = {
-                        height: this.model.pageBackgroundPositioning.width * Math.pow( this.aspectRatio, -1 ) * this.pageBackgroundPositioning.baseRatio,
+                        height: this.model.pageBackgroundPositioning.width * Math.pow( this.aspectRatio, -1 ) * this.model.pageBackgroundPositioning.baseRatio,
                         width: this.model.pageBackgroundPositioning.width,
-                        top: ( 100 - this.model.pageBackgroundPositioning.width * Math.pow( this.aspectRatio, -1 ) * this.pageBackgroundPositioning.baseRatio ) / 2,
+                        top: ( 100 - this.model.pageBackgroundPositioning.width * Math.pow( this.aspectRatio, -1 ) * this.model.pageBackgroundPositioning.baseRatio ) / 2,
                         left: this.model.pageBackgroundPositioning.left
                     };
                 }
