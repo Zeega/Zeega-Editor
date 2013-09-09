@@ -42773,7 +42773,6 @@ function( app, ItemView, Asker ) {
         showUploadImage: function() {
 
             if( this.tabState == "upload"){
-                console.log("initiating upload");
                 $("#imagefile").trigger("click");
             } else {
                this.tabState = "upload";
@@ -42795,9 +42794,11 @@ function( app, ItemView, Asker ) {
         },
 
         afterRender: function(){
-            if(this.model.get("tabState") == "url" ){
+
+            if(this.tabState == "url" ){
                 this.showPasteBox();
             } else {
+                this.tabState = "";
                 this.showUploadImage();
             }
         },
