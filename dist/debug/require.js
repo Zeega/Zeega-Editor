@@ -653,7 +653,7 @@ return __p;
 this["JST"]["app/templates/media-upload.html"] = function(obj){
 var __p='';var print=function(){__p+=Array.prototype.join.call(arguments, '')};
 with(obj||{}){
-__p+='\n\n<div class="upload-toggle">\n    <div class="upload-file">\n        <div class = "upload-progress" ></div>\n        <span class="upload-instructions">click here to upload an image</span>\n        <input id="imagefile"  name="imagefile"  type="file" href="#"></input>\n    </div>\n    <div class="paste-url">\n        <input class="url-box" type="text" placeholder="enter url here" value="" />\n    </div>\n</div>\n<div class="upload-chooser">\n    <a href="#" class="upload-image-action">upload</a> | <a href="#" class="paste-url-action">paste a url</a>\n</div>\n\n\n<!-- \n<div class = "image-uploads" >\n    <span class="add-photo" href="#">\n        <input id="imagefile"  name="imagefile"  type="file" href="#"></input>\n    </span>\n</div>\n<ul class=\'pull-left search-bar\'>\n    <li>\n        <input class="url-box" type="text" placeholder="enter url here" value="" />\n    </li>\n</ul>\n -->';
+__p+='\n\n<div class="upload-toggle">\n    <div class="upload-file">\n        <div class = "upload-progress" ></div>\n        <span class="upload-instructions">click here to upload an image</span>\n        <input id="imagefile"  name="imagefile"  type="file" href="#"></input>\n    </div>\n    <div class="paste-url">\n        <input class="url-box" type="text" placeholder="enter url here" value="" />\n    </div>\n</div>\n<div class="upload-chooser">\n    <a href="#" class="upload-image-action active">upload</a> | <a href="#" class="paste-url-action">paste a url</a>\n</div>\n\n\n<!-- \n<div class = "image-uploads" >\n    <span class="add-photo" href="#">\n        <input id="imagefile"  name="imagefile"  type="file" href="#"></input>\n    </span>\n</div>\n<ul class=\'pull-left search-bar\'>\n    <li>\n        <input class="url-box" type="text" placeholder="enter url here" value="" />\n    </li>\n</ul>\n -->';
 }
 return __p;
 };
@@ -42761,6 +42761,7 @@ function( app, ItemView, Asker ) {
 
         template: "app/templates/media-upload",
         className: "media-upload",
+        tabState: "upload",
 
         events: {
             "click .upload-image-action": "showUploadImage",
@@ -42770,16 +42771,23 @@ function( app, ItemView, Asker ) {
         },
 
         showUploadImage: function() {
-            this.model.set("tabState", "upload");
-            this.$("#image-file").trigger("click");
-            this.$(".upload-file").show();
-            this.$(".paste-url").hide();
-            this.$(".upload-image-action").addClass("active");
-            this.$(".paste-url-action").removeClass("active");
+
+            if( this.tabState == "upload"){
+                console.log("initiating upload");
+                $("#imagefile").trigger("click");
+            } else {
+               this.tabState = "upload";
+                this.$("#image-file").trigger("click");
+                this.$(".upload-file").show();
+                this.$(".paste-url").hide();
+                this.$(".upload-image-action").addClass("active");
+                this.$(".paste-url-action").removeClass("active");
+            }
+            
         },
 
         showPasteBox: function() {
-            this.model.set("tabState", "url");
+            this.tabState = "url";
             this.$(".upload-file").hide();
             this.$(".paste-url").show();
             this.$(".upload-image-action").removeClass("active");

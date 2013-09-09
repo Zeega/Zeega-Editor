@@ -88,6 +88,7 @@ function( app, ItemView, Asker ) {
 
         template: "app/templates/media-upload",
         className: "media-upload",
+        tabState: "upload",
 
         events: {
             "click .upload-image-action": "showUploadImage",
@@ -97,16 +98,23 @@ function( app, ItemView, Asker ) {
         },
 
         showUploadImage: function() {
-            this.model.set("tabState", "upload");
-            this.$("#image-file").trigger("click");
-            this.$(".upload-file").show();
-            this.$(".paste-url").hide();
-            this.$(".upload-image-action").addClass("active");
-            this.$(".paste-url-action").removeClass("active");
+
+            if( this.tabState == "upload"){
+                console.log("initiating upload");
+                $("#imagefile").trigger("click");
+            } else {
+               this.tabState = "upload";
+                this.$("#image-file").trigger("click");
+                this.$(".upload-file").show();
+                this.$(".paste-url").hide();
+                this.$(".upload-image-action").addClass("active");
+                this.$(".paste-url-action").removeClass("active");
+            }
+            
         },
 
         showPasteBox: function() {
-            this.model.set("tabState", "url");
+            this.tabState = "url";
             this.$(".upload-file").hide();
             this.$(".paste-url").show();
             this.$(".upload-image-action").removeClass("active");
