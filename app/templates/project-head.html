@@ -32,9 +32,9 @@
             <ul>
                 <li>
                     Remixing
-                    <a href="<%= web_root %><%= remix.parent.id %>" target="blank" data-bypass="true">
+                    <a href="<%= web_root %><%= remix.root.id %>" target="blank" data-bypass="true">
                         <div class="project-cover project-cover-tiny" style="
-                                background:url(<%= remix.parent.cover_image %>);
+                                background:url(<%= remix.root.cover_image %>);
                                 background-position: center;
                                 background-repeat: no-repeat;
                                 -webkit-background-size: cover;
@@ -43,9 +43,9 @@
                                 background-size: cover;
                             "></div>
                         </a>
-                    by <%= remix.parent.user.display_name %>
+                    by <%= remix.root.user.display_name %>
                     <div class="profile-token profile-token-tiny" style="
-                            background:url(<%= remix.parent.user.thumbnail_url %>);
+                            background:url(<%= remix.root.user.thumbnail_url %>);
                             background-position: center;
                             background-repeat: no-repeat;
                             -webkit-background-size: cover;

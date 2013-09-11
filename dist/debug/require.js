@@ -684,13 +684,13 @@ __p+='<a href="http://www.zeega.com" class="ZEEGA-tab">\n    <span class="ZTab-l
 ;__p+='\n        <div class="nav col-center remix-header">\n            <ul>\n                <li>\n                    Remixing\n                    <a href="'+
 ( web_root )+
 ''+
-( remix.parent.id )+
+( remix.root.id )+
 '" target="blank" data-bypass="true">\n                        <div class="project-cover project-cover-tiny" style="\n                                background:url('+
-( remix.parent.cover_image )+
+( remix.root.cover_image )+
 ');\n                                background-position: center;\n                                background-repeat: no-repeat;\n                                -webkit-background-size: cover;\n                                -moz-background-size: cover;\n                                -o-background-size: cover;\n                                background-size: cover;\n                            "></div>\n                        </a>\n                    by '+
-( remix.parent.user.display_name )+
+( remix.root.user.display_name )+
 '\n                    <div class="profile-token profile-token-tiny" style="\n                            background:url('+
-( remix.parent.user.thumbnail_url )+
+( remix.root.user.thumbnail_url )+
 ');\n                            background-position: center;\n                            background-repeat: no-repeat;\n                            -webkit-background-size: cover;\n                            -moz-background-size: cover;\n                            -o-background-size: cover;\n                            background-size: cover;\n                        "></div>\n                </li>\n               \n            </ul>\n        </div>\n    ';
  } 
 ;__p+='\n\n    <ul class="nav-buttons-right">\n        \n        <li>\n            <span class="saving-indicator btnz btnz-transparent"></span>\n        </li>\n\n        <li>\n            <a href="#" class="project-preview btnz btnz-green"\n                title="see what you\'re making"\n                data-gravity="n"\n            ><i class="icon-play icon-white"></i> Play</a>\n        </li>\n\n        <li>\n            <a href="#" class="project-share btnz btnz-blue btnz-fullwidth"\n                title="share your Zeega with the world"\n                data-gravity="n"\n            ><i class="icon-retweet icon-white"></i> Share</a>\n        </li>\n    </ul>\n\n</div>\n\n<div class="share-grave">\n\n    <div class="close-wrapper">\n        <a href="#" class="close-grave">&times;</a>\n    </div>\n\n    <div class="grave-inner">\n\n        <div class="share-meta">\n            <div class="cover-image-wrapper">\n                <div class="project-cover" style="\n                    background: url('+
@@ -788,14 +788,6 @@ this["JST"]["app/modules/intro-modal/intro-modal.html"] = function(obj){
 var __p='';var print=function(){__p+=Array.prototype.join.call(arguments, '')};
 with(obj||{}){
 __p+='<div class="modal-wrapper">\n\n    <div class="modal-content">\n\n        <div class="step-1">\n\n            <h1>Heya! Welcome to Zeega!</h1>\n\n            <p>\n                Zeega is a community creating everything from stories to interactive music to memes.\n            </p>\n            <p>\n                We’ve got a few fun prompts to get you started.\n            </p>\n\n            <div class="intro-graphic">\n                <img src="assets/img/intro-graphic.png" width="100%"/>\n            </div>\n            <a href="#" class="finish btnz btnz-submit">Start Making <i class="icon-chevron-right icon-white"></i></a>\n        </div>\n\n\n    </div>\n</div>';
-}
-return __p;
-};
-
-this["JST"]["app/modules/media-browser/index.html"] = function(obj){
-var __p='';var print=function(){__p+=Array.prototype.join.call(arguments, '')};
-with(obj||{}){
-__p+='\n\n\n<html>\n\n\n<body>\n\n<div style="width:500px; height: 266px; background-image: url(\'giftest.jpg\');" ></div>\n\n\n\n</body>\n\n\n\n</html>';
 }
 return __p;
 };
@@ -38386,39 +38378,36 @@ function( app, Parser, ProjectCollection, ProjectModel, PageCollection, PageMode
         preloadNextZeega: function() {
             var remixData = this.getCurrentProject().getRemixData();
 
-            if ( remixData.remix && !this.projects.get( remixData.parent.id ) && !this.waiting ) {
-                var projectUrl = app.getApi() + "projects/" + remixData.parent.id;
+            if ( remixData.remix && !this.waiting ) {
+                var existingProjectIDs, projectUrl;
 
-                this.waiting = true;
-                this.emit("project:fetching");
+                existingProjectIDs = _.difference( _.pluck( remixData.descendants, "id"), this.projects.pluck("id") );
+                
+                if ( existingProjectIDs.length ) {
+                    var projectUrl = app.getApi() + "projects/" + existingProjectIDs[0];
 
-                $.getJSON( projectUrl, function( data ) {
-                    this._onDataLoaded( data );
-                    this.waiting = false;
-                    this.emit("project:fetch_success");
-                }.bind(this));
+                    this.waiting = true;
+                    this.emit("project:fetching", existingProjectIDs[0] );
+
+                    $.getJSON( projectUrl, function( data ) {
+                        this._onDataLoaded( data );
+                        this.waiting = false;
+                        this.emit("project:fetch_success");
+                    }.bind(this));
+                }
             }
         },
 
-        getRemixPath: function() {
-            var isComplete, path, temp;
+        getRemixData: function() {
+            var remix = _.extend({}, this.projects.at(0).get("remix"));
 
-            path = [ this.projects.at(0).getSimpleJSON() ];
+            if ( remix.descendants ) {
+                var desc = remix.descendants;
 
-            path = this.projects.map(function( project ) {
-                var remixObj = project.get("remix");
-
-                //isComplete = temp.parent.id == temp.root.id;
-                project.getSimpleJSON();
-                // temp = project.get("remix");
-
-                return project.get("remix");
-            });
-
-            return {
-                complete: isComplete,
-                path: path
-            };
+                remix.descendants = [ this.projects.at(0).getSimpleJSON() ].concat( desc );
+            }
+            
+            return remix;
         },
 
         _onDataLoaded: function( data ) {
@@ -38426,6 +38415,7 @@ function( app, Parser, ProjectCollection, ProjectModel, PageCollection, PageMode
                 _.extend({},
                     this.toJSON(),
                     {
+                        endPage: false,
                         mode: "player"
                     })
                 );
@@ -39383,6 +39373,7 @@ function( app, Engine, Relay, Status, PlayerLayout ) {
 
         // prefers 'fresh' data from url
         getData: function() {
+            console.log("GET DATA:", this, projectJSON)
             if ( this.get("url") ) {
                 $.getJSON( this.get("url"), function( data ) {
                     this.initialParse( data );
@@ -39754,6 +39745,7 @@ function( app, Player ) {
         template: "app/templates/project-head",
 
         serialize: function() {
+            console.log("SER", app.zeega.getCurrentProject().toJSON() )
             return _.extend({
                     web_root: app.getWebRoot(),
                     share_links: this.getShareLinks()
