@@ -39745,7 +39745,6 @@ function( app, Player ) {
         template: "app/templates/project-head",
 
         serialize: function() {
-            console.log("SER", app.zeega.getCurrentProject().toJSON() )
             return _.extend({
                     web_root: app.getWebRoot(),
                     share_links: this.getShareLinks()
