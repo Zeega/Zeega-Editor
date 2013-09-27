@@ -721,7 +721,7 @@ __p+='<a href="http://www.zeega.com" class="ZEEGA-tab">\n    <span class="ZTab-l
 ( web_root )+
 ''+
 ( id )+
-'/embed" width="400px" height="480px" webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe>\'></input>\n                </div>\n                \n            </div>\n        </div>\n\n        <div class="share-tabs">\n            <ul>\n                <li>\n                    <a href="#" class="share-zeega active">Share your Zeega</a>\n                </li>\n                <li>\n                    <a href="#" class="embed-zeega">Embed</a>\n                </li>\n            </ul>\n        </div>\n\n    </div>\n\n</div>\n';
+'/embed" width="400px" height="480px" endpage="true" webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe>\'></input>\n                </div>\n                \n            </div>\n        </div>\n\n        <div class="share-tabs">\n            <ul>\n                <li>\n                    <a href="#" class="share-zeega active">Share your Zeega</a>\n                </li>\n                <li>\n                    <a href="#" class="embed-zeega">Embed</a>\n                </li>\n            </ul>\n        </div>\n\n    </div>\n\n</div>\n';
 }
 return __p;
 };
@@ -788,6 +788,14 @@ this["JST"]["app/modules/intro-modal/intro-modal.html"] = function(obj){
 var __p='';var print=function(){__p+=Array.prototype.join.call(arguments, '')};
 with(obj||{}){
 __p+='<div class="modal-wrapper">\n\n    <div class="modal-content">\n\n        <div class="step-1">\n\n            <h1>Heya! Welcome to Zeega!</h1>\n\n            <p>\n                Zeega is a community creating everything from stories to interactive music to memes.\n            </p>\n            <p>\n                We’ve got a few fun prompts to get you started.\n            </p>\n\n            <div class="intro-graphic">\n                <img src="assets/img/intro-graphic.png" width="100%"/>\n            </div>\n            <a href="#" class="finish btnz btnz-submit">Start Making <i class="icon-chevron-right icon-white"></i></a>\n        </div>\n\n\n    </div>\n</div>';
+}
+return __p;
+};
+
+this["JST"]["app/modules/media-browser/index.html"] = function(obj){
+var __p='';var print=function(){__p+=Array.prototype.join.call(arguments, '')};
+with(obj||{}){
+__p+='\n\n\n<html>\n\n\n<body>\n\n<div style="width:500px; height: 266px; background-image: url(\'giftest.jpg\');" ></div>\n\n\n\n</body>\n\n\n\n</html>';
 }
 return __p;
 };
@@ -37236,6 +37244,7 @@ function( app, PageModel, LayerCollection ) {
 
         model: PageModel,
         zeega: null,
+        remixPageMax: 6,
 
         initialize: function() {
             if ( this.zeega.get("mode") == "editor" ) {
@@ -37305,12 +37314,15 @@ function( app, PageModel, LayerCollection ) {
 
                 return newPage;
             } else {
-                // too many pages. do nothing
+                // too many pages
+
+                app.emit("frame_limit_met" );
             }
         },
 
         addPageByItem: function( item ) {
-            $.post( app.getApi() + "projects/"+ app.zeega.getCurrentProject().id +"/sequences/"+ app.zeega.getCurrentProject().sequence.id +"/itemframes",
+            if ( !app.zeega.getCurrentProject().get("remix").remix || ( app.zeega.getCurrentProject().get("remix").remix && this.length < this.remixPageMax )) {
+             $.post( app.getApi() + "projects/"+ app.zeega.getCurrentProject().id +"/sequences/"+ app.zeega.getCurrentProject().sequence.id +"/itemframes",
                 item.toJSON(),
                 function( pageData ) {
                     var newPage = new PageModel(_.extend( pageData, {
@@ -37328,6 +37340,9 @@ function( app, PageModel, LayerCollection ) {
                         page.set("_order", i );
                     });
                 }.bind(this));
+            } else {
+                app.emit("frame_limit_met" );
+            }
         },
 
         onFrameAdd: function( frame ) {
@@ -40252,11 +40267,12 @@ function( app, Asker ) {
 define('modules/views/frames',[
     "app",
     "modules/views/frame",
+    "common/modules/askers/asker",
 
     "backbone"
 ],
 
-function( app, FrameView ) {
+function( app, FrameView, Asker ) {
 
     return Backbone.View.extend({
 
@@ -40270,6 +40286,7 @@ function( app, FrameView ) {
 
             app.zeega.getCurrentProject().pages.on("add", this.onFrameAdd, this );
             app.zeega.getCurrentProject().pages.on("remove", this.onFrameRemove, this );
+            app.on("frame_limit_met", this.onFrameLimitMet, this);
         },
 
         makeSortable: function() {
@@ -40360,14 +40377,25 @@ function( app, FrameView ) {
             }.bind( this ));
         },
 
+
         events: {
             "click .add-frame a": "addFrame"
         },
 
         addFrame: function() {
             var pageIndex = 1 + app.zeega.getCurrentProject().pages.indexOf( app.zeega.getCurrentPage() );
-
             app.zeega.getCurrentProject().pages.addPage( pageIndex );
+        },
+
+        onFrameLimitMet: function(){
+            new Asker({
+                question: "Slow your roll!",
+                description: "Remixes are limited to 5 frames.",
+                cancel: false,
+                okay: function() {
+                    //this.render();
+                }.bind( this )
+            });
         }
         
     });
@@ -41811,11 +41839,11 @@ function( app, Modal, FrameView, ImageView, AudioView, VideoView, YoutubeView ) 
         addToFrame: function() {
 
             if ( this.collection.at( this.index ).get("layer_type") == "Audio" ) {
-                if ( !app.zeega.isRemix() ) {
-                    app.layout.soundtrack.updateWaveform( this.collection.at( this.index ).get("thumbnail_url") );
-                    app.emit("soundtrack_added", this.collection.at( this.index ) );
-                    app.zeega.getCurrentProject().setSoundtrack( this.collection.at( this.index ), app.layout.soundtrack, { source: "add-to-page" } );
-                }
+                
+                app.layout.soundtrack.updateWaveform( this.collection.at( this.index ).get("thumbnail_url") );
+                app.emit("soundtrack_added", this.collection.at( this.index ) );
+                app.zeega.getCurrentProject().setSoundtrack( this.collection.at( this.index ), app.layout.soundtrack, { source: "add-to-page" } );
+                
             } else {
                 app.zeega.getCurrentPage().addLayerByItem( this.collection.at( this.index ), { source: "add-to-page" } );
             }

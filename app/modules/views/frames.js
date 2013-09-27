@@ -1,11 +1,12 @@
 define([
     "app",
     "modules/views/frame",
+    "common/modules/askers/asker",
 
     "backbone"
 ],
 
-function( app, FrameView ) {
+function( app, FrameView, Asker ) {
 
     return Backbone.View.extend({
 
@@ -19,6 +20,7 @@ function( app, FrameView ) {
 
             app.zeega.getCurrentProject().pages.on("add", this.onFrameAdd, this );
             app.zeega.getCurrentProject().pages.on("remove", this.onFrameRemove, this );
+            app.on("frame_limit_met", this.onFrameLimitMet, this);
         },
 
         makeSortable: function() {
@@ -109,14 +111,25 @@ function( app, FrameView ) {
             }.bind( this ));
         },
 
+
         events: {
             "click .add-frame a": "addFrame"
         },
 
         addFrame: function() {
             var pageIndex = 1 + app.zeega.getCurrentProject().pages.indexOf( app.zeega.getCurrentPage() );
-
             app.zeega.getCurrentProject().pages.addPage( pageIndex );
+        },
+
+        onFrameLimitMet: function(){
+            new Asker({
+                question: "Slow your roll!",
+                description: "Remixes are limited to 5 frames.",
+                cancel: false,
+                okay: function() {
+                    //this.render();
+                }.bind( this )
+            });
         }
         
     });

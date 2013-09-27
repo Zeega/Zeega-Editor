@@ -120,11 +120,11 @@ function( app, Modal, FrameView, ImageView, AudioView, VideoView, YoutubeView ) 
         addToFrame: function() {
 
             if ( this.collection.at( this.index ).get("layer_type") == "Audio" ) {
-                if ( !app.zeega.isRemix() ) {
-                    app.layout.soundtrack.updateWaveform( this.collection.at( this.index ).get("thumbnail_url") );
-                    app.emit("soundtrack_added", this.collection.at( this.index ) );
-                    app.zeega.getCurrentProject().setSoundtrack( this.collection.at( this.index ), app.layout.soundtrack, { source: "add-to-page" } );
-                }
+                
+                app.layout.soundtrack.updateWaveform( this.collection.at( this.index ).get("thumbnail_url") );
+                app.emit("soundtrack_added", this.collection.at( this.index ) );
+                app.zeega.getCurrentProject().setSoundtrack( this.collection.at( this.index ), app.layout.soundtrack, { source: "add-to-page" } );
+                
             } else {
                 app.zeega.getCurrentPage().addLayerByItem( this.collection.at( this.index ), { source: "add-to-page" } );
             }
