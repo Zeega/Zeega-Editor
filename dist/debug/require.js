@@ -681,7 +681,7 @@ __p+='<a href="http://www.zeega.com" class="ZEEGA-tab">\n    <span class="ZTab-l
 ( userThumbnail )+
 ');\n                            background-size: cover;\n                        "\n                    ></span></a>\n            </li>\n            <li>\n                <a href="#" class="editor-help btnz btnz-light"\n                    title="view instructions"\n                    data-gravity="n"\n                >Help</a>\n            </li>\n           \n        </ul>\n    </div>\n\n    ';
  if ( remix.remix ) { 
-;__p+='\n        <div class="nav col-center remix-header">\n            <ul>\n                <li>\n                    Remixing\n                    <a href="'+
+;__p+='\n        <div class="nav col-center remix-header">\n            <ul>\n                <li>\n                    Replying to\n                    <a href="'+
 ( web_root )+
 ''+
 ( remix.root.id )+
@@ -37236,6 +37236,7 @@ function( app, PageModel, LayerCollection ) {
 
         model: PageModel,
         zeega: null,
+        remixPageMax: 5,
 
         initialize: function() {
             if ( this.zeega.get("mode") == "editor" ) {
@@ -38254,6 +38255,8 @@ function( app, Parser, ProjectCollection, ProjectModel, PageCollection, PageMode
                 nextPage = this.getCurrentProject().pages.at( p.get("_order") + 1 );
             } else if ( this.getNextProject() ) {
                 nextPage = this.getNextProject().pages.at(0);
+            } else if ( this.get("loop")) {
+                nextPage = this.projects.at(0).pages.at(0);
             }
 
             return nextPage;
@@ -38267,6 +38270,10 @@ function( app, Parser, ProjectCollection, ProjectModel, PageCollection, PageMode
                 previousPage = this.getCurrentProject().pages.at( p.get("_order") - 1 );
             } else if ( this.getPreviousProject() ) {
                 previousPage = this.getPreviousProject().pages.at( this.getPreviousProject().pages.length - 1 );
+            } else if ( this.get("loop")) {
+                var project = this.projects.at( this.projects.length - 1 );
+
+                previousPage = project.pages.at( project.pages.length - 1 );
             }
 
             return previousPage;
@@ -38376,12 +38383,10 @@ function( app, Parser, ProjectCollection, ProjectModel, PageCollection, PageMode
         },
 
         preloadNextZeega: function() {
-            var remixData = this.getCurrentProject().getRemixData();
+            var remixData = this.getRemixData();
 
-            if ( remixData.remix && !this.waiting ) {
-                var existingProjectIDs, projectUrl;
-
-                existingProjectIDs = _.difference( _.pluck( remixData.descendants, "id"), this.projects.pluck("id") );
+            if ( remixData.remix && remixData.descendants.length && !this.waiting ) {
+                var existingProjectIDs = _.difference( _.pluck( remixData.descendants, "id"), this.projects.pluck("id") );
                 
                 if ( existingProjectIDs.length ) {
                     var projectUrl = app.getApi() + "projects/" + existingProjectIDs[0];
@@ -38411,11 +38416,13 @@ function( app, Parser, ProjectCollection, ProjectModel, PageCollection, PageMode
         },
 
         _onDataLoaded: function( data ) {
+            var numberOfProjects = this.getRemixData().descendants.length;
+
             var newProjectData = Parser( data,
                 _.extend({},
                     this.toJSON(),
                     {
-                        endPage: false,
+                        endPage: !this.get("loop") && app.isEmbed() && this.projects.length + 1 == this.getRemixData().descendants.length,
                         mode: "player"
                     })
                 );
@@ -40369,6 +40376,7 @@ function( app, FrameView, Asker ) {
 
         addFrame: function() {
             var pageIndex = 1 + app.zeega.getCurrentProject().pages.indexOf( app.zeega.getCurrentPage() );
+
             app.zeega.getCurrentProject().pages.addPage( pageIndex );
         },
 

@@ -295,7 +295,7 @@ __p+='<a href="http://www.zeega.com" class="ZEEGA-tab">\n    <span class="ZTab-l
 ( userThumbnail )+
 ');\n                            background-size: cover;\n                        "\n                    ></span></a>\n            </li>\n            <li>\n                <a href="#" class="editor-help btnz btnz-light"\n                    title="view instructions"\n                    data-gravity="n"\n                >Help</a>\n            </li>\n           \n        </ul>\n    </div>\n\n    ';
  if ( remix.remix ) { 
-;__p+='\n        <div class="nav col-center remix-header">\n            <ul>\n                <li>\n                    Remixing\n                    <a href="'+
+;__p+='\n        <div class="nav col-center remix-header">\n            <ul>\n                <li>\n                    Replying to\n                    <a href="'+
 ( web_root )+
 ''+
 ( remix.root.id )+

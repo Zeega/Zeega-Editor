@@ -118,6 +118,7 @@ function( app, FrameView, Asker ) {
 
         addFrame: function() {
             var pageIndex = 1 + app.zeega.getCurrentProject().pages.indexOf( app.zeega.getCurrentPage() );
+
             app.zeega.getCurrentProject().pages.addPage( pageIndex );
         },
 
