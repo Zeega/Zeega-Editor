@@ -17,10 +17,17 @@ function( app, MediaLibrary, SearchView ) {
         },
 
         afterRender: function() {
-            this.model.setAPI( "Favorites" );
-            this.$(".socialz-zeega").addClass("socialz-white");
-            this.$(".socialz-zeega").closest("a").addClass("active");
-            this.model.getAPI().useBootstrapData();
+            if ( app.zeega.isRemix() ){
+                this.model.setAPI( "Remix" );
+                this.$(".socialz-remix").addClass("socialz-white");
+                this.$(".socialz-remix").closest("a").addClass("active");
+                this.model.getAPI().useBootstrapData();
+            } else {
+                this.model.setAPI( "Favorites" );
+                this.$(".socialz-zeega").addClass("socialz-white");
+                this.$(".socialz-zeega").closest("a").addClass("active");
+                this.model.getAPI().useBootstrapData();
+            }
             this.setView();
         },
         
